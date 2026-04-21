@@ -1,0 +1,335 @@
+/**
+ * ReviewsSection.jsx — Dream Site (web_v2)
+ * גריד ביקורות גוגל · RTL Hebrew · רקע לבן
+ */
+
+import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
+import { useBreakpoint } from '../../website/useBreakpoint.js';
+
+const REVIEWS = [
+  {
+    name:     'יובל כהן',
+    initials: 'י',
+    rating:   5,
+    date:     'לפני חודש',
+    text:     "חוויה מדהימה מהרגע הראשון ועד האחרון. הצוות של HighAir היה מקצועי, קשוב ואכפתי. הטרק לקילימנג'רו היה חלום שהפך למציאות.",
+  },
+  {
+    name:     'מיכל לוי',
+    initials: 'מ',
+    rating:   5,
+    date:     'לפני חודשיים',
+    text:     'לא האמנתי שאגיע לפסגה אבל עם המדריכים של HighAir הכל נראה אפשרי. שירות אישי, ליווי צמוד ותשומת לב לכל פרט.',
+  },
+  {
+    name:     'אורן שמיר',
+    initials: 'א',
+    rating:   5,
+    date:     'לפני 3 חודשים',
+    text:     'HighAir זה לא רק טרק — זו קהילה שלמה. יצאתי עם חברים לכל החיים ועם זיכרונות שלא ישכחו לעולם. ממליץ בחום!',
+  },
+  {
+    name:     'דנה ברק',
+    initials: 'ד',
+    rating:   5,
+    date:     'לפני 4 חודשים',
+    text:     'הארגון המושלם לטיולי הרים. כל הלוגיסטיקה מסודרת, הציוד מעולה והמדריכים — ברמה אחרת לגמרי. 10 מתוך 10.',
+  },
+  {
+    name:     'רן אברהם',
+    initials: 'ר',
+    rating:   5,
+    date:     'לפני 5 חודשים',
+    text:     'עשינו את טרק האנפורנה עם HighAir — מסע שינה אותי. בטיחות מקסימלית, אווירה משפחתית וידיעה שיש מי שדואג לך בכל רגע.',
+  },
+  {
+    name:     'שיר נוי',
+    initials: 'ש',
+    rating:   5,
+    date:     'לפני 6 חודשים',
+    text:     'הכי טוב שעשיתי לעצמי. הטרק בפטגוניה היה פנטסטי ופגשתי אנשים מדהימים. HighAir יודעים לבנות חוויה שלמה.',
+  },
+];
+
+/* Avatar colors */
+const AVATAR_COLORS = [
+  '#6D28D9', '#7C3AED', '#4C1D95', '#5B21B6', '#8B5CF6', '#7C3AED',
+];
+
+function Stars() {
+  return (
+    <div style={{ display: 'flex', gap: '3px' }}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} width="15" height="15" viewBox="0 0 24 24" fill="#FBBC04">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function GoogleG() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24">
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>
+  );
+}
+
+function ReviewCard({ name, initials, date, text, idx }) {
+  return (
+    <div style={{
+      background:    '#FFFFFF',
+      borderRadius:  RADIUS.xl,
+      padding:       '28px',
+      border:        '1px solid #ECEAF8',
+      boxShadow:     '0 2px 16px rgba(0,0,0,0.05)',
+      direction:     'rtl',
+      display:       'flex',
+      flexDirection: 'column',
+      gap:           '16px',
+      transition:    `box-shadow 0.25s ${EASING.out}, transform 0.25s ${EASING.out}`,
+    }}
+    onMouseEnter={e => {
+      e.currentTarget.style.boxShadow = '0 8px 32px rgba(109,40,217,0.12)';
+      e.currentTarget.style.transform = 'translateY(-3px)';
+    }}
+    onMouseLeave={e => {
+      e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.05)';
+      e.currentTarget.style.transform = 'translateY(0)';
+    }}
+    >
+      {/* Top: avatar + name + G logo */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{
+            width:          '44px',
+            height:         '44px',
+            borderRadius:   '50%',
+            background:     AVATAR_COLORS[idx % AVATAR_COLORS.length],
+            color:          '#FFFFFF',
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            fontFamily:     'Ploni, sans-serif',
+            fontSize:       FS.body,
+            fontWeight:     700,
+            flexShrink:     0,
+          }}>
+            {initials}
+          </div>
+          <div>
+            <div style={{
+              fontFamily: 'Ploni, sans-serif',
+              fontSize:   FS.body,
+              fontWeight: 600,
+              color:      '#0A0818',
+            }}>
+              {name}
+            </div>
+            <div style={{
+              fontFamily: 'Ploni, sans-serif',
+              fontSize:   FS.sm,
+              color:      '#9591B0',
+              marginTop:  '2px',
+            }}>
+              {date}
+            </div>
+          </div>
+        </div>
+        <GoogleG />
+      </div>
+
+      {/* Stars */}
+      <Stars />
+
+      {/* Quote mark + text */}
+      <div style={{ position: 'relative' }}>
+        <div style={{
+          position:   'absolute',
+          top:        '-8px',
+          right:      '-4px',
+          fontSize:   '48px',
+          lineHeight: 1,
+          color:      'rgba(109,40,217,0.10)',
+          fontFamily: 'Georgia, serif',
+          userSelect: 'none',
+        }}>
+          "
+        </div>
+        <p style={{
+          fontFamily: 'Ploni, sans-serif',
+          fontSize:   FS.body,
+          fontWeight: 300,
+          color:      '#4B4869',
+          margin:     0,
+          lineHeight: 1.75,
+          position:   'relative',
+        }}>
+          {text}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function ReviewsSection() {
+  const { isMobile, isTablet } = useBreakpoint();
+
+  const cols = isMobile ? 1 : isTablet ? 2 : 3;
+
+  return (
+    <section style={{
+      background:  '#FFFFFF',
+      padding:     '60px 5%',
+      boxSizing:   'border-box',
+      direction:   'rtl',
+    }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+
+        {/* ── Header ── */}
+        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+          <h2 style={{
+            fontFamily:    'Ploni, sans-serif',
+            fontSize:      FS.h2,
+            fontWeight:    700,
+            color:         '#0A0818',
+            margin:        '0 0 10px',
+            letterSpacing: '-0.02em',
+            lineHeight:    1.1,
+          }}>
+            מה אומרים עלינו?
+          </h2>
+          <p style={{
+            fontFamily: 'Ploni, sans-serif',
+            fontSize:   FS.body,
+            fontWeight: 300,
+            color:      '#6B6B8A',
+            margin:     0,
+            lineHeight: 1.7,
+          }}>
+            מטיילים שחזרו מהמסע בדיוק כפי שסיפרו לגוגל
+          </p>
+        </div>
+
+        {/* Rating bar — full width */}
+        <div style={{
+          display:        'flex',
+          alignItems:     'center',
+          justifyContent: isMobile ? 'space-between' : 'space-around',
+          padding:        isMobile ? '18px 24px' : '22px 52px',
+          borderRadius:   RADIUS.xl,
+          background:     '#FFFFFF',
+          border:         '1px solid #ECEAF8',
+          boxShadow:      '0 2px 16px rgba(0,0,0,0.05)',
+          marginBottom:   '40px',
+          gap:            '16px',
+          flexWrap:       'wrap',
+        }}>
+          {/* Google logo + label */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <GoogleG />
+            <span style={{
+              fontFamily:    'Ploni, sans-serif',
+              fontSize:      FS.sm,
+              fontWeight:    600,
+              color:         '#6B6B8A',
+              letterSpacing: '0.02em',
+            }}>
+              Google Reviews
+            </span>
+          </div>
+
+          {/* Divider */}
+          {!isMobile && (
+            <div style={{ width: '1px', height: '36px', background: '#ECEAF8', flexShrink: 0 }} />
+          )}
+
+          {/* Score */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{
+              fontFamily:    "'Mazzard', sans-serif",
+              fontSize:      isMobile ? '32px' : '40px',
+              fontWeight:    900,
+              color:         '#0A0818',
+              lineHeight:    1,
+              letterSpacing: '-0.03em',
+            }}>
+              5.0
+            </span>
+            <Stars />
+          </div>
+
+          {/* Divider */}
+          {!isMobile && (
+            <div style={{ width: '1px', height: '36px', background: '#ECEAF8', flexShrink: 0 }} />
+          )}
+
+          {/* Count */}
+          <span style={{
+            fontFamily: 'Ploni, sans-serif',
+            fontSize:   FS.sm,
+            color:      '#9591B0',
+          }}>
+            מבוסס על 250 ביקורות
+          </span>
+        </div>
+
+        {/* ── Grid — 3 reviews only ── */}
+        <div style={{
+          display:             'grid',
+          gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+          gap:                 '20px',
+          marginBottom:        '40px',
+        }}>
+          {REVIEWS.slice(0, 3).map((r, i) => (
+            <ReviewCard key={i} {...r} idx={i} />
+          ))}
+        </div>
+
+        {/* ── CTA ── */}
+        <div style={{ textAlign: 'center' }}>
+          <a
+            href="https://g.page/r/highair-expeditions/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display:        'inline-flex',
+              alignItems:     'center',
+              gap:            '8px',
+              padding:        '13px 32px',
+              borderRadius:   RADIUS.full,
+              border:         `1.5px solid ${COLOR.primary}`,
+              background:     'transparent',
+              fontFamily:     'Ploni, sans-serif',
+              fontSize:       FS.btn,
+              fontWeight:     700,
+              color:          COLOR.primary,
+              textDecoration: 'none',
+              letterSpacing:  '0.01em',
+              transition:     `all 0.22s ${EASING.out}`,
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = COLOR.primary;
+              e.currentTarget.style.color = '#FFFFFF';
+              e.currentTarget.style.boxShadow = '0 6px 22px rgba(109,40,217,0.30)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = COLOR.primary;
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            לכל הביקורות בגוגל
+          </a>
+        </div>
+
+      </div>
+    </section>
+  );
+}

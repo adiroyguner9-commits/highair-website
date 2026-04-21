@@ -1,0 +1,28 @@
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://*.airtableusercontent.com https://images.unsplash.com https://i.ytimg.com https://img.youtube.com; font-src 'self'; connect-src 'self' https://api.airtable.com; media-src 'self' https://res.cloudinary.com; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://*.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none';"
+        },
+        { "key": "X-Content-Type-Options",  "value": "nosniff" },
+        { "key": "X-Frame-Options",          "value": "DENY" },
+        { "key": "Referrer-Policy",          "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",       "value": "camera=(), microphone=(), geolocation=(), payment=()" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/airtable/:table/:id", "destination": "/api/at?table=:table&id=:id" },
+    { "source": "/api/airtable/:table",     "destination": "/api/at?table=:table"         },
+    { "source": "/(.*)",                    "destination": "/index.html"                  }
+  ]
+}
