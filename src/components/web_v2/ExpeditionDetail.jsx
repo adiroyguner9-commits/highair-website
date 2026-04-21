@@ -1047,16 +1047,16 @@ export default function ExpeditionDetail() {
                       {/* Right: calendar icon + date */}
                       <div style={{
                         display: 'flex', alignItems: 'center', gap: '8px',
-                        width: isMobile ? '110px' : '130px',
                         flexShrink: 0,
                       }}>
                         <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
                         <span style={{
                           fontFamily: "'Ploni', sans-serif",
-                          fontSize: isMobile ? '16px' : '17px',
+                          fontSize: isMobile ? '15px' : '17px',
                           fontWeight: 800, color: '#0A0818',
                           lineHeight: 1.1,
                           direction: 'ltr',
+                          whiteSpace: 'nowrap',
                         }}>
                           {formatDateRange(g.departure, g.returnDate)}
                         </span>
