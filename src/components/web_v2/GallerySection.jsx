@@ -8,17 +8,17 @@ import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 const PHOTOS = [
-  { src: '/images/gallery-1.jpg',  caption: 'קבוצת HighAir במסע',               ratio: '4/3' },
-  { src: '/images/gallery-2.jpg',  caption: 'טרק HighAir Expeditions',           ratio: '4/3' },
-  { src: '/images/gallery-3.jpg',  caption: 'מחנה בסיס אוורסט עם HighAir',      ratio: '4/3' },
-  { src: '/images/gallery-4.jpg',  caption: 'טיול בישראל עם HighAir',            ratio: '4/3' },
-  { src: '/images/gallery-5.jpg',  caption: 'משלחת HighAir בהרים',               ratio: '4/3' },
-  { src: '/images/gallery-6.jpg',  caption: 'פסגת HighAir Expeditions',          ratio: '4/3' },
-  { src: '/images/gallery-7.jpg',  caption: 'קבוצת מטיילים HighAir',             ratio: '4/3' },
-  { src: '/images/gallery-8.jpg',  caption: 'נוף הרים במסע HighAir',             ratio: '4/3' },
-  { src: '/images/gallery-9.jpg',  caption: 'משלחת הרים HighAir',                ratio: '4/3' },
-  { src: '/images/gallery-10.jpg', caption: 'טרק HighAir בעולם',                 ratio: '4/3' },
-  { src: '/images/gallery-11.jpg', caption: 'HighAir Expeditions בפסגה',         ratio: '4/3' },
+  { src: '/images/gallery/home/1.jpg',  caption: 'קבוצת HighAir במסע',               ratio: '4/3' },
+  { src: '/images/gallery/home/2.jpg',  caption: 'טרק HighAir Expeditions',           ratio: '4/3' },
+  { src: '/images/gallery/home/3.jpg',  caption: 'מחנה בסיס אוורסט עם HighAir',      ratio: '4/3' },
+  { src: '/images/gallery/home/4.jpg',  caption: 'טיול בישראל עם HighAir',            ratio: '4/3' },
+  { src: '/images/gallery/home/5.jpg',  caption: 'משלחת HighAir בהרים',               ratio: '4/3' },
+  { src: '/images/gallery/home/6.jpg',  caption: 'פסגת HighAir Expeditions',          ratio: '4/3' },
+  { src: '/images/gallery/home/7.jpg',  caption: 'קבוצת מטיילים HighAir',             ratio: '4/3' },
+  { src: '/images/gallery/home/8.jpg',  caption: 'נוף הרים במסע HighAir',             ratio: '4/3' },
+  { src: '/images/gallery/home/9.jpg',  caption: 'משלחת הרים HighAir',                ratio: '4/3' },
+  { src: '/images/gallery/home/10.jpg', caption: 'טרק HighAir בעולם',                 ratio: '4/3' },
+  { src: '/images/gallery/home/11.jpg', caption: 'HighAir Expeditions בפסגה',         ratio: '4/3' },
 ];
 
 /* ── Nav arrow button ── */

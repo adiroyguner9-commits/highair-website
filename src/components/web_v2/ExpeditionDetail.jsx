@@ -32,17 +32,28 @@ const DEFAULT_FAQ = [
 const DEFAULT_NOT_INCLUDED = ['טיסות בינלאומיות', 'ביטוח נסיעות', 'הוצאות אישיות', 'ציוד אישי'];
 
 const DEFAULT_IMPORTANT = [
-  'דרוש דרכון בתוקף לפחות 6 חודשים מיום החזרה',
-  'ביטוח נסיעות כולל כיסוי פינוי הרים חובה',
-  'נדרשת כושר גופני טוב — מומלץ להתחיל אימונים 3 חודשים מראש',
-  'גיל מינימלי: 16 (עד 18 בהסכמת הורים)',
+  'הטיפוס מתבצע בקבוצה עד 15 משתתפים בלבד!',
+  'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
+  'על כל מטייל להישמע להוראות הצוות ולשמור על אחריותו וביטחונו האישי לאורך כל המסע!',
+  'אישור רפואי והצהרת בריאות נדרשים כתנאי ליציאה למסע, על מנת לוודא התאמה ובריאות המטיילים!',
+  'מטייל שלא יעמוד בדרישות הבריאותיות או הפיזיות, לא יורשה להצטרף למסע!',
+  'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
+  'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
+  'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
 ];
 
 const WHY_CARDS = [
-  { icon: '🛡️', title: 'בטיחות ללא פשרות', desc: 'ציוד לוויין Magnus, עדכונים יומיים למשפחות, מדריכי IFMGA' },
-  { icon: '👥', title: 'קבוצות קטנות', desc: 'עד 12 משתתפים לקבוצה — ליווי אישי ואיכות ללא פשרות' },
-  { icon: '🗣️', title: 'מדריכים ישראלים', desc: 'מדריכים ישראלים עם ניסיון של עשרות משלחות מוצלחות' },
-  { icon: '🎒', title: 'ליווי מלא', desc: 'מרגע ההרשמה ועד החזרה הביתה — אנחנו כאן בכל שלב' },
+  { icon: '🏋️', title: 'תכנית אימונים כהכנה לטיפוס', desc: '' },
+  { icon: '🎒', title: 'רשימת ציוד לטיפוס', desc: '' },
+  { icon: '✈️', title: 'סגירת טיסה אטרקטיבית', desc: '' },
+  { icon: '🛡️', title: 'סגירת ביטוח אטרקטיבי', desc: '' },
+  { icon: '📡', title: '10% הנחה על מכשיר לווייני - מגנוס', desc: '' },
+  { icon: '🏪', title: '20% הנחה על ציוד בחנות ״גרביטי״', desc: '' },
+  { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
+  { icon: '🏔️', title: 'דף מידע לגבי מחלת גבהים והתמודדות איתה', desc: '' },
+  { icon: '📋', title: 'מדריך להוצאה ויזה לטנזניה', desc: '' },
+  { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
+  { icon: '📞', title: 'ליווי 24/7 משלב ההכנה ובמהלך הטיפוס', desc: '' },
 ];
 
 /* ─── Scroll helper ─────────────────────────────────────────────── */
@@ -94,8 +105,8 @@ function WhyCard({ card }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         border: '1px solid #ECEAF8',
-        borderRadius: RADIUS.xl,
-        padding: '24px',
+        borderRadius: RADIUS.lg,
+        padding: '14px 18px',
         transition: `box-shadow 200ms ${EASING.smooth}, transform 200ms ${EASING.smooth}`,
         boxShadow: hovered ? '0 4px 20px rgba(0,0,0,0.08)' : 'none',
         transform: hovered ? 'translateY(-2px)' : 'none',
@@ -103,9 +114,10 @@ function WhyCard({ card }) {
         background: '#fff',
       }}
     >
-      <div style={{ fontSize: '32px', marginBottom: '12px' }}>{card.icon}</div>
-      <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.h3, fontWeight: 700, color: '#0A0818', marginBottom: '8px' }}>{card.title}</div>
-      <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.body, color: '#6B6B8A', lineHeight: 1.6 }}>{card.desc}</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <span style={{ fontSize: '22px', flexShrink: 0 }}>{card.icon}</span>
+        <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818', lineHeight: 1.4 }}>{card.title}</span>
+      </div>
     </div>
   );
 }
@@ -424,7 +436,14 @@ export default function ExpeditionDetail() {
   const notIncluded = exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED;
   const importantToNote = exp.importantToNote?.length ? exp.importantToNote : DEFAULT_IMPORTANT;
   const seasons = exp.seasons || [];
-  const galleryImages = [exp.img, '/images/gallery-1.jpg', '/images/gallery-2.jpg', '/images/gallery-3.jpg', '/images/gallery-4.jpg'].filter(Boolean);
+  const galleryImages = [
+    exp.img,
+    `/images/gallery/${exp.slug}/1.jpg`,
+    `/images/gallery/${exp.slug}/2.jpg`,
+    `/images/gallery/${exp.slug}/3.jpg`,
+    `/images/gallery/${exp.slug}/4.jpg`,
+    `/images/gallery/${exp.slug}/5.jpg`,
+  ].filter(Boolean);
 
   /* ─────────────── RENDER ─────────────────────────────────────── */
   return (
@@ -873,8 +892,8 @@ export default function ExpeditionDetail() {
                 {hasSafari && (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
-                      { key: 'safari', label: 'טיפוס + ספארי (11 ימים)' },
-                      { key: 'trek',   label: 'טיפוס בלבד (9 ימים)' },
+                      { key: 'safari', label: `טיפוס + ספארי (${(exp.itinerary.length - 1) + (exp.safariItinerary?.length || 0)} ימים)` },
+                      { key: 'trek',   label: `טיפוס בלבד (${exp.itinerary.length} ימים)` },
                     ].map(tab => (
                       <button
                         key={tab.key}
@@ -952,46 +971,57 @@ export default function ExpeditionDetail() {
 
         <Separator />
 
-        {/* ── D. למה לטרק עם HighAir ─────────────── */}
+        {/* ── D+E. למה לטרק עם HighAir + חשוב לדעת — side by side ── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
-          }}>
-            למה לטרק עם HighAir?
-          </h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-            gap: '20px',
+            gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr',
+            gap: '40px',
+            alignItems: 'start',
           }}>
-            {WHY_CARDS.map((card, i) => <WhyCard key={i} card={card} />)}
-          </div>
-        </section>
 
-        <Separator />
-
-        {/* ── E. חשוב לדעת ───────────────────────── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
-          }}>
-            חשוב לדעת
-          </h2>
-          <div style={{
-            background: '#FFFBEB', border: '1px solid #FEF3C7',
-            borderRadius: RADIUS.xl, padding: '24px 28px', direction: 'rtl',
-          }}>
-            <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#92400E', marginBottom: '16px' }}>
-              ⚠️ חשוב לדעת
-            </div>
-            {importantToNote.map((note, i) => (
-              <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
-                <span style={{ color: '#F59E0B', fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
-                <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#92400E', lineHeight: 1.6 }}>{note}</span>
+            {/* ── D. למה לטרק עם HighAir ── */}
+            <div>
+              <h2 style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: 'rtl',
+              }}>
+                למה לטרק עם HighAir?
+              </h2>
+              <div style={{
+                background: '#F5F3FF', border: '1px solid #DDD6FE',
+                borderRadius: RADIUS.xl, padding: '24px 28px', direction: 'rtl',
+              }}>
+                {WHY_CARDS.map((card, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < WHY_CARDS.length - 1 ? '12px' : 0 }}>
+                    <span style={{ color: COLOR.primary, fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
+                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#4C1D95', lineHeight: 1.6 }}>{card.title}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* ── E. חשוב לדעת ── */}
+            <div>
+              <h2 style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: 'rtl',
+              }}>
+                חשוב לדעת
+              </h2>
+              <div style={{
+                background: '#FFFBEB', border: '1px solid #FEF3C7',
+                borderRadius: RADIUS.xl, padding: '24px 28px', direction: 'rtl',
+              }}>
+                {importantToNote.map((note, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
+                    <span style={{ color: '#F59E0B', fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
+                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#92400E', lineHeight: 1.6 }}>{note}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -1036,7 +1066,7 @@ export default function ExpeditionDetail() {
               </div>
 
               {/* Group cards */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: isMobile ? '100%' : '620px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
                 {visibleGroups.map(g => {
                   const spotsLeft = capacity - g.count;
                   const isFull   = spotsLeft <= 0;
@@ -1136,6 +1166,7 @@ export default function ExpeditionDetail() {
           )}
         </section>
 
+        <Separator />
 
         {/* ── H. תמונות מהטיפוס ──────────────────── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
@@ -1167,25 +1198,6 @@ export default function ExpeditionDetail() {
                 onError={e => { e.currentTarget.style.display = 'none'; }}
               />
             ))}
-          </div>
-        </section>
-
-        <Separator />
-
-        {/* ── I. ביקורות לקוחות ──────────────────── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
-          }}>
-            מה אומרים המטפסים שלנו?
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: '20px',
-          }}>
-            {reviews.map((r, i) => <ReviewCard key={i} review={r} />)}
           </div>
         </section>
 
@@ -1245,14 +1257,29 @@ export default function ExpeditionDetail() {
                     {/* Summit badge */}
                     <div style={{
                       position: 'absolute', top: '12px', right: '12px',
-                      background: COLOR.primary,
+                      background: 'rgba(0,0,0,0.45)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
                       color: 'white',
                       fontFamily: "'Ploni', sans-serif",
-                      fontSize: '11px', fontWeight: 700,
-                      padding: '4px 10px', borderRadius: '999px',
-                      display: 'flex', alignItems: 'center', gap: '4px',
+                      fontSize: '12px', fontWeight: 600,
+                      padding: '5px 10px 5px 8px', borderRadius: '999px',
+                      display: 'flex', alignItems: 'center', gap: '6px',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      letterSpacing: '0.02em',
                     }}>
-                      ✓ הגיע לפסגה
+                      {/* Green circle checkmark */}
+                      <div style={{
+                        width: '18px', height: '18px', borderRadius: '50%',
+                        background: '#22C55E',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        flexShrink: 0,
+                      }}>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                      </div>
+                      Verified
                     </div>
 
                     {/* Name + date */}
