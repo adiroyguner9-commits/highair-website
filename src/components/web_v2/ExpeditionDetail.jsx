@@ -336,6 +336,7 @@ export default function ExpeditionDetail() {
   const [errorMsg, setErrorMsg] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [ageError,   setAgeError]   = useState('');
 
   /* ── Phone validation (Israeli: 05X-XXXXXXX) ── */
   function validatePhone(val) {
@@ -351,12 +352,21 @@ export default function ExpeditionDetail() {
     return ok;
   }
 
+  /* ── Age validation ── */
+  function validateAge(val) {
+    const n = Number(val);
+    if (val && n < 16) { setAgeError('גיל מינימלי להשתתפות הוא 16'); return false; }
+    setAgeError('');
+    return true;
+  }
+
   /* ── Form submit ── */
   async function handleSubmit(e) {
     e.preventDefault();
     if (!exp) return;
     if (!validateEmail(form.email)) return;
     if (!validatePhone(form.phone)) return;
+    if (!validateAge(form.age)) return;
     setStatus('loading');
     try {
       const res = await fetch('/api/airtable/Website%20Leads', {
@@ -426,7 +436,7 @@ export default function ExpeditionDetail() {
           <div style={{ fontSize: '64px' }}>⛰️</div>
           <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>המשלחת לא נמצאה</h1>
           <button
-            onClick={() => navigate('/test')}
+            onClick={() => navigate('/')}
             style={{ ...BTN.primary, fontFamily: "'Ploni', sans-serif" }}
           >
             חזרה לדף הבית ←
@@ -1470,14 +1480,22 @@ export default function ExpeditionDetail() {
                         type="number" required min="16" max="99"
                         value={form.age}
                         onChange={e => {
-                          // מקסימום 2 ספרות
                           const v = e.target.value.replace(/\D/g, '').slice(0, 2);
                           setForm(f => ({ ...f, age: v }));
+                          validateAge(v);
                         }}
-                        style={inputStyle}
-                        onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                        onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                        style={{
+                          ...inputStyle,
+                          borderColor: ageError ? '#DC2626' : inputStyle.borderColor,
+                        }}
+                        onFocus={e => { e.target.style.borderColor = ageError ? '#DC2626' : COLOR.primary; }}
+                        onBlur={e => { e.target.style.borderColor = ageError ? '#DC2626' : '#E5E3F0'; }}
                       />
+                      {ageError && (
+                        <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#DC2626', fontFamily: "'Ploni', sans-serif" }}>
+                          {ageError}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label style={labelStyle}>כמות אנשים *</label>

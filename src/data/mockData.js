@@ -1,7 +1,7 @@
 export const EXPS = [
   {
     id: 2, slug: 'olympus', name: 'Mount Olympus', nameHe: 'טיפוס לאולימפוס', country: 'Greece', countryHe: 'יוון', flag: '🇬🇷',
-    elev: '2,917m', elevNum: 2918, days: '3 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '2,917m', elevNum: 2918, days: '6 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     airtableEvents: ['Olympus'],
     groupCapacity: 15,
@@ -131,7 +131,7 @@ export const EXPS = [
   },
   {
     id: 4, slug: 'ethiopia', name: 'Simien Mountains & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
-    elev: '4,550m', elevNum: 4430, days: '10 ימים', type: 'Trekking', typeHe: 'טרק',
+    elev: '4,550m', elevNum: 4430, days: '11 ימים', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2960, priceStr: '$2960', continent: 'africa',
     airtableEvents: ['Ethiopia'],
     img: '/images/cards/ethiopia.jpg',
@@ -165,6 +165,7 @@ export const EXPS = [
       'תרומה משמעותית למאבק במחלת הסרטן!',
     ],
     safety: ['ציוד לוויין', 'מדריכים מקומיים מנוסים', 'ניטור מזג אוויר'],
+    groupCapacity: 15,
     dates: ['ינואר 15', 'פברואר 12', 'נובמבר 8', 'דצמבר 10'],
     videoUrl: null,
     seasons: ['נובמבר-פברואר'],
@@ -331,12 +332,12 @@ export const EXPS = [
     ],
     groupCapacity: 15,
     importantToNote: [
-      'הטיפוס מתבצע בקבוצה עד 15 משתתפים בלבד!',
+      'הטרק מתבצע בקבוצה עד 15 משתתפים בלבד!',
       'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
       'על כל מטייל להישמע להוראות הצוות ולשמור על אחריותו וביטחונו האישי לאורך כל המסע!',
       'אישור רפואי והצהרת בריאות נדרשים כתנאי ליציאה למסע, על מנת לוודא התאמה ובריאות המטיילים!',
       'מטייל שלא יעמוד בדרישות הבריאותיות או הפיזיות, לא יורשה להצטרף למסע!',
-      'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
+      'אם אין לכם ניסיון קודם בטרקים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
     ],
@@ -364,6 +365,7 @@ export const EXPS = [
     elev: '5,364m', elevNum: 5545, days: '19 ימים', type: 'Trekking', typeHe: 'טרק',
     diff: 'Hard', diffHe: 'קשה', price: 3300, priceStr: '$3300', continent: 'asia',
     airtableEvents: ['EBC + Gokyo'],
+    img: '/images/cards/EBC.webp',
     grad: 'linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)',
     desc: `טרק האוורסט בייס קמפ הוא אחד המסלולים האייקוניים והמלהיבים ביותר בהימלאיה. המסע מתחיל בלוקלה וממשיך דרך נופים מרהיבים של נחלים, יערות ובעלי חיים, תוך מפגש עם כפרים אותנטיים של בני שבט השרפה ותרבות בודהיסטית עשירה.
 
@@ -396,6 +398,7 @@ export const EXPS = [
     safety: ['ציוד לוויין Magnus ייעודי', 'עדכוני WhatsApp יומיים למשפחות', 'צוות שרפה מובחר', 'ימי אקלום מובנים'],
     dates: ['מרץ 20', 'אפריל 1', 'אפריל 15', 'אוקטובר 5', 'אוקטובר 20', 'נובמבר 3'],
     videoUrl: null,
+    groupCapacity: 15,
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     successRate: 93,
     notIncluded: [
@@ -414,15 +417,14 @@ export const EXPS = [
       'חדר יחיד בבקתות במהלך הטרק - 15$ ללילה',
     ],
     importantToNote: [
-      'הטיפוס מתבצע בקבוצה עד 15 משתתפים בלבד!',
+      'הטרק מתבצע בקבוצה עד 15 משתתפים בלבד!',
       'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
       'על כל מטייל להישמע להוראות הצוות ולשמור על אחריותו וביטחונו האישי לאורך כל המסע!',
       'אישור רפואי והצהרת בריאות נדרשים כתנאי ליציאה למסע, על מנת לוודא התאמה ובריאות המטיילים!',
       'מטייל שלא יעמוד בדרישות הבריאותיות או הפיזיות, לא יורשה להצטרף למסע!',
-      'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
+      'אם אין לכם ניסיון קודם בטרקים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
-
     ],
     itinerary: [
       { day: 1,  title: 'תל אביב - דובאי - קטמנדו',                                                              desc: '' },
@@ -531,7 +533,7 @@ export const EXPS = [
   },
   {
     id: 9, slug: 'elbrus', name: 'Mount Elbrus', nameHe: 'טיפוס לאלברוס', country: 'Russia', countryHe: 'רוסיה', flag: '🇷🇺',
-    elev: '5,642m', elevNum: 5642, days: '10 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '5,642m', elevNum: 5642, days: '8 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3500, priceStr: '$3500', continent: 'europe',
     airtableEvents: ['Elbrus'],
     groupCapacity: 15,
@@ -603,7 +605,7 @@ export const EXPS = [
   {
     id: 10, slug: 'kilimanjaro', name: 'Kilimanjaro', nameHe: 'טיפוס לקילימנג׳רו', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
     elev: '5,895m', elevNum: 5895, days: '9 ימים | ספארי +3', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '$2700', continent: 'africa',
+    diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
     img: '/images/cards/kilimanjaro.jpg',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
@@ -787,7 +789,7 @@ export const EXPS = [
   },
   {
     id: 12, slug: 'lobuche-peak', name: 'Lobuche Peak', nameHe: 'טיפוס ללובוצ׳ה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    elev: '6,119m', elevNum: 6119, days: '18 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6,119m', elevNum: 6119, days: '19 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3450, priceStr: '$3450', continent: 'asia',
     img: '/images/cards/lobuchePeak.jpg',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
@@ -876,7 +878,7 @@ export const EXPS = [
   },
   {
     id: 13, slug: 'island-peak', name: 'Island Peak', nameHe: 'טיפוס לאיילנד פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    elev: '6,189m', elevNum: 6189, days: '18 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6,189m', elevNum: 6189, days: '20 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     groupCapacity: 15,
     airtableEvents: ['Island_Peak'],
@@ -967,7 +969,7 @@ export const EXPS = [
   },
   {
     id: 14, slug: 'mera-peak', name: 'Mera Peak', nameHe: 'טיפוס למרה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    elev: '6,476m', elevNum: 6476, days: '18 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6,476m', elevNum: 6476, days: '19 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     img: '/images/cards/MeraPeak.jpg',
     grad: 'linear-gradient(135deg,#1d4ed8,#1e3a8a,#0f172a)',
@@ -1056,7 +1058,7 @@ export const EXPS = [
   },
   {
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
-    elev: '6,961m', elevNum: 6962, days: '21 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6,961m', elevNum: 6962, days: '20 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 9800, priceStr: '$9800', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.jpg',
@@ -1091,6 +1093,7 @@ export const EXPS = [
       'תרומה משמעותית למאבק במחלת הסרטן!',
     ],
     safety: ['ציוד Magnus אישי', 'ערכת רפואה ייעודית', 'שירות תחזית מזג אוויר', 'פרוטוקולי גובה'],
+    groupCapacity: 15,
     dates: ['ינואר 5', 'ינואר 20', 'פברואר 1', 'פברואר 15', 'דצמבר 20'],
     videoUrl: null,
     seasons: ['דצמבר-פברואר'],
@@ -1141,7 +1144,7 @@ export const EXPS = [
   },
   {
     id: 16, slug: 'lenin-peak', name: 'Lenin Peak', nameHe: 'טיפוס ללנין פיק', country: 'Kyrgyzstan', countryHe: 'קירגיזסטן', flag: '🇰🇬',
-    elev: '7,134m', elevNum: 7134, days: '24 ימים', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '7,134m', elevNum: 7134, days: '20 ימים', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 6200, priceStr: '$6200', continent: 'asia',
     img: '/images/cards/leninPeak.avif',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',

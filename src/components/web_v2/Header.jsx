@@ -28,8 +28,8 @@ const MEGA_CONTINENTS = [
 /* ── Nav links ── */
 const LINKS = [
   { label: 'דף בית',        href: '#hero'         },
-  { label: 'משלחות בעולם', href: '#expeditions', hasMega: true },
-  { label: 'טיולים בארץ',  href: '#israel'       },
+  { label: 'טרקים וטיפוסים בעולם', href: '#expeditions', hasMega: true },
+  { label: 'טרקים בארץ',          href: '#israel'       },
   { label: 'תכנית שנתית',  href: '/annual-plan', isPage: true },
   { label: 'צור קשר',      href: '#contact'      },
 ];

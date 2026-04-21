@@ -211,7 +211,7 @@ export default function ExpeditionExplorer() {
             lineHeight:    1.1,
             textAlign:     'center',
           }}>
-            המשלחות שלנו בעולם
+            הטרקים והטיפוסים שלנו בעולם
           </h2>
           <p style={{
             fontFamily:  "'Ploni', sans-serif",
