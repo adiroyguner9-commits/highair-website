@@ -11,7 +11,7 @@ import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/the
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
 import StatsSection from './StatsSection.jsx';
-import { MountainIcon, StarIcon, MedalIcon } from '../Icons.jsx';
+import { MountainIcon, StarIcon, MedalIcon, TagIcon } from '../Icons.jsx';
 
 /* ─── Default data ─────────────────────────────────────────────── */
 const DEFAULT_REVIEWS = [
@@ -562,18 +562,20 @@ export default function ExpeditionDetail() {
           boxShadow:           '0 20px 60px rgba(0,0,0,0.15)',
           padding:             isMobile ? '16px 20px' : '22px 52px',
           display:             'grid',
-          gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(3, 1fr)',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
           gap:                 '0',
         }}>
           {[
             { IconComp: MountainIcon, label: 'גובה',          value: `${exp.elevNum} מ׳` },
             { IconComp: StarIcon,     label: 'דרגת קושי',     value: exp.diffHe },
             { IconComp: MedalIcon,    label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '—' },
+            { IconComp: TagIcon,      label: 'עלות',           value: exp.priceStr ? `החל מ-${exp.priceStr}` : '—' },
           ].map((s, i) => (
             <div key={i} style={{
               textAlign:    'center',
               padding:      isMobile ? '14px 8px' : '4px 24px',
               borderRight:  (!isMobile && i > 0) ? '1px solid #ECEAF8' : 'none',
+              borderTop:    (isMobile && i >= 2) ? '1px solid #ECEAF8' : 'none',
             }}>
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '4px', color: COLOR.primary }}>
                 <s.IconComp size={isMobile ? 22 : 26} color={COLOR.primary} />
@@ -648,7 +650,7 @@ export default function ExpeditionDetail() {
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>עלות</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>
-                  החל מ {exp.priceStr}
+                  החל מ-{exp.priceStr}
                 </span>
               </div>
             )}

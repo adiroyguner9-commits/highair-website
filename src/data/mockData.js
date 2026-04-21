@@ -2,7 +2,7 @@ export const EXPS = [
   {
     id: 1, slug: 'pirin', name: 'Pirin', nameHe: 'טרק הרי פירין', country: 'Bulgaria', countryHe: 'בולגריה', flag: '🇧🇬',
     elev: '2,914m', elevNum: 2914, days: '5 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Easy', diffHe: 'קל', price: 2900, priceStr: '₪2,900', continent: 'europe',
+    diff: 'Easy', diffHe: 'קל', price: 2900, priceStr: '$800', continent: 'europe',
     grad: 'linear-gradient(135deg,#2d6a4f,#40916c,#1b4332)',
     desc: 'פסגות הבלקן המרהיבות בבולגריה — יערות עתיקים, אגמי קרחון ונופים שיוציאו אויר.',
     highlights: ['פסגת ויהרן 2,914מ׳', 'אגמי קרחון', 'מסלולים ייחודיים', 'אירוח מקומי אותנטי'],
@@ -23,7 +23,7 @@ export const EXPS = [
   {
     id: 2, slug: 'olympus', name: 'Mount Olympus', nameHe: 'טיפוס לאולימפוס', country: 'Greece', countryHe: 'יוון', flag: '🇬🇷',
     elev: '2,917m', elevNum: 2918, days: '3 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Easy', diffHe: 'קל', price: 2900, priceStr: '₪2,900', continent: 'europe',
+    diff: 'Easy', diffHe: 'קל', price: 2900, priceStr: '$800', continent: 'europe',
     img: '/images/olympus.jpg',
     grad: 'linear-gradient(135deg,#3b82f6,#1d4ed8,#1e3a8a)',
     desc: 'ביתם של האלים היוונים. טרק אגדי דרך יערות אורן עתיקים עד לפסגת מיטיקאס — כס זאוס.',
@@ -45,7 +45,7 @@ export const EXPS = [
   {
     id: 3, slug: 'peaks-of-balkan', name: 'Peaks of Balkan', nameHe: 'טרק פסגות הבלקן', country: 'Albania', countryHe: 'אלבניה', flag: '🇦🇱',
     elev: '2,925m', elevNum: 2656, days: '7 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Easy', diffHe: 'קל', price: 3500, priceStr: '₪3,500', continent: 'europe',
+    diff: 'Easy', diffHe: 'קל', price: 3500, priceStr: '$950', continent: 'europe',
     img: '/images/peaks-of-balkan.webp',
     grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
     desc: 'המרגליות הנסתרות של הבלקן — רכסים דרמטיים, אגמי קרחון עדינים וכפרי הרים אותנטיים.',
@@ -67,7 +67,7 @@ export const EXPS = [
   {
     id: 4, slug: 'ethiopia', name: 'Simien Mountains & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
     elev: '4,550m', elevNum: 4430, days: '10 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 5900, priceStr: '₪5,900', continent: 'africa',
+    diff: 'Moderate', diffHe: 'בינוני', price: 5900, priceStr: '$1600', continent: 'africa',
     img: '/images/ethiopia.jpg',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
     desc: 'שילוב עוצר נשימה של הרי הסימיאן הירוקים ומדבר הדנקיל — אחד המקומות הקיצוניים על פני כדור הארץ.',
@@ -89,7 +89,7 @@ export const EXPS = [
   {
     id: 5, slug: 'kazbek', name: 'Mount Kazbek', nameHe: 'טיפוס לקזבק', country: 'Georgia', countryHe: 'גאורגיה', flag: '🇬🇪',
     elev: '5,047m', elevNum: 5054, days: '8 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'מאתגר', price: 7900, priceStr: '₪7,900', continent: 'europe',
+    diff: 'Hard', diffHe: 'מאתגר', price: 7900, priceStr: '$2150', continent: 'europe',
     img: '/images/kazbek.jpg',
     grad: 'linear-gradient(135deg,#4338ca,#3730a3,#1e1b4b)',
     desc: 'אחת מפסגות הקווקז הדרמטיות ביותר — הר שלג עתיק עם נוף אינסופי על הרי גאורגיה.',
@@ -111,7 +111,7 @@ export const EXPS = [
   {
     id: 6, slug: 'manaslu', name: 'Manaslu Circuit', nameHe: 'טרק סובב מנסלו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     elev: '5,160m', elevNum: 5106, days: '16 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 8900, priceStr: '₪8,900', continent: 'asia',
+    diff: 'Moderate', diffHe: 'בינוני', price: 8900, priceStr: '$2400', continent: 'asia',
     img: '/images/manaslu.avif',
     grad: 'linear-gradient(135deg,#0f766e,#0d9488,#042f2e)',
     desc: 'מעגל מנסלו — אחד המסלולים הכי עוצרי נשימה בנפאל, עדיין לא מוכר לתיירות המונית.',
@@ -133,7 +133,7 @@ export const EXPS = [
   {
     id: 7, slug: 'everest-base-camp', name: 'Everest Base Camp & Gokyo', nameHe: 'טרק אוורסט בייס קמפ וגוקיו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     elev: '5,364m', elevNum: 5545, days: '16 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '₪9,900', continent: 'asia',
+    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '$2700', continent: 'asia',
     grad: 'linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)',
     desc: 'עלייה למחנה הבסיס של האוורסט ולאגמי גוקיו — הטרק המפורסם בעולם עם נוף על ההר הגבוה ביותר בעולם.',
     highlights: ['מחנה בסיס אוורסט 5,364מ׳', 'אגמי גוקיו', 'נוף על האוורסט', 'שוק נמצ׳ה בזאר'],
@@ -172,7 +172,7 @@ export const EXPS = [
   {
     id: 8, slug: 'annapurna', name: 'Annapurna Circuit', nameHe: 'טרק סובב אנאפורנה', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     elev: '5,416m', elevNum: 5416, days: '14 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 8900, priceStr: '₪8,900', continent: 'asia',
+    diff: 'Moderate', diffHe: 'בינוני', price: 8900, priceStr: '$2400', continent: 'asia',
     grad: 'linear-gradient(135deg,#0891b2,#0e7490,#083344)',
     desc: 'אחד ממסלולי הטרק הקלאסיים ביותר בעולם — מעגל מסביב לאנאפורנה עם מעבר תורונג לה הדרמטי.',
     highlights: ['מעבר תורונג לה 5,416מ׳', 'יערות רודודנדרון', 'כפרי גורקה', 'נוף על אנאפורנה I'],
@@ -193,7 +193,7 @@ export const EXPS = [
   {
     id: 9, slug: 'elbrus', name: 'Mount Elbrus', nameHe: 'טיפוס לאלברוס', country: 'Russia', countryHe: 'רוסיה', flag: '🇷🇺',
     elev: '5,642m', elevNum: 5642, days: '10 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'מאתגר', price: 8900, priceStr: '₪8,900', continent: 'europe',
+    diff: 'Hard', diffHe: 'מאתגר', price: 8900, priceStr: '$2400', continent: 'europe',
     img: '/images/elbrus.jpg',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
     desc: 'הפסגה הגבוהה באירופה — טיפוס קרחון מרהיב עם פנורמה על רוסיה וגאורגיה.',
@@ -227,7 +227,7 @@ export const EXPS = [
   {
     id: 10, slug: 'kilimanjaro', name: 'Kilimanjaro', nameHe: 'טיפוס לקילימנג׳רו', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
     elev: '5,895m', elevNum: 5895, days: '9 ימים | ספארי +3', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '₪9,900', continent: 'africa',
+    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '$2700', continent: 'africa',
     img: '/images/kilimanjaro.jpg',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
@@ -240,7 +240,7 @@ export const EXPS = [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
       'העברות משדה התעופה למלון במושי וחזרה',
       'העברות פנימיות לשער הכניסה לשמורה וחזרה',
-      '2 לילות במלון 3 כוכבים על בסיס ארוחת בוקר במושי',
+      '2 לילות במלון 3 כוכבים כולל ארוחת בוקר במושי',
       'לינה באוהלים זוגיים עם מזרנים',
       '3 ארוחות ביום לכל אורך הטיפוס',
       'מדריכים מקומיים מקצועיים דוברי אנגלית',
@@ -248,7 +248,7 @@ export const EXPS = [
       'שירותים ניידים פרטיים לחברי הקבוצה בלבד',
       'מכשיר לוויני של מגנוס (אחד לקבוצה)',
       'אישורי כניסה וטיפוס לשמורת הקילימנג׳רו',
-      'ערכת עזרה ראשונה כולל בלוני חמצן למקרה חירום',
+      'ערכת עזרה ראשונה כולל בלוני חמצן לחירום',
       'מפגש הכנה על ציוד בחנות ציוד טיולים',
       'טיול הכנה חד יומי בארץ עם חברי הקבוצה',
       'תרומה משמעותית למאבק במחלת הסרטן!',
@@ -274,7 +274,7 @@ export const EXPS = [
       'טיפים למדריכים ולפורטרים - 350$ לאדם',
       'עלויות ויזה לטנזניה - 50$ לאדם',
       'חיסונים וייעוץ רפואי במרפאת מטיילים',
-      'לילה נוסף במלון - 45$ לאדם בחדר זוגי (במידת הצורך)',
+      'לילה נוסף במלון - 45$ לאדם (במידת הצורך)',
       'כל מה שלא צוין בחלק הכלול בטיפוס',
       'ספארי:',
       'טיפים למדריך ספארי - 45$ לאדם',
@@ -306,7 +306,7 @@ export const EXPS = [
   {
     id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'טיפוס לקילימנג׳רו לשומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
     elev: '5,895m', elevNum: 5895, days: '8 ימים', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '₪9,900', continent: 'africa',
+    diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '$2700', continent: 'africa',
     img: '/images/kilimanjaroKosher.jpg',
     grad: 'linear-gradient(135deg,#f59e0b,#d97706,#92400e)',
     desc: 'קילימנג׳רו עם ייחוד מיוחד — מסלול המיועד לשומרי מסורת ומצוות, עם ליווי רוחני ייחודי.',
@@ -328,7 +328,7 @@ export const EXPS = [
   {
     id: 12, slug: 'lobuche-peak', name: 'Lobuche Peak', nameHe: 'טיפוס ללובוצ׳ה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     elev: '6,119m', elevNum: 6119, days: '18 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'מאתגר', price: 12900, priceStr: '₪12,900', continent: 'asia',
+    diff: 'Hard', diffHe: 'מאתגר', price: 12900, priceStr: '$3500', continent: 'asia',
     img: '/images/lobuchePeak.jpg',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
     desc: 'פיק הטיפוס הטכני לצד מסלול אוורסט — פסגה מאתגרת עם נוף ישיר על ה-Khumbu Icefall.',
@@ -350,7 +350,7 @@ export const EXPS = [
   {
     id: 13, slug: 'island-peak', name: 'Island Peak', nameHe: 'טיפוס לאיילנד פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     elev: '6,189m', elevNum: 6189, days: '18 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'מאתגר', price: 13900, priceStr: '₪13,900', continent: 'asia',
+    diff: 'Hard', diffHe: 'מאתגר', price: 13900, priceStr: '$3800', continent: 'asia',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
     desc: 'אחת הפסגות הפופולריות לטיפוס בנפאל — שיפוע קרחון סטנדרטי עם נוף פנורמי על האוורסט.',
     highlights: ['פסגת איילנד 6,189מ׳', 'קרחון עם ציוד טיפוס', 'נוף על האוורסט ולוצ׳ה', 'חוויית הר גבוה'],
@@ -371,7 +371,7 @@ export const EXPS = [
   {
     id: 14, slug: 'mera-peak', name: 'Mera Peak', nameHe: 'טיפוס למרה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     elev: '6,476m', elevNum: 6476, days: '18 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'מאתגר', price: 14900, priceStr: '₪14,900', continent: 'asia',
+    diff: 'Hard', diffHe: 'מאתגר', price: 14900, priceStr: '$4100', continent: 'asia',
     img: '/images/meraPeak.jpg',
     grad: 'linear-gradient(135deg,#1d4ed8,#1e3a8a,#0f172a)',
     desc: 'הפיק הגבוה ביותר שניתן לטיפוס ללא ניסיון טכני רב בנפאל — נוף על 5 שמיניות מ-6,476מ׳.',
@@ -393,7 +393,7 @@ export const EXPS = [
   {
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
     elev: '6,961m', elevNum: 6962, days: '21 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Expert', diffHe: 'מומחה', price: 18900, priceStr: '₪18,900', continent: 'southamerica',
+    diff: 'Expert', diffHe: 'מומחה', price: 18900, priceStr: '$5200', continent: 'southamerica',
     img: '/images/aconcagua.jpg',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
     desc: 'גג האמריקות — ההר הגבוה מחוץ לאסיה. משלחת גובה מאתגרת למטפסים עם ניסיון.',
@@ -415,7 +415,7 @@ export const EXPS = [
   {
     id: 16, slug: 'lenin-peak', name: 'Lenin Peak', nameHe: 'טיפוס ללנין פיק', country: 'Kyrgyzstan', countryHe: 'קירגיזסטן', flag: '🇰🇬',
     elev: '7,134m', elevNum: 7134, days: '24 ימים', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Expert', diffHe: 'מומחה', price: 22900, priceStr: '₪22,900', continent: 'asia',
+    diff: 'Expert', diffHe: 'מומחה', price: 22900, priceStr: '$6200', continent: 'asia',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',
     desc: 'אחת מה-Seven Summits של היבשות — הפסגה הגבוהה ביותר בסל המשלחות של HighAir.',
     highlights: ['פסגת לנין 7,134מ׳', 'גבוה מ-7,000מ׳', 'מחנות גובה מרובים', 'נוף על פמיר'],
