@@ -7,8 +7,8 @@ export const ISRAEL_TRIPS = [
   {
     id:      'il-1',
     slug:    'hermon',
-    name:    'הר חרמון',
-    area:    'צפון ישראל',
+    name:    'טיפוס לחרמון',
+    area:    'רמת הגולן',
     elev:    '2040',
     elevStr: '2040 מ׳',
     price:   'החל מ-349₪',
