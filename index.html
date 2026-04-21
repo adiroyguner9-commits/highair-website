@@ -18,6 +18,29 @@
 
     <link rel="icon" type="image/png" href="/Logo.png" />
     <meta name="theme-color" content="#6d28d9" />
+
+    <!-- Fonts preload -->
+    <link rel="preload" href="/PloniBold.otf"   as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="/PloniMedium.otf" as="font" type="font/otf" crossorigin>
+
+    <style>
+      @font-face {
+        font-family: 'Ploni';
+        src: url('/PloniBold.otf') format('opentype');
+        font-weight: 700 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Ploni';
+        src: url('/PloniMedium.otf') format('opentype');
+        font-weight: 400 600;
+        font-style: normal;
+        font-display: swap;
+      }
+      * { font-family: 'Ploni', sans-serif; }
+      body { font-family: 'Ploni', sans-serif; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
