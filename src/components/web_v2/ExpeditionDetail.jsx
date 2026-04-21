@@ -169,11 +169,18 @@ export default function ExpeditionDetail() {
 
   /* ── Itinerary accordion: array of open indices, first open by default ── */
   const [openItinerary, setOpenItinerary] = useState([0]);
+  const [itineraryTab, setItineraryTab] = useState('trek'); // 'trek' | 'safari'
   function toggleItinerary(idx) {
     setOpenItinerary(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
     );
   }
+
+  /* ── Active itinerary based on tab ── */
+  const hasSafari = exp?.safariItinerary?.length > 0;
+  const activeItinerary = itineraryTab === 'safari' && hasSafari
+    ? [...(exp.itinerary || []).slice(0, -1), ...(exp.safariItinerary || [])]
+    : (exp?.itinerary || []);
 
   /* ── FAQ accordion ── */
   const [openFaq, setOpenFaq] = useState(null);
@@ -633,7 +640,7 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: '18px',
                 fontWeight: 700, color: '#059669', marginBottom: '20px',
               }}>
-                כלול במחיר
+                מה כלול בתכנית?
               </div>
               {(exp.included || []).map((item, i) => {
                 const isHeader = item.endsWith(':');
@@ -678,7 +685,7 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: '18px',
                 fontWeight: 700, color: '#DC2626', marginBottom: '20px',
               }}>
-                לא כלול
+                מה לא כלול בתכנית?
               </div>
               {notIncluded.map((item, i) => {
                 const isHeader = item.endsWith(':');
@@ -719,16 +726,50 @@ export default function ExpeditionDetail() {
           <>
             <Separator />
             <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-              <h2 style={{
-                fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
-              }}>
-                תכנית הטיפוס — יום יום
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '28px' }}>
+                <h2 style={{
+                  fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
+                  fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: 0,
+                }}>
+                  תכנית הטיפוס
+                </h2>
+                {hasSafari && (
+                  <div style={{
+                    display: 'flex', gap: '4px',
+                    background: '#F5F3FF', borderRadius: RADIUS.full,
+                    padding: '4px',
+                  }}>
+                    {[
+                      { key: 'trek',   label: 'טיפוס בלבד (9 ימים)' },
+                      { key: 'safari', label: '+ ספארי (11 ימים)' },
+                    ].map(tab => (
+                      <button
+                        key={tab.key}
+                        onClick={() => { setItineraryTab(tab.key); setOpenItinerary([0]); }}
+                        style={{
+                          padding: '8px 16px',
+                          borderRadius: RADIUS.full,
+                          border: 'none',
+                          cursor: 'pointer',
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '13px', fontWeight: 700,
+                          background: itineraryTab === tab.key ? COLOR.primary : 'transparent',
+                          color: itineraryTab === tab.key ? 'white' : '#6B6B8A',
+                          transition: `all 0.2s ${EASING.smooth}`,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
-                {exp.itinerary.map((item, idx) => {
+                {activeItinerary.map((item, idx) => {
                   const isOpen = openItinerary.includes(idx);
-                  const isLast = idx === exp.itinerary.length - 1;
+                  const isLast = idx === activeItinerary.length - 1;
+                  const isSafariDay = hasSafari && itineraryTab === 'safari' && idx >= (exp.itinerary.length - 1);
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
                       <div
@@ -743,7 +784,8 @@ export default function ExpeditionDetail() {
                         onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
                       >
                         <span style={{
-                          background: COLOR.primary, color: 'white',
+                          background: isSafariDay ? '#F59E0B' : COLOR.primary,
+                          color: 'white',
                           borderRadius: RADIUS.full, padding: '4px 12px',
                           fontSize: '13px', fontWeight: 700,
                           fontFamily: "'Ploni', sans-serif",
