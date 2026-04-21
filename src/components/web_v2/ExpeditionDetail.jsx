@@ -544,7 +544,7 @@ export default function ExpeditionDetail() {
       {/* ══════════════════════════════════
           CONTENT AREA
       ══════════════════════════════════ */}
-      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 5%' }}>
+      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: isMobile ? '0 5%' : '0' }}>
 
         {/* ── A. מבוא ──────────────────────────── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
@@ -552,71 +552,54 @@ export default function ExpeditionDetail() {
             display: 'grid',
             gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr',
             gap: '48px',
-            alignItems: 'center',
+            alignItems: 'stretch',
           }}>
             {/* Left column */}
             <div>
-              <span style={{
-                fontSize: '12px', fontWeight: 700, color: COLOR.primary,
-                textTransform: 'uppercase', letterSpacing: '2px',
-                display: 'block', marginBottom: '8px', fontFamily: "'Ploni', sans-serif",
-              }}>
-                מבוא
-              </span>
-              {seasons.length > 0 && (
-                <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 12px', fontFamily: "'Ploni', sans-serif" }}>
-                  עונות מומלצות: {seasons.join(' | ')}
-                </p>
-              )}
               <h2 style={{
                 fontFamily: "'Ploni', sans-serif",
                 fontSize: 'clamp(24px, 3.5vw, 36px)',
                 fontWeight: 700, color: '#0A0818',
-                letterSpacing: '-0.02em', margin: '0 0 16px',
+                letterSpacing: '-0.02em', margin: '0 0 10px',
               }}>
-                {exp.nameHe}
+                מבוא
               </h2>
-              <p style={{ fontSize: '16px', color: '#3D3B5A', lineHeight: 1.75, margin: '0 0 24px', fontFamily: "'Ploni', sans-serif" }}>
-                {exp.desc}
-              </p>
-              {/* Stat chips */}
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                {exp.successRate && (
-                  <span style={{
-                    background: '#F0FDF4', color: '#059669', border: '1px solid #BBF7D0',
-                    borderRadius: RADIUS.full, padding: '6px 14px', fontSize: '13px', fontWeight: 600,
-                    fontFamily: "'Ploni', sans-serif",
-                  }}>
-                    {exp.successRate}% הצלחה
-                  </span>
-                )}
-                <span style={{
-                  background: '#F5F3FF', color: COLOR.primary, border: '1px solid #DDD6FE',
-                  borderRadius: RADIUS.full, padding: '6px 14px', fontSize: '13px', fontWeight: 600,
-                  fontFamily: "'Ploni', sans-serif",
-                }}>
-                  {exp.diffHe}
-                </span>
-                <span style={{
-                  background: '#FFF7ED', color: '#C2410C', border: '1px solid #FED7AA',
-                  borderRadius: RADIUS.full, padding: '6px 14px', fontSize: '13px', fontWeight: 600,
-                  fontFamily: "'Ploni', sans-serif",
-                }}>
-                  {exp.days}
-                </span>
-              </div>
+              {seasons.length > 0 && (
+                <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
+                  עונות מומלצות לטיפוס: {seasons.join(' | ')}
+                </p>
+              )}
+              {(() => {
+                const parts = (exp.desc || '').split('\n\n');
+                const body = parts.slice(0, -1);
+                const cta  = parts[parts.length - 1];
+                return (
+                  <>
+                    {body.map((p, i) => (
+                      <p key={i} style={{ fontSize: '16px', color: '#3D3B5A', lineHeight: 1.75, margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
+                        {p}
+                      </p>
+                    ))}
+                    {cta && (
+                      <p style={{ fontSize: '16px', color: COLOR.primary, fontWeight: 700, lineHeight: 1.75, margin: '0 0 0', fontFamily: "'Ploni', sans-serif" }}>
+                        {cta}
+                      </p>
+                    )}
+                  </>
+                );
+              })()}
             </div>
 
             {/* Right column — image */}
-            <div>
+            <div style={{ minHeight: isNarrow ? '260px' : undefined }}>
               {exp.img ? (
                 <img
                   src={exp.img}
                   alt={exp.nameHe}
-                  style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: RADIUS.xl, display: 'block' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: RADIUS.xl, display: 'block' }}
                 />
               ) : (
-                <div style={{ width: '100%', aspectRatio: '4/3', background: exp.grad, borderRadius: RADIUS.xl }} />
+                <div style={{ width: '100%', height: '100%', minHeight: '260px', background: exp.grad, borderRadius: RADIUS.xl }} />
               )}
             </div>
           </div>
