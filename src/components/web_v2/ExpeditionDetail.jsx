@@ -169,7 +169,7 @@ export default function ExpeditionDetail() {
 
   /* ── Itinerary accordion: array of open indices, first open by default ── */
   const [openItinerary, setOpenItinerary] = useState([]);
-  const [itineraryTab, setItineraryTab] = useState('safari'); // 'trek' | 'safari'
+  const [itineraryTab, setItineraryTab] = useState('trek'); // 'trek' | 'safari'
   function toggleItinerary(idx) {
     setOpenItinerary(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
@@ -837,7 +837,7 @@ export default function ExpeditionDetail() {
           <>
             <Separator />
             <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '28px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '16px', marginBottom: '28px' }}>
                 <h2 style={{
                   fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
                   fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: 0,
@@ -845,27 +845,23 @@ export default function ExpeditionDetail() {
                   תכנית הטיפוס
                 </h2>
                 {hasSafari && (
-                  <div style={{
-                    display: 'flex', gap: '4px',
-                    background: '#F5F3FF', borderRadius: RADIUS.full,
-                    padding: '4px',
-                  }}>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
                       { key: 'trek',   label: 'טיפוס בלבד (9 ימים)' },
-                      { key: 'safari', label: 'טיפוס כולל ספארי (11 ימים)' },
+                      { key: 'safari', label: 'טיפוס + ספארי (11 ימים)' },
                     ].map(tab => (
                       <button
                         key={tab.key}
-                        onClick={() => { setItineraryTab(tab.key); setOpenItinerary([0]); }}
+                        onClick={() => { setItineraryTab(tab.key); setOpenItinerary([]); }}
                         style={{
-                          padding: '8px 16px',
+                          padding: '8px 20px',
                           borderRadius: RADIUS.full,
-                          border: 'none',
-                          cursor: 'pointer',
+                          border: `1.5px solid ${itineraryTab === tab.key ? COLOR.primary : '#ECEAF8'}`,
+                          background: itineraryTab === tab.key ? COLOR.primary : '#fff',
+                          color: itineraryTab === tab.key ? 'white' : '#3D3B5A',
                           fontFamily: "'Ploni', sans-serif",
-                          fontSize: '13px', fontWeight: 700,
-                          background: itineraryTab === tab.key ? COLOR.primary : 'transparent',
-                          color: itineraryTab === tab.key ? 'white' : '#6B6B8A',
+                          fontSize: '14px', fontWeight: 600,
+                          cursor: 'pointer',
                           transition: `all 0.2s ${EASING.smooth}`,
                           whiteSpace: 'nowrap',
                         }}
