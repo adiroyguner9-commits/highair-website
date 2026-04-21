@@ -31,7 +31,6 @@ const LINKS = [
   { label: 'משלחות בעולם', href: '#expeditions', hasMega: true },
   { label: 'טיולים בארץ',  href: '#israel'       },
   { label: 'תכנית שנתית',  href: '/annual-plan', isPage: true },
-  { label: 'המשמעות שלנו', href: '#impact'       },
   { label: 'צור קשר',      href: '#contact'      },
 ];
 
