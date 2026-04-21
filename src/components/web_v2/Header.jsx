@@ -141,8 +141,8 @@ export default function Header() {
               background: 'none',
               border:     'none',
               cursor:     'pointer',
-              padding:    '12px',
-              fontSize:   FS.h2,
+              padding:    '8px',
+              fontSize:   '28px',
               lineHeight: 1,
               color:      '#0A0818',
               display:    'flex',
@@ -173,7 +173,7 @@ export default function Header() {
             src="/Logo.png"
             alt="HighAir Expeditions"
             style={{
-              height:    '56px',
+              height:    '68px',
               width:     'auto',
               display:   'block',
               objectFit: 'contain',
