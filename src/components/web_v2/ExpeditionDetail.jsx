@@ -263,12 +263,14 @@ export default function ExpeditionDetail() {
   function formatDateRange(dep, ret) {
     const d = new Date(dep);
     const r = new Date(ret || dep);
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd  = String(d.getDate()).padStart(2, '0');
+    const rr  = String(r.getDate()).padStart(2, '0');
+    const mm  = String(d.getMonth() + 1).padStart(2, '0');
     if (!ret || (d.getMonth() === r.getMonth() && d.getFullYear() === r.getFullYear())) {
-      return `${d.getDate()}-${r.getDate()}/${mm}`;
+      return `${dd}-${rr}/${mm}`;
     }
     const mm2 = String(r.getMonth() + 1).padStart(2, '0');
-    return `${d.getDate()}/${mm} - ${r.getDate()}/${mm2}`;
+    return `${dd}/${mm} - ${rr}/${mm2}`;
   }
 
   function eventLabel(name) {
@@ -1012,7 +1014,7 @@ export default function ExpeditionDetail() {
               </div>
 
               {/* Group cards */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: isMobile ? '100%' : '620px' }}>
                 {visibleGroups.map(g => {
                   const spotsLeft = capacity - g.count;
                   const isFull   = spotsLeft <= 0;
@@ -1024,13 +1026,13 @@ export default function ExpeditionDetail() {
                     <div key={g.id} style={{
                       display: 'flex', alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: isMobile ? '12px' : '24px',
+                      gap: isMobile ? '12px' : '16px',
                       border: '1px solid #ECEAF8',
-                      borderRadius: RADIUS.xl,
-                      padding: isMobile ? '16px' : '20px 28px',
+                      borderRadius: RADIUS.lg,
+                      padding: isMobile ? '14px 16px' : '12px 20px',
                       background: '#fff',
                       direction: 'rtl',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                       transition: `box-shadow 0.2s`,
                     }}
                     onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
@@ -1051,9 +1053,11 @@ export default function ExpeditionDetail() {
                         </span>
                         <span style={{
                           fontFamily: "'Ploni', sans-serif",
-                          fontSize: isMobile ? '17px' : '20px',
+                          fontSize: isMobile ? '16px' : '17px',
                           fontWeight: 800, color: '#0A0818',
                           lineHeight: 1.1,
+                          direction: 'ltr',
+                          alignSelf: 'flex-start',
                         }}>
                           {formatDateRange(g.departure, g.returnDate)}
                         </span>
