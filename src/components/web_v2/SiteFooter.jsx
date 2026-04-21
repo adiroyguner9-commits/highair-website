@@ -16,7 +16,7 @@ const TREKS  = TREK_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 const CLIMBS = CLIMB_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 
 const ISRAEL_TRIPS = [
-  { label: 'הר חרמון', href: '/israel/hermon' },
+  { label: 'טיפוס לחרמון', href: '/israel/hermon' },
 ];
 
 const INFO_LINKS = [
