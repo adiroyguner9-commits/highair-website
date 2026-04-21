@@ -1104,52 +1104,6 @@ export default function ExpeditionDetail() {
           )}
         </section>
 
-        <Separator />
-
-        {/* ── G. עלות הטיפוס ─────────────────────── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <div style={{
-            background: 'linear-gradient(135deg, #F5F3FF, #EDE9FE)',
-            borderRadius: RADIUS.xl,
-            padding: isMobile ? '32px 24px' : '48px',
-            textAlign: 'center', direction: 'rtl',
-          }}>
-            <span style={{
-              fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
-              color: COLOR.primary, textTransform: 'uppercase', letterSpacing: '2px',
-              display: 'block', marginBottom: '8px',
-            }}>
-              מחיר למשתתף
-            </span>
-            <div style={{
-              fontFamily: "'Ploni', sans-serif",
-              fontSize: 'clamp(36px, 6vw, 56px)',
-              fontWeight: 800, color: '#0A0818',
-              letterSpacing: '-0.02em', lineHeight: 1, margin: '8px 0',
-            }}>
-              {exp.priceStr}
-            </div>
-            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: '#3D3B5A', margin: '8px 0' }}>
-              בחדר זוגי · קבוצה עד 12 אנשים
-            </p>
-            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#6B6B8A', margin: '4px 0 24px' }}>
-              המחיר אינו כולל טיסות בינלאומיות וביטוח נסיעות
-            </p>
-            <button
-              onClick={scrollToForm}
-              style={{
-                background: COLOR.primary, color: 'white', border: 'none',
-                borderRadius: RADIUS.full, padding: '14px 36px',
-                fontSize: '16px', fontWeight: 700, cursor: 'pointer',
-                fontFamily: "'Ploni', sans-serif", boxShadow: SHADOW.brand.md,
-              }}
-            >
-              להרשמה ←
-            </button>
-          </div>
-        </section>
-
-        <Separator />
 
         {/* ── H. תמונות מהטיפוס ──────────────────── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
