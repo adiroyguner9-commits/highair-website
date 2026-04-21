@@ -7,52 +7,10 @@
  */
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-
-/* ══════════════════════════════════════════════════════════════
-   Israel destinations data
-   (No EXPS entries yet - using curated placeholders)
-══════════════════════════════════════════════════════════════ */
-
-const ISRAEL_TRIPS = [
-  {
-    id:    'il-1',
-    name:  'הר חרמון',
-    area:  'צפון ישראל',
-    elev:  '2814 מטר',
-    price: '₪890',
-    grad:  'linear-gradient(135deg, #1a4a2e, #2d7a4f, #0d2b1a)',
-    live:  true,
-  },
-  {
-    id:    'il-2',
-    name:  'מכתש רמון',
-    area:  'הנגב',
-    elev:  '1035 מטר',
-    price: '₪590',
-    grad:  'linear-gradient(135deg, #7c3a1a, #c2631a, #4a1e08)',
-    live:  true,
-  },
-  {
-    id:    'il-3',
-    name:  'גליל עליון',
-    area:  'הגליל',
-    elev:  '1208 מטר',
-    price: '₪690',
-    grad:  'linear-gradient(135deg, #1a3a5c, #2e6b9e, #0d1f33)',
-    live:  true,
-  },
-  {
-    id:    'il-4',
-    name:  'הרי יהודה',
-    area:  'מרכז ישראל',
-    elev:  '1016 מטר',
-    price: '₪790',
-    grad:  'linear-gradient(135deg, #4a1a6b, #7c3aad, #2a0e3d)',
-    live:  true,
-  },
-];
+import { ISRAEL_TRIPS } from '../../data/israelData.js';
 
 /* ══════════════════════════════════════════════════════════════
    Card
@@ -61,9 +19,18 @@ const ISRAEL_TRIPS = [
 function IsraelCard({ trip }) {
   const [hovered, setHovered] = useState(false);
   const { isMobile } = useBreakpoint();
+  const navigate = useNavigate();
+
+  function handleClick() {
+    if (trip.live && trip.slug) {
+      navigate(`/israel/${trip.slug}`);
+      window.scrollTo(0, 0);
+    }
+  }
 
   return (
     <div
+      onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
