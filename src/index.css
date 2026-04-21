@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'Ploni';
+  src: url('/PloniBold.otf') format('opentype');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ploni';
+  src: url('/PloniMedium.otf') format('opentype');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('/MazzardH-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('/MazzardH-Bold.ttf') format('truetype');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Ploni', sans-serif;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+button:active {
+  opacity: 0.82;
+  transform: scale(0.96);
+  transition: transform 0.08s ease, opacity 0.08s ease;
+}
