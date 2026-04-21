@@ -754,7 +754,7 @@ export default function ExpeditionDetail() {
             </div>
 
             {/* Right column — image */}
-            <div style={{ minHeight: isNarrow ? '260px' : undefined }}>
+            <div style={{ minHeight: isNarrow ? '260px' : undefined, height: '100%' }}>
               {exp.img ? (
                 <img
                   src={exp.img}
