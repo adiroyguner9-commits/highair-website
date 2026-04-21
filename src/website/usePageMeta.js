@@ -5,7 +5,7 @@
 import { useEffect } from 'react';
 
 const BASE_URL = 'https://www.highair-expeditions.com';
-const DEFAULT_IMG = `${BASE_URL}/Logo.png`;
+const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
 export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG }) {
   useEffect(() => {
