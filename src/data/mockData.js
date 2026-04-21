@@ -340,7 +340,7 @@ export const EXPS = [
     ],
   },
   {
-    id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'טיפוס לקילימנג׳רו לשומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
+    id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'קילימנג׳רו שומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
     elev: '5,895m', elevNum: 5895, days: '10 ימים | ספארי +3', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2900, priceStr: '$2900', continent: 'africa',
     img: '/images/cards/kilimanjaroKosher.jpg',
