@@ -1174,9 +1174,102 @@ export default function ExpeditionDetail() {
           </div>
         </section>
 
+        {/* ── J. עדכוני פסגה ──────────────────────── */}
+        {exp.summitUpdates?.length > 0 && (
+          <>
+            <Separator />
+            <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+              <h2 style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 8px', direction: 'rtl',
+              }}>
+                עדכוני פסגה 🏔️
+              </h2>
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', margin: '0 0 28px', direction: 'rtl' }}>
+                המטפסים שלנו שהגיעו לפסגה
+              </p>
+
+              {/* Horizontal scroll on mobile, grid on desktop */}
+              <div style={{
+                display: isMobile ? 'flex' : 'grid',
+                gridTemplateColumns: isMobile ? undefined : 'repeat(3, 1fr)',
+                gap: '16px',
+                overflowX: isMobile ? 'auto' : undefined,
+                paddingBottom: isMobile ? '8px' : undefined,
+                scrollbarWidth: 'none',
+              }}>
+                {exp.summitUpdates.map((u, i) => (
+                  <div key={i} style={{
+                    position: 'relative',
+                    borderRadius: RADIUS.xl,
+                    overflow: 'hidden',
+                    flexShrink: isMobile ? 0 : undefined,
+                    width: isMobile ? '200px' : '100%',
+                    aspectRatio: '3/4',
+                    background: '#1a1a2e',
+                    cursor: 'default',
+                  }}>
+                    {/* Photo */}
+                    <img
+                      src={u.img}
+                      alt={u.name}
+                      style={{
+                        position: 'absolute', inset: 0,
+                        width: '100%', height: '100%',
+                        objectFit: 'cover',
+                      }}
+                      onError={e => { e.currentTarget.style.display = 'none'; }}
+                    />
+
+                    {/* Gradient overlay */}
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)',
+                    }} />
+
+                    {/* Summit badge */}
+                    <div style={{
+                      position: 'absolute', top: '12px', right: '12px',
+                      background: COLOR.primary,
+                      color: 'white',
+                      fontFamily: "'Ploni', sans-serif",
+                      fontSize: '11px', fontWeight: 700,
+                      padding: '4px 10px', borderRadius: '999px',
+                      display: 'flex', alignItems: 'center', gap: '4px',
+                    }}>
+                      ✓ הגיע לפסגה
+                    </div>
+
+                    {/* Name + date */}
+                    <div style={{
+                      position: 'absolute', bottom: '14px', right: '14px', left: '14px',
+                      direction: 'rtl',
+                    }}>
+                      <div style={{
+                        fontFamily: "'Ploni', sans-serif",
+                        fontSize: '16px', fontWeight: 700,
+                        color: 'white', lineHeight: 1.2,
+                      }}>
+                        {u.name}
+                      </div>
+                      <div style={{
+                        fontFamily: "'Ploni', sans-serif",
+                        fontSize: '12px', color: 'rgba(255,255,255,0.7)',
+                        marginTop: '3px',
+                      }}>
+                        {u.date}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
+
         <Separator />
 
-        {/* ── J. שאלות ותשובות (FAQ) ──────────────── */}
+        {/* ── K. שאלות ותשובות (FAQ) ──────────────── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',

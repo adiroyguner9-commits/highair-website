@@ -302,6 +302,14 @@ export const EXPS = [
       { day: 10, title: 'ספארי במכתש נגורונגורו', desc: 'יום ספארי במכתש נגורונגורו — "גן העדן האפריקאי". מכתש הקלדרה הגדול בעולם, ביתם של כ-25,000 חיות. ריכוז בעלי חיים יוצא דופן באזור מוגן אחד.' },
       { day: 11, title: 'ביקור שבט ההדזבה — אגם אייסי', desc: 'ביקור ייחודי אצל שבט ההדזבה, אחד השבטים הקדומים בעולם שעדיין חיים כציידים-לקטים. חוויה אנתרופולוגית בלתי נשכחת ליד אגם אייסי. לאחר מכן — נסיעה לשדה התעופה וטיסה חזרה.' },
     ],
+    summitUpdates: [
+      { name: 'דני כהן',    date: 'ינואר 2025',   img: '/images/summit-1.jpg' },
+      { name: 'שרה לוי',    date: 'מרץ 2025',     img: '/images/summit-2.jpg' },
+      { name: 'תומר אביב',  date: 'יוני 2025',    img: '/images/summit-3.jpg' },
+      { name: 'נועה גרין',  date: 'אוגוסט 2025',  img: '/images/summit-4.jpg' },
+      { name: 'יוסי מזרחי', date: 'ספטמבר 2025', img: '/images/summit-5.jpg' },
+      { name: 'מיה שפירא',  date: 'נובמבר 2025',  img: '/images/summit-6.jpg' },
+    ],
   },
   {
     id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'טיפוס לקילימנג׳רו לשומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
