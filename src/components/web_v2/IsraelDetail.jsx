@@ -70,36 +70,26 @@ export default function IsraelDetail() {
   }
 
   /* ── Contact form ── */
-  const [form, setForm]     = useState({ name: '', month: '', age: '', groupSize: '1', phone: '', email: '', experience: '' });
-  const [status, setStatus] = useState('idle');
+  const [form, setForm]       = useState({ name: '', month: '', phone: '', declaration: false });
+  const [status, setStatus]   = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const [ageError, setAgeError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  const [emailError, setEmailError] = useState('');
 
-  function validateAge(val) {
-    const n = Number(val);
-    if (val && n < 16) { setAgeError('גיל מינימלי להשתתפות הוא 16'); return false; }
-    setAgeError(''); return true;
-  }
   function validatePhone(val) {
     if (val && val.replace(/\D/g, '').length < 9) { setPhoneError('מספר טלפון לא תקין'); return false; }
     setPhoneError(''); return true;
   }
-  function validateEmail(val) {
-    if (val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) { setEmailError('כתובת מייל לא תקינה'); return false; }
-    setEmailError(''); return true;
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!validateAge(form.age) || !validatePhone(form.phone) || !validateEmail(form.email)) return;
+    if (!validatePhone(form.phone)) return;
+    if (!form.declaration) return;
     setStatus('loading');
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, expedition: trip.name, type: 'israel' }),
+        body: JSON.stringify({ name: form.name, month: form.month, phone: form.phone, expedition: trip.name, type: 'israel' }),
       });
       if (!res.ok) throw new Error((await res.json()).error || 'שגיאה בשרת');
       setStatus('success');
@@ -587,12 +577,17 @@ export default function IsraelDetail() {
               <form onSubmit={handleSubmit} style={{ direction: 'rtl' }}>
                 <div style={{ display: 'grid', gap: '16px' }}>
 
+                  {/* שם מלא */}
                   <div>
                     <label style={labelStyle}>שם מלא *</label>
-                    <input type="text" required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))} style={inputStyle}
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
+                    <input type="text" required value={form.name}
+                      onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
+                      style={inputStyle}
+                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
+                      onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
                   </div>
 
+                  {/* תאריך */}
                   {(liveGroups.length > 0 || trip.dates?.length > 0) && (
                     <div>
                       <label style={labelStyle}>באיזה תאריך תרצו לטייל? *</label>
@@ -611,23 +606,7 @@ export default function IsraelDetail() {
                     </div>
                   )}
 
-                  <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '16px' }}>
-                    <div>
-                      <label style={labelStyle}>גיל *</label>
-                      <input type="number" required min="16" max="99" value={form.age}
-                        onChange={e => { const v = e.target.value.replace(/\D/g,'').slice(0,2); setForm(f => ({ ...f, age: v })); validateAge(v); }}
-                        style={{ ...inputStyle, borderColor: ageError ? '#DC2626' : '#E5E3F0' }}
-                        onFocus={e => { e.target.style.borderColor = ageError ? '#DC2626' : COLOR.primary; }} onBlur={e => { e.target.style.borderColor = ageError ? '#DC2626' : '#E5E3F0'; }} />
-                      {ageError && <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#DC2626', fontFamily: "'Ploni', sans-serif" }}>{ageError}</p>}
-                    </div>
-                    <div>
-                      <label style={labelStyle}>כמות אנשים *</label>
-                      <input type="number" required min="1" max="20" value={form.groupSize}
-                        onChange={e => setForm(f => ({ ...f, groupSize: String(Math.min(20, Math.max(1, parseInt(e.target.value)||1))) }))}
-                        style={inputStyle} onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
-                    </div>
-                  </div>
-
+                  {/* טלפון */}
                   <div>
                     <label style={labelStyle}>מספר טלפון *</label>
                     <input type="tel" required value={form.phone}
@@ -638,22 +617,27 @@ export default function IsraelDetail() {
                     {phoneError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{phoneError}</p>}
                   </div>
 
-                  <div>
-                    <label style={labelStyle}>מייל *</label>
-                    <input type="text" required value={form.email}
-                      onChange={e => { const v = e.target.value.replace(/[^a-zA-Z0-9._%+\-@]/g,''); setForm(f => ({ ...f, email: v })); if (emailError) validateEmail(v); }}
-                      onBlur={e => validateEmail(e.target.value)}
-                      style={{ ...inputStyle, direction: 'ltr', textAlign: 'right', borderColor: emailError ? '#DC2626' : '#E5E3F0' }}
-                      onFocus={e => { e.target.style.borderColor = emailError ? '#DC2626' : COLOR.primary; }} />
-                    {emailError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{emailError}</p>}
-                  </div>
-
-                  <div>
-                    <label style={labelStyle}>מה הניסיון שלך בטיולים? *</label>
-                    <textarea rows={3} required value={form.experience} onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
-                      style={{ ...inputStyle, resize: 'vertical' }} placeholder="ספרו לנו על ניסיון טיול קודם"
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
-                  </div>
+                  {/* הצהרת בריאות */}
+                  <label style={{
+                    display: 'flex', alignItems: 'flex-start', gap: '12px',
+                    cursor: 'pointer', direction: 'rtl',
+                    padding: '14px 16px',
+                    borderRadius: RADIUS.lg,
+                    border: `1.5px solid ${form.declaration ? COLOR.primary : '#E5E3F0'}`,
+                    background: form.declaration ? '#F5F0FF' : '#FAFAFA',
+                    transition: `border-color 180ms, background 180ms`,
+                  }}>
+                    <input
+                      type="checkbox"
+                      required
+                      checked={form.declaration}
+                      onChange={e => setForm(f => ({ ...f, declaration: e.target.checked }))}
+                      style={{ marginTop: '3px', width: '18px', height: '18px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
+                    />
+                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
+                      אני מצהיר/ה כי מצבי הבריאותי מאפשר השתתפות בטיול הכולל הליכות של 8-5 שעות ביום וכי קראתי והבנתי שההשתתפות היא באחריותי האישית בלבד, ללא אחריות מצד המארגנים לנזק מכל סוג
+                    </span>
+                  </label>
 
                   {status === 'error' && (
                     <div style={{ color: '#DC2626', fontSize: '14px', fontFamily: "'Ploni', sans-serif", textAlign: 'center', background: 'rgba(220,38,38,0.08)', borderRadius: RADIUS.md, padding: '10px 14px' }}>
@@ -661,7 +645,7 @@ export default function IsraelDetail() {
                     </div>
                   )}
 
-                  <button type="submit" disabled={status === 'loading'} style={{ width: '100%', background: status === 'loading' ? '#9CA3AF' : COLOR.primary, color: 'white', border: 'none', borderRadius: RADIUS.full, padding: '15px', fontSize: FS.body, fontWeight: 700, cursor: status === 'loading' ? 'not-allowed' : 'pointer', fontFamily: "'Ploni', sans-serif", transition: `background 200ms ${EASING.smooth}` }}>
+                  <button type="submit" disabled={status === 'loading' || !form.declaration} style={{ width: '100%', background: (!form.declaration || status === 'loading') ? '#9CA3AF' : COLOR.primary, color: 'white', border: 'none', borderRadius: RADIUS.full, padding: '15px', fontSize: FS.body, fontWeight: 700, cursor: (!form.declaration || status === 'loading') ? 'not-allowed' : 'pointer', fontFamily: "'Ploni', sans-serif", transition: `background 200ms ${EASING.smooth}` }}>
                     {status === 'loading' ? 'שולח...' : 'שלחו פרטים ←'}
                   </button>
                 </div>
