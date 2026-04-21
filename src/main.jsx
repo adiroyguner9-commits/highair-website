@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import './index.css';
+import './global.css';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomeV2 from './components/web_v2/HomeV2.jsx';
