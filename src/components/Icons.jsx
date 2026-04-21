@@ -61,6 +61,7 @@ const EVENT_ICON_MAP = {
   elephant:    ElephantIcon,
 };
 
+export const MedalIcon  = p => <I {...p}><circle cx="12" cy="14" r="6"/><path d="M8.5 7.5L7 2h10l-1.5 5.5"/><path d="M9 8.5C10 7.5 14 7.5 15 8.5"/></I>;
 export const ShareIcon  = p => <I {...p}><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></I>;
 export const GiftIcon   = p => <I {...p}><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></I>;
 

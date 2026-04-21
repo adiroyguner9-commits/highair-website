@@ -11,7 +11,7 @@ import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/the
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
 import StatsSection from './StatsSection.jsx';
-import { MountainIcon, HikingIcon, StarIcon } from '../Icons.jsx';
+import { MountainIcon, StarIcon, MedalIcon } from '../Icons.jsx';
 
 /* ─── Default data ─────────────────────────────────────────────── */
 const DEFAULT_REVIEWS = [
@@ -449,8 +449,8 @@ export default function ExpeditionDetail() {
         }}>
           {[
             { IconComp: MountainIcon, label: 'גובה',          value: `${exp.elevNum} מ׳` },
-            { IconComp: HikingIcon,   label: 'דרגת קושי',     value: exp.diffHe },
-            { IconComp: StarIcon,     label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '—' },
+            { IconComp: StarIcon,     label: 'דרגת קושי',     value: exp.diffHe },
+            { IconComp: MedalIcon,    label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '—' },
           ].map((s, i) => (
             <div key={i} style={{
               textAlign:    'center',
@@ -462,7 +462,7 @@ export default function ExpeditionDetail() {
               </div>
               <div style={{
                 fontFamily:    "'Ploni', sans-serif",
-                fontSize:      isMobile ? '22px' : '28px',
+                fontSize:      isMobile ? '18px' : '22px',
                 fontWeight:    900,
                 color:         '#6D28D9',
                 lineHeight:    1,
