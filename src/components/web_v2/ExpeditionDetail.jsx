@@ -644,6 +644,14 @@ export default function ExpeditionDetail() {
                 </span>
               </div>
             )}
+            {exp.priceStr && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>עלות</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>
+                  החל מ {exp.priceStr}
+                </span>
+              </div>
+            )}
           </div>
           <button
             onClick={scrollToForm}
