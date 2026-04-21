@@ -641,7 +641,7 @@ export default function ExpeditionDetail() {
                   <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
                     <span style={{
                       display: 'inline-block',
-                      background: '#059669', color: 'white',
+                      background: '#D1FAE5', color: '#065F46',
                       fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
                       padding: '4px 14px', borderRadius: '999px',
                     }}>
@@ -686,7 +686,7 @@ export default function ExpeditionDetail() {
                   <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
                     <span style={{
                       display: 'inline-block',
-                      background: '#DC2626', color: 'white',
+                      background: '#FEE2E2', color: '#991B1B',
                       fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
                       padding: '4px 14px', borderRadius: '999px',
                     }}>
