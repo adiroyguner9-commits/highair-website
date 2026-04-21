@@ -1063,21 +1063,6 @@ export default function ExpeditionDetail() {
                         </span>
                       </div>
 
-                      {/* Center: spots */}
-                      {!isMobile && (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
-                          <span style={{
-                            fontFamily: "'Ploni', sans-serif",
-                            fontSize: '22px', fontWeight: 800,
-                            color: spotsColor, lineHeight: 1,
-                          }}>
-                            {isFull ? '0' : spotsLeft}
-                          </span>
-                          <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#6B6B8A' }}>
-                            {isFull ? 'קבוצה מלאה' : 'מקומות פנויים'}
-                          </span>
-                        </div>
-                      )}
 
                       {/* Left: CTA */}
                       <button
