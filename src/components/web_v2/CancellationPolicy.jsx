@@ -5,7 +5,7 @@ import LegalPageLayout, { SECTION, H2, P, LI, UL } from './LegalPageLayout.jsx';
 
 export default function CancellationPolicy() {
   return (
-    <LegalPageLayout title="מדיניות ביטול">
+    <LegalPageLayout title="מדיניות ביטולים">
 
       <div style={SECTION}>
         <p style={P}>
