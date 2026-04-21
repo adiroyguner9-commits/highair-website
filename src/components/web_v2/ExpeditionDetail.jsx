@@ -169,7 +169,7 @@ export default function ExpeditionDetail() {
 
   /* ── Itinerary accordion: array of open indices, first open by default ── */
   const [openItinerary, setOpenItinerary] = useState([0]);
-  const [itineraryTab, setItineraryTab] = useState('trek'); // 'trek' | 'safari'
+  const [itineraryTab, setItineraryTab] = useState('safari'); // 'trek' | 'safari'
   function toggleItinerary(idx) {
     setOpenItinerary(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
@@ -741,7 +741,7 @@ export default function ExpeditionDetail() {
                   }}>
                     {[
                       { key: 'trek',   label: 'טיפוס בלבד (9 ימים)' },
-                      { key: 'safari', label: '+ ספארי (11 ימים)' },
+                      { key: 'safari', label: 'טיפוס כולל ספארי (11 ימים)' },
                     ].map(tab => (
                       <button
                         key={tab.key}
