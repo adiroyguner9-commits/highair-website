@@ -238,9 +238,15 @@ export default function ExpeditionDetail() {
             count:      counts[groupName] || 0,
           };
         })
-        /* Only upcoming departures */
+        /* Only upcoming departures, sorted by date then trek-only before safari */
         .filter(g => g.departure && new Date(g.departure) >= today)
-        .sort((a, b) => new Date(a.departure) - new Date(b.departure));
+        .sort((a, b) => {
+          const diff = new Date(a.departure) - new Date(b.departure);
+          if (diff !== 0) return diff;
+          const aSafari = a.eventName.toLowerCase().includes('safari') ? 1 : 0;
+          const bSafari = b.eventName.toLowerCase().includes('safari') ? 1 : 0;
+          return aSafari - bSafari;
+        });
 
       setLiveGroups(enriched);
       if (enriched.length > 0) {
@@ -263,6 +269,14 @@ export default function ExpeditionDetail() {
     }
     const mm2 = String(r.getMonth() + 1).padStart(2, '0');
     return `${d.getDate()}/${mm} - ${r.getDate()}/${mm2}`;
+  }
+
+  function eventLabel(name) {
+    const n = (name || '').toLowerCase();
+    if (n.includes('kosher') && n.includes('safari')) return 'טיפוס כשר + ספארי';
+    if (n.includes('kosher')) return 'טיפוס כשר';
+    if (n.includes('safari')) return 'טיפוס + ספארי';
+    return 'טיפוס בלבד';
   }
 
   function monthKey(dep) {
@@ -1001,55 +1015,83 @@ export default function ExpeditionDetail() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {visibleGroups.map(g => {
                   const spotsLeft = capacity - g.count;
-                  const isFull = spotsLeft <= 0;
+                  const isFull   = spotsLeft <= 0;
+                  const isAlmost = !isFull && spotsLeft <= 4;
+                  const isSafari = g.eventName.toLowerCase().includes('safari');
+                  const label    = eventLabel(g.eventName);
+                  const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
                   return (
                     <div key={g.id} style={{
                       display: 'flex', alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: '16px',
-                      border: `1.5px solid ${COLOR.primary}20`,
-                      borderRadius: RADIUS.full,
-                      padding: isMobile ? '12px 16px' : '12px 20px',
+                      gap: isMobile ? '12px' : '24px',
+                      border: '1px solid #ECEAF8',
+                      borderRadius: RADIUS.xl,
+                      padding: isMobile ? '16px' : '20px 28px',
                       background: '#fff',
                       direction: 'rtl',
-                    }}>
-                      {/* Date */}
-                      <span style={{
-                        fontFamily: "'Ploni', sans-serif",
-                        fontSize: isMobile ? '15px' : '17px',
-                        fontWeight: 700, color: COLOR.primary,
-                        whiteSpace: 'nowrap', flexShrink: 0,
-                      }}>
-                        {formatDateRange(g.departure, g.returnDate)}
-                      </span>
-
-                      {/* Spots */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1, justifyContent: 'center' }}>
-                        <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A' }}>
-                          מקומות שוריינו
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                      transition: `box-shadow 0.2s`,
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
+                    onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'}
+                    >
+                      {/* Right: badge + date */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+                        <span style={{
+                          display: 'inline-block', alignSelf: 'flex-start',
+                          background: isSafari ? '#FEF3C7' : '#EDE9FE',
+                          color: isSafari ? '#92400E' : '#5B21B6',
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '11px', fontWeight: 700,
+                          padding: '3px 10px', borderRadius: '999px',
+                          letterSpacing: '0.02em',
+                        }}>
+                          {label}
                         </span>
                         <span style={{
                           fontFamily: "'Ploni', sans-serif",
-                          fontSize: '14px', fontWeight: 700,
-                          color: isFull ? '#DC2626' : '#059669',
+                          fontSize: isMobile ? '17px' : '20px',
+                          fontWeight: 800, color: '#0A0818',
+                          lineHeight: 1.1,
                         }}>
-                          {g.count} / {capacity}
+                          {formatDateRange(g.departure, g.returnDate)}
                         </span>
                       </div>
 
-                      {/* CTA */}
+                      {/* Center: spots */}
+                      {!isMobile && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
+                          <span style={{
+                            fontFamily: "'Ploni', sans-serif",
+                            fontSize: '22px', fontWeight: 800,
+                            color: spotsColor, lineHeight: 1,
+                          }}>
+                            {isFull ? '0' : spotsLeft}
+                          </span>
+                          <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#6B6B8A' }}>
+                            {isFull ? 'קבוצה מלאה' : 'מקומות פנויים'}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Left: CTA */}
                       <button
                         onClick={scrollToForm}
+                        disabled={isFull}
                         style={{
-                          background: COLOR.primary, color: 'white',
+                          background: isFull ? '#E5E7EB' : COLOR.primary,
+                          color: isFull ? '#9CA3AF' : 'white',
                           border: 'none', borderRadius: RADIUS.full,
-                          padding: isMobile ? '10px 18px' : '10px 24px',
+                          padding: isMobile ? '10px 16px' : '12px 28px',
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: '14px', fontWeight: 700,
-                          cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+                          cursor: isFull ? 'not-allowed' : 'pointer',
+                          whiteSpace: 'nowrap', flexShrink: 0,
+                          transition: 'background 0.2s',
                         }}
                       >
-                        לפרטים &gt;&gt;
+                        {isFull ? 'מלא' : 'להרשמה ←'}
                       </button>
                     </div>
                   );
