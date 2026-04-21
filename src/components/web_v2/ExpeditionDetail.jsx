@@ -1041,6 +1041,7 @@ export default function ExpeditionDetail() {
                         fontWeight: 800, color: '#0A0818',
                         lineHeight: 1.1,
                         direction: 'ltr',
+                        width: isMobile ? '90px' : '110px',
                         flexShrink: 0,
                       }}>
                         {formatDateRange(g.departure, g.returnDate)}
