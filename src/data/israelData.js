@@ -18,7 +18,7 @@ export const ISRAEL_TRIPS = [
     seasons: ['דצמבר-פברואר'],
     tagline: 'הצטרפו אלינו לטיפוס אל הפסגה הגבוהה ביותר בישראל\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
     grad:    'linear-gradient(135deg, #1a4a2e, #2d7a4f, #0d2b1a)',
-    img:     null,
+    img:     '/images/cards/Hermon.avif',
     live:            true,
     airtableEvents:  ['Hermon'],
     groupCapacity:   12,

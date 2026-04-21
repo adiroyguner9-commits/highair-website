@@ -6,7 +6,7 @@
  * · Coming-soon cards for destinations not yet live
  */
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -17,9 +17,25 @@ import { ISRAEL_TRIPS } from '../../data/israelData.js';
 ══════════════════════════════════════════════════════════════ */
 
 function IsraelCard({ trip }) {
-  const [hovered, setHovered] = useState(false);
+  const [hovered,  setHovered]  = useState(false);
+  const [imgReady, setImgReady] = useState(!trip.img);
+  const cardRef  = useRef(null);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!trip.img) return;
+    const el  = cardRef.current;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setImgReady(true); obs.disconnect(); }
+    }, { rootMargin: '200px' });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [trip.img]);
+
+  const bg = trip.img
+    ? (imgReady ? `url(${trip.img}) center/cover no-repeat` : trip.grad)
+    : trip.grad;
 
   function handleClick() {
     if (trip.live && trip.slug) {
@@ -30,15 +46,14 @@ function IsraelCard({ trip }) {
 
   return (
     <div
+      ref={cardRef}
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        flex:          '1 0 0',
-        minWidth:      0,
         borderRadius:  RADIUS.xl,
         overflow:      'hidden',
-        background:    trip.grad,
+        background:    bg,
         display:       'flex',
         flexDirection: 'column',
         justifyContent:'space-between',
@@ -49,10 +64,20 @@ function IsraelCard({ trip }) {
                          ? '0 20px 48px rgba(0,0,0,0.22)'
                          : '0 6px 20px rgba(0,0,0,0.12)',
         transition:    `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
+        position:      'relative',
       }}
     >
+      {/* Dark overlay for photo cards */}
+      {trip.img && (
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%)',
+          zIndex: 0,
+        }} />
+      )}
+
       {/* ── Top: area badge ── */}
-      <div style={{ padding: '18px 18px 0', direction: 'rtl' }}>
+      <div style={{ padding: '18px 18px 0', direction: 'rtl', position: 'relative', zIndex: 1 }}>
         <div style={{
           display:             'inline-flex',
           alignItems:          'center',
@@ -73,10 +98,8 @@ function IsraelCard({ trip }) {
         </div>
       </div>
 
-      {/* ── Bottom: name / elev / button ── */}
-      <div style={{ padding: '0 20px 24px', direction: 'rtl' }}>
-
-        {/* שם + חץ */}
+      {/* ── Bottom: name / elev / arrow ── */}
+      <div style={{ padding: '0 20px 24px', direction: 'rtl', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px' }}>
           <div>
             <h3 style={{
@@ -90,9 +113,19 @@ function IsraelCard({ trip }) {
             }}>
               {trip.name}
             </h3>
+            {trip.elevStr && (
+              <p style={{
+                fontFamily: "'Ploni', sans-serif",
+                fontSize:   FS.sm,
+                fontWeight: 400,
+                color:      'rgba(255,255,255,0.85)',
+                margin:     0,
+                letterSpacing: '0.02em',
+              }}>
+                {trip.elevStr}
+              </p>
+            )}
           </div>
-
-          {/* חץ */}
           <div style={{
             fontSize:      '20px',
             color:         hovered && trip.live ? '#FFFFFF' : 'rgba(255,255,255,0.25)',
@@ -100,11 +133,8 @@ function IsraelCard({ trip }) {
             lineHeight:    1,
             flexShrink:    0,
             paddingBottom: '2px',
-          }}>
-            ←
-          </div>
+          }}>←</div>
         </div>
-
       </div>
     </div>
   );
@@ -157,9 +187,10 @@ export default function IsraelTrips() {
 
         {/* ── Cards grid ── */}
         <div style={{
-          display:       'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap:           '18px',
+          display:             isMobile ? 'flex' : 'grid',
+          flexDirection:       isMobile ? 'column' : undefined,
+          gridTemplateColumns: isMobile ? undefined : 'repeat(4, 1fr)',
+          gap:                 '18px',
         }}>
           {ISRAEL_TRIPS.map(trip => (
             <IsraelCard key={trip.id} trip={trip} />
