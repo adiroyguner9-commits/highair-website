@@ -169,7 +169,7 @@ export default function ExpeditionDetail() {
 
   /* ── Itinerary accordion: array of open indices, first open by default ── */
   const [openItinerary, setOpenItinerary] = useState([]);
-  const [itineraryTab, setItineraryTab] = useState('trek'); // 'trek' | 'safari'
+  const [itineraryTab, setItineraryTab] = useState('safari'); // 'trek' | 'safari'
   function toggleItinerary(idx) {
     setOpenItinerary(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
