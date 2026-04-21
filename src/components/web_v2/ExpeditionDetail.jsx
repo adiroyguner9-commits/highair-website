@@ -10,6 +10,7 @@ import { EXPS } from '../../data/mockData.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
+import SiteFooter from './SiteFooter.jsx';
 import StatsSection from './StatsSection.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon } from '../Icons.jsx';
 
@@ -1226,7 +1227,7 @@ export default function ExpeditionDetail() {
       </main>
 
       {/* ══════════════════════════════════
-          SECTION K: CONTACT FORM
+          CONTACT FORM
       ══════════════════════════════════ */}
       <div
         id="contact-form"
@@ -1295,9 +1296,14 @@ export default function ExpeditionDetail() {
                       onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     >
                       <option value="">בחרו חודש</option>
-                      {(exp.dates || []).map((d, i) => (
-                        <option key={i} value={d}>{d}</option>
-                      ))}
+                      {months.length > 0
+                        ? months.map(([key, label]) => (
+                            <option key={key} value={label}>{label}</option>
+                          ))
+                        : (exp.dates || []).map((d, i) => (
+                            <option key={i} value={d}>{d}</option>
+                          ))
+                      }
                       <option value="גמיש / טרם החלטתי">גמיש / טרם החלטתי</option>
                     </select>
                   </div>
@@ -1437,6 +1443,7 @@ export default function ExpeditionDetail() {
         </div>
       </div>
 
+      <SiteFooter />
     </div>
   );
 }
