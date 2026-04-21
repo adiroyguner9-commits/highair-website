@@ -753,16 +753,20 @@ export default function ExpeditionDetail() {
               })()}
             </div>
 
-            {/* Right column — image */}
-            <div style={{ minHeight: isNarrow ? '260px' : undefined, height: '100%' }}>
+            {/* Right column — image, stretches to text height */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: isNarrow ? '260px' : '400px',
+            }}>
               {exp.img ? (
                 <img
                   src={exp.img}
                   alt={exp.nameHe}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: RADIUS.xl, display: 'block' }}
+                  style={{ width: '100%', flex: 1, objectFit: 'cover', borderRadius: RADIUS.xl, display: 'block', minHeight: '260px' }}
                 />
               ) : (
-                <div style={{ width: '100%', height: '100%', minHeight: '260px', background: exp.grad, borderRadius: RADIUS.xl }} />
+                <div style={{ flex: 1, minHeight: '260px', background: exp.grad, borderRadius: RADIUS.xl }} />
               )}
             </div>
           </div>
