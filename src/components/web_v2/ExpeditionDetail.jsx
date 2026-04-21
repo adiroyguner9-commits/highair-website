@@ -184,6 +184,79 @@ export default function ExpeditionDetail() {
 
   /* ── FAQ accordion ── */
   const [openFaq, setOpenFaq] = useState(null);
+
+  /* ── Live groups from Airtable ── */
+  const [liveGroups, setLiveGroups]         = useState([]);
+  const [groupsLoading, setGroupsLoading]   = useState(false);
+  const [activeMonth, setActiveMonth]       = useState(null);
+
+  useEffect(() => {
+    if (!exp?.airtableEvents?.length) return;
+    setGroupsLoading(true);
+
+    const eventFilter = exp.airtableEvents.map(e => `{Name}="${e}"`).join(',');
+    const formula     = encodeURIComponent(`OR(${eventFilter})`);
+
+    Promise.all([
+      fetch(`/api/airtable/Groups?filterByFormula=${formula}&fields[]=departure&fields[]=return&fields[]=Name`)
+        .then(r => r.json()),
+      fetch(`/api/airtable/Customers?fields[]=group%20name`)
+        .then(r => r.json()),
+    ]).then(([groupsData, custData]) => {
+      /* count customers per group name */
+      const counts = {};
+      (custData.records || []).forEach(rec => {
+        const gn = rec.fields['group name'];
+        if (gn) counts[gn] = (counts[gn] || 0) + 1;
+      });
+
+      const enriched = (groupsData.records || [])
+        .map(rec => ({
+          id:        rec.id,
+          eventName: rec.fields.Name,
+          departure: rec.fields.departure,
+          returnDate:rec.fields.return,
+          count:     counts[rec.fields.Name] || 0,
+        }))
+        .filter(g => g.departure)
+        .sort((a, b) => new Date(a.departure) - new Date(b.departure));
+
+      setLiveGroups(enriched);
+
+      if (enriched.length > 0) {
+        const d = new Date(enriched[0].departure);
+        setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
+      }
+    }).catch(console.error)
+      .finally(() => setGroupsLoading(false));
+  }, [exp?.airtableEvents?.join(',')]);
+
+  /* helpers */
+  function formatDateRange(dep, ret) {
+    const d = new Date(dep);
+    const r = new Date(ret || dep);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    if (!ret || (d.getMonth() === r.getMonth() && d.getFullYear() === r.getFullYear())) {
+      return `${d.getDate()}-${r.getDate()}/${mm}`;
+    }
+    const mm2 = String(r.getMonth() + 1).padStart(2, '0');
+    return `${d.getDate()}/${mm} - ${r.getDate()}/${mm2}`;
+  }
+
+  function monthKey(dep) {
+    const d = new Date(dep);
+    return `${d.getFullYear()}-${d.getMonth()}`;
+  }
+
+  function monthLabel(dep) {
+    const d = new Date(dep);
+    return d.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' });
+  }
+
+  /* unique months from live groups */
+  const months = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
+  const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
+  const capacity = exp?.groupCapacity || 15;
   const [heroBtnHovered, setHeroBtnHovered] = useState(false);
 
   /* ── Form state ── */
@@ -864,17 +937,107 @@ export default function ExpeditionDetail() {
 
         <Separator />
 
-        {/* ── F. תאריכי יציאה ───────────────────── */}
+        {/* ── F. תאריכי יציאה (Airtable live) ───── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
+            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px',
           }}>
             תאריכי יציאה לטיפוס
           </h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-            {(exp.dates || []).map((date, i) => <DateChip key={i} date={date} />)}
-          </div>
+
+          {groupsLoading ? (
+            <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px' }}>טוען תאריכים...</div>
+          ) : liveGroups.length === 0 ? (
+            <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px' }}>אין תאריכים זמינים כרגע</div>
+          ) : (
+            <>
+              {/* Month tabs */}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
+                {months.map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveMonth(key)}
+                    style={{
+                      padding: '8px 20px',
+                      borderRadius: RADIUS.full,
+                      border: `1.5px solid ${activeMonth === key ? COLOR.primary : '#ECEAF8'}`,
+                      background: activeMonth === key ? COLOR.primary : '#fff',
+                      color: activeMonth === key ? 'white' : '#3D3B5A',
+                      fontFamily: "'Ploni', sans-serif",
+                      fontSize: '14px', fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: `all 0.2s ${EASING.smooth}`,
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Group cards */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {visibleGroups.map(g => {
+                  const spotsLeft = capacity - g.count;
+                  const isFull = spotsLeft <= 0;
+                  return (
+                    <div key={g.id} style={{
+                      display: 'flex', alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '16px',
+                      border: `1.5px solid ${COLOR.primary}20`,
+                      borderRadius: RADIUS.full,
+                      padding: isMobile ? '12px 16px' : '12px 20px',
+                      background: '#fff',
+                      direction: 'rtl',
+                    }}>
+                      {/* Date */}
+                      <span style={{
+                        fontFamily: "'Ploni', sans-serif",
+                        fontSize: isMobile ? '15px' : '17px',
+                        fontWeight: 700, color: COLOR.primary,
+                        whiteSpace: 'nowrap', flexShrink: 0,
+                      }}>
+                        {formatDateRange(g.departure, g.returnDate)}
+                      </span>
+
+                      {/* Spots */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1, justifyContent: 'center' }}>
+                        <span style={{
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '14px', color: '#6B6B8A',
+                        }}>
+                          מקומות שוריינו
+                        </span>
+                        <span style={{
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '14px', fontWeight: 700,
+                          color: isFull ? '#DC2626' : '#059669',
+                        }}>
+                          {g.count} / {capacity}
+                        </span>
+                      </div>
+
+                      {/* CTA */}
+                      <button
+                        onClick={scrollToForm}
+                        style={{
+                          background: COLOR.primary, color: 'white',
+                          border: 'none', borderRadius: RADIUS.full,
+                          padding: isMobile ? '10px 18px' : '10px 24px',
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '14px', fontWeight: 700,
+                          cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+                        }}
+                      >
+                        לפרטים &gt;&gt;
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </section>
 
         <Separator />

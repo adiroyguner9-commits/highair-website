@@ -11,6 +11,7 @@
  */
 
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
@@ -28,7 +29,7 @@ const WA_NUMBER = '972555636975';
 const WA_HREF   = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
 
 /* ── Smooth scroll with header offset ── */
-function scrollTo(href) {
+function scrollToSection(href) {
   const id = href.replace('#', '');
   const el = document.getElementById(id);
   if (!el) return;
@@ -37,13 +38,24 @@ function scrollTo(href) {
 }
 
 /* ── Single nav link ── */
-function NavLink({ label, href, onClick }) {
+function NavLink({ label, href, onClick, onNavigate }) {
   const [hovered, setHovered] = useState(false);
+  const location = useLocation();
+
+  function handleClick(e) {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      scrollToSection(href);
+    } else {
+      onNavigate?.(href);
+    }
+    onClick?.();
+  }
 
   return (
     <a
       href={href}
-      onClick={e => { e.preventDefault(); scrollTo(href); onClick?.(); }}
+      onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -82,8 +94,15 @@ export default function Header() {
   const [waBtnHovered, setWaBtnHovered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { isMobile } = useBreakpoint();
+  const navigate = useNavigate();
 
   const closeMenu = () => setMenuOpen(false);
+
+  function handleNavigation(href) {
+    navigate('/');
+    // קצת השהייה כדי שהדף יטען לפני הגלילה
+    setTimeout(() => scrollToSection(href), 100);
+  }
 
   return (
     <header style={{
@@ -169,7 +188,7 @@ export default function Header() {
           justifyContent: 'center',
         }}>
           {LINKS.map(link => (
-            <NavLink key={link.label} label={link.label} href={link.href} />
+            <NavLink key={link.label} label={link.label} href={link.href} onNavigate={handleNavigation} />
           ))}
         </nav>
       )}
@@ -261,7 +280,7 @@ export default function Header() {
             <a
               key={link.label}
               href={link.href}
-              onClick={e => { e.preventDefault(); scrollTo(link.href); closeMenu(); }}
+              onClick={e => { e.preventDefault(); handleNavigation(link.href); closeMenu(); }}
               style={{
                 display:        'block',
                 fontFamily:     "'Ploni', sans-serif",
