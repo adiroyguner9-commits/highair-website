@@ -1350,7 +1350,7 @@ export default function ExpeditionDetail() {
                         ...inputStyle,
                         direction: 'ltr',
                         textAlign: 'right',
-                        borderColor: phoneError ? '#DC2626' : undefined,
+                        borderColor: phoneError ? '#DC2626' : '#E5E3F0',
                       }}
                       onFocus={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
                     />
@@ -1378,7 +1378,7 @@ export default function ExpeditionDetail() {
                         ...inputStyle,
                         direction: 'ltr',
                         textAlign: 'right',
-                        borderColor: emailError ? '#DC2626' : undefined,
+                        borderColor: emailError ? '#DC2626' : '#E5E3F0',
                       }}
                       onFocus={e => { e.target.style.borderColor = emailError ? '#DC2626' : COLOR.primary; }}
                     />
