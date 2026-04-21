@@ -195,7 +195,7 @@ export default function SiteFooter() {
             <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', marginBottom: '16px', border: '2px solid #E2E0F0', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src="/Logo.png" alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, maxWidth: '240px', textAlign: 'right', whiteSpace: 'pre-line' }}>
+            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, width: '100%', textAlign: 'right', whiteSpace: 'pre-line' }}>
               {'משלחות טיפוס הרים וטרקים בעולם ובישראל\nבשילוב תרומה לחולי סרטן בכל מסע.'}
             </p>
             <SocialIcons size={36} justify="flex-start" />
