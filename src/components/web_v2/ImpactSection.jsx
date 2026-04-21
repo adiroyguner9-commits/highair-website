@@ -8,10 +8,10 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 const SLIDES = [
-  '/images/img-1.avif',
-  '/images/img-2.avif',
-  '/images/img-3.avif',
-  '/images/img-4.avif',
+  '/images/donation/img-1.avif',
+  '/images/donation/img-2.avif',
+  '/images/donation/img-3.avif',
+  '/images/donation/img-4.avif',
 ];
 
 const PARAGRAPHS = [
