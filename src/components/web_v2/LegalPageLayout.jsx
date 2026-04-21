@@ -3,10 +3,18 @@
  * Usage: <LegalPageLayout title="..." subtitle="...">…sections…</LegalPageLayout>
  */
 import { useEffect } from 'react';
-import Header     from './Header.jsx';
-import SiteFooter from './SiteFooter.jsx';
-import FloatingWA from './FloatingWA.jsx';
-import { FS }     from '../../website/theme.js';
+import Header          from './Header.jsx';
+import SiteFooter      from './SiteFooter.jsx';
+import FloatingWA      from './FloatingWA.jsx';
+import { FS }          from '../../website/theme.js';
+import { usePageMeta } from '../../website/usePageMeta.js';
+
+const SLUG_MAP = {
+  'מדיניות ביטולים':     '/cancellation',
+  'תקנון ותנאי שימוש':  '/terms',
+  'מדיניות פרטיות':     '/privacy',
+  'הצהרת נגישות':       '/accessibility',
+};
 
 /* ── Shared style tokens (import these in every page) ── */
 export const SECTION = {
@@ -58,6 +66,12 @@ export const LINK = {
 /* ── Layout wrapper ── */
 export default function LegalPageLayout({ title, subtitle = 'עודכן לאחרונה: אפריל 2025', children }) {
   useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  usePageMeta({
+    title:         `${title} | HighAir Expeditions`,
+    description:   `${title} — HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.`,
+    canonicalPath: SLUG_MAP[title] || '/',
+  });
 
   return (
     <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>

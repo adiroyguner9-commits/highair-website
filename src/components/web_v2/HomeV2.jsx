@@ -5,6 +5,7 @@
 
 import { lazy, Suspense } from 'react';
 import { useInView }      from '../../website/useInView.js';
+import { usePageMeta }    from '../../website/usePageMeta.js';
 import Header             from './Header.jsx';
 import FloatingWA         from './FloatingWA.jsx';
 import HeroSection        from './HeroSection.jsx';
@@ -50,6 +51,12 @@ function FadeIn({ children, delay = 0 }) {
 
 /* ── Page ── */
 export default function HomeV2() {
+  usePageMeta({
+    title:         'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם',
+    description:   'HighAir Expeditions — משלחות טיפוס הרים וטרקים בארץ ובעולם. קילימנג׳רו, אוורסט, אנאפורנה, אקונקגואה ועוד — בשילוב תרומה למלחמה בסרטן.',
+    canonicalPath: '/',
+  });
+
   return (
     <div style={{ position: 'relative', background: '#FFFFFF' }}>
 

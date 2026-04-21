@@ -197,32 +197,30 @@ export default function IsraelTrips() {
           ))}
         </div>
 
-        {/* ── Bottom CTA ── */}
-        <div style={{
-          textAlign: 'center',
-          marginTop: '48px',
-          direction: 'ltr',
-        }}>
-          <button
-            onMouseEnter={() => setCtaHovered(true)}
-            onMouseLeave={() => setCtaHovered(false)}
-            style={{
-              ...BTN.outline,
-              fontFamily:   "'Ploni', sans-serif",
-              fontSize:     FS.btn,
-              fontWeight:   700,
-              padding:      '14px 48px',
-              letterSpacing:'0.01em',
-              background:   ctaHovered ? COLOR.primary : 'transparent',
-              color:        ctaHovered ? '#FFFFFF'      : COLOR.primary,
-              boxShadow:    ctaHovered ? '0 6px 22px rgba(109,40,217,0.30)' : 'none',
-              transform:    ctaHovered ? 'translateY(-1px)' : 'none',
-              transition:   `all 0.22s ${EASING.out}`,
-            }}
-          >
-            צפה בכל הטיולים בארץ
-          </button>
-        </div>
+        {/* ── Bottom CTA — only when more than 1 trip ── */}
+        {ISRAEL_TRIPS.length > 1 && (
+          <div style={{ textAlign: 'center', marginTop: '48px', direction: 'ltr' }}>
+            <button
+              onMouseEnter={() => setCtaHovered(true)}
+              onMouseLeave={() => setCtaHovered(false)}
+              style={{
+                ...BTN.outline,
+                fontFamily:    "'Ploni', sans-serif",
+                fontSize:      FS.btn,
+                fontWeight:    700,
+                padding:       '14px 48px',
+                letterSpacing: '0.01em',
+                background:    ctaHovered ? COLOR.primary : 'transparent',
+                color:         ctaHovered ? '#FFFFFF'      : COLOR.primary,
+                boxShadow:     ctaHovered ? '0 6px 22px rgba(109,40,217,0.30)' : 'none',
+                transform:     ctaHovered ? 'translateY(-1px)' : 'none',
+                transition:    `all 0.22s ${EASING.out}`,
+              }}
+            >
+              צפה בכל הטיולים בארץ
+            </button>
+          </div>
+        )}
 
       </div>
     </section>

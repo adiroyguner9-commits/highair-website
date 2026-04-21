@@ -5,6 +5,7 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate }      from 'react-router-dom';
+import { usePageMeta }                 from '../../website/usePageMeta.js';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import Header                          from './Header.jsx';
@@ -50,6 +51,17 @@ export default function IsraelDetail() {
   const { isMobile, isTablet } = useBreakpoint();
   const isNarrow   = isMobile || isTablet;
   const trip       = ISRAEL_TRIPS.find(t => t.slug === slug);
+
+  usePageMeta(trip ? {
+    title:         `${trip.name} | HighAir Expeditions`,
+    description:   `הצטרפו לטיול ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' — ' : ''}טיול ${trip.days} בשילוב תרומה למלחמה בסרטן.`,
+    canonicalPath: `/israel/${trip.slug}`,
+    image:         trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
+  } : {
+    title:       'HighAir Expeditions | טיולים בישראל',
+    description: 'טיולים וטרקים בישראל עם HighAir Expeditions.',
+    canonicalPath: '/israel/' + slug,
+  });
 
   /* ── Floating stats bar ── */
   const heroRef    = useRef(null);

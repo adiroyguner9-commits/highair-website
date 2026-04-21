@@ -7,6 +7,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { EXPS } from '../../data/mockData.js';
+import { usePageMeta } from '../../website/usePageMeta.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
@@ -167,6 +168,17 @@ export default function ExpeditionDetail() {
   const isNarrow = isMobile || isTablet;
 
   const exp = EXPS.find(e => e.slug === slug);
+
+  usePageMeta(exp ? {
+    title:         `${exp.nameHe} | HighAir Expeditions`,
+    description:   `הצטרפו למשלחת ${exp.nameHe} עם HighAir Expeditions. ${exp.elev ? exp.elev + ' — ' : ''}טיפוס הרים וטרקים בשילוב תרומה למלחמה בסרטן.`,
+    canonicalPath: `/expedition/${exp.slug}`,
+    image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
+  } : {
+    title:       'HighAir Expeditions | משלחות הרים',
+    description: 'משלחות טיפוס הרים וטרקים בעולם.',
+    canonicalPath: '/expedition/' + slug,
+  });
 
   /* ── Floating bar state ── */
   const heroRef = useRef(null);
