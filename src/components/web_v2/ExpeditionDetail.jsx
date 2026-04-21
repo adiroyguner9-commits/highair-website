@@ -10,6 +10,8 @@ import { EXPS } from '../../data/mockData.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
+import StatsSection from './StatsSection.jsx';
+import { MountainIcon, HikingIcon, StarIcon } from '../Icons.jsx';
 
 /* ─── Default data ─────────────────────────────────────────────── */
 const DEFAULT_REVIEWS = [
@@ -344,33 +346,37 @@ export default function ExpeditionDetail() {
         }} />
 
 
-        {/* Hero content — centered */}
+        {/* Hero content — title top, subtitle+CTA bottom */}
         <div style={{
           position: 'absolute', inset: 0, zIndex: 2,
           display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center',
+          alignItems: 'center',
+          justifyContent: 'space-between',
           textAlign: 'center',
-          padding: isMobile ? '80px 6% 40px' : '80px 8% 60px',
-          gap: isMobile ? '14px' : '18px',
+          padding: isMobile ? '140px 6% 120px' : '160px 8% 130px',
         }}>
-          {/* Title: name + elevation */}
-          <h1 style={{
-            fontFamily: "'Ploni', sans-serif",
-            fontSize: isMobile ? 'clamp(28px, 7vw, 44px)' : 'clamp(36px, 5vw, 62px)',
-            fontWeight: 800,
-            color: 'white',
-            letterSpacing: '-0.02em',
-            margin: 0,
-            lineHeight: 1.1,
-            textShadow: '0 2px 20px rgba(0,0,0,0.5)',
-          }}>
-            {exp.nameHe} ({exp.elevNum} מ׳)
-          </h1>
+          {/* Title: name + elevation — pinned to top */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 style={{
+              fontFamily: "'Ploni', sans-serif",
+              fontSize: FS.h1,
+              fontWeight: 800,
+              color: 'white',
+              letterSpacing: '-0.02em',
+              margin: 0,
+              lineHeight: 1.1,
+              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
+            }}>
+              {exp.nameHe} ({exp.elevNum} מ׳)
+            </h1>
+          </div>
 
+          {/* Tagline + CTA — pinned to bottom */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: isMobile ? '14px' : '18px' }}>
           {/* Tagline */}
           <p style={{
             fontFamily: "'Ploni', sans-serif",
-            fontSize: isMobile ? '14px' : '17px',
+            fontSize: FS.body,
             fontWeight: 400,
             color: 'rgba(255,255,255,0.80)',
             margin: 0,
@@ -412,10 +418,72 @@ export default function ExpeditionDetail() {
           >
             לתיאום שיחה עם מומחה ←
           </button>
+          </div>
         </div>
 
         {/* IntersectionObserver sentinel — bottom of hero */}
         <div ref={heroRef} style={{ position: 'absolute', bottom: 0, width: '100%', height: '1px', zIndex: 0 }} />
+      </div>
+
+      {/* ══════════════════════════════════
+          STATS STRIP — expedition specific
+      ══════════════════════════════════ */}
+      <div style={{
+        padding:   '0 5%',
+        boxSizing: 'border-box',
+        marginTop: '-52px',
+        position:  'relative',
+        zIndex:    10,
+        direction: 'rtl',
+      }}>
+        <div style={{
+          maxWidth:            '1100px',
+          margin:              '0 auto',
+          background:          '#FFFFFF',
+          borderRadius:        '20px',
+          boxShadow:           '0 20px 60px rgba(0,0,0,0.15)',
+          padding:             isMobile ? '16px 20px' : '22px 52px',
+          display:             'grid',
+          gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(3, 1fr)',
+          gap:                 '0',
+        }}>
+          {[
+            { IconComp: MountainIcon, label: 'גובה',          value: `${exp.elevNum} מ׳` },
+            { IconComp: HikingIcon,   label: 'דרגת קושי',     value: exp.diffHe },
+            { IconComp: StarIcon,     label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '—' },
+          ].map((s, i) => (
+            <div key={i} style={{
+              textAlign:    'center',
+              padding:      isMobile ? '14px 8px' : '4px 24px',
+              borderRight:  (!isMobile && i > 0) ? '1px solid #ECEAF8' : 'none',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '4px', color: COLOR.primary }}>
+                <s.IconComp size={isMobile ? 22 : 26} color={COLOR.primary} />
+              </div>
+              <div style={{
+                fontFamily:    "'Ploni', sans-serif",
+                fontSize:      isMobile ? '22px' : '28px',
+                fontWeight:    900,
+                color:         '#6D28D9',
+                lineHeight:    1,
+                letterSpacing: '-0.02em',
+                direction:     'rtl',
+              }}>
+                {s.value}
+              </div>
+              <div style={{
+                fontFamily: "'Ploni', sans-serif",
+                fontSize:   FS.sm,
+                fontWeight: 400,
+                color:      '#6B6B8A',
+                marginTop:  '6px',
+                lineHeight: 1.4,
+              }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ══════════════════════════════════
@@ -438,23 +506,23 @@ export default function ExpeditionDetail() {
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
               <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>גובה</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>
-                ⛰️ {exp.elevNum.toLocaleString()} מ׳
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <MountainIcon size={14} color="#0A0818" /> {exp.elevNum.toLocaleString()} מ׳
               </span>
             </div>
             {!isMobile && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>רמה</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>
-                  💪 {exp.diffHe}
+                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <HikingIcon size={14} color="#0A0818" /> {exp.diffHe}
                 </span>
               </div>
             )}
             {!isMobile && seasons.length > 0 && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>עונות</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>
-                  🗓️ {seasons.join(', ')}
+                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <CalendarIcon size={14} color="#0A0818" /> {seasons.join(', ')}
                 </span>
               </div>
             )}
