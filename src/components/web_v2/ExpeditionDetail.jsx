@@ -343,21 +343,6 @@ export default function ExpeditionDetail() {
           zIndex: 1,
         }} />
 
-        {/* Back button */}
-        <button
-          onClick={() => navigate(-1)}
-          style={{
-            position: 'absolute', top: '120px', right: '5%', zIndex: 10,
-            ...glass(0.15),
-            border: '1px solid rgba(255,255,255,0.25)',
-            color: 'white', cursor: 'pointer',
-            padding: '10px 20px', borderRadius: RADIUS.full,
-            fontSize: '14px', fontWeight: 600,
-            fontFamily: "'Ploni', sans-serif",
-          }}
-        >
-          → חזרה
-        </button>
 
         {/* Hero content — centered */}
         <div style={{
