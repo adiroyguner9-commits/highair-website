@@ -229,7 +229,7 @@ export const EXPS = [
     elev: '5,895m', elevNum: 5895, days: '9 ימים | ספארי +3', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 9900, priceStr: '₪9,900', continent: 'africa',
     img: '/images/kilimanjaro.jpg',
-    airtableEvents: ['Kilimanjaro', 'kilimanjaro_with_safari'],
+    airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
     tagline: 'הצטרפו לטיפוס אל פסגת הקילימנג׳רו בטנזניה\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
     grad: 'linear-gradient(135deg,#f97316,#ea580c,#7c2d12)',

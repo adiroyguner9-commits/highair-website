@@ -186,49 +186,71 @@ export default function ExpeditionDetail() {
   const [openFaq, setOpenFaq] = useState(null);
 
   /* ── Live groups from Airtable ── */
+  const hasAirtable = !!(exp?.airtableEvents?.length);
   const [liveGroups, setLiveGroups]         = useState([]);
-  const [groupsLoading, setGroupsLoading]   = useState(false);
+  const [groupsLoading, setGroupsLoading]   = useState(hasAirtable);
+  const [groupsError, setGroupsError]       = useState(null);
   const [activeMonth, setActiveMonth]       = useState(null);
 
   useEffect(() => {
-    if (!exp?.airtableEvents?.length) return;
+    if (!hasAirtable) return;
     setGroupsLoading(true);
+    setGroupsError(null);
 
-    const eventFilter = exp.airtableEvents.map(e => `{Name}="${e}"`).join(',');
-    const formula     = encodeURIComponent(`OR(${eventFilter})`);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
+    /* Fetch all groups (no server-side filter — avoids field-name guessing).
+       Airtable field names confirmed from screenshot:
+         Event, Group Name, Departure, Return */
     Promise.all([
-      fetch(`/api/airtable/Groups?filterByFormula=${formula}&fields[]=departure&fields[]=return&fields[]=Name`)
+      fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return`)
         .then(r => r.json()),
-      fetch(`/api/airtable/Customers?fields[]=group%20name`)
+      fetch(`/api/airtable/Customers?fields[]=Group%20Name`)
         .then(r => r.json()),
     ]).then(([groupsData, custData]) => {
-      /* count customers per group name */
+      if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
+
+      /* Count customers per Group Name (e.g. "Kili_05_01") */
       const counts = {};
       (custData.records || []).forEach(rec => {
-        const gn = rec.fields['group name'];
+        /* Customers table field might be "Group Name" or "group name" */
+        const gn = rec.fields['Group Name'] || rec.fields['group name'];
         if (gn) counts[gn] = (counts[gn] || 0) + 1;
       });
 
+      /* Case-insensitive set of event names to match */
+      const events = new Set((exp.airtableEvents || []).map(e => e.toLowerCase()));
+
       const enriched = (groupsData.records || [])
-        .map(rec => ({
-          id:        rec.id,
-          eventName: rec.fields.Name,
-          departure: rec.fields.departure,
-          returnDate:rec.fields.return,
-          count:     counts[rec.fields.Name] || 0,
-        }))
-        .filter(g => g.departure)
+        .filter(rec => {
+          const ev = (rec.fields['Event'] || '').toLowerCase();
+          return events.has(ev);
+        })
+        .map(rec => {
+          const groupName = rec.fields['Group Name'] || rec.id;
+          return {
+            id:         rec.id,
+            groupName,
+            eventName:  rec.fields['Event'] || '',
+            departure:  rec.fields['Departure'] || null,
+            returnDate: rec.fields['Return']    || null,
+            count:      counts[groupName] || 0,
+          };
+        })
+        /* Only upcoming departures */
+        .filter(g => g.departure && new Date(g.departure) >= today)
         .sort((a, b) => new Date(a.departure) - new Date(b.departure));
 
       setLiveGroups(enriched);
-
       if (enriched.length > 0) {
         const d = new Date(enriched[0].departure);
         setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
       }
-    }).catch(console.error)
-      .finally(() => setGroupsLoading(false));
+    }).catch(err => {
+      console.error('[dates]', err);
+      setGroupsError(err.message);
+    }).finally(() => setGroupsLoading(false));
   }, [exp?.airtableEvents?.join(',')]);
 
   /* helpers */
@@ -947,10 +969,10 @@ export default function ExpeditionDetail() {
           </h2>
 
           {groupsLoading ? (
-            <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px' }}>טוען תאריכים...</div>
-          ) : liveGroups.length === 0 ? (
-            <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px' }}>אין תאריכים זמינים כרגע</div>
-          ) : (
+            <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
+              טוען תאריכים...
+            </div>
+          ) : liveGroups.length > 0 ? (
             <>
               {/* Month tabs */}
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
@@ -1003,10 +1025,7 @@ export default function ExpeditionDetail() {
 
                       {/* Spots */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1, justifyContent: 'center' }}>
-                        <span style={{
-                          fontFamily: "'Ploni', sans-serif",
-                          fontSize: '14px', color: '#6B6B8A',
-                        }}>
+                        <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A' }}>
                           מקומות שוריינו
                         </span>
                         <span style={{
@@ -1037,6 +1056,19 @@ export default function ExpeditionDetail() {
                 })}
               </div>
             </>
+          ) : (
+            /* Fallback: static date chips from exp.dates */
+            (exp?.dates?.length > 0) ? (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {exp.dates.map((d, i) => (
+                  <DateChip key={i} date={d} />
+                ))}
+              </div>
+            ) : (
+              <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
+                אין תאריכים זמינים כרגע — צרו קשר לפרטים
+              </div>
+            )
           )}
         </section>
 
