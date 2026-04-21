@@ -1067,6 +1067,7 @@ export default function ExpeditionDetail() {
                       <span style={{
                         flex: 1,
                         display: 'flex', justifyContent: 'center',
+                        paddingRight: '30px',
                       }}>
                         <span style={{
                           background: isSafari ? '#FEF3C7' : '#EDE9FE',
