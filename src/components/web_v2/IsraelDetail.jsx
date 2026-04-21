@@ -10,6 +10,7 @@ import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
 import FloatingWA                      from './FloatingWA.jsx';
+import { CalendarIcon }                from '../Icons.jsx';
 import { ISRAEL_TRIPS }                from '../../data/israelData.js';
 
 /* ─── helpers ─── */
@@ -109,6 +110,82 @@ export default function IsraelDetail() {
   }
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+
+  /* ── Live groups from Airtable ── */
+  const hasAirtable = !!(trip?.airtableEvents?.length);
+  const [liveGroups, setLiveGroups]       = useState([]);
+  const [groupsLoading, setGroupsLoading] = useState(false);
+  const [groupsError, setGroupsError]     = useState(null);
+  const [activeMonth, setActiveMonth]     = useState(null);
+
+  useEffect(() => {
+    if (!hasAirtable) return;
+    setGroupsLoading(true);
+    setGroupsError(null);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cutoff = new Date(today);
+    cutoff.setDate(cutoff.getDate() + 3); /* shorter cutoff for local trips */
+
+    Promise.all([
+      fetch('/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return').then(r => r.json()),
+      fetch('/api/airtable/Customers?fields[]=Group%20Name').then(r => r.json()),
+    ]).then(([groupsData, custData]) => {
+      if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
+
+      const counts = {};
+      (custData.records || []).forEach(rec => {
+        const gn = rec.fields['Group Name'] || rec.fields['group name'];
+        if (gn) counts[gn] = (counts[gn] || 0) + 1;
+      });
+
+      const events = new Set((trip.airtableEvents || []).map(e => e.toLowerCase()));
+      const enriched = (groupsData.records || [])
+        .filter(rec => events.has((rec.fields['Event'] || '').toLowerCase()))
+        .map(rec => {
+          const groupName = rec.fields['Group Name'] || rec.id;
+          return {
+            id:         rec.id,
+            groupName,
+            eventName:  rec.fields['Event'] || '',
+            departure:  rec.fields['Departure'] || null,
+            returnDate: rec.fields['Return'] || null,
+            count:      counts[groupName] || 0,
+          };
+        })
+        .filter(g => g.departure && new Date(g.departure) >= cutoff)
+        .sort((a, b) => new Date(a.departure) - new Date(b.departure));
+
+      setLiveGroups(enriched);
+      if (enriched.length > 0) {
+        const d = new Date(enriched[0].departure);
+        setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
+      }
+    }).catch(err => {
+      setGroupsError(err.message);
+    }).finally(() => setGroupsLoading(false));
+  }, [trip?.airtableEvents?.join(',')]);
+
+  /* ── Date helpers ── */
+  function formatDateRange(dep, ret) {
+    const d = new Date(dep);
+    const r = new Date(ret || dep);
+    const dd = String(d.getDate()).padStart(2, '0');
+    const rr = String(r.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    if (!ret || (d.getMonth() === r.getMonth() && d.getFullYear() === r.getFullYear())) {
+      return `${dd}-${rr}/${mm}`;
+    }
+    const mm2 = String(r.getMonth() + 1).padStart(2, '0');
+    return `${dd}/${mm} - ${rr}/${mm2}`;
+  }
+  function monthKey(dep)   { const d = new Date(dep); return `${d.getFullYear()}-${d.getMonth()}`; }
+  function monthLabel(dep) { return new Date(dep).toLocaleDateString('he-IL', { month: 'long', year: 'numeric' }); }
+
+  const months       = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
+  const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
+  const capacity     = trip?.groupCapacity || 12;
 
   const inputStyle = {
     width: '100%', border: '1.5px solid #E5E3F0', borderRadius: RADIUS.lg,
@@ -387,14 +464,93 @@ export default function IsraelDetail() {
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px' }}>
             תאריכי יציאה
           </h2>
-          {trip.dates?.length > 0 ? (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-              {trip.dates.map((d, i) => (
-                <div key={i} style={{ padding: '10px 20px', borderRadius: RADIUS.full, border: '1.5px solid #ECEAF8', background: '#FAFAFE', fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600, color: '#3D3B5A' }}>
-                  {d}
-                </div>
-              ))}
+
+          {groupsLoading ? (
+            <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
+              טוען תאריכים...
             </div>
+
+          ) : liveGroups.length > 0 ? (
+            <>
+              {/* Month tabs — only when more than 2 groups */}
+              {liveGroups.length > 2 && (
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
+                  {months.map(([key, label]) => (
+                    <button key={key} onClick={() => setActiveMonth(key)} style={{
+                      padding: '8px 18px', borderRadius: RADIUS.full, border: 'none', cursor: 'pointer',
+                      fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600,
+                      background: activeMonth === key ? COLOR.primary : '#F3F0FF',
+                      color:      activeMonth === key ? '#fff' : '#5B21B6',
+                      transition: 'background 0.18s, color 0.18s',
+                    }}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Group cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
+                {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
+                  const spotsLeft = capacity - g.count;
+                  const isFull    = spotsLeft <= 0;
+                  const isAlmost  = !isFull && spotsLeft <= 3;
+                  const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
+                  return (
+                    <div key={g.id}
+                      onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
+                      onMouseLeave={e => e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'}
+                      style={{
+                        display: 'grid', gridTemplateColumns: '1fr auto 1fr',
+                        alignItems: 'center',
+                        border: '1px solid #ECEAF8', borderRadius: RADIUS.lg,
+                        padding: isMobile ? '14px 16px' : '12px 20px',
+                        background: '#fff', direction: 'rtl',
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                        transition: 'box-shadow 0.2s',
+                      }}>
+                      {/* Right: date */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                        <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
+                        <span style={{
+                          fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '15px' : '17px',
+                          fontWeight: 800, color: '#0A0818', lineHeight: 1.1,
+                          direction: 'ltr', whiteSpace: 'nowrap',
+                        }}>
+                          {formatDateRange(g.departure, g.returnDate)}
+                        </span>
+                      </div>
+
+                      {/* Center: spots */}
+                      <span style={{ display: 'flex', justifyContent: 'center' }}>
+                        <span style={{
+                          background: isFull ? '#FEE2E2' : isAlmost ? '#FEF3C7' : '#ECFDF5',
+                          color: spotsColor,
+                          fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
+                          padding: '3px 10px', borderRadius: '999px', whiteSpace: 'nowrap',
+                        }}>
+                          {isFull ? 'מלא' : isAlmost ? `${spotsLeft} מקומות אחרונים` : `${spotsLeft} מקומות`}
+                        </span>
+                      </span>
+
+                      {/* Left: CTA */}
+                      <button onClick={scrollToForm} disabled={isFull} style={{
+                        background: isFull ? '#E5E7EB' : COLOR.primary,
+                        color: isFull ? '#9CA3AF' : 'white',
+                        border: 'none', borderRadius: RADIUS.full,
+                        padding: isMobile ? '10px 16px' : '12px 28px',
+                        fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
+                        cursor: isFull ? 'not-allowed' : 'pointer',
+                        whiteSpace: 'nowrap', justifySelf: 'end', transition: 'background 0.2s',
+                      }}>
+                        {isFull ? 'מלא' : 'להרשמה ←'}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl, border: '1.5px dashed #DDD6FE', background: '#FAFAFF', textAlign: 'center', direction: 'rtl' }}>
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={COLOR.primary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -437,13 +593,19 @@ export default function IsraelDetail() {
                       onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
                   </div>
 
-                  {trip.dates?.length > 0 && (
+                  {(liveGroups.length > 0 || trip.dates?.length > 0) && (
                     <div>
                       <label style={labelStyle}>באיזה תאריך תרצו לטייל? *</label>
                       <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={inputStyle}
                         onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}>
                         <option value="">בחרו תאריך</option>
-                        {trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)}
+                        {liveGroups.length > 0
+                          ? liveGroups.map(g => {
+                              const label = formatDateRange(g.departure, g.returnDate);
+                              return <option key={g.id} value={label}>{label}</option>;
+                            })
+                          : trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)
+                        }
                         <option value="גמיש / טרם החלטתי">גמיש / טרם החלטתי</option>
                       </select>
                     </div>
