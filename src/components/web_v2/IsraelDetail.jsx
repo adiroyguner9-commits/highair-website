@@ -601,7 +601,6 @@ export default function IsraelDetail() {
                             })
                           : trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)
                         }
-                        <option value="גמיש / טרם החלטתי">גמיש / טרם החלטתי</option>
                       </select>
                     </div>
                   )}
