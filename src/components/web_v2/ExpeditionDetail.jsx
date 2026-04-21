@@ -332,7 +332,7 @@ export default function ExpeditionDetail() {
   const [copied, setCopied] = useState(false);
 
   /* ── Form state ── */
-  const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', phone: '', email: '', experience: '' });
+  const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', phone: '', email: '', experience: '', privacy: false });
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -365,6 +365,7 @@ export default function ExpeditionDetail() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!exp) return;
+    if (!form.privacy) return;
     if (!validateEmail(form.email)) return;
     if (!validatePhone(form.phone)) return;
     if (!validateAge(form.age)) return;
@@ -1593,17 +1594,44 @@ export default function ExpeditionDetail() {
                     </div>
                   )}
 
+                  {/* צ'קבוקס הסכמה */}
+                  <label style={{
+                    display: 'flex', alignItems: 'flex-start', gap: '10px',
+                    cursor: 'pointer', direction: 'rtl',
+                    padding: '12px 14px',
+                    borderRadius: RADIUS.lg,
+                    border: `1.5px solid ${form.privacy ? COLOR.primary : '#E5E3F0'}`,
+                    background: form.privacy ? '#F5F0FF' : '#FAFAFA',
+                    transition: 'border-color 180ms, background 180ms',
+                  }}>
+                    <input
+                      type="checkbox"
+                      required
+                      checked={form.privacy}
+                      onChange={e => setForm(f => ({ ...f, privacy: e.target.checked }))}
+                      style={{ marginTop: '3px', width: '16px', height: '16px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
+                    />
+                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
+                      אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי&nbsp;·&nbsp;
+                      <a href="/privacy" target="_blank" rel="noopener noreferrer"
+                        style={{ color: COLOR.primary, textDecoration: 'underline', fontWeight: 600 }}
+                        onClick={e => e.stopPropagation()}>
+                        לצפייה במדיניות פרטיות
+                      </a>
+                    </span>
+                  </label>
+
                   {/* כפתור שליחה */}
                   <button
                     type="submit"
-                    disabled={status === 'loading'}
+                    disabled={status === 'loading' || !form.privacy}
                     style={{
                       width: '100%',
-                      background: status === 'loading' ? '#9CA3AF' : COLOR.primary,
+                      background: (!form.privacy || status === 'loading') ? '#9CA3AF' : COLOR.primary,
                       color: 'white', border: 'none',
                       borderRadius: RADIUS.full, padding: '15px',
                       fontSize: FS.body, fontWeight: 700,
-                      cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+                      cursor: (!form.privacy || status === 'loading') ? 'not-allowed' : 'pointer',
                       fontFamily: "'Ploni', sans-serif",
                       transition: `background 200ms ${EASING.smooth}`,
                     }}
