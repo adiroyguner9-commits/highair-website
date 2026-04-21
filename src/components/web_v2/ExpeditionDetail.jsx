@@ -1252,8 +1252,6 @@ export default function ExpeditionDetail() {
           </div>
         </section>
 
-        {/* Bottom spacer for mobile sticky bar */}
-        {isMobile && <div style={{ height: '80px' }} />}
       </main>
 
       {/* ══════════════════════════════════
@@ -1468,39 +1466,6 @@ export default function ExpeditionDetail() {
         </div>
       </div>
 
-      {/* ══════════════════════════════════
-          MOBILE STICKY BOTTOM CTA BAR
-      ══════════════════════════════════ */}
-      {isMobile && (
-        <div style={{
-          position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 150,
-          background: 'white', boxShadow: '0 -2px 12px rgba(0,0,0,0.1)',
-          padding: '12px 20px',
-          display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', gap: '12px',
-          direction: 'rtl',
-        }}>
-          <div style={{ direction: 'rtl' }}>
-            <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 800, color: '#0A0818' }}>
-              {exp.priceStr}
-            </div>
-            <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#6B6B8A' }}>
-              למשתתף
-            </div>
-          </div>
-          <button
-            onClick={scrollToForm}
-            style={{
-              background: COLOR.primary, color: 'white', border: 'none',
-              borderRadius: RADIUS.full, padding: '12px 24px',
-              fontSize: '15px', fontWeight: 700, cursor: 'pointer',
-              fontFamily: "'Ploni', sans-serif",
-            }}
-          >
-            לתיאום שיחה ←
-          </button>
-        </div>
-      )}
     </div>
   );
 }
