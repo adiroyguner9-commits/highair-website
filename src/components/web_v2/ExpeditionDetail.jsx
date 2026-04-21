@@ -168,7 +168,7 @@ export default function ExpeditionDetail() {
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   /* ── Itinerary accordion: array of open indices, first open by default ── */
-  const [openItinerary, setOpenItinerary] = useState([0]);
+  const [openItinerary, setOpenItinerary] = useState([]);
   const [itineraryTab, setItineraryTab] = useState('safari'); // 'trek' | 'safari'
   function toggleItinerary(idx) {
     setOpenItinerary(prev =>
