@@ -554,77 +554,6 @@ export default function ExpeditionDetail() {
           </div>
         </div>
 
-        {/* Share button + panel */}
-        <div style={{ position: 'absolute', bottom: '20px', left: '20px', zIndex: 3 }}>
-          {shareOpen && (
-            <div style={{
-              position: 'absolute',
-              bottom: '48px',
-              left: 0,
-              background: 'white',
-              borderRadius: '12px',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
-              padding: '8px 0',
-              minWidth: '200px',
-              direction: 'rtl',
-              overflow: 'hidden',
-            }}>
-              {[
-                {
-                  emoji: '📋',
-                  label: copied ? '✓ הועתק!' : 'העתק קישור',
-                  onClick: () => {
-                    navigator.clipboard.writeText(window.location.href);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  },
-                },
-                {
-                  emoji: '💬',
-                  label: 'שתף ב-WhatsApp',
-                  onClick: () => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(exp.nameHe + ' ' + window.location.href)}`, '_blank'),
-                },
-                {
-                  emoji: '📘',
-                  label: 'שתף בפייסבוק',
-                  onClick: () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'),
-                },
-              ].map((opt, i) => (
-                <div
-                  key={i}
-                  onClick={opt.onClick}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '10px',
-                    padding: '10px 16px', cursor: 'pointer',
-                    fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600,
-                    color: '#0A0818',
-                    transition: 'background 150ms',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = '#F5F3FF'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
-                >
-                  <span>{opt.emoji}</span>
-                  <span>{opt.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          <button
-            onClick={() => setShareOpen(o => !o)}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: 'white', color: '#0A0818',
-              border: 'none', borderRadius: '999px',
-              padding: '8px 16px',
-              fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
-              cursor: 'pointer',
-              boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-            }}
-          >
-            <ShareIcon size={16} color="#0A0818" />
-            שתפו
-          </button>
-        </div>
 
         {/* IntersectionObserver sentinel — bottom of hero */}
         <div ref={heroRef} style={{ position: 'absolute', bottom: 0, width: '100%', height: '1px', zIndex: 0 }} />
@@ -1269,7 +1198,7 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
                 fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 8px', direction: 'rtl',
               }}>
-                עדכוני פסגה 🏔️
+                עדכוני פסגה
               </h2>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', margin: '0 0 28px', direction: 'rtl' }}>
                 המטפסים שלנו שהגיעו לפסגה
@@ -1353,55 +1282,6 @@ export default function ExpeditionDetail() {
           </>
         )}
 
-        <Separator />
-
-        {/* ── K. שאלות ותשובות (FAQ) ──────────────── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
-          }}>
-            שאלות נפוצות
-          </h2>
-          <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
-            {faqItems.map((item, idx) => {
-              const isOpen = openFaq === idx;
-              const isLast = idx === faqItems.length - 1;
-              return (
-                <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
-                  <div
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    style={{
-                      padding: '18px 20px', cursor: 'pointer',
-                      background: isOpen ? '#FAFAFE' : 'white',
-                      display: 'flex', alignItems: 'center',
-                      justifyContent: 'space-between', gap: '12px',
-                      direction: 'rtl', transition: `background 150ms ${EASING.smooth}`,
-                    }}
-                    onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = '#FAFAFE'; }}
-                    onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
-                  >
-                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 700, color: '#0A0818' }}>
-                      {item.q}
-                    </span>
-                    <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>
-                      {isOpen ? '▴' : '▾'}
-                    </span>
-                  </div>
-                  <div style={{ maxHeight: isOpen ? '300px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
-                    <p style={{
-                      padding: '0 20px 18px', margin: 0,
-                      fontFamily: "'Ploni', sans-serif", fontSize: '15px',
-                      color: '#6B6B8A', lineHeight: 1.75, direction: 'rtl',
-                    }}>
-                      {item.a}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
 
       </main>
 
