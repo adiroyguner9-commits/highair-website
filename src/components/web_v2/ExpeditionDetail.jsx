@@ -514,7 +514,7 @@ export default function ExpeditionDetail() {
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>רמה</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <HikingIcon size={14} color="#0A0818" /> {exp.diffHe}
+                  <StarIcon size={14} color="#0A0818" /> {exp.diffHe}
                 </span>
               </div>
             )}
