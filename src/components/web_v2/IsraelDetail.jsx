@@ -70,9 +70,7 @@ export default function IsraelDetail() {
   }
 
   /* ── Contact form ── */
-  const [form, setForm]       = useState({ name: '', month: '', phone: '', declaration: false });
-  const [status, setStatus]   = useState('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [form, setForm]         = useState({ name: '', month: '', phone: '', declaration: false });
   const [phoneError, setPhoneError] = useState('');
 
   function validatePhone(val) {
@@ -80,22 +78,12 @@ export default function IsraelDetail() {
     setPhoneError(''); return true;
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     if (!validatePhone(form.phone)) return;
     if (!form.declaration) return;
-    setStatus('loading');
-    try {
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.name, month: form.month, phone: form.phone, expedition: trip.name, type: 'israel' }),
-      });
-      if (!res.ok) throw new Error((await res.json()).error || 'שגיאה בשרת');
-      setStatus('success');
-    } catch (err) {
-      setStatus('error');
-      setErrorMsg(err.message || 'שגיאה בשליחה. נסו שוב.');
+    if (trip.paymentUrl) {
+      window.open(trip.paymentUrl, '_blank', 'noopener,noreferrer');
     }
   }
 
@@ -567,89 +555,79 @@ export default function IsraelDetail() {
             מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי
           </p>
           <div style={{ background: 'white', borderRadius: RADIUS.xl, padding: isMobile ? '24px' : '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'right' }}>
-            {status === 'success' ? (
-              <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: RADIUS.lg, padding: '32px', textAlign: 'center' }}>
-                <div style={{ fontSize: '48px', marginBottom: '12px' }}>🎉</div>
-                <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '20px', fontWeight: 700, color: '#065F46', marginBottom: '8px' }}>קיבלנו!</div>
-                <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#047857' }}>ניצור איתך קשר בהקדם</div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ direction: 'rtl' }}>
-                <div style={{ display: 'grid', gap: '16px' }}>
+            <form onSubmit={handleSubmit} style={{ direction: 'rtl' }}>
+              <div style={{ display: 'grid', gap: '16px' }}>
 
-                  {/* שם מלא */}
-                  <div>
-                    <label style={labelStyle}>שם מלא *</label>
-                    <input type="text" required value={form.name}
-                      onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
-                      style={inputStyle}
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
-                  </div>
-
-                  {/* תאריך */}
-                  {(liveGroups.length > 0 || trip.dates?.length > 0) && (
-                    <div>
-                      <label style={labelStyle}>באיזה תאריך תרצו לטייל? *</label>
-                      <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={inputStyle}
-                        onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}>
-                        <option value="">בחרו תאריך</option>
-                        {liveGroups.length > 0
-                          ? liveGroups.map(g => {
-                              const label = formatDateRange(g.departure, g.returnDate);
-                              return <option key={g.id} value={label}>{label}</option>;
-                            })
-                          : trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)
-                        }
-                      </select>
-                    </div>
-                  )}
-
-                  {/* טלפון */}
-                  <div>
-                    <label style={labelStyle}>מספר טלפון *</label>
-                    <input type="tel" required value={form.phone}
-                      onChange={e => { const v = e.target.value.replace(/\D/g,'').slice(0,10); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
-                      onBlur={e => validatePhone(e.target.value)}
-                      style={{ ...inputStyle, direction: 'ltr', textAlign: 'right', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
-                      onFocus={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }} />
-                    {phoneError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{phoneError}</p>}
-                  </div>
-
-                  {/* הצהרת בריאות */}
-                  <label style={{
-                    display: 'flex', alignItems: 'flex-start', gap: '12px',
-                    cursor: 'pointer', direction: 'rtl',
-                    padding: '14px 16px',
-                    borderRadius: RADIUS.lg,
-                    border: `1.5px solid ${form.declaration ? COLOR.primary : '#E5E3F0'}`,
-                    background: form.declaration ? '#F5F0FF' : '#FAFAFA',
-                    transition: `border-color 180ms, background 180ms`,
-                  }}>
-                    <input
-                      type="checkbox"
-                      required
-                      checked={form.declaration}
-                      onChange={e => setForm(f => ({ ...f, declaration: e.target.checked }))}
-                      style={{ marginTop: '3px', width: '18px', height: '18px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
-                    />
-                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
-                      אני מצהיר/ה כי מצבי הבריאותי מאפשר השתתפות בטיול הכולל הליכות של 8-5 שעות ביום וכי קראתי והבנתי שההשתתפות היא באחריותי האישית בלבד, ללא אחריות מצד המארגנים לנזק מכל סוג
-                    </span>
-                  </label>
-
-                  {status === 'error' && (
-                    <div style={{ color: '#DC2626', fontSize: '14px', fontFamily: "'Ploni', sans-serif", textAlign: 'center', background: 'rgba(220,38,38,0.08)', borderRadius: RADIUS.md, padding: '10px 14px' }}>
-                      {errorMsg}
-                    </div>
-                  )}
-
-                  <button type="submit" disabled={status === 'loading' || !form.declaration} style={{ width: '100%', background: (!form.declaration || status === 'loading') ? '#9CA3AF' : COLOR.primary, color: 'white', border: 'none', borderRadius: RADIUS.full, padding: '15px', fontSize: FS.body, fontWeight: 700, cursor: (!form.declaration || status === 'loading') ? 'not-allowed' : 'pointer', fontFamily: "'Ploni', sans-serif", transition: `background 200ms ${EASING.smooth}` }}>
-                    {status === 'loading' ? 'שולח...' : 'שלחו פרטים ←'}
-                  </button>
+                {/* שם מלא */}
+                <div>
+                  <label style={labelStyle}>שם מלא *</label>
+                  <input type="text" required value={form.name}
+                    onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
+                    style={inputStyle}
+                    onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
+                    onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
                 </div>
-              </form>
-            )}
+
+                {/* תאריך */}
+                {(liveGroups.length > 0 || trip.dates?.length > 0) && (
+                  <div>
+                    <label style={labelStyle}>באיזה תאריך תרצו לטייל? *</label>
+                    <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={inputStyle}
+                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}>
+                      <option value="">בחרו תאריך</option>
+                      {liveGroups.length > 0
+                        ? liveGroups.map(g => {
+                            const label = formatDateRange(g.departure, g.returnDate);
+                            return <option key={g.id} value={label}>{label}</option>;
+                          })
+                        : trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)
+                      }
+                    </select>
+                  </div>
+                )}
+
+                {/* טלפון */}
+                <div>
+                  <label style={labelStyle}>מספר טלפון *</label>
+                  <input type="tel" required value={form.phone}
+                    onChange={e => { const v = e.target.value.replace(/\D/g,'').slice(0,10); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
+                    onBlur={e => validatePhone(e.target.value)}
+                    style={{ ...inputStyle, direction: 'ltr', textAlign: 'right', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
+                    onFocus={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }} />
+                  {phoneError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{phoneError}</p>}
+                </div>
+
+                {/* הצהרת בריאות */}
+                <label style={{
+                  display: 'flex', alignItems: 'flex-start', gap: '12px',
+                  cursor: 'pointer', direction: 'rtl',
+                  padding: '14px 16px', borderRadius: RADIUS.lg,
+                  border: `1.5px solid ${form.declaration ? COLOR.primary : '#E5E3F0'}`,
+                  background: form.declaration ? '#F5F0FF' : '#FAFAFA',
+                  transition: 'border-color 180ms, background 180ms',
+                }}>
+                  <input type="checkbox" required checked={form.declaration}
+                    onChange={e => setForm(f => ({ ...f, declaration: e.target.checked }))}
+                    style={{ marginTop: '3px', width: '18px', height: '18px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }} />
+                  <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
+                    אני מצהיר/ה כי מצבי הבריאותי מאפשר השתתפות בטיול הכולל הליכות של 8-5 שעות ביום וכי קראתי והבנתי שההשתתפות היא באחריותי האישית בלבד, ללא אחריות מצד המארגנים לנזק מכל סוג
+                  </span>
+                </label>
+
+                {/* כפתור תשלום */}
+                <button type="submit" disabled={!form.declaration} style={{
+                  width: '100%', border: 'none', borderRadius: RADIUS.full, padding: '15px',
+                  fontSize: FS.body, fontWeight: 700, fontFamily: "'Ploni', sans-serif",
+                  background: form.declaration ? COLOR.primary : '#9CA3AF',
+                  color: 'white',
+                  cursor: form.declaration ? 'pointer' : 'not-allowed',
+                  transition: `background 200ms ${EASING.smooth}`,
+                }}>
+                  לתשלום ←
+                </button>
+
+              </div>
+            </form>
           </div>
         </div>
       </div>
