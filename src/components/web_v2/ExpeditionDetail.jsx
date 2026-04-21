@@ -1275,22 +1275,22 @@ export default function ExpeditionDetail() {
                 המטפסים שלנו שהגיעו לפסגה
               </p>
 
-              {/* Horizontal scroll on mobile, grid on desktop */}
+              {/* Horizontal scroll slider — mobile & desktop */}
               <div style={{
-                display: isMobile ? 'flex' : 'grid',
-                gridTemplateColumns: isMobile ? undefined : 'repeat(3, 1fr)',
+                display: 'flex',
                 gap: '16px',
-                overflowX: isMobile ? 'auto' : undefined,
-                paddingBottom: isMobile ? '8px' : undefined,
+                overflowX: 'auto',
+                paddingBottom: '8px',
                 scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
               }}>
                 {exp.summitUpdates.map((u, i) => (
                   <div key={i} style={{
                     position: 'relative',
                     borderRadius: RADIUS.xl,
                     overflow: 'hidden',
-                    flexShrink: isMobile ? 0 : undefined,
-                    width: isMobile ? '200px' : '100%',
+                    flexShrink: 0,
+                    width: isMobile ? '200px' : '260px',
                     aspectRatio: '3/4',
                     background: '#1a1a2e',
                     cursor: 'default',
