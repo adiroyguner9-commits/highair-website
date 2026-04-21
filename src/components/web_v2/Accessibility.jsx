@@ -25,7 +25,7 @@ export default function Accessibility() {
       </div>
 
       <div style={SECTION}>
-        <h2 style={H2}>התאמות שבוצעו באתר</h2>
+        <h2 style={H2}>1. התאמות שבוצעו באתר</h2>
         <p style={P}>על מנת לעמוד בדרישות תקן הנגישות, בוצעו באתר מספר התאמות:</p>
         <ul style={UL}>
           {[
@@ -50,7 +50,7 @@ export default function Accessibility() {
       </div>
 
       <div style={SECTION}>
-        <h2 style={H2}>ניווט באמצעות מקלדת</h2>
+        <h2 style={H2}>2. ניווט באמצעות מקלדת</h2>
         <p style={P}>כל הפעולות באתר ניתנות לביצוע באמצעות המקלדת:</p>
         <ul style={UL}>
           {[
@@ -64,7 +64,7 @@ export default function Accessibility() {
       </div>
 
       <div style={CONTACT_BOX}>
-        <h2 style={{ ...H2, marginBottom: '16px' }}>יצירת קשר בנושא נגישות</h2>
+        <h2 style={{ ...H2, marginBottom: '16px' }}>3. יצירת קשר בנושא נגישות</h2>
         <p style={P}>
           במידה ונתקלתם בנושאים הדורשים הנגשה נוספת, מוזמנים לפנות אלינו:
         </p>
