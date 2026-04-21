@@ -3,9 +3,10 @@
  * Usage: <LegalPageLayout title="..." subtitle="...">…sections…</LegalPageLayout>
  */
 import { useEffect } from 'react';
-import Header    from './Header.jsx';
+import Header     from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import { FS }    from '../../website/theme.js';
+import FloatingWA from './FloatingWA.jsx';
+import { FS }     from '../../website/theme.js';
 
 /* ── Shared style tokens (import these in every page) ── */
 export const SECTION = {
@@ -61,6 +62,7 @@ export default function LegalPageLayout({ title, subtitle = 'עודכן לאחר
   return (
     <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
       <Header />
+      <FloatingWA />
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '120px 5% 80px' }}>
 
         <h1 style={{
