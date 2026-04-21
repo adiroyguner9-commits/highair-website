@@ -176,7 +176,8 @@ export default function ExpeditionExplorer() {
   const cont  = CONTINENTS[activeIdx];
   const cards = cont.expIds
     .map(id => EXPS.find(e => e.id === id))
-    .filter(Boolean);
+    .filter(Boolean)
+    .sort((a, b) => (b.elevNum || 0) - (a.elevNum || 0));
 
   return (
     <section id="expeditions" style={{
