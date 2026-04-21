@@ -1047,6 +1047,7 @@ export default function ExpeditionDetail() {
                       {/* Right: calendar icon + date */}
                       <div style={{
                         display: 'flex', alignItems: 'center', gap: '8px',
+                        width: isMobile ? '140px' : '155px',
                         flexShrink: 0,
                       }}>
                         <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
