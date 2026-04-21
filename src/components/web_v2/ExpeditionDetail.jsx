@@ -1030,9 +1030,9 @@ export default function ExpeditionDetail() {
                   const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
                   return (
                     <div key={g.id} style={{
-                      display: 'flex', alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: isMobile ? '12px' : '16px',
+                      display: 'grid',
+                      gridTemplateColumns: '1fr auto 1fr',
+                      alignItems: 'center',
                       border: '1px solid #ECEAF8',
                       borderRadius: RADIUS.lg,
                       padding: isMobile ? '14px 16px' : '12px 20px',
@@ -1065,9 +1065,7 @@ export default function ExpeditionDetail() {
 
                       {/* Center: badge */}
                       <span style={{
-                        flex: 1,
                         display: 'flex', justifyContent: 'center',
-                        paddingRight: '30px',
                       }}>
                         <span style={{
                           background: isSafari ? '#FEF3C7' : '#EDE9FE',
@@ -1094,7 +1092,8 @@ export default function ExpeditionDetail() {
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: '14px', fontWeight: 700,
                           cursor: isFull ? 'not-allowed' : 'pointer',
-                          whiteSpace: 'nowrap', flexShrink: 0,
+                          whiteSpace: 'nowrap',
+                          justifySelf: 'end',
                           transition: 'background 0.2s',
                         }}
                       >
