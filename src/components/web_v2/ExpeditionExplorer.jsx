@@ -12,7 +12,7 @@ import { EXPS } from '../../data/mockData.js';
 /* ── Continent tabs with expedition IDs sorted by elevation (low→high) ── */
 const CONTINENTS = [
   { key: 'africa',       label: 'אפריקה',      expIds: [4, 10, 11] },
-  { key: 'europe',       label: 'אירופה',       expIds: [1, 2, 3, 5, 9] },
+  { key: 'europe',       label: 'אירופה',       expIds: [2, 3, 5, 9] },
   { key: 'asia',         label: 'אסיה',         expIds: [6, 7, 8, 12, 13, 14, 16] },
   { key: 'southamerica', label: 'דרום אמריקה', expIds: [15] },
 ];
