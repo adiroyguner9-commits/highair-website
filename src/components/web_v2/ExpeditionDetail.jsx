@@ -610,50 +610,106 @@ export default function ExpeditionDetail() {
         {/* ── B. מה כלול ומה לא כלול ───────────── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
+            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 36px)',
+            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px',
           }}>
             מה כלול ומה לא כלול?
           </h2>
+
           <div style={{
             display: 'grid',
             gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr',
-            gap: '24px',
+            gap: '20px',
+            alignItems: 'start',
           }}>
-            {/* Not included */}
-            <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
+            {/* כלול — green card */}
+            <div style={{
+              background: '#ECFDF5',
+              borderRadius: RADIUS.xl,
+              padding: '28px',
+              border: '1px solid #BBF7D0',
+            }}>
               <div style={{
-                padding: '20px 24px', background: '#F8F7FF',
-                fontWeight: 700, fontSize: FS.h3, fontFamily: "'Ploni', sans-serif", color: '#0A0818',
+                fontFamily: "'Ploni', sans-serif", fontSize: '18px',
+                fontWeight: 700, color: '#059669', marginBottom: '20px',
               }}>
-                מה לא כלול ✗
+                כלול במחיר
               </div>
-              <div style={{ padding: '24px' }}>
-                {notIncluded.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < notIncluded.length - 1 ? '12px' : 0 }}>
-                    <span style={{ color: '#EF4444', fontWeight: 700, fontSize: '16px', marginTop: '1px', flexShrink: 0 }}>✗</span>
+              {(exp.included || []).map((item, i) => {
+                const isHeader = item.endsWith(':');
+                return isHeader ? (
+                  <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
+                    <span style={{
+                      display: 'inline-block',
+                      background: '#059669', color: 'white',
+                      fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
+                      padding: '4px 14px', borderRadius: '999px',
+                    }}>
+                      {item.slice(0, -1)}
+                    </span>
+                  </div>
+                ) : (
+                  <div key={i} style={{
+                    display: 'flex', gap: '12px', alignItems: 'flex-start',
+                    marginBottom: i < (exp.included || []).length - 1 ? '14px' : 0,
+                  }}>
+                    <div style={{
+                      width: '22px', height: '22px', borderRadius: '50%',
+                      background: '#059669', flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginTop: '1px',
+                    }}>
+                      <span style={{ color: 'white', fontSize: '12px', fontWeight: 700 }}>✓</span>
+                    </div>
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
-            {/* Included */}
-            <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
+            {/* לא כלול — light red card */}
+            <div style={{
+              background: '#FEF2F2',
+              borderRadius: RADIUS.xl,
+              padding: '28px',
+              border: '1px solid #FECACA',
+            }}>
               <div style={{
-                padding: '20px 24px', background: '#F5F3FF',
-                fontWeight: 700, fontSize: FS.h3, fontFamily: "'Ploni', sans-serif", color: '#0A0818',
+                fontFamily: "'Ploni', sans-serif", fontSize: '18px',
+                fontWeight: 700, color: '#DC2626', marginBottom: '20px',
               }}>
-                מה כלול ✓
+                לא כלול
               </div>
-              <div style={{ padding: '24px' }}>
-                {(exp.included || []).map((item, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < exp.included.length - 1 ? '12px' : 0 }}>
-                    <span style={{ color: '#059669', fontWeight: 700, fontSize: '16px', marginTop: '1px', flexShrink: 0 }}>✓</span>
+              {notIncluded.map((item, i) => {
+                const isHeader = item.endsWith(':');
+                return isHeader ? (
+                  <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
+                    <span style={{
+                      display: 'inline-block',
+                      background: '#DC2626', color: 'white',
+                      fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
+                      padding: '4px 14px', borderRadius: '999px',
+                    }}>
+                      {item.slice(0, -1)}
+                    </span>
+                  </div>
+                ) : (
+                  <div key={i} style={{
+                    display: 'flex', gap: '12px', alignItems: 'flex-start',
+                    marginBottom: i < notIncluded.length - 1 ? '14px' : 0,
+                  }}>
+                    <div style={{
+                      width: '22px', height: '22px', borderRadius: '50%',
+                      background: '#DC2626', flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginTop: '1px',
+                    }}>
+                      <span style={{ color: 'white', fontSize: '11px', fontWeight: 700 }}>✕</span>
+                    </div>
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
