@@ -303,8 +303,11 @@ export const EXPS = [
       { day: 11, title: 'ביקור שבט ההדזבה — אגם אייסי', desc: 'ביקור ייחודי אצל שבט ההדזבה, אחד השבטים הקדומים בעולם שעדיין חיים כציידים-לקטים. חוויה אנתרופולוגית בלתי נשכחת ליד אגם אייסי. לאחר מכן — נסיעה לשדה התעופה וטיסה חזרה.' },
     ],
     summitUpdates: [
-      { name: 'דני כהן',  date: 'ינואר 2025', img: '/images/summit-1.jpg' },
-      { name: 'שרה לוי',  date: 'מרץ 2025',   img: '/images/summit-2.jpg' },
+      { name: 'דני כהן',    date: 'ינואר 2025',  img: '/images/summit-1.jpg' },
+      { name: 'שרה לוי',    date: 'מרץ 2025',    img: '/images/summit-2.jpg' },
+      { name: 'תומר אביב',  date: 'יוני 2025',   img: '/images/summit-3.jpg' },
+      { name: 'נועה גרין',  date: 'אוגוסט 2025', img: '/images/summit-4.jpg' },
+      { name: 'יוסי מזרחי', date: 'ספטמבר 2025', img: '/images/summit-5.jpg' },
     ],
     reviews: [
       { name: 'אורי בן-דוד', date: 'ספטמבר 2025', rating: 5, text: 'עלינו לפסגת קילימנג׳רו בגובה 5,895 מ׳ — חוויה שאין לתאר במילים. הצוות של HighAir ליווה אותנו בכל רגע, מהרישום ועד הפסגה.', initial: 'א' },
