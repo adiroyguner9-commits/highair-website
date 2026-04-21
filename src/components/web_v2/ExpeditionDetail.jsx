@@ -847,8 +847,8 @@ export default function ExpeditionDetail() {
                 {hasSafari && (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
-                      { key: 'trek',   label: 'טיפוס בלבד (9 ימים)' },
                       { key: 'safari', label: 'טיפוס + ספארי (11 ימים)' },
+                      { key: 'trek',   label: 'טיפוס בלבד (9 ימים)' },
                     ].map(tab => (
                       <button
                         key={tab.key}
