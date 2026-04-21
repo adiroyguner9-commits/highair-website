@@ -11,7 +11,7 @@ import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/the
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
 import StatsSection from './StatsSection.jsx';
-import { MountainIcon, StarIcon, MedalIcon, TagIcon } from '../Icons.jsx';
+import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon } from '../Icons.jsx';
 
 /* ─── Default data ─────────────────────────────────────────────── */
 const DEFAULT_REVIEWS = [
@@ -1044,18 +1044,23 @@ export default function ExpeditionDetail() {
                     onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
                     onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'}
                     >
-                      {/* Right: date */}
-                      <span style={{
-                        fontFamily: "'Ploni', sans-serif",
-                        fontSize: isMobile ? '16px' : '17px',
-                        fontWeight: 800, color: '#0A0818',
-                        lineHeight: 1.1,
-                        direction: 'ltr',
-                        width: isMobile ? '90px' : '110px',
+                      {/* Right: calendar icon + date */}
+                      <div style={{
+                        display: 'flex', alignItems: 'center', gap: '8px',
+                        width: isMobile ? '110px' : '130px',
                         flexShrink: 0,
                       }}>
-                        {formatDateRange(g.departure, g.returnDate)}
-                      </span>
+                        <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
+                        <span style={{
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: isMobile ? '16px' : '17px',
+                          fontWeight: 800, color: '#0A0818',
+                          lineHeight: 1.1,
+                          direction: 'ltr',
+                        }}>
+                          {formatDateRange(g.departure, g.returnDate)}
+                        </span>
+                      </div>
 
                       {/* Center: badge */}
                       <span style={{
