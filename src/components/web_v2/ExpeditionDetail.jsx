@@ -1034,31 +1034,35 @@ export default function ExpeditionDetail() {
                     onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
                     onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'}
                     >
-                      {/* Right: badge + date */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+                      {/* Right: date */}
+                      <span style={{
+                        fontFamily: "'Ploni', sans-serif",
+                        fontSize: isMobile ? '16px' : '17px',
+                        fontWeight: 800, color: '#0A0818',
+                        lineHeight: 1.1,
+                        direction: 'ltr',
+                        flexShrink: 0,
+                      }}>
+                        {formatDateRange(g.departure, g.returnDate)}
+                      </span>
+
+                      {/* Center: badge */}
+                      <span style={{
+                        flex: 1,
+                        display: 'flex', justifyContent: 'center',
+                      }}>
                         <span style={{
-                          display: 'inline-block', alignSelf: 'flex-start',
                           background: isSafari ? '#FEF3C7' : '#EDE9FE',
                           color: isSafari ? '#92400E' : '#5B21B6',
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: '11px', fontWeight: 700,
                           padding: '3px 10px', borderRadius: '999px',
                           letterSpacing: '0.02em',
+                          whiteSpace: 'nowrap',
                         }}>
                           {label}
                         </span>
-                        <span style={{
-                          fontFamily: "'Ploni', sans-serif",
-                          fontSize: isMobile ? '16px' : '17px',
-                          fontWeight: 800, color: '#0A0818',
-                          lineHeight: 1.1,
-                          direction: 'ltr',
-                          alignSelf: 'flex-start',
-                        }}>
-                          {formatDateRange(g.departure, g.returnDate)}
-                        </span>
-                      </div>
-
+                      </span>
 
                       {/* Left: CTA */}
                       <button
