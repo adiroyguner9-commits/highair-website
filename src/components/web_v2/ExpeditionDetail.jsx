@@ -42,19 +42,23 @@ const DEFAULT_IMPORTANT = [
   'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
 ];
 
-const WHY_CARDS = [
-  { icon: '🏋️', title: 'תכנית אימונים כהכנה לטיפוס', desc: '' },
-  { icon: '🎒', title: 'רשימת ציוד לטיפוס', desc: '' },
-  { icon: '✈️', title: 'סגירת טיסה אטרקטיבית', desc: '' },
-  { icon: '🛡️', title: 'סגירת ביטוח אטרקטיבי', desc: '' },
-  { icon: '📡', title: '10% הנחה על מכשיר לווייני - מגנוס', desc: '' },
-  { icon: '🏪', title: '20% הנחה על ציוד בחנות ״גרביטי״', desc: '' },
-  { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
-  { icon: '🏔️', title: 'דף מידע לגבי מחלת גבהים והתמודדות איתה', desc: '' },
-  { icon: '📋', title: 'מדריך להוצאה ויזה לטנזניה', desc: '' },
-  { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
-  { icon: '📞', title: 'ליווי 24/7 משלב ההכנה ובמהלך הטיפוס', desc: '' },
-];
+const getWhyCards = (exp) => {
+  const activity = exp?.typeHe || 'טיפוס';
+  const country  = exp?.countryHe || '';
+  return [
+    { icon: '🏋️', title: `תכנית אימונים כהכנה ל${activity}`, desc: '' },
+    { icon: '🎒', title: `רשימת ציוד ל${activity}`, desc: '' },
+    { icon: '✈️', title: 'סגירת טיסה אטרקטיבית', desc: '' },
+    { icon: '🛡️', title: 'סגירת ביטוח אטרקטיבי', desc: '' },
+    { icon: '📡', title: '10% הנחה על מכשיר לווייני - מגנוס', desc: '' },
+    { icon: '🏪', title: '20% הנחה על ציוד בחנות ״גרביטי״', desc: '' },
+    { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
+    { icon: '🏔️', title: 'דף מידע לגבי מחלת גבהים והתמודדות איתה', desc: '' },
+    ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `מדריך להוצאה ויזה ל${country}`, desc: '' }] : []),
+    { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
+    { icon: '📞', title: `ליווי 24/7 משלב ההכנה ובמהלך ה${activity}`, desc: '' },
+  ];
+};
 
 /* ─── Scroll helper ─────────────────────────────────────────────── */
 function scrollToForm() {
@@ -224,6 +228,8 @@ export default function ExpeditionDetail() {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const cutoff = new Date(today);
+    cutoff.setDate(cutoff.getDate() + 14);
 
     /* Fetch all groups (no server-side filter — avoids field-name guessing).
        Airtable field names confirmed from screenshot:
@@ -264,7 +270,7 @@ export default function ExpeditionDetail() {
           };
         })
         /* Only upcoming departures, sorted by date then trek-only before safari */
-        .filter(g => g.departure && new Date(g.departure) >= today)
+        .filter(g => g.departure && new Date(g.departure) >= cutoff)
         .sort((a, b) => {
           const diff = new Date(a.departure) - new Date(b.departure);
           if (diff !== 0) return diff;
@@ -300,10 +306,10 @@ export default function ExpeditionDetail() {
 
   function eventLabel(name) {
     const n = (name || '').toLowerCase();
-    if (n.includes('kosher') && n.includes('safari')) return 'טיפוס כשר + ספארי';
-    if (n.includes('kosher')) return 'טיפוס כשר';
-    if (n.includes('safari')) return 'טיפוס + ספארי';
-    return 'טיפוס בלבד';
+    if (n.includes('kosher') && n.includes('safari')) return `${exp.typeHe} כשר + ספארי`;
+    if (n.includes('kosher')) return `${exp.typeHe} כשר`;
+    if (n.includes('safari')) return `${exp.typeHe} + ספארי`;
+    return exp.nameHe || exp.typeHe;
   }
 
   function monthKey(dep) {
@@ -729,7 +735,7 @@ export default function ExpeditionDetail() {
               </h2>
               {seasons.length > 0 && (
                 <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
-                  עונות מומלצות לטיפוס: {seasons.join(' | ')}
+                  עונות מומלצות ל{exp.typeHe}: {seasons.join(' | ')}
                 </p>
               )}
               {(() => {
@@ -887,7 +893,7 @@ export default function ExpeditionDetail() {
                   fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
                   fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: 0,
                 }}>
-                  תכנית הטיפוס
+                  תכנית ה{exp.typeHe}
                 </h2>
                 {hasSafari && (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -986,14 +992,14 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
                 fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: 'rtl',
               }}>
-                למה לטרק עם HighAir?
+                למה לטייל עם HighAir?
               </h2>
               <div style={{
                 background: '#F5F3FF', border: '1px solid #DDD6FE',
                 borderRadius: RADIUS.xl, padding: '24px 28px', direction: 'rtl',
               }}>
-                {WHY_CARDS.map((card, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < WHY_CARDS.length - 1 ? '12px' : 0 }}>
+                {getWhyCards(exp).map((card, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < getWhyCards(exp).length - 1 ? '12px' : 0 }}>
                     <span style={{ color: COLOR.primary, fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#4C1D95', lineHeight: 1.6 }}>{card.title}</span>
                   </div>
@@ -1033,43 +1039,80 @@ export default function ExpeditionDetail() {
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
             fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px',
           }}>
-            תאריכי יציאה לטיפוס
+            תאריכי יציאה ל{exp.typeHe}
           </h2>
 
-          {groupsLoading ? (
+          {exp.soldOut ? (
+            <div style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl,
+              border: '1.5px dashed #FECACA', background: '#FFF5F5',
+              textAlign: 'center', direction: 'rtl',
+            }}>
+              <div style={{
+                width: '48px', height: '48px', borderRadius: '50%',
+                background: '#FEE2E2', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                </svg>
+              </div>
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#991B1B', margin: 0 }}>
+                ה{exp.typeHe} מלא — אין מקומות פנויים
+              </p>
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', margin: 0, lineHeight: 1.6 }}>
+                רוצים להירשם לרשימת ההמתנה ולקבל עדיפות ליציאה הבאה?
+              </p>
+              <button onClick={scrollToForm} style={{
+                marginTop: '4px', padding: '10px 28px', borderRadius: RADIUS.full,
+                border: 'none', background: COLOR.primary, color: '#fff',
+                fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
+                cursor: 'pointer',
+              }}>
+                השאירו פרטים
+              </button>
+            </div>
+          ) : groupsLoading ? (
             <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
               טוען תאריכים...
             </div>
           ) : liveGroups.length > 0 ? (
             <>
-              {/* Month tabs */}
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                {months.map(([key, label]) => (
-                  <button
-                    key={key}
-                    onClick={() => setActiveMonth(key)}
-                    style={{
-                      padding: '8px 20px',
-                      borderRadius: RADIUS.full,
-                      border: `1.5px solid ${activeMonth === key ? COLOR.primary : '#ECEAF8'}`,
-                      background: activeMonth === key ? COLOR.primary : '#fff',
-                      color: activeMonth === key ? 'white' : '#3D3B5A',
-                      fontFamily: "'Ploni', sans-serif",
-                      fontSize: '14px', fontWeight: 600,
-                      cursor: 'pointer',
-                      transition: `all 0.2s ${EASING.smooth}`,
-                    }}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+              {/* Month tabs — only when more than 2 departure dates */}
+              {liveGroups.length > 2 && (
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
+                  {months.map(([key, label]) => (
+                    <button
+                      key={key}
+                      onClick={() => setActiveMonth(key)}
+                      style={{
+                        padding: '8px 20px',
+                        borderRadius: RADIUS.full,
+                        border: `1.5px solid ${activeMonth === key ? COLOR.primary : '#ECEAF8'}`,
+                        background: activeMonth === key ? COLOR.primary : '#fff',
+                        color: activeMonth === key ? 'white' : '#3D3B5A',
+                        fontFamily: "'Ploni', sans-serif",
+                        fontSize: '14px', fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: `all 0.2s ${EASING.smooth}`,
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {/* Group cards */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
-                {visibleGroups.map(g => {
-                  const spotsLeft = capacity - g.count;
-                  const isFull   = spotsLeft <= 0;
+                {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
+                  const spotsLeft       = capacity - g.count;
+                  const depYM           = (() => { const d = new Date(g.departure); return `${d.getUTCFullYear()}-${d.getUTCMonth()}`; })();
+                  const isManualSoldOut = (exp?.soldOutGroups || []).some(m => {
+                    const sd = new Date(m);
+                    return `${sd.getUTCFullYear()}-${sd.getUTCMonth()}` === depYM;
+                  });
+                  const isFull   = spotsLeft <= 0 || isManualSoldOut;
                   const isAlmost = !isFull && spotsLeft <= 4;
                   const isSafari = g.eventName.toLowerCase().includes('safari');
                   const label    = eventLabel(g.eventName);
@@ -1151,18 +1194,43 @@ export default function ExpeditionDetail() {
               </div>
             </>
           ) : (
-            /* Fallback: static date chips from exp.dates */
-            (exp?.dates?.length > 0) ? (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {exp.dates.map((d, i) => (
-                  <DateChip key={i} date={d} />
-                ))}
-              </div>
-            ) : (
-              <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
-                אין תאריכים זמינים כרגע — צרו קשר לפרטים
-              </div>
-            )
+            <div style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl,
+              border: '1.5px dashed #DDD6FE', background: '#FAFAFF',
+              textAlign: 'center', direction: 'rtl',
+            }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={COLOR.primary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <p style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700,
+                color: '#0A0818', margin: 0,
+              }}>
+                תאריכי ה{exp.typeHe} יפורסמו בקרוב
+              </p>
+              <p style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 400,
+                color: '#6B6B8A', margin: 0, lineHeight: 1.6,
+              }}>
+                רוצים להירשם לרשימת ההמתנה או לשמוע על תאריכים חדשים ראשונים?
+              </p>
+              <button
+                onClick={scrollToForm}
+                style={{
+                  marginTop: '4px', padding: '10px 28px',
+                  borderRadius: RADIUS.full, border: 'none',
+                  background: COLOR.primary, color: '#fff',
+                  fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
+                  cursor: 'pointer', letterSpacing: '0.01em',
+                }}
+              >
+                השאירו פרטים
+              </button>
+            </div>
           )}
         </section>
 
@@ -1174,7 +1242,7 @@ export default function ExpeditionDetail() {
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
             fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
           }}>
-            תמונות מהטיפוס
+            תמונות מה{exp.typeHe}
           </h2>
           <div style={{
             display: 'grid',
@@ -1373,7 +1441,7 @@ export default function ExpeditionDetail() {
 
                   {/* חודש */}
                   <div>
-                    <label style={labelStyle}>באיזה חודש תרצו לטפס? *</label>
+                    <label style={labelStyle}>באיזה חודש תרצו לטייל? *</label>
                     <select
                       required value={form.month}
                       onChange={e => setForm(f => ({ ...f, month: e.target.value }))}

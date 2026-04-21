@@ -83,7 +83,7 @@ function ExpCard({ exp }) {
         }} />
       )}
       {/* ── Top: country badge ── */}
-      <div style={{ padding: '18px 18px 0', direction: 'rtl', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '18px 18px 0', direction: 'rtl', position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{
           display:              'inline-flex',
           alignItems:           'center',
@@ -102,6 +102,15 @@ function ExpCard({ exp }) {
         }}>
           {exp.countryHe} {exp.flag}
         </div>
+        {exp.soldOut && (
+          <div style={{
+            padding: '4px 10px', borderRadius: RADIUS.full,
+            background: '#DC2626', fontFamily: 'Ploni, sans-serif',
+            fontSize: '11px', fontWeight: 700, color: '#FFFFFF',
+          }}>
+            מלא
+          </div>
+        )}
       </div>
 
       {/* ── Bottom: name / elev / arrow ── */}
@@ -119,16 +128,18 @@ function ExpCard({ exp }) {
             }}>
               {exp.nameHe}
             </h3>
-            <p style={{
-              fontFamily:    "'Ploni', sans-serif",
-              fontSize:      FS.sm,
-              fontWeight:    400,
-              color:         'rgba(255,255,255,0.85)',
-              margin:        0,
-              letterSpacing: '0.02em',
-            }}>
-              {fmtElev(exp.elevNum)}
-            </p>
+            {exp.elevNum > 0 && (
+              <p style={{
+                fontFamily:    "'Ploni', sans-serif",
+                fontSize:      FS.sm,
+                fontWeight:    400,
+                color:         'rgba(255,255,255,0.85)',
+                margin:        0,
+                letterSpacing: '0.02em',
+              }}>
+                {fmtElev(exp.elevNum)}
+              </p>
+            )}
           </div>
 
           {/* חץ */}

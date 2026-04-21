@@ -7,9 +7,9 @@ import { EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 const STATS = [
-  { value: '14+',        label: 'יעדים ברחבי העולם'    },
-  { value: '500+',       label: 'מטיילים שכבשו פסגות'  },
-  { value: '₪200K+',  label: 'נתרמנו לחולי סרטן'    },
+  { value: '15',        label: 'יעדים ברחבי העולם'    },
+  { value: '543+',       label: 'מטיילים שכבשו פסגות'  },
+  { value: '₪210K+',  label: 'נתרמו לחולי סרטן'    },
   { value: '94%',       label: 'אחוזי הצלחה'           },
 ];
 

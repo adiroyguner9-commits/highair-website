@@ -8,20 +8,31 @@
  *
  * · Solid white, sticky top, soft shadow
  * · Mobile: hamburger menu with dropdown
+ * · Desktop: mega menu on "משלחות בעולם" hover
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { EXPS } from '../../data/mockData.js';
+
+/* ── Continents + expedition IDs ── */
+const MEGA_CONTINENTS = [
+  { label: 'אפריקה',      flag: '🌍', expIds: [4, 10, 11] },
+  { label: 'אירופה',      flag: '🏔️', expIds: [2, 3, 5, 9] },
+  { label: 'אסיה',        flag: '🌏', expIds: [6, 7, 8, 12, 13, 14, 16] },
+  { label: 'דרום אמריקה', flag: '🌎', expIds: [15] },
+];
 
 /* ── Nav links ── */
 const LINKS = [
-  { label: 'דף בית',        href: '#hero'        },
-  { label: 'משלחות בעולם', href: '#expeditions' },
-  { label: 'טיולים בארץ',  href: '#israel'      },
-  { label: 'המשמעות שלנו', href: '#impact'      },
-  { label: 'צור קשר',      href: '#contact'     },
+  { label: 'דף בית',        href: '#hero'         },
+  { label: 'משלחות בעולם', href: '#expeditions', hasMega: true },
+  { label: 'טיולים בארץ',  href: '#israel'       },
+  { label: 'תכנית שנתית',  href: '/annual-plan', isPage: true },
+  { label: 'המשמעות שלנו', href: '#impact'       },
+  { label: 'צור קשר',      href: '#contact'      },
 ];
 
 /* ── WhatsApp phone number ── */
@@ -37,14 +48,114 @@ function scrollToSection(href) {
   window.scrollTo({ top, behavior: 'smooth' });
 }
 
+/* ── Mega Menu ── */
+function MegaMenu({ onClose, onEnter }) {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      onMouseEnter={onEnter}
+      onMouseLeave={onClose}
+      style={{
+        position:   'fixed',
+        top:        '80px',
+        left:       0,
+        right:      0,
+        zIndex:     998,
+        background: '#FFFFFF',
+        boxShadow:  '0 12px 40px rgba(0,0,0,0.10)',
+        borderTop:  '1px solid #F0F0F0',
+        padding:    '32px 5% 28px',
+        direction:  'rtl',
+      }}
+    >
+      <div style={{
+        maxWidth:            '1280px',
+        margin:              '0 auto',
+        display:             'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap:                 '0',
+      }}>
+        {MEGA_CONTINENTS.map((cont, ci) => {
+          const exps = cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
+          return (
+            <div key={cont.label} style={{
+              padding:     '0 24px',
+              borderRight: ci < MEGA_CONTINENTS.length - 1 ? '1px solid #EDE9FE' : 'none',
+            }}>
+              {/* Continent header */}
+              <div style={{
+                marginBottom:  '10px',
+                paddingBottom: '10px',
+                borderBottom:  '1px solid #EEEEEE',
+              }}>
+                <span style={{
+                  fontFamily:    "'Ploni', sans-serif",
+                  fontSize:      '14px',
+                  fontWeight:    800,
+                  color:         '#6D28D9',
+                  letterSpacing: '0.01em',
+                }}>
+                  {cont.label}
+                </span>
+              </div>
+
+              {/* Expedition links */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                {exps.map(exp => (
+                  <MegaItem key={exp.id} exp={exp} onClose={onClose} />
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function MegaItem({ exp, onClose }) {
+  const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
+
+  return (
+    <button
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={() => { navigate(`/expedition/${exp.slug}`); onClose(); }}
+      style={{
+        display:      'block',
+        padding:      '8px 10px',
+        borderRadius: '8px',
+        border:       'none',
+        background:   hovered ? '#F5F3FF' : 'transparent',
+        cursor:       'pointer',
+        textAlign:    'right',
+        direction:    'rtl',
+        width:        '100%',
+        fontFamily:   "'Ploni', sans-serif",
+        fontSize:     '14px',
+        fontWeight:   500,
+        color:        hovered ? '#4C1D95' : '#3D3B5A',
+        transition:   'background 0.15s ease, color 0.15s ease',
+      }}
+    >
+      {exp.nameHe}
+    </button>
+  );
+}
+
 /* ── Single nav link ── */
-function NavLink({ label, href, onClick, onNavigate }) {
+function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnter }) {
   const [hovered, setHovered] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   function handleClick(e) {
     e.preventDefault();
-    if (location.pathname === '/') {
+    if (isPage) {
+      navigate(href);
+    } else if (location.pathname === '/') {
       scrollToSection(href);
     } else {
       onNavigate?.(href);
@@ -56,7 +167,7 @@ function NavLink({ label, href, onClick, onNavigate }) {
     <a
       href={href}
       onClick={handleClick}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => { setHovered(true); if (hasMega) onMegaEnter?.(); }}
       onMouseLeave={() => setHovered(false)}
       style={{
         position:       'relative',
@@ -71,6 +182,15 @@ function NavLink({ label, href, onClick, onNavigate }) {
       }}
     >
       {label}
+      {hasMega && (
+        <span style={{
+          fontSize:   '10px',
+          marginRight: '3px',
+          opacity:    0.5,
+          display:    'inline-block',
+          transform:  'translateY(-1px)',
+        }}>▾</span>
+      )}
 
       {/* Subtle dark underline on hover */}
       <span style={{
@@ -93,6 +213,8 @@ function NavLink({ label, href, onClick, onNavigate }) {
 export default function Header() {
   const [waBtnHovered, setWaBtnHovered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const megaTimeout = useRef(null);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
 
@@ -100,13 +222,20 @@ export default function Header() {
 
   function handleNavigation(href) {
     navigate('/');
-    // קצת השהייה כדי שהדף יטען לפני הגלילה
     setTimeout(() => scrollToSection(href), 100);
+  }
+
+  function openMega() {
+    clearTimeout(megaTimeout.current);
+    setMegaOpen(true);
+  }
+
+  function closeMega() {
+    megaTimeout.current = setTimeout(() => setMegaOpen(false), 120);
   }
 
   return (
     <header style={{
-      /* ── Positioning ── */
       position:  'fixed',
       top:       0,
       left:      0,
@@ -114,16 +243,10 @@ export default function Header() {
       zIndex:    1000,
       width:     '100%',
       boxSizing: 'border-box',
-
-      /* ── Dimensions ── */
-      height:  '80px',
-      padding: '0 5%',
-
-      /* ── Style ── */
+      height:    '80px',
+      padding:   '0 5%',
       background: '#FFFFFF',
       boxShadow:  '0 4px 20px rgba(0,0,0,0.08)',
-
-      /* ── Three-column layout ── */
       display:        'grid',
       gridTemplateColumns: isMobile ? '1fr auto 1fr' : '1fr auto 1fr',
       alignItems:     'center',
@@ -133,7 +256,6 @@ export default function Header() {
       {/* ── Col 1 (right in RTL): Logo or Hamburger on mobile ── */}
       <div style={{ justifySelf: 'start' }}>
         {isMobile ? (
-          /* Hamburger button */
           <button
             onClick={() => setMenuOpen(prev => !prev)}
             aria-label="תפריט ניווט"
@@ -156,68 +278,54 @@ export default function Header() {
           <img
             src="/Logo.png"
             alt="HighAir Expeditions"
-            style={{
-              height:    '64px',
-              width:     'auto',
-              display:   'block',
-              objectFit: 'contain',
-            }}
+            style={{ height: '64px', width: 'auto', display: 'block', objectFit: 'contain' }}
           />
         )}
       </div>
 
-      {/* ── Col 2 (center): Logo on mobile, Navigation on desktop ── */}
+      {/* ── Col 2: Logo on mobile, Nav on desktop ── */}
       {isMobile ? (
         <div style={{ justifySelf: 'center' }}>
           <img
             src="/Logo.png"
             alt="HighAir Expeditions"
-            style={{
-              height:    '68px',
-              width:     'auto',
-              display:   'block',
-              objectFit: 'contain',
-            }}
+            style={{ height: '68px', width: 'auto', display: 'block', objectFit: 'contain' }}
           />
         </div>
       ) : (
-        <nav style={{
-          display:        'flex',
-          gap:            '40px',
-          alignItems:     'center',
-          justifyContent: 'center',
-        }}>
+        <nav
+          onMouseLeave={closeMega}
+          style={{ display: 'flex', gap: '40px', alignItems: 'center', justifyContent: 'center' }}
+        >
           {LINKS.map(link => (
-            <NavLink key={link.label} label={link.label} href={link.href} onNavigate={handleNavigation} />
+            <NavLink
+              key={link.label}
+              label={link.label}
+              href={link.href}
+              isPage={link.isPage}
+              hasMega={link.hasMega}
+              onNavigate={handleNavigation}
+              onMegaEnter={link.hasMega ? openMega : undefined}
+            />
           ))}
         </nav>
       )}
 
-      {/* ── Col 3 (left in RTL): WhatsApp CTA ── */}
+      {/* ── Col 3: WhatsApp CTA ── */}
       <div style={{ justifySelf: 'end' }}>
         {isMobile ? (
-          /* Mobile: show just the WA icon */
           <a
             href={WA_HREF}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
             style={{
-              display:        'inline-flex',
-              alignItems:     'center',
-              justifyContent: 'center',
-              width:          '40px',
-              height:         '40px',
-              borderRadius:   '50%',
-              background:     '#25D366',
-              color:          '#FFFFFF',
-              textDecoration: 'none',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              width: '40px', height: '40px', borderRadius: '50%',
+              background: '#25D366', color: '#FFFFFF', textDecoration: 'none',
             }}
           >
-            <svg
-              width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
           </a>
@@ -229,38 +337,30 @@ export default function Header() {
             onMouseEnter={() => setWaBtnHovered(true)}
             onMouseLeave={() => setWaBtnHovered(false)}
             style={{
-              display:        'inline-flex',
-              alignItems:     'center',
-              gap:            '8px',
-              padding:        '10px 22px',
-              borderRadius:   '50px',
-              background:     waBtnHovered ? '#1ebe5d' : '#25D366',
-              color:          '#FFFFFF',
-              fontFamily:     "'Ploni', sans-serif",
-              fontSize:       FS.btn,
-              fontWeight:     600,
-              textDecoration: 'none',
-              letterSpacing:  '0.01em',
-              boxShadow:      waBtnHovered
-                                ? '0 6px 20px rgba(37,211,102,0.45)'
-                                : '0 3px 12px rgba(37,211,102,0.30)',
-              transform:      waBtnHovered ? 'translateY(-1px)' : 'none',
-              transition:     'all 0.2s cubic-bezier(0.22, 1, 0.36, 1)',
-              whiteSpace:     'nowrap',
-              direction:      'ltr',
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '10px 22px', borderRadius: '50px',
+              background: waBtnHovered ? '#1ebe5d' : '#25D366',
+              color: '#FFFFFF', fontFamily: "'Ploni', sans-serif",
+              fontSize: FS.btn, fontWeight: 600, textDecoration: 'none',
+              letterSpacing: '0.01em',
+              boxShadow: waBtnHovered ? '0 6px 20px rgba(37,211,102,0.45)' : '0 3px 12px rgba(37,211,102,0.30)',
+              transform: waBtnHovered ? 'translateY(-1px)' : 'none',
+              transition: 'all 0.2s cubic-bezier(0.22, 1, 0.36, 1)',
+              whiteSpace: 'nowrap', direction: 'ltr',
             }}
           >
-            {/* WhatsApp icon (inline SVG — no dependency) */}
-            <svg
-              width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
             צור קשר
           </a>
         )}
       </div>
+
+      {/* ── Mega Menu (desktop) ── */}
+      {!isMobile && megaOpen && (
+        <MegaMenu onClose={closeMega} onEnter={openMega} />
+      )}
 
       {/* ── Mobile dropdown menu ── */}
       {isMobile && menuOpen && (
@@ -275,47 +375,74 @@ export default function Header() {
           padding:    '16px 5%',
           direction:  'rtl',
           borderTop:  '1px solid #F0EEF8',
+          maxHeight:  'calc(100vh - 80px)',
+          overflowY:  'auto',
         }}>
           {LINKS.map(link => (
             <a
               key={link.label}
               href={link.href}
-              onClick={e => { e.preventDefault(); handleNavigation(link.href); closeMenu(); }}
+              onClick={e => {
+                e.preventDefault();
+                if (link.isPage) { navigate(link.href); }
+                else { handleNavigation(link.href); }
+                closeMenu();
+              }}
               style={{
-                display:        'block',
-                fontFamily:     "'Ploni', sans-serif",
-                fontSize:       FS.btn,
-                fontWeight:     500,
-                color:          '#0A0818',
-                textDecoration: 'none',
-                padding:        '14px 0',
-                borderBottom:   '1px solid #F0EEF8',
-                letterSpacing:  '0.01em',
+                display: 'block', fontFamily: "'Ploni', sans-serif",
+                fontSize: FS.btn, fontWeight: 500, color: '#0A0818',
+                textDecoration: 'none', padding: '14px 0',
+                borderBottom: '1px solid #F0EEF8', letterSpacing: '0.01em',
               }}
             >
               {link.label}
             </a>
           ))}
-          {/* WA button in dropdown */}
+
+          {/* Mobile: continent sub-items under משלחות בעולם */}
+          <div style={{ paddingBottom: '8px' }}>
+            {MEGA_CONTINENTS.map(cont => {
+              const exps = cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
+              return (
+                <div key={cont.label} style={{ marginTop: '8px' }}>
+                  <div style={{
+                    fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 800,
+                    color: '#6D28D9', letterSpacing: '0.06em', padding: '6px 12px',
+                    textTransform: 'uppercase',
+                  }}>
+                    {cont.flag} {cont.label}
+                  </div>
+                  {exps.map(exp => (
+                    <a
+                      key={exp.id}
+                      href={`/expedition/${exp.slug}`}
+                      onClick={e => { e.preventDefault(); navigate(`/expedition/${exp.slug}`); closeMenu(); }}
+                      style={{
+                        display: 'block', padding: '8px 12px',
+                        fontFamily: "'Ploni', sans-serif", fontSize: '14px',
+                        fontWeight: 400, color: '#3D3B5A', textDecoration: 'none',
+                        borderRadius: '8px',
+                      }}
+                    >
+                      {exp.nameHe}
+                    </a>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* WA button */}
           <a
             href={WA_HREF}
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeMenu}
             style={{
-              display:        'inline-flex',
-              alignItems:     'center',
-              gap:            '8px',
-              marginTop:      '16px',
-              padding:        '12px 24px',
-              borderRadius:   '50px',
-              background:     '#25D366',
-              color:          '#FFFFFF',
-              fontFamily:     "'Ploni', sans-serif",
-              fontSize:       FS.btn,
-              fontWeight:     600,
-              textDecoration: 'none',
-              direction:      'ltr',
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              marginTop: '16px', padding: '12px 24px', borderRadius: '50px',
+              background: '#25D366', color: '#FFFFFF', fontFamily: "'Ploni', sans-serif",
+              fontSize: FS.btn, fontWeight: 600, textDecoration: 'none', direction: 'ltr',
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

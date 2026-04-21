@@ -123,16 +123,6 @@ function IsraelCard({ trip }) {
             }}>
               {trip.name}
             </h3>
-            <p style={{
-              fontFamily:    "'Ploni', sans-serif",
-              fontSize:      FS.sm,
-              fontWeight:    400,
-              color:         'rgba(255,255,255,0.55)',
-              margin:        0,
-              letterSpacing: '0.02em',
-            }}>
-              {trip.elev}
-            </p>
           </div>
 
           {/* חץ */}
