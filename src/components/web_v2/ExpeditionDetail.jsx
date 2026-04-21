@@ -1,5 +1,5 @@
 /**
- * ExpeditionDetail.jsx — Full expedition detail page (web_v2)
+ * ExpeditionDetail.jsx - Full expedition detail page (web_v2)
  * Route: /expedition/:id
  * RTL Hebrew · Ploni font · inline styles only · React 18
  */
@@ -17,8 +17,8 @@ import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } f
 /* ─── Default data ─────────────────────────────────────────────── */
 const DEFAULT_REVIEWS = [
   { name: 'יוני לוי', date: 'ינואר 2025', rating: 5, text: 'חוויה של פעם בחיים. הצוות של HighAir היה מקצועי ברמה הגבוהה ביותר, תמיד שם לתמיכה. לא האמנתי שאצליח לעלות לפסגה אבל הם האמינו בי.', initial: 'י' },
-  { name: 'מיכל שרון', date: 'מרץ 2025', rating: 5, text: 'הכל היה מושלם מהארגון ועד הרגע שעמדנו על הפסגה. המדריך שלנו היה מדהים — סבלני, מקצועי וגם כיף לבלות איתו.', initial: 'מ' },
-  { name: 'רועי אברהם', date: 'פברואר 2025', rating: 5, text: 'הגעתי בלי ניסיון, חזרתי עם פסגה ועם חברים לחיים. HighAir הם לא רק חברת טיולים — הם משפחה.', initial: 'ר' },
+  { name: 'מיכל שרון', date: 'מרץ 2025', rating: 5, text: 'הכל היה מושלם מהארגון ועד הרגע שעמדנו על הפסגה. המדריך שלנו היה מדהים - סבלני, מקצועי וגם כיף לבלות איתו.', initial: 'מ' },
+  { name: 'רועי אברהם', date: 'פברואר 2025', rating: 5, text: 'הגעתי בלי ניסיון, חזרתי עם פסגה ועם חברים לחיים. HighAir הם לא רק חברת טיולים - הם משפחה.', initial: 'ר' },
 ];
 
 const DEFAULT_FAQ = [
@@ -189,10 +189,10 @@ export default function ExpeditionDetail() {
     if (!exp) return;
     document.title = `${exp.nameHe} | HighAir Expeditions`;
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', `${exp.nameHe} ב${exp.countryHe} — ${exp.elev}. הצטרפו למשלחת עם HighAir Expeditions.`);
+    if (meta) meta.setAttribute('content', `${exp.nameHe} ב${exp.countryHe} - ${exp.elev}. הצטרפו למשלחת עם HighAir Expeditions.`);
     return () => {
       document.title = 'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם';
-      if (meta) meta.setAttribute('content', 'HighAir Expeditions — ארגון משלחות טיפוס הרים וטרקים בארץ ובעולם.');
+      if (meta) meta.setAttribute('content', 'HighAir Expeditions - ארגון משלחות טיפוס הרים וטרקים בארץ ובעולם.');
     };
   }, [exp?.slug]);
 
@@ -231,7 +231,7 @@ export default function ExpeditionDetail() {
     const cutoff = new Date(today);
     cutoff.setDate(cutoff.getDate() + 14);
 
-    /* Fetch all groups (no server-side filter — avoids field-name guessing).
+    /* Fetch all groups (no server-side filter - avoids field-name guessing).
        Airtable field names confirmed from screenshot:
          Event, Group Name, Departure, Return */
     Promise.all([
@@ -477,7 +477,7 @@ export default function ExpeditionDetail() {
         overflow: 'hidden',
         background: '#0A0818',
       }}>
-        {/* Video background — YouTube if videoUrl, else hero.mp4 */}
+        {/* Video background - YouTube if videoUrl, else hero.mp4 */}
         {exp.videoUrl ? (
           <iframe
             src={`https://www.youtube.com/embed/${exp.videoUrl}?autoplay=1&mute=1&loop=1&playlist=${exp.videoUrl}&controls=0&rel=0&playsinline=1&modestbranding=1`}
@@ -514,7 +514,7 @@ export default function ExpeditionDetail() {
         }} />
 
 
-        {/* Hero content — title top, subtitle+CTA bottom */}
+        {/* Hero content - title top, subtitle+CTA bottom */}
         <div style={{
           position: 'absolute', inset: 0, zIndex: 2,
           display: 'flex', flexDirection: 'column',
@@ -523,7 +523,7 @@ export default function ExpeditionDetail() {
           textAlign: 'center',
           padding: isMobile ? '140px 6% 120px' : '160px 8% 130px',
         }}>
-          {/* Title: name + elevation — pinned to top */}
+          {/* Title: name + elevation - pinned to top */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1 style={{
               fontFamily: "'Ploni', sans-serif",
@@ -539,7 +539,7 @@ export default function ExpeditionDetail() {
             </h1>
           </div>
 
-          {/* Tagline + CTA — pinned to bottom */}
+          {/* Tagline + CTA - pinned to bottom */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: isMobile ? '14px' : '18px' }}>
           {/* Tagline */}
           <p style={{
@@ -590,12 +590,12 @@ export default function ExpeditionDetail() {
         </div>
 
 
-        {/* IntersectionObserver sentinel — bottom of hero */}
+        {/* IntersectionObserver sentinel - bottom of hero */}
         <div ref={heroRef} style={{ position: 'absolute', bottom: 0, width: '100%', height: '1px', zIndex: 0 }} />
       </div>
 
       {/* ══════════════════════════════════
-          STATS STRIP — expedition specific
+          STATS STRIP - expedition specific
       ══════════════════════════════════ */}
       <div style={{
         padding:   '0 5%',
@@ -619,8 +619,8 @@ export default function ExpeditionDetail() {
           {[
             { IconComp: MountainIcon, label: 'גובה',          value: `${exp.elevNum} מ׳` },
             { IconComp: StarIcon,     label: 'דרגת קושי',     value: exp.diffHe },
-            { IconComp: MedalIcon,    label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '—' },
-            { IconComp: TagIcon,      label: 'עלות',           value: exp.priceStr ? `החל מ-${exp.priceStr}` : '—' },
+            { IconComp: MedalIcon,    label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '-' },
+            { IconComp: TagIcon,      label: 'עלות',           value: exp.priceStr ? `החל מ-${exp.priceStr}` : '-' },
           ].map((s, i) => (
             <div key={i} style={{
               textAlign:    'center',
@@ -769,7 +769,7 @@ export default function ExpeditionDetail() {
               })()}
             </div>
 
-            {/* Right column — absolutely positioned inside relative wrapper so it always fills text height */}
+            {/* Right column - absolutely positioned inside relative wrapper so it always fills text height */}
             <div style={{ position: 'relative', minHeight: isNarrow ? '260px' : '400px' }}>
               {exp.img ? (
                 <img
@@ -801,7 +801,7 @@ export default function ExpeditionDetail() {
             gap: '20px',
             alignItems: 'start',
           }}>
-            {/* כלול — green card */}
+            {/* כלול - green card */}
             <div style={{
               background: '#ECFDF5',
               borderRadius: RADIUS.xl,
@@ -846,7 +846,7 @@ export default function ExpeditionDetail() {
               })}
             </div>
 
-            {/* לא כלול — light red card */}
+            {/* לא כלול - light red card */}
             <div style={{
               background: '#FEF2F2',
               borderRadius: RADIUS.xl,
@@ -987,7 +987,7 @@ export default function ExpeditionDetail() {
 
         <Separator />
 
-        {/* ── D+E. למה לטרק עם HighAir + חשוב לדעת — side by side ── */}
+        {/* ── D+E. למה לטרק עם HighAir + חשוב לדעת - side by side ── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <div style={{
             display: 'grid',
@@ -1068,7 +1068,7 @@ export default function ExpeditionDetail() {
                 </svg>
               </div>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#991B1B', margin: 0 }}>
-                ה{exp.typeHe} מלא — אין מקומות פנויים
+                ה{exp.typeHe} מלא - אין מקומות פנויים
               </p>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', margin: 0, lineHeight: 1.6 }}>
                 רוצים להירשם לרשימת ההמתנה ולקבל עדיפות ליציאה הבאה?
@@ -1088,7 +1088,7 @@ export default function ExpeditionDetail() {
             </div>
           ) : liveGroups.length > 0 ? (
             <>
-              {/* Month tabs — only when more than 2 departure dates */}
+              {/* Month tabs - only when more than 2 departure dates */}
               {liveGroups.length > 2 && (
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
                   {months.map(([key, label]) => (
@@ -1294,7 +1294,7 @@ export default function ExpeditionDetail() {
                 המטפסים שלנו שהגיעו לפסגה
               </p>
 
-              {/* Horizontal scroll slider — mobile & desktop */}
+              {/* Horizontal scroll slider - mobile & desktop */}
               <div style={{
                 display: 'flex',
                 gap: '16px',

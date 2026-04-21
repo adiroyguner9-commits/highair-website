@@ -1,5 +1,5 @@
 /**
- * Accessibility.jsx — הצהרת נגישות
+ * Accessibility.jsx - הצהרת נגישות
  */
 import LegalPageLayout, { SECTION, H2, P, LI, UL, CONTACT_BOX, LINK } from './LegalPageLayout.jsx';
 
@@ -16,7 +16,7 @@ export default function Accessibility() {
           אתר זה עומד בדרישות תקנות שיוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג 2013.
         </p>
         <p style={P}>
-          התאמות הנגישות בוצעו עפ"י המלצות התקן הישראלי (ת"י 5568) לנגישות תכנים באינטרנט ברמת AA ומסמך WCAG 2.0 הבינלאומי. תקן זה מתבסס על מסמך הקווים המנחים של הארגון הבינלאומי העוסק בתקינה ברשת – Web Content Accessibility Guidelines (WCAG) 2.0.
+          התאמות הנגישות בוצעו עפ"י המלצות התקן הישראלי (ת"י 5568) לנגישות תכנים באינטרנט ברמת AA ומסמך WCAG 2.0 הבינלאומי. תקן זה מתבסס על מסמך הקווים המנחים של הארגון הבינלאומי העוסק בתקינה ברשת - Web Content Accessibility Guidelines (WCAG) 2.0.
         </p>
         <p style={P}>
           האתר תומך בכל הדפדפנים הפופולריים כגון: Internet Explorer 10 ומעלה, Google Chrome, Mozilla Firefox.
@@ -54,11 +54,11 @@ export default function Accessibility() {
         <p style={P}>כל הפעולות באתר ניתנות לביצוע באמצעות המקלדת:</p>
         <ul style={UL}>
           {[
-            'העברה לקישור הבא בדף — TAB',
-            'הפעלת קישור — ENTER',
-            'חזרה לקישור קודם — SHIFT + TAB',
-            'הגדלת הגופן — Ctrl +',
-            'הקטנת הגופן — Ctrl −',
+            'העברה לקישור הבא בדף - TAB',
+            'הפעלת קישור - ENTER',
+            'חזרה לקישור קודם - SHIFT + TAB',
+            'הגדלת הגופן - Ctrl +',
+            'הקטנת הגופן - Ctrl -',
           ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
         </ul>
       </div>

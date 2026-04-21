@@ -1,5 +1,5 @@
 /**
- * PressSection.jsx — Dream Site (web_v2)
+ * PressSection.jsx - Dream Site (web_v2)
  * Press & media coverage · RTL Hebrew · inline YouTube embed
  */
 
@@ -24,7 +24,7 @@ const PRESS_ITEMS = [
     color:   '#0057A8',
     date:    '2024',
     headline: 'בוריס, קטוע רגל מלחמת חרבות ברזל, כבש את הקילימנג\'רו',
-    excerpt: 'לוחם פצוע שאיבד את רגלו מעל הברך יצא עם HighAir למסע מרגש לפסגה הגבוהה באפריקה — סיפור על אמונה, אומץ, וכוח מנטלי.',
+    excerpt: 'לוחם פצוע שאיבד את רגלו מעל הברך יצא עם HighAir למסע מרגש לפסגה הגבוהה באפריקה - סיפור על אמונה, אומץ, וכוח מנטלי.',
     href:    'https://www.youtube.com/watch?v=tuxv0s1zzbk',
     isVideo: true,
   },
@@ -33,7 +33,7 @@ const PRESS_ITEMS = [
     color:   '#E31E24',
     date:    '2024',
     headline: 'חן שקד: "מתוך אובדן אישי בניתי את HighAir"',
-    excerpt: 'מייסד HighAir סיפר בתכנית הבוקר כיצד מסעות טיפוס הפכו לדרך חיים — ועל הכוח שטמון בהתמודדות עם אתגרים אמיתיים.',
+    excerpt: 'מייסד HighAir סיפר בתכנית הבוקר כיצד מסעות טיפוס הפכו לדרך חיים - ועל הכוח שטמון בהתמודדות עם אתגרים אמיתיים.',
     href:    'https://www.youtube.com/watch?v=8fE5LqCGG2M&t=1s',
     isVideo: true,
   },
@@ -41,7 +41,7 @@ const PRESS_ITEMS = [
     outlet:  'פודקאסט',
     color:   '#7C3AED',
     date:    '2024',
-    headline: '"מאובדן לפסגות הגבוהות בעולם" – פודקאסט עם חן שקד',
+    headline: '"מאובדן לפסגות הגבוהות בעולם" - פודקאסט עם חן שקד',
     excerpt: 'ראיון מעמיק עם מייסד HighAir על החיים, ההרים, ואיך הפך חלום לעסק שמשנה חיים.',
     href:    'https://www.youtube.com/watch?v=3wV2ckjnnKc',
     isVideo: true,

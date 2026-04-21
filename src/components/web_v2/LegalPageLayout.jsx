@@ -1,5 +1,5 @@
 /**
- * LegalPageLayout.jsx — shared wrapper for all legal/info pages
+ * LegalPageLayout.jsx - shared wrapper for all legal/info pages
  * Usage: <LegalPageLayout title="..." subtitle="...">…sections…</LegalPageLayout>
  */
 import { useEffect } from 'react';

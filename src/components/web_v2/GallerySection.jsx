@@ -1,5 +1,5 @@
 /**
- * GallerySection.jsx — Dream Site (web_v2)
+ * GallerySection.jsx - Dream Site (web_v2)
  * Horizontal slider · lightbox · RTL Hebrew
  */
 

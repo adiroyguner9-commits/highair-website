@@ -1,5 +1,5 @@
 /**
- * ImpactSection.jsx — מטיילים עם משמעות
+ * ImpactSection.jsx - מטיילים עם משמעות
  * תמונה משמאל · טקסט מימין · רקע לבן
  */
 
@@ -65,7 +65,7 @@ export default function ImpactSection() {
               <img
                 key={i}
                 src={src}
-                alt="HighAir Expeditions — מטיילים עם משמעות, ביקור בבית חולים"
+                alt="HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים"
                 loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
                 style={{

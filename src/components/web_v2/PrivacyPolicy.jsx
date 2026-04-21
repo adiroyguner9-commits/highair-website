@@ -1,5 +1,5 @@
 /**
- * PrivacyPolicy.jsx — מדיניות פרטיות
+ * PrivacyPolicy.jsx - מדיניות פרטיות
  */
 import LegalPageLayout, { SECTION, H2, P, LI, UL, CONTACT_BOX, LINK } from './LegalPageLayout.jsx';
 
@@ -48,7 +48,7 @@ export default function PrivacyPolicy() {
             'טיפול בהזמנות ותשלומים',
             'מענה לפניות ובקשות',
             'מתן שירותים נוספים ותיאום מפגשי הכנה',
-            'שליחת עדכונים, תוכן מקצועי, מידע על מסעות עתידיים ודיוור שיווקי – רק למי שנתן הסכמה מפורשת לכך!',
+            'שליחת עדכונים, תוכן מקצועי, מידע על מסעות עתידיים ודיוור שיווקי - רק למי שנתן הסכמה מפורשת לכך!',
           ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
         </ul>
       </div>

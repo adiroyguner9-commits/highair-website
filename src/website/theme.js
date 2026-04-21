@@ -1,21 +1,21 @@
 /**
- * HighAir Design System — theme.js
+ * HighAir Design System - theme.js
  * ─────────────────────────────────────────────────────────────
  * Single source of truth for all design tokens used across the
  * marketing website AND the app shell.  Import from here instead
  * of hard-coding hex values anywhere in website components.
  *
  * Structure:
- *   COLOR     — palette + named gradients
- *   FONT      — font-family stacks
- *   RADIUS    — border-radius scale
- *   SHADOW    — box-shadow presets (neutral + brand-tinted)
- *   SPACING   — 8-pt spacing scale
- *   EASING    — animation easing curves
- *   glass()   — glassmorphism helper
- *   LABEL     — section overline text style
- *   H2        — standard section heading style
- *   BTN       — button style presets (for spreading into style={})
+ *   COLOR     - palette + named gradients
+ *   FONT      - font-family stacks
+ *   RADIUS    - border-radius scale
+ *   SHADOW    - box-shadow presets (neutral + brand-tinted)
+ *   SPACING   - 8-pt spacing scale
+ *   EASING    - animation easing curves
+ *   glass()   - glassmorphism helper
+ *   LABEL     - section overline text style
+ *   H2        - standard section heading style
+ *   BTN       - button style presets (for spreading into style={})
  */
 
 /* ─────────────── Colors ─────────────── */
@@ -141,7 +141,7 @@ export const SPACING = {
 
 /* ─────────────── Easing Curves ─────────────── */
 export const EASING = {
-  out:     'cubic-bezier(0.22, 1, 0.36, 1)',     // fast out — snappy entries
+  out:     'cubic-bezier(0.22, 1, 0.36, 1)',     // fast out - snappy entries
   inOut:   'cubic-bezier(0.45, 0, 0.55, 1)',      // balanced
   spring:  'cubic-bezier(0.34, 1.56, 0.64, 1)',  // bouncy / springy
   smooth:  'cubic-bezier(0.4, 0, 0.2, 1)',        // Material-style

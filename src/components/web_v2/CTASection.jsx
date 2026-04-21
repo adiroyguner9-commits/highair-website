@@ -1,5 +1,5 @@
 /**
- * CTASection.jsx — סקשן סגירה + טופס יצירת קשר
+ * CTASection.jsx - סקשן סגירה + טופס יצירת קשר
  * שולח לטבלת "Website Leads" ב-Airtable → התראה לאדמין
  */
 
@@ -200,7 +200,7 @@ export default function CTASection() {
               )}
             </div>
 
-            {/* Message — required */}
+            {/* Message - required */}
             <div>
               <label style={LABEL_STYLE}>מה תרצו לרשום לנו? *</label>
               <textarea
@@ -302,7 +302,7 @@ export default function CTASection() {
               margin:     0,
               lineHeight: 1.7,
             }}>
-              פנייתכם התקבלה — נחזור אליכם בהקדם 🙌
+              פנייתכם התקבלה - נחזור אליכם בהקדם 🙌
             </p>
             <button
               onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', message: '' }); }}

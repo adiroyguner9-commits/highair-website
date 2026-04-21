@@ -1,5 +1,5 @@
 /**
- * Header.jsx — Dream Site navbar (src/components/web_v2/)
+ * Header.jsx - Dream Site navbar (src/components/web_v2/)
  *
  * Layout (LTR grid):
  *   Left   → "HighAir" logo

@@ -1,5 +1,5 @@
 /**
- * ReviewsSection.jsx — Dream Site (web_v2)
+ * ReviewsSection.jsx - Dream Site (web_v2)
  * גריד ביקורות גוגל · RTL Hebrew · רקע לבן
  */
 
@@ -26,21 +26,21 @@ const REVIEWS = [
     initials: 'א',
     rating:   5,
     date:     'לפני 3 חודשים',
-    text:     'HighAir זה לא רק טרק — זו קהילה שלמה. יצאתי עם חברים לכל החיים ועם זיכרונות שלא ישכחו לעולם. ממליץ בחום!',
+    text:     'HighAir זה לא רק טרק - זו קהילה שלמה. יצאתי עם חברים לכל החיים ועם זיכרונות שלא ישכחו לעולם. ממליץ בחום!',
   },
   {
     name:     'דנה ברק',
     initials: 'ד',
     rating:   5,
     date:     'לפני 4 חודשים',
-    text:     'הארגון המושלם לטיולי הרים. כל הלוגיסטיקה מסודרת, הציוד מעולה והמדריכים — ברמה אחרת לגמרי. 10 מתוך 10.',
+    text:     'הארגון המושלם לטיולי הרים. כל הלוגיסטיקה מסודרת, הציוד מעולה והמדריכים - ברמה אחרת לגמרי. 10 מתוך 10.',
   },
   {
     name:     'רן אברהם',
     initials: 'ר',
     rating:   5,
     date:     'לפני 5 חודשים',
-    text:     'עשינו את טרק האנפורנה עם HighAir — מסע שינה אותי. בטיחות מקסימלית, אווירה משפחתית וידיעה שיש מי שדואג לך בכל רגע.',
+    text:     'עשינו את טרק האנפורנה עם HighAir - מסע שינה אותי. בטיחות מקסימלית, אווירה משפחתית וידיעה שיש מי שדואג לך בכל רגע.',
   },
   {
     name:     'שיר נוי',
@@ -215,7 +215,7 @@ export default function ReviewsSection() {
           </p>
         </div>
 
-        {/* Rating bar — full width */}
+        {/* Rating bar - full width */}
         <div style={{
           display:        'flex',
           alignItems:     'center',
@@ -278,7 +278,7 @@ export default function ReviewsSection() {
           </span>
         </div>
 
-        {/* ── Grid — 3 reviews only ── */}
+        {/* ── Grid - 3 reviews only ── */}
         <div style={{
           display:             'grid',
           gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',

@@ -1,5 +1,5 @@
 /**
- * NotFound404.jsx — עמוד 404
+ * NotFound404.jsx - עמוד 404
  * RTL Hebrew · on-brand design
  */
 

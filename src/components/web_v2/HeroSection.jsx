@@ -1,5 +1,5 @@
 /**
- * HeroSection.jsx — Dream Site Hero (src/components/web_v2/)
+ * HeroSection.jsx - Dream Site Hero (src/components/web_v2/)
  *
  * · Full-bleed cinematic video background (100vh)
  * · Dark radial overlay so text pops against any footage
@@ -90,7 +90,7 @@ export default function HeroSection() {
         userSelect: 'none',
       }}>
 
-        {/* Brand name — English, Mazzard, massive display size */}
+        {/* Brand name - English, Mazzard, massive display size */}
         <h1 style={{
           ...fadeUp(0.15),
           fontFamily:    "'Mazzard', 'Ploni', sans-serif",
@@ -106,7 +106,7 @@ export default function HeroSection() {
           HighAir Expeditions
         </h1>
 
-        {/* Hebrew subtitle block — sits below title with clear gap */}
+        {/* Hebrew subtitle block - sits below title with clear gap */}
         <div style={{ marginTop: '28px' }}>
 
           {/* Line 1 */}
@@ -123,7 +123,7 @@ export default function HeroSection() {
             ארגון טרקים ומשלחות טיפוס הרים בארץ ובעולם
           </p>
 
-          {/* Line 2 — mission, tight under line 1 */}
+          {/* Line 2 - mission, tight under line 1 */}
           <p style={{
             ...fadeUp(0.65),
             fontFamily:    "'Ploni', sans-serif",
@@ -150,7 +150,7 @@ export default function HeroSection() {
           flexWrap:       'wrap',
         }}>
 
-          {/* Primary — לכל המשלחות */}
+          {/* Primary - לכל המשלחות */}
           <a
             href="#expeditions"
             onMouseEnter={() => setBtn1Hovered(true)}
@@ -181,7 +181,7 @@ export default function HeroSection() {
             לכל המשלחות
           </a>
 
-          {/* Secondary — הסיפור שלנו */}
+          {/* Secondary - הסיפור שלנו */}
           <a
             href="#impact"
             onMouseEnter={() => setBtn2Hovered(true)}

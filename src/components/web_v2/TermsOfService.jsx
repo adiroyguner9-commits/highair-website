@@ -1,5 +1,5 @@
 /**
- * TermsOfService.jsx — תנאי שימוש
+ * TermsOfService.jsx - תנאי שימוש
  */
 import LegalPageLayout, { SECTION, P } from './LegalPageLayout.jsx';
 

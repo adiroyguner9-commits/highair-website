@@ -1,6 +1,6 @@
 /**
- * useInView — Intersection Observer hook
- * מחזיר [ref, inView] — inView הופך true כשהאלמנט נכנס לתצוגה (פעם אחת בלבד)
+ * useInView - Intersection Observer hook
+ * מחזיר [ref, inView] - inView הופך true כשהאלמנט נכנס לתצוגה (פעם אחת בלבד)
  */
 import { useEffect, useRef, useState } from 'react';
 

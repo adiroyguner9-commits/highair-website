@@ -1,5 +1,5 @@
 /**
- * SiteFooter.jsx — Dream Site footer (web_v2)
+ * SiteFooter.jsx - Dream Site footer (web_v2)
  * 4 columns: טרקים בעולם · טיפוסים בעולם · טרקים בארץ · מידע
  */
 
@@ -133,7 +133,7 @@ export default function SiteFooter() {
               fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300,
               color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, maxWidth: '240px',
             }}>
-              משלחות טיפוס הרים וטרקים בעולם ובישראל — בשילוב תרומה לחולי סרטן בכל מסע.
+              משלחות טיפוס הרים וטרקים בעולם ובישראל - בשילוב תרומה לחולי סרטן בכל מסע.
             </p>
 
             {/* Social icons */}

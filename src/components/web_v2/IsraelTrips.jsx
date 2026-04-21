@@ -1,8 +1,8 @@
 /**
- * IsraelTrips.jsx — Section 03 Dream Site (src/components/web_v2/)
+ * IsraelTrips.jsx - Section 03 Dream Site (src/components/web_v2/)
  *
  * · Clean white section, same card DNA as ExpeditionExplorer
- * · No tabs — static grid of Israel-based trips
+ * · No tabs - static grid of Israel-based trips
  * · Coming-soon cards for destinations not yet live
  */
 
@@ -12,7 +12,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 /* ══════════════════════════════════════════════════════════════
    Israel destinations data
-   (No EXPS entries yet — using curated placeholders)
+   (No EXPS entries yet - using curated placeholders)
 ══════════════════════════════════════════════════════════════ */
 
 const ISRAEL_TRIPS = [

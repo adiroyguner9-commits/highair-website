@@ -1,5 +1,5 @@
 /**
- * StatsSection.jsx — Floating stats bar
+ * StatsSection.jsx - Floating stats bar
  * מרחף בין ההירו לסקשן המשלחות
  */
 

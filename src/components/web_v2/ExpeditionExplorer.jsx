@@ -1,5 +1,5 @@
 /**
- * ExpeditionExplorer.jsx — Section 02 Dream Site (src/components/web_v2/)
+ * ExpeditionExplorer.jsx - Section 02 Dream Site (src/components/web_v2/)
  * Worldwide expeditions · continent tabs · RTL Hebrew
  */
 
@@ -21,7 +21,7 @@ const CONTINENTS = [
 const fmtElev = (num) => num + ' מטר';
 
 /* ══════════════════════════════════════════════════════════════
-   ExpCard — identical design to original
+   ExpCard - identical design to original
 ══════════════════════════════════════════════════════════════ */
 
 function ExpCard({ exp }) {

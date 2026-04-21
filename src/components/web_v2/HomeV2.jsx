@@ -1,5 +1,5 @@
 /**
- * HomeV2.jsx — Dream Site root (src/components/web_v2/)
+ * HomeV2.jsx - Dream Site root (src/components/web_v2/)
  * Active route: /test
  */
 

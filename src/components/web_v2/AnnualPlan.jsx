@@ -1,5 +1,5 @@
 /**
- * AnnualPlan.jsx — /annual-plan
+ * AnnualPlan.jsx - /annual-plan
  * All upcoming trips (worldwide + Israel) from Airtable,
  * grouped by month, sorted earliest → latest.
  * Trips are removed automatically once their Return date passes.
@@ -145,7 +145,7 @@ function TripCard({ group, exp }) {
           fontWeight:           600,
           color:                'rgba(255,255,255,0.92)',
         }}>
-          {exp?.countryHe || '—'} {exp?.flag || ''}
+          {exp?.countryHe || '-'} {exp?.flag || ''}
         </div>
 
         {tag && (
@@ -191,7 +191,7 @@ function TripCard({ group, exp }) {
           textAlign:     'right',
         }}>
           {fmtDate(group.departure)}
-          {group.returnDate ? ` — ${fmtDate(group.returnDate)}` : ''}
+          {group.returnDate ? ` - ${fmtDate(group.returnDate)}` : ''}
         </p>
 
         {/* Footer row: type badge + spots */}
@@ -352,7 +352,7 @@ export default function AnnualPlan() {
             margin:     0,
             lineHeight: 1.7,
           }}>
-            כל הטיולים שלנו — מהתאריך הקרוב ועד סוף העונה
+            כל הטיולים שלנו - מהתאריך הקרוב ועד סוף העונה
           </p>
         </div>
 

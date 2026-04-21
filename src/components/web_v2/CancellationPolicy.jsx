@@ -1,5 +1,5 @@
 /**
- * CancellationPolicy.jsx — מדיניות ביטול
+ * CancellationPolicy.jsx - מדיניות ביטול
  */
 import LegalPageLayout, { SECTION, P } from './LegalPageLayout.jsx';
 
