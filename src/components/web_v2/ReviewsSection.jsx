@@ -293,7 +293,7 @@ export default function ReviewsSection() {
         {/* ── CTA ── */}
         <div style={{ textAlign: 'center' }}>
           <a
-            href="https://g.page/r/highair-expeditions/review"
+            href="https://www.google.com/maps/place/%D7%98%D7%A8%D7%A7%D7%99%D7%9D+%D7%95%D7%9E%D7%A9%D7%9C%D7%97%D7%95%D7%AA+%D7%98%D7%99%D7%A4%D7%95%D7%A1+%D7%94%D7%A8%D7%99%D7%9D+-+HighAir+Expeditions%E2%80%AD/@31.9340141,34.828296,17z/data=!3m1!4b1!4m6!3m5!1s0x1502b71bd014c07b:0xbdb2b83af73fa260!8m2!3d31.9340141!4d34.8257211!16s%2Fg%2F11vjpz9vv_?entry=ttu"
             target="_blank"
             rel="noopener noreferrer"
             style={{
