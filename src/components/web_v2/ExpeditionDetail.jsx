@@ -1570,7 +1570,7 @@ export default function ExpeditionDetail() {
                     <label style={labelStyle}>מייל *</label>
                     <input
                       type="text" required
-                      placeholder="example@gmail.com"
+                      placeholder="example@walla.com"
                       value={form.email}
                       onChange={e => {
                         // רק תווים תקניים למייל
