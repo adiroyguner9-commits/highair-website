@@ -14,6 +14,7 @@ import Accessibility      from './components/web_v2/Accessibility.jsx';
 import IsraelDetail       from './components/web_v2/IsraelDetail.jsx';
 import Blog               from './components/web_v2/Blog.jsx';
 import BlogPost           from './components/web_v2/BlogPost.jsx';
+import Shop               from './components/web_v2/Shop.jsx';
 import NotFound404        from './components/web_v2/NotFound404.jsx';
 
 createRoot(document.getElementById('root')).render(
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/israel/:slug"      element={<IsraelDetail />} />
         <Route path="/blog"              element={<Blog />} />
         <Route path="/blog/:slug"        element={<BlogPost />} />
+        <Route path="/shop"             element={<Shop />} />
         <Route path="/*"                 element={<NotFound404 />} />
       </Routes>
     </BrowserRouter>

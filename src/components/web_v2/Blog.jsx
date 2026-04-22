@@ -2,7 +2,7 @@
  * Blog.jsx - /blog
  * Article listing page — Hebrew RTL
  */
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -12,24 +12,22 @@ import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
 function PostCard({ post }) {
-  const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
 
   return (
     <div
       onClick={() => navigate(`/blog/${post.slug}`)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(109,40,217,0.14)'; }}
+      onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.05)'; }}
       style={{
         background:   '#FFFFFF',
         borderRadius: RADIUS.xl,
         border:       '1px solid #ECEAF8',
         overflow:     'hidden',
         cursor:       'pointer',
-        transform:    hovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow:    hovered ? '0 12px 40px rgba(109,40,217,0.12)' : '0 2px 12px rgba(0,0,0,0.05)',
-        transition:   `all 0.25s ${EASING.out}`,
+        boxShadow:    '0 2px 12px rgba(0,0,0,0.05)',
+        transition:   `box-shadow 0.25s ${EASING.out}`,
         display:      'flex',
         flexDirection:'column',
       }}
@@ -175,7 +173,7 @@ export default function Blog() {
                       color:        active ? '#FFFFFF' : '#4B4869',
                       fontFamily:   "'Ploni', sans-serif",
                       fontSize:     FS.btn,
-                      fontWeight:   active ? 700 : 400,
+                      fontWeight:   700,
                       cursor:       'pointer',
                       whiteSpace:   'nowrap',
                       transition:   `all 0.2s ${EASING.out}`,
@@ -193,6 +191,8 @@ export default function Blog() {
             display:             'grid',
             gridTemplateColumns: `repeat(${cols}, 1fr)`,
             gap:                 '24px',
+            minHeight:           '400px',
+            alignContent:        'start',
           }}>
             {filtered.map(post => (
               <PostCard key={post.id} post={post} />
