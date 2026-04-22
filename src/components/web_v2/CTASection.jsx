@@ -7,9 +7,9 @@ import { useState } from 'react';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
-/* ── Submit lead to Airtable "Website Leads" table ── */
+/* ── Submit lead ── */
 async function submitLead({ name, phone, message }) {
-  const res = await fetch(`/api/at?table=${encodeURIComponent('Website Leads')}`, {
+  const res = await fetch('/api/submit-lead', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify({
@@ -17,11 +17,12 @@ async function submitLead({ name, phone, message }) {
         'Name':      name,
         'Phone':     phone,
         'Message':   message,
+        'Source':    'CTA Section',
         'Submitted': new Date().toISOString(),
       },
     }),
   });
-  if (!res.ok) throw new Error(`Airtable error ${res.status}`);
+  if (!res.ok) throw new Error(`Submit error ${res.status}`);
   return res.json();
 }
 

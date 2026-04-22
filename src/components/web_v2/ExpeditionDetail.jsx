@@ -388,7 +388,7 @@ export default function ExpeditionDetail() {
     if (!validateAge(form.age)) return;
     setStatus('loading');
     try {
-      const res = await fetch('/api/airtable/Website%20Leads', {
+      const res = await fetch('/api/submit-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
