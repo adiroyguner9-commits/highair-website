@@ -105,7 +105,6 @@ export default function IsraelDetail() {
     }
   }
 
-  useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   /* ── Live groups from Airtable ── */
   const hasAirtable = !!(trip?.airtableEvents?.length);
@@ -669,6 +668,7 @@ export default function IsraelDetail() {
                 <div>
                   <label style={labelStyle}>שם מלא *</label>
                   <input type="text" required value={form.name}
+                    placeholder="ישראל ישראלי"
                     onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
                     style={inputStyle}
                     onFocus={e => { e.target.style.borderColor = COLOR.primary; }}

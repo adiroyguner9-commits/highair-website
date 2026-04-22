@@ -1459,6 +1459,7 @@ export default function ExpeditionDetail() {
                     <label style={labelStyle}>שם מלא *</label>
                     <input
                       type="text" required value={form.name}
+                      placeholder="ישראל ישראלי"
                       onChange={e => {
                         // רק אותיות (עברית/לטינית) ורווחים
                         const v = e.target.value.replace(/[^א-תa-zA-Z\s]/g, '');
@@ -1499,6 +1500,7 @@ export default function ExpeditionDetail() {
                       <label style={labelStyle}>גיל *</label>
                       <input
                         type="number" required min="16" max="99"
+                        placeholder="25"
                         value={form.age}
                         onChange={e => {
                           const v = e.target.value.replace(/\D/g, '').slice(0, 2);
@@ -1522,6 +1524,7 @@ export default function ExpeditionDetail() {
                       <label style={labelStyle}>כמות אנשים *</label>
                       <input
                         type="number" required min="1" max="10"
+                        placeholder="1"
                         value={form.groupSize}
                         onChange={e => {
                           const v = Math.min(10, Math.max(1, parseInt(e.target.value) || 1));
@@ -1567,6 +1570,7 @@ export default function ExpeditionDetail() {
                     <label style={labelStyle}>מייל *</label>
                     <input
                       type="text" required
+                      placeholder="example@gmail.com"
                       value={form.email}
                       onChange={e => {
                         // רק תווים תקניים למייל
@@ -1597,7 +1601,7 @@ export default function ExpeditionDetail() {
                       rows={3} required value={form.experience}
                       onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
                       style={{ ...inputStyle, resize: 'vertical' }}
-                      placeholder="ספרו לנו על ניסיון טיפוס / טרק קודם"
+                      placeholder="ספרו לנו על ניסיון טרק קודם"
                       onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
                       onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     />
