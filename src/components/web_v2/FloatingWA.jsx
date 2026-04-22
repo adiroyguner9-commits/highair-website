@@ -2,6 +2,7 @@
  * FloatingWA.jsx - Floating WhatsApp button (shared across all pages)
  */
 import { useState } from 'react';
+import { Analytics } from '../../utils/analytics.js';
 
 const WA_PHONE = '972555636975';
 const WA_MSG   = encodeURIComponent('היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️');
@@ -15,7 +16,8 @@ export default function FloatingWA() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="פנו אלינו בוואטסאפ"
+      aria-label="צור קשר בוואטסאפ"
+      onClick={() => Analytics.clickWhatsApp('floating_button')}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

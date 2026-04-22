@@ -4,6 +4,7 @@
  */
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
@@ -145,16 +146,19 @@ export default function BlogPost() {
   const readingTime = calcReadingTime(post.content);
 
   const shareWA = () => {
+    Analytics.shareWhatsApp(post.title);
     const text = encodeURIComponent(`${post.title}\n${pageUrl}?utm_source=whatsapp&utm_medium=social&utm_campaign=blog`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 
   const shareFB = () => {
+    Analytics.shareFacebook(post.title);
     const url = encodeURIComponent(`${pageUrl}?utm_source=facebook&utm_medium=social&utm_campaign=blog`);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   };
 
   const copyLink = () => {
+    Analytics.shareCopyLink(post.title);
     navigator.clipboard.writeText(`${pageUrl}?utm_source=copy&utm_medium=social&utm_campaign=blog`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -243,11 +247,13 @@ export default function BlogPost() {
       </div>
 
       {/* ── Content ── */}
-      <div style={{
-        maxWidth: '960px',
-        margin:   '0 auto',
-        padding:  isMobile ? '40px 5% 80px' : '60px 5% 100px',
-      }}>
+      <div
+        id="main-content"
+        style={{
+          maxWidth: '960px',
+          margin:   '0 auto',
+          padding:  isMobile ? '40px 5% 80px' : '60px 5% 100px',
+        }}>
 
         {/* Back link */}
         <button

@@ -122,7 +122,7 @@ export default function Blog() {
   return (
     <>
       <Header />
-      <main style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: 'rtl' }}>
+      <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: 'rtl' }}>
 
         {/* ── Page header ── */}
         <div style={{

@@ -3,6 +3,7 @@
  * Products store page — Hebrew RTL
  */
 import { useState } from 'react';
+import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
@@ -124,6 +125,7 @@ function ProductCard({ product }) {
             href={product.buyLink}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => Analytics.clickBuyProduct(product.name, product.price)}
             style={{
               display:      'inline-flex',
               alignItems:   'center',

@@ -3,7 +3,7 @@
  * Active route: /test
  */
 
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { useInView }      from '../../website/useInView.js';
 import { usePageMeta }    from '../../website/usePageMeta.js';
 import Header             from './Header.jsx';
@@ -49,8 +49,41 @@ function FadeIn({ children, delay = 0 }) {
   );
 }
 
+/* ── Organization JSON-LD schema ── */
+const ORG_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type':    'Organization',
+  name:       'HighAir Expeditions',
+  url:        'https://www.highair-expeditions.com',
+  logo:       'https://www.highair-expeditions.com/logo.png',
+  contactPoint: {
+    '@type':             'ContactPoint',
+    telephone:           '+972-55-563-6975',
+    contactType:         'customer service',
+    availableLanguage:   'Hebrew',
+  },
+  sameAs: [],
+};
+
 /* ── Page ── */
 export default function HomeV2() {
+  /* Inject Organization JSON-LD into <head> */
+  useEffect(() => {
+    const existing = document.getElementById('org-jsonld');
+    if (existing) return; // already injected (StrictMode double-invoke guard)
+
+    const script = document.createElement('script');
+    script.id        = 'org-jsonld';
+    script.type      = 'application/ld+json';
+    script.textContent = JSON.stringify(ORG_SCHEMA);
+    document.head.appendChild(script);
+
+    return () => {
+      const el = document.getElementById('org-jsonld');
+      if (el) el.remove();
+    };
+  }, []);
+
   usePageMeta({
     title:         'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם',
     description:   'HighAir Expeditions — משלחות טיפוס הרים וטרקים בארץ ובעולם. קילימנג׳רו, אוורסט, אנאפורנה, אקונקגואה ועוד — בשילוב תרומה למלחמה בסרטן.',
@@ -67,7 +100,7 @@ export default function HomeV2() {
       <FloatingWA />
 
       {/* ── Page sections ── */}
-      <div style={{ paddingTop: '80px' }}>
+      <div id="main-content" style={{ paddingTop: '80px' }}>
 
         {/* Hero + Stats: above the fold, no FadeIn needed */}
         <HeroSection />
