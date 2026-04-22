@@ -7,7 +7,6 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useInView }      from '../../website/useInView.js';
 import { usePageMeta }    from '../../website/usePageMeta.js';
 import Header             from './Header.jsx';
-import FloatingWA         from './FloatingWA.jsx';
 import HeroSection        from './HeroSection.jsx';
 import StatsSection       from './StatsSection.jsx';
 import ExpeditionExplorer from './ExpeditionExplorer.jsx';
@@ -97,7 +96,6 @@ export default function HomeV2() {
       <Header />
 
       {/* ── Floating WhatsApp ── */}
-      <FloatingWA />
 
       {/* ── Page sections ── */}
       <div id="main-content" style={{ paddingTop: '80px' }}>

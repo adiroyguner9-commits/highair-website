@@ -12,7 +12,6 @@ import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/the
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import FloatingWA from './FloatingWA.jsx';
 import StatsSection from './StatsSection.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
 
@@ -485,7 +484,6 @@ export default function ExpeditionDetail() {
   return (
     <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header />
-      <FloatingWA />
 
       {/* ══════════════════════════════════
           SECTION 1: HERO

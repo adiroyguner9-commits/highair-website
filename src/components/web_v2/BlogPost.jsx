@@ -11,7 +11,6 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import FloatingWA from './FloatingWA.jsx';
 
 // ── Helpers ──────────────────────────────────────────────
 
@@ -167,7 +166,6 @@ export default function BlogPost() {
   return (
     <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
       <Header />
-      <FloatingWA />
 
       {/* ── Reading Progress Bar ── */}
       <div style={{ position: 'fixed', top: '80px', right: 0, left: 0, height: '3px', background: '#ECEAF8', zIndex: 999 }}>

@@ -10,7 +10,6 @@ import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
-import FloatingWA                      from './FloatingWA.jsx';
 import { CalendarIcon }                from '../Icons.jsx';
 import { ISRAEL_TRIPS }                from '../../data/israelData.js';
 
@@ -211,7 +210,6 @@ export default function IsraelDetail() {
   return (
     <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header />
-      <FloatingWA />
 
       {/* ══ HERO ══ */}
       <div style={{

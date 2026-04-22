@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner  from './components/web_v2/CookieBanner.jsx';
+import FloatingWA    from './components/web_v2/FloatingWA.jsx';
 
 const HomeV2             = lazy(() => import('./components/web_v2/HomeV2.jsx'));
 const ExpeditionDetail   = lazy(() => import('./components/web_v2/ExpeditionDetail.jsx'));
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <RouteTracker />
       <CookieBanner />
+      <FloatingWA />
       <Suspense fallback={<div style={{minHeight:'100vh'}}/>}>
         <Routes>
           <Route path="/"                  element={<HomeV2 />} />
