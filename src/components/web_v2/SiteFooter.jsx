@@ -20,6 +20,7 @@ const ISRAEL_TRIPS = [
 ];
 
 const INFO_LINKS = [
+  { label: 'הבלוג שלנו',           href: '/blog'          },
   { label: 'מדיניות ביטולים',      href: '/cancellation'  },
   { label: 'תקנון ותנאי שימוש',   href: '/terms'         },
   { label: 'מדיניות פרטיות',      href: '/privacy'       },
