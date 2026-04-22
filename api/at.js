@@ -93,10 +93,10 @@ export default async function handler(req, res) {
     });
 
     const data = await upstream.json();
-    console.log(`[at] Airtable responded HTTP ${upstream.status}`);
+    console.log(`[at] Airtable responded HTTP ${upstream.status} | method=${req.method} | table="${table}" | ok=${upstream.ok}`);
 
     // ── Email notification for new Website Leads ──────────────────────
-    if (req.method === 'POST' && table === 'Website Leads' && upstream.status === 200) {
+    if (req.method === 'POST' && table === 'Website Leads' && upstream.ok) {
       const RESEND_KEY = process.env.RESEND_API_KEY;
       console.log('[at] RESEND_API_KEY present:', !!RESEND_KEY, '| first 6 chars:', RESEND_KEY ? RESEND_KEY.slice(0,6) : 'N/A');
       if (RESEND_KEY) {
