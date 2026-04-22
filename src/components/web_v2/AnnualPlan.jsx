@@ -120,16 +120,12 @@ function TripCard({ group, exp }) {
         zIndex: 0,
       }} />
 
-      {/* ── Top row: country badge + tag ── */}
+      {/* ── Top row: country badge only ── */}
       <div style={{
         padding:  '16px 16px 0',
         direction: 'rtl',
         position:  'relative',
         zIndex:    1,
-        display:   'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        gap: '8px',
       }}>
         <div style={{
           display:              'inline-flex',
@@ -147,23 +143,6 @@ function TripCard({ group, exp }) {
         }}>
           {exp?.countryHe || '-'} {exp?.flag || ''}
         </div>
-
-        {tag && (
-          <div style={{
-            padding:    '4px 10px',
-            borderRadius: RADIUS.full,
-            background:  'rgba(109,40,217,0.75)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            fontFamily: 'Ploni, sans-serif',
-            fontSize:   '11px',
-            fontWeight: 700,
-            color:      '#FFFFFF',
-            whiteSpace: 'nowrap',
-          }}>
-            {tag}
-          </div>
-        )}
       </div>
 
       {/* ── Bottom: name + dates + spots ── */}
@@ -180,49 +159,19 @@ function TripCard({ group, exp }) {
           {exp?.nameHe || group.eventName}
         </h3>
 
-        {/* Date range */}
+        {/* Date range — right-aligned */}
         <p style={{
-          fontFamily:    "'Ploni', sans-serif",
-          fontSize:      '13px',
-          fontWeight:    400,
-          color:         'rgba(255,255,255,0.80)',
-          margin:        '0 0 10px',
-          direction:     'ltr',
-          textAlign:     'right',
+          fontFamily: "'Ploni', sans-serif",
+          fontSize:   '13px',
+          fontWeight: 400,
+          color:      'rgba(255,255,255,0.80)',
+          margin:     0,
+          textAlign:  'right',
+          direction:  'rtl',
         }}>
           {fmtDate(group.departure)}
           {group.returnDate ? ` - ${fmtDate(group.returnDate)}` : ''}
         </p>
-
-        {/* Footer row: type badge + spots */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-          <div style={{
-            padding:    '3px 10px',
-            borderRadius: RADIUS.full,
-            background:  'rgba(255,255,255,0.15)',
-            backdropFilter: 'blur(6px)',
-            WebkitBackdropFilter: 'blur(6px)',
-            fontFamily: 'Ploni, sans-serif',
-            fontSize:   '12px',
-            fontWeight: 600,
-            color:      'rgba(255,255,255,0.90)',
-          }}>
-            {exp?.typeHe || 'טיול'}
-          </div>
-
-          <div style={{
-            fontFamily: "'Ploni', sans-serif",
-            fontSize:   '12px',
-            fontWeight: 700,
-            color:      spotsColor,
-            background: 'rgba(255,255,255,0.92)',
-            padding:    '3px 10px',
-            borderRadius: RADIUS.full,
-            whiteSpace: 'nowrap',
-          }}>
-            {isFull ? 'מלא' : `${spotsLeft} מקומות`}
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -288,7 +237,27 @@ export default function AnnualPlan() {
         /* Sort by departure date ascending */
         .sort((a, b) => new Date(a.departure) - new Date(b.departure));
 
-      setGroups(enriched);
+      /* Merge groups with same expedition + same departure date.
+         Use the expedition slug as the key so variants like
+         "Kilimanjaro" and "Kilimanjaro Safari" collapse together. */
+      const mergedMap = new Map();
+      enriched.forEach(g => {
+        const expSlug = findExp(g.eventName)?.slug || g.eventName;
+        const key = `${expSlug}|${(g.departure || '').slice(0, 10)}`;
+        if (mergedMap.has(key)) {
+          const ex = mergedMap.get(key);
+          ex.count += g.count;
+          /* keep the latest return date */
+          if (g.returnDate && (!ex.returnDate || new Date(g.returnDate) > new Date(ex.returnDate))) {
+            ex.returnDate = g.returnDate;
+          }
+        } else {
+          mergedMap.set(key, { ...g });
+        }
+      });
+      const merged = Array.from(mergedMap.values());
+
+      setGroups(merged);
       if (enriched.length > 0) {
         setActiveMonth(monthKey(enriched[0].departure));
       }
