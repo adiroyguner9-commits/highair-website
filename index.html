@@ -27,11 +27,18 @@
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta name="theme-color" content="#6d28d9" />
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HJY4E5HQC"></script>
+    <!-- Google Analytics — default denied until cookie consent -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', { analytics_storage: 'denied' });
+      /* Restore consent if user already accepted */
+      if (localStorage.getItem('highair_cookie_consent') === 'accepted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HJY4E5HQC"></script>
+    <script>
       gtag('js', new Date());
       gtag('config', 'G-7HJY4E5HQC', { send_page_view: false });
     </script>
