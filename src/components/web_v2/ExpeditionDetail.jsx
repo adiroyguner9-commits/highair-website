@@ -405,9 +405,9 @@ export default function ExpeditionDetail() {
           },
         }),
       });
-      const data = await res.json();
       if (!res.ok) {
-        const msg = data?.error?.message || data?.error || JSON.stringify(data);
+        let msg = `שגיאה ${res.status}`;
+        try { const d = await res.json(); msg = d?.error || msg; } catch {}
         throw new Error(msg);
       }
       setStatus('success');
