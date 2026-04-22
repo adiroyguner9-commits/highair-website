@@ -447,6 +447,45 @@ export default function IsraelDetail() {
           </>
         )}
 
+        {/* ── ג2. גלריה ── */}
+        {(() => {
+          const galleryImgs = [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.jpg`);
+          return (
+            <>
+              <Separator />
+              <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+                <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 28px' }}>
+                  תמונות מה{trip.typeHe}
+                </h2>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
+                  gap: '12px',
+                }}>
+                  {galleryImgs.slice(0, isMobile ? 4 : 5).map((src, i) => (
+                    <img
+                      key={i}
+                      src={src}
+                      alt={`${trip.name} ${i + 1}`}
+                      loading="lazy"
+                      style={{
+                        borderRadius: RADIUS.lg,
+                        width: '100%',
+                        height: i === 0 ? (isMobile ? '220px' : 'auto') : (isMobile ? '160px' : '220px'),
+                        objectFit: 'cover',
+                        display: 'block',
+                        gridColumn: i === 0 && isMobile ? 'span 2' : 'auto',
+                        gridRow: i === 0 && !isMobile ? 'span 2' : 'auto',
+                      }}
+                      onError={e => { e.currentTarget.style.display = 'none'; }}
+                    />
+                  ))}
+                </div>
+              </section>
+            </>
+          );
+        })()}
+
         <Separator />
 
         {/* ── ד. תאריכי יציאה ── */}
