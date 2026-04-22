@@ -24,6 +24,6 @@
   "rewrites": [
     { "source": "/api/airtable/:table/:id", "destination": "/api/at?table=:table&id=:id" },
     { "source": "/api/airtable/:table",     "destination": "/api/at?table=:table"         },
-    { "source": "/(.*)",                    "destination": "/index.html"                  }
+    { "source": "/((?!api/).*)",              "destination": "/index.html"                  }
   ]
 }

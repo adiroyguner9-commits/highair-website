@@ -13,6 +13,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import StatsSection from './StatsSection.jsx';
+import BookingWidget from './BookingWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
 
 /* ─── Default data ─────────────────────────────────────────────── */
@@ -348,6 +349,7 @@ export default function ExpeditionDetail() {
   const [errorMsg, setErrorMsg] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [showBooking, setShowBooking] = useState(true);
   const [ageError,   setAgeError]   = useState('');
 
   /* ── Phone formatting & validation (Israeli: 050-XXXXXXX) ── */
@@ -1441,12 +1443,18 @@ export default function ExpeditionDetail() {
           }}>
             {status === 'success' ? (
               <div style={{
-                background: '#F0FDF4', border: '1px solid #BBF7D0',
-                borderRadius: RADIUS.lg, padding: '32px', textAlign: 'center',
+                background: 'linear-gradient(160deg, #0A0818 0%, #1E1B4B 55%, #4C1D95 100%)',
+                borderRadius: RADIUS.xl,
+                padding: '28px 24px',
+                border: '1px solid rgba(255,255,255,0.1)',
               }}>
-                <div style={{ fontSize: '48px', marginBottom: '12px' }}>🎉</div>
-                <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '20px', fontWeight: 700, color: '#065F46', marginBottom: '8px' }}>קיבלנו!</div>
-                <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#047857' }}>ניצור איתך קשר בהקדם</div>
+                <BookingWidget
+                  name={form.name}
+                  phone={form.phone}
+                  email={form.email}
+                  expedition={exp?.nameHe}
+                  onSkip={() => setShowBooking(false)}
+                />
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ direction: 'rtl' }}>
