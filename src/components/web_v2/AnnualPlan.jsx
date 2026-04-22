@@ -234,6 +234,8 @@ export default function AnnualPlan() {
           const m = new Date(g.departure).getMonth();
           return m !== 3 && m !== 4;
         })
+        /* Hide specific excluded events */
+        .filter(g => g.eventName !== 'Annapurna_Circut_Kosher')
         /* Sort by departure date ascending */
         .sort((a, b) => new Date(a.departure) - new Date(b.departure));
 
