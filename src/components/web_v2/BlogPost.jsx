@@ -63,53 +63,32 @@ export default function BlogPost() {
           inset:          0,
           display:        'flex',
           flexDirection:  'column',
-          alignItems:     'center',
           justifyContent: 'flex-end',
-          padding:        isMobile ? '32px 6%' : '48px 8%',
-          textAlign:      'center',
+          padding:        isMobile ? '32px 6%' : '48px 5%',
+          direction:      'rtl',
         }}>
-          {/* Category */}
-          <div style={{
-            background:   'rgba(109,40,217,0.85)',
-            color:        '#fff',
-            fontFamily:   "'Ploni', sans-serif",
-            fontSize:     '13px',
-            fontWeight:   700,
-            padding:      '5px 14px',
-            borderRadius: RADIUS.full,
-            marginBottom: '16px',
-          }}>
-            {post.category}
+          {/* Align with content column */}
+          <div style={{ maxWidth: '960px', margin: '0 auto', width: '100%' }}>
+            <h1 style={{
+              fontFamily:    "'Ploni', sans-serif",
+              fontSize:      isMobile ? '24px' : '40px',
+              fontWeight:    800,
+              color:         '#FFFFFF',
+              margin:        '0 0 16px',
+              letterSpacing: '-0.02em',
+              lineHeight:    1.2,
+              textShadow:    '0 2px 16px rgba(0,0,0,0.4)',
+              textAlign:     'right',
+            }}>
+              {post.title}
+            </h1>
           </div>
-          {/* Title */}
-          <h1 style={{
-            fontFamily:    "'Ploni', sans-serif",
-            fontSize:      isMobile ? '24px' : '40px',
-            fontWeight:    800,
-            color:         '#FFFFFF',
-            margin:        '0 0 16px',
-            letterSpacing: '-0.02em',
-            lineHeight:    1.2,
-            textShadow:    '0 2px 16px rgba(0,0,0,0.4)',
-            maxWidth:      '820px',
-          }}>
-            {post.title}
-          </h1>
-          {/* Meta */}
-          <p style={{
-            fontFamily: "'Ploni', sans-serif",
-            fontSize:   '14px',
-            color:      'rgba(255,255,255,0.75)',
-            margin:     0,
-          }}>
-            {post.dateHe} · {post.author}
-          </p>
         </div>
       </div>
 
       {/* ── Content ── */}
       <div style={{
-        maxWidth: '760px',
+        maxWidth: '960px',
         margin:   '0 auto',
         padding:  isMobile ? '40px 5% 80px' : '60px 5% 100px',
       }}>
@@ -141,17 +120,35 @@ export default function BlogPost() {
         <article>
           {post.content.map((block, i) => {
             if (block.type === 'heading') return (
-              <h2 key={i} style={{
-                fontFamily:    "'Ploni', sans-serif",
-                fontSize:      isMobile ? '20px' : '26px',
-                fontWeight:    700,
-                color:         '#0A0818',
-                letterSpacing: '-0.02em',
-                lineHeight:    1.3,
-                margin:        '40px 0 14px',
-              }}>
-                {block.value}
-              </h2>
+              <div key={i} style={{ margin: '48px 0 18px' }}>
+                {/* Gradient divider */}
+                <div style={{
+                  height:     '1px',
+                  background: 'linear-gradient(to left, transparent, #DDD6FE, transparent)',
+                  marginBottom: '20px',
+                }} />
+                {/* Accent bar + heading */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', direction: 'rtl' }}>
+                  <div style={{
+                    width:        '4px',
+                    height:       '28px',
+                    borderRadius: '2px',
+                    background:   'linear-gradient(to bottom, #7C3AED, #6D28D9)',
+                    flexShrink:   0,
+                  }} />
+                  <h2 style={{
+                    fontFamily:    "'Ploni', sans-serif",
+                    fontSize:      isMobile ? '20px' : '26px',
+                    fontWeight:    700,
+                    color:         '#0A0818',
+                    letterSpacing: '-0.02em',
+                    lineHeight:    1.3,
+                    margin:        0,
+                  }}>
+                    {block.value}
+                  </h2>
+                </div>
+              </div>
             );
 
             if (block.type === 'text') return (

@@ -63,15 +63,6 @@ function PostCard({ post }) {
 
       {/* Body */}
       <div style={{ padding: '22px 24px 28px', direction: 'rtl', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <p style={{
-          fontFamily: "'Ploni', sans-serif",
-          fontSize:   FS.sm,
-          color:      '#9591B0',
-          margin:     0,
-        }}>
-          {post.dateHe} · {post.author}
-        </p>
-
         <h2 style={{
           fontFamily:    "'Ploni', sans-serif",
           fontSize:      isMobile ? '18px' : '20px',
