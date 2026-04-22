@@ -54,12 +54,12 @@ export default function IsraelDetail() {
 
   usePageMeta(trip ? {
     title:         `${trip.name} | HighAir Expeditions`,
-    description:   `הצטרפו לטיול ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' — ' : ''}טיול ${trip.days} בשילוב תרומה למלחמה בסרטן.`,
+    description:   `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' — ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`,
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
   } : {
-    title:       'HighAir Expeditions | טיולים בישראל',
-    description: 'טיולים וטרקים בישראל עם HighAir Expeditions.',
+    title:       'HighAir Expeditions | טרקים בישראל',
+    description: 'טרקים בישראל עם HighAir Expeditions.',
     canonicalPath: '/israel/' + slug,
   });
 
@@ -195,7 +195,7 @@ export default function IsraelDetail() {
         <Header />
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
           <div style={{ fontSize: '64px' }}>🇮🇱</div>
-          <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>הטיול לא נמצא</h1>
+          <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>הטרק לא נמצא</h1>
           <button onClick={() => navigate('/')} style={{ ...BTN.primary, fontFamily: "'Ploni', sans-serif" }}>חזרה לדף הבית ←</button>
         </div>
       </div>
@@ -266,7 +266,7 @@ export default function IsraelDetail() {
                 whiteSpace: 'nowrap',
               }}
             >
-              להרשמה לטיפוס ←
+              להרשמה לטרק ←
             </button>
           </div>
         </div>
@@ -650,7 +650,7 @@ export default function IsraelDetail() {
       <div id="israel-form" style={{ background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)', padding: isMobile ? '48px 5%' : '72px 5%', direction: 'rtl' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(24px,4vw,40px)', fontWeight: 700, color: 'white', letterSpacing: '-0.02em', margin: '0 0 12px' }}>
-            הרשמה לטיפוס
+            הרשמה לטרק
           </h2>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: '0 0 40px' }}>
             מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי
