@@ -671,8 +671,8 @@ export default function IsraelDetail() {
                     placeholder="ישראל ישראלי"
                     onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
                     style={inputStyle}
-                    onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                    onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }} />
+                    onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                    onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }} />
                 </div>
 
                 {/* תאריך */}
@@ -680,7 +680,7 @@ export default function IsraelDetail() {
                   <div>
                     <label style={labelStyle}>באיזה תאריך תרצו לטייל? *</label>
                     <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={inputStyle}
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }} onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}>
+                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }} onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}>
                       <option value="">בחרו תאריך</option>
                       {liveGroups.length > 0
                         ? liveGroups.map(g => {
@@ -702,7 +702,8 @@ export default function IsraelDetail() {
                     onChange={e => { const v = formatPhone(e.target.value); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
                     onBlur={e => validatePhone(e.target.value)}
                     style={{ ...inputStyle, direction: 'ltr', textAlign: 'right', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
-                    onFocus={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }} />
+                    onMouseEnter={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
+                    onMouseLeave={e => { e.target.style.borderColor = phoneError ? '#DC2626' : '#E5E3F0'; }} />
                   {phoneError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{phoneError}</p>}
                 </div>
 

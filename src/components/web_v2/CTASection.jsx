@@ -153,14 +153,9 @@ export default function CTASection() {
                 value={form.name}
                 required
                 onChange={e => handleChange('name', e.target.value)}
-                onFocus={() => setFocused('name')}
-                onBlur={() => setFocused(null)}
-                style={{
-                  ...INPUT_STYLE,
-                  borderColor: focused === 'name'
-                    ? 'rgba(167,139,250,0.6)'
-                    : 'rgba(255,255,255,0.15)',
-                }}
+                onMouseEnter={e => { e.target.style.borderColor = 'rgba(167,139,250,0.6)'; }}
+                onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; }}
+                style={{ ...INPUT_STYLE }}
               />
             </div>
 
@@ -175,15 +170,11 @@ export default function CTASection() {
                 required
                 maxLength={11}
                 onChange={e => { handleChange('phone', e.target.value); setPhoneError(false); }}
-                onFocus={() => setFocused('phone')}
-                onBlur={() => setFocused(null)}
+                onMouseEnter={e => { e.target.style.borderColor = phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(167,139,250,0.6)'; }}
+                onMouseLeave={e => { e.target.style.borderColor = phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.15)'; }}
                 style={{
                   ...INPUT_STYLE,
-                  borderColor: phoneError
-                    ? 'rgba(248,113,113,0.8)'
-                    : focused === 'phone'
-                    ? 'rgba(167,139,250,0.6)'
-                    : 'rgba(255,255,255,0.15)',
+                  borderColor: phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.15)',
                   direction:  'ltr',
                   textAlign:  'right',
                 }}
@@ -210,15 +201,12 @@ export default function CTASection() {
                 rows={3}
                 required
                 onChange={e => handleChange('message', e.target.value)}
-                onFocus={() => setFocused('message')}
-                onBlur={() => setFocused(null)}
+                onMouseEnter={e => { e.target.style.borderColor = 'rgba(167,139,250,0.6)'; }}
+                onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; }}
                 style={{
                   ...INPUT_STYLE,
                   resize:      'none',
                   lineHeight:  1.6,
-                  borderColor: focused === 'message'
-                    ? 'rgba(167,139,250,0.6)'
-                    : 'rgba(255,255,255,0.15)',
                 }}
               />
             </div>

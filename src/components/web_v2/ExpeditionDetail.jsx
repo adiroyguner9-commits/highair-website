@@ -1466,8 +1466,8 @@ export default function ExpeditionDetail() {
                         setForm(f => ({ ...f, name: v }));
                       }}
                       style={inputStyle}
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     />
                   </div>
 
@@ -1478,8 +1478,8 @@ export default function ExpeditionDetail() {
                       required value={form.month}
                       onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
                       style={inputStyle}
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     >
                       <option value="">בחרו חודש</option>
                       {months.length > 0
@@ -1511,8 +1511,8 @@ export default function ExpeditionDetail() {
                           ...inputStyle,
                           borderColor: ageError ? '#DC2626' : inputStyle.borderColor,
                         }}
-                        onFocus={e => { e.target.style.borderColor = ageError ? '#DC2626' : COLOR.primary; }}
-                        onBlur={e => { e.target.style.borderColor = ageError ? '#DC2626' : '#E5E3F0'; }}
+                        onMouseEnter={e => { e.target.style.borderColor = ageError ? '#DC2626' : COLOR.primary; }}
+                        onMouseLeave={e => { e.target.style.borderColor = ageError ? '#DC2626' : '#E5E3F0'; }}
                       />
                       {ageError && (
                         <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#DC2626', fontFamily: "'Ploni', sans-serif" }}>
@@ -1531,8 +1531,8 @@ export default function ExpeditionDetail() {
                           setForm(f => ({ ...f, groupSize: String(v) }));
                         }}
                         style={inputStyle}
-                        onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                        onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                        onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                        onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       />
                     </div>
                   </div>
@@ -1556,7 +1556,8 @@ export default function ExpeditionDetail() {
                         textAlign: 'right',
                         borderColor: phoneError ? '#DC2626' : '#E5E3F0',
                       }}
-                      onFocus={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
+                      onMouseEnter={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
+                      onMouseLeave={e => { e.target.style.borderColor = phoneError ? '#DC2626' : '#E5E3F0'; }}
                     />
                     {phoneError && (
                       <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>
@@ -1585,7 +1586,8 @@ export default function ExpeditionDetail() {
                         textAlign: 'right',
                         borderColor: emailError ? '#DC2626' : '#E5E3F0',
                       }}
-                      onFocus={e => { e.target.style.borderColor = emailError ? '#DC2626' : COLOR.primary; }}
+                      onMouseEnter={e => { e.target.style.borderColor = emailError ? '#DC2626' : COLOR.primary; }}
+                      onMouseLeave={e => { e.target.style.borderColor = emailError ? '#DC2626' : '#E5E3F0'; }}
                     />
                     {emailError && (
                       <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>
@@ -1602,8 +1604,8 @@ export default function ExpeditionDetail() {
                       onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
                       style={{ ...inputStyle, resize: 'vertical' }}
                       placeholder="ספרו לנו על ניסיון טרק קודם"
-                      onFocus={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onBlur={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     />
                   </div>
 
