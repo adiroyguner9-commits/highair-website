@@ -98,8 +98,10 @@ export default async function handler(req, res) {
     // ── Email notification for new Website Leads ──────────────────────
     if (req.method === 'POST' && table === 'Website Leads' && upstream.status === 200) {
       const RESEND_KEY = process.env.RESEND_API_KEY;
+      console.log('[at] RESEND_API_KEY present:', !!RESEND_KEY, '| first 6 chars:', RESEND_KEY ? RESEND_KEY.slice(0,6) : 'N/A');
       if (RESEND_KEY) {
         const f = req.body?.fields || {};
+        console.log('[at] Sending email for lead:', f['Name'], '|', f['Expedition']);
         const emailHtml = `
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
@@ -173,10 +175,11 @@ export default async function handler(req, res) {
             }),
           });
           const emailData = await emailRes.json();
+          console.log('[at] Resend HTTP status:', emailRes.status);
           if (!emailRes.ok) {
-            console.warn('[at] Resend warning:', JSON.stringify(emailData));
+            console.error('[at] Resend ERROR:', JSON.stringify(emailData));
           } else {
-            console.log('[at] Email sent via Resend, id:', emailData.id);
+            console.log('[at] ✅ Email sent via Resend, id:', emailData.id);
           }
         } catch (emailErr) {
           // Never block the response — email failure is non-critical
