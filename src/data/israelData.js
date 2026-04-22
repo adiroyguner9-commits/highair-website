@@ -15,7 +15,7 @@ export const ISRAEL_TRIPS = [
     diffHe:  'מיטבי לכת',
     days:    '2 ימים',
     typeHe:  'טרק',
-    seasons: ['דצמבר-פברואר'],
+    seasons: ['אפריל-ספטמבר'],
     tagline: 'הצטרפו אלינו לטרק אל הפסגה הגבוהה ביותר בישראל\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
     grad:    'linear-gradient(135deg, #1a4a2e, #2d7a4f, #0d2b1a)',
     img:     '/images/cards/Hermon.avif',

@@ -26,13 +26,13 @@ function Separator() {
 }
 
 /* ─── Stat chip ─── */
-function StatBox({ label, value, isMobile, last }) {
+function StatBox({ label, value, isMobile, first, last }) {
   return (
     <div style={{
       textAlign:   'center',
       padding:     isMobile ? '14px 8px' : '4px 24px',
-      borderRight: (!isMobile && !last) ? '1px solid #ECEAF8' : 'none',
-      borderTop:   (isMobile && last)   ? '1px solid #ECEAF8' : 'none',
+      borderRight: (!isMobile && !first) ? '1px solid #ECEAF8' : 'none',
+      borderTop:   (isMobile && last)    ? '1px solid #ECEAF8' : 'none',
     }}>
       <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '18px' : '22px', fontWeight: 900, color: '#6D28D9', lineHeight: 1, letterSpacing: '-0.02em' }}>
         {value}
@@ -283,7 +283,7 @@ export default function IsraelDetail() {
           display: 'grid',
           gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
         }}>
-          <StatBox label="גובה"      value={`${trip.elev} מ׳`} isMobile={isMobile} />
+          <StatBox label="גובה"      value={`${trip.elev} מ׳`} isMobile={isMobile} first />
           <StatBox label="דרגת קושי" value={trip.diffHe}  isMobile={isMobile} />
           <StatBox label="משך"       value={trip.days}    isMobile={isMobile} />
           <StatBox label="עלות"      value={trip.price}   isMobile={isMobile} last />
