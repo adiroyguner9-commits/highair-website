@@ -95,8 +95,6 @@ export default function HomeV2() {
       {/* ── Fixed navbar ── */}
       <Header />
 
-      {/* ── Floating WhatsApp ── */}
-
       {/* ── Page sections ── */}
       <div id="main-content" style={{ paddingTop: '80px' }}>
 
