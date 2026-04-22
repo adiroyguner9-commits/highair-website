@@ -283,7 +283,7 @@ export default function AnnualPlan() {
     setActiveMonth(key);
     const el = document.getElementById(`month-${key}`);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 140;
+    const top = el.getBoundingClientRect().top + window.scrollY - 200;
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
