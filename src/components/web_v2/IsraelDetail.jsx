@@ -85,8 +85,14 @@ export default function IsraelDetail() {
   const [form, setForm]         = useState({ name: '', month: '', phone: '', declaration: false });
   const [phoneError, setPhoneError] = useState('');
 
+  function formatPhone(raw) {
+    const digits = raw.replace(/\D/g, '').slice(0, 10);
+    return digits.length > 3 ? `${digits.slice(0, 3)}-${digits.slice(3)}` : digits;
+  }
+
   function validatePhone(val) {
-    if (val && val.replace(/\D/g, '').length < 9) { setPhoneError('מספר טלפון לא תקין'); return false; }
+    const digits = val.replace(/\D/g, '');
+    if (digits && digits.length < 9) { setPhoneError('מספר טלפון לא תקין'); return false; }
     setPhoneError(''); return true;
   }
 
@@ -691,7 +697,9 @@ export default function IsraelDetail() {
                 <div>
                   <label style={labelStyle}>מספר טלפון *</label>
                   <input type="tel" required value={form.phone}
-                    onChange={e => { const v = e.target.value.replace(/\D/g,'').slice(0,10); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
+                    placeholder="050-0000000"
+                    maxLength={11}
+                    onChange={e => { const v = formatPhone(e.target.value); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
                     onBlur={e => validatePhone(e.target.value)}
                     style={{ ...inputStyle, direction: 'ltr', textAlign: 'right', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
                     onFocus={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }} />

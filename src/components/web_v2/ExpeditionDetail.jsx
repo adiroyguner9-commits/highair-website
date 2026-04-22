@@ -351,10 +351,16 @@ export default function ExpeditionDetail() {
   const [phoneError, setPhoneError] = useState('');
   const [ageError,   setAgeError]   = useState('');
 
-  /* ── Phone validation (Israeli: 05X-XXXXXXX) ── */
+  /* ── Phone formatting & validation (Israeli: 050-XXXXXXX) ── */
+  function formatPhone(raw) {
+    const digits = raw.replace(/\D/g, '').slice(0, 10);
+    return digits.length > 3 ? `${digits.slice(0, 3)}-${digits.slice(3)}` : digits;
+  }
+
   function validatePhone(val) {
-    const ok = /^05\d{8}$/.test(val.trim());
-    setPhoneError(ok || !val ? '' : 'מספר טלפון לא תקין (לדוגמה: 0501234567)');
+    const digits = val.replace(/\D/g, '');
+    const ok = /^05\d{8}$/.test(digits);
+    setPhoneError(ok || !digits ? '' : 'מספר טלפון לא תקין (לדוגמה: 050-1234567)');
     return ok;
   }
 
@@ -1533,8 +1539,10 @@ export default function ExpeditionDetail() {
                     <label style={labelStyle}>מספר טלפון *</label>
                     <input
                       type="tel" required value={form.phone}
+                      placeholder="050-0000000"
+                      maxLength={11}
                       onChange={e => {
-                        const v = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        const v = formatPhone(e.target.value);
                         setForm(f => ({ ...f, phone: v }));
                         if (phoneError) validatePhone(v);
                       }}
