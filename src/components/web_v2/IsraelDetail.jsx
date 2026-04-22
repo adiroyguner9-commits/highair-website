@@ -450,6 +450,10 @@ export default function IsraelDetail() {
         {/* ── ג2. גלריה ── */}
         {(() => {
           const galleryImgs = [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.jpg`);
+          const [lbIdx, setLbIdx] = useState(null);
+          const lbPrev = (e) => { e.stopPropagation(); setLbIdx(i => (i - 1 + galleryImgs.length) % galleryImgs.length); };
+          const lbNext = (e) => { e.stopPropagation(); setLbIdx(i => (i + 1) % galleryImgs.length); };
+
           return (
             <>
               <Separator />
@@ -457,31 +461,77 @@ export default function IsraelDetail() {
                 <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 28px' }}>
                   תמונות מה{trip.typeHe}
                 </h2>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
-                  gap: '12px',
-                }}>
-                  {galleryImgs.slice(0, isMobile ? 4 : 5).map((src, i) => (
-                    <img
-                      key={i}
-                      src={src}
-                      alt={`${trip.name} ${i + 1}`}
-                      loading="lazy"
-                      style={{
-                        borderRadius: RADIUS.lg,
-                        width: '100%',
-                        height: i === 0 ? (isMobile ? '220px' : 'auto') : (isMobile ? '160px' : '220px'),
-                        objectFit: 'cover',
-                        display: 'block',
-                        gridColumn: i === 0 && isMobile ? 'span 2' : 'auto',
-                        gridRow: i === 0 && !isMobile ? 'span 2' : 'auto',
-                      }}
-                      onError={e => { e.currentTarget.style.display = 'none'; }}
-                    />
-                  ))}
-                </div>
+
+                {isMobile ? (
+                  /* Mobile: horizontal scroll strip */
+                  <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch', paddingBottom: '4px' }}>
+                    {galleryImgs.map((src, i) => (
+                      <img
+                        key={i} src={src} alt={`${trip.name} ${i + 1}`} loading="lazy"
+                        onClick={() => setLbIdx(i)}
+                        style={{ flexShrink: 0, width: '72vw', height: '200px', objectFit: 'cover', borderRadius: RADIUS.xl, cursor: 'pointer', display: 'block' }}
+                        onError={e => { e.currentTarget.style.display = 'none'; }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  /* Desktop: bento grid — large left + 2×2 right */
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gridTemplateRows: '240px 240px', gap: '10px' }}>
+                    {/* Large featured image */}
+                    <div
+                      onClick={() => setLbIdx(0)}
+                      style={{ gridRow: '1 / 3', borderRadius: RADIUS.xl, overflow: 'hidden', cursor: 'pointer', position: 'relative' }}
+                      onMouseEnter={e => e.currentTarget.querySelector('div').style.opacity = '1'}
+                      onMouseLeave={e => e.currentTarget.querySelector('div').style.opacity = '0'}
+                    >
+                      <img src={galleryImgs[0]} alt={`${trip.name} 1`} loading="lazy"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: `transform 0.4s ${EASING.out}` }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                        onError={e => { e.currentTarget.style.display = 'none'; }}
+                      />
+                      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.18)', opacity: 0, transition: 'opacity 0.3s ease', borderRadius: RADIUS.xl, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span style={{ color: '#fff', fontSize: '28px' }}>⊕</span>
+                      </div>
+                    </div>
+                    {/* 4 smaller images */}
+                    {galleryImgs.slice(1, 5).map((src, i) => (
+                      <div
+                        key={i} onClick={() => setLbIdx(i + 1)}
+                        style={{ borderRadius: RADIUS.xl, overflow: 'hidden', cursor: 'pointer', position: 'relative' }}
+                        onMouseEnter={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1.04)'; }}
+                        onMouseLeave={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1)'; }}
+                      >
+                        <img src={src} alt={`${trip.name} ${i + 2}`} loading="lazy"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: `transform 0.4s ${EASING.out}` }}
+                          onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </section>
+
+              {/* Lightbox */}
+              {lbIdx !== null && (
+                <div onClick={() => setLbIdx(null)} style={{ position: 'fixed', inset: 0, zIndex: 2000, background: 'rgba(5,3,18,0.97)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <button onClick={() => setLbIdx(null)} style={{ position: 'absolute', top: '20px', right: '20px', width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', fontSize: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+                  <div style={{ position: 'absolute', top: '24px', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Ploni, sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{lbIdx + 1} / {galleryImgs.length}</div>
+                  <img src={galleryImgs[lbIdx]} alt={`${trip.name} ${lbIdx + 1}`} onClick={e => e.stopPropagation()} style={{ maxWidth: isMobile ? '95vw' : '88vw', maxHeight: '85vh', objectFit: 'contain', borderRadius: RADIUS.xl, boxShadow: '0 32px 80px rgba(0,0,0,0.6)', userSelect: 'none' }} />
+                  {!isMobile && (
+                    <>
+                      <button onClick={lbPrev} style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', fontSize: '28px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>‹</button>
+                      <button onClick={lbNext} style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', fontSize: '28px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>›</button>
+                    </>
+                  )}
+                  {isMobile && (
+                    <div style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <button onClick={lbPrev} style={{ background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: '22px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer' }}>‹</button>
+                      <button onClick={lbNext} style={{ background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: '22px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer' }}>›</button>
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           );
         })()}

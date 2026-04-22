@@ -274,7 +274,7 @@ export default function ReviewsSection() {
             fontSize:   FS.sm,
             color:      '#9591B0',
           }}>
-            מבוסס על 250 ביקורות
+            מבוסס על 229 ביקורות
           </span>
         </div>
 
