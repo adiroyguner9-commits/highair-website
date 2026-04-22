@@ -48,18 +48,19 @@ function ShareBtn({ color, onClick, children }) {
       style={{
         display:      'inline-flex',
         alignItems:   'center',
-        gap:          '6px',
-        padding:      '8px 16px',
+        gap:          '5px',
+        padding:      '7px 12px',
         borderRadius: '999px',
         border:       `1.5px solid ${color}`,
         background:   hovered ? color : 'transparent',
         color:        hovered ? '#fff' : color,
         fontFamily:   "'Ploni', sans-serif",
-        fontSize:     '13px',
+        fontSize:     '12px',
         fontWeight:   600,
         cursor:       'pointer',
         transition:   'all 0.2s',
         whiteSpace:   'nowrap',
+        flexShrink:   0,
       }}
     >
       {children}
@@ -399,12 +400,13 @@ export default function BlogPost() {
 
         {/* ── Bottom Share Bar ── */}
         <div style={{
-          display:        'flex',
-          alignItems:     'center',
+          display:    'flex',
+          alignItems: 'center',
           justifyContent: 'center',
-          gap:            '10px',
-          margin:         '48px 0 40px',
-          flexWrap:       'wrap',
+          gap:        '8px',
+          margin:     '48px 0 40px',
+          overflowX:  'auto',
+          flexWrap:   'nowrap',
         }}>
           <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#9591B0', fontWeight: 600 }}>
             אהבתם? שתפו:
