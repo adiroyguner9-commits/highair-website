@@ -199,13 +199,17 @@ export default function ExpeditionExplorer({ type }) {
     return () => el.removeEventListener('scroll', updateArrows);
   }, [updateArrows, cardWidth]);
 
-  /* Reset scroll on type change */
+  /* Reset scroll on type or language (RTL/LTR) change */
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollLeft = 0;
-    updateArrows();
-  }, [type, updateArrows]);
+    // Small timeout so iOS Safari applies the direction before we set scrollLeft
+    const t = setTimeout(() => {
+      el.scrollLeft = 0;
+      updateArrows();
+    }, 0);
+    return () => clearTimeout(t);
+  }, [type, isRtl, updateArrows]);
 
   /* Arrow click — scroll by one card */
   function scrollByCard(direction) {
