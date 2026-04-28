@@ -13,7 +13,7 @@ export const ISRAEL_TRIPS = [
     elev:       '2040',
     elevStr:    '2040m',
     price:      'From ₪349',
-    priceHe:    'החל מ ₪349',
+    priceHe:    'החל מ-₪349',
     diffHe:     'מיטיבי לכת',
     diffEn:     'Moderate',
     days:       '2 ימים',
