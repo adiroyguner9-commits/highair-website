@@ -1,20 +1,28 @@
 /**
  * blogData.js - Blog posts
  * To add a new post: copy the object structure below and paste at the top of POSTS array.
+ * Each post supports both Hebrew (default) and English (En suffix) fields.
  */
 
 export const POSTS = [
   {
     id:       1,
     slug:     'seven-summits-guide',
+
+    /* ── Hebrew ── */
     title:    'המדריך המלא לשבע הפסגות: ההרים הגבוהים ביותר בכל יבשת',
     author:   'HighAir Expeditions',
     dateIso:  '2025-09-03',
     dateHe:   '3 בספטמבר 2025',
+    dateEn:   'September 3, 2025',
     category: 'מדריכים',
+    categoryEn: 'Guides',
     img:         '/images/blog/kristin-harila.webp',
     imgPosition: 'center 20%',
     excerpt:  'פרויקט הטיפוס לשבע הפסגות נחשב לאחד האתגרים הגדולים והנחשקים ביותר בעולם הטיפוס. כל מה שצריך לדעת לפני שמתחילים.',
+    excerptEn: 'The Seven Summits challenge is considered one of the greatest and most coveted achievements in the mountaineering world. Everything you need to know before you start.',
+
+    /* ── Hebrew content ── */
     content: [
       { type: 'text',    value: 'במאמר זה תמצאו את כל המידע על שבע הפסגות, ההרים הגבוהים ביותר בכל אחת משבע היבשות. פרויקט הטיפוס לשבע הפסגות נחשב לאחד האתגרים הגדולים והנחשקים ביותר בעולם הטיפוס, ומושך אליו מטפסים מכל רחבי העולם.' },
       { type: 'text',    value: 'נסקור מהן שבע הפסגות, מה רמת הקושי של כל אחד מההרים, מי מהן נחשבת לפסגה הקלה ביותר לטיפוס, וגם נשתף עובדות היסטוריות, שמות ההרים, שיאי עולם ומידע חיוני למטפסים וחובבי הרים. אם אתם חולמים על טיפוס הרים או מחפשים להכיר מקרוב את ההרים הגבוהים בעולם, המדריך הזה הוא נקודת פתיחה מצוינת.' },
@@ -24,18 +32,18 @@ export const POSTS = [
       { type: 'text',    value: 'עבור חברי מועדון שבע הפסגות, הטיפוס על ההרים האייקוניים האלו הוא לא רק אתגר פיזי, אלא גם מסע אישי של צמיחה, התמודדות וגילוי עצמי, לצד חוויה תרבותית ייחודית. ההרפתקאות המשותפות יוצרות קשרים חזקים, תחושת אחווה וחברויות שנמשכות לאורך שנים.' },
       { type: 'text',    value: 'בין כל ההרים, קילימנג\'רו שבאפריקה נחשב לשער הכניסה המושלם לעולם המופלא הזה. בזכות המסלולים הנגישים שלו והנופים עוצרי הנשימה, הוא מהווה לרבים את נקודת ההתחלה במסע לעבר רשימת שבע הפסגות ומעניק הצצה ראשונה לאתגרים, לחוויות ולהגשמה האישית שמלווים את הדרך לפסגות הגבוהות בעולם.' },
 
-      { type: 'image',   src: '/images/blog/seven-summits-everest.jpg', caption: 'אוורסט ונופטסה — צילום: Alon Peleg' },
+      { type: 'image',   src: '/images/blog/seven-summits-everest.webp', caption: 'אוורסט ונופטסה - צילום: Alon Peleg' },
 
       { type: 'heading', value: 'אז, מהן שבע הפסגות?' },
       { type: 'list',    items: [
-        'אוורסט (אסיה) — 8848 מ׳',
-        'אקונקגואה (דרום אמריקה) — 6962 מ׳',
-        'דנאלי (צפון אמריקה) — 6190 מ׳',
-        'קילימנג\'רו (אפריקה) — 5895 מ׳',
-        'אלברוס (אירופה) — 5642 מ׳',
-        'וינסון מאסיף (אנטארקטיקה) — 4892 מ׳',
-        'פירמידת קרסטנסז (אוקיאניה) — 4884 מ׳',
-        'קוסצ\'ושקו (אוסטרליה) — 2228 מ׳',
+        'אוורסט (אסיה) - 8848 מ׳',
+        'אקונקגואה (דרום אמריקה) - 6962 מ׳',
+        'דנאלי (צפון אמריקה) - 6190 מ׳',
+        'קילימנג\'רו (אפריקה) - 5895 מ׳',
+        'אלברוס (אירופה) - 5642 מ׳',
+        'וינסון מאסיף (אנטארקטיקה) - 4892 מ׳',
+        'פירמידת קרסטנסז (אוקיאניה) - 4884 מ׳',
+        'קוסצ\'ושקו (אוסטרליה) - 2228 מ׳',
       ]},
 
       { type: 'heading', value: 'רגע, למה יש שמונה פסגות?' },
@@ -81,7 +89,7 @@ export const POSTS = [
 
       { type: 'heading', value: 'איזו פסגה היא הקלה ביותר?' },
       { type: 'text',    value: 'הקל ביותר מבין 7 הפסגות הוא הר הקילימנג\'רו. למרות הגובה היחסי שלו, הטיפוס אינו מאתגר מבחינה טכנית. בנוסף, התשתית המפותחת במקום מאפשרת לטפס עליו ללא הוצאות לוגיסטיות משמעותיות. מסע טיפוס אופייני נמשך כשבוע. על ההר, תיהנו מארוחות שמכינים שפים מיוחדים, בזמן שהמדריכים והסבלים המקומיים ידאגו לציוד ולאוהלים שלכם.' },
-      { type: 'image',   src: '/images/blog/kilimanjaro-trekkers.jpg', alt: 'מטיילים בדרך לקילימנג\'רו', caption: '' },
+      { type: 'image',   src: '/images/blog/kilimanjaro-trekkers.webp', alt: 'מטיילים בדרך לקילימנג\'רו', caption: '' },
 
       { type: 'heading', value: 'איזו פסגה היא הקשה ביותר?' },
       { type: 'text',    value: 'הר האוורסט הוא ללא ספק הקשה ביותר מבין שבע הפסגות. עם גובה קיצוני, צורך בהכנה מקיפה, עלויות גבוהות ועונת טיפוס קצרה, הפיכתה של העלייה לפסגה הגבוהה בעולם להצלחה היא אתגר עצום.' },
@@ -94,7 +102,7 @@ export const POSTS = [
       { type: 'text',    value: 'כושר גופני טוב הוא חיוני, אם כי אין סטנדרטים ספציפיים. אף רופא לא יאשר אותך כ"כשיר לטיפוס על אוורסט". עם זאת, אימון מקיף – טיפוסים בגבהים שונים ובתנאים שונים – הוא הכרחי.' },
 
       { type: 'heading', value: 'האם אפשר לטפס לבד?' },
-      { type: 'text',    value: 'לא על כולן. למשל, טיפוס על הקילימנג\'רו ללא מדריך מקומי וצוות תמיכה אינו מותר. הגבלה זו הגיונית, מכיוון שהיא מהווה מקור הכנסה חשוב לממשלה ולאזרחים המקומיים. טיפוס על האוורסט באופן עצמאי הוא גם קשה ביותר; נדרש אישור מהממשלה הנפאלית והם נדירים (רק 500 הונפקו ב-2023) ויקרים מאוד — 15,000 דולר. טיפוס להר וינסון יכולה להיות מאורגנת רק על ידי החברה האמריקאית Antarctic Logistics & Expeditions LLC.' },
+      { type: 'text',    value: 'לא על כולן. למשל, טיפוס על הקילימנג\'רו ללא מדריך מקומי וצוות תמיכה אינו מותר. הגבלה זו הגיונית, מכיוון שהיא מהווה מקור הכנסה חשוב לממשלה ולאזרחים המקומיים. טיפוס על האוורסט באופן עצמאי הוא גם קשה ביותר; נדרש אישור מהממשלה הנפאלית והם נדירים (רק 500 הונפקו ב-2023) ויקרים מאוד - 15,000 דולר. טיפוס להר וינסון יכולה להיות מאורגנת רק על ידי החברה האמריקאית Antarctic Logistics & Expeditions LLC.' },
 
       { type: 'heading', value: 'איך להתכונן לאתגר?' },
       { type: 'text',    value: 'זה תלוי בניסיון הטיפוס ובכושר הגופני. אם אתה בכושר ממוצע או ירוד, התחל בהכנה גופנית כללית – ריצת שטח, שחייה, וכו\'. לאחר מכן, עבור לטיפוס. אם אתה בכושר מצוין, תוכל לצאת להרים כבר מחר. ניתן להתחיל להתאמן עם חברות טרקים בארץ, תטפס על פסגות קרובות ותצבור ניסיון. לחלופין, תוכל ללכת ישר לחברות מקצועיות ולטפס, למשל, על הקילימנג\'רו.' },
@@ -120,25 +128,152 @@ export const POSTS = [
       { type: 'heading', value: '14 פסגות 8000 מ׳' },
       { type: 'text',    value: 'אתגר מפורסם נוסף, הכולל טיפוס על 14 הפסגות הגבוהות בעולם, שגובהן עולה על 8000 מטרים. זהו אתגר קשה ומסוכן במיוחד בשל הגובה הקיצוני וקשיים נוספים. רק מטפסי עילית מנוסים מנסים להשלים את הרשימה, וגם מביניהם, מעטים מצליחים.' },
       { type: 'list',    noMarker: true, items: [
-        '1. אוורסט (נפאל) — 8848 מ׳',
-        '2. קיי 2 (פקיסטן) — 8611 מ׳',
-        '3. קנצ\'נג\'ונגה (נפאל) — 8586 מ׳',
-        '4. להוטסה (נפאל) — 8516 מ׳',
-        '5. מקאלו (נפאל) — 8485 מ׳',
-        '6. צ\'ו אוי (נפאל) — 8188 מ׳',
-        '7. דהאולגירי (נפאל) — 8167 מ׳',
-        '8. מנסלו (נפאל) — 8156 מ׳',
-        '9. ננגה פארבט (פקיסטן) — 8125 מ׳',
-        '10. אנאפורנה (נפאל) — 8091 מ׳',
-        '11. גשרברום 1 (פקיסטן) — 8080 מ׳',
-        '12. ברוד פיק (פקיסטן) — 8051 מ׳',
-        '13. גשרברום 2 (פקיסטן) — 8035 מ׳',
-        '14. שישפנגמה (סין) — 8027 מ׳',
+        '1. אוורסט (נפאל) - 8848 מ׳',
+        '2. קיי 2 (פקיסטן) - 8611 מ׳',
+        '3. קנצ\'נג\'ונגה (נפאל) - 8586 מ׳',
+        '4. להוטסה (נפאל) - 8516 מ׳',
+        '5. מקאלו (נפאל) - 8485 מ׳',
+        '6. צ\'ו אוי (נפאל) - 8188 מ׳',
+        '7. דהאולגירי (נפאל) - 8167 מ׳',
+        '8. מנסלו (נפאל) - 8156 מ׳',
+        '9. ננגה פארבט (פקיסטן) - 8125 מ׳',
+        '10. אנאפורנה (נפאל) - 8091 מ׳',
+        '11. גשרברום 1 (פקיסטן) - 8080 מ׳',
+        '12. ברוד פיק (פקיסטן) - 8051 מ׳',
+        '13. גשרברום 2 (פקיסטן) - 8035 מ׳',
+        '14. שישפנגמה (סין) - 8027 מ׳',
       ]},
       { type: 'text',    value: 'השיא להשלמה המהירה ביותר של אתגר "14x8000" שייך למטפסת הנורווגית קריסטין הרילה ולשרפה טנג\'י לאמה מנפאל, שהצליחו לעשות זאת ב-92 ימים, ושברו את השיא הקודם של נירמל פורג\'ה (נימסדאי), מטפס ההרים הנפאלי הגדול בכל הזמנים. רק כ-50 אנשים בעולם הצליחו להעפיל לכל 14 הפסגות.' },
       { type: 'image',   src: '/images/blog/kristin-harila.webp', alt: 'קריסטין הרילה - אחת המטפסות המפורסמות ביותר כיום', caption: 'קריסטין הרילה - אחת המטפסות המפורסמות ביותר כיום', objectPosition: 'top' },
     ],
+
+    /* ── English content ── */
+    titleEn: 'The Complete Guide to the Seven Summits: The Highest Peaks on Every Continent',
+    contentEn: [
+      { type: 'text',    value: 'In this article you will find everything you need to know about the Seven Summits — the highest mountains on each of the seven continents. The Seven Summits project is considered one of the greatest and most coveted challenges in the mountaineering world, attracting climbers from every corner of the globe.' },
+      { type: 'text',    value: 'We will cover what the Seven Summits are, the difficulty level of each mountain, which one is considered the easiest to climb, and we\'ll share historical facts, mountain names, world records, and essential information for mountaineers and mountain enthusiasts. If you dream of climbing mountains or want to learn more about the highest peaks on Earth, this guide is the perfect starting point.' },
+
+      { type: 'heading', value: 'What is the Seven Summits Club?' },
+      { type: 'text',    value: 'It is an informal community of climbers from around the world, united by a single passion: conquering the highest peak on each of the world\'s seven continents.' },
+      { type: 'text',    value: 'For members of the Seven Summits Club, climbing these iconic mountains is not just a physical challenge — it is also a personal journey of growth, resilience, and self-discovery, alongside a unique cultural experience. Shared adventures forge strong bonds, a sense of camaraderie, and friendships that last for years.' },
+      { type: 'text',    value: 'Among all the mountains, Kilimanjaro in Africa is considered the perfect gateway into this remarkable world. Thanks to its accessible routes and breathtaking scenery, it serves for many as the starting point on the journey toward the Seven Summits list, offering a first glimpse of the challenges, experiences, and personal fulfilment that accompany the path to the world\'s highest peaks.' },
+
+      { type: 'image',   src: '/images/blog/seven-summits-everest.webp', caption: 'Everest and Nuptse — Photo: Alon Peleg' },
+
+      { type: 'heading', value: 'So, what are the Seven Summits?' },
+      { type: 'list',    items: [
+        'Everest (Asia) — 8,848 m',
+        'Aconcagua (South America) — 6,962 m',
+        'Denali (North America) — 6,190 m',
+        'Kilimanjaro (Africa) — 5,895 m',
+        'Elbrus (Europe) — 5,642 m',
+        'Vinson Massif (Antarctica) — 4,892 m',
+        'Carstensz Pyramid (Oceania) — 4,884 m',
+        'Kosciuszko (Australia) — 2,228 m',
+      ]},
+
+      { type: 'heading', value: 'Wait — why are there eight peaks?' },
+      { type: 'text',    value: 'The fact is that there is not just one list of Seven Summits. The confusion arises because "continents" and "parts of the world" are different concepts. Even among scientists there is no agreement on whether to treat North and South America as one continent or two separate ones.' },
+      { type: 'text',    value: 'At some point, the mountaineering community agreed that the list would include Europe and Asia separately (rather than Eurasia), and likewise South and North America. The central remaining problem was Australia and Oceania.' },
+      { type: 'text',    value: 'If you consider only the continent of Australia, the highest point is Mount Kosciuszko. But if you combine Australia and Oceania into one part of the world, the highest point becomes Carstensz Pyramid in New Guinea.' },
+      { type: 'text',    value: 'Because of this disagreement, two separate lists emerged. In the Bass list, the seventh summit is Mount Kosciuszko, while in the Messner list, the seventh summit is Carstensz Pyramid.' },
+
+      { type: 'heading', value: 'So what really are the 7 Summits?' },
+      { type: 'text',    value: 'The truth is that both lists — Bass\'s and Messner\'s — are considered valid. The reason is that there is no single official list, and the debate over the seventh summit will always remain. Therefore, to be completely certain, some climbers choose to climb all eight peaks.' },
+      { type: 'text',    value: 'Incidentally, there is yet another version of the list that includes Mont Blanc. This happens because in certain geopolitical divisions, the Caucasus mountains — where Mount Elbrus is located — are considered part of Asia rather than Europe. In that case, Elbrus drops off the list and Mont Blanc takes its place.' },
+
+      { type: 'heading', value: 'Why climb the Seven Summits?' },
+      { type: 'text',    value: 'The answer is simple: it is one of the most popular and recognised achievements in amateur mountaineering. It is a challenge that allows people to test themselves, operate at the edge of their abilities, and of course discover new places and witness breathtaking scenery.' },
+      { type: 'image',   src: '/images/blog/seven-summits-why-climb.webp', alt: 'Climbers on the way to the summit', caption: '' },
+
+      { type: 'heading', value: 'How many people have completed the challenge?' },
+      { type: 'text',    value: 'As of 2016, approximately 416 people had completed the Seven Summits list, including 71 women. It is important to note that there is no official organisation or single register of all climbers, so this is an estimate. The general estimate is that around 500 people have finished the challenge.' },
+
+      { type: 'heading', value: 'Who came up with the idea?' },
+      { type: 'text',    value: 'American William Hackett, after climbing mountains on five different continents (Denali, Aconcagua, Kilimanjaro, Kosciuszko and Mont Blanc), attempted to climb Vinson and received permission to climb Everest. Although he did not manage to complete the challenge due to frostbite and lack of funding, his idea gained momentum.' },
+      { type: 'text',    value: 'The first person to complete the full challenge was American Richard Bass. In 1983 alone, he climbed six summits, and in 1985 he completed the list with a climb to Mount Everest.' },
+      { type: 'image',   src: '/images/blog/seven-summits-climbing.avif', alt: 'Richard Bass — the first person to complete the Seven Summits', caption: 'Richard Bass — the first person to complete the Seven Summits' },
+
+      { type: 'heading', value: 'How hard is it really?' },
+      { type: 'text',    value: 'Climbing all seven summits mainly involves high-altitude trekking rather than technical climbing. Even on Everest, the main challenge comes from the altitude. The central difficulty of the Seven Summits challenge lies in time and financial cost: expenses for flights, permits, visas, equipment, insurance, and more.' },
+      { type: 'text',    value: 'Climbing Everest, for example, can take up to two months and cost between $60,000 and $75,000. Not everyone has the means or the time required for such an undertaking.' },
+      { type: 'text',    value: 'Climbing major mountains such as Everest, Denali, and Vinson Massif carries risks due to extreme altitude. By contrast, lower peaks on the Seven Summits list, such as Kilimanjaro, are generally considered quite safe even for beginners.' },
+
+      { type: 'section', value: 'Seven Summits Records' },
+
+      { type: 'heading', value: 'Who is the youngest and oldest?' },
+      { type: 'text',    value: 'In December 2011, Jordan Romero (USA) climbed Vinson Massif — his final peak of the Seven Summits — at the age of 15 years, 5 months, and 12 days. He was also the youngest person to climb Everest, at the age of 13 years and 10 months.' },
+      { type: 'text',    value: 'Werner Berger (South Africa/Canada) climbed Everest at age 69 years and 310 days on 22 May 2007, completing the Bass list. In 2013, at age 76 years and 128 days, he also climbed Carstensz Pyramid, completing both Seven Summits lists.' },
+
+      { type: 'heading', value: 'Who was the first woman?' },
+      { type: 'text',    value: 'Japanese mountaineer Junko Tabei reached the summit of Carstensz Pyramid in 1992, completing the Seven Summits challenge she had begun in 1980 with Kilimanjaro.' },
+
+      { type: 'heading', value: 'Who did it fastest?' },
+      { type: 'text',    value: 'Australian Steve Plain summited Everest on 14 May 2018, completing all seven summits in just 117 days, 6 hours, and 50 minutes — only 11 months after a serious injury.' },
+
+      { type: 'section', value: 'Frequently Asked Questions' },
+
+      { type: 'heading', value: 'Which summit is the easiest?' },
+      { type: 'text',    value: 'The easiest of the 7 Summits is Kilimanjaro. Despite its relative height, the climb is not technically challenging. In addition, the well-developed infrastructure on the mountain allows you to climb it without significant logistical expenses. A typical climb lasts about a week. On the mountain, you will enjoy meals prepared by dedicated chefs, while local guides and porters take care of your equipment and tents.' },
+      { type: 'image',   src: '/images/blog/kilimanjaro-trekkers.webp', alt: 'Trekkers on the way to Kilimanjaro', caption: '' },
+
+      { type: 'heading', value: 'Which summit is the hardest?' },
+      { type: 'text',    value: 'Mount Everest is without doubt the hardest of the Seven Summits. With extreme altitude, the need for extensive preparation, high costs, and a short climbing season, turning a summit bid on the world\'s highest peak into a success is an enormous challenge.' },
+      { type: 'image',   src: '/images/blog/everest-hardest.webp', alt: 'Climbers on Everest', caption: '' },
+
+      { type: 'heading', value: 'What is the recommended order to climb them?' },
+      { type: 'text',    value: 'The easiest starting point is Kilimanjaro: it requires no special climbing skills and is stunningly beautiful. Moreover, Tanzania is a fascinating country in Africa, and the trip can be combined with a safari and a holiday in Zanzibar. Next, Elbrus is recommended, followed by Aconcagua — a serious test before the main challenge, Everest. Vinson, Denali, and Carstensz Pyramid can be climbed in any order you wish, depending on visa permits and travel arrangements, though all will be expensive — though far less so than Everest. Denali is also the most technically demanding, so it is best attempted when you feel like an experienced climber.' },
+
+      { type: 'heading', value: 'What fitness level is required?' },
+      { type: 'text',    value: 'Good physical fitness is essential, though there are no specific standards. No doctor will certify you as "fit to climb Everest." However, comprehensive training — climbing at various altitudes and in various conditions — is essential.' },
+
+      { type: 'heading', value: 'Can you climb alone?' },
+      { type: 'text',    value: 'Not all of them. For example, climbing Kilimanjaro without a local guide and support crew is not permitted. This restriction makes sense, as it provides an important source of income for the government and local citizens. Climbing Everest independently is also extremely difficult; a permit from the Nepali government is required, they are rare (only 500 were issued in 2023) and very expensive — $15,000. Climbing Vinson can only be organised through the American company Antarctic Logistics & Expeditions LLC.' },
+
+      { type: 'heading', value: 'How do you prepare for the challenge?' },
+      { type: 'text',    value: 'It depends on your climbing experience and physical fitness. If you are of average or below-average fitness, start with general physical conditioning — trail running, swimming, etc. Then move on to climbing. If you are in excellent shape, you can head to the mountains tomorrow. You can begin training with trekking companies locally, climb nearby peaks, and gain experience. Alternatively, you can go straight to professional companies and climb, for example, Kilimanjaro.' },
+
+      { type: 'heading', value: 'How much should it cost?' },
+      { type: 'text',    value: 'The cost depends on how you organise everything. You can buy all-inclusive trips or arrange parts yourself. The most economical option will likely cost no less than $120,000. Everest is of course the most expensive, with costs ranging from $36,000 to $200,000. If you are not ready for complex logistics, you can turn to mountain tour companies. For example, one possible plan would be: June — Kilimanjaro, August — Elbrus, December–February: Aconcagua and Vinson, Spring — Everest. The following autumn, tackle Carstensz Pyramid or Vinson Massif (if not done earlier) and Denali in summer.' },
+
+      { type: 'heading', value: 'Is there a way to save money?' },
+      { type: 'text',    value: 'Many climbers rely on support from sponsors or their governments. In some countries there are fundraising programmes for institutions, such as medical institutions. By raising money for them, climbers can allocate part of the funds to their climbs — yes, this is legal. Such programmes are popular in the USA, Canada, the UK, and Australia, which is why most Seven Summits finishers are citizens of those countries. In other countries, crowdfunding may work, collecting money online from a large number of people. Finding a sponsor is also an option — for example, a company that wants to see its flag on Everest.' },
+
+      { type: 'section', value: 'Name Histories' },
+      { type: 'text',    value: 'Everest is named after George Everest, a British surveyor involved in determining the precise heights of many peaks in India. The original name, Chomolungma, translates from Tibetan as "Goddess Mother of the World."' },
+      { type: 'text',    value: 'Denali means "The Great One" in the language of the Athabascan people of Alaska.' },
+      { type: 'text',    value: 'Kilimanjaro comes from the Swahili language and is thought to mean "shining mountain" or "mountain of light," though its exact origin is unknown.' },
+      { type: 'text',    value: 'Elbrus is likely of Iranian origin, where "Alborz" means "high mountain."' },
+      { type: 'text',    value: 'The Vinson Massif is named after Carl Vinson, an American congressman from Georgia who was an enthusiastic supporter of funding Antarctic exploration.' },
+      { type: 'text',    value: 'Kosciuszko is named in honour of Polish and American military leader Tadeusz Kościuszko. The mountain was named by the first person to climb it, Polish explorer and geologist Paweł Edmund Strzelecki.' },
+      { type: 'text',    value: 'Carstensz Pyramid was named after Dutch explorer Jan Carstensz, who first sighted the mountain in 1623. Its original name, Puncak Jaya, means "Peak of Victory" in Indonesian.' },
+      { type: 'text',    value: 'Aconcagua has different meanings in the languages of indigenous peoples. In Araucanian, it means "coming from the other side" of the river. In Quechua, it can mean "stone sentinel" or "watching over the sands." In Aymara, it translates to "white channel" or "snowy mountain."' },
+
+      { type: 'section', value: 'What\'s the Next Challenge?' },
+
+      { type: 'heading', value: 'The 14 Eight-Thousanders' },
+      { type: 'text',    value: 'Another famous challenge, involving climbing the 14 highest mountains in the world — all above 8,000 metres. This is a particularly hard and dangerous challenge due to the extreme altitude and additional difficulties. Only experienced elite climbers attempt to complete the list, and even among them, very few succeed.' },
+      { type: 'list',    noMarker: true, items: [
+        '1. Everest (Nepal) — 8,848 m',
+        '2. K2 (Pakistan) — 8,611 m',
+        '3. Kangchenjunga (Nepal) — 8,586 m',
+        '4. Lhotse (Nepal) — 8,516 m',
+        '5. Makalu (Nepal) — 8,485 m',
+        '6. Cho Oyu (Nepal) — 8,188 m',
+        '7. Dhaulagiri (Nepal) — 8,167 m',
+        '8. Manaslu (Nepal) — 8,156 m',
+        '9. Nanga Parbat (Pakistan) — 8,125 m',
+        '10. Annapurna (Nepal) — 8,091 m',
+        '11. Gasherbrum I (Pakistan) — 8,080 m',
+        '12. Broad Peak (Pakistan) — 8,051 m',
+        '13. Gasherbrum II (Pakistan) — 8,035 m',
+        '14. Shishapangma (China) — 8,027 m',
+      ]},
+      { type: 'text',    value: 'The record for the fastest completion of the "14×8000" challenge belongs to Norwegian climber Kristin Harila and Sherpa Tenjen Lama from Nepal, who achieved it in 92 days, breaking the previous record held by Nirmal Purja (Nimsdai), the greatest Nepali mountaineer of all time. Only around 50 people in the world have managed to summit all 14 peaks.' },
+      { type: 'image',   src: '/images/blog/kristin-harila.webp', alt: 'Kristin Harila — one of the most famous climbers today', caption: 'Kristin Harila — one of the most famous climbers today', objectPosition: 'top' },
+    ],
   },
 ];
 
-export const CATEGORIES = [...new Set(POSTS.map(p => p.category))];
+export const CATEGORIES    = [...new Set(POSTS.map(p => p.category))];
+export const CATEGORIES_EN = [...new Set(POSTS.map(p => p.categoryEn || p.category))];

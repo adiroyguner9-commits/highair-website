@@ -1,45 +1,66 @@
 /**
  * ExpeditionExplorer.jsx - Section 02 Dream Site (src/components/web_v2/)
- * Worldwide expeditions · continent tabs · RTL Hebrew
+ * type="climbs" | type="treks"
+ * Cards sorted low→high elevation, horizontal native-scroll slider with snap.
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
+import { useTranslation } from 'react-i18next';
+import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
 
-/* ── Continent tabs with expedition IDs sorted by elevation (low→high) ── */
-const CONTINENTS = [
-  { key: 'africa',       label: 'אפריקה',      expIds: [4, 10, 11] },
-  { key: 'europe',       label: 'אירופה',       expIds: [2, 3, 5, 9] },
-  { key: 'asia',         label: 'אסיה',         expIds: [6, 7, 8, 12, 13, 14, 16] },
-  { key: 'southamerica', label: 'דרום אמריקה', expIds: [15] },
-];
+/* ── Arrow button ── */
+function NavArrow({ direction, disabled, onClick, isRtl }) {
+  const [hovered, setHovered] = useState(false);
+  const symbol = direction === 'prev'
+    ? (isRtl ? '→' : '←')
+    : (isRtl ? '←' : '→');
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      onMouseEnter={() => !disabled && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        width:          '44px',
+        height:         '44px',
+        borderRadius:   '50%',
+        border:         `2px solid ${disabled ? '#E5E3F0' : hovered ? COLOR.primary : '#C4C0DC'}`,
+        background:     disabled ? '#FAFAFA' : hovered ? COLOR.primary : '#FFFFFF',
+        color:          disabled ? '#C4C0DC' : hovered ? '#FFFFFF' : '#3D3B5A',
+        cursor:         disabled ? 'default' : 'pointer',
+        display:        'flex',
+        alignItems:     'center',
+        justifyContent: 'center',
+        fontSize:       '18px',
+        lineHeight:     1,
+        flexShrink:     0,
+        transition:     'all 0.18s ease',
+        boxShadow:      hovered && !disabled ? '0 4px 12px rgba(109,40,217,0.20)' : 'none',
+      }}
+    >
+      {symbol}
+    </button>
+  );
+}
 
-/* ── Elevation formatter ── */
-const fmtElev = (num) => num + ' מטר';
-
-/* ══════════════════════════════════════════════════════════════
-   ExpCard - identical design to original
-══════════════════════════════════════════════════════════════ */
-
+/* ── Expedition card ── */
 function ExpCard({ exp }) {
   const [hovered,  setHovered]  = useState(false);
-  const [imgReady, setImgReady] = useState(!exp.img); // no img → always "ready"
+  const [imgReady, setImgReady] = useState(!exp.img);
   const cardRef  = useRef(null);
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
 
-  /* Lazy-load: set background only when card enters viewport */
   useEffect(() => {
     if (!exp.img) return;
-    const el = cardRef.current;
+    const el  = cardRef.current;
     const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setImgReady(true);
-        obs.disconnect();
-      }
+      if (entry.isIntersecting) { setImgReady(true); obs.disconnect(); }
     }, { rootMargin: '200px' });
     obs.observe(el);
     return () => obs.disconnect();
@@ -56,102 +77,63 @@ function ExpCard({ exp }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        flex:           '1 0 0',
-        minWidth:       isMobile ? 0 : '200px',
+        width:          '100%',
+        height:         '100%',
         borderRadius:   RADIUS.xl,
         overflow:       'hidden',
         background:     bg,
         display:        'flex',
         flexDirection:  'column',
         justifyContent: 'space-between',
-        minHeight:      isMobile ? '280px' : '380px',
+        minHeight:      isMobile ? '300px' : '380px',
         cursor:         'pointer',
         transform:      hovered ? 'translateY(-6px)' : 'translateY(0)',
-        boxShadow:      hovered
-                          ? '0 20px 48px rgba(0,0,0,0.22)'
-                          : '0 6px 20px rgba(0,0,0,0.12)',
+        boxShadow:      hovered ? '0 20px 48px rgba(0,0,0,0.22)' : '0 6px 20px rgba(0,0,0,0.12)',
         transition:     `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
         position:       'relative',
       }}
     >
-      {/* ── Dark overlay so text stays readable over photos ── */}
       {exp.img && (
         <div style={{
-          position:   'absolute', inset: 0,
+          position: 'absolute', inset: 0,
           background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%)',
-          zIndex:     0,
+          zIndex: 0,
         }} />
       )}
-      {/* ── Top: country badge ── */}
-      <div style={{ padding: '18px 18px 0', direction: 'rtl', position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+
+      {/* Country badge */}
+      <div style={{ padding: '18px 18px 0', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{
-          display:              'inline-flex',
-          alignItems:           'center',
-          gap:                  '6px',
-          padding:              '5px 12px',
-          borderRadius:         RADIUS.full,
-          background:           'rgba(255,255,255,0.15)',
-          backdropFilter:       'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          fontFamily:           'Ploni, sans-serif',
-          fontSize:             FS.sm,
-          fontWeight:           600,
-          color:                'rgba(255,255,255,0.90)',
-          letterSpacing:        '0.02em',
-          direction:            'rtl',
+          display: 'inline-flex', alignItems: 'center', gap: '6px',
+          padding: '5px 12px', borderRadius: RADIUS.full,
+          background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+          fontFamily: 'Ploni, sans-serif', fontSize: FS.sm, fontWeight: 600,
+          color: 'rgba(255,255,255,0.90)', letterSpacing: '0.02em', direction: 'ltr',
         }}>
-          {exp.countryHe} {exp.flag}
+          {exp.flag} {isEn ? exp.country : exp.countryHe}
         </div>
         {exp.soldOut && (
-          <div style={{
-            padding: '4px 10px', borderRadius: RADIUS.full,
-            background: '#DC2626', fontFamily: 'Ploni, sans-serif',
-            fontSize: '11px', fontWeight: 700, color: '#FFFFFF',
-          }}>
-            מלא
+          <div style={{ padding: '4px 10px', borderRadius: RADIUS.full, background: '#DC2626', fontFamily: 'Ploni, sans-serif', fontSize: '11px', fontWeight: 700, color: '#FFFFFF' }}>
+            {t('explorer.soldOut')}
           </div>
         )}
       </div>
 
-      {/* ── Bottom: name / elev / arrow ── */}
-      <div style={{ padding: '0 20px 24px', direction: 'rtl', position: 'relative', zIndex: 1 }}>
+      {/* Name / elevation / arrow */}
+      <div style={{ padding: '0 20px 24px', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px' }}>
           <div>
-            <h3 style={{
-              fontFamily:    "'Ploni', sans-serif",
-              fontSize:      FS.h3,
-              fontWeight:    700,
-              color:         '#FFFFFF',
-              margin:        '0 0 6px',
-              letterSpacing: '-0.02em',
-              lineHeight:    1.1,
-            }}>
-              {exp.nameHe}
+            <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.h3, fontWeight: 700, color: '#FFFFFF', margin: '0 0 6px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+              {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
             </h3>
             {exp.elevNum > 0 && (
-              <p style={{
-                fontFamily:    "'Ploni', sans-serif",
-                fontSize:      FS.sm,
-                fontWeight:    400,
-                color:         'rgba(255,255,255,0.85)',
-                margin:        0,
-                letterSpacing: '0.02em',
-              }}>
-                {fmtElev(exp.elevNum)}
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em' }}>
+                {exp.elevNum}m
               </p>
             )}
           </div>
-
-          {/* חץ */}
-          <div style={{
-            fontSize:      '20px',
-            color:         hovered ? '#FFFFFF' : 'rgba(255,255,255,0.25)',
-            transition:    `color 0.25s ${EASING.out}`,
-            lineHeight:    1,
-            flexShrink:    0,
-            paddingBottom: '2px',
-          }}>
-            ←
+          <div style={{ fontSize: '20px', color: hovered ? '#FFFFFF' : 'rgba(255,255,255,0.25)', transition: `color 0.25s ${EASING.out}`, lineHeight: 1, flexShrink: 0, paddingBottom: '2px' }}>
+            {isEn ? '→' : '←'}
           </div>
         </div>
       </div>
@@ -163,178 +145,172 @@ function ExpCard({ exp }) {
    Main section
 ══════════════════════════════════════════════════════════════ */
 
-export default function ExpeditionExplorer() {
-  const [activeIdx,  setActiveIdx]  = useState(0);
-  const [phase,      setPhase]      = useState('idle'); // 'idle' | 'out' | 'in'
-  const [dir,        setDir]        = useState(1);
-  const [ctaHovered, setCtaHovered] = useState(false);
-  const { isMobile } = useBreakpoint();
+export default function ExpeditionExplorer({ type }) {
+  const trackRef      = useRef(null);
+  const [cardWidth,   setCardWidth]   = useState(220);
+  const [canPrev,     setCanPrev]     = useState(false);
+  const [canNext,     setCanNext]     = useState(true);
+  const { isMobile }  = useBreakpoint();
+  const { t, i18n }   = useTranslation();
+  const textDir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl   = textDir === 'rtl';
 
-  const switchTab = (idx) => {
-    if (idx === activeIdx) return;
-    const d = idx > activeIdx ? 1 : -1;
-    setDir(d);
-    setPhase('out');
-    setTimeout(() => {
-      setActiveIdx(idx);
-      setPhase('in');
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => setPhase('idle'))
-      );
-    }, 160);
-  };
-
-  const cont  = CONTINENTS[activeIdx];
-  const cards = cont.expIds
+  /* Cards sorted low → high */
+  const TREK_IDS  = [4, 3, 2, 6, 7, 8];
+  const CLIMB_IDS = [5, 9, 10, 11, 12, 13, 14, 15, 16];
+  const cards = (type === 'treks' ? TREK_IDS : CLIMB_IDS)
     .map(id => EXPS.find(e => e.id === id))
     .filter(Boolean)
-    .sort((a, b) => (b.elevNum || 0) - (a.elevNum || 0));
+    .sort((a, b) => (a.elevNum || 0) - (b.elevNum || 0));
+
+  /* Recalculate card width when container resizes */
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const GAP = 18;
+    const visible = isMobile ? 1 : 4;
+    const calc = () => {
+      const w = el.offsetWidth;
+      setCardWidth(isMobile
+        ? w * 0.82
+        : (w - (visible - 1) * GAP) / visible);
+    };
+    calc();
+    const ro = new ResizeObserver(calc);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [isMobile]);
+
+  /* Track scroll position → update arrow states */
+  const updateArrows = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const sl  = Math.abs(Math.round(el.scrollLeft)); // abs handles RTL negative values
+    const max = Math.round(el.scrollWidth - el.clientWidth);
+    setCanPrev(sl > 4);
+    setCanNext(sl < max - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener('scroll', updateArrows, { passive: true });
+    return () => el.removeEventListener('scroll', updateArrows);
+  }, [updateArrows, cardWidth]);
+
+  /* Reset scroll on type change */
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollLeft = 0;
+    updateArrows();
+  }, [type, updateArrows]);
+
+  /* Arrow click — scroll by one card */
+  function scrollByCard(direction) {
+    const el = trackRef.current;
+    if (!el) return;
+    const GAP  = 18;
+    const step = cardWidth + GAP;
+    // LTR: prev = left (−), next = right (+)
+    // RTL: prev = right (scrollLeft toward 0), next = left (scrollLeft more negative)
+    const delta = isRtl
+      ? (direction === 'next' ? -step : +step)
+      : (direction === 'next' ? +step  : -step);
+    el.scrollBy({ left: delta, behavior: 'smooth' });
+  }
+
+  /* Labels */
+  const sectionId = type === 'climbs' ? 'expeditions' : 'treks';
+  const heading   = type === 'climbs'
+    ? (isRtl ? 'טיפוסי הרים בעולם'  : 'Expeditions')
+    : (isRtl ? 'טרקים בעולם'        : 'Trekking');
+  const subtitle  = type === 'climbs'
+    ? (isRtl ? 'מאולימפוס ועד לנין פיק — בחרו את האתגר הבא שלכם' : 'From Olympus to Lenin Peak — choose your next challenge')
+    : (isRtl ? 'מהבלקן דרך אתיופיה ועד נפאל — טרקים לכל רמה'    : 'From the Balkans through Ethiopia to Nepal — treks for every level');
 
   return (
-    <section id="expeditions" style={{
+    <section id={sectionId} style={{
       background: '#FFFFFF',
-      padding:    isMobile ? '36px 5%' : '60px 5%',
+      padding:    isMobile ? '36px 5% 0' : '60px 5% 0',
       boxSizing:  'border-box',
-      direction:  'rtl',
+      direction:  textDir,
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-        {/* ── Section header ── */}
-        <div style={{ textAlign: 'center', marginBottom: '52px' }}>
-          <h2 style={{
-            fontFamily:    "'Ploni', sans-serif",
-            fontSize:      FS.h2,
-            fontWeight:    700,
-            color:         '#0A0818',
-            margin:        '0 0 12px',
-            letterSpacing: '-0.02em',
-            lineHeight:    1.1,
-            textAlign:     'center',
-          }}>
-            הטרקים והטיפוסים שלנו בעולם
-          </h2>
-          <p style={{
-            fontFamily:  "'Ploni', sans-serif",
-            fontSize:    FS.body,
-            fontWeight:  300,
-            color:       '#6B6B8A',
-            margin:      0,
-            lineHeight:  1.7,
-            textAlign:   'center',
-          }}>
-            בחרו יעד, בחרו רמה, ותנו לנו לדאוג לכל השאר
-          </p>
+        {/* ── Header: title + arrows ── */}
+        <div style={{
+          display:        'flex',
+          alignItems:     'flex-end',
+          justifyContent: 'space-between',
+          marginBottom:   '32px',
+          gap:            '16px',
+        }}>
+          <div>
+            <h2 style={{
+              fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
+              color: '#0A0818', margin: '0 0 8px', letterSpacing: '-0.02em',
+              lineHeight: 1.1, textAlign: 'start',
+            }}>
+              {heading}
+            </h2>
+            <p style={{
+              fontFamily: "'Ploni', sans-serif", fontSize: FS.body, fontWeight: 300,
+              color: '#6B6B8A', margin: 0, lineHeight: 1.7, textAlign: 'start',
+            }}>
+              {subtitle}
+            </p>
+          </div>
+
+          {!isMobile && (
+            <div style={{ display: 'flex', gap: '8px', flexShrink: 0, paddingBottom: '4px' }}>
+              <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
+              <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
+            </div>
+          )}
         </div>
 
-        {/* ── Continent tabs ── */}
-        <div style={{
-          display:                 'flex',
-          gap:                     '8px',
-          flexWrap:                isMobile ? 'nowrap' : 'wrap',
-          overflowX:               isMobile ? 'auto' : 'visible',
-          marginBottom:            '20px',
-          direction:               'rtl',
-          justifyContent:          isMobile ? 'flex-start' : 'center',
-          WebkitOverflowScrolling: 'touch',
-          paddingBottom:           isMobile ? '2px' : 0,
-          scrollbarWidth:          'none',
-          msOverflowStyle:         'none',
-        }}>
-          {CONTINENTS.map((c, i) => {
-            const isActive = i === activeIdx;
-            const count    = c.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean).length;
-            return (
-              <button
-                key={c.key}
-                onClick={() => switchTab(i)}
-                style={{
-                  display:       'inline-flex',
-                  alignItems:    'center',
-                  gap:           '8px',
-                  padding:       isMobile ? '7px 22px' : '9px 18px',
-                  borderRadius:  RADIUS.full,
-                  border:        isActive
-                                   ? `2px solid ${COLOR.primary}`
-                                   : '2px solid #E5E3F0',
-                  background:    isActive ? COLOR.primary : '#FFFFFF',
-                  color:         isActive ? '#FFFFFF' : '#4B4869',
-                  fontFamily:    "'Ploni', sans-serif",
-                  fontSize:      FS.btn,
-                  fontWeight:    isActive ? 700 : 400,
-                  cursor:        'pointer',
-                  boxShadow:     isMobile ? 'none' : (isActive
-                                   ? '0 4px 14px rgba(109,40,217,0.30)'
-                                   : '0 2px 8px rgba(0,0,0,0.06)'),
-                  transition:    `all 0.25s ${EASING.out}`,
-                  letterSpacing: '0.01em',
-                  whiteSpace:    'nowrap',
-                }}
-              >
-                {c.label}
-                <span style={{
-                  display:        'inline-flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  minWidth:       '20px',
-                  height:         '20px',
-                  padding:        '0 5px',
-                  borderRadius:   '10px',
-                  background:     isActive ? 'rgba(255,255,255,0.25)' : 'rgba(109,40,217,0.10)',
-                  color:          isActive ? '#FFFFFF' : COLOR.primary,
-                  fontSize:       '11px',
-                  fontWeight:     700,
-                  lineHeight:     1,
-                  transition:     `all 0.25s ${EASING.out}`,
-                }}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* ── Card grid ── */}
-        <div style={{
-          display:             isMobile ? 'flex' : 'grid',
-          flexDirection:       isMobile ? 'column' : undefined,
-          gridTemplateColumns: isMobile ? undefined : 'repeat(4, 1fr)',
-          gap:                 '18px',
-          marginTop:           '36px',
-          opacity:    phase === 'out' ? 0 : 1,
-          transform:  phase === 'out' ? `translateX(${dir * -28}px)`
-                    : phase === 'in'  ? `translateX(${dir * 28}px)`
-                    : 'translateX(0)',
-          transition: phase === 'out' ? `opacity 0.14s ease, transform 0.14s ease`
-                    : phase === 'in'  ? 'none'
-                    : `opacity 0.26s ${EASING.out}, transform 0.32s cubic-bezier(0.22,1,0.36,1)`,
-        }}>
+        {/* ── Scroll track ── */}
+        <div
+          ref={trackRef}
+          style={{
+            display:                 'flex',
+            gap:                     '18px',
+            direction:               isRtl ? 'rtl' : 'ltr',
+            overflowX:               'auto',
+            scrollSnapType:          'x mandatory',
+            scrollBehavior:          'smooth',
+            scrollbarWidth:          'none',
+            msOverflowStyle:         'none',
+            WebkitOverflowScrolling: 'touch',
+            paddingTop:              '12px', // room for card hover translateY(-6px)
+            marginTop:               '-12px', // compensate layout shift
+            paddingBottom:           isMobile ? '16px' : '72px', // mobile: no hover shadow needed
+          }}
+        >
           {cards.map(exp => (
-            <ExpCard key={exp.id} exp={exp} />
+            <div
+              key={exp.id}
+              style={{
+                flex:             `0 0 ${cardWidth}px`,
+                width:            `${cardWidth}px`,
+                scrollSnapAlign:  'start',
+              }}
+            >
+              <ExpCard exp={exp} />
+            </div>
           ))}
         </div>
 
-        {/* ── Bottom CTA ── */}
-        <div style={{ textAlign: 'center', marginTop: '48px', direction: 'ltr' }}>
-          <button
-            onMouseEnter={() => setCtaHovered(true)}
-            onMouseLeave={() => setCtaHovered(false)}
-            style={{
-              ...BTN.outline,
-              fontFamily:    "'Ploni', sans-serif",
-              fontSize:      FS.btn,
-              fontWeight:    700,
-              padding:       '14px 48px',
-              letterSpacing: '0.01em',
-              background:    ctaHovered ? COLOR.primary : 'transparent',
-              color:         ctaHovered ? '#FFFFFF'      : COLOR.primary,
-              boxShadow:     ctaHovered ? '0 6px 22px rgba(109,40,217,0.30)' : 'none',
-              transform:     ctaHovered ? 'translateY(-1px)' : 'none',
-              transition:    `all 0.22s ${EASING.out}`,
-            }}
-          >
-            צפה בכל המשלחות
-          </button>
-        </div>
+        {/* ── Mobile arrows ── */}
+        {isMobile && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '4px', paddingBottom: '36px' }}>
+            <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
+            <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
+          </div>
+        )}
+
 
       </div>
     </section>

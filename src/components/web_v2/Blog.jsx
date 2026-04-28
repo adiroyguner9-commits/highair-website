@@ -1,19 +1,27 @@
 /**
  * Blog.jsx - /blog
- * Article listing page — Hebrew RTL
+ * Article listing page - Hebrew RTL
  */
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import { POSTS, CATEGORIES } from '../../data/blogData.js';
+import { POSTS, CATEGORIES, CATEGORIES_EN } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
 function PostCard({ post }) {
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const dir  = isEn ? 'ltr' : 'rtl';
+
+  const title    = isEn ? (post.titleEn    || post.title)   : post.title;
+  const excerpt  = isEn ? (post.excerptEn  || post.excerpt) : post.excerpt;
+  const category = isEn ? (post.categoryEn || post.category) : post.category;
 
   return (
     <div
@@ -55,12 +63,12 @@ function PostCard({ post }) {
           padding:    '4px 12px',
           borderRadius: RADIUS.full,
         }}>
-          {post.category}
+          {category}
         </div>
       </div>
 
       {/* Body */}
-      <div style={{ padding: '22px 24px 28px', direction: 'rtl', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{ padding: '22px 24px 28px', direction: dir, flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <h2 style={{
           fontFamily:    "'Ploni', sans-serif",
           fontSize:      isMobile ? '18px' : '20px',
@@ -70,7 +78,7 @@ function PostCard({ post }) {
           lineHeight:    1.35,
           letterSpacing: '-0.01em',
         }}>
-          {post.title}
+          {title}
         </h2>
 
         <p style={{
@@ -82,7 +90,7 @@ function PostCard({ post }) {
           lineHeight: 1.7,
           flex:       1,
         }}>
-          {post.excerpt}
+          {excerpt}
         </p>
 
         <div style={{
@@ -95,7 +103,7 @@ function PostCard({ post }) {
           fontWeight: 700,
           marginTop:  '4px',
         }}>
-          קרא עוד ←
+          {t('blog.readMore')}
         </div>
       </div>
     </div>
@@ -104,25 +112,38 @@ function PostCard({ post }) {
 
 export default function Blog() {
   const { isMobile, isTablet } = useBreakpoint();
-  const [activeCategory, setActiveCategory] = useState('הכל');
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const dir  = isEn ? 'ltr' : 'rtl';
+  const [activeCategory, setActiveCategory] = useState(t('blog.all'));
 
   usePageMeta({
-    title:         'בלוג | HighAir Expeditions',
-    description:   'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים — מבית HighAir Expeditions.',
+    title:         isEn
+      ? 'Blog | HighAir Expeditions'
+      : 'בלוג | HighAir Expeditions',
+    description:   isEn
+      ? 'Articles, tips and stories from the world of trekking and mountaineering — by HighAir Expeditions.'
+      : 'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים - מבית HighAir Expeditions.',
     canonicalPath: '/blog',
   });
 
-  const categories = ['הכל', ...CATEGORIES];
-  const filtered   = activeCategory === 'הכל'
+  const catList  = isEn ? CATEGORIES_EN : CATEGORIES;
+  const allLabel = t('blog.all');
+  const categories = [allLabel, ...catList];
+
+  const filtered = activeCategory === allLabel
     ? POSTS
-    : POSTS.filter(p => p.category === activeCategory);
+    : POSTS.filter(p => {
+        const cat = isEn ? (p.categoryEn || p.category) : p.category;
+        return cat === activeCategory;
+      });
 
   const cols = isMobile ? 1 : isTablet ? 2 : 3;
 
   return (
     <>
       <Header />
-      <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: 'rtl' }}>
+      <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: dir }}>
 
         {/* ── Page header ── */}
         <div style={{
@@ -140,7 +161,7 @@ export default function Blog() {
             letterSpacing: '-0.03em',
             lineHeight:    1.1,
           }}>
-            הבלוג של HighAir
+            {t('blog.pageTitle')}
           </h1>
           <p style={{
             fontFamily: "'Ploni', sans-serif",
@@ -150,7 +171,7 @@ export default function Blog() {
             margin:     0,
             lineHeight: 1.7,
           }}>
-            מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים
+            {t('blog.subtitle')}
           </p>
         </div>
 
@@ -201,7 +222,7 @@ export default function Blog() {
 
           {filtered.length === 0 && (
             <div style={{ textAlign: 'center', padding: '80px 0', color: '#9591B0', fontFamily: "'Ploni', sans-serif" }}>
-              אין מאמרים בקטגוריה זו עדיין.
+              {t('blog.empty')}
             </div>
           )}
         </div>

@@ -1,9 +1,10 @@
 /**
  * BlogPost.jsx - /blog/:slug
- * Individual blog post page — Hebrew RTL
+ * Individual blog post page - Hebrew RTL
  */
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -74,12 +75,16 @@ export default function BlogPost() {
   const { slug }   = useParams();
   const navigate   = useNavigate();
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
+  const isEn = i18n.language === 'en';
   const post = POSTS.find(p => p.slug === slug);
 
   const [scrollPct, setScrollPct] = useState(0);
   const [copied,    setCopied]    = useState(false);
 
-  // Scroll tracking — progress bar
+  // Scroll tracking - progress bar
   useEffect(() => {
     const onScroll = () => {
       const el = document.documentElement;
@@ -96,11 +101,12 @@ export default function BlogPost() {
     if (!post) return;
     const script = document.createElement('script');
     script.type = 'application/ld+json';
+    const isEnLang = i18n.language === 'en';
     script.text = JSON.stringify({
       '@context':       'https://schema.org',
       '@type':          'Article',
-      headline:         post.title,
-      description:      post.excerpt,
+      headline:         isEnLang ? (post.titleEn || post.title) : post.title,
+      description:      isEnLang ? (post.excerptEn || post.excerpt) : post.excerpt,
       image:            post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,
       author:           { '@type': 'Organization', name: 'HighAir Expeditions' },
       publisher: {
@@ -117,32 +123,38 @@ export default function BlogPost() {
   }, [post]);
 
   usePageMeta(post ? {
-    title:         `${post.title} | HighAir Blog`,
-    description:   post.excerpt,
+    title:         `${postTitle} | HighAir Blog`,
+    description:   postExcerpt,
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,
   } : {
-    title:         'מאמר | HighAir Blog',
+    title:         isRtl ? 'מאמר | HighAir Blog' : 'Article | HighAir Blog',
     canonicalPath: `/blog/${slug}`,
   });
 
   if (!post) {
     return (
-      <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif" }}>
+      <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif" }}>
         <Header />
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
           <div style={{ fontSize: '64px' }}>📄</div>
-          <h1 style={{ color: '#0A0818', fontWeight: 700 }}>המאמר לא נמצא</h1>
+          <h1 style={{ color: '#0A0818', fontWeight: 700 }}>{t('blogPost.notFound')}</h1>
           <button onClick={() => navigate('/blog')} style={{ padding: '12px 28px', borderRadius: RADIUS.full, border: 'none', background: COLOR.primary, color: '#fff', fontFamily: "'Ploni', sans-serif", fontSize: FS.btn, fontWeight: 700, cursor: 'pointer' }}>
-            לכל המאמרים ←
+            {t('blogPost.back')}
           </button>
         </div>
       </div>
     );
   }
 
+  /* Language-aware fields */
+  const postTitle    = isEn ? (post.titleEn    || post.title)    : post.title;
+  const postExcerpt  = isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt;
+  const postContent  = isEn ? (post.contentEn  || post.content)  : post.content;
+  const postCategory = isEn ? (post.categoryEn || post.category) : post.category;
+
   const pageUrl     = `https://www.highair-expeditions.com/blog/${post.slug}`;
-  const readingTime = calcReadingTime(post.content);
+  const readingTime = calcReadingTime(postContent);
 
   const shareWA = () => {
     Analytics.shareWhatsApp(post.title);
@@ -164,7 +176,7 @@ export default function BlogPost() {
   };
 
   return (
-    <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
+    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
       <Header />
 
       {/* ── Reading Progress Bar ── */}
@@ -195,12 +207,12 @@ export default function BlogPost() {
           flexDirection:  'column',
           justifyContent: 'flex-end',
           padding:        isMobile ? '32px 6%' : '48px 5%',
-          direction:      'rtl',
+          direction:      dir,
         }}>
           <div style={{ maxWidth: '960px', margin: '0 auto', width: '100%' }}>
             {/* Category + reading time badges */}
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap' }}>
-              {post.category && (
+              {postCategory && (
                 <span style={{
                   background:     'rgba(109,40,217,0.85)',
                   backdropFilter: 'blur(6px)',
@@ -211,7 +223,7 @@ export default function BlogPost() {
                   padding:        '4px 12px',
                   borderRadius:   RADIUS.full,
                 }}>
-                  {post.category}
+                  {postCategory}
                 </span>
               )}
               <span style={{
@@ -224,7 +236,7 @@ export default function BlogPost() {
                 padding:        '4px 12px',
                 borderRadius:   RADIUS.full,
               }}>
-                {readingTime} דקות קריאה
+                {readingTime} {t('blogPost.readTime')}
               </span>
             </div>
             <h1 style={{
@@ -236,9 +248,9 @@ export default function BlogPost() {
               letterSpacing: '-0.02em',
               lineHeight:    1.2,
               textShadow:    '0 2px 16px rgba(0,0,0,0.4)',
-              textAlign:     'right',
+              textAlign:     'start',
             }}>
-              {post.title}
+              {postTitle}
             </h1>
           </div>
         </div>
@@ -273,12 +285,12 @@ export default function BlogPost() {
           onMouseEnter={e => { e.currentTarget.style.color = '#7C3AED'; }}
           onMouseLeave={e => { e.currentTarget.style.color = COLOR.primary; }}
         >
-          → כל המאמרים
+          {t('blogPost.back')}
         </button>
 
         {/* ── Article Body ── */}
         <article>
-          {post.content.map((block, i) => {
+          {postContent.map((block, i) => {
             const id = `toc-${i}`;
 
             if (block.type === 'section') return (
@@ -311,7 +323,7 @@ export default function BlogPost() {
                   background:   'linear-gradient(to left, transparent, #DDD6FE, transparent)',
                   marginBottom: '20px',
                 }} />
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', direction: 'rtl' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', direction: dir }}>
                   <div style={{
                     width:        '4px',
                     height:       '28px',
@@ -413,7 +425,7 @@ export default function BlogPost() {
           flexWrap:   'nowrap',
         }}>
           <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#9591B0', fontWeight: 600 }}>
-            אהבתם? שתפו:
+            {t('blogPost.share')}
           </span>
           <ShareBtn color="#25D366" onClick={shareWA}>
             <WhatsAppIcon /> WhatsApp
@@ -422,7 +434,7 @@ export default function BlogPost() {
             <FacebookIcon /> Facebook
           </ShareBtn>
           <ShareBtn color={copied ? '#059669' : '#6B6B8A'} onClick={copyLink}>
-            {copied ? '✓ הועתק!' : '🔗 העתק לינק'}
+            {copied ? t('blogPost.copied') : t('blogPost.copyLink')}
           </ShareBtn>
         </div>
 
@@ -442,9 +454,9 @@ export default function BlogPost() {
                 color:         '#0A0818',
                 letterSpacing: '-0.02em',
                 margin:        '0 0 24px',
-                textAlign:     'right',
+                textAlign:     'start',
               }}>
-                מאמרים נוספים
+                {t('blogPost.moreArticles')}
               </h3>
               <div style={{
                 display:             'grid',
@@ -478,7 +490,7 @@ export default function BlogPost() {
                         ? `url(${p.img}) ${p.imgPosition || 'center'}/cover no-repeat`
                         : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
                     }} />
-                    <div style={{ padding: '16px 18px 20px', direction: 'rtl' }}>
+                    <div style={{ padding: '16px 18px 20px', direction: dir }}>
                       <p style={{
                         fontFamily:    "'Ploni', sans-serif",
                         fontSize:      '15px',
@@ -488,7 +500,7 @@ export default function BlogPost() {
                         lineHeight:    1.35,
                         letterSpacing: '-0.01em',
                       }}>
-                        {p.title}
+                        {isEn ? (p.titleEn || p.title) : p.title}
                       </p>
                       <p style={{
                         fontFamily:      "'Ploni', sans-serif",
@@ -502,10 +514,10 @@ export default function BlogPost() {
                         WebkitBoxOrient: 'vertical',
                         overflow:        'hidden',
                       }}>
-                        {p.excerpt}
+                        {isEn ? (p.excerptEn || p.excerpt) : p.excerpt}
                       </p>
                       <div style={{ color: COLOR.primary, fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700, marginTop: '10px' }}>
-                        קרא עוד ←
+                        {t('blogPost.readMore')}
                       </div>
                     </div>
                   </div>
@@ -524,10 +536,10 @@ export default function BlogPost() {
           border:       '1px solid #DDD6FE',
         }}>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700, color: '#0A0818', margin: '0 0 8px', letterSpacing: '-0.01em' }}>
-            מוכנים לצאת למסע?
+            {t('blogPost.ctaTitle')}
           </p>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', margin: '0 0 24px', fontWeight: 300, lineHeight: 1.7 }}>
-            HighAir Expeditions מארגנת טרקים ומשלחות טיפוס הרים ברחבי העולם, בשילוב תרומה למלחמה בסרטן.
+            {t('blogPost.ctaDesc')}
           </p>
           <button
             onClick={() => navigate('/')}
@@ -546,7 +558,7 @@ export default function BlogPost() {
             onMouseEnter={e => { e.currentTarget.style.background = '#7C3AED'; }}
             onMouseLeave={e => { e.currentTarget.style.background = COLOR.primary; }}
           >
-            לכל המשלחות ←
+            {t('blogPost.ctaBtn')}
           </button>
         </div>
       </div>
