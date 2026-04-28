@@ -8,6 +8,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
@@ -22,6 +23,8 @@ function IsraelCard({ trip }) {
   const cardRef  = useRef(null);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
 
   useEffect(() => {
     if (!trip.img) return;
@@ -77,7 +80,7 @@ function IsraelCard({ trip }) {
       )}
 
       {/* ── Top: area badge ── */}
-      <div style={{ padding: '18px 18px 0', direction: 'rtl', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '18px 18px 0', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1 }}>
         <div style={{
           display:             'inline-flex',
           alignItems:          'center',
@@ -92,14 +95,14 @@ function IsraelCard({ trip }) {
           fontWeight:          600,
           color:               'rgba(255,255,255,0.90)',
           letterSpacing:       '0.02em',
-          direction:           'rtl',
+          direction:           'ltr',
         }}>
-          {trip.area} 🇮🇱
+          🇮🇱 {trip.area}
         </div>
       </div>
 
       {/* ── Bottom: name / elev / arrow ── */}
-      <div style={{ padding: '0 20px 24px', direction: 'rtl', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '0 20px 24px', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px' }}>
           <div>
             <h3 style={{
@@ -111,7 +114,7 @@ function IsraelCard({ trip }) {
               letterSpacing: '-0.02em',
               lineHeight:    1.1,
             }}>
-              {trip.name}
+              {isEn ? (trip.nameEn || trip.name) : trip.name}
             </h3>
             {trip.elevStr && (
               <p style={{
@@ -133,7 +136,7 @@ function IsraelCard({ trip }) {
             lineHeight:    1,
             flexShrink:    0,
             paddingBottom: '2px',
-          }}>←</div>
+          }}>{isEn ? '→' : '←'}</div>
         </div>
       </div>
     </div>
@@ -147,18 +150,21 @@ function IsraelCard({ trip }) {
 export default function IsraelTrips() {
   const [ctaHovered, setCtaHovered] = useState(false);
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
 
   return (
     <section id="israel" style={{
       background:  '#FFFFFF',
       padding:     isMobile ? '36px 5%' : '60px 5%',
       boxSizing:   'border-box',
-      direction:   'rtl',
+      direction:   dir,
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* ── Section header ── */}
-        <div style={{ textAlign: 'center', marginBottom: '52px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h2 style={{
             fontFamily:    "'Ploni', sans-serif",
             fontSize:      FS.h2,
@@ -169,7 +175,7 @@ export default function IsraelTrips() {
             lineHeight:    1.1,
             textAlign:     'center',
           }}>
-            הטיולים שלנו בארץ
+            {t('israelTrips.heading')}
           </h2>
 
           <p style={{
@@ -181,7 +187,7 @@ export default function IsraelTrips() {
             lineHeight:  1.7,
             textAlign:   'center',
           }}>
-            מסעות יומיים ורב-יומיים ביעדי הטבע הכי יפים בישראל
+            {t('israelTrips.subtitle')}
           </p>
         </div>
 
@@ -197,7 +203,7 @@ export default function IsraelTrips() {
           ))}
         </div>
 
-        {/* ── Bottom CTA — only when more than 1 trip ── */}
+        {/* ── Bottom CTA - only when more than 1 trip ── */}
         {ISRAEL_TRIPS.length > 1 && (
           <div style={{ textAlign: 'center', marginTop: '48px', direction: 'ltr' }}>
             <button
@@ -217,7 +223,7 @@ export default function IsraelTrips() {
                 transition:    `all 0.22s ${EASING.out}`,
               }}
             >
-              צפה בכל הטיולים בארץ
+              {t('israelTrips.viewAll')}
             </button>
           </div>
         )}

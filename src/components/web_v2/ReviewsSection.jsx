@@ -3,51 +3,76 @@
  * גריד ביקורות גוגל · RTL Hebrew · רקע לבן
  */
 
+import { useTranslation } from 'react-i18next';
 import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 const REVIEWS = [
   {
     name:     'יובל כהן',
+    nameEn:   'Yuval Cohen',
     initials: 'י',
+    initialsEn: 'Y',
     rating:   5,
     date:     'לפני חודש',
+    dateEn:   '1 month ago',
     text:     "חוויה מדהימה מהרגע הראשון ועד האחרון. הצוות של HighAir היה מקצועי, קשוב ואכפתי. הטרק לקילימנג'רו היה חלום שהפך למציאות.",
+    textEn:   "An incredible experience from start to finish. The HighAir team was professional, attentive and caring. The Kilimanjaro trek was a dream come true.",
   },
   {
     name:     'מיכל לוי',
+    nameEn:   'Michal Levy',
     initials: 'מ',
+    initialsEn: 'M',
     rating:   5,
     date:     'לפני חודשיים',
+    dateEn:   '2 months ago',
     text:     'לא האמנתי שאגיע לפסגה אבל עם המדריכים של HighAir הכל נראה אפשרי. שירות אישי, ליווי צמוד ותשומת לב לכל פרט.',
+    textEn:   "I never believed I'd reach the summit, but with HighAir's guides everything felt possible. Personal service, close support and attention to every detail.",
   },
   {
     name:     'אורן שמיר',
+    nameEn:   'Oren Shamir',
     initials: 'א',
+    initialsEn: 'O',
     rating:   5,
     date:     'לפני 3 חודשים',
+    dateEn:   '3 months ago',
     text:     'HighAir זה לא רק טרק - זו קהילה שלמה. יצאתי עם חברים לכל החיים ועם זיכרונות שלא ישכחו לעולם. ממליץ בחום!',
+    textEn:   "HighAir is not just a trek - it's a whole community. I left with lifelong friends and memories that will never fade. Highly recommended!",
   },
   {
     name:     'דנה ברק',
+    nameEn:   'Dana Barak',
     initials: 'ד',
+    initialsEn: 'D',
     rating:   5,
     date:     'לפני 4 חודשים',
+    dateEn:   '4 months ago',
     text:     'הארגון המושלם לטיולי הרים. כל הלוגיסטיקה מסודרת, הציוד מעולה והמדריכים - ברמה אחרת לגמרי. 10 מתוך 10.',
+    textEn:   'The perfect organization for mountain trips. All logistics sorted, top-notch gear and guides on a completely different level. 10 out of 10.',
   },
   {
     name:     'רן אברהם',
+    nameEn:   'Ran Avraham',
     initials: 'ר',
+    initialsEn: 'R',
     rating:   5,
     date:     'לפני 5 חודשים',
+    dateEn:   '5 months ago',
     text:     'עשינו את טרק האנפורנה עם HighAir - מסע שינה אותי. בטיחות מקסימלית, אווירה משפחתית וידיעה שיש מי שדואג לך בכל רגע.',
+    textEn:   "We did the Annapurna trek with HighAir - a journey that changed me. Maximum safety, a family atmosphere and the knowledge that someone is looking out for you at every moment.",
   },
   {
     name:     'שיר נוי',
+    nameEn:   'Shir Noy',
     initials: 'ש',
+    initialsEn: 'S',
     rating:   5,
     date:     'לפני 6 חודשים',
+    dateEn:   '6 months ago',
     text:     'הכי טוב שעשיתי לעצמי. הטרק בפטגוניה היה פנטסטי ופגשתי אנשים מדהימים. HighAir יודעים לבנות חוויה שלמה.',
+    textEn:   "The best thing I ever did for myself. The Patagonia trek was fantastic and I met amazing people. HighAir knows how to build a complete experience.",
   },
 ];
 
@@ -79,7 +104,14 @@ function GoogleG() {
   );
 }
 
-function ReviewCard({ name, initials, date, text, idx }) {
+function ReviewCard({ name, nameEn, initials, initialsEn, date, dateEn, text, textEn, idx }) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const dir  = isEn ? 'ltr' : 'rtl';
+  const displayName     = isEn ? (nameEn     || name)     : name;
+  const displayInitials = isEn ? (initialsEn || initials) : initials;
+  const displayDate     = isEn ? (dateEn     || date)     : date;
+  const displayText     = isEn ? (textEn     || text)     : text;
   return (
     <div style={{
       background:    '#FFFFFF',
@@ -87,7 +119,7 @@ function ReviewCard({ name, initials, date, text, idx }) {
       padding:       '28px',
       border:        '1px solid #ECEAF8',
       boxShadow:     '0 2px 16px rgba(0,0,0,0.05)',
-      direction:     'rtl',
+      direction:     dir,
       display:       'flex',
       flexDirection: 'column',
       gap:           '16px',
@@ -119,7 +151,7 @@ function ReviewCard({ name, initials, date, text, idx }) {
             fontWeight:     700,
             flexShrink:     0,
           }}>
-            {initials}
+            {displayInitials}
           </div>
           <div>
             <div style={{
@@ -128,7 +160,7 @@ function ReviewCard({ name, initials, date, text, idx }) {
               fontWeight: 600,
               color:      '#0A0818',
             }}>
-              {name}
+              {displayName}
             </div>
             <div style={{
               fontFamily: 'Ploni, sans-serif',
@@ -136,7 +168,7 @@ function ReviewCard({ name, initials, date, text, idx }) {
               color:      '#9591B0',
               marginTop:  '2px',
             }}>
-              {date}
+              {displayDate}
             </div>
           </div>
         </div>
@@ -169,7 +201,7 @@ function ReviewCard({ name, initials, date, text, idx }) {
           lineHeight: 1.75,
           position:   'relative',
         }}>
-          {text}
+          {displayText}
         </p>
       </div>
     </div>
@@ -178,30 +210,33 @@ function ReviewCard({ name, initials, date, text, idx }) {
 
 export default function ReviewsSection() {
   const { isMobile, isTablet } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
 
   const cols = isMobile ? 1 : isTablet ? 2 : 3;
 
   return (
     <section style={{
       background:  '#FFFFFF',
-      padding:     '60px 5%',
+      padding:     isMobile ? '36px 5%' : '60px 5%',
       boxSizing:   'border-box',
-      direction:   'rtl',
+      direction:   dir,
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* ── Header ── */}
-        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h2 style={{
             fontFamily:    'Ploni, sans-serif',
             fontSize:      FS.h2,
             fontWeight:    700,
             color:         '#0A0818',
-            margin:        '0 0 10px',
+            margin:        '0 0 12px',
             letterSpacing: '-0.02em',
             lineHeight:    1.1,
           }}>
-            מה אומרים עלינו?
+            {t('reviews.heading')}
           </h2>
           <p style={{
             fontFamily: 'Ploni, sans-serif',
@@ -211,7 +246,7 @@ export default function ReviewsSection() {
             margin:     0,
             lineHeight: 1.7,
           }}>
-            מטיילים שחזרו מהמסע בדיוק כפי שסיפרו לגוגל
+            {t('reviews.subtitle')}
           </p>
         </div>
 
@@ -274,7 +309,7 @@ export default function ReviewsSection() {
             fontSize:   FS.sm,
             color:      '#9591B0',
           }}>
-            מבוסס על 229 ביקורות
+            {t('reviews.basedOn')}
           </span>
         </div>
 
@@ -325,7 +360,7 @@ export default function ReviewsSection() {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            לכל הביקורות בגוגל
+            {t('reviews.allReviews')}
           </a>
         </div>
 

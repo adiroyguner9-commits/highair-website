@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
@@ -14,15 +15,18 @@ const SLIDES = [
   '/images/donation/img-4.avif',
 ];
 
-const PARAGRAPHS = [
-  'חלק מהרווחים שלנו מוקדשים להגשת חלומות לחולי סרטן בישראל. בזכות כל אחד ואחת מכם שמצטרפים אלינו למסע, אנחנו מצליחים לתרום ולחזק אנשים שנמצאים במאבק הכי גדול של חייהם',
-  'אנחנו מגיעים מדי חודש למחלקות, פוגשים משפחות, מחלקים מתנות ותומכים בילדים ובמבוגרים שנלחמים יום-יום ויוצרים רגעים קטנים של אושר בתוך המציאות המורכבת שלהם',
-  'אנחנו מאמינים שמסע עם משמעות הוא מסע שמשנה חיים, הן של המטיילים והן של החולים. בזכות הלקוחות המדהימים שלנו נתרמו עד כה למעלה מ-200 אלף שקלים ועזרנו להגשים חלומות לחולי סרטן ומשפחותיהם!',
-];
-
 export default function ImpactSection() {
   const [active, setActive] = useState(0);
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
+
+  const PARAGRAPHS = [
+    t('impact.p1'),
+    t('impact.p2'),
+    t('impact.p3'),
+  ];
 
   useEffect(() => {
     const t = setInterval(() => setActive(i => (i + 1) % SLIDES.length), 3500);
@@ -34,9 +38,9 @@ export default function ImpactSection() {
       id="impact"
       style={{
         background: '#FFFFFF',
-        padding:    '60px 5%',
+        padding:    isMobile ? '36px 5%' : '60px 5%',
         boxSizing:  'border-box',
-        direction:  'rtl',
+        direction:  dir,
       }}
     >
       <div style={{
@@ -120,12 +124,12 @@ export default function ImpactSection() {
             fontSize:      FS.h2,
             fontWeight:    700,
             color:         '#0A0818',
-            margin:        '0 0 28px',
+            margin:        '0 0 16px',
             letterSpacing: '-0.02em',
             lineHeight:    1.15,
             textAlign:     'center',
           }}>
-            מטיילים עם משמעות!
+            {t('impact.heading')}
           </h2>
 
           {/* פסקאות */}
@@ -138,7 +142,7 @@ export default function ImpactSection() {
                 color:      '#4B4869',
                 margin:     0,
                 lineHeight: 1.8,
-                textAlign:  'right',
+                textAlign:  'start',
               }}>
                 {p}
               </p>
@@ -162,7 +166,7 @@ export default function ImpactSection() {
               background:    'linear-gradient(180deg, transparent 55%, rgba(109,40,217,0.18) 55%)',
               paddingBottom: '2px',
             }}>
-              כל יציאה למסע בעלת משמעות רבה!
+              {t('impact.cta')}
             </p>
           </div>
 
