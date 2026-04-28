@@ -287,6 +287,10 @@ export default function ExpeditionExplorer({ type }) {
             paddingTop:              '12px', // room for card hover translateY(-6px)
             marginTop:               '-12px', // compensate layout shift
             paddingBottom:           '72px', // room for box-shadow (offset 20 + blur 48 + buffer)
+            paddingLeft:             '16px', // room for left shadow
+            paddingRight:            '16px', // room for right shadow
+            marginLeft:              '-16px', // compensate layout shift
+            marginRight:             '-16px', // compensate layout shift
           }}
         >
           {cards.map(exp => (
