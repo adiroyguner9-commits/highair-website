@@ -4,6 +4,7 @@
  */
 
 import { lazy, Suspense, useEffect } from 'react';
+import { useTranslation }  from 'react-i18next';
 import { useInView }      from '../../website/useInView.js';
 import { usePageMeta }    from '../../website/usePageMeta.js';
 import Header             from './Header.jsx';
@@ -41,6 +42,7 @@ function FadeIn({ children, delay = 0 }) {
         opacity:    inView ? 1 : 0,
         transform:  inView ? 'translateY(0)' : 'translateY(36px)',
         transition: `opacity 0.65s ease ${delay}ms, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
+        willChange: inView ? 'auto' : 'opacity, transform',
       }}
     >
       {children}
@@ -66,6 +68,9 @@ const ORG_SCHEMA = {
 
 /* ── Page ── */
 export default function HomeV2() {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language !== 'en';
+
   /* Inject Organization JSON-LD into <head> */
   useEffect(() => {
     const existing = document.getElementById('org-jsonld');
@@ -84,8 +89,12 @@ export default function HomeV2() {
   }, []);
 
   usePageMeta({
-    title:         'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם',
-    description:   'HighAir Expeditions — משלחות טיפוס הרים וטרקים בארץ ובעולם. קילימנג׳רו, אוורסט, אנאפורנה, אקונקגואה ועוד — בשילוב תרומה למלחמה בסרטן.',
+    title:         isRtl
+      ? 'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם'
+      : 'HighAir Expeditions | Mountain Climbing & Trekking Expeditions',
+    description:   isRtl
+      ? 'HighAir Expeditions - משלחות טיפוס הרים וטרקים בארץ ובעולם. קילימנג׳רו, אוורסט, אנאפורנה, אקונקגואה ועוד - בשילוב תרומה למלחמה בסרטן.'
+      : 'HighAir Expeditions - mountain climbing and trekking expeditions in Israel and worldwide. Kilimanjaro, Everest, Annapurna, Aconcagua and more - including a donation to fight cancer on every trip.',
     canonicalPath: '/',
   });
 
@@ -105,7 +114,10 @@ export default function HomeV2() {
         <Suspense fallback={null}>
 
           <Divider />
-          <FadeIn><ExpeditionExplorer /></FadeIn>
+          <FadeIn><ExpeditionExplorer type="climbs" /></FadeIn>
+
+          <Divider />
+          <FadeIn><ExpeditionExplorer type="treks" /></FadeIn>
 
           <Divider />
           <FadeIn><IsraelTrips /></FadeIn>
