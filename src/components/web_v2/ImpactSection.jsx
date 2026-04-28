@@ -127,7 +127,7 @@ export default function ImpactSection() {
             margin:        '0 0 16px',
             letterSpacing: '-0.02em',
             lineHeight:    1.15,
-            textAlign:     'start',
+            textAlign:     'center',
           }}>
             {t('impact.heading')}
           </h2>
