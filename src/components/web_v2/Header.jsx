@@ -496,9 +496,46 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
         overflowY:  'auto',
       }}>
 
-      {/* Lang switcher at the top of mobile menu */}
-      <div style={{ padding: '10px 0', borderBottom: '1px solid #F0EEF8', display: 'flex', justifyContent: isEn ? 'flex-start' : 'flex-end' }}>
-        <LangSwitcher />
+      {/* Lang switcher — inline pills (no dropdown on mobile) */}
+      <div style={{ padding: '10px 0', borderBottom: '1px solid #F0EEF8', display: 'flex', gap: '8px', justifyContent: isEn ? 'flex-start' : 'flex-end' }}>
+        {LANGS.map(lang => {
+          const active = lang.code === (isEn ? 'en' : 'he');
+          return (
+            <button
+              key={lang.code}
+              onClick={() => {
+                i18n.changeLanguage(lang.code);
+                localStorage.setItem('HA_lang', lang.code);
+                const host = window.location.hostname;
+                if (host.includes('highair-expeditions.com')) {
+                  if (lang.code === 'en' && !host.startsWith('en.')) {
+                    window.location.href = window.location.href.replace(host, 'en.' + host.replace('www.', ''));
+                  } else if (lang.code === 'he' && host.startsWith('en.')) {
+                    window.location.href = window.location.href.replace('en.', '');
+                  }
+                }
+              }}
+              style={{
+                display:        'flex',
+                alignItems:     'center',
+                gap:            '7px',
+                padding:        '6px 14px',
+                borderRadius:   '50px',
+                border:         `1.5px solid ${active ? '#6D28D9' : '#E8E4F5'}`,
+                background:     active ? '#F5F0FF' : '#FAFAFA',
+                cursor:         'pointer',
+                fontFamily:     "'Ploni', sans-serif",
+                fontSize:       '14px',
+                fontWeight:     active ? 700 : 400,
+                color:          active ? '#5B21B6' : '#6B6B8A',
+                transition:     'all 0.15s ease',
+              }}
+            >
+              <lang.Flag size={20} />
+              {lang.label}
+            </button>
+          );
+        })}
       </div>
 
       {links.map(link => {
