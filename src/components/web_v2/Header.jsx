@@ -11,33 +11,176 @@
  * · Desktop: mega menu on "משלחות בעולם" hover
  */
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
+import { ISRAEL_TRIPS } from '../../data/israelData.js';
 
-/* ── Continents + expedition IDs ── */
-const MEGA_CONTINENTS = [
-  { label: 'אפריקה',      flag: '🌍', expIds: [4, 10, 11] },
-  { label: 'אירופה',      flag: '🏔️', expIds: [2, 3, 5, 9] },
-  { label: 'אסיה',        flag: '🌏', expIds: [6, 7, 8, 12, 13, 14, 16] },
-  { label: 'דרום אמריקה', flag: '🌎', expIds: [15] },
-];
-
-/* ── Nav links ── */
-const LINKS = [
-  { label: 'דף בית',        href: '#hero'         },
-  { label: 'טרקים וטיפוסים בעולם', href: '#expeditions', hasMega: true },
-  { label: 'טרקים בארץ',          href: '#israel'       },
-  { label: 'תכנית שנתית',  href: '/annual-plan', isPage: true },
-  { label: 'בלוג',          href: '/blog',        isPage: true },
-  { label: 'צור קשר',      href: '#contact'      },
-];
+/* ── Nav link keys (built dynamically in Header to allow language-aware hasMega) ── */
 
 /* ── WhatsApp phone number ── */
 const WA_NUMBER = '972555636975';
 const WA_HREF   = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
+
+/* ── Flag SVGs (inline, no CDN dependency) ── */
+function FlagIL({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display:'block', flexShrink:0 }}>
+      <defs><clipPath id="cl-il"><circle cx="50" cy="50" r="50"/></clipPath></defs>
+      <g clipPath="url(#cl-il)">
+        <rect width="100" height="100" fill="#FFF"/>
+        <rect width="100" height="14" y="19" fill="#0038B8"/>
+        <rect width="100" height="14" y="67" fill="#0038B8"/>
+        {/* Star of David - two outlined equilateral triangles */}
+        <polygon points="50,36 64,59 36,59" fill="none" stroke="#0038B8" strokeWidth="4.5"/>
+        <polygon points="50,64 64,41 36,41" fill="none" stroke="#0038B8" strokeWidth="4.5"/>
+      </g>
+    </svg>
+  );
+}
+
+function FlagUS({ size = 22 }) {
+  const sh = 100 / 13; /* stripe height */
+  const stars = [];
+  for (let row = 0; row < 9; row++) {
+    const even   = row % 2 === 0;
+    const count  = even ? 6 : 5;
+    const startX = even ? 3.5 : 7;
+    const y      = 3.5 + row * 5.9;
+    for (let col = 0; col < count; col++) {
+      stars.push(<circle key={`${row}-${col}`} cx={startX + col * 7} cy={y} r="1.6" fill="#FFF"/>);
+    }
+  }
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display:'block', flexShrink:0 }}>
+      <defs><clipPath id="cl-us"><circle cx="50" cy="50" r="50"/></clipPath></defs>
+      <g clipPath="url(#cl-us)">
+        {Array.from({ length: 13 }, (_, i) => (
+          <rect key={i} x="0" y={i * sh} width="100" height={sh + 0.5} fill={i % 2 === 0 ? '#B22234' : '#FFF'}/>
+        ))}
+        <rect x="0" y="0" width="42" height={7 * sh} fill="#3C3B6E"/>
+        {stars}
+      </g>
+    </svg>
+  );
+}
+
+/* ── Language Switcher ── */
+const LANGS = [
+  { code: 'he', Flag: FlagIL, label: 'Hebrew' },
+  { code: 'en', Flag: FlagUS, label: 'English' },
+];
+
+function LangSwitcher() {
+  const { i18n } = useTranslation();
+  const isEn      = i18n.language === 'en';
+  const [open, setOpen] = useState(false);
+  const wrapRef   = useRef(null);
+
+  /* Close on outside click */
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
+  function switchLang(lng) {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('HA_lang', lng);
+    setOpen(false);
+    /* Subdomain redirect only on the production custom domain */
+    const host = window.location.hostname;
+    if (host.includes('highair-expeditions.com')) {
+      if (lng === 'en' && !host.startsWith('en.')) {
+        window.location.href = window.location.href.replace(host, 'en.' + host.replace('www.', ''));
+      } else if (lng === 'he' && host.startsWith('en.')) {
+        window.location.href = window.location.href.replace('en.', '');
+      }
+    }
+  }
+
+  const current = LANGS.find(l => l.code === (isEn ? 'en' : 'he'));
+
+  return (
+    <div ref={wrapRef} style={{ position: 'relative', userSelect: 'none' }}>
+
+      {/* Trigger button - flag only */}
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          display:     'flex',
+          alignItems:  'center',
+          justifyContent: 'center',
+          background:  open ? '#F0EDFB' : '#F8F6FF',
+          border:      '1px solid #E8E4F5',
+          borderRadius:'10px',
+          padding:     '6px',
+          cursor:      'pointer',
+          transition:  'background 0.15s ease',
+        }}
+      >
+        <current.Flag size={24} />
+      </button>
+
+      {/* Dropdown - aligned to the button edge closest to the screen center */}
+      {open && (
+        <div style={{
+          position:     'absolute',
+          top:          'calc(100% + 8px)',
+          ...(isEn ? { right: 0 } : { left: 0 }),
+          background:   '#FFFFFF',
+          borderRadius: '14px',
+          boxShadow:    '0 8px 32px rgba(10,8,24,0.14), 0 2px 8px rgba(10,8,24,0.08)',
+          border:       '1px solid #F0EEF8',
+          overflow:     'hidden',
+          minWidth:     '158px',
+          zIndex:       2000,
+          direction:    'ltr',
+        }}>
+          {LANGS.map((lang, idx) => {
+            const isActive = lang.code === (isEn ? 'en' : 'he');
+            return (
+              <button
+                key={lang.code}
+                onClick={() => switchLang(lang.code)}
+                style={{
+                  display:     'flex',
+                  alignItems:  'center',
+                  gap:         '12px',
+                  width:       '100%',
+                  padding:     '11px 16px',
+                  background:  isActive ? '#F5F2FF' : 'transparent',
+                  border:      'none',
+                  borderTop:   idx > 0 ? '1px solid #F5F3FF' : 'none',
+                  cursor:      'pointer',
+                  textAlign:   'left',
+                  transition:  'background 0.12s ease',
+                }}
+              >
+                <lang.Flag size={26} />
+                <span style={{
+                  fontSize:   '14px',
+                  fontWeight: isActive ? 700 : 400,
+                  color:      isActive ? '#5B21B6' : '#1E1B35',
+                  fontFamily: "'Ploni', sans-serif",
+                }}>
+                  {lang.label}
+                </span>
+                {isActive && (
+                  <span style={{ marginLeft: 'auto', color: '#7C3AED', fontSize: '12px' }}>✓</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
 /* ── Smooth scroll with header offset ── */
 function scrollToSection(href) {
@@ -49,12 +192,72 @@ function scrollToSection(href) {
 }
 
 /* ── Mega Menu ── */
-function MegaMenu({ onClose, onEnter }) {
+function MegaMenu({ type, onClose, onKeepOpen }) {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const dir = isEn ? 'ltr' : 'rtl';
+
+  const MEGA_TREKS = [
+    { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4]          },
+    { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3]       },
+    { label: t('explorer.continents.asia'),   flag: '🌏', expIds: [6, 7, 8]    },
+  ];
+  const MEGA_CLIMBS = [
+    { label: t('explorer.continents.africa'),       flag: '🌍', expIds: [10, 11]         },
+    { label: t('explorer.continents.europe'),       flag: '🏔️', expIds: [5, 9]           },
+    { label: t('explorer.continents.asia'),         flag: '🌏', expIds: [12, 13, 14, 16]  },
+    { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15]              },
+  ];
+
+  /* Israel trips – rendered separately (flat list, israel route) */
+  if (type === 'israel') {
+    return (
+      <div
+        onMouseEnter={onKeepOpen}
+        onMouseLeave={onClose}
+        style={{
+          position:   'fixed',
+          top:        '80px',
+          left:       0,
+          right:      0,
+          zIndex:     998,
+          background: '#FFFFFF',
+          boxShadow:  '0 12px 40px rgba(0,0,0,0.10)',
+          borderTop:  '1px solid #F0F0F0',
+          padding:    '28px 5%',
+          direction:  dir,
+        }}
+      >
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '260px', margin: isEn ? '0' : '0 0 0 auto', padding: '0 24px' }}>
+          <div style={{
+            marginBottom:  '10px',
+            paddingBottom: '10px',
+            borderBottom:  '1px solid #EEEEEE',
+            fontFamily:    "'Ploni', sans-serif",
+            fontSize:      '14px',
+            fontWeight:    800,
+            color:         '#6D28D9',
+          }}>
+            {isEn ? 'Israel' : 'ישראל'}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            {ISRAEL_TRIPS.map(trip => (
+              <IsraelMegaItem key={trip.id} trip={trip} onClose={onClose} />
+            ))}
+          </div>
+        </div>
+        </div>
+      </div>
+    );
+  }
+
+  const MEGA_CONTINENTS_I18N = type === 'treks' ? MEGA_TREKS : MEGA_CLIMBS;
 
   return (
     <div
-      onMouseEnter={onEnter}
+      onMouseEnter={onKeepOpen}
       onMouseLeave={onClose}
       style={{
         position:   'fixed',
@@ -66,7 +269,7 @@ function MegaMenu({ onClose, onEnter }) {
         boxShadow:  '0 12px 40px rgba(0,0,0,0.10)',
         borderTop:  '1px solid #F0F0F0',
         padding:    '32px 5% 28px',
-        direction:  'rtl',
+        direction:  dir,
       }}
     >
       <div style={{
@@ -76,12 +279,12 @@ function MegaMenu({ onClose, onEnter }) {
         gridTemplateColumns: 'repeat(4, 1fr)',
         gap:                 '0',
       }}>
-        {MEGA_CONTINENTS.map((cont, ci) => {
+        {MEGA_CONTINENTS_I18N.map((cont, ci) => {
           const exps = cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
           return (
             <div key={cont.label} style={{
               padding:     '0 24px',
-              borderRight: ci < MEGA_CONTINENTS.length - 1 ? '1px solid #EDE9FE' : 'none',
+              borderRight: ci < MEGA_CONTINENTS_I18N.length - 1 ? '1px solid #EDE9FE' : 'none',
             }}>
               {/* Continent header */}
               <div style={{
@@ -117,6 +320,8 @@ function MegaMenu({ onClose, onEnter }) {
 function MegaItem({ exp, onClose }) {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
 
   return (
     <button
@@ -130,8 +335,8 @@ function MegaItem({ exp, onClose }) {
         border:       'none',
         background:   hovered ? '#F5F3FF' : 'transparent',
         cursor:       'pointer',
-        textAlign:    'right',
-        direction:    'rtl',
+        textAlign:    isEn ? 'left' : 'right',
+        direction:    isEn ? 'ltr' : 'rtl',
         width:        '100%',
         fontFamily:   "'Ploni', sans-serif",
         fontSize:     '14px',
@@ -140,7 +345,40 @@ function MegaItem({ exp, onClose }) {
         transition:   'background 0.15s ease, color 0.15s ease',
       }}
     >
-      {exp.nameHe}
+      {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
+    </button>
+  );
+}
+
+function IsraelMegaItem({ trip, onClose }) {
+  const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  return (
+    <button
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={() => { navigate(`/israel/${trip.slug}`); onClose(); }}
+      style={{
+        display:      'block',
+        padding:      '8px 10px',
+        borderRadius: '8px',
+        border:       'none',
+        background:   hovered ? '#F5F3FF' : 'transparent',
+        cursor:       'pointer',
+        textAlign:    isEn ? 'left' : 'right',
+        direction:    isEn ? 'ltr' : 'rtl',
+        width:        '100%',
+        fontFamily:   "'Ploni', sans-serif",
+        fontSize:     '14px',
+        fontWeight:   500,
+        color:        hovered ? '#4C1D95' : '#3D3B5A',
+        transition:   'background 0.15s ease, color 0.15s ease',
+      }}
+    >
+      {isEn ? (trip.nameEn || trip.name) : trip.name}
     </button>
   );
 }
@@ -210,14 +448,33 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
 }
 
 /* ── Mobile Menu ── */
-function MobileMenu({ navigate, closeMenu, handleNavigation }) {
-  const [expeditionsOpen, setExpeditionsOpen] = useState(false);
+function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
+  const [openMegaKey, setOpenMegaKey] = useState(null);
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  const MEGA_BY_TYPE = {
+    treks: [
+      { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4]          },
+      { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3]       },
+      { label: t('explorer.continents.asia'),   flag: '🌏', expIds: [6, 7, 8]    },
+    ],
+    climbs: [
+      { label: t('explorer.continents.africa'),       flag: '🌍', expIds: [10, 11]         },
+      { label: t('explorer.continents.europe'),       flag: '🏔️', expIds: [5, 9]           },
+      { label: t('explorer.continents.asia'),         flag: '🌏', expIds: [12, 13, 14, 16]  },
+      { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15]              },
+    ],
+    israel: [
+      { label: 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS },
+    ],
+  };
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="תפריט ניווט"
+      aria-label={isEn ? 'Navigation menu' : 'תפריט ניווט'}
       style={{
         position:   'fixed',
         top:        '80px',
@@ -227,18 +484,26 @@ function MobileMenu({ navigate, closeMenu, handleNavigation }) {
         boxShadow:  '0 8px 24px rgba(0,0,0,0.12)',
         zIndex:     999,
         padding:    '8px 5% 20px',
-        direction:  'rtl',
+        direction:  isEn ? 'ltr' : 'rtl',
         borderTop:  '1px solid #F0EEF8',
         maxHeight:  'calc(100vh - 80px)',
         overflowY:  'auto',
       }}>
-      {LINKS.map(link => {
+
+      {/* Lang switcher at the top of mobile menu */}
+      <div style={{ padding: '10px 0', borderBottom: '1px solid #F0EEF8', display: 'flex', justifyContent: isEn ? 'flex-start' : 'flex-end' }}>
+        <LangSwitcher />
+      </div>
+
+      {links.map(link => {
         if (link.hasMega) {
+          const isOpen = openMegaKey === link.key;
+          const continents = MEGA_BY_TYPE[link.megaType] || [];
           return (
-            <div key={link.label}>
+            <div key={link.key}>
               {/* Accordion row */}
               <button
-                onClick={() => setExpeditionsOpen(prev => !prev)}
+                onClick={() => setOpenMegaKey(prev => prev === link.key ? null : link.key)}
                 style={{
                   display:        'flex',
                   alignItems:     'center',
@@ -253,8 +518,8 @@ function MobileMenu({ navigate, closeMenu, handleNavigation }) {
                   fontWeight:     500,
                   color:          '#0A0818',
                   cursor:         'pointer',
-                  textAlign:      'right',
-                  direction:      'rtl',
+                  textAlign:      isEn ? 'left' : 'right',
+                  direction:      isEn ? 'ltr' : 'rtl',
                 }}
               >
                 {link.label}
@@ -262,15 +527,51 @@ function MobileMenu({ navigate, closeMenu, handleNavigation }) {
                   fontSize:   '13px',
                   color:      '#6D28D9',
                   transition: 'transform 0.2s ease',
-                  transform:  expeditionsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transform:  isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                   display:    'inline-block',
                 }}>▾</span>
               </button>
 
               {/* Accordion content */}
-              {expeditionsOpen && (
-                <div style={{ paddingBottom: '8px', paddingRight: '8px' }}>
-                  {MEGA_CONTINENTS.map(cont => {
+              {isOpen && (
+                <div style={{ paddingBottom: '8px', paddingRight: isEn ? 0 : '8px', paddingLeft: isEn ? '8px' : 0 }}>
+                  {continents.map(cont => {
+                    if (cont.isIsrael) {
+                      return (
+                        <div key={cont.label} style={{ marginTop: '12px' }}>
+                          <div style={{
+                            fontFamily:    "'Ploni', sans-serif",
+                            fontSize:      '11px',
+                            fontWeight:    800,
+                            color:         '#6D28D9',
+                            letterSpacing: '0.05em',
+                            padding:       '4px 10px',
+                            marginBottom:  '4px',
+                          }}>
+                            {cont.label}
+                          </div>
+                          {cont.trips.map(trip => (
+                            <a
+                              key={trip.id}
+                              href={`/israel/${trip.slug}`}
+                              onClick={e => { e.preventDefault(); navigate(`/israel/${trip.slug}`); closeMenu(); }}
+                              style={{
+                                display:        'block',
+                                padding:        '8px 10px',
+                                fontFamily:     "'Ploni', sans-serif",
+                                fontSize:       '14px',
+                                fontWeight:     400,
+                                color:          '#3D3B5A',
+                                textDecoration: 'none',
+                                borderRadius:   '8px',
+                              }}
+                            >
+                              {isEn ? (trip.nameEn || trip.name) : trip.name}
+                            </a>
+                          ))}
+                        </div>
+                      );
+                    }
                     const exps = cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
                     return (
                       <div key={cont.label} style={{ marginTop: '12px' }}>
@@ -301,7 +602,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation }) {
                               borderRadius:   '8px',
                             }}
                           >
-                            {exp.nameHe}
+                            {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
                           </a>
                         ))}
                       </div>
@@ -315,7 +616,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation }) {
 
         return (
           <a
-            key={link.label}
+            key={link.key}
             href={link.href}
             onClick={e => {
               e.preventDefault();
@@ -361,23 +662,178 @@ function MobileMenu({ navigate, closeMenu, handleNavigation }) {
           fontWeight:     600,
           textDecoration: 'none',
           width:          '100%',
-          direction:      'rtl',
+          direction:      isEn ? 'ltr' : 'rtl',
         }}
       >
-        כניסה ללקוחות רשומים ←
+        {isEn ? 'Customer Login →' : 'כניסה ללקוחות רשומים ←'}
       </a>
+    </div>
+  );
+}
+
+/* ── Search Modal ── */
+function SearchModal({ onClose }) {
+  const [query, setQuery]   = useState('');
+  const { i18n }            = useTranslation();
+  const isRtl               = i18n.language !== 'en';
+  const navigate            = useNavigate();
+  const inputRef            = useRef(null);
+
+  useEffect(() => { setTimeout(() => inputRef.current?.focus(), 60); }, []);
+  useEffect(() => {
+    const h = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClose]);
+
+  const results = query.trim().length < 1 ? [] : EXPS.filter(exp => {
+    const q = query.toLowerCase();
+    return (
+      exp.name?.toLowerCase().includes(q)    ||
+      exp.nameHe?.includes(query)            ||
+      exp.nameEn?.toLowerCase().includes(q)  ||
+      exp.country?.toLowerCase().includes(q) ||
+      exp.countryHe?.includes(query)
+    );
+  }).slice(0, 7);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 3000,
+        background: 'rgba(10,8,24,0.82)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', paddingTop: '100px',
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{ width: '100%', maxWidth: '620px', padding: '0 20px' }}
+      >
+        {/* Input row */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '12px',
+          background: '#FFFFFF', borderRadius: '16px',
+          padding: '14px 18px',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder={isRtl ? 'חפשו הר, מדינה, יעד...' : 'Search mountain, country, destination...'}
+            style={{
+              flex: 1, border: 'none', outline: 'none',
+              fontSize: '17px', fontFamily: "'Ploni', sans-serif",
+              color: '#0A0818', background: 'transparent',
+              direction: 'auto',
+            }}
+          />
+          {query && (
+            <button onClick={() => setQuery('')} style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: '#9CA3AF', fontSize: '18px', padding: '0 2px',
+            }}>✕</button>
+          )}
+        </div>
+
+        {/* Results */}
+        {results.length > 0 && (
+          <div style={{
+            marginTop: '8px', background: '#FFFFFF',
+            borderRadius: '16px', overflow: 'hidden',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+          }}>
+            {results.map((exp, idx) => (
+              <button
+                key={exp.id}
+                onClick={() => { navigate(`/expeditions/${exp.slug}`); onClose(); }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '14px',
+                  width: '100%', padding: '13px 18px',
+                  background: 'transparent', border: 'none',
+                  borderTop: idx > 0 ? '1px solid #F5F3FF' : 'none',
+                  cursor: 'pointer', textAlign: isRtl ? 'right' : 'left',
+                  transition: 'background 0.12s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = '#F8F6FF'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              >
+                <span style={{ fontSize: '22px', flexShrink: 0 }}>{exp.flag}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{
+                    fontSize: '15px', fontWeight: 600,
+                    color: '#0A0818', fontFamily: "'Ploni', sans-serif",
+                  }}>
+                    {isRtl ? exp.nameHe : (exp.nameEn || exp.name)}
+                  </div>
+                  <div style={{
+                    fontSize: '13px', color: '#6B6B8A',
+                    fontFamily: "'Ploni', sans-serif", marginTop: '1px',
+                  }}>
+                    {isRtl ? exp.countryHe : exp.country} · {exp.elev}
+                  </div>
+                </div>
+                <span style={{ fontSize: '13px', color: '#A78BFA', flexShrink: 0 }}>
+                  {isRtl ? exp.typeHe : exp.type}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {query.trim().length > 0 && results.length === 0 && (
+          <p style={{
+            textAlign: 'center', marginTop: '28px',
+            color: 'rgba(255,255,255,0.55)', fontFamily: "'Ploni', sans-serif",
+            fontSize: '16px',
+          }}>
+            {isRtl ? 'לא נמצאו תוצאות' : 'No results found'}
+          </p>
+        )}
+
+        <p style={{
+          textAlign: 'center', marginTop: '20px',
+          color: 'rgba(255,255,255,0.3)', fontFamily: "'Ploni', sans-serif",
+          fontSize: '13px',
+        }}>
+          {isRtl ? 'לחצו ESC לסגירה' : 'Press ESC to close'}
+        </p>
+      </div>
     </div>
   );
 }
 
 /* ════════════════════════════════════════ */
 export default function Header() {
-  const [waBtnHovered, setWaBtnHovered] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen]     = useState(false);
+  const [megaType, setMegaType]     = useState(null); // null | 'treks' | 'climbs'
   const megaTimeout = useRef(null);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const dir   = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
+  const isEn  = !isRtl;
+
+  /* Build translated links array (israelTrips mega only in Hebrew) */
+  const LINK_DEFS = [
+    { key: 'home',        href: '#hero'                                              },
+    { key: 'climbs',      href: '#expeditions', hasMega: true, megaType: 'climbs'   },
+    { key: 'treks',       href: '#expeditions', hasMega: true, megaType: 'treks'    },
+    { key: 'israelTrips', href: '#israel', hasMega: true, megaType: 'israel' },
+    { key: 'annualPlan',  href: '/annual-plan', isPage: true                        },
+    { key: 'blog',        href: '/blog',        isPage: true                        },
+    { key: 'contact',     href: '#contact'                                          },
+  ];
+  const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -386,16 +842,21 @@ export default function Header() {
     setTimeout(() => scrollToSection(href), 100);
   }
 
-  function openMega() {
+  function openMega(type) {
     clearTimeout(megaTimeout.current);
-    setMegaOpen(true);
+    setMegaType(type);
+  }
+
+  function keepMegaOpen() {
+    clearTimeout(megaTimeout.current);
   }
 
   function closeMega() {
-    megaTimeout.current = setTimeout(() => setMegaOpen(false), 120);
+    megaTimeout.current = setTimeout(() => setMegaType(null), 120);
   }
 
   return (
+    <>
     <header style={{
       position:  'fixed',
       top:       0,
@@ -411,7 +872,7 @@ export default function Header() {
       display:             'grid',
       gridTemplateColumns: isMobile ? 'auto 1fr' : '1fr auto 1fr',
       alignItems:          'center',
-      direction:           'rtl',
+      direction:           dir,
     }}>
 
       {/* ── Skip to content link (keyboard accessibility) ── */}
@@ -434,7 +895,7 @@ export default function Header() {
         onFocus={e => { e.currentTarget.style.top = '0'; }}
         onBlur={e => { e.currentTarget.style.top = '-100px'; }}
       >
-        דלג לתוכן
+        {t('nav.skipToContent')}
       </a>
 
       {isMobile ? (
@@ -491,49 +952,43 @@ export default function Header() {
           >
             {LINKS.map(link => (
               <NavLink
-                key={link.label}
+                key={link.key}
                 label={link.label}
                 href={link.href}
                 isPage={link.isPage}
                 hasMega={link.hasMega}
                 onNavigate={handleNavigation}
-                onMegaEnter={link.hasMega ? openMega : undefined}
+                onMegaEnter={link.hasMega ? () => openMega(link.megaType) : undefined}
               />
             ))}
           </nav>
-          <div style={{ justifySelf: 'end' }}>
-            <a
-              href={WA_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="צור קשר בוואטסאפ"
-              onMouseEnter={() => setWaBtnHovered(true)}
-              onMouseLeave={() => setWaBtnHovered(false)}
+          <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {/* Search icon button */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label={isEn ? 'Search' : 'חיפוש'}
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '10px 22px', borderRadius: '50px',
-                background: waBtnHovered ? '#1ebe5d' : '#25D366',
-                color: '#FFFFFF', fontFamily: "'Ploni', sans-serif",
-                fontSize: FS.btn, fontWeight: 600, textDecoration: 'none',
-                letterSpacing: '0.01em',
-                boxShadow: waBtnHovered ? '0 6px 20px rgba(37,211,102,0.45)' : '0 3px 12px rgba(37,211,102,0.30)',
-                transform: waBtnHovered ? 'translateY(-1px)' : 'none',
-                transition: 'all 0.2s cubic-bezier(0.22, 1, 0.36, 1)',
-                whiteSpace: 'nowrap', direction: 'ltr',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: '40px', height: '40px', borderRadius: '10px',
+                background: '#F8F6FF', border: '1px solid #E8E4F5',
+                cursor: 'pointer', color: '#5B21B6',
+                transition: 'background 0.15s ease',
               }}
+              onMouseEnter={e => e.currentTarget.style.background = '#F0EDFB'}
+              onMouseLeave={e => e.currentTarget.style.background = '#F8F6FF'}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
-              צור קשר
-            </a>
+            </button>
+            <LangSwitcher />
           </div>
         </>
       )}
 
       {/* ── Mega Menu (desktop) ── */}
-      {!isMobile && megaOpen && (
-        <MegaMenu onClose={closeMega} onEnter={openMega} />
+      {!isMobile && megaType && (
+        <MegaMenu type={megaType} onClose={closeMega} onKeepOpen={keepMegaOpen} />
       )}
 
       {/* ── Mobile dropdown menu ── */}
@@ -542,9 +997,14 @@ export default function Header() {
           navigate={navigate}
           closeMenu={closeMenu}
           handleNavigation={handleNavigation}
+          links={LINKS}
         />
       )}
 
     </header>
+
+    {/* ── Search Modal (rendered outside header to escape stacking context) ── */}
+    {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
+  </>
   );
 }
