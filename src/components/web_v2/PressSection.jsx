@@ -181,7 +181,7 @@ export default function PressSection() {
       <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+        <div style={{ marginBottom: '40px' }}>
           <h2 style={{
             fontFamily:    "'Ploni', sans-serif",
             fontSize:      FS.h2,
@@ -190,7 +190,7 @@ export default function PressSection() {
             margin:        '0 0 12px',
             letterSpacing: '-0.02em',
             lineHeight:    1.1,
-            textAlign:     'center',
+            textAlign:     'start',
           }}>
             {t('press.title')}
           </h2>
@@ -201,7 +201,7 @@ export default function PressSection() {
             color:      '#6B6B8A',
             margin:     0,
             lineHeight: 1.7,
-            textAlign:  'center',
+            textAlign:  'start',
           }}>
             {t('press.subtitle')}
           </p>

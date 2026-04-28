@@ -243,35 +243,32 @@ export default function ExpeditionExplorer({ type }) {
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-        {/* ── Header: title (centred) + arrows (absolute, desktop only) ── */}
+        {/* ── Header: title + arrows ── */}
         <div style={{
-          position:     'relative',
-          textAlign:    'center',
-          marginBottom: '32px',
-          paddingBottom: !isMobile ? '4px' : 0,
+          display:        'flex',
+          alignItems:     'flex-end',
+          justifyContent: 'space-between',
+          marginBottom:   '32px',
+          gap:            '16px',
         }}>
-          <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
-            color: '#0A0818', margin: '0 0 12px', letterSpacing: '-0.02em',
-            lineHeight: 1.1,
-          }}>
-            {heading}
-          </h2>
-          <p style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: FS.body, fontWeight: 300,
-            color: '#6B6B8A', margin: 0, lineHeight: 1.7,
-          }}>
-            {subtitle}
-          </p>
+          <div>
+            <h2 style={{
+              fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
+              color: '#0A0818', margin: '0 0 12px', letterSpacing: '-0.02em',
+              lineHeight: 1.1, textAlign: 'start',
+            }}>
+              {heading}
+            </h2>
+            <p style={{
+              fontFamily: "'Ploni', sans-serif", fontSize: FS.body, fontWeight: 300,
+              color: '#6B6B8A', margin: 0, lineHeight: 1.7, textAlign: 'start',
+            }}>
+              {subtitle}
+            </p>
+          </div>
 
           {!isMobile && (
-            <div style={{
-              position: 'absolute',
-              bottom:   0,
-              ...(isRtl ? { left: 0 } : { right: 0 }),
-              display:  'flex',
-              gap:      '8px',
-            }}>
+            <div style={{ display: 'flex', gap: '8px', flexShrink: 0, paddingBottom: '4px' }}>
               <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
               <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
             </div>

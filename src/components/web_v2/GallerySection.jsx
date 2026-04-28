@@ -4,21 +4,22 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
-const PHOTOS = [
-  { src: '/images/gallery/home/1.jpg',  caption: 'קבוצת HighAir במסע',               ratio: '4/3' },
-  { src: '/images/gallery/home/2.jpg',  caption: 'טרק HighAir Expeditions',           ratio: '4/3' },
-  { src: '/images/gallery/home/3.jpg',  caption: 'מחנה בסיס אוורסט עם HighAir',      ratio: '4/3' },
-  { src: '/images/gallery/home/4.jpg',  caption: 'טיול בישראל עם HighAir',            ratio: '4/3' },
-  { src: '/images/gallery/home/5.jpg',  caption: 'משלחת HighAir בהרים',               ratio: '4/3' },
-  { src: '/images/gallery/home/6.jpg',  caption: 'פסגת HighAir Expeditions',          ratio: '4/3' },
-  { src: '/images/gallery/home/7.jpg',  caption: 'קבוצת מטיילים HighAir',             ratio: '4/3' },
-  { src: '/images/gallery/home/8.jpg',  caption: 'נוף הרים במסע HighAir',             ratio: '4/3' },
-  { src: '/images/gallery/home/9.jpg',  caption: 'משלחת הרים HighAir',                ratio: '4/3' },
-  { src: '/images/gallery/home/10.jpg', caption: 'טרק HighAir בעולם',                 ratio: '4/3' },
-  { src: '/images/gallery/home/11.jpg', caption: 'HighAir Expeditions בפסגה',         ratio: '4/3' },
+const PHOTO_SRCS = [
+  { src: '/images/gallery/home/1.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/2.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/3.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/4.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/5.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/6.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/7.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/8.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/9.webp',  ratio: '4/3' },
+  { src: '/images/gallery/home/10.webp', ratio: '4/3' },
+  { src: '/images/gallery/home/11.webp', ratio: '4/3' },
 ];
 
 /* ── Nav arrow button ── */
@@ -81,8 +82,14 @@ const LB_BTN = {
 
 export default function GallerySection() {
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
   const trackRef     = useRef(null);
   const [lightboxIdx, setLightboxIdx] = useState(null);
+
+  const captions = t('gallery.captions', { returnObjects: true });
+  const PHOTOS = PHOTO_SRCS.map((p, i) => ({ ...p, caption: captions[i] || '' }));
 
   const CARD_HEIGHT = isMobile ? 220 : 360;
   const SCROLL_AMT  = isMobile ? 260 : 440;
@@ -118,14 +125,13 @@ export default function GallerySection() {
         background: '#FFFFFF',
         padding:    isMobile ? '36px 0' : '60px 0',
         boxSizing:  'border-box',
-        direction:  'rtl',
+        direction:  dir,
         overflow:   'hidden',
       }}>
 
         {/* ── Header ── */}
         <div style={{
-          padding:      isMobile ? '0 5% 24px' : '0 5% 40px',
-          textAlign:    'center',
+          padding: isMobile ? '0 5% 24px' : '0 5% 40px',
         }}>
           <h2 style={{
             fontFamily:    'Ploni, sans-serif',
@@ -135,8 +141,9 @@ export default function GallerySection() {
             margin:        '0 0 12px',
             letterSpacing: '-0.02em',
             lineHeight:    1.1,
+            textAlign:     'start',
           }}>
-            הצטרפו לחוויה של פעם בחיים
+            {t('gallery.sectionTitle')}
           </h2>
           <p style={{
             fontFamily: 'Ploni, sans-serif',
@@ -145,8 +152,9 @@ export default function GallerySection() {
             color:      '#6B6B8A',
             margin:     0,
             lineHeight: 1.7,
+            textAlign:  'start',
           }}>
-            תמונות אמיתיות מהמסעות של HighAir ברחבי העולם
+            {t('gallery.sectionSubtitle')}
           </p>
         </div>
 

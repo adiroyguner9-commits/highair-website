@@ -226,7 +226,7 @@ export default function ReviewsSection() {
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* ── Header ── */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <div style={{ marginBottom: '40px' }}>
           <h2 style={{
             fontFamily:    'Ploni, sans-serif',
             fontSize:      FS.h2,
@@ -235,6 +235,7 @@ export default function ReviewsSection() {
             margin:        '0 0 12px',
             letterSpacing: '-0.02em',
             lineHeight:    1.1,
+            textAlign:     'start',
           }}>
             {t('reviews.heading')}
           </h2>
@@ -245,6 +246,7 @@ export default function ReviewsSection() {
             color:      '#6B6B8A',
             margin:     0,
             lineHeight: 1.7,
+            textAlign:  'start',
           }}>
             {t('reviews.subtitle')}
           </p>
