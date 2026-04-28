@@ -1,10 +1,11 @@
 /**
  * IsraelDetail.jsx - Detail page for Israel trips
  * Route: /israel/:slug
- * Same visual language as ExpeditionDetail — without "חשוב לדעת" and "למה לטייל איתנו"
+ * Same visual language as ExpeditionDetail - without "חשוב לדעת" and "למה לטייל איתנו"
  */
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate }      from 'react-router-dom';
+import { useTranslation }              from 'react-i18next';
 import { usePageMeta }                 from '../../website/usePageMeta.js';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
@@ -50,15 +51,32 @@ export default function IsraelDetail() {
   const { isMobile, isTablet } = useBreakpoint();
   const isNarrow   = isMobile || isTablet;
   const trip       = ISRAEL_TRIPS.find(t => t.slug === slug);
+  const { i18n }   = useTranslation();
+  const dir        = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl      = dir === 'rtl';
+  const isEn       = !isRtl;
+
+  /* ── Language-aware content ── */
+  const displayName    = isEn ? (trip?.nameEn    || trip?.name)    : trip?.name;
+  const displayTagline = isEn ? (trip?.taglineEn || trip?.tagline) : trip?.tagline;
+  const itinerary      = isEn ? (trip?.itineraryEn   || trip?.itinerary   || []) : (trip?.itinerary   || []);
+  const included       = isEn ? (trip?.includedEn    || trip?.included    || []) : (trip?.included    || []);
+  const notIncluded    = isEn ? (trip?.notIncludedEn || trip?.notIncluded || []) : (trip?.notIncluded || []);
+  const desc           = isEn ? (trip?.descEn  || trip?.desc)  : trip?.desc;
+  const seasons        = isEn ? (trip?.seasonsEn || trip?.seasons || []) : (trip?.seasons || []);
+  const diffLabel      = isEn ? (trip?.diffEn  || trip?.diffHe) : trip?.diffHe;
+  const daysLabel      = isEn ? (trip?.daysEn  || trip?.days)   : trip?.days;
 
   usePageMeta(trip ? {
-    title:         `${trip.name} | HighAir Expeditions`,
-    description:   `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' — ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`,
+    title:         `${displayName} | HighAir Expeditions`,
+    description:   isEn
+      ? `Join the ${displayName} trek with HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' — ' : ''}A ${daysLabel} trek with a donation to cancer patients.`
+      : `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`,
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
   } : {
-    title:       'HighAir Expeditions | טרקים בישראל',
-    description: 'טרקים בישראל עם HighAir Expeditions.',
+    title:       isEn ? 'HighAir Expeditions | Treks in Israel' : 'HighAir Expeditions | טרקים בישראל',
+    description: isEn ? 'Treks in Israel with HighAir Expeditions.' : 'טרקים בישראל עם HighAir Expeditions.',
     canonicalPath: '/israel/' + slug,
   });
 
@@ -91,7 +109,7 @@ export default function IsraelDetail() {
 
   function validatePhone(val) {
     const digits = val.replace(/\D/g, '');
-    if (digits && digits.length < 9) { setPhoneError('מספר טלפון לא תקין'); return false; }
+    if (digits && digits.length < 9) { setPhoneError(isRtl ? 'מספר טלפון לא תקין' : 'Invalid phone number'); return false; }
     setPhoneError(''); return true;
   }
 
@@ -175,7 +193,7 @@ export default function IsraelDetail() {
     return `${dd}/${mm} - ${rr}/${mm2}`;
   }
   function monthKey(dep)   { const d = new Date(dep); return `${d.getFullYear()}-${d.getMonth()}`; }
-  function monthLabel(dep) { return new Date(dep).toLocaleDateString('he-IL', { month: 'long', year: 'numeric' }); }
+  function monthLabel(dep) { return new Date(dep).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long', year: 'numeric' }); }
 
   const months       = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
@@ -184,23 +202,23 @@ export default function IsraelDetail() {
   const inputStyle = {
     width: '100%', border: '1.5px solid #E5E3F0', borderRadius: RADIUS.lg,
     padding: '12px 16px', fontSize: FS.body, fontFamily: "'Ploni', sans-serif",
-    direction: 'rtl', outline: 'none', boxSizing: 'border-box', background: '#fff',
+    direction: dir, outline: 'none', boxSizing: 'border-box', background: '#fff',
     color: '#3D3B5A', transition: `border-color 200ms ${EASING.smooth}`,
   };
   const labelStyle = {
     display: 'block', marginBottom: '6px', fontWeight: 600,
-    fontSize: '14px', color: '#3D3B5A', fontFamily: "'Ploni', sans-serif", direction: 'rtl',
+    fontSize: '14px', color: '#3D3B5A', fontFamily: "'Ploni', sans-serif", direction: dir,
   };
 
   /* ── 404 ── */
   if (!trip) {
     return (
-      <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif" }}>
+      <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif" }}>
         <Header />
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
           <div style={{ fontSize: '64px' }}>🇮🇱</div>
-          <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>הטרק לא נמצא</h1>
-          <button onClick={() => navigate('/')} style={{ ...BTN.primary, fontFamily: "'Ploni', sans-serif" }}>חזרה לדף הבית ←</button>
+          <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'הטרק לא נמצא' : 'Trek not found'}</h1>
+          <button onClick={() => navigate('/')} style={{ ...BTN.primary, fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'חזרה לדף הבית ←' : '← Back to Home'}</button>
         </div>
       </div>
     );
@@ -208,7 +226,7 @@ export default function IsraelDetail() {
 
   /* ─────────── RENDER ─────────── */
   return (
-    <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header />
 
       {/* ══ HERO ══ */}
@@ -220,7 +238,7 @@ export default function IsraelDetail() {
         background: trip.grad,
       }}>
         {trip.img && (
-          <img src={trip.img} alt={trip.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <img src={trip.img} alt={displayName} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         )}
         {/* overlay */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%)', zIndex: 1 }} />
@@ -238,7 +256,7 @@ export default function IsraelDetail() {
               color: 'white', letterSpacing: '-0.02em', margin: 0, lineHeight: 1.1,
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              {trip.name} ({trip.elevStr})
+              {displayName} ({trip.elevStr})
             </h1>
           </div>
 
@@ -250,7 +268,9 @@ export default function IsraelDetail() {
               lineHeight: 1.6, textShadow: '0 1px 6px rgba(0,0,0,0.4)',
               whiteSpace: 'pre-line',
             }}>
-              {trip.tagline || `הצטרפו אלינו ל${trip.name}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`}
+              {displayTagline || (isEn
+                ? `Join us for the ${displayName}\nand take part in the fight against cancer!`
+                : `הצטרפו אלינו ל${trip.name}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`)}
             </p>
             <button
               onClick={scrollToForm}
@@ -269,7 +289,7 @@ export default function IsraelDetail() {
                 whiteSpace: 'nowrap',
               }}
             >
-              להרשמה לטרק ←
+              {isRtl ? 'להרשמה לטרק ←' : 'Register for Trek →'}
             </button>
           </div>
         </div>
@@ -277,7 +297,7 @@ export default function IsraelDetail() {
       </div>
 
       {/* ══ STATS CARD ══ */}
-      <div style={{ padding: '0 5%', boxSizing: 'border-box', marginTop: '-52px', position: 'relative', zIndex: 10, direction: 'rtl' }}>
+      <div style={{ padding: '0 5%', boxSizing: 'border-box', marginTop: '-52px', position: 'relative', zIndex: 10, direction: dir }}>
         <div style={{
           maxWidth: '1100px', margin: '0 auto',
           background: '#FFFFFF', borderRadius: '20px',
@@ -286,10 +306,10 @@ export default function IsraelDetail() {
           display: 'grid',
           gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
         }}>
-          <StatBox label="גובה"      value={`${trip.elev} מ׳`} isMobile={isMobile} first />
-          <StatBox label="דרגת קושי" value={trip.diffHe}  isMobile={isMobile} />
-          <StatBox label="משך"       value={trip.days}    isMobile={isMobile} />
-          <StatBox label="עלות"      value={trip.price}   isMobile={isMobile} last />
+          <StatBox label={isRtl ? 'גובה' : 'Elevation'} value={`${trip.elev}m`}  isMobile={isMobile} first />
+          <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}    value={diffLabel}    isMobile={isMobile} />
+          <StatBox label={isRtl ? 'משך' : 'Duration'}        value={daysLabel}    isMobile={isMobile} />
+          <StatBox label={isRtl ? 'עלות' : 'Price'}          value={trip.price}   isMobile={isMobile} last />
         </div>
       </div>
 
@@ -298,23 +318,23 @@ export default function IsraelDetail() {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
         background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
         transform: barVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: `transform 0.3s ${EASING.out}`, direction: 'rtl',
+        transition: `transform 0.3s ${EASING.out}`, direction: dir,
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 5%', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>גובה</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{trip.elev} מ׳</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'גובה' : 'Elevation'}</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{trip.elev}{isRtl ? ' מ׳' : 'm'}</span>
             </div>
             {!isMobile && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>רמה</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{trip.diffHe}</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'רמה' : 'Level'}</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{diffLabel}</span>
               </div>
             )}
             {!isMobile && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>מחיר</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מחיר' : 'Price'}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>{trip.price}</span>
               </div>
             )}
@@ -325,7 +345,7 @@ export default function IsraelDetail() {
             fontSize: '13px', fontWeight: 700, cursor: 'pointer',
             fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap',
           }}>
-            הרשמה →
+            {isRtl ? 'הרשמה →' : 'Register →'}
           </button>
         </div>
       </div>
@@ -338,21 +358,21 @@ export default function IsraelDetail() {
           <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '48px', alignItems: 'stretch' }}>
             <div>
               <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(24px,3.5vw,36px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 10px' }}>
-                מבוא
+                {isRtl ? 'מבוא' : 'Overview'}
               </h2>
-              {trip.seasons?.length > 0 && (
+              {seasons.length > 0 && (
                 <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
-                  עונות מומלצות: {trip.seasons.join(' | ')}
+                  {isRtl ? 'עונות מומלצות: ' : 'Recommended seasons: '}{seasons.join(' | ')}
                 </p>
               )}
-              {trip.desc ? (
-                trip.desc.split('\n\n').map((p, i, arr) => (
+              {desc ? (
+                desc.split('\n\n').map((p, i, arr) => (
                   <p key={i} style={{ fontSize: '16px', color: i === arr.length - 1 ? COLOR.primary : '#3D3B5A', fontWeight: i === arr.length - 1 ? 700 : 400, lineHeight: 1.75, margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
                     {p}
                   </p>
                 ))
               ) : (
-                <p style={{ fontSize: '16px', color: '#9591B0', lineHeight: 1.75, fontFamily: "'Ploni', sans-serif" }}>תיאור יתווסף בקרוב.</p>
+                <p style={{ fontSize: '16px', color: '#9591B0', lineHeight: 1.75, fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'תיאור יתווסף בקרוב.' : 'Description coming soon.'}</p>
               )}
             </div>
             <div style={{ position: 'relative', minHeight: isNarrow ? '260px' : '400px' }}>
@@ -364,26 +384,26 @@ export default function IsraelDetail() {
           </div>
         </section>
 
-        {trip.included?.length > 0 && (
+        {included.length > 0 && (
           <>
             <Separator />
             {/* ── ב. מה כלול ── */}
             <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
               <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,36px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px' }}>
-                מה כלול ומה לא כלול?
+                {isRtl ? 'מה כלול ומה לא כלול?' : 'Included & Excluded'}
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '20px', alignItems: 'start' }}>
                 {/* כלול */}
                 <div style={{ background: '#ECFDF5', borderRadius: RADIUS.xl, padding: '28px', border: '1px solid #BBF7D0' }}>
-                  <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700, color: '#059669', marginBottom: '20px' }}>מה כלול בתכנית?</div>
-                  {trip.included.map((item, i) => {
+                  <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700, color: '#059669', marginBottom: '20px' }}>{isRtl ? 'מה כלול בתכנית?' : "What's Included?"}</div>
+                  {included.map((item, i) => {
                     const isHeader = item.endsWith(':');
                     return isHeader ? (
                       <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
                         <span style={{ display: 'inline-block', background: '#D1FAE5', color: '#065F46', fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700, padding: '4px 14px', borderRadius: '999px' }}>{item.slice(0,-1)}</span>
                       </div>
                     ) : (
-                      <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: i < trip.included.length - 1 ? '14px' : 0 }}>
+                      <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: i < included.length - 1 ? '14px' : 0 }}>
                         <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#059669', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1px' }}>
                           <span style={{ color: 'white', fontSize: '12px', fontWeight: 700 }}>✓</span>
                         </div>
@@ -393,11 +413,11 @@ export default function IsraelDetail() {
                   })}
                 </div>
                 {/* לא כלול */}
-                {trip.notIncluded?.length > 0 && (
+                {notIncluded.length > 0 && (
                   <div style={{ background: '#FEF2F2', borderRadius: RADIUS.xl, padding: '28px', border: '1px solid #FECACA' }}>
-                    <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700, color: '#DC2626', marginBottom: '20px' }}>מה לא כלול בתכנית?</div>
-                    {trip.notIncluded.map((item, i) => (
-                      <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: i < trip.notIncluded.length - 1 ? '14px' : 0 }}>
+                    <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700, color: '#DC2626', marginBottom: '20px' }}>{isRtl ? 'מה לא כלול בתכנית?' : "What's Not Included?"}</div>
+                    {notIncluded.map((item, i) => (
+                      <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: i < notIncluded.length - 1 ? '14px' : 0 }}>
                         <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#DC2626', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1px' }}>
                           <span style={{ color: 'white', fontSize: '11px', fontWeight: 700 }}>✕</span>
                         </div>
@@ -411,34 +431,34 @@ export default function IsraelDetail() {
           </>
         )}
 
-        {trip.itinerary?.length > 0 && (
+        {itinerary.length > 0 && (
           <>
             <Separator />
             {/* ── ג. תכנית הטיול ── */}
             <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
               <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 28px' }}>
-                תכנית ה{trip.typeHe}
+                {isRtl ? `תכנית ה${trip.typeHe}` : 'Itinerary'}
               </h2>
               <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
-                {trip.itinerary.map((item, idx) => {
+                {itinerary.map((item, idx) => {
                   const isOpen = openItinerary.includes(idx);
-                  const isLast = idx === trip.itinerary.length - 1;
+                  const isLast = idx === itinerary.length - 1;
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
                       <div
                         onClick={() => toggleItinerary(idx)}
-                        style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 20px', cursor: 'pointer', background: isOpen ? '#FAFAFE' : 'white', transition: `background 150ms ${EASING.smooth}`, direction: 'rtl' }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 20px', cursor: 'pointer', background: isOpen ? '#FAFAFE' : 'white', transition: `background 150ms ${EASING.smooth}`, direction: dir }}
                         onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = '#FAFAFE'; }}
                         onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
                       >
                         <span style={{ background: COLOR.primary, color: 'white', borderRadius: RADIUS.full, padding: '4px 12px', fontSize: '13px', fontWeight: 700, fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap', flexShrink: 0 }}>
-                          יום {item.day}
+                          {isRtl ? `יום ${item.day}` : item.day}
                         </span>
                         <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>{item.title}</span>
                         <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>{isOpen ? '▴' : '▾'}</span>
                       </div>
                       <div style={{ maxHeight: isOpen ? '500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
-                        <p style={{ padding: '0 20px 20px', margin: 0, fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', lineHeight: 1.8, direction: 'rtl', whiteSpace: 'pre-line' }}>
+                        <p style={{ padding: '0 20px 20px', margin: 0, fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', lineHeight: 1.8, direction: dir, whiteSpace: 'pre-line' }}>
                           {item.desc}
                         </p>
                       </div>
@@ -452,7 +472,7 @@ export default function IsraelDetail() {
 
         {/* ── ג2. גלריה ── */}
         {(() => {
-          const galleryImgs = [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.jpg`);
+          const galleryImgs = [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.webp`);
           const [lbIdx, setLbIdx] = useState(null);
           const lbPrev = (e) => { e.stopPropagation(); setLbIdx(i => (i - 1 + galleryImgs.length) % galleryImgs.length); };
           const lbNext = (e) => { e.stopPropagation(); setLbIdx(i => (i + 1) % galleryImgs.length); };
@@ -462,7 +482,7 @@ export default function IsraelDetail() {
               <Separator />
               <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
                 <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 28px' }}>
-                  תמונות מה{trip.typeHe}
+                  {isRtl ? `תמונות מה${trip.typeHe}` : 'Gallery'}
                 </h2>
 
                 {isMobile ? (
@@ -478,7 +498,7 @@ export default function IsraelDetail() {
                     ))}
                   </div>
                 ) : (
-                  /* Desktop: bento grid — large left + 2×2 right */
+                  /* Desktop: bento grid - large left + 2×2 right */
                   <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gridTemplateRows: '240px 240px', gap: '10px' }}>
                     {/* Large featured image */}
                     <div
@@ -544,17 +564,17 @@ export default function IsraelDetail() {
         {/* ── ד. תאריכי יציאה ── */}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px' }}>
-            תאריכי יציאה
+            {isRtl ? 'תאריכי יציאה' : 'Departure Dates'}
           </h2>
 
           {groupsLoading ? (
             <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
-              טוען תאריכים...
+              {isRtl ? 'טוען תאריכים...' : 'Loading dates...'}
             </div>
 
           ) : liveGroups.length > 0 ? (
             <>
-              {/* Month tabs — only when more than 2 groups */}
+              {/* Month tabs - only when more than 2 groups */}
               {liveGroups.length > 2 && (
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
                   {months.map(([key, label]) => (
@@ -587,7 +607,7 @@ export default function IsraelDetail() {
                         alignItems: 'center',
                         border: '1px solid #ECEAF8', borderRadius: RADIUS.lg,
                         padding: isMobile ? '14px 16px' : '12px 20px',
-                        background: '#fff', direction: 'rtl',
+                        background: '#fff', direction: dir,
                         boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                         transition: 'box-shadow 0.2s',
                       }}>
@@ -611,7 +631,11 @@ export default function IsraelDetail() {
                           fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
                           padding: '3px 10px', borderRadius: '999px', whiteSpace: 'nowrap',
                         }}>
-                          {isFull ? 'מלא' : isAlmost ? `${spotsLeft} מקומות אחרונים` : `${spotsLeft} מקומות`}
+                          {isFull
+                            ? (isRtl ? 'מלא' : 'Full')
+                            : isAlmost
+                              ? `${spotsLeft} ${isRtl ? 'מקומות אחרונים' : 'last spots'}`
+                              : `${spotsLeft} ${isRtl ? 'מקומות' : 'spots'}`}
                         </span>
                       </span>
 
@@ -625,7 +649,7 @@ export default function IsraelDetail() {
                         cursor: isFull ? 'not-allowed' : 'pointer',
                         whiteSpace: 'nowrap', justifySelf: 'end', transition: 'background 0.2s',
                       }}>
-                        {isFull ? 'מלא' : 'להרשמה ←'}
+                        {isFull ? (isRtl ? 'מלא' : 'Full') : (isRtl ? 'להרשמה ←' : 'Register →')}
                       </button>
                     </div>
                   );
@@ -634,14 +658,14 @@ export default function IsraelDetail() {
             </>
 
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl, border: '1.5px dashed #DDD6FE', background: '#FAFAFF', textAlign: 'center', direction: 'rtl' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl, border: '1.5px dashed #DDD6FE', background: '#FAFAFF', textAlign: 'center', direction: dir }}>
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={COLOR.primary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#0A0818', margin: 0 }}>תאריכי ה{trip.typeHe} יפורסמו בקרוב</p>
-              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', margin: 0, lineHeight: 1.6 }}>רוצים להירשם לרשימת ההמתנה ולקבל עדיפות?</p>
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#0A0818', margin: 0 }}>{isRtl ? `תאריכי ה${trip.typeHe} יפורסמו בקרוב` : 'Dates coming soon'}</p>
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', margin: 0, lineHeight: 1.6 }}>{isRtl ? 'רוצים להירשם לרשימת ההמתנה ולקבל עדיפות?' : 'Want to join the waitlist?'}</p>
               <button onClick={scrollToForm} style={{ marginTop: '4px', padding: '10px 28px', borderRadius: RADIUS.full, border: 'none', background: COLOR.primary, color: '#fff', fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700, cursor: 'pointer' }}>
-                השאירו פרטים
+                {isRtl ? 'השאירו פרטים' : 'Leave your details'}
               </button>
             </div>
           )}
@@ -650,23 +674,23 @@ export default function IsraelDetail() {
       </main>
 
       {/* ══ CONTACT FORM ══ */}
-      <div id="israel-form" style={{ background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)', padding: isMobile ? '48px 5%' : '72px 5%', direction: 'rtl' }}>
+      <div id="israel-form" style={{ background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)', padding: isMobile ? '48px 5%' : '72px 5%', direction: dir }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(24px,4vw,40px)', fontWeight: 700, color: 'white', letterSpacing: '-0.02em', margin: '0 0 12px' }}>
-            הרשמה לטרק
+            {isRtl ? 'הרשמה לטרק' : 'Register for Trek'}
           </h2>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: '0 0 40px' }}>
-            מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי
+            {isRtl ? 'מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי' : "Fill in your details and we'll confirm your registration"}
           </p>
-          <div style={{ background: 'white', borderRadius: RADIUS.xl, padding: isMobile ? '24px' : '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'right' }}>
-            <form onSubmit={handleSubmit} style={{ direction: 'rtl' }}>
+          <div style={{ background: 'white', borderRadius: RADIUS.xl, padding: isMobile ? '24px' : '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'start' }}>
+            <form onSubmit={handleSubmit} style={{ direction: dir }}>
               <div style={{ display: 'grid', gap: '16px' }}>
 
                 {/* שם מלא */}
                 <div>
-                  <label style={labelStyle}>שם מלא *</label>
+                  <label style={labelStyle}>{isRtl ? 'שם מלא *' : 'Full Name *'}</label>
                   <input type="text" required value={form.name}
-                    placeholder="ישראל ישראלי"
+                    placeholder={isRtl ? 'ישראל ישראלי' : 'John Smith'}
                     onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
                     style={inputStyle}
                     onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
@@ -676,10 +700,10 @@ export default function IsraelDetail() {
                 {/* תאריך */}
                 {(liveGroups.length > 0 || trip.dates?.length > 0) && (
                   <div>
-                    <label style={labelStyle}>באיזה תאריך תרצו לטייל? *</label>
+                    <label style={labelStyle}>{isRtl ? 'באיזה תאריך תרצו לטייל? *' : 'Preferred Date *'}</label>
                     <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={inputStyle}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }} onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}>
-                      <option value="">בחרו תאריך</option>
+                      <option value="">{isRtl ? 'בחרו תאריך' : 'Select a date'}</option>
                       {liveGroups.length > 0
                         ? liveGroups.map(g => {
                             const label = formatDateRange(g.departure, g.returnDate);
@@ -693,13 +717,13 @@ export default function IsraelDetail() {
 
                 {/* טלפון */}
                 <div>
-                  <label style={labelStyle}>מספר טלפון *</label>
+                  <label style={labelStyle}>{isRtl ? 'מספר טלפון *' : 'Phone Number *'}</label>
                   <input type="tel" required value={form.phone}
                     placeholder="050-0000000"
                     maxLength={11}
                     onChange={e => { const v = formatPhone(e.target.value); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
                     onBlur={e => validatePhone(e.target.value)}
-                    style={{ ...inputStyle, direction: 'ltr', textAlign: 'right', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
+                    style={{ ...inputStyle, direction: 'ltr', textAlign: 'start', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
                     onMouseEnter={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
                     onMouseLeave={e => { e.target.style.borderColor = phoneError ? '#DC2626' : '#E5E3F0'; }} />
                   {phoneError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{phoneError}</p>}
@@ -708,7 +732,7 @@ export default function IsraelDetail() {
                 {/* הצהרת בריאות */}
                 <label style={{
                   display: 'flex', alignItems: 'flex-start', gap: '12px',
-                  cursor: 'pointer', direction: 'rtl',
+                  cursor: 'pointer', direction: dir,
                   padding: '14px 16px', borderRadius: RADIUS.lg,
                   border: `1.5px solid ${form.declaration ? COLOR.primary : '#E5E3F0'}`,
                   background: form.declaration ? '#F5F0FF' : '#FAFAFA',
@@ -718,7 +742,9 @@ export default function IsraelDetail() {
                     onChange={e => setForm(f => ({ ...f, declaration: e.target.checked }))}
                     style={{ marginTop: '3px', width: '18px', height: '18px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }} />
                   <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
-                    אני מצהיר/ה כי מצבי הבריאותי מאפשר השתתפות בטיול הכולל הליכות של 8-5 שעות ביום וכי קראתי והבנתי שההשתתפות היא באחריותי האישית בלבד, ללא אחריות מצד המארגנים לנזק מכל סוג
+                    {isRtl
+                      ? 'אני מצהיר/ה כי מצבי הבריאותי מאפשר השתתפות בטיול הכולל הליכות של 8-5 שעות ביום וכי קראתי והבנתי שההשתתפות היא באחריותי האישית בלבד, ללא אחריות מצד המארגנים לנזק מכל סוג'
+                      : 'I declare that my physical condition allows participation in a trip involving 5–8 hours of walking per day, and that I have read and understood that participation is at my own personal responsibility, with no liability on the part of the organizers for any damage of any kind.'}
                   </span>
                 </label>
 
@@ -731,7 +757,7 @@ export default function IsraelDetail() {
                   cursor: form.declaration ? 'pointer' : 'not-allowed',
                   transition: `background 200ms ${EASING.smooth}`,
                 }}>
-                  לתשלום ←
+                  {isRtl ? 'לתשלום ←' : 'Proceed to Payment →'}
                 </button>
 
               </div>
