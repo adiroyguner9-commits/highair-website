@@ -229,25 +229,31 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
           direction:  dir,
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        <div style={{ maxWidth: '260px', margin: isEn ? '0' : '0 0 0 auto', padding: '0 24px' }}>
-          <div style={{
-            marginBottom:  '10px',
-            paddingBottom: '10px',
-            borderBottom:  '1px solid #EEEEEE',
-            fontFamily:    "'Ploni', sans-serif",
-            fontSize:      '14px',
-            fontWeight:    800,
-            color:         '#6D28D9',
-          }}>
-            {isEn ? 'Israel' : 'ישראל'}
+        <div style={{
+          maxWidth:            '1280px',
+          margin:              '0 auto',
+          display:             'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+        }}>
+          {/* Israel column — first cell in LTR, last cell in RTL */}
+          <div style={{ padding: '0 24px', gridColumn: isEn ? 1 : 4 }}>
+            <div style={{
+              marginBottom:  '10px',
+              paddingBottom: '10px',
+              borderBottom:  '1px solid #EEEEEE',
+              fontFamily:    "'Ploni', sans-serif",
+              fontSize:      '14px',
+              fontWeight:    800,
+              color:         '#6D28D9',
+            }}>
+              {isEn ? 'Israel' : 'ישראל'}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+              {ISRAEL_TRIPS.map(trip => (
+                <IsraelMegaItem key={trip.id} trip={trip} onClose={onClose} />
+              ))}
+            </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            {ISRAEL_TRIPS.map(trip => (
-              <IsraelMegaItem key={trip.id} trip={trip} onClose={onClose} />
-            ))}
-          </div>
-        </div>
         </div>
       </div>
     );
