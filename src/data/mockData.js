@@ -962,7 +962,6 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     diff: 'Hard', diffHe: 'אתגרי', price: 3500, priceStr: '$3500', continent: 'europe',
     airtableEvents: ['Elbrus'],
     groupCapacity: 15,
-    soldOut: true,
     img: '/images/cards/elbrus.webp',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
     desc: `הצטרפו אלינו למסע אל הפסגה הגבוהה באירופה, הר אלברוס המתנשא לגובה של 5,642 מ׳ ואחת מ"שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים לכבוש פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
