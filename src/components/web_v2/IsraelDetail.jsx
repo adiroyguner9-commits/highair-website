@@ -66,6 +66,7 @@ export default function IsraelDetail() {
   const seasons        = isEn ? (trip?.seasonsEn || trip?.seasons || []) : (trip?.seasons || []);
   const diffLabel      = isEn ? (trip?.diffEn  || trip?.diffHe) : trip?.diffHe;
   const daysLabel      = isEn ? (trip?.daysEn  || trip?.days)   : trip?.days;
+  const priceLabel     = isEn ? (trip?.price   || '') : (trip?.priceHe || trip?.price || '');
 
   usePageMeta(trip ? {
     title:         `${displayName} | HighAir Expeditions`,
@@ -309,7 +310,7 @@ export default function IsraelDetail() {
           <StatBox label={isRtl ? 'גובה' : 'Elevation'} value={`${trip.elev}m`}  isMobile={isMobile} first />
           <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}    value={diffLabel}    isMobile={isMobile} />
           <StatBox label={isRtl ? 'משך' : 'Duration'}        value={daysLabel}    isMobile={isMobile} />
-          <StatBox label={isRtl ? 'עלות' : 'Price'}          value={trip.price}   isMobile={isMobile} last />
+          <StatBox label={isRtl ? 'עלות' : 'Price'}          value={priceLabel}   isMobile={isMobile} last />
         </div>
       </div>
 
@@ -335,7 +336,7 @@ export default function IsraelDetail() {
             {!isMobile && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מחיר' : 'Price'}</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>{trip.price}</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>{priceLabel}</span>
               </div>
             )}
           </div>
