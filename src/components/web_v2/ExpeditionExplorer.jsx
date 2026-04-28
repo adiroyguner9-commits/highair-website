@@ -286,7 +286,7 @@ export default function ExpeditionExplorer({ type }) {
             WebkitOverflowScrolling: 'touch',
             paddingTop:              '12px', // room for card hover translateY(-6px)
             marginTop:               '-12px', // compensate layout shift
-            paddingBottom:           isMobile ? '16px' : '72px', // mobile: no hover shadow needed
+            paddingBottom:           '72px', // room for box-shadow (offset 20 + blur 48 + buffer)
           }}
         >
           {cards.map(exp => (
@@ -305,7 +305,7 @@ export default function ExpeditionExplorer({ type }) {
 
         {/* ── Mobile arrows ── */}
         {isMobile && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '4px', paddingBottom: '36px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '-48px', paddingBottom: '36px' }}>
             <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
             <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
           </div>
