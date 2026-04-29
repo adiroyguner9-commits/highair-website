@@ -1,8 +1,9 @@
 /**
  * Shop.jsx - /shop
- * Products store page — Hebrew RTL
+ * Products store page - bilingual (Hebrew/English)
  */
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -11,7 +12,7 @@ import { PRODUCTS } from '../../data/shopData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
-function ProductCard({ product }) {
+function ProductCard({ product, isRtl }) {
   const [hovered, setHovered] = useState(false);
   const { isMobile } = useBreakpoint();
 
@@ -59,7 +60,7 @@ function ProductCard({ product }) {
         )}
         <img
           src={product.img}
-          alt={product.name}
+          alt={isRtl ? product.name : product.nameEn}
           style={{
             maxWidth:   '100%',
             maxHeight:  '220px',
@@ -73,7 +74,7 @@ function ProductCard({ product }) {
       {/* Body */}
       <div style={{
         padding:       '24px',
-        direction:     'rtl',
+        direction:     isRtl ? 'rtl' : 'ltr',
         flex:          1,
         display:       'flex',
         flexDirection: 'column',
@@ -88,7 +89,7 @@ function ProductCard({ product }) {
           letterSpacing: '-0.01em',
           lineHeight:    1.3,
         }}>
-          {product.name}
+          {isRtl ? product.name : product.nameEn}
         </h2>
 
         <p style={{
@@ -100,7 +101,7 @@ function ProductCard({ product }) {
           lineHeight: 1.7,
           flex:       1,
         }}>
-          {product.description}
+          {isRtl ? product.description : product.descriptionEn}
         </p>
 
         {/* Price + CTA */}
@@ -125,7 +126,7 @@ function ProductCard({ product }) {
             href={product.buyLink}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => Analytics.clickBuyProduct(product.name, product.price)}
+            onClick={() => Analytics.clickBuyProduct(isRtl ? product.name : product.nameEn, product.price)}
             style={{
               display:      'inline-flex',
               alignItems:   'center',
@@ -142,7 +143,7 @@ function ProductCard({ product }) {
               whiteSpace:   'nowrap',
             }}
           >
-            לרכישה ←
+            {isRtl ? 'לרכישה ←' : 'Buy Now →'}
           </a>
         </div>
       </div>
@@ -151,11 +152,15 @@ function ProductCard({ product }) {
 }
 
 export default function Shop() {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language !== 'en';
   const { isMobile, isTablet } = useBreakpoint();
 
   usePageMeta({
-    title:         'חנות | HighAir Expeditions',
-    description:   'ציוד טיולים ומשלחות מבית HighAir Expeditions — תיקים, ציוד הרים ועוד.',
+    title:         isRtl ? 'חנות | HighAir Expeditions' : 'Shop | HighAir Expeditions',
+    description:   isRtl
+      ? 'ציוד טיולים ומשלחות מבית HighAir Expeditions - תיקים, ציוד הרים ועוד.'
+      : 'Trek and expedition gear from HighAir Expeditions — bags, mountain equipment and more.',
     canonicalPath: '/shop',
   });
 
@@ -164,7 +169,7 @@ export default function Shop() {
   return (
     <>
       <Header />
-      <main style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: 'rtl' }}>
+      <main style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: isRtl ? 'rtl' : 'ltr' }}>
 
         {/* ── Page header ── */}
         <div style={{
@@ -182,7 +187,7 @@ export default function Shop() {
             letterSpacing: '-0.03em',
             lineHeight:    1.1,
           }}>
-            החנות של HighAir
+            {isRtl ? 'החנות של HighAir' : 'HighAir Shop'}
           </h1>
           <p style={{
             fontFamily: "'Ploni', sans-serif",
@@ -192,21 +197,34 @@ export default function Shop() {
             margin:     0,
             lineHeight: 1.7,
           }}>
-            ציוד טיולים ומשלחות עם הלוגו של HighAir Expeditions
+            {isRtl
+              ? 'ציוד טיולים ומשלחות עם הלוגו של HighAir Expeditions'
+              : 'Trek and expedition gear featuring the HighAir Expeditions logo'}
           </p>
         </div>
 
         {/* ── Products grid ── */}
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: isMobile ? '32px 5% 80px' : '48px 5% 100px' }}>
-          <div style={{
-            display:             'grid',
-            gridTemplateColumns: `repeat(${cols}, 1fr)`,
-            gap:                 '28px',
-          }}>
-            {PRODUCTS.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {PRODUCTS.length === 0 ? (
+            <p style={{
+              textAlign:  'center',
+              fontFamily: "'Ploni', sans-serif",
+              fontSize:   FS.body,
+              color:      '#6B6B8A',
+            }}>
+              {isRtl ? 'אין מוצרים זמינים כרגע.' : 'No products available at the moment.'}
+            </p>
+          ) : (
+            <div style={{
+              display:             'grid',
+              gridTemplateColumns: `repeat(${cols}, 1fr)`,
+              gap:                 '28px',
+            }}>
+              {PRODUCTS.map(product => (
+                <ProductCard key={product.id} product={product} isRtl={isRtl} />
+              ))}
+            </div>
+          )}
         </div>
 
       </main>

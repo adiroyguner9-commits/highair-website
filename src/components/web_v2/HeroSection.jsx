@@ -8,6 +8,7 @@
  */
 
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { COLOR, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
@@ -42,6 +43,8 @@ export default function HeroSection() {
   const [btn1Hovered, setBtn1Hovered] = useState(false);
   const [btn2Hovered, setBtn2Hovered] = useState(false);
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
 
   return (
     <section id="hero" style={{
@@ -60,13 +63,17 @@ export default function HeroSection() {
         muted
         loop
         playsInline
+        poster="/hero-poster.jpg"
         style={{
-          position:  'absolute',
-          inset:     0,
-          width:     '100%',
-          height:    '100%',
-          objectFit: 'cover',
-          zIndex:    0,
+          position:        'absolute',
+          inset:           0,
+          width:           '100%',
+          height:          '100%',
+          objectFit:       'cover',
+          zIndex:          0,
+          transform:       'translateZ(0)',
+          willChange:      'transform',
+          backfaceVisibility: 'hidden',
         }}
       >
         <source src={VIDEO_SRC} type="video/mp4" />
@@ -85,7 +92,7 @@ export default function HeroSection() {
         position:   'relative',
         zIndex:     2,
         textAlign:  'center',
-        direction:  'rtl',
+        direction:  isEn ? 'ltr' : 'rtl',
         padding:    '0 6vw',
         userSelect: 'none',
       }}>
@@ -120,7 +127,7 @@ export default function HeroSection() {
             lineHeight:    1.5,
             letterSpacing: '0.01em',
           }}>
-            ארגון טרקים ומשלחות טיפוס הרים בארץ ובעולם
+            {t('hero.subtitle')}
           </p>
 
           {/* Line 2 - mission, tight under line 1 */}
@@ -134,7 +141,7 @@ export default function HeroSection() {
             lineHeight:    1.5,
             letterSpacing: '0.02em',
           }}>
-            בשילוב תרומה לחולי סרטן בכל מסע!
+            {t('hero.cancer')}
           </p>
 
         </div>
@@ -178,7 +185,7 @@ export default function HeroSection() {
               whiteSpace:     'nowrap',
             }}
           >
-            לכל המשלחות
+            {t('hero.allExpeditions')}
           </a>
 
           {/* Secondary - הסיפור שלנו */}
@@ -214,7 +221,7 @@ export default function HeroSection() {
               whiteSpace:          'nowrap',
             }}
           >
-            הסיפור שלנו
+            {t('hero.ourStory')}
           </a>
 
         </div>

@@ -7,23 +7,18 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
-/* ── Hebrew month names ── */
-const MONTH_HE = [
-  'ינואר','פברואר','מרץ','אפריל','מאי','יוני',
-  'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר',
-];
-
 /* ── Helpers ── */
-function fmtDate(str) {
+function fmtDate(str, months) {
   if (!str) return '';
   const d = new Date(str);
-  return `${d.getDate()} ${MONTH_HE[d.getMonth()]} ${d.getFullYear()}`;
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
 function monthKey(str) {
@@ -31,17 +26,17 @@ function monthKey(str) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 }
 
-function monthLabel(key) {
+function monthLabel(key, months) {
   const [year, month] = key.split('-');
-  return `${MONTH_HE[parseInt(month, 10) - 1]} ${year}`;
+  return `${months[parseInt(month, 10) - 1]} ${year}`;
 }
 
 /* Tag for safari / kosher variants */
-function eventTag(eventName) {
-  const lower = (eventName || '').toLowerCase();
-  if (lower.includes('safari') && lower.includes('kosher')) return 'שומרי מסורת + ספארי';
-  if (lower.includes('safari'))  return '+ ספארי';
-  if (lower.includes('kosher'))  return 'שומרי מסורת';
+function eventTag(e, isRtl) {
+  const n = (typeof e === 'string' ? e : e?.slug || e?.eventName || '').toLowerCase();
+  if (n.includes('kosher') && n.includes('safari')) return isRtl ? 'שומרי מסורת + ספארי' : 'Kosher + Safari';
+  if (n.includes('kosher')) return isRtl ? 'שומרי מסורת' : 'Kosher';
+  if (n.includes('safari')) return isRtl ? '+ ספארי' : '+ Safari';
   return null;
 }
 
@@ -57,7 +52,7 @@ function findExp(eventName) {
 /* ══════════════════════════════════════════════════════════════
    TripCard
 ══════════════════════════════════════════════════════════════ */
-function TripCard({ group, exp }) {
+function TripCard({ group, exp, months, isRtl }) {
   const [hovered, setHovered] = useState(false);
   const [imgReady, setImgReady] = useState(!exp?.img);
   const cardRef  = useRef(null);
@@ -69,7 +64,7 @@ function TripCard({ group, exp }) {
   const isFull    = spotsLeft <= 0;
   const isAlmost  = !isFull && spotsLeft <= 4;
   const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
-  const tag = eventTag(group.eventName);
+  const tag = eventTag(group.eventName, isRtl);
 
   /* Lazy-load image */
   useEffect(() => {
@@ -122,8 +117,8 @@ function TripCard({ group, exp }) {
 
       {/* ── Top row: country badge only ── */}
       <div style={{
-        padding:  '16px 16px 0',
-        direction: 'rtl',
+        padding:   '16px 16px 0',
+        direction: isRtl ? 'rtl' : 'ltr',
         position:  'relative',
         zIndex:    1,
       }}>
@@ -140,13 +135,14 @@ function TripCard({ group, exp }) {
           fontSize:             FS.sm,
           fontWeight:           600,
           color:                'rgba(255,255,255,0.92)',
+          direction:            'ltr',
         }}>
-          {exp?.countryHe || '-'} {exp?.flag || ''}
+          {exp?.flag || ''} {isRtl ? (exp?.countryHe || '-') : (exp?.country || exp?.countryHe || '-')}
         </div>
       </div>
 
       {/* ── Bottom: name + dates + spots ── */}
-      <div style={{ padding: '0 16px 18px', direction: 'rtl', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '0 16px 18px', direction: isRtl ? 'rtl' : 'ltr', position: 'relative', zIndex: 1 }}>
         <h3 style={{
           fontFamily:    "'Ploni', sans-serif",
           fontSize:      'clamp(16px, 2.5vw, 20px)',
@@ -156,21 +152,20 @@ function TripCard({ group, exp }) {
           letterSpacing: '-0.02em',
           lineHeight:    1.2,
         }}>
-          {exp?.nameHe || group.eventName}
+          {isRtl ? (exp?.nameHe || group.eventName) : (exp?.nameEn || exp?.name || exp?.nameHe || group.eventName)}
         </h3>
 
-        {/* Date range — right-aligned */}
+        {/* Date range */}
         <p style={{
           fontFamily: "'Ploni', sans-serif",
           fontSize:   '13px',
           fontWeight: 400,
           color:      'rgba(255,255,255,0.80)',
           margin:     0,
-          textAlign:  'right',
-          direction:  'rtl',
+          textAlign:  'start',
         }}>
-          {fmtDate(group.departure)}
-          {group.returnDate ? ` - ${fmtDate(group.returnDate)}` : ''}
+          {fmtDate(group.departure, months)}
+          {group.returnDate ? ` – ${fmtDate(group.returnDate, months)}` : ''}
         </p>
       </div>
     </div>
@@ -182,7 +177,11 @@ function TripCard({ group, exp }) {
 ══════════════════════════════════════════════════════════════ */
 export default function AnnualPlan() {
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
   const tabsRef = useRef(null);
+  const monthNames = t('annualPlan.months', { returnObjects: true });
 
   const [groups,  setGroups]  = useState([]);
   const [loading, setLoading] = useState(true);
@@ -294,7 +293,7 @@ export default function AnnualPlan() {
         background: '#FAFAF8',
         minHeight:  '100vh',
         paddingTop: '80px',
-        direction:  'rtl',
+        direction:  dir,
       }}>
 
         {/* ── Page header ── */}
@@ -313,7 +312,7 @@ export default function AnnualPlan() {
             letterSpacing: '-0.03em',
             lineHeight:    1.1,
           }}>
-            התכנית השנתית
+            {t('annualPlan.title')}
           </h1>
           <p style={{
             fontFamily: "'Ploni', sans-serif",
@@ -323,7 +322,7 @@ export default function AnnualPlan() {
             margin:     0,
             lineHeight: 1.7,
           }}>
-            כל הטיולים שלנו - מהתאריך הקרוב ועד סוף העונה
+            {t('annualPlan.subtitle')}
           </p>
         </div>
 
@@ -373,7 +372,7 @@ export default function AnnualPlan() {
                       boxShadow:   isActive ? '0 4px 14px rgba(109,40,217,0.25)' : 'none',
                     }}
                   >
-                    {monthLabel(key)}
+                    {monthLabel(key, monthNames)}
                     <span style={{
                       display:        'inline-flex',
                       alignItems:     'center',
@@ -409,7 +408,7 @@ export default function AnnualPlan() {
               color:      '#6B6B8A',
               fontSize:   FS.body,
             }}>
-              טוען תכנית שנתית...
+              {t('annualPlan.loading')}
             </div>
           )}
 
@@ -422,7 +421,7 @@ export default function AnnualPlan() {
               color:      '#DC2626',
               fontSize:   FS.body,
             }}>
-              שגיאה בטעינת הנתונים. נסו לרענן את הדף.
+              {t('annualPlan.error')}
             </div>
           )}
 
@@ -443,10 +442,10 @@ export default function AnnualPlan() {
                 </svg>
               </div>
               <p style={{ fontSize: '18px', fontWeight: 700, color: '#0A0818', margin: '0 0 8px' }}>
-                אין טיולים מתוכננים כרגע
+                {t('annualPlan.empty')}
               </p>
               <p style={{ fontSize: FS.body, color: '#6B6B8A', margin: 0 }}>
-                התכנית השנתית תתעדכן בקרוב עם תאריכים חדשים
+                {t('annualPlan.emptyDetail')}
               </p>
             </div>
           )}
@@ -470,7 +469,7 @@ export default function AnnualPlan() {
                   margin:        0,
                   letterSpacing: '-0.02em',
                 }}>
-                  {monthLabel(key)}
+                  {monthLabel(key, monthNames)}
                 </h2>
                 <div style={{
                   height: '2px',
@@ -487,7 +486,7 @@ export default function AnnualPlan() {
                   padding:    '3px 10px',
                   borderRadius: RADIUS.full,
                 }}>
-                  {byMonth[key].length} יציאות
+                  {byMonth[key].length} {isRtl ? 'יציאות' : 'departures'}
                 </span>
               </div>
 
@@ -500,7 +499,7 @@ export default function AnnualPlan() {
                 {byMonth[key].map(group => {
                   const exp = findExp(group.eventName);
                   return (
-                    <TripCard key={group.id} group={group} exp={exp} />
+                    <TripCard key={group.id} group={group} exp={exp} months={monthNames} isRtl={isRtl} />
                   );
                 })}
               </div>

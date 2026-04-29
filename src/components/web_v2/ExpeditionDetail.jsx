@@ -6,6 +6,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
@@ -15,6 +16,27 @@ import SiteFooter from './SiteFooter.jsx';
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
+
+/* ─── Translation helpers ───────────────────────────────────────── */
+const HE_TO_EN_MONTHS = {
+  'ינואר':'January','פברואר':'February','מרץ':'March','אפריל':'April',
+  'מאי':'May','יוני':'June','יולי':'July','אוגוסט':'August',
+  'ספטמבר':'September','אוקטובר':'October','נובמבר':'November','דצמבר':'December'
+};
+function translateSeason(s, isRtl) {
+  if (isRtl || !s) return s;
+  let result = s;
+  Object.entries(HE_TO_EN_MONTHS).forEach(([he, en]) => { result = result.replace(new RegExp(he, 'g'), en); });
+  return result;
+}
+function translateDays(daysStr, isRtl) {
+  if (isRtl || !daysStr) return daysStr;
+  return daysStr
+    .replace(/ימים/g, 'days')
+    .replace(/יום/g, 'day')
+    .replace(/ספארי/g, 'safari')
+    .replace(/\+\s*/, '+ ');
+}
 
 /* ─── Default data ─────────────────────────────────────────────── */
 const DEFAULT_REVIEWS = [
@@ -33,6 +55,15 @@ const DEFAULT_FAQ = [
 
 const DEFAULT_NOT_INCLUDED = ['טיסות בינלאומיות', 'ביטוח נסיעות', 'הוצאות אישיות', 'ציוד אישי'];
 
+const DEFAULT_NOT_INCLUDED_EN = [
+  'International flights',
+  'Travel insurance (mandatory)',
+  'Personal climbing/trekking equipment',
+  'Meals not specified in the itinerary',
+  'Personal expenses and tips',
+  'Visa fees (if applicable)',
+];
+
 const DEFAULT_IMPORTANT = [
   'הטיפוס מתבצע בקבוצה עד 15 משתתפים בלבד!',
   'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
@@ -44,9 +75,35 @@ const DEFAULT_IMPORTANT = [
   'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
 ];
 
-const getWhyCards = (exp) => {
-  const activity = exp?.typeHe || 'טיפוס';
-  const country  = exp?.countryHe || '';
+const DEFAULT_IMPORTANT_EN = [
+  'The expedition runs in groups of up to 15 participants only!',
+  'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+  'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
+  'Medical clearance and a health declaration are required before departure to ensure participant fitness and wellbeing!',
+  'Any participant who does not meet the health or physical requirements will not be permitted to join the expedition!',
+  'If you have no prior experience but can walk ~20 km a day, love challenges, and have high motivation - this expedition can absolutely be for you!',
+  'The route may change according to weather conditions or at the discretion of the certified guides in the field!',
+  'Safety before summit - in the mountains there is no guarantee of reaching the summit, but there is always a commitment to safety above all!',
+];
+
+const getWhyCards = (exp, isRtl) => {
+  const activity = isRtl ? (exp?.typeHe || 'טיפוס') : (exp?.type || 'Climbing');
+  const country  = isRtl ? (exp?.countryHe || '') : (exp?.country || '');
+  if (!isRtl) {
+    return [
+      { icon: '🏋️', title: `Training Plan for ${activity}`, desc: '' },
+      { icon: '🎒', title: `Gear List for ${activity}`, desc: '' },
+      { icon: '✈️', title: 'Attractive flight booking', desc: '' },
+      { icon: '🛡️', title: 'Attractive insurance booking', desc: '' },
+      { icon: '📡', title: '10% discount on satellite device - Magnus', desc: '' },
+      { icon: '🏪', title: '20% discount on gear at Gravity store', desc: '' },
+      { icon: '🏬', title: '25% discount on gear at Pakal Hagur chain', desc: '' },
+      { icon: '🏔️', title: 'Info guide on altitude sickness and coping', desc: '' },
+      ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `Visa guide for ${country}`, desc: '' }] : []),
+      { icon: '🤝', title: 'Participate in our community treks', desc: '' },
+      { icon: '📞', title: `24/7 support from prep to summit during the ${activity}`, desc: '' },
+    ];
+  }
   return [
     { icon: '🏋️', title: `תכנית אימונים כהכנה ל${activity}`, desc: '' },
     { icon: '🎒', title: `רשימת ציוד ל${activity}`, desc: '' },
@@ -116,7 +173,7 @@ function WhyCard({ card }) {
         transition: `box-shadow 200ms ${EASING.smooth}, transform 200ms ${EASING.smooth}`,
         boxShadow: hovered ? '0 4px 20px rgba(0,0,0,0.08)' : 'none',
         transform: hovered ? 'translateY(-2px)' : 'none',
-        direction: 'rtl',
+        direction: 'inherit',
         background: '#fff',
       }}
     >
@@ -130,9 +187,11 @@ function WhyCard({ card }) {
 
 /* ─── ReviewCard ────────────────────────────────────────────────── */
 function ReviewCard({ review }) {
+  const { i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const initial = review.initial || (review.name ? review.name[0] : '?');
   return (
-    <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, padding: '24px', direction: 'rtl', background: '#fff' }}>
+    <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, padding: '24px', direction: dir, background: '#fff' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
         <div style={{
           width: '40px', height: '40px',
@@ -166,12 +225,15 @@ export default function ExpeditionDetail() {
   const navigate = useNavigate();
   const { isMobile, isTablet } = useBreakpoint();
   const isNarrow = isMobile || isTablet;
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
 
   const exp = EXPS.find(e => e.slug === slug);
 
   usePageMeta(exp ? {
     title:         `${exp.nameHe} | HighAir Expeditions`,
-    description:   `הצטרפו למשלחת ${exp.nameHe} עם HighAir Expeditions. ${exp.elev ? exp.elev + ' — ' : ''}טיפוס הרים וטרקים בשילוב תרומה למלחמה בסרטן.`,
+    description:   `הצטרפו למשלחת ${exp.nameHe} עם HighAir Expeditions. ${exp.elev ? exp.elev + ' - ' : ''}טיפוס הרים וטרקים בשילוב תרומה למלחמה בסרטן.`,
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
   } : {
@@ -217,12 +279,6 @@ export default function ExpeditionDetail() {
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
     );
   }
-
-  /* ── Active itinerary based on tab ── */
-  const hasSafari = exp?.safariItinerary?.length > 0;
-  const activeItinerary = itineraryTab === 'safari' && hasSafari
-    ? [...(exp.itinerary || []).slice(0, -1), ...(exp.safariItinerary || [])]
-    : (exp?.itinerary || []);
 
   /* ── FAQ accordion ── */
   const [openFaq, setOpenFaq] = useState(null);
@@ -319,10 +375,17 @@ export default function ExpeditionDetail() {
 
   function eventLabel(name) {
     const n = (name || '').toLowerCase();
-    if (n.includes('kosher') && n.includes('safari')) return `${exp.typeHe} כשר + ספארי`;
-    if (n.includes('kosher')) return `${exp.typeHe} כשר`;
-    if (n.includes('safari')) return `${exp.typeHe} + ספארי`;
-    return exp.nameHe || exp.typeHe;
+    if (isRtl) {
+      if (n.includes('kosher') && n.includes('safari')) return `${exp.typeHe} כשר + ספארי`;
+      if (n.includes('kosher')) return `${exp.typeHe} כשר`;
+      if (n.includes('safari')) return `${exp.typeHe} + ספארי`;
+      return exp.nameHe || exp.typeHe;
+    } else {
+      if (n.includes('kosher') && n.includes('safari')) return `${exp.type || exp.typeHe} Kosher + Safari`;
+      if (n.includes('kosher')) return `${exp.type || exp.typeHe} Kosher`;
+      if (n.includes('safari')) return `${exp.type || exp.typeHe} + Safari`;
+      return exp.nameEn || exp.name || exp.nameHe;
+    }
   }
 
   function monthKey(dep) {
@@ -332,7 +395,7 @@ export default function ExpeditionDetail() {
 
   function monthLabel(dep) {
     const d = new Date(dep);
-    return d.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' });
+    return d.toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long', year: 'numeric' });
   }
 
   /* unique months from live groups */
@@ -361,7 +424,7 @@ export default function ExpeditionDetail() {
   function validatePhone(val) {
     const digits = val.replace(/\D/g, '');
     const ok = /^05\d{8}$/.test(digits);
-    setPhoneError(ok || !digits ? '' : 'מספר טלפון לא תקין (לדוגמה: 050-1234567)');
+    setPhoneError(ok || !digits ? '' : isRtl ? 'מספר טלפון לא תקין (לדוגמה: 050-1234567)' : 'Invalid phone number (e.g. 050-1234567)');
     return ok;
   }
 
@@ -375,7 +438,7 @@ export default function ExpeditionDetail() {
   /* ── Age validation ── */
   function validateAge(val) {
     const n = Number(val);
-    if (val && n < 16) { setAgeError('גיל מינימלי להשתתפות הוא 16'); return false; }
+    if (val && n < 16) { setAgeError(isRtl ? 'גיל מינימלי להשתתפות הוא 16' : 'Minimum age to participate is 16'); return false; }
     setAgeError('');
     return true;
   }
@@ -427,7 +490,7 @@ export default function ExpeditionDetail() {
     padding: '12px 16px',
     fontSize: FS.body,
     fontFamily: "'Ploni', sans-serif",
-    direction: 'rtl',
+    direction: dir,
     outline: 'none',
     boxSizing: 'border-box',
     background: '#fff',
@@ -441,18 +504,19 @@ export default function ExpeditionDetail() {
     fontSize: '14px',
     color: '#3D3B5A',
     fontFamily: "'Ploni', sans-serif",
-    direction: 'rtl',
+    direction: dir,
+    textAlign: 'start',
   };
 
   /* ─────────────── 404 ─────────────────── */
   if (!exp) {
     return (
-      <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif" }}>
+      <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif" }}>
         <Header />
         <div style={{
           minHeight: '100vh', display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center', gap: '24px',
-          fontFamily: "'Ploni', sans-serif", direction: 'rtl',
+          fontFamily: "'Ploni', sans-serif", direction: dir,
         }}>
           <div style={{ fontSize: '64px' }}>⛰️</div>
           <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>המשלחת לא נמצאה</h1>
@@ -470,21 +534,36 @@ export default function ExpeditionDetail() {
   /* ── Derived data ── */
   const reviews = exp.reviews?.length ? exp.reviews : DEFAULT_REVIEWS;
   const faqItems = exp.faq?.length ? exp.faq : DEFAULT_FAQ;
-  const notIncluded = exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED;
-  const importantToNote = exp.importantToNote?.length ? exp.importantToNote : DEFAULT_IMPORTANT;
-  const seasons = exp.seasons || [];
+  const notIncluded = isRtl
+    ? (exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED)
+    : (exp.notIncludedEn?.length ? exp.notIncludedEn : DEFAULT_NOT_INCLUDED_EN);
+  const importantToNote = isRtl
+    ? (exp.importantToNote?.length ? exp.importantToNote : DEFAULT_IMPORTANT)
+    : (exp.importantToNoteEn?.length ? exp.importantToNoteEn : DEFAULT_IMPORTANT_EN);
+  const includedItems = isRtl ? (exp.included || []) : (exp.includedEn || exp.included || []);
+  const seasons = isRtl ? (exp.seasons || []) : ((exp.seasonsEn || exp.seasons || []).map(s => translateSeason(s, false)));
+  const displayDays = isRtl ? exp.days : (exp.daysEn || translateDays(exp.days, false));
+  const itinerary = isRtl ? (exp.itinerary || []) : (exp.itineraryEn || exp.itinerary || []);
+  const safariItinerary = isRtl ? (exp.safariItinerary || []) : (exp.safariItineraryEn || exp.safariItinerary || []);
+
+  /* ── Active itinerary based on tab ── */
+  const hasSafari = (exp?.safariItinerary?.length > 0) || (exp?.safariItineraryEn?.length > 0);
+  const activeItinerary = itineraryTab === 'safari' && hasSafari
+    ? [...itinerary.slice(0, -1), ...safariItinerary]
+    : itinerary;
+
   const galleryImages = [
     exp.img,
-    `/images/gallery/${exp.slug}/1.jpg`,
-    `/images/gallery/${exp.slug}/2.jpg`,
-    `/images/gallery/${exp.slug}/3.jpg`,
-    `/images/gallery/${exp.slug}/4.jpg`,
-    `/images/gallery/${exp.slug}/5.jpg`,
+    `/images/gallery/${exp.slug}/1.webp`,
+    `/images/gallery/${exp.slug}/2.webp`,
+    `/images/gallery/${exp.slug}/3.webp`,
+    `/images/gallery/${exp.slug}/4.webp`,
+    `/images/gallery/${exp.slug}/5.webp`,
   ].filter(Boolean);
 
   /* ─────────────── RENDER ─────────────────────────────────────── */
   return (
-    <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header />
 
       {/* ══════════════════════════════════
@@ -556,7 +635,7 @@ export default function ExpeditionDetail() {
               lineHeight: 1.1,
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              {exp.nameHe} ({exp.elevNum} מ׳)
+              {isRtl ? exp.nameHe : (exp.nameEn || exp.name || exp.nameHe)} ({exp.elevNum}{'m'})
             </h1>
           </div>
 
@@ -574,7 +653,9 @@ export default function ExpeditionDetail() {
             textShadow: '0 1px 6px rgba(0,0,0,0.4)',
             whiteSpace: 'pre-line',
           }}>
-            {exp.tagline || `הצטרפו ל${exp.nameHe} ב${exp.countryHe}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`}
+            {isRtl
+              ? (exp.tagline || `הצטרפו ל${exp.nameHe} ב${exp.countryHe}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`)
+              : `Join the ${exp.nameEn || exp.name} in ${exp.country}\nand take part in the fight against cancer!`}
           </p>
 
           {/* CTA */}
@@ -605,7 +686,7 @@ export default function ExpeditionDetail() {
               whiteSpace:    'nowrap',
             }}
           >
-            לתיאום שיחה עם מומחה ←
+            {isRtl ? 'לתיאום שיחה עם מומחה ←' : 'Schedule an Expert Call →'}
           </button>
           </div>
         </div>
@@ -624,7 +705,7 @@ export default function ExpeditionDetail() {
         marginTop: '-52px',
         position:  'relative',
         zIndex:    10,
-        direction: 'rtl',
+        direction: dir,
       }}>
         <div style={{
           maxWidth:            '1100px',
@@ -638,10 +719,10 @@ export default function ExpeditionDetail() {
           gap:                 '0',
         }}>
           {[
-            { IconComp: MountainIcon, label: 'גובה',          value: `${exp.elevNum} מ׳` },
-            { IconComp: StarIcon,     label: 'דרגת קושי',     value: exp.diffHe },
-            { IconComp: MedalIcon,    label: 'אחוזי הצלחה',   value: exp.successRate ? `${exp.successRate}%` : '-' },
-            { IconComp: TagIcon,      label: 'עלות',           value: exp.priceStr ? `החל מ-${exp.priceStr}` : '-' },
+            { IconComp: MountainIcon, label: t('expedition.elevation'), value: `${exp.elevNum}${'m'}` },
+            { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff || exp.diffHe) },
+            { IconComp: MedalIcon,    label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
+            { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: exp.priceStr ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '-' },
           ].map((s, i) => (
             <div key={i} style={{
               textAlign:    'center',
@@ -659,7 +740,7 @@ export default function ExpeditionDetail() {
                 color:         '#6D28D9',
                 lineHeight:    1,
                 letterSpacing: '-0.02em',
-                direction:     'rtl',
+                direction:     dir,
               }}>
                 {s.value}
               </div>
@@ -687,7 +768,7 @@ export default function ExpeditionDetail() {
         boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
         transform: barVisible ? 'translateY(0)' : 'translateY(-100%)',
         transition: `transform 0.3s ${EASING.out}`,
-        direction: 'rtl',
+        direction: dir,
       }}>
         <div style={{
           maxWidth: '1100px', margin: '0 auto',
@@ -697,22 +778,22 @@ export default function ExpeditionDetail() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>גובה</span>
+              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{t('expedition.elevation')}</span>
               <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <MountainIcon size={14} color="#0A0818" /> {exp.elevNum} מ׳
+                <MountainIcon size={14} color="#0A0818" /> {exp.elevNum}{'m'}
               </span>
             </div>
             {!isMobile && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>רמה</span>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'רמה' : 'Level'}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <StarIcon size={14} color="#0A0818" /> {exp.diffHe}
+                  <StarIcon size={14} color="#0A0818" /> {isRtl ? exp.diffHe : (exp.diff || exp.diffHe)}
                 </span>
               </div>
             )}
             {!isMobile && seasons.length > 0 && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>עונות</span>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עונות' : 'Seasons'}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {seasons.join(', ')}
                 </span>
@@ -720,9 +801,9 @@ export default function ExpeditionDetail() {
             )}
             {exp.priceStr && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>עלות</span>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עלות' : 'Price'}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>
-                  החל מ-{exp.priceStr}
+                  {isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`}
                 </span>
               </div>
             )}
@@ -736,7 +817,7 @@ export default function ExpeditionDetail() {
               fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap',
             }}
           >
-            הרשמה →
+            {t('expedition.registerBtn')}
           </button>
         </div>
       </div>
@@ -762,15 +843,18 @@ export default function ExpeditionDetail() {
                 fontWeight: 700, color: '#0A0818',
                 letterSpacing: '-0.02em', margin: '0 0 10px',
               }}>
-                מבוא
+                {isRtl ? 'מבוא' : 'Overview'}
               </h2>
               {seasons.length > 0 && (
                 <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
-                  עונות מומלצות ל{exp.typeHe}: {seasons.join(' | ')}
+                  {isRtl
+                    ? `עונות מומלצות ל${exp.typeHe}: ${seasons.join(' | ')}`
+                    : `Recommended Seasons for ${exp.type || exp.typeHe}: ${seasons.join(' | ')}`}
                 </p>
               )}
               {(() => {
-                const parts = (exp.desc || '').split('\n\n');
+                const descText = isRtl ? (exp.desc || '') : (exp.descEn || exp.desc || '');
+                const parts = descText.split('\n\n');
                 const body = parts.slice(0, -1);
                 const cta  = parts[parts.length - 1];
                 return (
@@ -813,7 +897,7 @@ export default function ExpeditionDetail() {
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 36px)',
             fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px',
           }}>
-            מה כלול ומה לא כלול?
+            {isRtl ? 'מה כלול ומה לא כלול?' : 'Included & Excluded'}
           </h2>
 
           <div style={{
@@ -833,9 +917,9 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: '18px',
                 fontWeight: 700, color: '#059669', marginBottom: '20px',
               }}>
-                מה כלול בתכנית?
+                {isRtl ? 'מה כלול בתכנית?' : "What's Included?"}
               </div>
-              {(exp.included || []).map((item, i) => {
+              {includedItems.map((item, i) => {
                 const isHeader = item.endsWith(':');
                 return isHeader ? (
                   <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
@@ -851,7 +935,7 @@ export default function ExpeditionDetail() {
                 ) : (
                   <div key={i} style={{
                     display: 'flex', gap: '12px', alignItems: 'flex-start',
-                    marginBottom: i < (exp.included || []).length - 1 ? '14px' : 0,
+                    marginBottom: i < includedItems.length - 1 ? '14px' : 0,
                   }}>
                     <div style={{
                       width: '22px', height: '22px', borderRadius: '50%',
@@ -878,7 +962,7 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: '18px',
                 fontWeight: 700, color: '#DC2626', marginBottom: '20px',
               }}>
-                מה לא כלול בתכנית?
+                {isRtl ? 'מה לא כלול בתכנית?' : "What's Not Included?"}
               </div>
               {notIncluded.map((item, i) => {
                 const isHeader = item.endsWith(':');
@@ -915,7 +999,7 @@ export default function ExpeditionDetail() {
         </section>
 
         {/* ── C. תכנית הטיפוס (Itinerary Accordion) ── */}
-        {exp.itinerary && exp.itinerary.length > 0 && (
+        {itinerary && itinerary.length > 0 && (
           <>
             <Separator />
             <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
@@ -924,13 +1008,17 @@ export default function ExpeditionDetail() {
                   fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
                   fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: 0,
                 }}>
-                  תכנית ה{exp.typeHe}
+                  {isRtl ? `תכנית ה${exp.typeHe}` : t('expedition.itinerary')}
                 </h2>
                 {hasSafari && (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
-                      { key: 'safari', label: `טיפוס + ספארי (${(exp.itinerary.length - 1) + (exp.safariItinerary?.length || 0)} ימים)` },
-                      { key: 'trek',   label: `טיפוס בלבד (${exp.itinerary.length} ימים)` },
+                      { key: 'safari', label: isRtl
+                          ? `טיפוס + ספארי (${(itinerary.length - 1) + (safariItinerary?.length || 0)} ימים)`
+                          : `Climbing + Safari (${(itinerary.length - 1) + (safariItinerary?.length || 0)} days)` },
+                      { key: 'trek',   label: isRtl
+                          ? `טיפוס בלבד (${itinerary.length} ימים)`
+                          : `Climbing only (${itinerary.length} days)` },
                     ].map(tab => (
                       <button
                         key={tab.key}
@@ -967,7 +1055,7 @@ export default function ExpeditionDetail() {
                           display: 'flex', alignItems: 'center', gap: '16px',
                           padding: '16px 20px', cursor: 'pointer',
                           background: isOpen ? '#FAFAFE' : 'white',
-                          transition: `background 150ms ${EASING.smooth}`, direction: 'rtl',
+                          transition: `background 150ms ${EASING.smooth}`, direction: dir,
                         }}
                         onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = '#FAFAFE'; }}
                         onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
@@ -980,7 +1068,7 @@ export default function ExpeditionDetail() {
                           fontFamily: "'Ploni', sans-serif",
                           whiteSpace: 'nowrap', flexShrink: 0,
                         }}>
-                          יום {item.day}
+                          {isRtl ? `יום ${item.day}` : `Day ${item.day}`}
                         </span>
                         <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>
                           {item.title}
@@ -993,7 +1081,7 @@ export default function ExpeditionDetail() {
                         <p style={{
                           padding: '0 20px 20px', margin: 0,
                           fontFamily: "'Ploni', sans-serif", fontSize: '15px',
-                          color: '#6B6B8A', lineHeight: 1.8, direction: 'rtl',
+                          color: '#6B6B8A', lineHeight: 1.8, direction: dir,
                         }}>
                           {item.desc}
                         </p>
@@ -1021,16 +1109,16 @@ export default function ExpeditionDetail() {
             <div>
               <h2 style={{
                 fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: 'rtl',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: dir,
               }}>
-                למה לטייל עם HighAir?
+                {isRtl ? 'למה לטייל עם HighAir?' : 'Why Trek with HighAir?'}
               </h2>
               <div style={{
                 background: '#F5F3FF', border: '1px solid #DDD6FE',
-                borderRadius: RADIUS.xl, padding: '24px 28px', direction: 'rtl',
+                borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
-                {getWhyCards(exp).map((card, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < getWhyCards(exp).length - 1 ? '12px' : 0 }}>
+                {getWhyCards(exp, isRtl).map((card, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < getWhyCards(exp, isRtl).length - 1 ? '12px' : 0 }}>
                     <span style={{ color: COLOR.primary, fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#4C1D95', lineHeight: 1.6 }}>{card.title}</span>
                   </div>
@@ -1042,13 +1130,13 @@ export default function ExpeditionDetail() {
             <div>
               <h2 style={{
                 fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: 'rtl',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: dir,
               }}>
-                חשוב לדעת
+                {isRtl ? 'חשוב לדעת' : 'Important to Know'}
               </h2>
               <div style={{
                 background: '#FFFBEB', border: '1px solid #FEF3C7',
-                borderRadius: RADIUS.xl, padding: '24px 28px', direction: 'rtl',
+                borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
                 {importantToNote.map((note, i) => (
                   <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
@@ -1070,7 +1158,7 @@ export default function ExpeditionDetail() {
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
             fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px',
           }}>
-            תאריכי יציאה ל{exp.typeHe}
+            {isRtl ? `תאריכי יציאה ל${exp.typeHe}` : 'Departure Dates'}
           </h2>
 
           {exp.soldOut ? (
@@ -1078,7 +1166,7 @@ export default function ExpeditionDetail() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl,
               border: '1.5px dashed #FECACA', background: '#FFF5F5',
-              textAlign: 'center', direction: 'rtl',
+              textAlign: 'center', direction: dir,
             }}>
               <div style={{
                 width: '48px', height: '48px', borderRadius: '50%',
@@ -1089,10 +1177,10 @@ export default function ExpeditionDetail() {
                 </svg>
               </div>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#991B1B', margin: 0 }}>
-                ה{exp.typeHe} מלא - אין מקומות פנויים
+                {isRtl ? `ה${exp.typeHe} מלא - אין מקומות פנויים` : `${exp.type || exp.typeHe} is Full - no available spots`}
               </p>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', margin: 0, lineHeight: 1.6 }}>
-                רוצים להירשם לרשימת ההמתנה ולקבל עדיפות ליציאה הבאה?
+                {isRtl ? 'רוצים להירשם לרשימת ההמתנה ולקבל עדיפות ליציאה הבאה?' : 'Want to join the waitlist and get priority for the next departure?'}
               </p>
               <button onClick={scrollToForm} style={{
                 marginTop: '4px', padding: '10px 28px', borderRadius: RADIUS.full,
@@ -1100,12 +1188,12 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
                 cursor: 'pointer',
               }}>
-                השאירו פרטים
+                {t('expedition.waitlistBtn')}
               </button>
             </div>
           ) : groupsLoading ? (
             <div style={{ color: '#6B6B8A', fontFamily: "'Ploni', sans-serif", fontSize: '15px', padding: '8px 0' }}>
-              טוען תאריכים...
+              {isRtl ? 'טוען תאריכים...' : 'Loading dates...'}
             </div>
           ) : liveGroups.length > 0 ? (
             <>
@@ -1157,7 +1245,7 @@ export default function ExpeditionDetail() {
                       borderRadius: RADIUS.lg,
                       padding: isMobile ? '14px 16px' : '12px 20px',
                       background: '#fff',
-                      direction: 'rtl',
+                      direction: dir,
                       boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                       transition: `box-shadow 0.2s`,
                     }}
@@ -1217,7 +1305,7 @@ export default function ExpeditionDetail() {
                           transition: 'background 0.2s',
                         }}
                       >
-                        {isFull ? 'מלא' : 'להרשמה ←'}
+                        {isFull ? t('expedition.full') : t('expedition.registerBtn')}
                       </button>
                     </div>
                   );
@@ -1229,7 +1317,7 @@ export default function ExpeditionDetail() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               gap: '12px', padding: '40px 24px', borderRadius: RADIUS.xl,
               border: '1.5px dashed #DDD6FE', background: '#FAFAFF',
-              textAlign: 'center', direction: 'rtl',
+              textAlign: 'center', direction: dir,
             }}>
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={COLOR.primary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2"/>
@@ -1241,13 +1329,13 @@ export default function ExpeditionDetail() {
                 fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700,
                 color: '#0A0818', margin: 0,
               }}>
-                תאריכי ה{exp.typeHe} יפורסמו בקרוב
+                {isRtl ? `תאריכי ה${exp.typeHe} יפורסמו בקרוב` : t('expedition.comingSoon')}
               </p>
               <p style={{
                 fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 400,
                 color: '#6B6B8A', margin: 0, lineHeight: 1.6,
               }}>
-                רוצים להירשם לרשימת ההמתנה או לשמוע על תאריכים חדשים ראשונים?
+                {isRtl ? 'רוצים להירשם לרשימת ההמתנה או לשמוע על תאריכים חדשים ראשונים?' : t('expedition.waitlist')}
               </p>
               <button
                 onClick={scrollToForm}
@@ -1259,7 +1347,7 @@ export default function ExpeditionDetail() {
                   cursor: 'pointer', letterSpacing: '0.01em',
                 }}
               >
-                השאירו פרטים
+                {t('expedition.waitlistBtn')}
               </button>
             </div>
           )}
@@ -1271,9 +1359,9 @@ export default function ExpeditionDetail() {
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: 'rtl',
+            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: dir,
           }}>
-            תמונות מה{exp.typeHe}
+            {isRtl ? `תמונות מה${exp.typeHe}` : t('expedition.gallery')}
           </h2>
           <div style={{
             display: 'grid',
@@ -1307,12 +1395,12 @@ export default function ExpeditionDetail() {
             <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
               <h2 style={{
                 fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 8px', direction: 'rtl',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 8px', direction: dir,
               }}>
-                עדכוני פסגה
+                {isRtl ? 'עדכוני פסגה' : 'Summit Updates'}
               </h2>
-              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', margin: '0 0 28px', direction: 'rtl' }}>
-                המטפסים שלנו שהגיעו לפסגה
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', margin: '0 0 28px', direction: dir }}>
+                {isRtl ? 'המטפסים שלנו שהגיעו לפסגה' : 'Our climbers who reached the summit'}
               </p>
 
               {/* Horizontal scroll slider - mobile & desktop */}
@@ -1384,21 +1472,21 @@ export default function ExpeditionDetail() {
                     {/* Name + date */}
                     <div style={{
                       position: 'absolute', bottom: '14px', right: '14px', left: '14px',
-                      direction: 'rtl',
+                      direction: dir,
                     }}>
                       <div style={{
                         fontFamily: "'Ploni', sans-serif",
                         fontSize: '16px', fontWeight: 700,
                         color: 'white', lineHeight: 1.2,
                       }}>
-                        {u.name}
+                        {isRtl ? u.name : (u.nameEn || u.name)}
                       </div>
                       <div style={{
                         fontFamily: "'Ploni', sans-serif",
                         fontSize: '12px', color: 'rgba(255,255,255,0.7)',
                         marginTop: '3px',
                       }}>
-                        {u.date}
+                        {isRtl ? u.date : (u.dateEn || u.date)}
                       </div>
                     </div>
                   </div>
@@ -1419,7 +1507,7 @@ export default function ExpeditionDetail() {
         style={{
           background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)',
           padding: isMobile ? '48px 5%' : '72px 5%',
-          direction: 'rtl',
+          direction: dir,
         }}
       >
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
@@ -1429,17 +1517,17 @@ export default function ExpeditionDetail() {
             fontWeight: 700, color: 'white',
             letterSpacing: '-0.02em', margin: '0 0 12px',
           }}>
-            עשו את הצעד הראשון
+            {isRtl ? 'עשו את הצעד הראשון' : 'Take the First Step'}
           </h2>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: '0 0 40px' }}>
-            השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות
+            {isRtl ? 'השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות' : 'Leave your details for a no-commitment consultation call'}
           </p>
 
           {/* Form card */}
           <div style={{
             background: 'white', borderRadius: RADIUS.xl,
             padding: isMobile ? '24px' : '40px',
-            maxWidth: '600px', margin: '0 auto', textAlign: 'right',
+            maxWidth: '600px', margin: '0 auto', textAlign: 'start',
           }}>
             {status === 'success' ? (
               <div style={{
@@ -1457,15 +1545,15 @@ export default function ExpeditionDetail() {
                 />
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ direction: 'rtl' }}>
+              <form onSubmit={handleSubmit} style={{ direction: dir }}>
                 <div style={{ display: 'grid', gap: '16px' }}>
 
                   {/* שם מלא */}
                   <div>
-                    <label style={labelStyle}>שם מלא *</label>
+                    <label style={labelStyle}>{isRtl ? 'שם מלא *' : 'Full Name *'}</label>
                     <input
                       type="text" required value={form.name}
-                      placeholder="ישראל ישראלי"
+                      placeholder={isRtl ? 'ישראל ישראלי' : 'John Smith'}
                       onChange={e => {
                         // רק אותיות (עברית/לטינית) ורווחים
                         const v = e.target.value.replace(/[^א-תa-zA-Z\s]/g, '');
@@ -1479,7 +1567,7 @@ export default function ExpeditionDetail() {
 
                   {/* חודש */}
                   <div>
-                    <label style={labelStyle}>באיזה חודש תרצו לטייל? *</label>
+                    <label style={labelStyle}>{isRtl ? 'באיזה חודש תרצו לטייל? *' : 'Which month would you like to travel? *'}</label>
                     <select
                       required value={form.month}
                       onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
@@ -1487,7 +1575,7 @@ export default function ExpeditionDetail() {
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                       onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     >
-                      <option value="">בחרו חודש</option>
+                      <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
                       {months.length > 0
                         ? months.map(([key, label]) => (
                             <option key={key} value={label}>{label}</option>
@@ -1496,14 +1584,14 @@ export default function ExpeditionDetail() {
                             <option key={i} value={d}>{d}</option>
                           ))
                       }
-                      <option value="גמיש / טרם החלטתי">גמיש / טרם החלטתי</option>
+                      <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : 'Flexible / Not decided yet'}</option>
                     </select>
                   </div>
 
                   {/* גיל + כמות אנשים */}
                   <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '16px' }}>
                     <div>
-                      <label style={labelStyle}>גיל *</label>
+                      <label style={labelStyle}>{isRtl ? 'גיל *' : 'Age *'}</label>
                       <input
                         type="number" required min="16" max="99"
                         placeholder="25"
@@ -1515,7 +1603,7 @@ export default function ExpeditionDetail() {
                         }}
                         style={{
                           ...inputStyle,
-                          borderColor: ageError ? '#DC2626' : inputStyle.borderColor,
+                          borderColor: ageError ? '#DC2626' : '#E5E3F0',
                         }}
                         onMouseEnter={e => { e.target.style.borderColor = ageError ? '#DC2626' : COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = ageError ? '#DC2626' : '#E5E3F0'; }}
@@ -1527,7 +1615,7 @@ export default function ExpeditionDetail() {
                       )}
                     </div>
                     <div>
-                      <label style={labelStyle}>כמות אנשים *</label>
+                      <label style={labelStyle}>{isRtl ? 'כמות אנשים *' : 'Number of People *'}</label>
                       <input
                         type="number" required min="1" max="10"
                         placeholder="1"
@@ -1545,10 +1633,10 @@ export default function ExpeditionDetail() {
 
                   {/* טלפון */}
                   <div>
-                    <label style={labelStyle}>מספר טלפון *</label>
+                    <label style={labelStyle}>{isRtl ? 'מספר טלפון *' : 'Phone Number *'}</label>
                     <input
                       type="tel" required value={form.phone}
-                      placeholder="050-0000000"
+                      placeholder={isRtl ? '050-0000000' : '+1-000-000-0000'}
                       maxLength={11}
                       onChange={e => {
                         const v = formatPhone(e.target.value);
@@ -1559,7 +1647,7 @@ export default function ExpeditionDetail() {
                       style={{
                         ...inputStyle,
                         direction: 'ltr',
-                        textAlign: 'right',
+                        textAlign: 'start',
                         borderColor: phoneError ? '#DC2626' : '#E5E3F0',
                       }}
                       onMouseEnter={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
@@ -1574,7 +1662,7 @@ export default function ExpeditionDetail() {
 
                   {/* מייל */}
                   <div>
-                    <label style={labelStyle}>מייל *</label>
+                    <label style={labelStyle}>{isRtl ? 'מייל *' : 'Email *'}</label>
                     <input
                       type="text" required
                       placeholder="example@walla.com"
@@ -1589,7 +1677,7 @@ export default function ExpeditionDetail() {
                       style={{
                         ...inputStyle,
                         direction: 'ltr',
-                        textAlign: 'right',
+                        textAlign: 'left',
                         borderColor: emailError ? '#DC2626' : '#E5E3F0',
                       }}
                       onMouseEnter={e => { e.target.style.borderColor = emailError ? '#DC2626' : COLOR.primary; }}
@@ -1604,12 +1692,12 @@ export default function ExpeditionDetail() {
 
                   {/* ניסיון */}
                   <div>
-                    <label style={labelStyle}>מה הניסיון שלך בטרקים? *</label>
+                    <label style={labelStyle}>{isRtl ? 'מה הניסיון שלך בטרקים? *' : 'What is your trekking experience? *'}</label>
                     <textarea
                       rows={3} required value={form.experience}
                       onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
                       style={{ ...inputStyle, resize: 'vertical' }}
-                      placeholder="ספרו לנו על ניסיון טרק קודם"
+                      placeholder={isRtl ? 'ספרו לנו על ניסיון טרק קודם' : 'Tell us about your previous trekking experience'}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                       onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     />
@@ -1629,7 +1717,7 @@ export default function ExpeditionDetail() {
                   {/* צ'קבוקס הסכמה */}
                   <label style={{
                     display: 'flex', alignItems: 'flex-start', gap: '10px',
-                    cursor: 'pointer', direction: 'rtl',
+                    cursor: 'pointer', direction: dir,
                     padding: '12px 14px',
                     borderRadius: RADIUS.lg,
                     border: `1.5px solid ${form.privacy ? COLOR.primary : '#E5E3F0'}`,
@@ -1644,11 +1732,11 @@ export default function ExpeditionDetail() {
                       style={{ marginTop: '3px', width: '16px', height: '16px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
                     />
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
-                      אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי&nbsp;·&nbsp;
+                      {isRtl ? 'אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי' : 'I agree to the privacy policy and marketing communications'}&nbsp;·&nbsp;
                       <a href="/privacy" target="_blank" rel="noopener noreferrer"
                         style={{ color: COLOR.primary, textDecoration: 'underline', fontWeight: 600 }}
                         onClick={e => e.stopPropagation()}>
-                        לצפייה במדיניות פרטיות
+                        {isRtl ? 'לצפייה במדיניות פרטיות' : 'View privacy policy'}
                       </a>
                     </span>
                   </label>
@@ -1668,7 +1756,7 @@ export default function ExpeditionDetail() {
                       transition: `background 200ms ${EASING.smooth}`,
                     }}
                   >
-                    {status === 'loading' ? 'שולח...' : 'שלחו פרטים ←'}
+                    {status === 'loading' ? (isRtl ? 'שולח...' : 'Sending...') : (isRtl ? 'שלחו פרטים ←' : 'Send Details →')}
                   </button>
                 </div>
               </form>

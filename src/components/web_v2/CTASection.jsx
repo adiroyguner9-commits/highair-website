@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
@@ -26,7 +27,7 @@ async function submitLead({ name, phone, message }) {
   return res.json();
 }
 
-const INPUT_STYLE = {
+const INPUT_STYLE_BASE = {
   width:        '100%',
   padding:      '13px 16px',
   borderRadius: RADIUS.md,
@@ -38,7 +39,6 @@ const INPUT_STYLE = {
   fontWeight:   400,
   outline:      'none',
   boxSizing:    'border-box',
-  direction:    'rtl',
   transition:   'border-color 0.2s ease',
 };
 
@@ -53,6 +53,10 @@ const LABEL_STYLE = {
 
 export default function CTASection() {
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
+  const INPUT_STYLE = { ...INPUT_STYLE_BASE, direction: dir };
   const [form,       setForm]       = useState({ name: '', phone: '', message: '', privacy: false });
   const [focused,    setFocused]    = useState(null);
   const [submitted,  setSubmitted]  = useState(false);
@@ -108,7 +112,7 @@ export default function CTASection() {
         background: 'linear-gradient(160deg, #0A0818 0%, #1E1B4B 55%, #4C1D95 100%)',
         padding:    '80px 5%',
         boxSizing:  'border-box',
-        direction:  'rtl',
+        direction:  dir,
         textAlign:  'center',
       }}
     >
@@ -124,7 +128,7 @@ export default function CTASection() {
           letterSpacing: '-0.02em',
           lineHeight:    1.15,
         }}>
-          הפסגה הבאה שלכם מתחילה כאן!
+          {t('cta.heading')}
         </h2>
 
         <p style={{
@@ -135,22 +139,22 @@ export default function CTASection() {
           margin:     '0 0 48px',
           lineHeight: 1.7,
         }}>
-          השאירו פרטים ונחזור אליכם בהקדם
+          {t('cta.subtitle')}
         </p>
 
         {/* ── Form ── */}
         {!submitted ? (
           <form
             onSubmit={handleSubmit}
-            style={{ display: 'flex', flexDirection: 'column', gap: '14px', textAlign: 'right' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '14px', textAlign: 'start' }}
           >
 
             {/* Name */}
             <div>
-              <label style={LABEL_STYLE}>שם מלא *</label>
+              <label style={LABEL_STYLE}>{t('cta.nameLabel')}</label>
               <input
                 type="text"
-                placeholder="ישראל ישראלי"
+                placeholder={t('cta.namePlaceholder')}
                 value={form.name}
                 required
                 onChange={e => handleChange('name', e.target.value)}
@@ -162,11 +166,11 @@ export default function CTASection() {
 
             {/* Phone */}
             <div>
-              <label style={LABEL_STYLE}>טלפון *</label>
+              <label style={LABEL_STYLE}>{t('cta.phoneLabel')}</label>
               <input
                 type="tel"
                 inputMode="numeric"
-                placeholder="050-0000000"
+                placeholder={t('cta.phonePlaceholder')}
                 value={form.phone}
                 required
                 maxLength={11}
@@ -177,7 +181,7 @@ export default function CTASection() {
                   ...INPUT_STYLE,
                   borderColor: phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.15)',
                   direction:  'ltr',
-                  textAlign:  'right',
+                  textAlign:  'start',
                 }}
               />
               {phoneError && (
@@ -186,18 +190,18 @@ export default function CTASection() {
                   fontSize:   '12px',
                   color:      'rgba(248,113,113,0.9)',
                   marginTop:  '6px',
-                  textAlign:  'right',
+                  textAlign:  'start',
                 }}>
-                  נא להזין מספר בפורמט תקין, למשל: 050-1234567
+                  {t('cta.phoneError')}
                 </div>
               )}
             </div>
 
             {/* Message - required */}
             <div>
-              <label style={LABEL_STYLE}>מה תרצו לרשום לנו? *</label>
+              <label style={LABEL_STYLE}>{t('cta.messageLabel')}</label>
               <textarea
-                placeholder="ספרו לנו על החלום שלכם"
+                placeholder={t('cta.messagePlaceholder')}
                 value={form.message}
                 rows={3}
                 required
@@ -220,14 +224,14 @@ export default function CTASection() {
                 color:      'rgba(248,113,113,0.9)',
                 textAlign:  'center',
               }}>
-                שגיאה בשליחה, נסו שוב או צרו קשר ישירות
+                {t('cta.sendError')}
               </div>
             )}
 
             {/* צ'קבוקס הסכמה */}
             <label style={{
               display: 'flex', alignItems: 'flex-start', gap: '10px',
-              cursor: 'pointer', direction: 'rtl',
+              cursor: 'pointer', direction: dir,
             }}>
               <input
                 type="checkbox"
@@ -237,11 +241,11 @@ export default function CTASection() {
                 style={{ marginTop: '3px', width: '16px', height: '16px', flexShrink: 0, accentColor: '#a78bfa', cursor: 'pointer' }}
               />
               <span style={{ fontFamily: 'Ploni, sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
-                אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי&nbsp;·&nbsp;
+                {t('cta.agree')}&nbsp;·&nbsp;
                 <a href="/privacy" target="_blank" rel="noopener noreferrer"
                   style={{ color: '#a78bfa', textDecoration: 'underline', fontWeight: 600 }}
                   onClick={e => e.stopPropagation()}>
-                  לצפייה במדיניות פרטיות
+                  {t('cta.privacyLink')}
                 </a>
               </span>
             </label>
@@ -283,7 +287,7 @@ export default function CTASection() {
                 e.currentTarget.style.transform   = 'translateY(0)';
               }}
             >
-              {loading ? 'שולח' : 'שלח'}
+              {loading ? t('cta.sending') : t('cta.send')}
             </button>
 
           </form>
@@ -304,7 +308,7 @@ export default function CTASection() {
               color:         '#FFFFFF',
               margin:        '0 0 10px',
             }}>
-              תודה {form.name}!
+              {t('cta.thankYou', { name: form.name })}
             </h3>
             <p style={{
               fontFamily: 'Ploni, sans-serif',
@@ -314,7 +318,7 @@ export default function CTASection() {
               margin:     0,
               lineHeight: 1.7,
             }}>
-              פנייתכם התקבלה - נחזור אליכם בהקדם 🙌
+              {t('cta.received')}
             </p>
             <button
               onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', message: '' }); }}
@@ -330,7 +334,7 @@ export default function CTASection() {
                 cursor:       'pointer',
               }}
             >
-              שלח פנייה נוספת
+              {t('cta.sendAnother')}
             </button>
           </div>
         )}

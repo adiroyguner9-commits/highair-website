@@ -122,6 +122,12 @@ export default function BlogPost() {
     return () => document.head.removeChild(script);
   }, [post]);
 
+  /* Language-aware fields — must be declared before usePageMeta */
+  const postTitle    = post ? (isEn ? (post.titleEn    || post.title)    : post.title)    : '';
+  const postExcerpt  = post ? (isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt)  : '';
+  const postContent  = post ? (isEn ? (post.contentEn  || post.content)  : post.content)  : [];
+  const postCategory = post ? (isEn ? (post.categoryEn || post.category) : post.category) : '';
+
   usePageMeta(post ? {
     title:         `${postTitle} | HighAir Blog`,
     description:   postExcerpt,
@@ -146,12 +152,6 @@ export default function BlogPost() {
       </div>
     );
   }
-
-  /* Language-aware fields */
-  const postTitle    = isEn ? (post.titleEn    || post.title)    : post.title;
-  const postExcerpt  = isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt;
-  const postContent  = isEn ? (post.contentEn  || post.content)  : post.content;
-  const postCategory = isEn ? (post.categoryEn || post.category) : post.category;
 
   const pageUrl     = `https://www.highair-expeditions.com/blog/${post.slug}`;
   const readingTime = calcReadingTime(postContent);
@@ -379,6 +379,31 @@ export default function BlogPost() {
                   </li>
                 ))}
               </ul>
+            );
+
+            if (block.type === 'cta') return (
+              <div key={i} style={{ margin: '28px 0', textAlign: 'center' }}>
+                <a
+                  href={block.href}
+                  style={{
+                    display:       'inline-block',
+                    padding:       '13px 28px',
+                    borderRadius:  '50px',
+                    background:    'linear-gradient(135deg, #6D28D9, #7C3AED)',
+                    color:         '#FFFFFF',
+                    fontFamily:    "'Ploni', sans-serif",
+                    fontSize:      isMobile ? '15px' : '16px',
+                    fontWeight:    700,
+                    textDecoration:'none',
+                    boxShadow:     '0 4px 16px rgba(109,40,217,0.30)',
+                    transition:    'transform 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(109,40,217,0.40)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)';    e.currentTarget.style.boxShadow = '0 4px 16px rgba(109,40,217,0.30)'; }}
+                >
+                  {isEn ? (block.textEn || block.text) : block.text} →
+                </a>
+              </div>
             );
 
             if (block.type === 'image') return (

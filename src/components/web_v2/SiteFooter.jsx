@@ -5,27 +5,16 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
 
-/* ── Expeditions by type, manually ordered ── */
-const TREK_IDS  = [7, 8, 6, 3, 4];
-const CLIMB_IDS = [10, 11, 5, 9, 13, 14, 12, 16, 15, 2];
+/* ── Expeditions ordered by continent: Africa → Europe → Asia → South America ── */
+const TREK_IDS  = [4,  3,  2, 6, 7, 8];
+const CLIMB_IDS = [10, 11, 5, 9, 12, 13, 14, 16, 15];
 const TREKS  = TREK_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 const CLIMBS = CLIMB_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
-
-const ISRAEL_TRIPS = [
-  { label: 'טרק לפסגת החרמון', href: '/israel/hermon' },
-];
-
-const INFO_LINKS = [
-  { label: 'הבלוג שלנו',           href: '/blog'          },
-  { label: 'מדיניות ביטולים',      href: '/cancellation'  },
-  { label: 'תקנון ותנאי שימוש',   href: '/terms'         },
-  { label: 'מדיניות פרטיות',      href: '/privacy'       },
-  { label: 'הצהרת נגישות',        href: '/accessibility' },
-];
 
 const WA_HREF = 'https://api.whatsapp.com/send?phone=972555636975';
 
@@ -118,13 +107,29 @@ function SocialIcons({ size = 36, justify = 'flex-start' }) {
 
 export default function SiteFooter() {
   const { isMobile, isTablet } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const dir = isEn ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
+
+  const ISRAEL_TRIPS = [
+    { label: t('footer.hermon'), href: '/israel/hermon' },
+  ];
+
+  const INFO_LINKS = [
+    { label: t('footer.blog'),         href: '/blog'          },
+    { label: t('footer.cancellation'), href: '/cancellation'  },
+    { label: t('footer.terms'),        href: '/terms'         },
+    { label: t('footer.privacy'),      href: '/privacy'       },
+    { label: t('footer.accessibility'),href: '/accessibility' },
+  ];
 
   const bottomBar = (
     <>
       <div style={{ height: '1px', background: '#DDD9F0', marginBottom: '24px' }} />
       <div style={{ direction: 'ltr', textAlign: 'center' }}>
         <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#9591B0', margin: 0 }}>
-          HighAir Expeditions © {new Date().getFullYear()}
+          {t('footer.copyright', { year: new Date().getFullYear() })}
         </p>
       </div>
     </>
@@ -133,42 +138,40 @@ export default function SiteFooter() {
   /* ── MOBILE layout ── */
   if (isMobile) {
     return (
-      <footer style={{ background: '#FFFFFF', padding: '48px 5% 28px', boxSizing: 'border-box', direction: 'rtl', borderTop: '1px solid #E2E0F0' }}>
+      <footer style={{ background: '#FFFFFF', padding: '48px 5% 28px', boxSizing: 'border-box', direction: dir, borderTop: '1px solid #E2E0F0' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-          {/* 2×2 grid: right→left, top→bottom */}
+          {/* Grid: 2×2 in Hebrew, 2×2 without Israel column in English */}
           <div style={{
             display: 'grid', gridTemplateColumns: '1fr 1fr',
             gap: '32px 24px', marginBottom: '40px',
-            direction: 'rtl', textAlign: 'right',
+            direction: dir, textAlign: 'start',
           }}>
-            {/* Row 1 */}
             <div>
-              <ColHeading>טרקים בעולם</ColHeading>
-              {TREKS.map(e => <FooterLink key={e.id} label={e.nameHe} href={`/expedition/${e.slug}`} />)}
+              <ColHeading>{t('footer.worldTreks')}</ColHeading>
+              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
             </div>
             <div>
-              <ColHeading>טיפוסים בעולם</ColHeading>
-              {CLIMBS.map(e => <FooterLink key={e.id} label={e.nameHe} href={`/expedition/${e.slug}`} />)}
-            </div>
-            {/* Row 2 */}
-            <div>
-              <ColHeading>טרקים בארץ</ColHeading>
-              {ISRAEL_TRIPS.map(t => <FooterLink key={t.label} label={t.label} href={t.href} />)}
+              <ColHeading>{t('footer.worldClimbs')}</ColHeading>
+              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
             </div>
             <div>
-              <ColHeading>מידע</ColHeading>
+              <ColHeading>{t('footer.israelTrips')}</ColHeading>
+              {ISRAEL_TRIPS.map(item => <FooterLink key={item.label} label={item.label} href={item.href} />)}
+            </div>
+            <div>
+              <ColHeading>{t('footer.info')}</ColHeading>
               {INFO_LINKS.map(l => <FooterLink key={l.label} label={l.label} href={l.href} />)}
             </div>
           </div>
 
-          {/* Logo + desc + social — full width, centered */}
+          {/* Logo + desc + social - full width, centered */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '52px' }}>
             <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', marginBottom: '16px', border: '2px solid #E2E0F0', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src="/Logo.png" alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, width: '100%', textAlign: 'center', whiteSpace: 'pre-line' }}>
-              {'משלחות טיפוס הרים וטרקים בעולם ובישראל\nבשילוב תרומה לחולי סרטן בכל מסע.'}
+              {t('footer.tagline')}
             </p>
             <SocialIcons size={44} justify="center" />
           </div>
@@ -180,45 +183,47 @@ export default function SiteFooter() {
   }
 
   /* ── DESKTOP / TABLET layout ── */
-  const gridCols = isTablet ? '1fr 1fr 1fr 1fr' : '1.4fr 1fr 1fr 1fr 1fr';
+  const gridCols = isTablet
+    ? '1fr 1fr 1fr 1fr'
+    : '1.4fr 1fr 1fr 1fr 1fr';
 
   return (
-    <footer style={{ background: '#FFFFFF', padding: '48px 5% 28px', boxSizing: 'border-box', direction: 'rtl', borderTop: '1px solid #E2E0F0' }}>
+    <footer style={{ background: '#FFFFFF', padding: '48px 5% 28px', boxSizing: 'border-box', direction: dir, borderTop: '1px solid #E2E0F0' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         <div style={{
           display: 'grid', gridTemplateColumns: gridCols,
           gap: '48px', alignItems: 'start',
-          marginBottom: '52px', direction: 'rtl', textAlign: 'right',
+          marginBottom: '52px', direction: dir, textAlign: 'start',
         }}>
           {/* Logo first (rightmost in RTL) */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', marginBottom: '16px', border: '2px solid #E2E0F0', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src="/Logo.png" alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, width: '100%', textAlign: 'right', whiteSpace: 'pre-line' }}>
-              {'משלחות טיפוס הרים וטרקים בעולם ובישראל\nבשילוב תרומה לחולי סרטן בכל מסע.'}
+            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, width: '100%', textAlign: 'start', whiteSpace: 'pre-line' }}>
+              {t('footer.tagline')}
             </p>
             <SocialIcons size={36} justify="flex-start" />
           </div>
 
           <div>
-            <ColHeading>טיפוסים בעולם</ColHeading>
-            {CLIMBS.map(e => <FooterLink key={e.id} label={e.nameHe} href={`/expedition/${e.slug}`} />)}
+            <ColHeading>{t('footer.worldClimbs')}</ColHeading>
+            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
           </div>
 
           <div>
-            <ColHeading>טרקים בעולם</ColHeading>
-            {TREKS.map(e => <FooterLink key={e.id} label={e.nameHe} href={`/expedition/${e.slug}`} />)}
+            <ColHeading>{t('footer.worldTreks')}</ColHeading>
+            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
           </div>
 
           <div>
-            <ColHeading>טרקים בארץ</ColHeading>
-            {ISRAEL_TRIPS.map(t => <FooterLink key={t.label} label={t.label} href={t.href} />)}
+            <ColHeading>{t('footer.israelTrips')}</ColHeading>
+            {ISRAEL_TRIPS.map(item => <FooterLink key={item.label} label={item.label} href={item.href} />)}
           </div>
 
           <div>
-            <ColHeading>מידע</ColHeading>
+            <ColHeading>{t('footer.info')}</ColHeading>
             {INFO_LINKS.map(l => <FooterLink key={l.label} label={l.label} href={l.href} />)}
           </div>
         </div>

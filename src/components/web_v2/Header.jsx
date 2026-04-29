@@ -235,8 +235,8 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
           display:             'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
         }}>
-          {/* Israel column — first cell in LTR, last cell in RTL */}
-          <div style={{ padding: '0 24px', gridColumn: isEn ? 1 : 4 }}>
+          {/* Israel column — column 1 = leftmost in LTR, rightmost in RTL (grid axis flips with direction) */}
+          <div style={{ padding: '0 24px', gridColumn: 1 }}>
             <div style={{
               marginBottom:  '10px',
               paddingBottom: '10px',
@@ -947,7 +947,7 @@ export default function Header() {
           <div style={{ justifySelf: 'start' }}>
             <button
               onClick={() => setMenuOpen(prev => !prev)}
-              aria-label={menuOpen ? 'סגור תפריט' : 'פתח תפריט'}
+              aria-label={isEn ? (menuOpen ? 'Close menu' : 'Open menu') : (menuOpen ? 'סגור תפריט' : 'פתח תפריט')}
               aria-expanded={menuOpen}
               style={{
                 background: 'none', border: 'none', cursor: 'pointer',

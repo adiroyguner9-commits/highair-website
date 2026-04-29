@@ -5,6 +5,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RADIUS, FS, COLOR, EASING } from '../../website/theme.js';
 
 /* ── Hebrew locale ── */
@@ -13,12 +14,21 @@ const HE_DAYS_FULL  = ['ראשון','שני','שלישי','רביעי','חמיש
 const HE_MONTHS     = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
                        'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
 
+/* ── English locale ── */
+const EN_DAY_SHORT  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const EN_DAYS_FULL  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const EN_MONTHS     = ['January','February','March','April','May','June',
+                       'July','August','September','October','November','December'];
+
 function toDateStr(d) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
-function formatDateHe(dateStr) {
+function formatDateHe(dateStr, isRtl = true) {
   const d = new Date(dateStr + 'T12:00:00');
-  return `יום ${HE_DAYS_FULL[d.getDay()]}, ${d.getDate()} ב${HE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  if (isRtl) {
+    return `יום ${HE_DAYS_FULL[d.getDay()]}, ${d.getDate()} ב${HE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  }
+  return `${EN_DAYS_FULL[d.getDay()]}, ${EN_MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
 
 /* ── SVG icons (stroke-based, matches site style) ── */
@@ -75,6 +85,11 @@ const NAV_BTN = {
 };
 
 export default function BookingWidget({ name, phone, email, expedition, onSkip }) {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language !== 'en';
+  const DAY_SHORT = isRtl ? HE_DAY_SHORT : EN_DAY_SHORT;
+  const MONTHS    = isRtl ? HE_MONTHS    : EN_MONTHS;
+
   const today = new Date(); today.setHours(0,0,0,0);
 
   const [viewYear,   setViewYear]   = useState(today.getFullYear());
@@ -147,20 +162,20 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
       const data = await res.json();
       if (!res.ok) {
         if (data.error === 'slot_taken') {
-          setError('הסלוט הזה נתפס זה עתה — בחרו שעה אחרת');
+          setError(isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time');
           setSlotsLoad(true);
           fetch(`/api/slots?date=${selDate}`)
             .then(r => r.json())
             .then(d => { setSlots(d.slots || []); setSelSlot(null); setSlotsLoad(false); });
         } else {
-          setError('שגיאה בתיאום — נסו שוב');
+          setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : 'Booking error - please try again');
         }
         setSubmitting(false);
         return;
       }
       setBooked({ date: selDate, time: selSlot });
     } catch {
-      setError('שגיאה בתיאום — נסו שוב');
+      setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : 'Booking error - please try again');
       setSubmitting(false);
     }
   }
@@ -168,7 +183,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
   /* ── Success state ── */
   if (booked) {
     return (
-      <div style={{ textAlign: 'center', padding: '24px 0', direction: 'rtl' }}>
+      <div style={{ textAlign: 'center', padding: '24px 0', direction: isRtl ? 'rtl' : 'ltr' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
           {IC.calendar}
         </div>
@@ -176,13 +191,13 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
           fontFamily: 'Ploni, sans-serif', fontSize: FS.h3, fontWeight: 700,
           color: '#fff', margin: '0 0 8px',
         }}>
-          השיחה נקבעה!
+          {isRtl ? 'השיחה נקבעה!' : 'Call Scheduled!'}
         </h3>
         <p style={{
           fontFamily: 'Ploni, sans-serif', fontSize: '16px', fontWeight: 600,
           color: 'rgba(167,139,250,1)', margin: '0 0 4px',
         }}>
-          {formatDateHe(booked.date)}
+          {formatDateHe(booked.date, isRtl)}
         </p>
         <p style={{
           fontFamily: 'Ploni, sans-serif', fontSize: '28px', fontWeight: 800,
@@ -197,7 +212,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
               fontFamily: 'Ploni, sans-serif', fontSize: '13px',
               color: 'rgba(255,255,255,0.45)',
             }}>
-              אישור נשלח למייל שלך
+              {isRtl ? 'אישור נשלח למייל שלך' : 'Confirmation sent to your email'}
             </span>
           </div>
         )}
@@ -207,18 +222,18 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
 
   /* ── Picker ── */
   return (
-    <div style={{ direction: 'rtl' }}>
+    <div style={{ direction: isRtl ? 'rtl' : 'ltr' }}>
       <h3 style={{
         fontFamily: 'Ploni, sans-serif', fontSize: FS.h3, fontWeight: 700,
         color: '#fff', margin: '0 0 6px', textAlign: 'center',
       }}>
-        תאמו שיחה עם הצוות שלנו
+        {isRtl ? 'תאמו שיחה עם הצוות שלנו' : 'Schedule a Call with Our Team'}
       </h3>
       <p style={{
         fontFamily: 'Ploni, sans-serif', fontSize: '14px',
         color: 'rgba(255,255,255,0.45)', margin: '0 0 22px', textAlign: 'center',
       }}>
-        בחרו תאריך ושעה שמתאימים לכם
+        {isRtl ? 'בחרו תאריך ושעה שמתאימים לכם' : 'Choose a date and time that works for you'}
       </p>
 
       {/* ── Calendar ── */}
@@ -239,7 +254,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
             fontFamily: 'Ploni, sans-serif', fontWeight: 700,
             color: '#fff', fontSize: '15px',
           }}>
-            {HE_MONTHS[viewMonth]} {viewYear}
+            {MONTHS[viewMonth]} {viewYear}
           </span>
           <button onClick={prevMonth} disabled={atMinMonth}
             style={{ ...NAV_BTN, opacity: atMinMonth ? 0.2 : 1, cursor: atMinMonth ? 'default' : 'pointer' }}>
@@ -249,7 +264,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
 
         {/* Day-of-week headers */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: '3px', marginBottom: '6px' }}>
-          {HE_DAY_SHORT.map(d => (
+          {DAY_SHORT.map(d => (
             <div key={d} style={{
               textAlign: 'center', fontFamily: 'Ploni, sans-serif',
               fontSize: '11px', color: 'rgba(255,255,255,0.35)', fontWeight: 600,
@@ -305,21 +320,21 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
               textAlign: 'center', fontFamily: 'Ploni, sans-serif',
               color: 'rgba(255,255,255,0.35)', fontSize: '14px', margin: '12px 0',
             }}>
-              טוען שעות...
+              {isRtl ? 'טוען שעות...' : 'Loading times...'}
             </p>
           ) : slots.length === 0 ? (
             <p style={{
               textAlign: 'center', fontFamily: 'Ploni, sans-serif',
               color: 'rgba(255,255,255,0.35)', fontSize: '14px', margin: '12px 0',
             }}>
-              אין שעות פנויות ביום זה — בחרו יום אחר
+              {isRtl ? 'אין שעות פנויות ביום זה - בחרו יום אחר' : 'No available times on this day - please choose another'}
             </p>
           ) : (
             <>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', margin: '0 0 10px' }}>
                 {IC.clock}
                 <span style={{ fontFamily: 'Ploni, sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
-                  בחרו שעה
+                  {isRtl ? 'בחרו שעה' : 'Choose a time'}
                 </span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '8px' }}>
@@ -386,7 +401,12 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
               letterSpacing:  '0.01em',
             }}
           >
-            {submitting ? 'שולח...' : `אשר שיחה — ${formatDateHe(selDate)} ב-${selSlot}`}
+            {submitting
+              ? (isRtl ? 'שולח...' : 'Sending...')
+              : isRtl
+                ? `אשר שיחה - ${formatDateHe(selDate, true)} ב-${selSlot}`
+                : `Confirm Call - ${formatDateHe(selDate, false)} at ${selSlot}`
+            }
           </button>
         )}
         <button
@@ -402,7 +422,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
             cursor:       'pointer',
           }}
         >
-          אולי מאוחר יותר
+          {isRtl ? 'אולי מאוחר יותר' : 'Maybe later'}
         </button>
       </div>
     </div>

@@ -35,10 +35,17 @@
   font-family: 'Ploni', sans-serif;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: 'Ploni', sans-serif;
   min-height: 100vh;
   background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select, label, a {

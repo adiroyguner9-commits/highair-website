@@ -73,7 +73,7 @@ function generateAdminICS({ date, time, name, expedition }) {
     `DTEND:${dtEnd}`,
     `SUMMARY:שיחה עם ${name}`,
     `DESCRIPTION:${desc}`,
-    'ORGANIZER;CN=HighAir Expeditions:mailto:noreply@highair-expeditions.com',
+    'ORGANIZER;CN=HighAir Expeditions:mailto:info@highair-expeditions.com',
     'ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=HighAir Admin:mailto:info@highair-expeditions.com',
     `UID:${uid}`,
     'STATUS:CONFIRMED',

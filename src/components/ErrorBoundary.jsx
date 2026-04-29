@@ -19,9 +19,10 @@ export default class ErrorBoundary extends Component {
       return this.props.children;
     }
 
+    const isRtl = document.documentElement.dir !== 'ltr';
+
     return (
       <div
-        dir="rtl"
         style={{
           minHeight:      '100vh',
           display:        'flex',
@@ -31,6 +32,7 @@ export default class ErrorBoundary extends Component {
           fontFamily:     "'Ploni', sans-serif",
           padding:        '24px',
           boxSizing:      'border-box',
+          direction:      document.documentElement.dir,
         }}
       >
         <div
@@ -65,7 +67,7 @@ export default class ErrorBoundary extends Component {
               lineHeight:  '1.3',
             }}
           >
-            אופס — משהו השתבש
+            {isRtl ? 'אופס - משהו השתבש' : 'Oops - something went wrong'}
           </h1>
 
           {/* Subtitle */}
@@ -77,9 +79,9 @@ export default class ErrorBoundary extends Component {
               lineHeight: '1.6',
             }}
           >
-            נתקלנו בשגיאה בלתי צפויה.
+            {isRtl ? 'נתקלנו בשגיאה בלתי צפויה' : 'We encountered an unexpected error'}
             <br />
-            אפשר לנסות לחזור לדף הבית ולהמשיך משם.
+            {isRtl ? 'אפשר לנסות לחזור לדף הבית ולהמשיך משם' : 'You can try returning to the homepage and continuing from there'}
           </p>
 
           {/* CTA button */}
@@ -100,7 +102,7 @@ export default class ErrorBoundary extends Component {
             onMouseEnter={e => (e.currentTarget.style.background = '#5B21B6')}
             onMouseLeave={e => (e.currentTarget.style.background = '#6D28D9')}
           >
-            חזרה לדף הבית
+            {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
           </a>
         </div>
       </div>

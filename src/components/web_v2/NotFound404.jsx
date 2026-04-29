@@ -3,9 +3,12 @@
  * RTL Hebrew · on-brand design
  */
 
+import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 
 export default function NotFound404() {
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   return (
     <div style={{
       minHeight:      '100vh',
@@ -16,7 +19,7 @@ export default function NotFound404() {
       justifyContent: 'center',
       padding:        '40px 5%',
       boxSizing:      'border-box',
-      direction:      'rtl',
+      direction:      dir,
       textAlign:      'center',
     }}>
 
@@ -63,7 +66,7 @@ export default function NotFound404() {
         letterSpacing: '-0.02em',
         lineHeight:    1.2,
       }}>
-        הדף לא נמצא
+        {t('notFound.title')}
       </h1>
 
       {/* Subtitle */}
@@ -76,7 +79,7 @@ export default function NotFound404() {
         lineHeight:  1.7,
         maxWidth:    '400px',
       }}>
-        נראה שהדף שחיפשתם לא קיים או הועבר. בואו נחזיר אתכם לנתיב הנכון.
+        {t('notFound.desc')}
       </p>
 
       {/* Back to home button */}
@@ -108,7 +111,7 @@ export default function NotFound404() {
           e.currentTarget.style.transform = 'translateY(0)';
         }}
       >
-        ← חזרה לדף הבית
+        {t('notFound.back')}
       </a>
 
       {/* Mountain decoration */}

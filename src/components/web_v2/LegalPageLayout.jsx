@@ -3,6 +3,7 @@
  * Usage: <LegalPageLayout title="..." subtitle="...">…sections…</LegalPageLayout>
  */
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header          from './Header.jsx';
 import SiteFooter      from './SiteFooter.jsx';
 import { FS }          from '../../website/theme.js';
@@ -10,9 +11,13 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 
 const SLUG_MAP = {
   'מדיניות ביטולים':     '/cancellation',
+  'Cancellation Policy': '/cancellation',
   'תקנון ותנאי שימוש':  '/terms',
+  'Terms & Conditions':  '/terms',
   'מדיניות פרטיות':     '/privacy',
+  'Privacy Policy':      '/privacy',
   'הצהרת נגישות':       '/accessibility',
+  'Accessibility Statement': '/accessibility',
 };
 
 /* ── Shared style tokens (import these in every page) ── */
@@ -63,17 +68,23 @@ export const LINK = {
 };
 
 /* ── Layout wrapper ── */
-export default function LegalPageLayout({ title, subtitle = 'עודכן לאחרונה: אפריל 2025', children }) {
+export default function LegalPageLayout({ title, subtitle, children }) {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language !== 'en';
+  const defaultSubtitle = isRtl ? 'עודכן לאחרונה: אפריל 2025' : 'Last updated: April 2025';
+  const resolvedSubtitle = subtitle || defaultSubtitle;
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   usePageMeta({
     title:         `${title} | HighAir Expeditions`,
-    description:   `${title} — HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.`,
+    description:   isRtl ? `${title} - HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.` : `${title} - HighAir Expeditions. Trekking and climbing expeditions worldwide.`,
     canonicalPath: SLUG_MAP[title] || '/',
   });
 
+  const dir = isRtl ? 'rtl' : 'ltr';
+
   return (
-    <div style={{ direction: 'rtl', fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
+    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
       <Header />
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '120px 5% 80px' }}>
 
@@ -89,7 +100,7 @@ export default function LegalPageLayout({ title, subtitle = 'עודכן לאחר
         </h1>
 
         <p style={{ ...P, color: '#9591B0', marginBottom: '48px' }}>
-          {subtitle}
+          {resolvedSubtitle}
         </p>
 
         {children}

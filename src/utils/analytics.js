@@ -1,6 +1,6 @@
 /**
  * analytics.js - Event tracking utility
- * Wraps gtag() calls safely — no-ops if GA not loaded
+ * Wraps gtag() calls safely - no-ops if GA not loaded
  */
 
 export function trackEvent(eventName, params = {}) {

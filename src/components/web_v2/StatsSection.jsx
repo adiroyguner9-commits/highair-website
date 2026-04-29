@@ -3,18 +3,22 @@
  * מרחף בין ההירו לסקשן המשלחות
  */
 
+import { useTranslation } from 'react-i18next';
 import { EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
-const STATS = [
-  { value: '15',        label: 'יעדים ברחבי העולם'    },
-  { value: '543+',       label: 'מטיילים שכבשו פסגות'  },
-  { value: '₪210K+',  label: 'נתרמו לחולי סרטן'    },
-  { value: '94%',       label: 'אחוזי הצלחה'           },
-];
-
 export default function StatsSection() {
   const { isMobile } = useBreakpoint();
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isRtl = dir === 'rtl';
+
+  const STATS = [
+    { value: '15',      label: t('stats.destinations') },
+    { value: '543+',    label: t('stats.climbers')     },
+    { value: '₪210K+', label: t('stats.donated')      },
+    { value: '94%',     label: t('stats.successRate')  },
+  ];
 
   return (
     <div style={{
@@ -23,7 +27,7 @@ export default function StatsSection() {
       marginTop: '-52px',
       position:  'relative',
       zIndex:    10,
-      direction: 'rtl',
+      direction: dir,
     }}>
       <div style={{
         maxWidth:            '1100px',

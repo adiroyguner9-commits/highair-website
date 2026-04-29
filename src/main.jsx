@@ -1,5 +1,6 @@
 import { StrictMode, lazy, Suspense } from 'react';
 import './global.css';
+import './i18n.js';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
