@@ -10,17 +10,18 @@ export const POSTS = [
     slug:     'kilimanjaro-guide',
 
     /* ── Hebrew ── */
-    title:    'המדריך המלא לטיפוס על הקילימנג\'רו: כל מה שצריך לדעת בדרך לפסגה',
+    title:    'המדריך המלא לטיפוס על הקילימנג\'רו (2025): כל מה שצריך לדעת לפני שיוצאים לפסגה',
     author:   'HighAir Expeditions',
     dateIso:  '2025-12-13',
+    dateModified: '2026-04-29',
     dateHe:   '13 בדצמבר 2025',
     dateEn:   'December 13, 2025',
     category: 'מדריכים',
     categoryEn: 'Guides',
     img:         '/images/blog/kilimanjaro-trekkers.webp',
     imgPosition: 'center 40%',
-    excerpt:  'לעמוד על "גג אפריקה" בגובה 5,895 מ׳ — מסע פיזי ומנטלי רציני. המדריך המקיף ביותר ברשת: אימונים, ציוד, התאקלמות, חיים על ההר ועוד.',
-    excerptEn: 'Standing on the Roof of Africa at 5,895 m — a serious physical and mental journey. The most comprehensive guide online: training, gear, acclimatization, life on the mountain and more.',
+    excerpt:  'הקילימנג\'רו — 5,895 מ׳, גג אפריקה. כמה ימים לוקח? מתי לטפס? האם זה קשה? המדריך השלם: אימונים, ציוד, מסלולים, מחלת גבהים ועוד.',
+    excerptEn: 'Kilimanjaro — 5,895 m, Roof of Africa. How many days? When to go? Is it hard? The complete guide: training, gear, acclimatization, routes, costs and more.',
 
     /* ── Hebrew content ── */
     content: [
@@ -104,13 +105,38 @@ export const POSTS = [
 
       { type: 'heading', value: '9. הסיום המושלם בספארי' },
       { type: 'text', value: 'אחרי שכבשתם את הפסגה, מגיע לכם פינוק אמיתי. המשלחות שלנו ממשיכות ל-3 ימים מלאים של ספארי בשמורות הטבע המפורסמות (כמו טרנגירי ומכתש נגורונגורו). במהלך היום תראו אריות, פילים וג\'ירפות מקרוב, ובלילה תישנו בלודג\'ים מפנקים ויוקרתיים.' },
+      { type: 'heading', value: '10. מתי הזמן הטוב ביותר לטפס על הקילימנג\'רו?' },
+      { type: 'text', value: 'הקילימנג\'רו ניתן לטיפוס כל השנה, אך יש שתי "עונות שיא" בהן תנאי מזג האוויר הם הטובים ביותר:' },
+      { type: 'list', items: [
+        'ינואר–מרץ (עונת החורף היבשה): מזג אוויר יציב יחסית, שמיים צלולים ופחות מטיילים על ההר — מועד מצוין לאלו המעדיפים שקט.',
+        'יוני–אוקטובר (עונת הקיץ היבשה): העונה הפופולרית ביותר עם תנאים טובים לטיפוס.',
+        'להימנע: אפריל–מאי (עונת הגשמים הגדולה — "Long Rains") ונובמבר (עונת הגשמים הקצרה — "Short Rains").',
+      ]},
+
+      { type: 'section', value: 'שאלות נפוצות על הקילימנג\'רו' },
+
+      { type: 'heading', value: 'כמה ימים לוקח לטפס קילימנג\'רו?' },
+      { type: 'text', value: 'מסלול מצ\'אמה — המסלול שבו HighAir מובילה — נמשך 7 ימים (6 לילות על ההר). קיימים מסלולים קצרים יותר של 5–6 ימים, אך הם מקטינים משמעותית את אחוזי ההצלחה בשל פחות זמן להתאקלמות. אנחנו לא מתפשרים על כך.' },
+
+      { type: 'heading', value: 'האם קילימנג\'רו קשה לטיפוס?' },
+      { type: 'text', value: 'קילימנג\'רו אינו דורש כישורי טיפוס טכניים — אין צורך בחבלים, ציוד מיוחד או ניסיון טיפוס קודם. האתגר היחיד הוא הגובה: 5,895 מטר. עם הכנה גופנית של 3 חודשים ומדריכים מנוסים, אחוזי ההצלחה במשלחות HighAir עומדים על כמעט 96%.' },
+
+      { type: 'heading', value: 'מה הגובה של הקילימנג\'רו?' },
+      { type: 'text', value: 'פסגת הקילימנג\'רו — "אוהורו פיק" (Uhuru Peak) — עומדת על 5,895 מטר מעל פני הים. זהו ההר הגבוה ביותר באפריקה וההר העצמאי הגבוה ביותר בעולם.' },
+
+      { type: 'heading', value: 'מה נכלל במשלחת הקילימנג\'רו של HighAir?' },
+      { type: 'text', value: 'המשלחות של HighAir הן "פול סרוויס" מלא: הסעות בטנזניה, כניסה לפארק הלאומי, מדריכים ראשיים ועוזרים, פורטרים, טבח עם ארוחות חמות, אוהלי 4 עונות, ציוד מחנאות ואוהל שירותים פרטי. לאחר הטיפוס ממשיכים ל-3 ימי ספארי בשמורות הטבע.' },
+
+      { type: 'heading', value: 'האם ישראלים יכולים לטפס על הקילימנג\'רו?' },
+      { type: 'text', value: 'בהחלט. HighAir Expeditions היא חברת המשלחות הישראלית המובילה לקילימנג\'רו, עם מאות ישראלים שהעפילו לפסגה. המשלחות מתנהלות בעברית עם מדריכים ישראלים, ויש אפשרות לאוכל כשר.' },
+
       { type: 'section', value: 'מוכנים להגשים את החלום?' },
       { type: 'text', value: 'המסע לקילימנג\'רו הוא חוויה של פעם בחיים. עם ההכנה הנכונה והמעטפת המקצועית של HighAir, הפסגה נמצאת בהישג ידכם. ההר מחכה לכם — בואו לכבוש את הפסגה הבאה שלכם.' },
       { type: 'cta', text: 'לפרטים, תאריכים והרשמה לקילימנג\'רו', textEn: 'Kilimanjaro — Dates & Registration', href: '/expedition/kilimanjaro' },
     ],
 
     /* ── English content ── */
-    titleEn: 'The Complete Guide to Climbing Kilimanjaro: Everything You Need to Know on the Way to the Summit',
+    titleEn: 'Climbing Kilimanjaro: The Complete Guide (2025) — Training, Gear, Routes & Summit Tips',
     contentEn: [
       { type: 'text', value: 'Standing on the "Roof of Africa" at 5,895 metres, with clouds below you and the sun rising above the glaciers, is a life-changing moment. Mount Kilimanjaro in Tanzania is one of the most coveted destinations in the world for trekkers, and for good reason: it is relatively accessible (no complex technical gear required), the scenery is breathtaking, and it is the ultimate gateway into the world of mountaineering.' },
       { type: 'text', value: 'But don\'t be fooled: despite being considered a "trekking peak", the climb to Kilimanjaro is a serious physical and mental journey that requires thorough preparation. At HighAir Expeditions we have guided hundreds of trekkers to the summit, and we have compiled the most comprehensive guide you\'ll find online: from the training plan, through the recommended gear list, to the small tips that will make all the difference.' },
@@ -192,6 +218,31 @@ export const POSTS = [
 
       { type: 'heading', value: '9. The Perfect Finish — Safari' },
       { type: 'text', value: 'After conquering the summit, you deserve a real treat. Our expeditions continue with 3 full days of safari in famous nature reserves (such as Tarangire and Ngorongoro Crater). During the day you\'ll see lions, elephants and giraffes up close, and at night you\'ll sleep in lavish luxury lodges.' },
+      { type: 'heading', value: '10. When Is the Best Time to Climb Kilimanjaro?' },
+      { type: 'text', value: 'Kilimanjaro can be climbed year-round, but two dry-season windows offer the best conditions:' },
+      { type: 'list', items: [
+        'January–March (winter dry season): Relatively stable weather, clear skies and fewer trekkers on the mountain — ideal for those who prefer quieter conditions.',
+        'June–October (summer dry season): The most popular season with stable weather and excellent summit conditions.',
+        'Avoid: April–May (Long Rains season) and November (Short Rains season).',
+      ]},
+
+      { type: 'section', value: 'Kilimanjaro FAQ' },
+
+      { type: 'heading', value: 'How many days does it take to climb Kilimanjaro?' },
+      { type: 'text', value: 'The Machame Route — which HighAir uses — takes 7 days (6 nights on the mountain). Shorter 5–6 day routes exist, but they significantly lower your summit success rate by reducing acclimatisation time. We don\'t compromise on this.' },
+
+      { type: 'heading', value: 'Is Kilimanjaro hard to climb?' },
+      { type: 'text', value: 'Kilimanjaro requires no technical climbing skills — no ropes, crampons or prior mountaineering experience needed. The one true challenge is the altitude: 5,895 metres. With 3 months of basic fitness preparation and experienced guides, HighAir\'s summit success rate stands at nearly 96%.' },
+
+      { type: 'heading', value: 'How high is Kilimanjaro?' },
+      { type: 'text', value: 'Kilimanjaro\'s summit — Uhuru Peak — stands at 5,895 metres (19,341 ft) above sea level. It is the highest mountain in Africa and the highest free-standing mountain in the world.' },
+
+      { type: 'heading', value: 'What is included in a HighAir Kilimanjaro expedition?' },
+      { type: 'text', value: 'HighAir expeditions are full-service: transfers in Tanzania, national park entry fees, head and assistant guides, porters, a dedicated cook with full hot meals, 4-season tents, camp equipment and a private toilet tent. After the climb, 3 days of safari in famous nature reserves are included.' },
+
+      { type: 'heading', value: 'Can beginners climb Kilimanjaro?' },
+      { type: 'text', value: 'Yes. Kilimanjaro is the ideal first high-altitude mountain for beginners. No prior climbing experience is required — just a reasonable level of fitness and the right preparation. HighAir\'s guides support trekkers of all experience levels, from first-timers to seasoned mountaineers.' },
+
       { type: 'section', value: 'Ready to Make the Dream a Reality?' },
       { type: 'text', value: 'The journey to Kilimanjaro is a once-in-a-lifetime experience. With the right preparation and HighAir\'s professional support, the summit is within your reach. The mountain is waiting for you — come conquer your next summit.' },
       { type: 'cta', text: 'לפרטים, תאריכים והרשמה לקילימנג\'רו', textEn: 'Kilimanjaro — Dates & Registration', href: '/expedition/kilimanjaro' },
@@ -206,18 +257,19 @@ export const POSTS = [
     title:    'המדריך המלא לשבע הפסגות: ההרים הגבוהים ביותר בכל יבשת',
     author:   'HighAir Expeditions',
     dateIso:  '2025-09-03',
+    dateModified: '2026-04-29',
     dateHe:   '3 בספטמבר 2025',
     dateEn:   'September 3, 2025',
     category: 'מדריכים',
     categoryEn: 'Guides',
     img:         '/images/blog/kristin-harila.webp',
     imgPosition: 'center 20%',
-    excerpt:  'פרויקט הטיפוס לשבע הפסגות נחשב לאחד האתגרים הגדולים והנחשקים ביותר בעולם הטיפוס. כל מה שצריך לדעת לפני שמתחילים.',
-    excerptEn: 'The Seven Summits challenge is considered one of the greatest and most coveted achievements in the mountaineering world. Everything you need to know before you start.',
+    excerpt:  'שבע הפסגות: אוורסט, קילימנג\'רו, אלברוס, אקונקגואה ועוד. כמה זה עולה? מה הסדר המומלץ? שיאי עולם, רמות קושי ועובדות שלא ידעתם — המדריך המלא.',
+    excerptEn: 'The Seven Summits: Everest, Kilimanjaro, Elbrus, Aconcagua and 3 more. Costs, difficulty, world records and the recommended climbing order — the complete guide.',
 
     /* ── Hebrew content ── */
     content: [
-      { type: 'text',    value: 'במאמר זה תמצאו את כל המידע על שבע הפסגות, ההרים הגבוהים ביותר בכל אחת משבע היבשות. פרויקט הטיפוס לשבע הפסגות נחשב לאחד האתגרים הגדולים והנחשקים ביותר בעולם הטיפוס, ומושך אליו מטפסים מכל רחבי העולם.' },
+      { type: 'text',    value: 'שבע הפסגות (Seven Summits) הן הפסגות הגבוהות ביותר בכל אחת משבע יבשות העולם: אוורסט באסיה (8,848 מ׳), אקונקגואה בדרום אמריקה (6,962 מ׳), דנאלי בצפון אמריקה (6,190 מ׳), קילימנג\'רו באפריקה (5,895 מ׳), אלברוס באירופה (5,642 מ׳), וינסון מאסיף באנטארקטיקה (4,892 מ׳) ופירמידת קרסטנסז באוקיאניה (4,884 מ׳). פרויקט הטיפוס לשבע הפסגות נחשב לאחד האתגרים הגדולים והנחשקים ביותר בעולם הטיפוס, ומושך אליו מטפסים מכל רחבי העולם.' },
       { type: 'text',    value: 'נסקור מהן שבע הפסגות, מה רמת הקושי של כל אחד מההרים, מי מהן נחשבת לפסגה הקלה ביותר לטיפוס, וגם נשתף עובדות היסטוריות, שמות ההרים, שיאי עולם ומידע חיוני למטפסים וחובבי הרים. אם אתם חולמים על טיפוס הרים או מחפשים להכיר מקרוב את ההרים הגבוהים בעולם, המדריך הזה הוא נקודת פתיחה מצוינת.' },
 
       { type: 'heading', value: 'מהו מועדון שבע הפסגות?' },
@@ -343,7 +395,7 @@ export const POSTS = [
     /* ── English content ── */
     titleEn: 'The Complete Guide to the Seven Summits: The Highest Peaks on Every Continent',
     contentEn: [
-      { type: 'text',    value: 'In this article you will find everything you need to know about the Seven Summits — the highest mountains on each of the seven continents. The Seven Summits project is considered one of the greatest and most coveted challenges in the mountaineering world, attracting climbers from every corner of the globe.' },
+      { type: 'text',    value: 'The Seven Summits are the highest peaks on each of the world\'s seven continents: Everest in Asia (8,848 m), Aconcagua in South America (6,962 m), Denali in North America (6,190 m), Kilimanjaro in Africa (5,895 m), Elbrus in Europe (5,642 m), Vinson Massif in Antarctica (4,892 m), and Carstensz Pyramid in Oceania (4,884 m). The Seven Summits project is considered one of the greatest and most coveted challenges in the mountaineering world, attracting climbers from every corner of the globe.' },
       { type: 'text',    value: 'We will cover what the Seven Summits are, the difficulty level of each mountain, which one is considered the easiest to climb, and we\'ll share historical facts, mountain names, world records, and essential information for mountaineers and mountain enthusiasts. If you dream of climbing mountains or want to learn more about the highest peaks on Earth, this guide is the perfect starting point.' },
 
       { type: 'heading', value: 'What is the Seven Summits Club?' },

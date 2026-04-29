@@ -96,13 +96,16 @@ export default function BlogPost() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // JSON-LD Article schema
+  // JSON-LD Article + FAQPage schema
   useEffect(() => {
     if (!post) return;
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
     const isEnLang = i18n.language === 'en';
-    script.text = JSON.stringify({
+    const content  = isEnLang ? (post.contentEn || post.content) : post.content;
+
+    // Article schema
+    const articleScript = document.createElement('script');
+    articleScript.type = 'application/ld+json';
+    articleScript.text = JSON.stringify({
       '@context':       'https://schema.org',
       '@type':          'Article',
       headline:         isEnLang ? (post.titleEn || post.title) : post.title,
@@ -115,11 +118,38 @@ export default function BlogPost() {
         logo:    { '@type': 'ImageObject', url: 'https://www.highair-expeditions.com/logo.png' },
       },
       datePublished:    post.dateIso,
-      dateModified:     post.dateIso,
+      dateModified:     post.dateModified || post.dateIso,
       mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.highair-expeditions.com/blog/${post.slug}` },
     });
-    document.head.appendChild(script);
-    return () => document.head.removeChild(script);
+    document.head.appendChild(articleScript);
+
+    // FAQPage schema — extract Q&A pairs that follow a FAQ section heading
+    const faqKeywords = ['שאלות נפוצות', 'faq', 'frequently asked', 'kilimanjaro faq'];
+    const faqIdx = content.findIndex(b =>
+      b.type === 'section' && faqKeywords.some(k => b.value.toLowerCase().includes(k))
+    );
+    const scripts = [articleScript];
+    if (faqIdx !== -1) {
+      const pairs = [];
+      let question = null;
+      for (const block of content.slice(faqIdx + 1)) {
+        if (block.type === 'section') break; // stop at next major section
+        if (block.type === 'heading') { question = block.value; }
+        else if (block.type === 'text' && question) {
+          pairs.push({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: block.value } });
+          question = null;
+        }
+      }
+      if (pairs.length) {
+        const faqScript = document.createElement('script');
+        faqScript.type = 'application/ld+json';
+        faqScript.text = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: pairs });
+        document.head.appendChild(faqScript);
+        scripts.push(faqScript);
+      }
+    }
+
+    return () => scripts.forEach(s => document.head.removeChild(s));
   }, [post]);
 
   /* Language-aware fields — must be declared before usePageMeta */
