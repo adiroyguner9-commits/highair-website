@@ -396,11 +396,12 @@ export default function BlogPost() {
             );
 
             if (block.type === 'cta') return (
-              <div key={i} style={{ margin: '28px 0', textAlign: 'start' }}>
+              <div key={i} style={{ margin: '28px 0', textAlign: 'center' }}>
                 <a
                   href={block.href}
                   style={{
                     display:       'inline-block',
+                    direction:     dir,
                     padding:       '13px 28px',
                     borderRadius:  '50px',
                     background:    'linear-gradient(135deg, #6D28D9, #7C3AED)',
@@ -415,7 +416,7 @@ export default function BlogPost() {
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(109,40,217,0.40)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)';    e.currentTarget.style.boxShadow = '0 4px 16px rgba(109,40,217,0.30)'; }}
                 >
-                  {isEn ? (block.textEn || block.text) : block.text} →
+                  {isEn ? (block.textEn || block.text) : block.text} {isEn ? '→' : '←'}
                 </a>
               </div>
             );
