@@ -396,7 +396,7 @@ export default function BlogPost() {
             );
 
             if (block.type === 'cta') return (
-              <div key={i} style={{ margin: '28px 0', textAlign: 'center' }}>
+              <div key={i} style={{ margin: '28px 0', textAlign: 'start' }}>
                 <a
                   href={block.href}
                   style={{

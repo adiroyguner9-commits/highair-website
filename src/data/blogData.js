@@ -39,9 +39,7 @@ export const POSTS = [
         '"הדבר האמיתי": אין תחליף להליכה בשטח. צאו בסופי השבוע למסלולים בארץ עם תיק גב במשקל 5-7 ק"ג ונעלי הטרקים שלכם.',
       ]},
       { type: 'text', value: 'רוצים להתאמן איתנו? הצטרפו לקהילת המטיילים של HighAir בטיולי ההכנה החודשיים שלנו בארץ.' },
-      { type: 'cta', text: 'להצטרפות לטיול ההכנה הקרוב', textEn: 'Join the Next Preparation Hike', href: '/#contact' },
-
-      { type: 'image', src: '/images/blog/kilimanjaro-training.webp', caption: 'קבוצת מטיילים בטיול הכנה לקילימנג\'רו של HighAir' },
+      { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', caption: 'קבוצת מטיילים בטיול הכנה לקילימנג\'רו של HighAir' },
 
       { type: 'heading', value: '2. הציוד שיעשה את ההבדל' },
       { type: 'text', value: 'בדרך לפסגה עוברים דרך אזורי אקלים קיצוניים ושונים: מהיער הטרופי הלח בתחתית, דרך הסוואנה המדברית, ועד למדבר האלפיני והקרחונים בפסגה. בליל הפסגה, הטמפרטורה יכולה לצנוח למינוס 10 ואף למינוס 15 מעלות. הסוד להתמודדות עם השינויים הוא שיטת השכבות.' },
@@ -58,9 +56,7 @@ export const POSTS = [
         'תיק יום (Daypack): בנפח 30-40 ליטר, עם מערכת גב נוחה לנשיאת מים, שכבות וציוד אישי.',
       ]},
       { type: 'text', value: 'חסר לכם ציוד משלים? בחנות הציוד שלנו תמצאו דאפל-באג איכותי, כיסויי גשם ובקבוקים עמידים שישרתו אתכם במסע.' },
-      { type: 'cta', text: 'למעבר לחנות הציוד HighAir Gear', textEn: 'Shop HighAir Gear', href: '/shop' },
-
-      { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', caption: 'מטיילות מצוידות בביגוד לפי שיטת השכבות בדרך לפסגת הקילימנג\'רו' },
+      { type: 'image', src: '/images/blog/kilimanjaro-training.webp', caption: 'מטיילות מצוידות בביגוד לפי שיטת השכבות בדרך לפסגת הקילימנג\'רו' },
 
       { type: 'heading', value: '3. התאקלמות ומחלת גבהים' },
       { type: 'text', value: 'האתגר הגדול בקילימנג\'רו הוא לא השיפוע, אלא הגובה. האוויר בפסגה מכיל כ-50% פחות חמצן מאשר בגובה פני הים. הגוף האנושי יודע להסתגל לכך מצוין, אבל הוא זקוק לזמן.' },
@@ -108,8 +104,6 @@ export const POSTS = [
 
       { type: 'heading', value: '9. הסיום המושלם בספארי' },
       { type: 'text', value: 'אחרי שכבשתם את הפסגה, מגיע לכם פינוק אמיתי. המשלחות שלנו ממשיכות ל-3 ימים מלאים של ספארי בשמורות הטבע המפורסמות (כמו טרנגירי ומכתש נגורונגורו). במהלך היום תראו אריות, פילים וג\'ירפות מקרוב, ובלילה תישנו בלודג\'ים מפנקים ויוקרתיים.' },
-      { type: 'cta', text: 'לפרטים על החבילה: קילימנג\'רו + ספארי', textEn: 'Kilimanjaro + Safari Package Details', href: '/expedition/kilimanjaro' },
-
       { type: 'section', value: 'מוכנים להגשים את החלום?' },
       { type: 'text', value: 'המסע לקילימנג\'רו הוא חוויה של פעם בחיים. עם ההכנה הנכונה והמעטפת המקצועית של HighAir, הפסגה נמצאת בהישג ידכם. ההר מחכה לכם — בואו לכבוש את הפסגה הבאה שלכם.' },
       { type: 'cta', text: 'לפרטים, תאריכים והרשמה לקילימנג\'רו', textEn: 'Kilimanjaro — Dates & Registration', href: '/expedition/kilimanjaro' },
@@ -133,9 +127,7 @@ export const POSTS = [
         '"The real thing": There\'s no substitute for hiking in the field. Head out on weekends on local trails with a 5-7 kg backpack and your hiking boots.',
       ]},
       { type: 'text', value: 'Want to train with us? Join the HighAir trekking community on our monthly preparation hikes.' },
-      { type: 'cta', text: 'להצטרפות לטיול ההכנה הקרוב', textEn: 'Join the Next Preparation Hike', href: '/#contact' },
-
-      { type: 'image', src: '/images/blog/kilimanjaro-training.webp', caption: 'HighAir preparation hike — trekking with packs and gear' },
+      { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', caption: 'HighAir preparation hike — trekking with packs and gear' },
 
       { type: 'heading', value: '2. The Gear That Will Make the Difference' },
       { type: 'text', value: 'On the way to the summit you pass through extreme and varied climate zones: from the lush tropical forest at the base, through the alpine desert, to the glaciers at the summit. On summit night, the temperature can drop to minus 10 or even minus 15 degrees Celsius. The secret to handling these changes is the layering system.' },
@@ -152,9 +144,7 @@ export const POSTS = [
         'Daypack: 30-40 litre volume with a comfortable back system for water, layers and personal gear.',
       ]},
       { type: 'text', value: 'Missing some gear? In our gear store you\'ll find a quality duffel bag, rain covers and durable bottles that will serve you on the journey.' },
-      { type: 'cta', text: 'למעבר לחנות הציוד HighAir Gear', textEn: 'Shop HighAir Gear', href: '/shop' },
-
-      { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', caption: 'Trekkers equipped with the layering system on the way to the summit' },
+      { type: 'image', src: '/images/blog/kilimanjaro-training.webp', caption: 'Trekkers equipped with the layering system on the way to the summit' },
 
       { type: 'heading', value: '3. Acclimatization and Altitude Sickness' },
       { type: 'text', value: 'The biggest challenge on Kilimanjaro is not the gradient, but the altitude. The air at the summit contains about 50% less oxygen than at sea level. The human body knows how to adapt to this very well, but it needs time.' },
@@ -202,8 +192,6 @@ export const POSTS = [
 
       { type: 'heading', value: '9. The Perfect Finish — Safari' },
       { type: 'text', value: 'After conquering the summit, you deserve a real treat. Our expeditions continue with 3 full days of safari in famous nature reserves (such as Tarangire and Ngorongoro Crater). During the day you\'ll see lions, elephants and giraffes up close, and at night you\'ll sleep in lavish luxury lodges.' },
-      { type: 'cta', text: 'לפרטים על החבילה: קילימנג\'רו + ספארי', textEn: 'Kilimanjaro + Safari Package Details', href: '/expedition/kilimanjaro' },
-
       { type: 'section', value: 'Ready to Make the Dream a Reality?' },
       { type: 'text', value: 'The journey to Kilimanjaro is a once-in-a-lifetime experience. With the right preparation and HighAir\'s professional support, the summit is within your reach. The mountain is waiting for you — come conquer your next summit.' },
       { type: 'cta', text: 'לפרטים, תאריכים והרשמה לקילימנג\'רו', textEn: 'Kilimanjaro — Dates & Registration', href: '/expedition/kilimanjaro' },
