@@ -2,42 +2,45 @@
  * FloatingWA.jsx - Floating WhatsApp button (shared across all pages)
  */
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 
-const WA_PHONE = '972555636975';
-const WA_MSG   = encodeURIComponent('היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️');
+const WA_PHONE  = '972555636975';
+const WA_MSG_HE = encodeURIComponent('היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️');
+const WA_MSG_EN = encodeURIComponent('Hi! I\'d love to hear more about HighAir expeditions 🏔️');
 
 export default function FloatingWA() {
   const [hovered, setHovered] = useState(false);
-  const href = `https://wa.me/${WA_PHONE}?text=${WA_MSG}`;
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+  const href = `https://wa.me/${WA_PHONE}?text=${isEn ? WA_MSG_EN : WA_MSG_HE}`;
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="צור קשר בוואטסאפ"
+      aria-label={isEn ? 'Contact us on WhatsApp' : 'צור קשר בוואטסאפ'}
       onClick={() => Analytics.clickWhatsApp('floating_button')}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        position:   'fixed',
-        bottom:     '28px',
-        left:       '28px',
-        zIndex:     998,
-        width:      '58px',
-        height:     '58px',
+        position:     'fixed',
+        bottom:       '28px',
+        left:         '28px',
+        zIndex:       998,
+        width:        '58px',
+        height:       '58px',
         borderRadius: '50%',
-        background: hovered ? '#1aab52' : '#25D366',
-        boxShadow:  hovered
-                      ? '0 8px 32px rgba(37,211,102,0.60)'
-                      : '0 4px 20px rgba(37,211,102,0.45)',
-        transform:  hovered ? 'scale(1.12)' : 'scale(1)',
-        transition: 'all 0.22s cubic-bezier(0.22,1,0.36,1)',
+        background:   hovered ? '#1aab52' : '#25D366',
+        boxShadow:    hovered
+                        ? '0 8px 32px rgba(37,211,102,0.60)'
+                        : '0 4px 20px rgba(37,211,102,0.45)',
+        transform:    hovered ? 'scale(1.12)' : 'scale(1)',
+        transition:   'all 0.22s cubic-bezier(0.22,1,0.36,1)',
         textDecoration: 'none',
       }}
     >
-      {/* SVG absolutely centered — guarantees pixel-perfect alignment */}
       <svg
         width="30"
         height="30"

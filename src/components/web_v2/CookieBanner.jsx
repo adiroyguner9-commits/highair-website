@@ -1,40 +1,37 @@
 /**
  * CookieBanner.jsx - GDPR cookie consent banner
- * Hebrew RTL · matches site design
+ * Bilingual HE/EN · matches site design
  * Saves preference to localStorage and enables GA on accept
  */
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 
 const STORAGE_KEY = 'highair_cookie_consent';
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
+  const { i18n } = useTranslation();
+  const isEn  = i18n.language === 'en';
+  const dir   = isEn ? 'ltr' : 'rtl';
 
   useEffect(() => {
-    /* Show only if user hasn't decided yet */
     const saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) setVisible(true);
   }, []);
 
   function accept() {
     localStorage.setItem(STORAGE_KEY, 'accepted');
-    /* Enable GA data collection */
     if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        analytics_storage: 'granted',
-      });
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
     }
     setVisible(false);
   }
 
   function decline() {
     localStorage.setItem(STORAGE_KEY, 'declined');
-    /* Keep GA in denied mode */
     if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        analytics_storage: 'denied',
-      });
+      window.gtag('consent', 'update', { analytics_storage: 'denied' });
     }
     setVisible(false);
   }
@@ -44,22 +41,22 @@ export default function CookieBanner() {
   return (
     <div
       role="dialog"
-      aria-label="הסכמה לעוגיות"
+      aria-label={isEn ? 'Cookie consent' : 'הסכמה לעוגיות'}
       style={{
-        position:   'fixed',
-        bottom:     '24px',
-        right:      '24px',
-        left:       '24px',
-        zIndex:     9999,
-        maxWidth:   '480px',
-        margin:     '0 auto',
-        background: '#FFFFFF',
+        position:     'fixed',
+        bottom:       '24px',
+        right:        '24px',
+        left:         '24px',
+        zIndex:       9999,
+        maxWidth:     '480px',
+        margin:       '0 auto',
+        background:   '#FFFFFF',
         borderRadius: RADIUS.xl,
-        boxShadow:  '0 8px 40px rgba(0,0,0,0.14)',
-        border:     '1px solid #ECEAF8',
-        padding:    '24px 28px',
-        direction:  'rtl',
-        animation:  'slideUp 0.35s cubic-bezier(0.22,1,0.36,1)',
+        boxShadow:    '0 8px 40px rgba(0,0,0,0.14)',
+        border:       '1px solid #ECEAF8',
+        padding:      '24px 28px',
+        direction:    dir,
+        animation:    'slideUp 0.35s cubic-bezier(0.22,1,0.36,1)',
       }}
     >
       <style>{`
@@ -80,7 +77,7 @@ export default function CookieBanner() {
           margin:        0,
           letterSpacing: '-0.01em',
         }}>
-          שימוש בעוגיות
+          {isEn ? 'Cookie Usage' : 'שימוש בעוגיות'}
         </h3>
       </div>
 
@@ -93,17 +90,19 @@ export default function CookieBanner() {
         margin:     '0 0 20px',
         lineHeight: 1.7,
       }}>
-        אנחנו משתמשים בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את השימוש באתר.{' '}
+        {isEn
+          ? 'We use cookies to improve your browsing experience and analyse site usage. '
+          : 'אנחנו משתמשים בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את השימוש באתר. '}
         <a
           href="/privacy"
           style={{ color: COLOR.primary, fontWeight: 600, textDecoration: 'none' }}
         >
-          מדיניות הפרטיות
+          {isEn ? 'Privacy Policy' : 'מדיניות הפרטיות'}
         </a>
       </p>
 
       {/* Buttons */}
-      <div style={{ display: 'flex', gap: '10px', flexDirection: 'row-reverse' }}>
+      <div style={{ display: 'flex', gap: '10px', flexDirection: isEn ? 'row' : 'row-reverse' }}>
         <button
           onClick={accept}
           style={{
@@ -122,7 +121,7 @@ export default function CookieBanner() {
           onMouseEnter={e => { e.currentTarget.style.background = '#7C3AED'; }}
           onMouseLeave={e => { e.currentTarget.style.background = COLOR.primary; }}
         >
-          אני מסכים/ה ✓
+          {isEn ? 'Accept ✓' : 'אני מסכים/ה ✓'}
         </button>
         <button
           onClick={decline}
@@ -141,7 +140,7 @@ export default function CookieBanner() {
           onMouseEnter={e => { e.currentTarget.style.borderColor = COLOR.primary; e.currentTarget.style.color = COLOR.primary; }}
           onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E3F0'; e.currentTarget.style.color = '#6B6B8A'; }}
         >
-          דחה
+          {isEn ? 'Decline' : 'דחה'}
         </button>
       </div>
     </div>
