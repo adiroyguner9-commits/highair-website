@@ -317,11 +317,11 @@ export default function BlogPost() {
             );
 
             if (block.type === 'heading') return (
-              <div key={i} id={id} style={{ margin: '48px 0 18px' }}>
+              <div key={i} id={id} style={{ margin: '32px 0 20px' }}>
                 <div style={{
                   height:       '1px',
                   background:   'linear-gradient(to left, transparent, #DDD6FE, transparent)',
-                  marginBottom: '20px',
+                  margin:       '0 0 32px',
                 }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', direction: dir }}>
                   <div style={{
