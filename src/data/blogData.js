@@ -60,7 +60,7 @@ export const POSTS = [
       { type: 'text', value: 'חסר לכם ציוד משלים? בחנות הציוד שלנו תמצאו דאפל-באג איכותי, כיסויי גשם ובקבוקים עמידים שישרתו אתכם במסע.' },
       { type: 'cta', text: 'למעבר לחנות הציוד HighAir Gear', textEn: 'Shop HighAir Gear', href: '/shop' },
 
-      { type: 'image', src: '/images/blog/kilimanjaro-layers.webp', caption: 'מטיילות מצוידות בביגוד לפי שיטת השכבות בדרך לפסגת הקילימנג\'רו' },
+      { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', caption: 'מטיילות מצוידות בביגוד לפי שיטת השכבות בדרך לפסגת הקילימנג\'רו' },
 
       { type: 'heading', value: '3. התאקלמות ומחלת גבהים' },
       { type: 'text', value: 'האתגר הגדול בקילימנג\'רו הוא לא השיפוע, אלא הגובה. האוויר בפסגה מכיל כ-50% פחות חמצן מאשר בגובה פני הים. הגוף האנושי יודע להסתגל לכך מצוין, אבל הוא זקוק לזמן.' },
@@ -80,7 +80,7 @@ export const POSTS = [
         'שירותים והיגיינה: ישנם בתי שימוש ציבוריים, אך אנו דואגים לאוהל שירותים פרטי לקבוצה. במקום מקלחות משתמשים במגבונים לחים וקערת מים חמים בוקר וערב ("Washy Washy").',
       ]},
 
-      { type: 'image', src: '/images/blog/kilimanjaro-camp.webp', caption: 'לינה באוהלי איכות במחנות הקילימנג\'רו' },
+      { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', caption: 'לינה באוהלי איכות במחנות הקילימנג\'רו' },
 
       { type: 'heading', value: '5. הצוות המלווה וטיפים' },
       { type: 'text', value: 'אי אפשר להעפיל לפסגה בלי הצוות המקומי המדהים שלנו. על כל מטייל יש כ-3-4 אנשי צוות: מדריכים ראשיים, עוזרי מדריכים, טבחים ופורטרים שסוחבים את האוהלים, האוכל והציוד הכבד. נהוג ומקובל לתת טיפ לצוות בסוף המסע — זהו חלק משמעותי מהפרנסה שלהם. אנו ננחה אתכם לגבי הסכומים המדויקים לפני היציאה.' },
@@ -154,7 +154,7 @@ export const POSTS = [
       { type: 'text', value: 'Missing some gear? In our gear store you\'ll find a quality duffel bag, rain covers and durable bottles that will serve you on the journey.' },
       { type: 'cta', text: 'למעבר לחנות הציוד HighAir Gear', textEn: 'Shop HighAir Gear', href: '/shop' },
 
-      { type: 'image', src: '/images/blog/kilimanjaro-layers.webp', caption: 'Trekkers equipped with the layering system on the way to the summit' },
+      { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', caption: 'Trekkers equipped with the layering system on the way to the summit' },
 
       { type: 'heading', value: '3. Acclimatization and Altitude Sickness' },
       { type: 'text', value: 'The biggest challenge on Kilimanjaro is not the gradient, but the altitude. The air at the summit contains about 50% less oxygen than at sea level. The human body knows how to adapt to this very well, but it needs time.' },
@@ -174,7 +174,7 @@ export const POSTS = [
         'Toilets and hygiene: We provide a private toilet tent for the group. Since there are no showers on the mountain, we use wet wipes and a bowl of warm water each morning and evening ("Washy Washy").',
       ]},
 
-      { type: 'image', src: '/images/blog/kilimanjaro-camp.webp', caption: 'Quality tent accommodation at Kilimanjaro camps' },
+      { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', caption: 'Quality tent accommodation at Kilimanjaro camps' },
 
       { type: 'heading', value: '5. The Local Crew and Tipping' },
       { type: 'text', value: 'You cannot summit without our amazing local crew. For every trekker there are approximately 3-4 crew members: head guides, assistant guides, cooks and porters who carry the tents, food and heavy equipment. It is customary and expected to tip the crew at the end of the expedition — this is a significant part of their livelihood and a long-standing Tanzanian tradition. We will guide you on the exact amounts before departure.' },
