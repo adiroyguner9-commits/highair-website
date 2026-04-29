@@ -346,6 +346,20 @@ export default function BlogPost() {
               </div>
             );
 
+            if (block.type === 'subheading') return (
+              <h3 key={i} id={id} style={{
+                fontFamily:    "'Ploni', sans-serif",
+                fontSize:      isMobile ? '17px' : '20px',
+                fontWeight:    700,
+                color:         '#4C1D95',
+                letterSpacing: '-0.01em',
+                lineHeight:    1.4,
+                margin:        '28px 0 10px',
+              }}>
+                {block.value}
+              </h3>
+            );
+
             if (block.type === 'text') return (
               <p key={i} style={{
                 fontFamily: "'Ploni', sans-serif",

@@ -32,7 +32,7 @@ export const POSTS = [
 
       { type: 'heading', value: '1. איך מתאמנים לטיפוס?' },
       { type: 'text', value: 'המיתוס הנפוץ הוא שצריך להיות מרתוניסט כדי לטפס את הקילימנג\'רו. האמת היא שטיפוס הרים דורש משהו אחר לגמרי: סיבולת לב-ריאה וכוח רגליים. המסע נמשך כ-6-7 ימים, בהם הולכים שעות רבות בשיפוע, באוויר שהולך ומידלדל.' },
-      { type: 'heading', value: 'שלושת עמודי התווך של האימון' },
+      { type: 'subheading', value: 'שלושת עמודי התווך של האימון' },
       { type: 'list', items: [
         'אירובי (סיבולת): לפחות 3 חודשים לפני המסע, שלבו אימוני הליכה בשיפוע (על הליכון או בחוץ), ריצה קלה, שחייה או רכיבה על אופניים. המטרה היא להרגיל את הגוף למאמץ מתמשך בדופק בינוני.',
         'חיזוק שרירים: התמקדו בשרירי הרגליים (ארבע-ראשי ותאומים) בעזרת סקוואטים ולאנג\'ים. אל תזניחו את שרירי הליבה (בטן וגב) – הם אלו שמחזיקים אתכם זקופים עם התיק על הגב.',
@@ -45,13 +45,13 @@ export const POSTS = [
 
       { type: 'heading', value: '2. הציוד שיעשה את ההבדל' },
       { type: 'text', value: 'בדרך לפסגה עוברים דרך אזורי אקלים קיצוניים ושונים: מהיער הטרופי הלח בתחתית, דרך הסוואנה המדברית, ועד למדבר האלפיני והקרחונים בפסגה. בליל הפסגה, הטמפרטורה יכולה לצנוח למינוס 10 ואף למינוס 15 מעלות. הסוד להתמודדות עם השינויים הוא שיטת השכבות.' },
-      { type: 'heading', value: 'רשימת השכבות המומלצת' },
+      { type: 'subheading', value: 'רשימת השכבות המומלצת' },
       { type: 'list', items: [
         'שכבת בסיס (Base Layer): ביגוד תרמי מנדף זיעה שיושב צמוד על הגוף ושומר עליכם יבשים. כלל ברזל: הימנעו מכותנה לחלוטין — כותנה סופגת זיעה וקופאת בקור.',
         'שכבת ביניים (Mid Layer): פליז איכותי או מעיל קל/סינתטי שנועד ללכוד את חום הגוף (בידוד).',
         'שכבה חיצונית (Shell): מעיל פוך איכותי ועבה לליל הפסגה, ומעיל גשם/רוח (Gore-Tex) להגנה מפני הגשם.',
       ]},
-      { type: 'heading', value: 'ציוד קריטי נוסף' },
+      { type: 'subheading', value: 'ציוד קריטי נוסף' },
       { type: 'list', items: [
         'נעלי טרקים: חסינות למים, תומכות בקרסול, והכי חשוב – נעולות בטיולים קודמים. הגעה עם נעליים חדשות מהקופסה היא מתכון בטוח ליבלות.',
         'שק שינה: שק שינה איכותי בדירוג Comfort של מינוס 5 מעלות לפחות.',
@@ -64,7 +64,7 @@ export const POSTS = [
 
       { type: 'heading', value: '3. התאקלמות ומחלת גבהים' },
       { type: 'text', value: 'האתגר הגדול בקילימנג\'רו הוא לא השיפוע, אלא הגובה. האוויר בפסגה מכיל כ-50% פחות חמצן מאשר בגובה פני הים. הגוף האנושי יודע להסתגל לכך מצוין, אבל הוא זקוק לזמן.' },
-      { type: 'heading', value: 'טיפים לשיפור ההתאקלמות' },
+      { type: 'subheading', value: 'טיפים לשיפור ההתאקלמות' },
       { type: 'list', items: [
         '"פולה פולה" (Pole Pole): זהו המשפט שתשמעו הכי הרבה מהמדריכים בטנזניה — "לאט לאט". הקצב צריך להיות איטי במכוון, כדי לאפשר לגוף להסתגל ולחסוך באנרגיה יקרה.',
         'שתו מים: בגובה הגוף מאבד נוזלים במהירות. הקפידו לשתות 3-4 ליטר מים ביום.',
@@ -126,7 +126,7 @@ export const POSTS = [
 
       { type: 'heading', value: '1. How to Train for the Climb' },
       { type: 'text', value: 'The common myth is that you need to be a marathon runner to climb Kilimanjaro. The truth is that mountaineering demands something completely different: cardiovascular endurance and leg strength. The journey lasts approximately 6-7 days, during which you walk many hours on inclines in progressively thinning air.' },
-      { type: 'heading', value: 'The Three Training Pillars' },
+      { type: 'subheading', value: 'The Three Training Pillars' },
       { type: 'list', items: [
         'Aerobic (Endurance): At least 3 months before the trip, incorporate uphill walking (on a treadmill or outdoors), light jogging, swimming or cycling. The goal is to accustom your body to sustained effort at a moderate heart rate.',
         'Strength training: Focus on leg muscles (quads and calves) with squats and lunges. Don\'t neglect your core (abs and back) — they\'re what keep you upright with a pack on your back.',
@@ -139,13 +139,13 @@ export const POSTS = [
 
       { type: 'heading', value: '2. The Gear That Will Make the Difference' },
       { type: 'text', value: 'On the way to the summit you pass through extreme and varied climate zones: from the lush tropical forest at the base, through the alpine desert, to the glaciers at the summit. On summit night, the temperature can drop to minus 10 or even minus 15 degrees Celsius. The secret to handling these changes is the layering system.' },
-      { type: 'heading', value: 'The Recommended Layering System' },
+      { type: 'subheading', value: 'The Recommended Layering System' },
       { type: 'list', items: [
         'Base Layer: Moisture-wicking thermal clothing (shirt and pants) that sits close to your body and keeps you dry. Iron rule: avoid cotton completely — cotton absorbs sweat and freezes in the cold.',
         'Mid Layer: Quality fleece or lightweight/synthetic jacket designed to trap body heat (insulation).',
         'Outer Layer (Shell): A quality heavy down jacket for summit night, and a rain/wind jacket (Gore-Tex) for rain protection.',
       ]},
-      { type: 'heading', value: 'Additional Critical Gear' },
+      { type: 'subheading', value: 'Additional Critical Gear' },
       { type: 'list', items: [
         'Hiking boots: Waterproof, ankle-supportive, and most importantly — broken in on previous hikes. Arriving with brand-new boots is a sure recipe for blisters.',
         'Sleeping bag: A quality bag rated to at least -5°C Comfort.',
@@ -158,7 +158,7 @@ export const POSTS = [
 
       { type: 'heading', value: '3. Acclimatization and Altitude Sickness' },
       { type: 'text', value: 'The biggest challenge on Kilimanjaro is not the gradient, but the altitude. The air at the summit contains about 50% less oxygen than at sea level. The human body knows how to adapt to this very well, but it needs time.' },
-      { type: 'heading', value: 'Tips for Better Acclimatization' },
+      { type: 'subheading', value: 'Tips for Better Acclimatization' },
       { type: 'list', items: [
         '"Pole Pole": This is the phrase you\'ll hear most from the guides in Tanzania. It means "slowly, slowly". The pace must be deliberately slow, to allow the body to adapt and conserve precious energy.',
         'Stay hydrated: At altitude, the body loses fluids quickly. Make sure to drink 3-4 litres of water per day.',
