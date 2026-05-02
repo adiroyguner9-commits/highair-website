@@ -4,3 +4,8 @@ dist/
 .env
 .DS_Store
 *.DS_Store
+.vercel
+
+# Hero video backup — kept locally for re-encoding via scripts/compress-hero.mjs.
+# Don't bloat the repo with the 11 MB original; the compressed hero.mp4 is committed.
+public/hero.original.mp4

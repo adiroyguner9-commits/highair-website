@@ -92,7 +92,7 @@ export default function CookieBanner() {
       }}>
         {isEn
           ? 'We use cookies to improve your browsing experience and analyse site usage. '
-          : 'אנחנו משתמשים בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את השימוש באתר. '}
+          : 'אנחנו משתמשים בעוגיות כדי לשפר את החוויה באתר ולנתח את השימוש בו. '}
         <a
           href="/privacy"
           style={{ color: COLOR.primary, fontWeight: 600, textDecoration: 'none' }}

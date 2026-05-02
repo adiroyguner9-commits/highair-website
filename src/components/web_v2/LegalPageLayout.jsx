@@ -67,15 +67,19 @@ export const LINK = {
   textDecoration: 'none',
 };
 
-/* ── Layout wrapper ── */
-export default function LegalPageLayout({ title, subtitle, children }) {
+/* ── Layout wrapper ──
+   Pages that need a richer SEO setup (Schema.org JSON-LD, custom
+   description, custom canonical) can pass a `pageMeta` prop to override
+   the defaults below. Pages without it get the legacy auto-generated
+   meta keyed off the `title` prop. */
+export default function LegalPageLayout({ title, subtitle, children, pageMeta }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
   const defaultSubtitle = isRtl ? 'עודכן לאחרונה: אפריל 2025' : 'Last updated: April 2025';
   const resolvedSubtitle = subtitle || defaultSubtitle;
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  usePageMeta({
+  usePageMeta(pageMeta || {
     title:         `${title} | HighAir Expeditions`,
     description:   isRtl ? `${title} - HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.` : `${title} - HighAir Expeditions. Trekking and climbing expeditions worldwide.`,
     canonicalPath: SLUG_MAP[title] || '/',

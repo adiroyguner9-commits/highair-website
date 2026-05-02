@@ -3,22 +3,24 @@
  * שולח לטבלת "Website Leads" ב-Airtable → התראה לאדמין
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import PhoneField, { formatFullPhone, validatePhone } from './PhoneField.jsx';
+import { Analytics } from '../../utils/analytics.js';
 
 /* ── Submit lead ── */
-async function submitLead({ name, phone, message }) {
+async function submitLead({ name, dial, phone, message }) {
   const res = await fetch('/api/submit-lead', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify({
       fields: {
         'Name':      name,
-        'Phone':     phone,
+        'Phone':     formatFullPhone(dial, phone),
         'Message':   message,
-        'Source':    'CTA Section',
+        'Source':    'Contact',
         'Submitted': new Date().toISOString(),
       },
     }),
@@ -57,23 +59,21 @@ export default function CTASection() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const INPUT_STYLE = { ...INPUT_STYLE_BASE, direction: dir };
-  const [form,       setForm]       = useState({ name: '', phone: '', message: '', privacy: false });
+  const [form,       setForm]       = useState({ name: '', dial: '+972', phone: '', message: '', privacy: false });
   const [focused,    setFocused]    = useState(null);
   const [submitted,  setSubmitted]  = useState(false);
   const [loading,    setLoading]    = useState(false);
   const [submitErr,  setSubmitErr]  = useState(false);
   const [phoneError, setPhoneError] = useState(false);
 
-  const PHONE_REGEX = /^\d{3}-\d{7}$/;
+  // Fire `lead_form_start` once when the user first interacts with the form,
+  // so we can compute funnel rates (start → submit → success) in GA4.
+  const formStarted = useRef(false);
 
   function handleChange(field, value) {
-    if (field === 'phone') {
-      const digits    = value.replace(/\D/g, '').slice(0, 10);
-      const formatted = digits.length > 3
-        ? `${digits.slice(0, 3)}-${digits.slice(3)}`
-        : digits;
-      setForm(prev => ({ ...prev, phone: formatted }));
-      return;
+    if (!formStarted.current) {
+      formStarted.current = true;
+      Analytics.leadFormStart('cta_section');
     }
     if (field === 'name') {
       const letters = value.replace(/[^א-תa-zA-Z\s]/g, '');
@@ -85,10 +85,10 @@ export default function CTASection() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.name.trim()) return;
-    if (!PHONE_REGEX.test(form.phone)) { setPhoneError(true); return; }
-    if (!form.message.trim()) return;
-    if (!form.privacy) return;
+    if (!form.name.trim())                              { Analytics.leadSubmitError('missing_name');    return; }
+    if (!validatePhone(form.dial, form.phone))          { setPhoneError(true); Analytics.leadSubmitError('invalid_phone'); return; }
+    if (!form.message.trim())                           { Analytics.leadSubmitError('missing_message'); return; }
+    if (!form.privacy)                                  { Analytics.leadSubmitError('no_consent');      return; }
 
     setPhoneError(false);
     setSubmitErr(false);
@@ -96,9 +96,11 @@ export default function CTASection() {
 
     try {
       await submitLead(form);
+      Analytics.leadSubmit({ source: 'cta_section' });
       setSubmitted(true);
     } catch (err) {
       console.error(err);
+      Analytics.leadSubmitError('network');
       setSubmitErr(true);
     } finally {
       setLoading(false);
@@ -165,37 +167,16 @@ export default function CTASection() {
             </div>
 
             {/* Phone */}
-            <div>
-              <label style={LABEL_STYLE}>{t('cta.phoneLabel')}</label>
-              <input
-                type="tel"
-                inputMode="numeric"
-                placeholder={t('cta.phonePlaceholder')}
-                value={form.phone}
-                required
-                maxLength={11}
-                onChange={e => { handleChange('phone', e.target.value); setPhoneError(false); }}
-                onMouseEnter={e => { e.target.style.borderColor = phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(167,139,250,0.6)'; }}
-                onMouseLeave={e => { e.target.style.borderColor = phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.15)'; }}
-                style={{
-                  ...INPUT_STYLE,
-                  borderColor: phoneError ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.15)',
-                  direction:  'ltr',
-                  textAlign:  'start',
-                }}
-              />
-              {phoneError && (
-                <div style={{
-                  fontFamily: 'Ploni, sans-serif',
-                  fontSize:   '12px',
-                  color:      'rgba(248,113,113,0.9)',
-                  marginTop:  '6px',
-                  textAlign:  'start',
-                }}>
-                  {t('cta.phoneError')}
-                </div>
-              )}
-            </div>
+            <PhoneField
+              dark
+              label={t('cta.phoneLabel')}
+              dial={form.dial}
+              onDialChange={v => setForm(p => ({ ...p, dial: v }))}
+              local={form.phone}
+              onLocalChange={v => { setForm(p => ({ ...p, phone: v })); setPhoneError(false); }}
+              error={phoneError}
+              errorMsg={t('cta.phoneError')}
+            />
 
             {/* Message - required */}
             <div>
@@ -300,7 +281,7 @@ export default function CTASection() {
             background:   'rgba(255,255,255,0.06)',
             border:       '1px solid rgba(255,255,255,0.12)',
           }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🏔️</div>
+
             <h3 style={{
               fontFamily:    'Ploni, sans-serif',
               fontSize:      FS.h3,

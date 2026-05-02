@@ -8,11 +8,12 @@ import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
-import { usePageMeta } from '../../website/usePageMeta.js';
+import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
@@ -231,11 +232,34 @@ export default function ExpeditionDetail() {
 
   const exp = EXPS.find(e => e.slug === slug);
 
+  /* Schema.org JSON-LD: Tour + Breadcrumbs + FAQ — built once per expedition.
+     This is what unlocks rich-result eligibility on Google for tour queries
+     ("טיפוס קילימנג'רו", "Mt Kilimanjaro tour from Israel", etc.). */
+  const expJsonLd = exp ? [
+    tourSchema({
+      name:         `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
+      description:  `${exp.nameHe} ב${exp.countryHe || ''} - ${exp.elev || ''}. משלחת מלאה עם HighAir Expeditions.`,
+      image:        exp.img,
+      url:          `/expedition/${exp.slug}`,
+      country:      exp.countryHe || exp.country,
+      durationDays: typeof exp.days === 'number' ? exp.days : undefined,
+      ratingValue:  4.9,
+      reviewCount:  exp.reviews?.length || 229,
+    }),
+    breadcrumbList([
+      { name: 'בית',       url: '/' },
+      { name: 'משלחות',   url: '/#expeditions' },
+      { name: exp.nameHe, url: `/expedition/${exp.slug}` },
+    ]),
+    faqPage((exp.faq?.length ? exp.faq : DEFAULT_FAQ).slice(0, 8)),
+  ] : null;
+
   usePageMeta(exp ? {
     title:         `${exp.nameHe} | HighAir Expeditions`,
     description:   `הצטרפו למשלחת ${exp.nameHe} עם HighAir Expeditions. ${exp.elev ? exp.elev + ' - ' : ''}טיפוס הרים וטרקים בשילוב תרומה למלחמה בסרטן.`,
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
+    jsonLd:        expJsonLd,
   } : {
     title:       'HighAir Expeditions | משלחות הרים',
     description: 'משלחות טיפוס הרים וטרקים בעולם.',
@@ -407,24 +431,19 @@ export default function ExpeditionDetail() {
   const [copied, setCopied] = useState(false);
 
   /* ── Form state ── */
-  const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', phone: '', email: '', experience: '', privacy: false });
+  const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', dial: '+972', phone: '', email: '', experience: '', privacy: false });
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [showBooking, setShowBooking] = useState(true);
+  const [isWaitlist,  setIsWaitlist]  = useState(false);
   const [ageError,   setAgeError]   = useState('');
 
-  /* ── Phone formatting & validation (Israeli: 050-XXXXXXX) ── */
-  function formatPhone(raw) {
-    const digits = raw.replace(/\D/g, '').slice(0, 10);
-    return digits.length > 3 ? `${digits.slice(0, 3)}-${digits.slice(3)}` : digits;
-  }
-
+  /* ── Phone validation ── */
   function validatePhone(val) {
-    const digits = val.replace(/\D/g, '');
-    const ok = /^05\d{8}$/.test(digits);
-    setPhoneError(ok || !digits ? '' : isRtl ? 'מספר טלפון לא תקין (לדוגמה: 050-1234567)' : 'Invalid phone number (e.g. 050-1234567)');
+    const ok = checkPhone(form.dial, val);
+    setPhoneError(ok || !val ? '' : isRtl ? 'מספר טלפון לא תקין' : 'Invalid phone number');
     return ok;
   }
 
@@ -459,14 +478,14 @@ export default function ExpeditionDetail() {
         body: JSON.stringify({
           fields: {
             Name: form.name,
-            Phone: form.phone,
+            Phone: formatFullPhone(form.dial, form.phone),
             Email: form.email,
             'Expedition': exp.nameHe,
             'Preferred Month': form.month,
             'Age': form.age ? Number(form.age) : undefined,
             'Group Size': form.groupSize ? Number(form.groupSize) : undefined,
             'Experience': form.experience || undefined,
-            'Source': 'Expedition Page - ' + exp.nameHe,
+            'Source': (isWaitlist ? 'Waitlist - ' : 'Expedition Page - ') + exp.nameHe,
           },
         }),
       });
@@ -1049,13 +1068,16 @@ export default function ExpeditionDetail() {
                   const isSafariDay = hasSafari && itineraryTab === 'safari' && idx >= (exp.itinerary.length - 1);
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
-                      <div
+                      <button
                         onClick={() => toggleItinerary(idx)}
+                        aria-expanded={isOpen}
+                        aria-controls={`itinerary-panel-${idx}`}
                         style={{
                           display: 'flex', alignItems: 'center', gap: '16px',
                           padding: '16px 20px', cursor: 'pointer',
                           background: isOpen ? '#FAFAFE' : 'white',
                           transition: `background 150ms ${EASING.smooth}`, direction: dir,
+                          width: '100%', border: 'none', textAlign: 'start',
                         }}
                         onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = '#FAFAFE'; }}
                         onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
@@ -1076,8 +1098,8 @@ export default function ExpeditionDetail() {
                         <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>
                           {isOpen ? '▴' : '▾'}
                         </span>
-                      </div>
-                      <div style={{ maxHeight: isOpen ? '500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
+                      </button>
+                      <div id={`itinerary-panel-${idx}`} style={{ maxHeight: isOpen ? '500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
                         <p style={{
                           padding: '0 20px 20px', margin: 0,
                           fontFamily: "'Ploni', sans-serif", fontSize: '15px',
@@ -1182,7 +1204,7 @@ export default function ExpeditionDetail() {
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', margin: 0, lineHeight: 1.6 }}>
                 {isRtl ? 'רוצים להירשם לרשימת ההמתנה ולקבל עדיפות ליציאה הבאה?' : 'Want to join the waitlist and get priority for the next departure?'}
               </p>
-              <button onClick={scrollToForm} style={{
+              <button onClick={() => { setIsWaitlist(true); scrollToForm(); }} style={{
                 marginTop: '4px', padding: '10px 28px', borderRadius: RADIUS.full,
                 border: 'none', background: COLOR.primary, color: '#fff',
                 fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
@@ -1338,7 +1360,7 @@ export default function ExpeditionDetail() {
                 {isRtl ? 'רוצים להירשם לרשימת ההמתנה או לשמוע על תאריכים חדשים ראשונים?' : t('expedition.waitlist')}
               </p>
               <button
-                onClick={scrollToForm}
+                onClick={() => { setIsWaitlist(true); scrollToForm(); }}
                 style={{
                   marginTop: '4px', padding: '10px 28px',
                   borderRadius: RADIUS.full, border: 'none',
@@ -1632,33 +1654,15 @@ export default function ExpeditionDetail() {
                   </div>
 
                   {/* טלפון */}
-                  <div>
-                    <label style={labelStyle}>{isRtl ? 'מספר טלפון *' : 'Phone Number *'}</label>
-                    <input
-                      type="tel" required value={form.phone}
-                      placeholder={isRtl ? '050-0000000' : '+1-000-000-0000'}
-                      maxLength={11}
-                      onChange={e => {
-                        const v = formatPhone(e.target.value);
-                        setForm(f => ({ ...f, phone: v }));
-                        if (phoneError) validatePhone(v);
-                      }}
-                      onBlur={e => validatePhone(e.target.value)}
-                      style={{
-                        ...inputStyle,
-                        direction: 'ltr',
-                        textAlign: 'start',
-                        borderColor: phoneError ? '#DC2626' : '#E5E3F0',
-                      }}
-                      onMouseEnter={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
-                      onMouseLeave={e => { e.target.style.borderColor = phoneError ? '#DC2626' : '#E5E3F0'; }}
-                    />
-                    {phoneError && (
-                      <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>
-                        {phoneError}
-                      </p>
-                    )}
-                  </div>
+                  <PhoneField
+                    label={isRtl ? 'מספר טלפון *' : 'Phone Number *'}
+                    dial={form.dial}
+                    onDialChange={v => setForm(f => ({ ...f, dial: v }))}
+                    local={form.phone}
+                    onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
+                    error={!!phoneError}
+                    errorMsg={phoneError}
+                  />
 
                   {/* מייל */}
                   <div>

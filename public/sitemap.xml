@@ -2,157 +2,187 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.highair-expeditions.com/</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/blog</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.highair-expeditions.com/about</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.highair-expeditions.com/contact</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.highair-expeditions.com/shop</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/annual-plan</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/cancellation</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/terms</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/privacy</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/accessibility</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/olympus</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/peaks-of-balkan</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/ethiopia</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/kazbek</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/manaslu</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/everest-base-camp</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/annapurna</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/elbrus</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/kilimanjaro</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/kilimanjaro-kosher</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/lobuche-peak</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/island-peak</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/mera-peak</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/aconcagua</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/expedition/lenin-peak</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.highair-expeditions.com/blog/mountain-gear-list</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.highair-expeditions.com/blog/everest-base-camp-guide</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.highair-expeditions.com/blog/altitude-sickness-guide</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.highair-expeditions.com/blog/kilimanjaro-guide</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/blog/seven-summits-guide</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.highair-expeditions.com/israel/hermon</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

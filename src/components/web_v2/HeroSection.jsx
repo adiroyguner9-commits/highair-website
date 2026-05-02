@@ -12,7 +12,11 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
-/* ── Epic slow-motion mountain summit clip (Coverr CDN, free) ── */
+/* ── Hero background video — plays on every device + every connection.
+       The compressed `hero.mp4` (run scripts/compress-hero.mjs) keeps the
+       file small enough that this is reasonable. The poster image is used
+       only as a flash-of-something-while-the-video-buffers fallback, never
+       as a static replacement. */
 const VIDEO_SRC = '/hero.mp4';
 
 /* ── Keyframes injected once into <head> ── */
@@ -57,13 +61,15 @@ export default function HeroSection() {
       justifyContent:  'center',
     }}>
 
-      {/* ── 01. Background video ─────────────────────────── */}
+      {/* ── 01. Background video — always rendered, every device ──────── */}
       <video
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         poster="/hero-poster.jpg"
+        aria-hidden="true"
         style={{
           position:        'absolute',
           inset:           0,
@@ -190,7 +196,7 @@ export default function HeroSection() {
 
           {/* Secondary - הסיפור שלנו */}
           <a
-            href="#impact"
+            href="/about"
             onMouseEnter={() => setBtn2Hovered(true)}
             onMouseLeave={() => setBtn2Hovered(false)}
             style={{

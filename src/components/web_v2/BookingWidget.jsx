@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, FS, COLOR, EASING } from '../../website/theme.js';
+import { Analytics } from '../../utils/analytics.js';
 
 /* ── Hebrew locale ── */
 const HE_DAY_SHORT  = ['א׳','ב׳','ג׳','ד׳','ה׳','ו׳','ש׳'];
@@ -110,7 +111,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
     setSelSlot(null);
     setError('');
     fetch(`/api/slots?date=${selDate}`)
-      .then(r => r.json())
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => { setSlots(d.slots || []); setSlotsLoad(false); })
       .catch(() => { setSlots([]); setSlotsLoad(false); });
   }, [selDate]);
@@ -129,7 +130,9 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
 
   function selectDate(d) {
     if (isDisabled(d)) return;
-    setSelDate(toDateStr(new Date(viewYear, viewMonth, d)));
+    const dateStr = toDateStr(new Date(viewYear, viewMonth, d));
+    Analytics.bookingDateSelect(dateStr);
+    setSelDate(dateStr);
   }
 
   function prevMonth() {
@@ -153,6 +156,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
     if (!selDate || !selSlot) return;
     setSubmitting(true);
     setError('');
+    Analytics.bookingSubmit({ date: selDate, time: selSlot, expedition });
     try {
       const res = await fetch('/api/book-slot', {
         method:  'POST',
@@ -162,12 +166,15 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
       const data = await res.json();
       if (!res.ok) {
         if (data.error === 'slot_taken') {
+          Analytics.bookingSlotTaken();
           setError(isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time');
           setSlotsLoad(true);
           fetch(`/api/slots?date=${selDate}`)
-            .then(r => r.json())
-            .then(d => { setSlots(d.slots || []); setSelSlot(null); setSlotsLoad(false); });
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(d => { setSlots(d.slots || []); setSelSlot(null); setSlotsLoad(false); })
+            .catch(() => { setSlotsLoad(false); });
         } else {
+          Analytics.bookingError(data.error || `http_${res.status}`);
           setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : 'Booking error - please try again');
         }
         setSubmitting(false);
@@ -175,6 +182,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
       }
       setBooked({ date: selDate, time: selSlot });
     } catch {
+      Analytics.bookingError('network');
       setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : 'Booking error - please try again');
       setSubmitting(false);
     }
@@ -249,7 +257,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
           display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', marginBottom: '14px',
         }}>
-          <button onClick={nextMonth} style={NAV_BTN}>{IC.chevronRight}</button>
+          <button onClick={nextMonth} aria-label={isRtl ? 'חודש הבא' : 'Next month'} style={NAV_BTN}>{IC.chevronRight}</button>
           <span style={{
             fontFamily: 'Ploni, sans-serif', fontWeight: 700,
             color: '#fff', fontSize: '15px',
@@ -257,6 +265,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
             {MONTHS[viewMonth]} {viewYear}
           </span>
           <button onClick={prevMonth} disabled={atMinMonth}
+            aria-label={isRtl ? 'חודש קודם' : 'Previous month'}
             style={{ ...NAV_BTN, opacity: atMinMonth ? 0.2 : 1, cursor: atMinMonth ? 'default' : 'pointer' }}>
             {IC.chevronLeft}
           </button>
@@ -279,10 +288,16 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
           {cells.map((d, i) => {
             const disabled = isDisabled(d);
             const selected = isSelected(d);
+            const dateLabel = d
+              ? `${d} ${MONTHS[viewMonth]} ${viewYear}`
+              : undefined;
             return (
-              <div
+              <button
                 key={i}
                 onClick={() => d && !disabled && selectDate(d)}
+                disabled={!d || disabled}
+                aria-label={dateLabel}
+                aria-pressed={selected || undefined}
                 style={{
                   aspectRatio:    '1',
                   display:        'flex',
@@ -303,10 +318,12 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
                   fontWeight:   selected ? 700 : 400,
                   transition:   'background 0.15s ease',
                   userSelect:   'none',
+                  border:       'none',
+                  padding:      0,
                 }}
               >
                 {d || ''}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -343,7 +360,7 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
                   return (
                     <button
                       key={s}
-                      onClick={() => { setSelSlot(s); setError(''); }}
+                      onClick={() => { Analytics.bookingSlotSelect(s); setSelSlot(s); setError(''); }}
                       style={{
                         padding:      '10px 0',
                         borderRadius: RADIUS.md,
