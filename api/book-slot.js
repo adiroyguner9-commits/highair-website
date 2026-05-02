@@ -16,6 +16,21 @@ function formatDateHe(dateStr) {
   return `יום ${HE_DAYS[d.getDay()]}, ${d.getDate()} ב${HE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 }
 
+/* RFC 5545 §3.3.11 TEXT escaping for all user-supplied ICS values.
+   Escapes backslash, semicolon, comma, and CR/LF — without this, attacker
+   input in name/expedition can break out of an ICS line and inject new
+   properties (ATTENDEE, DESCRIPTION, etc.) — a phishing primitive served
+   from the company's own domain. */
+function icsEscape(s, max = 200) {
+  return String(s ?? '')
+    .slice(0, max)
+    .replace(/\\/g,   '\\\\')
+    .replace(/;/g,    '\\;')
+    .replace(/,/g,    '\\,')
+    .replace(/\r?\n/g, '\\n')
+    .replace(/[\x00-\x1F\x7F]/g, '');
+}
+
 /* ── ICS helpers ── */
 function icsDateTimes(date, time) {
   const pad = n => String(n).padStart(2, '0');
@@ -39,7 +54,8 @@ function icsDateTimes(date, time) {
 /* Client ICS — METHOD:PUBLISH */
 function generateICS({ date, time, name, expedition }) {
   const { dtStart, dtEnd, uid } = icsDateTimes(date, time);
-  const desc = expedition ? `שיחה לגבי משלחת: ${expedition}` : 'שיחה עם HighAir Expeditions';
+  const safeExpedition = icsEscape(expedition);
+  const desc = safeExpedition ? `שיחה לגבי משלחת: ${safeExpedition}` : 'שיחה עם HighAir Expeditions';
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -61,7 +77,9 @@ function generateICS({ date, time, name, expedition }) {
 /* Admin ICS — METHOD:REQUEST → iOS Mail shows Accept/Decline banner automatically */
 function generateAdminICS({ date, time, name, expedition }) {
   const { dtStart, dtEnd, uid } = icsDateTimes(date, time);
-  const desc = [`לקוח: ${name}`, expedition ? `משלחת: ${expedition}` : ''].filter(Boolean).join('\\n');
+  const safeName       = icsEscape(name);
+  const safeExpedition = icsEscape(expedition);
+  const desc = [`לקוח: ${safeName}`, safeExpedition ? `משלחת: ${safeExpedition}` : ''].filter(Boolean).join('\\n');
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -71,7 +89,7 @@ function generateAdminICS({ date, time, name, expedition }) {
     'BEGIN:VEVENT',
     `DTSTART:${dtStart}`,
     `DTEND:${dtEnd}`,
-    `SUMMARY:שיחה עם ${name}`,
+    `SUMMARY:שיחה עם ${safeName}`,
     `DESCRIPTION:${desc}`,
     'ORGANIZER;CN=HighAir Expeditions:mailto:info@highair-expeditions.com',
     'ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=HighAir Admin:mailto:info@highair-expeditions.com',
@@ -123,31 +141,74 @@ async function sendEmail(key, { to, subject, html, attachments }) {
   } catch (e) { console.warn('[book-slot] email non-fatal:', e.message); }
 }
 
+import {
+  escapeHtml,
+  sanitiseFields,
+  isValidDate,
+  isValidTime,
+  isValidPhone,
+  isValidEmail,
+  isValidName,
+  checkRateLimit,
+  setSecurityHeaders,
+} from './_security.js';
+
 /* ════════════════════════════════════════════ */
 export default async function handler(req, res) {
+  setSecurityHeaders(req, res);
+
+  if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { date, time, name, phone, email, expedition } = req.body || {};
+  /* ── Rate limiting ── */
+  if (!checkRateLimit(req, 'book-slot')) {
+    return res.status(429).json({ error: 'Too many requests — please wait a moment' });
+  }
+
+  const raw = sanitiseFields(req.body || {});
+  const { date, time, name, phone, email, expedition } = raw;
+
+  /* ── Input validation ── */
   if (!date || !time || !name || !phone) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+  if (!isValidDate(date)) {
+    return res.status(400).json({ error: 'Invalid date format' });
+  }
+  if (!isValidTime(time)) {
+    return res.status(400).json({ error: 'Invalid time format' });
+  }
+  if (!isValidName(name)) {
+    return res.status(400).json({ error: 'Invalid name' });
+  }
+  if (!isValidPhone(phone)) {
+    return res.status(400).json({ error: 'Invalid phone number' });
+  }
+  if (email && !isValidEmail(email)) {
+    return res.status(400).json({ error: 'Invalid email address' });
   }
 
   const TOKEN = process.env.AIRTABLE_TOKEN;
   const BASE  = process.env.AIRTABLE_BASE;
   if (!TOKEN || !BASE) return res.status(500).json({ error: 'Server config error' });
 
-  // 1. Race-condition guard
+  // 1. Race-condition guard — double-check slot availability right before writing
   try {
     const formula = encodeURIComponent(`AND({Date}="${date}",{Time}="${time}",{Status}="confirmed")`);
-    const chk     = await fetch(
+    const chk = await fetch(
       `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}&fields[]=Time`,
       { headers: { Authorization: `Bearer ${TOKEN}` } }
     );
+    if (!chk.ok) throw new Error(`Airtable check failed: ${chk.status}`);
     const chkData = await chk.json();
     if ((chkData.records?.length || 0) > 0) {
       return res.status(409).json({ error: 'slot_taken' });
     }
-  } catch (e) { console.warn('[book-slot] availability check failed:', e.message); }
+  } catch (e) {
+    console.warn('[book-slot] availability check failed:', e.message);
+    // Do not proceed if we can't verify — prevents overbooking on check failure
+    return res.status(503).json({ error: 'Unable to verify slot availability — please try again' });
+  }
 
   // 2. Write to Airtable
   const atRes = await fetch(`https://api.airtable.com/v0/${BASE}/Appointments`, {
@@ -168,7 +229,7 @@ export default async function handler(req, res) {
   if (!atRes.ok) {
     const err = await atRes.json();
     console.error('[book-slot] Airtable error:', err);
-    return res.status(500).json({ error: err.error?.message || 'Booking failed' });
+    return res.status(500).json({ error: 'Booking failed' });
   }
 
   // 3. WhatsApp confirmation to client via Green API
@@ -248,13 +309,13 @@ export default async function handler(req, res) {
       </td></tr>
 
       <tr><td style="padding:36px;text-align:center;">
-        <p style="margin:0 0 4px;font-size:14px;color:#9591B0;">שלום ${name},</p>
+        <p style="margin:0 0 4px;font-size:14px;color:#9591B0;">שלום ${escapeHtml(name)},</p>
         <p style="margin:0 0 28px;font-size:15px;color:#1e1b4b;line-height:1.6;">קבענו לך שיחה עם הצוות שלנו.</p>
 
         <div style="background:#F5F0FF;border-radius:12px;padding:20px 32px;margin-bottom:28px;">
           <p style="margin:0 0 6px;font-size:14px;color:#7c3aed;font-weight:700;">${dateHe}</p>
           <p style="margin:0;font-size:36px;color:#1e1b4b;font-weight:800;letter-spacing:-1px;">${time}</p>
-          ${expedition ? `<p style="margin:8px 0 0;font-size:13px;color:#9591B0;">משלחת: ${expedition}</p>` : ''}
+          ${expedition ? `<p style="margin:8px 0 0;font-size:13px;color:#9591B0;">משלחת: ${escapeHtml(expedition)}</p>` : ''}
         </div>
 
         <table cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
@@ -369,14 +430,14 @@ export default async function handler(req, res) {
 function row(label, value) {
   if (!value) return '';
   return `<tr>
-    <td style="padding:12px 16px;background:#FAFAF8;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;border-bottom:1px solid #ECEAF8;">${label}</td>
-    <td style="padding:12px 16px;font-size:14px;color:#1e1b4b;font-weight:500;border-bottom:1px solid #ECEAF8;">${value}</td>
+    <td style="padding:12px 16px;background:#FAFAF8;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;border-bottom:1px solid #ECEAF8;">${escapeHtml(label)}</td>
+    <td style="padding:12px 16px;font-size:14px;color:#1e1b4b;font-weight:500;border-bottom:1px solid #ECEAF8;">${escapeHtml(String(value))}</td>
   </tr>`;
 }
 function row2(label, value) {
   if (!value) return '';
   return `<tr>
-    <td style="padding:12px 16px;background:#F5F0FF;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;border-bottom:1px solid #ECEAF8;">${label}</td>
-    <td style="padding:12px 16px;font-size:16px;color:#7c3aed;font-weight:700;border-bottom:1px solid #ECEAF8;">${value}</td>
+    <td style="padding:12px 16px;background:#F5F0FF;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;border-bottom:1px solid #ECEAF8;">${escapeHtml(label)}</td>
+    <td style="padding:12px 16px;font-size:16px;color:#7c3aed;font-weight:700;border-bottom:1px solid #ECEAF8;">${escapeHtml(String(value))}</td>
   </tr>`;
 }

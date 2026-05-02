@@ -2,12 +2,34 @@
  * GET /api/send-reminders
  * Called by Vercel Cron every 30 minutes.
  * Finds appointments starting in ~2 hours and sends a WhatsApp reminder.
+ *
+ * SECURITY: Requires CRON_SECRET. Vercel's cron infra automatically sends
+ * `Authorization: Bearer <CRON_SECRET>` when the env var is set on the project.
+ * The endpoint MUST also be registered under `crons` in vercel.json.
  */
 
 export const config = { api: { bodyParser: false } };
 
+function isAuthorizedCron(req) {
+  const expected = process.env.CRON_SECRET;
+  if (!expected) {
+    console.error('[reminders] CRON_SECRET env var not set — refusing all invocations');
+    return false;
+  }
+  const auth = req.headers.authorization || '';
+  const m = /^Bearer\s+(.+)$/.exec(auth);
+  if (!m) return false;
+  const a = Buffer.from(m[1]);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
+  return diff === 0;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
+  if (!isAuthorizedCron(req)) return res.status(401).json({ error: 'Unauthorized' });
 
   const TOKEN       = process.env.AIRTABLE_TOKEN;
   const BASE        = process.env.AIRTABLE_BASE;
@@ -39,7 +61,12 @@ export default async function handler(req, res) {
   const pad     = n => String(n).padStart(2, '0');
   const dateStr = `${nowIL.getUTCFullYear()}-${pad(nowIL.getUTCMonth() + 1)}-${pad(nowIL.getUTCDate())}`;
 
-  // Query Airtable for confirmed appointments today
+  // Query Airtable for confirmed appointments today.
+  // dateStr is built from the system clock (no user input), but defence-in-depth:
+  // hard regex-validate before interpolating.
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    return res.status(500).json({ error: 'Internal date format error' });
+  }
   const formula = encodeURIComponent(`AND({Date}="${dateStr}",{Status}="confirmed",{ReminderSent}!=TRUE())`);
   let records = [];
   try {
