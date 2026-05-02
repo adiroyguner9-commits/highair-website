@@ -97,10 +97,15 @@ function LangSwitcher() {
     if (host.includes('highair-expeditions.com')) {
       if (lng === 'en' && !host.startsWith('en.')) {
         window.location.href = window.location.href.replace(host, 'en.' + host.replace('www.', ''));
+        return; // new page load handles scroll
       } else if (lng === 'he' && host.startsWith('en.')) {
         window.location.href = window.location.href.replace('en.', '');
+        return; // new page load handles scroll
       }
     }
+    /* On localhost / dev (no redirect): scroll to top so the user
+       always sees the page from the beginning after a language switch */
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }
 
   const current = LANGS.find(l => l.code === (isEn ? 'en' : 'he'));
@@ -796,7 +801,7 @@ function SearchModal({ onClose }) {
             {results.map((exp, idx) => (
               <button
                 key={exp.id}
-                onClick={() => { navigate(`/expeditions/${exp.slug}`); onClose(); }}
+                onClick={() => { navigate(`/expedition/${exp.slug}`); onClose(); }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '14px',
                   width: '100%', padding: '13px 18px',
@@ -873,8 +878,9 @@ export default function Header() {
     { key: 'treks',       href: '#expeditions', hasMega: true, megaType: 'treks'    },
     { key: 'israelTrips', href: '#israel', hasMega: true, megaType: 'israel' },
     { key: 'annualPlan',  href: '/annual-plan', isPage: true                        },
+    { key: 'about',       href: '/about',       isPage: true                        },
     { key: 'blog',        href: '/blog',        isPage: true                        },
-    { key: 'contact',     href: '#contact'                                          },
+    { key: 'contact',     href: '/contact',     isPage: true                        },
   ];
   const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 
@@ -970,24 +976,34 @@ export default function Header() {
             </button>
           </div>
           <div style={{ justifySelf: 'end' }}>
-            <img
-              src="/Logo.png"
-              alt="HighAir Expeditions"
+            <button
               onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
-              style={{ height: '60px', width: 'auto', display: 'block', objectFit: 'contain', cursor: 'pointer' }}
-            />
+              aria-label="HighAir Expeditions - Home"
+              style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
+            >
+              <img
+                src="/Logo.png"
+                alt="HighAir Expeditions"
+                style={{ height: '60px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              />
+            </button>
           </div>
         </>
       ) : (
         /* ══ DESKTOP: Logo (right) | Nav (center) | WA button (left) ══ */
         <>
           <div style={{ justifySelf: 'start' }}>
-            <img
-              src="/Logo.png"
-              alt="HighAir Expeditions"
+            <button
               onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
-              style={{ height: '64px', width: 'auto', display: 'block', objectFit: 'contain', cursor: 'pointer' }}
-            />
+              aria-label="HighAir Expeditions - Home"
+              style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
+            >
+              <img
+                src="/Logo.png"
+                alt="HighAir Expeditions"
+                style={{ height: '64px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              />
+            </button>
           </div>
           <nav
             onMouseLeave={closeMega}
