@@ -13,10 +13,11 @@ import { COLOR, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 /* ── Hero background video — plays on every device + every connection.
-       Currently `/hero.mp4` IS the full-quality original (~11 MB, 2:26).
-       Expedition detail pages share this fallback until each gets its own
-       per-trip clip filled into `videoUrl` in src/data/mockData.js (which
-       takes precedence and renders a YouTube embed). */
+       `/hero.mp4` is the TRUE source clip from the initial repo (~30 MB,
+       2:26 at 1280×720). Expedition detail pages share this fallback until
+       each gets its own per-trip clip filled into `videoUrl` in
+       src/data/mockData.js (which takes precedence as a YouTube embed).
+       Long-cache header in vercel.json keeps repeat visits cheap. */
 const VIDEO_SRC = '/hero.mp4';
 
 /* ── Keyframes injected once into <head> ── */
