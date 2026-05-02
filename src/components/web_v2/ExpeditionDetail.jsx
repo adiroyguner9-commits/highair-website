@@ -1077,6 +1077,7 @@ export default function ExpeditionDetail() {
                     ].map(tab => (
                       <button
                         key={tab.key}
+                        className="accordion-row"
                         onClick={() => { setItineraryTab(tab.key); setOpenItinerary([]); }}
                         style={{
                           padding: '8px 20px',
@@ -1105,6 +1106,7 @@ export default function ExpeditionDetail() {
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
                       <button
+                        className="accordion-row"
                         onClick={() => toggleItinerary(idx)}
                         aria-expanded={isOpen}
                         aria-controls={`itinerary-panel-${idx}`}

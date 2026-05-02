@@ -76,6 +76,12 @@ button:active {
   transition: transform 0.08s ease, opacity 0.08s ease;
 }
 
+/* Full-width accordion rows should not scale on click — it looks like a jump */
+button.accordion-row:active {
+  transform: none;
+  opacity: 1;
+}
+
 a:active {
   opacity: 0.82;
 }
