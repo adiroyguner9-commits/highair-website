@@ -378,6 +378,7 @@ export default function AnnualPlan() {
             background: '#FFFFFF',
             borderBottom: '1px solid #ECEAF8',
             boxShadow:  '0 2px 12px rgba(0,0,0,0.06)',
+            animation:  'fadeIn 0.35s ease forwards',
           }}>
             <div
               ref={tabsRef}
@@ -444,7 +445,7 @@ export default function AnnualPlan() {
 
           {/* Loading — skeleton cards */}
           {loading && (
-            <div>
+            <div style={{ animation: 'fadeOut 0.2s ease forwards' }}>
               {[0, 1, 2].map(monthIdx => (
                 <div key={monthIdx} style={{ marginBottom: isMobile ? '40px' : '56px' }}>
                   {/* Month title skeleton */}
@@ -524,8 +525,11 @@ export default function AnnualPlan() {
           )}
 
           {/* Month sections */}
-          {!loading && !error && months.map(key => (
-            <div key={key} id={`month-${key}`} style={{ marginBottom: isMobile ? '40px' : '56px' }}>
+          {!loading && !error && months.map((key, idx) => (
+            <div key={key} id={`month-${key}`} style={{
+              marginBottom: isMobile ? '40px' : '56px',
+              animation:    `fadeIn 0.4s ease ${idx * 60}ms both`,
+            }}>
 
               {/* Month title */}
               <div style={{

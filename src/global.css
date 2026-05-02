@@ -90,6 +90,11 @@ a:active {
   100% { background-position: -200% 0; }
 }
 
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 .fadein {
   animation: fadeIn 0.25s cubic-bezier(0.22,1,0.36,1) forwards;
 }
