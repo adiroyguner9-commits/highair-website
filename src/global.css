@@ -85,6 +85,11 @@ a:active {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .fadein {
   animation: fadeIn 0.25s cubic-bezier(0.22,1,0.36,1) forwards;
 }

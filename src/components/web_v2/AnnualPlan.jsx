@@ -442,16 +442,46 @@ export default function AnnualPlan() {
         {/* ── Content ── */}
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: isMobile ? '32px 5%' : '48px 5%' }}>
 
-          {/* Loading */}
+          {/* Loading — skeleton cards */}
           {loading && (
-            <div style={{
-              textAlign:  'center',
-              padding:    '80px 0',
-              fontFamily: "'Ploni', sans-serif",
-              color:      '#6B6B8A',
-              fontSize:   FS.body,
-            }}>
-              {t('annualPlan.loading')}
+            <div>
+              {[0, 1, 2].map(monthIdx => (
+                <div key={monthIdx} style={{ marginBottom: isMobile ? '40px' : '56px' }}>
+                  {/* Month title skeleton */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                    <div style={{
+                      width: monthIdx === 0 ? '110px' : monthIdx === 1 ? '130px' : '100px',
+                      height: '28px', borderRadius: '8px',
+                      background: 'linear-gradient(90deg,#ECEAF8 25%,#F5F3FF 50%,#ECEAF8 75%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 1.4s ease-in-out infinite',
+                    }} />
+                    <div style={{ height: '2px', flex: 1, background: '#ECEAF8', borderRadius: '1px' }} />
+                    <div style={{
+                      width: '70px', height: '22px', borderRadius: '20px',
+                      background: 'linear-gradient(90deg,#ECEAF8 25%,#F5F3FF 50%,#ECEAF8 75%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 1.4s ease-in-out infinite',
+                    }} />
+                  </div>
+                  {/* Card skeletons */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                    gap: '16px',
+                  }}>
+                    {[0, 1, 2].map(i => (
+                      <div key={i} style={{
+                        borderRadius: RADIUS.xl,
+                        minHeight: isMobile ? '220px' : '280px',
+                        background: 'linear-gradient(90deg,#E8E6F4 25%,#F0EEF8 50%,#E8E6F4 75%)',
+                        backgroundSize: '200% 100%',
+                        animation: `shimmer 1.4s ease-in-out ${i * 0.15}s infinite`,
+                      }} />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 
