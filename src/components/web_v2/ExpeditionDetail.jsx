@@ -1137,7 +1137,7 @@ export default function ExpeditionDetail() {
                           {isOpen ? '▴' : '▾'}
                         </span>
                       </button>
-                      <div id={`itinerary-panel-${idx}`} style={{ maxHeight: isOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
+                      <div id={`itinerary-panel-${idx}`} style={{ maxHeight: isOpen ? '900px' : '0', overflow: 'hidden', transition: 'max-height 0.35s ease' }}>
                         <p style={{
                           padding: '0 20px 16px', margin: 0,
                           fontFamily: "'Ploni', sans-serif", fontSize: '15px',
@@ -1145,50 +1145,38 @@ export default function ExpeditionDetail() {
                         }}>
                           {item.desc}
                         </p>
-                        {(item.travelTime || item.accommodation) && (
-                          <div style={{
-                            display: 'flex', flexWrap: 'wrap', gap: '8px',
-                            padding: '0 20px 20px', direction: dir,
-                          }}>
-                            {item.travelTime && (
-                              <span style={{
-                                display: 'inline-flex', alignItems: 'center', gap: '6px',
-                                padding: '5px 12px', borderRadius: '20px',
-                                background: '#F0EEFF', border: '1px solid #DDD6FE',
-                                fontFamily: "'Ploni', sans-serif", fontSize: '13px',
-                                fontWeight: 600, color: '#5B21B6',
-                              }}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <rect x="1" y="3" width="15" height="13" rx="2"/>
-                                  <path d="M16 8h4l3 3v5h-7V8z"/>
-                                  <circle cx="5.5" cy="18.5" r="2.5"/>
-                                  <circle cx="18.5" cy="18.5" r="2.5"/>
-                                </svg>
-                                {item.travelTime}
-                              </span>
-                            )}
-                            {item.accommodation && (
-                              <span style={{
-                                display: 'inline-flex', alignItems: 'center', gap: '6px',
-                                padding: '5px 12px', borderRadius: '20px',
-                                background: '#F0FDF4', border: '1px solid #BBF7D0',
-                                fontFamily: "'Ploni', sans-serif", fontSize: '13px',
-                                fontWeight: 600, color: '#166534',
-                              }}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/>
-                                  <path d="M2 22h20"/>
-                                  <path d="M9 22v-4h6v4"/>
-                                  <rect x="9" y="10" width="2" height="2"/>
-                                  <rect x="13" y="10" width="2" height="2"/>
-                                  <rect x="9" y="14" width="2" height="2"/>
-                                  <rect x="13" y="14" width="2" height="2"/>
-                                </svg>
-                                {item.accommodation}
-                              </span>
-                            )}
-                          </div>
-                        )}
+                        {(item.travelTime || item.distance || item.duration || item.accommodation || item.elevationGain || item.elevationLoss || item.elevationStart || item.elevationMax || item.elevationEnd) && (() => {
+                          const bdg = (bg, color, iconPath, text) => (
+                            <span key={text} style={{
+                              display: 'inline-flex', alignItems: 'center', gap: '5px',
+                              padding: '6px 14px', borderRadius: '24px', background: bg,
+                              fontFamily: "'Ploni', sans-serif", fontSize: '13px',
+                              fontWeight: 700, color,
+                            }}>
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{iconPath}</svg>
+                              {text}
+                            </span>
+                          );
+                          const ICONS = {
+                            bus:      <><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>,
+                            ruler:    <><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></>,
+                            clock:    <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
+                            arrowUp:  <><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></>,
+                            arrowDn:  <><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></>,
+                            mountain: <><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></>,
+                            home:     <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
+                          };
+                          return (
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', padding: '0 20px 20px', direction: dir }}>
+                              {item.travelTime    && bdg('#EDE9FE','#4C1D95', ICONS.bus,      item.travelTime)}
+                              {item.distance      && bdg('#EDE9FE','#4C1D95', ICONS.ruler,    item.distance)}
+                              {item.duration      && bdg('#EDE9FE','#4C1D95', ICONS.clock,    item.duration)}
+                              {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp,  item.elevationGain)}
+                              {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn,  item.elevationLoss)}
+                              {item.accommodation && bdg('#EDE9FE','#4C1D95', ICONS.home,     item.accommodation)}
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
                   );
