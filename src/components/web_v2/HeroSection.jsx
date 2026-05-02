@@ -63,13 +63,17 @@ export default function HeroSection() {
       justifyContent:  'center',
     }}>
 
-      {/* ── 01. Background video — always rendered, every device ──────── */}
+      {/* ── 01. Background video — always rendered, every device.
+              `preload="metadata"` keeps the initial request small (just enough
+              to start playback); the rest streams as needed. The browser will
+              still issue HTTP range requests as it decodes — that's normal
+              video behaviour, not a duplicate fetch. */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/hero-poster.jpg"
         aria-hidden="true"
         style={{
