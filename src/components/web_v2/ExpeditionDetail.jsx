@@ -298,6 +298,7 @@ export default function ExpeditionDetail() {
   /* ── Itinerary accordion: array of open indices, first open by default ── */
   const [openItinerary, setOpenItinerary] = useState([]);
   const [itineraryTab, setItineraryTab] = useState('safari'); // 'trek' | 'safari'
+  const [hoveredItinerary, setHoveredItinerary] = useState(null);
   function toggleItinerary(idx) {
     setOpenItinerary(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
@@ -1107,15 +1108,15 @@ export default function ExpeditionDetail() {
                         onClick={() => toggleItinerary(idx)}
                         aria-expanded={isOpen}
                         aria-controls={`itinerary-panel-${idx}`}
+                        onMouseEnter={() => setHoveredItinerary(idx)}
+                        onMouseLeave={() => setHoveredItinerary(null)}
                         style={{
                           display: 'flex', alignItems: 'center', gap: '16px',
                           padding: '16px 20px', cursor: 'pointer',
-                          background: isOpen ? '#FAFAFE' : 'white',
+                          background: (isOpen || hoveredItinerary === idx) ? '#FAFAFE' : 'white',
                           transition: `background 150ms ${EASING.smooth}`, direction: dir,
                           width: '100%', border: 'none', textAlign: 'start',
                         }}
-                        onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = '#FAFAFE'; }}
-                        onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
                       >
                         <span style={{
                           background: isSafariDay ? '#F59E0B' : COLOR.primary,
