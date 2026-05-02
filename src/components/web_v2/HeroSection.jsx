@@ -13,13 +13,11 @@ import { COLOR, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
 /* ── Hero background video — plays on every device + every connection.
-       Uses the FULL original file (`hero.original.mp4`, ~11 MB, 2:26) for
-       the best visual quality on the home-page hero specifically. Expedition
-       detail pages use `/hero.mp4` (the smaller compressed fallback) until
-       each expedition's per-trip video is filled into `videoUrl` in
-       src/data/mockData.js. Compressed fallbacks for both files live in the
-       same /public directory. */
-const VIDEO_SRC = '/hero.original.mp4';
+       Currently `/hero.mp4` IS the full-quality original (~11 MB, 2:26).
+       Expedition detail pages share this fallback until each gets its own
+       per-trip clip filled into `videoUrl` in src/data/mockData.js (which
+       takes precedence and renders a YouTube embed). */
+const VIDEO_SRC = '/hero.mp4';
 
 /* ── Keyframes injected once into <head> ── */
 const KEYFRAMES = `
