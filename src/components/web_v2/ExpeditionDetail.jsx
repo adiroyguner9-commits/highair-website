@@ -1137,14 +1137,58 @@ export default function ExpeditionDetail() {
                           {isOpen ? '▴' : '▾'}
                         </span>
                       </button>
-                      <div id={`itinerary-panel-${idx}`} style={{ maxHeight: isOpen ? '500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
+                      <div id={`itinerary-panel-${idx}`} style={{ maxHeight: isOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
                         <p style={{
-                          padding: '0 20px 20px', margin: 0,
+                          padding: '0 20px 16px', margin: 0,
                           fontFamily: "'Ploni', sans-serif", fontSize: '15px',
                           color: '#6B6B8A', lineHeight: 1.8, direction: dir,
                         }}>
                           {item.desc}
                         </p>
+                        {(item.travelTime || item.accommodation) && (
+                          <div style={{
+                            display: 'flex', flexWrap: 'wrap', gap: '8px',
+                            padding: '0 20px 20px', direction: dir,
+                          }}>
+                            {item.travelTime && (
+                              <span style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                padding: '5px 12px', borderRadius: '20px',
+                                background: '#F0EEFF', border: '1px solid #DDD6FE',
+                                fontFamily: "'Ploni', sans-serif", fontSize: '13px',
+                                fontWeight: 600, color: '#5B21B6',
+                              }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <rect x="1" y="3" width="15" height="13" rx="2"/>
+                                  <path d="M16 8h4l3 3v5h-7V8z"/>
+                                  <circle cx="5.5" cy="18.5" r="2.5"/>
+                                  <circle cx="18.5" cy="18.5" r="2.5"/>
+                                </svg>
+                                {item.travelTime}
+                              </span>
+                            )}
+                            {item.accommodation && (
+                              <span style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                padding: '5px 12px', borderRadius: '20px',
+                                background: '#F0FDF4', border: '1px solid #BBF7D0',
+                                fontFamily: "'Ploni', sans-serif", fontSize: '13px',
+                                fontWeight: 600, color: '#166534',
+                              }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/>
+                                  <path d="M2 22h20"/>
+                                  <path d="M9 22v-4h6v4"/>
+                                  <rect x="9" y="10" width="2" height="2"/>
+                                  <rect x="13" y="10" width="2" height="2"/>
+                                  <rect x="9" y="14" width="2" height="2"/>
+                                  <rect x="13" y="14" width="2" height="2"/>
+                                </svg>
+                                {item.accommodation}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
