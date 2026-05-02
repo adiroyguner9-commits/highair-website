@@ -66,14 +66,15 @@ export default function HeroSection() {
               `preload="metadata"` keeps the initial request small (just enough
               to start playback); the rest streams as needed. The browser will
               still issue HTTP range requests as it decodes — that's normal
-              video behaviour, not a duplicate fetch. */}
+              video behaviour, not a duplicate fetch.
+              Poster image intentionally NOT set: the dark overlay below
+              covers any flash-of-nothing before the first frame paints. */}
       <video
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        poster="/hero-poster.jpg"
         aria-hidden="true"
         style={{
           position:        'absolute',
