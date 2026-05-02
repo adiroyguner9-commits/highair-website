@@ -214,17 +214,26 @@ export default function ExpeditionExplorer({ type }) {
      Double-rAF ensures the browser has painted the new direction
      attribute before we touch scrollLeft — a single setTimeout(0)
      is not enough on Chrome/Safari when direction flips RTL↔LTR.
-     The 150ms fallback handles browser scroll-restoration which fires
+     We temporarily set scrollBehavior:'auto' so the jump is instant
+     (no visible animated scroll from the restored position to 0).
+     The 400ms fallback handles browser scroll-restoration which fires
      asynchronously after paint and can overwrite the rAF reset. */
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    const reset = () => { el.scrollLeft = 0; updateArrows(); };
+    const reset = () => {
+      el.style.scrollBehavior = 'auto'; // instant jump, no animation
+      el.scrollLeft = 0;
+      updateArrows();
+      requestAnimationFrame(() => {
+        el.style.scrollBehavior = 'smooth'; // restore smooth for user interactions
+      });
+    };
     let raf2, timer;
     const raf1 = requestAnimationFrame(() => {
       raf2 = requestAnimationFrame(() => {
         reset();
-        timer = setTimeout(reset, 150);
+        timer = setTimeout(reset, 400);
       });
     });
     return () => {
