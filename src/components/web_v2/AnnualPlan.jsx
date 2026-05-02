@@ -59,11 +59,15 @@ function TripCard({ group, exp, months, isRtl }) {
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
 
-  const capacity  = exp?.groupCapacity || 15;
+  const capacity  = group.capacity || exp?.groupCapacity || 15;
   const spotsLeft = capacity - (group.count || 0);
   const isFull    = spotsLeft <= 0;
-  const isAlmost  = !isFull && spotsLeft <= 4;
-  const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
+  const isLow     = !isFull && spotsLeft <= 6;
+  const spotsBadge = isFull
+    ? { bg: 'rgba(220,38,38,0.85)',  color: '#fff', text: isRtl ? 'קבוצה מלאה' : 'Full' }
+    : isLow
+    ? { bg: 'rgba(217,119,6,0.85)',  color: '#fff', text: isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left` }
+    : { bg: 'rgba(5,150,105,0.85)',  color: '#fff', text: isRtl ? 'הרשמה פתוחה' : 'Open' };
   const tag = eventTag(group.eventName, isRtl);
 
   /* Lazy-load image */
@@ -115,13 +119,17 @@ function TripCard({ group, exp, months, isRtl }) {
         zIndex: 0,
       }} />
 
-      {/* ── Top row: country badge only ── */}
+      {/* ── Top row: country badge + spots badge ── */}
       <div style={{
-        padding:   '16px 16px 0',
-        direction: isRtl ? 'rtl' : 'ltr',
-        position:  'relative',
-        zIndex:    1,
+        padding:        '16px 16px 0',
+        direction:      isRtl ? 'rtl' : 'ltr',
+        position:       'relative',
+        zIndex:         1,
+        display:        'flex',
+        justifyContent: 'space-between',
+        alignItems:     'center',
       }}>
+        {/* Country badge */}
         <div style={{
           display:              'inline-flex',
           alignItems:           'center',
@@ -138,6 +146,24 @@ function TripCard({ group, exp, months, isRtl }) {
           direction:            'ltr',
         }}>
           {exp?.flag || ''} {isRtl ? (exp?.countryHe || '-') : (exp?.country || exp?.countryHe || '-')}
+        </div>
+
+        {/* Spots badge — top left (end in RTL) */}
+        <div style={{
+          display:              'inline-flex',
+          alignItems:           'center',
+          padding:              '4px 10px',
+          borderRadius:         RADIUS.full,
+          background:           spotsBadge.bg,
+          backdropFilter:       'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          fontFamily:           'Ploni, sans-serif',
+          fontSize:             FS.sm,
+          fontWeight:           700,
+          color:                spotsBadge.color,
+          whiteSpace:           'nowrap',
+        }}>
+          {spotsBadge.text}
         </div>
       </div>
 
@@ -193,17 +219,31 @@ export default function AnnualPlan() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    Promise.all([
-      fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return`)
-        .then(r => r.json()),
-      fetch(`/api/airtable/Customers?fields[]=Group%20Name`)
-        .then(r => r.json()),
-    ]).then(([groupsData, custData]) => {
+    /* Paginate through ALL records of a table, respecting Airtable's 100-record limit */
+    async function fetchAllRecords(url) {
+      const records = [];
+      let offset = null;
+      do {
+        const full = offset ? `${url}&offset=${encodeURIComponent(offset)}` : url;
+        const data = await fetch(full).then(r => r.json());
+        if (data.error) throw new Error(JSON.stringify(data.error));
+        (data.records || []).forEach(r => records.push(r));
+        offset = data.offset || null;
+      } while (offset);
+      return records;
+    }
+
+    fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity`)
+      .then(r => r.json())
+      .then(async groupsData => {
       if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
 
-      /* Count customers per Group Name */
+      /* Fetch ALL customers with full pagination — guarantees accurate count */
+      const custRecords = await fetchAllRecords(
+        `/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`
+      );
       const counts = {};
-      (custData.records || []).forEach(rec => {
+      custRecords.forEach(rec => {
         const gn = rec.fields['Group Name'] || rec.fields['group name'];
         if (gn) counts[gn] = (counts[gn] || 0) + 1;
       });
@@ -220,13 +260,15 @@ export default function AnnualPlan() {
             departure,
             returnDate,
             count:      counts[groupName] || 0,
+            capacity:   rec.fields['Capacity'] || null,
           };
         })
-        /* Remove trips that have already ended (Return < today) */
+        /* Hide trips departing within 7 days (or no departure date) */
         .filter(g => {
           if (!g.departure) return false;
-          const endDate = g.returnDate ? new Date(g.returnDate) : new Date(g.departure);
-          return endDate >= today;
+          const weekFromNow = new Date(today);
+          weekFromNow.setDate(weekFromNow.getDate() + 7);
+          return new Date(g.departure) >= weekFromNow;
         })
         /* Hide April (3) and May (4) departures */
         .filter(g => {
@@ -247,7 +289,8 @@ export default function AnnualPlan() {
         const key = `${expSlug}|${(g.departure || '').slice(0, 10)}`;
         if (mergedMap.has(key)) {
           const ex = mergedMap.get(key);
-          ex.count += g.count;
+          ex.count    += g.count;
+          ex.capacity  = (ex.capacity || 0) + (g.capacity || 0);
           /* keep the latest return date */
           if (g.returnDate && (!ex.returnDate || new Date(g.returnDate) > new Date(ex.returnDate))) {
             ex.returnDate = g.returnDate;

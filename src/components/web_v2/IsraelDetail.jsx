@@ -11,6 +11,7 @@ import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
+import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import { CalendarIcon }                from '../Icons.jsx';
 import { ISRAEL_TRIPS }                from '../../data/israelData.js';
 
@@ -100,18 +101,13 @@ export default function IsraelDetail() {
   }
 
   /* ── Contact form ── */
-  const [form, setForm]         = useState({ name: '', month: '', phone: '', declaration: false });
+  const [form, setForm]         = useState({ name: '', month: '', dial: '+972', phone: '', declaration: false });
   const [phoneError, setPhoneError] = useState('');
 
-  function formatPhone(raw) {
-    const digits = raw.replace(/\D/g, '').slice(0, 10);
-    return digits.length > 3 ? `${digits.slice(0, 3)}-${digits.slice(3)}` : digits;
-  }
-
   function validatePhone(val) {
-    const digits = val.replace(/\D/g, '');
-    if (digits && digits.length < 9) { setPhoneError(isRtl ? 'מספר טלפון לא תקין' : 'Invalid phone number'); return false; }
-    setPhoneError(''); return true;
+    const ok = checkPhone(form.dial, val);
+    setPhoneError(ok || !val ? '' : isRtl ? 'מספר טלפון לא תקין' : 'Invalid phone number');
+    return ok;
   }
 
   function handleSubmit(e) {
@@ -130,6 +126,7 @@ export default function IsraelDetail() {
   const [groupsLoading, setGroupsLoading] = useState(false);
   const [groupsError, setGroupsError]     = useState(null);
   const [activeMonth, setActiveMonth]     = useState(null);
+  const [galleryUrls, setGalleryUrls]     = useState([]);
 
   useEffect(() => {
     if (!hasAirtable) return;
@@ -142,7 +139,7 @@ export default function IsraelDetail() {
     cutoff.setDate(cutoff.getDate() + 3); /* shorter cutoff for local trips */
 
     Promise.all([
-      fetch('/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return').then(r => r.json()),
+      fetch('/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Slug&fields[]=Gallery_URLs').then(r => r.json()),
       fetch('/api/airtable/Customers?fields[]=Group%20Name').then(r => r.json()),
     ]).then(([groupsData, custData]) => {
       if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
@@ -165,6 +162,7 @@ export default function IsraelDetail() {
             departure:  rec.fields['Departure'] || null,
             returnDate: rec.fields['Return'] || null,
             count:      counts[groupName] || 0,
+            capacity:   rec.fields['Capacity'] || null,
           };
         })
         .filter(g => g.departure && new Date(g.departure) >= cutoff)
@@ -174,6 +172,16 @@ export default function IsraelDetail() {
       if (enriched.length > 0) {
         const d = new Date(enriched[0].departure);
         setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
+      }
+
+      // Extract gallery URLs from the first record matching this slug
+      const slugRec = (groupsData.records || []).find(rec => rec.fields['Slug'] === slug);
+      if (slugRec?.fields['Gallery_URLs']) {
+        const urls = slugRec.fields['Gallery_URLs']
+          .split('\n')
+          .map(u => u.trim())
+          .filter(Boolean);
+        if (urls.length) setGalleryUrls(urls);
       }
     }).catch(err => {
       setGroupsError(err.message);
@@ -473,7 +481,9 @@ export default function IsraelDetail() {
 
         {/* ── ג2. גלריה ── */}
         {(() => {
-          const galleryImgs = [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.webp`);
+          const galleryImgs = galleryUrls.length > 0
+            ? galleryUrls
+            : [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.webp`);
           const [lbIdx, setLbIdx] = useState(null);
           const lbPrev = (e) => { e.stopPropagation(); setLbIdx(i => (i - 1 + galleryImgs.length) % galleryImgs.length); };
           const lbNext = (e) => { e.stopPropagation(); setLbIdx(i => (i + 1) % galleryImgs.length); };
@@ -531,6 +541,20 @@ export default function IsraelDetail() {
                           onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
                         />
                       </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Extra images beyond 5 — horizontal scroll strip */}
+                {galleryImgs.length > 5 && (
+                  <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch', marginTop: '10px', paddingBottom: '4px' }}>
+                    {galleryImgs.slice(5).map((src, i) => (
+                      <img
+                        key={i} src={src} alt={`${trip.name} ${i + 6}`} loading="lazy"
+                        onClick={() => setLbIdx(i + 5)}
+                        style={{ flexShrink: 0, width: isMobile ? '72vw' : '320px', height: '200px', objectFit: 'cover', borderRadius: RADIUS.xl, cursor: 'pointer', display: 'block' }}
+                        onError={e => { e.currentTarget.style.display = 'none'; }}
+                      />
                     ))}
                   </div>
                 )}
@@ -595,10 +619,11 @@ export default function IsraelDetail() {
               {/* Group cards */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
                 {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
-                  const spotsLeft = capacity - g.count;
+                  const groupCap  = g.capacity || trip?.groupCapacity || 12;
+                  const spotsLeft = groupCap - g.count;
                   const isFull    = spotsLeft <= 0;
-                  const isAlmost  = !isFull && spotsLeft <= 3;
-                  const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
+                  const isLow     = !isFull && spotsLeft <= 6;
+                  const spotsColor = isFull ? '#DC2626' : isLow ? '#D97706' : '#059669';
                   return (
                     <div key={g.id}
                       onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
@@ -627,16 +652,16 @@ export default function IsraelDetail() {
                       {/* Center: spots */}
                       <span style={{ display: 'flex', justifyContent: 'center' }}>
                         <span style={{
-                          background: isFull ? '#FEE2E2' : isAlmost ? '#FEF3C7' : '#ECFDF5',
+                          background: isFull ? '#FEE2E2' : isLow ? '#FEF3C7' : '#D1FAE5',
                           color: spotsColor,
                           fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
                           padding: '3px 10px', borderRadius: '999px', whiteSpace: 'nowrap',
                         }}>
                           {isFull
-                            ? (isRtl ? 'מלא' : 'Full')
-                            : isAlmost
-                              ? `${spotsLeft} ${isRtl ? 'מקומות אחרונים' : 'last spots'}`
-                              : `${spotsLeft} ${isRtl ? 'מקומות' : 'spots'}`}
+                            ? (isRtl ? 'קבוצה מלאה' : 'Group Full')
+                            : isLow
+                              ? (isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left`)
+                              : (isRtl ? 'הרשמה פתוחה' : 'Open')}
                         </span>
                       </span>
 
@@ -717,18 +742,15 @@ export default function IsraelDetail() {
                 )}
 
                 {/* טלפון */}
-                <div>
-                  <label style={labelStyle}>{isRtl ? 'מספר טלפון *' : 'Phone Number *'}</label>
-                  <input type="tel" required value={form.phone}
-                    placeholder="050-0000000"
-                    maxLength={11}
-                    onChange={e => { const v = formatPhone(e.target.value); setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
-                    onBlur={e => validatePhone(e.target.value)}
-                    style={{ ...inputStyle, direction: 'ltr', textAlign: 'start', borderColor: phoneError ? '#DC2626' : '#E5E3F0' }}
-                    onMouseEnter={e => { e.target.style.borderColor = phoneError ? '#DC2626' : COLOR.primary; }}
-                    onMouseLeave={e => { e.target.style.borderColor = phoneError ? '#DC2626' : '#E5E3F0'; }} />
-                  {phoneError && <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>{phoneError}</p>}
-                </div>
+                <PhoneField
+                  label={isRtl ? 'מספר טלפון *' : 'Phone Number *'}
+                  dial={form.dial}
+                  onDialChange={v => setForm(f => ({ ...f, dial: v }))}
+                  local={form.phone}
+                  onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
+                  error={!!phoneError}
+                  errorMsg={phoneError}
+                />
 
                 {/* הצהרת בריאות */}
                 <label style={{

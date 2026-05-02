@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "website-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5177
+    },
+    {
+      "name": "sketches",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "5200", "-s", "."],
+      "port": 5200
+    }
+  ]
+}

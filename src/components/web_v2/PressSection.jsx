@@ -3,7 +3,7 @@
  * Press & media coverage · RTL Hebrew · inline YouTube embed
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, COLOR, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -171,6 +171,32 @@ export default function PressSection() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
+  const [pressItems, setPressItems] = useState(PRESS_ITEMS);
+
+  useEffect(() => {
+    fetch('/api/airtable/Press')
+      .then(r => r.json())
+      .then(data => {
+        const loaded = (data.records || [])
+          .map(r => r.fields)
+          .filter(f => f.Active)
+          .map(f => ({
+            outlet:     f.Outlet,
+            outletEn:   f.Outlet_En,
+            color:      f.Color,
+            date:       f.Date,
+            headline:   f.Headline,
+            headlineEn: f.Headline_En,
+            excerpt:    f.Excerpt,
+            excerptEn:  f.Excerpt_En,
+            href:       f.URL,
+            isVideo:    f.Is_Video || false,
+          }));
+        if (loaded.length) setPressItems(loaded);
+      })
+      .catch(() => {}); // silently keep hardcoded fallback
+  }, []);
+
   return (
     <section style={{
       background: '#FFFFFF',
@@ -213,7 +239,7 @@ export default function PressSection() {
           gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
           gap:                 '20px',
         }}>
-          {PRESS_ITEMS.map((item, i) => (
+          {pressItems.map((item, i) => (
             <PressCard key={i} item={item} isMobile={isMobile} />
           ))}
         </div>

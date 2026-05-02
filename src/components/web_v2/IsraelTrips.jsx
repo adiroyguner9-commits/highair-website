@@ -50,7 +50,11 @@ function IsraelCard({ trip }) {
   return (
     <div
       ref={cardRef}
+      role={trip.live ? 'button' : undefined}
+      tabIndex={trip.live ? 0 : undefined}
+      aria-label={isEn ? (trip.nameEn || trip.name) : trip.name}
       onClick={handleClick}
+      onKeyDown={trip.live ? (e => (e.key === 'Enter' || e.key === ' ') && handleClick()) : undefined}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -59,7 +63,7 @@ function IsraelCard({ trip }) {
         background:    bg,
         display:       'flex',
         flexDirection: 'column',
-        justifyContent:'space-between',
+        justifyContent:'flex-end',
         minHeight:     isMobile ? '280px' : '380px',
         cursor:        trip.live ? 'pointer' : 'default',
         transform:     hovered && trip.live ? 'translateY(-6px)' : 'translateY(0)',
@@ -68,6 +72,7 @@ function IsraelCard({ trip }) {
                          : '0 6px 20px rgba(0,0,0,0.12)',
         transition:    `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
         position:      'relative',
+        outline:       'none',
       }}
     >
       {/* Dark overlay for photo cards */}
@@ -78,28 +83,6 @@ function IsraelCard({ trip }) {
           zIndex: 0,
         }} />
       )}
-
-      {/* ── Top: area badge ── */}
-      <div style={{ padding: '18px 18px 0', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1 }}>
-        <div style={{
-          display:             'inline-flex',
-          alignItems:          'center',
-          gap:                 '6px',
-          padding:             '5px 12px',
-          borderRadius:        RADIUS.full,
-          background:          'rgba(255,255,255,0.15)',
-          backdropFilter:      'blur(8px)',
-          WebkitBackdropFilter:'blur(8px)',
-          fontSize:            FS.sm,
-          fontFamily:          'Ploni, sans-serif',
-          fontWeight:          600,
-          color:               'rgba(255,255,255,0.90)',
-          letterSpacing:       '0.02em',
-          direction:           'ltr',
-        }}>
-          🇮🇱 {trip.area}
-        </div>
-      </div>
 
       {/* ── Bottom: name / elev / arrow ── */}
       <div style={{ padding: '0 20px 24px', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1 }}>
@@ -154,6 +137,51 @@ export default function IsraelTrips() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
+  const [trips, setTrips] = useState(ISRAEL_TRIPS);
+
+  useEffect(() => {
+    fetch('/api/airtable/IsraelGroups')
+      .then(r => r.json())
+      .then(data => {
+        const seen = new Set();
+        const loaded = (data.records || [])
+          .map(r => ({ id: r.id, ...r.fields }))
+          .filter(f => f.Slug && !f.Hidden)
+          .sort((a, b) => (a.Sort_Order || 99) - (b.Sort_Order || 99))
+          .filter(f => {
+            if (seen.has(f.Slug)) return false;
+            seen.add(f.Slug);
+            return true;
+          })
+          .map(f => ({
+            id:            f.id,
+            slug:          f.Slug,
+            name:          f.Name,
+            nameEn:        f.Name_En,
+            area:          f.Event || '',
+            elev:          f.Elev,
+            elevStr:       f.Elev ? `${f.Elev}m` : '',
+            priceHe:       f.Price_He,
+            price:         f.Price_En,
+            diffHe:        f.Diff_He,
+            diffEn:        f.Diff_En,
+            days:          f.Days_He,
+            daysEn:        f.Days_En,
+            typeHe:        f.Type_He,
+            img:           f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : null,
+            grad:          f.Gradient || 'linear-gradient(135deg, #1e1b4b, #4338ca)',
+            paymentUrl:    f.Payment_URL,
+            airtableEvents: [f.Event].filter(Boolean),
+            groupCapacity: f.Capacity || 12,
+            live:          true,
+          }));
+        if (data.records) setTrips(loaded); // always apply if fetch succeeded (even empty = hidden)
+      })
+      .catch(() => {}); // silently keep hardcoded fallback on network error
+  }, []);
+
+  if (trips.length === 0) return null;
+
   return (
     <section id="israel" style={{
       background:  '#FFFFFF',
@@ -198,13 +226,13 @@ export default function IsraelTrips() {
           gridTemplateColumns: isMobile ? undefined : 'repeat(4, 1fr)',
           gap:                 '18px',
         }}>
-          {ISRAEL_TRIPS.map(trip => (
-            <IsraelCard key={trip.id} trip={trip} />
+          {trips.map(trip => (
+            <IsraelCard key={trip.id || trip.slug} trip={trip} />
           ))}
         </div>
 
         {/* ── Bottom CTA - only when more than 1 trip ── */}
-        {ISRAEL_TRIPS.length > 1 && (
+        {trips.length > 1 && (
           <div style={{ textAlign: 'center', marginTop: '48px', direction: 'ltr' }}>
             <button
               onMouseEnter={() => setCtaHovered(true)}

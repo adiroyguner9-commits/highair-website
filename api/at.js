@@ -28,9 +28,41 @@ const RESPONSE_FIELDS = {
   Groups: new Set([
     'Event', 'Departure', 'Return', 'Hidden', 'Group Name',
     'Display Name', 'Description', 'Capacity', 'Booked', 'Status',
+    'Retail Price', 'Gallery_URLs',
   ]),
   AppContent: new Set(['Key', 'Value', 'Type', 'Locale']),
   Customers: new Set(['Group Name']), // ONLY Group Name — used for group count display
+  Blog: new Set([
+    'Title', 'Title_En', 'Slug', 'Author',
+    'Date_ISO', 'Date_He', 'Date_En',
+    'Category', 'Category_En',
+    'Image_URL', 'Excerpt', 'Excerpt_En', 'Active',
+  ]),
+  Reviews: new Set([
+    'Name', 'Name_En', 'Initials', 'Initials_En',
+    'Rating', 'Date', 'Date_En', 'Text', 'Text_En', 'Active',
+  ]),
+  Press: new Set([
+    'Outlet', 'Outlet_En', 'Color', 'Date',
+    'Headline', 'Headline_En', 'Excerpt', 'Excerpt_En',
+    'URL', 'Is_Video', 'Active',
+  ]),
+  IsraelTrips: new Set([
+    'Name', 'Name_En', 'Slug', 'Area', 'Elev',
+    'Price_He', 'Price_En', 'Diff_He', 'Diff_En',
+    'Days_He', 'Days_En', 'Type_He',
+    'Image_URL', 'Gradient', 'Payment_URL',
+    'Airtable_Events', 'Group_Capacity', 'Sort_Order', 'Live',
+  ]),
+  IsraelGroups: new Set([
+    'Group Name', 'Event', 'Departure', 'Return',
+    'Capacity', 'Retail Price', 'Hidden',
+    'Name', 'Name_En', 'Slug', 'Elev',
+    'Price_He', 'Price_En', 'Diff_He', 'Diff_En',
+    'Days_He', 'Days_En', 'Type_He',
+    'Image_URL', 'Gradient', 'Payment_URL', 'Sort_Order',
+    'Gallery_URLs',
+  ]),
 };
 
 const FORWARDED_QUERY_KEYS = new Set([

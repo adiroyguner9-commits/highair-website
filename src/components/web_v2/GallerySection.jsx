@@ -30,6 +30,7 @@ function ArrowBtn({ dir, onClick }) {
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      aria-label={dir === 'right' ? 'Next photos' : 'Previous photos'}
       style={{
         position:       'absolute',
         top:            '50%',
@@ -223,6 +224,7 @@ export default function GallerySection() {
         >
           <button
             onClick={() => setLightboxIdx(null)}
+            aria-label="Close lightbox"
             style={{
               position:       'absolute',
               top:            '20px',
@@ -271,8 +273,8 @@ export default function GallerySection() {
 
           {!isMobile && (
             <>
-              <button onClick={lbPrev} style={{ ...LB_BTN, left: '20px' }}>‹</button>
-              <button onClick={lbNext} style={{ ...LB_BTN, right: '20px' }}>›</button>
+              <button onClick={lbPrev} aria-label="Previous photo" style={{ ...LB_BTN, left: '20px' }}>‹</button>
+              <button onClick={lbNext} aria-label="Next photo" style={{ ...LB_BTN, right: '20px' }}>›</button>
             </>
           )}
 
@@ -286,7 +288,7 @@ export default function GallerySection() {
               gap:            '8px',
               alignItems:     'center',
             }}>
-              <button onClick={lbPrev} style={{
+              <button onClick={lbPrev} aria-label="Previous photo" style={{
                 background: 'rgba(255,255,255,0.15)', border: 'none',
                 color: '#fff', fontSize: '22px', padding: '8px 16px',
                 borderRadius: '20px', cursor: 'pointer',
@@ -294,7 +296,7 @@ export default function GallerySection() {
               <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px', fontFamily: 'Ploni' }}>
                 {lightboxIdx + 1} / {PHOTOS.length}
               </span>
-              <button onClick={lbNext} style={{
+              <button onClick={lbNext} aria-label="Next photo" style={{
                 background: 'rgba(255,255,255,0.15)', border: 'none',
                 color: '#fff', fontSize: '22px', padding: '8px 16px',
                 borderRadius: '20px', cursor: 'pointer',
@@ -309,8 +311,9 @@ export default function GallerySection() {
 
 function SlideCard({ src, caption, width, height, onClick }) {
   return (
-    <div
+    <button
       onClick={onClick}
+      aria-label={caption || 'View photo'}
       style={{
         flexShrink:   0,
         width:        `${width}px`,
@@ -320,6 +323,10 @@ function SlideCard({ src, caption, width, height, onClick }) {
         position:     'relative',
         cursor:       'pointer',
         boxShadow:    '0 2px 12px rgba(0,0,0,0.07)',
+        padding:      0,
+        border:       'none',
+        background:   'none',
+        display:      'block',
       }}
     >
       <img
@@ -334,6 +341,6 @@ function SlideCard({ src, caption, width, height, onClick }) {
           display:    'block',
         }}
       />
-    </div>
+    </button>
   );
 }

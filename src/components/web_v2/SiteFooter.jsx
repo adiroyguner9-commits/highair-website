@@ -124,6 +124,7 @@ export default function SiteFooter() {
     { label: t('footer.accessibility'),href: '/accessibility' },
   ];
 
+
   const bottomBar = (
     <>
       <div style={{ height: '1px', background: '#DDD9F0', marginBottom: '24px' }} />
@@ -226,6 +227,7 @@ export default function SiteFooter() {
             <ColHeading>{t('footer.info')}</ColHeading>
             {INFO_LINKS.map(l => <FooterLink key={l.label} label={l.label} href={l.href} />)}
           </div>
+
         </div>
 
         {bottomBar}

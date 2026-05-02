@@ -3,6 +3,7 @@
  * גריד ביקורות גוגל · RTL Hebrew · רקע לבן
  */
 
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -214,6 +215,31 @@ export default function ReviewsSection() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
+  const [reviews, setReviews] = useState(REVIEWS);
+
+  useEffect(() => {
+    fetch('/api/airtable/Reviews')
+      .then(r => r.json())
+      .then(data => {
+        const loaded = (data.records || [])
+          .map(r => r.fields)
+          .filter(f => f.Active)
+          .map(f => ({
+            name:       f.Name,
+            nameEn:     f.Name_En,
+            initials:   f.Initials,
+            initialsEn: f.Initials_En,
+            rating:     f.Rating ?? 5,
+            date:       f.Date,
+            dateEn:     f.Date_En,
+            text:       f.Text,
+            textEn:     f.Text_En,
+          }));
+        if (loaded.length) setReviews(loaded);
+      })
+      .catch(() => {}); // silently keep hardcoded fallback
+  }, []);
+
   const cols = isMobile ? 1 : isTablet ? 2 : 3;
 
   return (
@@ -322,7 +348,7 @@ export default function ReviewsSection() {
           gap:                 '20px',
           marginBottom:        '40px',
         }}>
-          {REVIEWS.slice(0, 3).map((r, i) => (
+          {reviews.slice(0, 3).map((r, i) => (
             <ReviewCard key={i} {...r} idx={i} />
           ))}
         </div>

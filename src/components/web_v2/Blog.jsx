@@ -2,7 +2,7 @@
  * Blog.jsx - /blog
  * Article listing page - Hebrew RTL
  */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
@@ -116,6 +116,34 @@ export default function Blog() {
   const isEn = i18n.language === 'en';
   const dir  = isEn ? 'ltr' : 'rtl';
   const [activeCategory, setActiveCategory] = useState(t('blog.all'));
+  const [posts, setPosts] = useState(POSTS);
+
+  useEffect(() => {
+    fetch('/api/airtable/Blog')
+      .then(r => r.json())
+      .then(data => {
+        const loaded = (data.records || [])
+          .map(r => r.fields)
+          .filter(f => f.Active)
+          .sort((a, b) => (b.Date_ISO || '').localeCompare(a.Date_ISO || ''))
+          .map(f => ({
+            slug:       f.Slug,
+            title:      f.Title,
+            titleEn:    f.Title_En,
+            author:     f.Author || 'HighAir Expeditions',
+            dateIso:    f.Date_ISO,
+            dateHe:     f.Date_He,
+            dateEn:     f.Date_En,
+            category:   f.Category,
+            categoryEn: f.Category_En,
+            img:        f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : null,
+            excerpt:    f.Excerpt,
+            excerptEn:  f.Excerpt_En,
+          }));
+        if (loaded.length) setPosts(loaded);
+      })
+      .catch(() => {}); // silently keep hardcoded fallback
+  }, []);
 
   usePageMeta({
     title:         isEn
@@ -127,13 +155,17 @@ export default function Blog() {
     canonicalPath: '/blog',
   });
 
-  const catList  = isEn ? CATEGORIES_EN : CATEGORIES;
   const allLabel = t('blog.all');
+  // Derive categories dynamically from live data (falling back to imported constants)
+  const derivedCats = isEn
+    ? [...new Set(posts.map(p => p.categoryEn || p.category).filter(Boolean))]
+    : [...new Set(posts.map(p => p.category).filter(Boolean))];
+  const catList    = derivedCats.length ? derivedCats : (isEn ? CATEGORIES_EN : CATEGORIES);
   const categories = [allLabel, ...catList];
 
   const filtered = activeCategory === allLabel
-    ? POSTS
-    : POSTS.filter(p => {
+    ? posts
+    : posts.filter(p => {
         const cat = isEn ? (p.categoryEn || p.category) : p.category;
         return cat === activeCategory;
       });

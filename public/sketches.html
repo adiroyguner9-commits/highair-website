@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Journey — Winding Trail</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, sans-serif; background: #0B0928; color: #e0d9f5; padding: 40px 24px; }
+  h1 { text-align: center; font-size: 20px; color: #C4B5FD; margin-bottom: 6px; letter-spacing: .5px; }
+  .subtitle { text-align: center; font-size: 13px; color: #7A6FA0; margin-bottom: 40px; }
+
+  .trail-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #100b2e;
+    border-radius: 24px;
+    border: 1.5px solid #2a1a5e;
+    padding: 40px 24px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* faint texture dots */
+  .trail-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(124,58,237,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  svg { display: block; width: 100%; height: auto; }
+
+  .legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #9896B0; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .legend-line-done { width: 28px; height: 3px; background: #7C3AED; border-radius: 2px; }
+  .legend-line-next { width: 28px; height: 3px; background: #F59E0B; border-radius: 2px;
+    background: repeating-linear-gradient(90deg, #F59E0B 0 6px, transparent 6px 10px); }
+
+  .stats-row {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin-bottom: 32px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #2a1a5e;
+  }
+  .stat {
+    flex: 1;
+    padding: 16px 12px;
+    text-align: center;
+    background: #0d0a25;
+    border-right: 1px solid #2a1a5e;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+  .stat-l { font-size: 11px; color: #7A6FA0; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<h1>🏔 המסלול של חן שקד</h1>
+<p class="subtitle">מ-4800m עד פסגת העולם — כל הצעד</p>
+
+<div style="max-width:860px; margin:0 auto 32px;">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">פסגות הושלמו</div></div>
+    <div class="stat"><div class="stat-n" style="color:#C4B5FD">76K<span style="font-size:16px">m</span></div><div class="stat-l">גובה מצטבר</div></div>
+    <div class="stat"><div class="stat-n" style="color:#FCD34D">3</div><div class="stat-l">בדרך</div></div>
+    <div class="stat"><div class="stat-n" style="color:#FCD34D">2027</div><div class="stat-l">שנת האוורסט</div></div>
+  </div>
+</div>
+
+<div class="trail-wrap">
+  <svg viewBox="0 0 820 580" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Purple glow filter for done stops -->
+      <filter id="glow-purple" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <!-- Gold glow filter for upcoming stops -->
+      <filter id="glow-gold" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <!-- Gradient for transition segment -->
+      <linearGradient id="grad-transition" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7C3AED"/>
+        <stop offset="100%" stop-color="#F59E0B"/>
+      </linearGradient>
+      <!-- Vertical gradient for the curve between row2→row3 -->
+      <linearGradient id="grad-curve-v" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#7C3AED"/>
+        <stop offset="100%" stop-color="#F59E0B"/>
+      </linearGradient>
+      <!-- Row labels gradient background -->
+      <linearGradient id="row-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#1a0a40" stop-opacity="0"/>
+        <stop offset="20%" stop-color="#1a0a40" stop-opacity=".8"/>
+        <stop offset="80%" stop-color="#1a0a40" stop-opacity=".8"/>
+        <stop offset="100%" stop-color="#1a0a40" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- ─── BACKGROUND ROWS (subtle bands) ─── -->
+    <rect x="0" y="430" width="820" height="110" rx="8" fill="rgba(124,58,237,0.04)"/>
+    <rect x="0" y="250" width="820" height="110" rx="8" fill="rgba(124,58,237,0.04)"/>
+    <rect x="0" y="70"  width="820" height="110" rx="8" fill="rgba(245,158,11,0.04)"/>
+
+    <!-- Row labels -->
+    <text x="24" y="445" font-size="9" fill="rgba(167,139,250,0.3)" font-family="-apple-system,sans-serif" font-weight="700" letter-spacing="1.5">ROW 1</text>
+    <text x="24" y="265" font-size="9" fill="rgba(167,139,250,0.3)" font-family="-apple-system,sans-serif" font-weight="700" letter-spacing="1.5">ROW 2</text>
+    <text x="24" y="85"  font-size="9" fill="rgba(245,158,11,0.3)"  font-family="-apple-system,sans-serif" font-weight="700" letter-spacing="1.5">ROW 3 — UPCOMING</text>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TRAIL PATHS -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- Row 1 path: stops 1→2→3→4 (L to R) — PURPLE SOLID -->
+    <!-- stops at x: 110, 260, 410, 560 | y: 490 -->
+    <line x1="110" y1="490" x2="560" y2="490" stroke="#7C3AED" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Curve R1→R2: right side, from x=560,y=490 down to x=560,y=310 -->
+    <!-- Big curve: control points bow to the right -->
+    <path d="M 560,490 C 720,490 720,310 560,310"
+          fill="none" stroke="#7C3AED" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Row 2 path: stops 5→6→7→8 (R to L) — PURPLE SOLID -->
+    <!-- stops at x: 560, 410, 260, 110 | y: 310 -->
+    <line x1="560" y1="310" x2="110" y2="310" stroke="#7C3AED" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Curve R2→R3: left side, transition gradient (purple→gold) -->
+    <!-- from x=110,y=310 up to x=110,y=130 -->
+    <path d="M 110,310 C -60,310 -60,130 110,130"
+          fill="none" stroke="url(#grad-curve-v)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Row 3 path: stops 9→10→11 (L to R) — GOLD DASHED -->
+    <!-- stops at x: 110, 385, 660 | y: 130 -->
+    <line x1="110" y1="130" x2="660" y2="130" stroke="#F59E0B" stroke-width="4"
+          stroke-linecap="round" stroke-dasharray="10 7"/>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- STOPS -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- ── STOP 1: Gran Paradiso | 4800m | Italy ── -->
+    <!-- x=110 y=490 — label above -->
+    <circle cx="110" cy="490" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="110" y="495" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">1</text>
+    <text x="110" y="468" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Gran Paradiso</text>
+    <text x="110" y="480" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">4800m · 🇮🇹</text>
+    <text x="110" y="515" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 2: Kazbek | 5054m | Georgia ── -->
+    <!-- x=260 y=490 — label above -->
+    <circle cx="260" cy="490" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="260" y="495" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">2</text>
+    <text x="260" y="468" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Kazbek</text>
+    <text x="260" y="480" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">5054m · 🇬🇪</text>
+    <text x="260" y="515" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 3: Kilimanjaro | 5895m | Tanzania ── -->
+    <!-- x=410 y=490 — label above -->
+    <circle cx="410" cy="490" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="410" y="495" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">3</text>
+    <text x="410" y="468" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Kilimanjaro</text>
+    <text x="410" y="480" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">5895m · 🇹🇿</text>
+    <text x="410" y="515" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 4: Lobuche Peak | 6119m | Nepal ── -->
+    <!-- x=560 y=490 — label below (curve coming out here) -->
+    <circle cx="560" cy="490" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="560" y="495" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">4</text>
+    <text x="560" y="468" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Lobuche Peak</text>
+    <text x="560" y="480" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">6119m · 🇳🇵</text>
+    <text x="560" y="515" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 5: Island Peak | 6189m | Nepal ── -->
+    <!-- x=560 y=310 — label above (row 2, rightmost) -->
+    <circle cx="560" cy="310" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="560" y="315" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">5</text>
+    <text x="560" y="289" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Island Peak</text>
+    <text x="560" y="301" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">6189m · 🇳🇵</text>
+    <text x="560" y="336" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 6: Mera Peak | 6476m | Nepal ── -->
+    <!-- x=410 y=310 — label below -->
+    <circle cx="410" cy="310" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="410" y="315" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">6</text>
+    <text x="410" y="340" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Mera Peak</text>
+    <text x="410" y="352" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">6476m · 🇳🇵</text>
+    <text x="410" y="289" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 7: Ama Dablam | 6812m | Nepal ── -->
+    <!-- x=260 y=310 — label above -->
+    <circle cx="260" cy="310" r="18" fill="#1a0a3c" stroke="#7C3AED" stroke-width="2.5" filter="url(#glow-purple)"/>
+    <text x="260" y="315" text-anchor="middle" font-size="12" font-weight="800" fill="#C4B5FD" font-family="-apple-system,sans-serif">7</text>
+    <text x="260" y="289" text-anchor="middle" font-size="10" font-weight="700" fill="#E9D5FF" font-family="-apple-system,sans-serif">Ama Dablam</text>
+    <text x="260" y="301" text-anchor="middle" font-size="9"  fill="#7C3AED"  font-family="-apple-system,sans-serif">6812m · 🇳🇵</text>
+    <text x="260" y="336" text-anchor="middle" font-size="9"  fill="#5B3FA8"  font-family="-apple-system,sans-serif">✓</text>
+
+    <!-- ── STOP 8: Manaslu | 8163m | Nepal — SPECIAL (8000er!) ── -->
+    <!-- x=110 y=310 — BIGGER circle, label below -->
+    <circle cx="110" cy="310" r="24" fill="#2d0a6e" stroke="#A78BFA" stroke-width="3" filter="url(#glow-purple)"/>
+    <text x="110" y="316" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" font-family="-apple-system,sans-serif">8</text>
+    <text x="110" y="345" text-anchor="middle" font-size="11" font-weight="800" fill="#fff" font-family="-apple-system,sans-serif">Manaslu</text>
+    <text x="110" y="358" text-anchor="middle" font-size="10" font-weight="700" fill="#A78BFA" font-family="-apple-system,sans-serif">8163m 🏔 🇳🇵</text>
+    <text x="110" y="289" text-anchor="middle" font-size="9"  fill="#A78BFA"  font-family="-apple-system,sans-serif">★ 8000m+</text>
+    <!-- glow ring -->
+    <circle cx="110" cy="310" r="30" fill="none" stroke="#7C3AED" stroke-width="1" stroke-opacity="0.3"/>
+
+    <!-- ── STOP 9: Elbrus | 5642m | Russia ── -->
+    <!-- x=110 y=130 — GOLD, label above -->
+    <circle cx="110" cy="130" r="20" fill="#1c0f00" stroke="#F59E0B" stroke-width="2.5" filter="url(#glow-gold)"/>
+    <text x="110" y="136" text-anchor="middle" font-size="12" font-weight="800" fill="#FCD34D" font-family="-apple-system,sans-serif">9</text>
+    <text x="110" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#FEF3C7" font-family="-apple-system,sans-serif">Elbrus</text>
+    <text x="110" y="119" text-anchor="middle" font-size="9"  fill="#F59E0B"  font-family="-apple-system,sans-serif">5642m · 🇷🇺</text>
+    <text x="110" y="157" text-anchor="middle" font-size="9"  fill="#D97706"  font-family="-apple-system,sans-serif">Jun 2026</text>
+
+    <!-- ── STOP 10: Aconcagua | 6961m | Argentina ── -->
+    <!-- x=385 y=130 — GOLD, label above -->
+    <circle cx="385" cy="130" r="20" fill="#1c0f00" stroke="#F59E0B" stroke-width="2.5" filter="url(#glow-gold)"/>
+    <text x="385" y="136" text-anchor="middle" font-size="11" font-weight="800" fill="#FCD34D" font-family="-apple-system,sans-serif">10</text>
+    <text x="385" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#FEF3C7" font-family="-apple-system,sans-serif">Aconcagua</text>
+    <text x="385" y="119" text-anchor="middle" font-size="9"  fill="#F59E0B"  font-family="-apple-system,sans-serif">6961m · 🇦🇷</text>
+    <text x="385" y="157" text-anchor="middle" font-size="9"  fill="#D97706"  font-family="-apple-system,sans-serif">Jan 2027</text>
+
+    <!-- ── STOP 11: Everest + Lhotse | 8849m — MEGA SPECIAL ── -->
+    <!-- x=660 y=130 — BIG GOLD, label above -->
+    <circle cx="660" cy="130" r="28" fill="#2a1000" stroke="#F59E0B" stroke-width="3.5" filter="url(#glow-gold)"/>
+    <text x="660" y="136" text-anchor="middle" font-size="12" font-weight="900" fill="#FEF3C7" font-family="-apple-system,sans-serif">11</text>
+    <!-- outer pulse ring -->
+    <circle cx="660" cy="130" r="36" fill="none" stroke="#F59E0B" stroke-width="1" stroke-opacity="0.25"/>
+    <circle cx="660" cy="130" r="44" fill="none" stroke="#F59E0B" stroke-width="0.5" stroke-opacity="0.12"/>
+    <text x="660" y="100" text-anchor="middle" font-size="11" font-weight="800" fill="#FEF3C7" font-family="-apple-system,sans-serif">Everest + Lhotse</text>
+    <text x="660" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="#FCD34D" font-family="-apple-system,sans-serif">8849m 🌍</text>
+    <text x="660" y="167" text-anchor="middle" font-size="10" font-weight="800" fill="#F59E0B"  font-family="-apple-system,sans-serif">April 2027</text>
+    <!-- flag at the top -->
+    <text x="660" y="88" text-anchor="middle" font-size="16" font-family="-apple-system,sans-serif">🚩</text>
+
+    <!-- ── DIRECTION ARROWS on curves ── -->
+    <!-- Arrow on right curve (going up, purple) -->
+    <polygon points="723,398 718,408 728,408" fill="#7C3AED" transform="rotate(0, 723, 398)" opacity="0.7"/>
+    <!-- Arrow on left curve (going up, gradient) -->
+    <polygon points="-37,218 -42,228 -32,228" fill="#A855F7" transform="rotate(0, -37, 218)" opacity="0.7"/>
+
+    <!-- Small arrow indicators on rows -->
+    <!-- Row 1: L→R arrow between stops 1 and 2 -->
+    <polygon points="185,487 178,483 178,491" fill="#7C3AED" opacity="0.5"/>
+    <!-- Row 2: R→L arrow between stops 5 and 6 -->
+    <polygon points="485,307 492,303 492,311" fill="#7C3AED" opacity="0.5"/>
+    <!-- Row 3: L→R arrow between stops 9 and 10 -->
+    <polygon points="247,127 240,123 240,131" fill="#F59E0B" opacity="0.5"/>
+
+  </svg>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-line-done"></div>
+      <span>הושלם</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-line-next"></div>
+      <span>מתוכנן</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#7C3AED; border: 2px solid #A78BFA;"></div>
+      <span>פסגה רגילה</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#2d0a6e; border: 2px solid #A78BFA; box-shadow: 0 0 8px #7C3AED;"></div>
+      <span>8000m+</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#1c0f00; border: 2px solid #F59E0B; box-shadow: 0 0 8px #F59E0B80;"></div>
+      <span>יעד עתידי</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

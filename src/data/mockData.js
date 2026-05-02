@@ -18,7 +18,7 @@ export const EXPS = [
     nameEn: 'Olympus',
     descEn: `Join us on an exhilarating journey to the summit of Mount Olympus in Greece - the country's highest peak and legendary home of the Olympian gods. With breathtaking panoramas, lush forests, and pristine alpine meadows, this expedition delivers an unforgettable experience.
 
-The journey begins in the village of Litochoro, passes through Prionia towards the mountain huts, and continues to the legendary Skala and Mytikas summits, reaching 2,918 meters. This challenging route welcomes trekkers of all fitness levels with proper preparation.
+The journey begins in the village of Litochoro, passes through Prionia towards the mountain huts, and continues to the legendary Skala and Mytikas summits, reaching 2918 meters. This challenging route welcomes trekkers of all fitness levels with proper preparation.
 
 Climbing Olympus is not just a physical challenge - it's a spiritual and cultural experience. The crisp air, the silence, and the deep connection to ancient Greek history and mythology will leave a lasting impression for years to come.
 
@@ -114,6 +114,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
   },
   {
     id: 3, slug: 'peaks-of-balkan', name: 'Peaks of Balkan', nameHe: 'טרק פסגות הבלקן', country: 'Albania', countryHe: 'אלבניה', flag: '🇦🇱',
+    heroVideo: '/videos/hero-peaks-of-balkan.mp4',
     elev: '2656m', elevNum: 2656, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     img: '/images/cards/peaks-of-balkan.webp',
@@ -375,6 +376,7 @@ This journey combines the contrast between desert heat and cold mountain winds -
   },
   {
     id: 5, slug: 'kazbek', name: 'Kazbek', nameHe: 'טיפוס לקזבק', country: 'Georgia', countryHe: 'גאורגיה', flag: '🇬🇪',
+    heroVideo: '/videos/hero-kazbek.mp4',
     elev: '5047m', elevNum: 5054, days: '8 ימים', daysEn: '8 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 2300, priceStr: '€2300', continent: 'europe',
     airtableEvents: ['Kazbek'],
@@ -392,7 +394,7 @@ This journey combines the contrast between desert heat and cold mountain winds -
 הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת קזבק 5047מ׳', 'מנזר גרגטי הנצחי', 'כפרי קווקז אותנטיים', 'מסדרון קרחון'],
     nameEn: 'Kazbek',
-    descEn: `Mount Kazbek in Georgia is one of the Caucasus's most iconic peaks, standing at 5,047 meters and deeply embedded in Georgian mythology. This expedition takes you through dramatic glaciers, ancient monasteries, and breathtaking mountain scenery.
+    descEn: `Mount Kazbek in Georgia is one of the Caucasus's most iconic peaks, standing at 5047 meters and deeply embedded in Georgian mythology. This expedition takes you through dramatic glaciers, ancient monasteries, and breathtaking mountain scenery.
 
 The journey begins in the historic town of Kazbegi, with the famous Gergeti Trinity Church as a backdrop. We acclimatize through high-altitude camps before making our summit push across spectacular glaciers.
 
@@ -505,6 +507,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
   },
   {
     id: 6, slug: 'manaslu', name: 'Manaslu Circuit', nameHe: 'טרק סובב מנסלו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    heroVideo: '/videos/hero-nepal.mp4',
     elev: '5160m', elevNum: 5106, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2250, priceStr: '$2250', continent: 'asia',
     airtableEvents: ['Manaslu_Circut'],
@@ -651,6 +654,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
   },
   {
     id: 7, slug: 'everest-base-camp', name: 'Everest Base Camp & Gokyo', nameHe: 'טרק אוורסט בייס קמפ וגוקיו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    heroVideo: '/videos/hero-nepal.mp4',
     elev: '5364m', elevNum: 5545, days: '19 ימים', daysEn: '19 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Hard', diffHe: 'קשה', price: 3300, priceStr: '$3300', continent: 'asia',
     airtableEvents: ['EBC + Gokyo'],
@@ -805,6 +809,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
   },
   {
     id: 8, slug: 'annapurna', name: 'Annapurna Circuit', nameHe: 'טרק סובב אנאפורנה', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    heroVideo: '/videos/hero-nepal.mp4',
     elev: '5416m', elevNum: 5416, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2150, priceStr: '$2150', continent: 'asia',
     airtableEvents: ['Annapurna_Circut'],
@@ -821,7 +826,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     nameEn: 'Annapurna Circuit',
     descEn: `The Annapurna Circuit is one of the world's great classic treks - a complete circumnavigation of the Annapurna massif in Nepal, passing through diverse landscapes from subtropical forests to high-altitude desert.
 
-The highlight of the circuit is crossing Thorong La Pass at 5,416 meters - the highest point of the trek - with panoramic views of the Annapurna and Dhaulagiri ranges stretching in every direction.
+The highlight of the circuit is crossing Thorong La Pass at 5416 meters - the highest point of the trek - with panoramic views of the Annapurna and Dhaulagiri ranges stretching in every direction.
 
 This 14-day adventure takes you through traditional Gurung and Manangi villages, past ancient Buddhist monasteries, and through the dramatic Kali Gandaki gorge - the world's deepest valley.`,
     highlightsEn: ['Thorong La Pass 5,416m', 'Annapurna panoramas', 'Kali Gandaki gorge', 'Traditional Nepalese villages'],
@@ -964,7 +969,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     groupCapacity: 15,
     img: '/images/cards/elbrus.webp',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
-    desc: `הצטרפו אלינו למסע אל הפסגה הגבוהה באירופה, הר אלברוס המתנשא לגובה של 5,642 מ׳ ואחת מ"שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים לכבוש פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
+    desc: `הצטרפו אלינו למסע אל הפסגה הגבוהה באירופה, הר אלברוס המתנשא לגובה של 5642 מ׳ ואחת מ"שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים לכבוש פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
 
 הטיפוס דרך המסלול הדרומי נחשב לדרך הפופולרית והבטוחה ביותר להגיע אל הפסגה. המסלול מאתגר ודורש כושר גופני טוב, אך בעזרת התאקלמות נכונה ושימוש בתשתיות המסלול הדרומי (כמו הרכבלים ובקתות ההרים), הוא בהחלט בר השגה עבור מטפסים נחושים! במהלך המשלחת תלמדו ותתרגלו עבודה עם ציוד טכני הכולל קרמפונים, גרזן קרח ועבודה בחבלים.
 
@@ -973,7 +978,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
 הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אלברוס 5642מ׳', 'הר הגבוה באירופה', 'נסיעה בכבלית', 'מחנות חבית היסטוריים'],
     nameEn: 'Elbrus',
-    descEn: `Mount Elbrus is Europe's highest peak at 5,642 meters - a dormant twin-peaked volcano in the Russian Caucasus and one of the Seven Summits. This expedition offers the perfect introduction to high-altitude mountaineering with a high success rate.
+    descEn: `Mount Elbrus is Europe's highest peak at 5642 meters - a dormant twin-peaked volcano in the Russian Caucasus and one of the Seven Summits. This expedition offers the perfect introduction to high-altitude mountaineering with a high success rate.
 
 We use modern cable cars and snowcats to reach high camps, minimizing the physical toll and maximizing summit success. From the top on a clear day, you can see the entire Caucasus range stretching into the distance.
 
@@ -1085,6 +1090,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
   },
   {
     id: 10, slug: 'kilimanjaro', name: 'Kilimanjaro', nameHe: 'טיפוס לקילימנג׳רו', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
+    heroVideo: '/videos/hero-kilimanjaro.mp4',
     elev: '5895m', elevNum: 5895, days: '9 ימים | ספארי +3', daysEn: '9 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
     img: '/images/cards/kilimanjaro.webp',
@@ -1095,7 +1101,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     desc: 'הצטרפו אלינו למסע טיפוס אל הר קילימנג׳רו המתנשא לגובה של 5895 מ׳ מעל פני הים. הר הקילימנג׳רו הוא הפסגה הגבוהה ביותר באפריקה ואחת משבע הפסגות הגבוהות בעולם בכל יבשת. ההגעה לפסגה מהווה אתגר פיזי ומנטלי אך מתאימה לכל מטפס הרים מתחיל.\n\nהמסלול הקלאסי לפסגת הקילימנג׳רו הוא דרך מסלול מאצ׳מה, מסלול בן 7 ימים החוצה נופים מגוונים מיערות הגשם דרך אדמת הסוואנה ועד האזורים המושלגים של הפסגה. חמישה ימי טיפוס יובילו אתכם אל הבייס קמפ בגובה 4673 מ׳, תוך לינה במחנות קמפינג חדשים מדי יום.\n\nהטיפוס לפסגה מתחיל בחצות, המאמץ הגדול משתלם עם צפייה בזריחה מרהיבה בדרך לפסגת אוהורו ותצפית פנורמית עוצרת נשימה על כל אפריקה.\n\nהצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!',
     highlights: ['פסגת אוהורו 5895מ׳', '5 אזורי אקלים ייחודיים', 'ללא טיפוס טכני', 'זריחה מעל העננים'],
     nameEn: 'Kilimanjaro',
-    descEn: `Kilimanjaro is Africa's highest peak and one of the world's most iconic mountains - a dormant stratovolcano rising 5,895 meters above the Tanzanian savanna. No technical climbing required, making it the perfect "first big mountain" for adventurous hikers.
+    descEn: `Kilimanjaro is Africa's highest peak and one of the world's most iconic mountains - a dormant stratovolcano rising 5895 meters above the Tanzanian savanna. No technical climbing required, making it the perfect "first big mountain" for adventurous hikers.
 
 We use the Machame Route - the most scenic path on the mountain - taking 7 days to allow proper acclimatization. You'll pass through five distinct climate zones, from tropical rainforest at the base to Arctic summit conditions at Uhuru Peak.
 
@@ -1233,12 +1239,12 @@ HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the hi
     ],
     safariItinerary: [
       { day: 9,  title: 'ספארי בשמורת טרנגירי', desc: 'במקום לחזור לישראל - יום מלא ספארי בשמורת טרנגירי, אחת הגדולות בטנזניה. נסיעות ב-4X4 עם גג פתוח, חיפוש אחר חמשת הגדולים, לינה בלודג׳ מפואר.' },
-      { day: 10, title: 'ספארי במכתש נגורונגורו', desc: 'יום ספארי במכתש נגורונגורו - "גן העדן האפריקאי". מכתש הקלדרה הגדול בעולם, ביתם של כ-25,000 חיות. ריכוז בעלי חיים יוצא דופן באזור מוגן אחד.' },
+      { day: 10, title: 'ספארי במכתש נגורונגורו', desc: 'יום ספארי במכתש נגורונגורו - "גן העדן האפריקאי". מכתש הקלדרה הגדול בעולם, ביתם של כ-25000 חיות. ריכוז בעלי חיים יוצא דופן באזור מוגן אחד.' },
       { day: 11, title: 'ביקור שבט ההדזבה - אגם אייסי', desc: 'ביקור ייחודי אצל שבט ההדזבה, אחד השבטים הקדומים בעולם שעדיין חיים כציידים-לקטים. חוויה אנתרופולוגית בלתי נשכחת ליד אגם אייסי. לאחר מכן - נסיעה לשדה התעופה וטיסה חזרה.' },
     ],
     safariItineraryEn: [
       { day: 9,  title: 'Safari at Tarangire National Park', desc: 'Instead of returning to Israel - a full safari day at Tarangire, one of Tanzania\'s largest parks. Game drives in open-roof 4X4s, searching for the Big Five, overnight at a luxury lodge.' },
-      { day: 10, title: 'Safari at Ngorongoro Crater', desc: 'Safari day in the Ngorongoro Crater - "the African Garden of Eden." The world\'s largest intact caldera, home to ~25,000 animals in one protected area.' },
+      { day: 10, title: 'Safari at Ngorongoro Crater', desc: 'Safari day in the Ngorongoro Crater - "the African Garden of Eden." The world\'s largest intact caldera, home to ~25000 animals in one protected area.' },
       { day: 11, title: 'Hadza Tribe visit – Lake Eyasi', desc: 'Unique visit to the Hadza tribe, one of the world\'s oldest peoples still living as hunter-gatherers. Unforgettable anthropological experience near Lake Eyasi. Then drive to airport and flight home.' },
     ],
     summitUpdates: [
@@ -1249,13 +1255,14 @@ HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the hi
       { name: 'דיויד רד',        nameEn: 'David Red',           date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/5.webp' },
     ],
     reviews: [
-      { name: 'אורי בן-דוד', date: 'ספטמבר 2025', rating: 5, text: 'עלינו לפסגת קילימנג׳רו בגובה 5,895 מ׳ - חוויה שאין לתאר במילים. הצוות של HighAir ליווה אותנו בכל רגע, מהרישום ועד הפסגה.', initial: 'א' },
+      { name: 'אורי בן-דוד', date: 'ספטמבר 2025', rating: 5, text: 'עלינו לפסגת קילימנג׳רו בגובה 5895 מ׳ - חוויה שאין לתאר במילים. הצוות של HighAir ליווה אותנו בכל רגע, מהרישום ועד הפסגה.', initial: 'א' },
       { name: 'רחל מור', date: 'יוני 2025', rating: 5, text: 'הגעתי ללא ניסיון טיפוס ועליתי לאוהורו! HighAir בנו לי את הביטחון צעד אחר צעד. הספארי אחרי הטיפוס היה קינוח מושלם.', initial: 'ר' },
       { name: 'גיל שמעוני', date: 'אוגוסט 2025', rating: 5, text: 'מהמפגש הראשון ועד הרגע שעמדתי על גג אפריקה - הכל מאורגן, מקצועי ומלא לב. תודה לצוות HighAir על חוויה שתישאר איתי לתמיד.', initial: 'ג' },
     ],
   },
   {
     id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'קילימנג׳רו שומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
+    heroVideo: '/videos/hero-kilimanjaro.mp4',
     elev: '5895m', elevNum: 5895, days: '10 ימים | ספארי +3', daysEn: '10 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2900, priceStr: '$2900', continent: 'africa',
     img: '/images/cards/kilimanjaroKosher.webp',
@@ -1408,12 +1415,12 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     ],
     safariItinerary: [
       { day: 10, title: 'ספארי בשמורת טרנגירי', desc: 'במקום לחזור לישראל - יום מלא ספארי בשמורת טרנגירי, אחת הגדולות בטנזניה. נסיעות ב-4X4 עם גג פתוח, חיפוש אחר חמשת הגדולים, לינה בלודג׳ מפואר.' },
-      { day: 11, title: 'ספארי במכתש נגורונגורו', desc: 'יום ספארי במכתש נגורונגורו - "גן העדן האפריקאי". מכתש הקלדרה הגדול בעולם, ביתם של כ-25,000 חיות.' },
+      { day: 11, title: 'ספארי במכתש נגורונגורו', desc: 'יום ספארי במכתש נגורונגורו - "גן העדן האפריקאי". מכתש הקלדרה הגדול בעולם, ביתם של כ-25000 חיות.' },
       { day: 12, title: 'ביקור שבט ההדזבה - אגם אייסי', desc: 'ביקור ייחודי אצל שבט ההדזבה, אחד השבטים הקדומים בעולם. חוויה אנתרופולוגית בלתי נשכחת ליד אגם אייסי. לאחר מכן - נסיעה לשדה התעופה וטיסה חזרה.' },
     ],
     safariItineraryEn: [
       { day: 10, title: 'Safari at Tarangire National Park', desc: 'Instead of flying home - a full safari day at Tarangire, one of Tanzania\'s largest parks. Game drives in an open-roof 4×4, searching for the Big Five. Overnight at a luxury lodge.' },
-      { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'A full safari day inside the Ngorongoro Crater - "Africa\'s Eden." The world\'s largest intact volcanic caldera, home to roughly 25,000 animals.' },
+      { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'A full safari day inside the Ngorongoro Crater - "Africa\'s Eden." The world\'s largest intact volcanic caldera, home to roughly 25000 animals.' },
       { day: 12, title: 'Hadza Tribe visit – Lake Eyasi', desc: 'A unique visit to the Hadza tribe, one of the world\'s oldest peoples. An unforgettable anthropological experience on the shores of Lake Eyasi. Afterwards - drive to the airport and fly home.' },
     ],
     reviews: [
@@ -1424,6 +1431,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
   },
   {
     id: 12, slug: 'lobuche-peak', name: 'Lobuche Peak', nameHe: 'טיפוס ללובוצ׳ה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    heroVideo: '/videos/hero-nepal.mp4',
     elev: '6119m', elevNum: 6119, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3450, priceStr: '$3450', continent: 'asia',
     img: '/images/cards/lobuchePeak.webp',
@@ -1586,6 +1594,7 @@ This peak is considered one of the best entry points into Himalayan mountaineeri
   },
   {
     id: 13, slug: 'island-peak', name: 'Island Peak', nameHe: 'טיפוס לאיילנד פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    heroVideo: '/videos/hero-nepal.mp4',
     elev: '6189m', elevNum: 6189, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     groupCapacity: 15,
@@ -1751,6 +1760,7 @@ This expedition can be combined with the Everest Base Camp trek, creating the ul
   },
   {
     id: 14, slug: 'mera-peak', name: 'Mera Peak', nameHe: 'טיפוס למרה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    heroVideo: '/videos/hero-mera-peak.mp4',
     elev: '6476m', elevNum: 6476, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     img: '/images/cards/MeraPeak.webp',
@@ -1770,7 +1780,7 @@ This expedition can be combined with the Everest Base Camp trek, creating the ul
 
 From the summit on a clear day, five of the world's six highest mountains are visible simultaneously - Everest, Kangchenjunga, Lhotse, Makalu, and Cho Oyu. This is one of the great panoramas on Earth.
 
-Non-technical but high-altitude, Mera is perfect for fit trekkers who want to experience what it feels like to stand above 6,000 meters.`,
+Non-technical but high-altitude, Mera is perfect for fit trekkers who want to experience what it feels like to stand above 6000 meters.`,
     highlightsEn: ["Mera Peak 6,476m", "View of 5 eight-thousanders", "Nepal's highest trekking peak", "Non-technical ascent"],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1997,7 +2007,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     notIncludedEn: [
       'International flights (via our travel agent)',
       'Travel & medical insurance (via our insurance agent)',
-      'Park entry and climbing permit - $1,000–$1,300 per person',
+      'Park entry and climbing permit - $1000–$1300 per person',
       'Personal gear - clothing, footwear and climbing equipment',
       'Lunch & dinner at Mendoza hotel',
       'Personal expenses (tips, laundry, drinks)',
@@ -2085,7 +2095,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
 הצטרפו אלינו להרפתקה של פעם בחיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת לנין 7134מ׳', 'גבוה מ-7000מ׳', 'מחנות גובה מרובים', 'נוף על פמיר'],
     nameEn: 'Lenin Peak',
-    highlightsEn: ['Lenin Peak 7,134m', 'Above 7,000 meters', 'Multiple high camps', 'Pamir panorama'],
+    highlightsEn: ['Lenin Peak 7,134m', 'Above 7000 meters', 'Multiple high camps', 'Pamir panorama'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
       'העברות משדה התעופה למלון + העברות פנימיות',

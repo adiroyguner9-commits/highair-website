@@ -14,6 +14,13 @@ import { installScrollDepthTracker } from './utils/analytics.js';
    Useful for measuring engagement / where users actually drop off. */
 installScrollDepthTracker();
 
+/* ── Prevent right-click save on images & videos ── */
+document.addEventListener('contextmenu', e => {
+  if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+    e.preventDefault();
+  }
+});
+
 /* ── Sentry error monitoring ── */
 if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({

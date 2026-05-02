@@ -105,7 +105,7 @@ export default function HomeV2() {
       <Header />
 
       {/* ── Page sections ── */}
-      <div id="main-content" style={{ paddingTop: '80px' }}>
+      <main id="main-content" style={{ paddingTop: '80px' }}>
 
         {/* Hero + Stats: above the fold, no FadeIn needed */}
         <HeroSection />
@@ -129,7 +129,7 @@ export default function HomeV2() {
           <FadeIn><ReviewsSection /></FadeIn>
 
           <Divider />
-          <FadeIn><GallerySection /></FadeIn>
+          <GallerySection />
 
           <Divider />
           <FadeIn><PressSection /></FadeIn>
@@ -138,7 +138,7 @@ export default function HomeV2() {
           <SiteFooter />
 
         </Suspense>
-      </div>
+      </main>
 
     </div>
   );

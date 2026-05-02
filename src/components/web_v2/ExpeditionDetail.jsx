@@ -313,6 +313,7 @@ export default function ExpeditionDetail() {
   const [groupsLoading, setGroupsLoading]   = useState(hasAirtable);
   const [groupsError, setGroupsError]       = useState(null);
   const [activeMonth, setActiveMonth]       = useState(null);
+  const [galleryUrls, setGalleryUrls]       = useState([]);
 
   useEffect(() => {
     if (!hasAirtable) return;
@@ -324,63 +325,79 @@ export default function ExpeditionDetail() {
     const cutoff = new Date(today);
     cutoff.setDate(cutoff.getDate() + 14);
 
-    /* Fetch all groups (no server-side filter - avoids field-name guessing).
-       Airtable field names confirmed from screenshot:
-         Event, Group Name, Departure, Return */
-    Promise.all([
-      fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return`)
-        .then(r => r.json()),
-      fetch(`/api/airtable/Customers?fields[]=Group%20Name`)
-        .then(r => r.json()),
-    ]).then(([groupsData, custData]) => {
-      if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
+    /* Step 1: fetch Groups for this expedition */
+    fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Gallery_URLs`)
+      .then(r => r.json())
+      .then(async groupsData => {
+        if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
 
-      /* Count customers per Group Name (e.g. "Kili_05_01") */
-      const counts = {};
-      (custData.records || []).forEach(rec => {
-        /* Customers table field might be "Group Name" or "group name" */
-        const gn = rec.fields['Group Name'] || rec.fields['group name'];
-        if (gn) counts[gn] = (counts[gn] || 0) + 1;
-      });
-
-      /* Case-insensitive set of event names to match */
-      const events = new Set((exp.airtableEvents || []).map(e => e.toLowerCase()));
-
-      const enriched = (groupsData.records || [])
-        .filter(rec => {
+        /* Filter to groups matching this expedition's events */
+        const events = new Set((exp.airtableEvents || []).map(e => e.toLowerCase()));
+        const relevant = (groupsData.records || []).filter(rec => {
           const ev = (rec.fields['Event'] || '').toLowerCase();
           return events.has(ev);
-        })
-        .map(rec => {
-          const groupName = rec.fields['Group Name'] || rec.id;
-          return {
-            id:         rec.id,
-            groupName,
-            eventName:  rec.fields['Event'] || '',
-            departure:  rec.fields['Departure'] || null,
-            returnDate: rec.fields['Return']    || null,
-            count:      counts[groupName] || 0,
-          };
-        })
-        /* Only upcoming departures, sorted by date then trek-only before safari */
-        .filter(g => g.departure && new Date(g.departure) >= cutoff)
-        .sort((a, b) => {
-          const diff = new Date(a.departure) - new Date(b.departure);
-          if (diff !== 0) return diff;
-          const aSafari = a.eventName.toLowerCase().includes('safari') ? 1 : 0;
-          const bSafari = b.eventName.toLowerCase().includes('safari') ? 1 : 0;
-          return aSafari - bSafari;
         });
 
-      setLiveGroups(enriched);
-      if (enriched.length > 0) {
-        const d = new Date(enriched[0].departure);
-        setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
-      }
-    }).catch(err => {
-      console.error('[dates]', err);
-      setGroupsError(err.message);
-    }).finally(() => setGroupsLoading(false));
+        /* Extract the exact Group Name values we need to count */
+        const groupNames = relevant
+          .map(rec => rec.fields['Group Name'])
+          .filter(Boolean);
+
+        /* Step 2: fetch ONLY customers belonging to these groups
+           using filterByFormula — avoids pagination issues entirely */
+        let counts = {};
+        if (groupNames.length > 0) {
+          const formula = groupNames.length === 1
+            ? `{Group Name}='${groupNames[0]}'`
+            : `OR(${groupNames.map(n => `{Group Name}='${n}'`).join(',')})`;
+          const custUrl = `/api/airtable/Customers?fields[]=Group%20Name&filterByFormula=${encodeURIComponent(formula)}`;
+          const custData = await fetch(custUrl).then(r => r.json());
+          (custData.records || []).forEach(rec => {
+            const gn = rec.fields['Group Name'] || rec.fields['group name'];
+            if (gn) counts[gn] = (counts[gn] || 0) + 1;
+          });
+        }
+
+        /* Build enriched group list */
+        const enriched = relevant
+          .map(rec => {
+            const groupName = rec.fields['Group Name'] || rec.id;
+            return {
+              id:         rec.id,
+              groupName,
+              eventName:  rec.fields['Event'] || '',
+              departure:  rec.fields['Departure'] || null,
+              returnDate: rec.fields['Return']    || null,
+              count:      counts[groupName] || 0,
+              capacity:   rec.fields['Capacity']  || null,
+            };
+          })
+          .filter(g => g.departure && new Date(g.departure) >= cutoff)
+          .sort((a, b) => {
+            const diff = new Date(a.departure) - new Date(b.departure);
+            if (diff !== 0) return diff;
+            const aSafari = a.eventName.toLowerCase().includes('safari') ? 1 : 0;
+            const bSafari = b.eventName.toLowerCase().includes('safari') ? 1 : 0;
+            return aSafari - bSafari;
+          });
+
+        setLiveGroups(enriched);
+        if (enriched.length > 0) {
+          const d = new Date(enriched[0].departure);
+          setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
+        }
+
+        // Extract gallery URLs from first relevant group record
+        const galleryRec = relevant.find(rec => rec.fields['Gallery_URLs']);
+        if (galleryRec) {
+          const urls = galleryRec.fields['Gallery_URLs']
+            .split('\n').map(u => u.trim()).filter(Boolean);
+          if (urls.length) setGalleryUrls(urls);
+        }
+      }).catch(err => {
+        console.error('[dates]', err);
+        setGroupsError(err.message);
+      }).finally(() => setGroupsLoading(false));
   }, [exp?.airtableEvents?.join(',')]);
 
   /* helpers */
@@ -394,21 +411,17 @@ export default function ExpeditionDetail() {
       return `${dd}-${rr}/${mm}`;
     }
     const mm2 = String(r.getMonth() + 1).padStart(2, '0');
-    return `${dd}/${mm} - ${rr}/${mm2}`;
+    return `${dd}/${mm}-${rr}/${mm2}`;
   }
 
   function eventLabel(name) {
     const n = (name || '').toLowerCase();
     if (isRtl) {
-      if (n.includes('kosher') && n.includes('safari')) return `${exp.typeHe} כשר + ספארי`;
-      if (n.includes('kosher')) return `${exp.typeHe} כשר`;
       if (n.includes('safari')) return `${exp.typeHe} + ספארי`;
-      return exp.nameHe || exp.typeHe;
+      return `${exp.typeHe} בלבד`;
     } else {
-      if (n.includes('kosher') && n.includes('safari')) return `${exp.type || exp.typeHe} Kosher + Safari`;
-      if (n.includes('kosher')) return `${exp.type || exp.typeHe} Kosher`;
       if (n.includes('safari')) return `${exp.type || exp.typeHe} + Safari`;
-      return exp.nameEn || exp.name || exp.nameHe;
+      return `${exp.type || exp.typeHe} Only`;
     }
   }
 
@@ -571,14 +584,16 @@ export default function ExpeditionDetail() {
     ? [...itinerary.slice(0, -1), ...safariItinerary]
     : itinerary;
 
-  const galleryImages = [
-    exp.img,
-    `/images/gallery/${exp.slug}/1.webp`,
-    `/images/gallery/${exp.slug}/2.webp`,
-    `/images/gallery/${exp.slug}/3.webp`,
-    `/images/gallery/${exp.slug}/4.webp`,
-    `/images/gallery/${exp.slug}/5.webp`,
-  ].filter(Boolean);
+  const galleryImages = galleryUrls.length > 0
+    ? galleryUrls
+    : [
+        exp.img,
+        `/images/gallery/${exp.slug}/1.webp`,
+        `/images/gallery/${exp.slug}/2.webp`,
+        `/images/gallery/${exp.slug}/3.webp`,
+        `/images/gallery/${exp.slug}/4.webp`,
+        `/images/gallery/${exp.slug}/5.webp`,
+      ].filter(Boolean);
 
   /* ─────────────── RENDER ─────────────────────────────────────── */
   return (
@@ -596,7 +611,7 @@ export default function ExpeditionDetail() {
         overflow: 'hidden',
         background: '#0A0818',
       }}>
-        {/* Video background - YouTube if videoUrl, else hero.mp4 */}
+        {/* Video background - YouTube if videoUrl, else expedition-specific or fallback */}
         {exp.videoUrl ? (
           <iframe
             src={`https://www.youtube.com/embed/${exp.videoUrl}?autoplay=1&mute=1&loop=1&playlist=${exp.videoUrl}&controls=0&rel=0&playsinline=1&modestbranding=1`}
@@ -610,18 +625,38 @@ export default function ExpeditionDetail() {
             allow="autoplay; encrypted-media"
             title={exp.nameHe}
           />
+        ) : (exp.heroVideo || exp.img) ? (
+          exp.heroVideo ? (
+            <video
+              key={exp.heroVideo}
+              autoPlay muted loop playsInline preload="auto"
+              poster={exp.heroVideo.replace('.mp4', '-poster.jpg')}
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%',
+                objectFit: 'cover', pointerEvents: 'none',
+              }}
+            >
+              <source src={exp.heroVideo} type="video/mp4" />
+            </video>
+          ) : (
+            <div style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: `url(${exp.img})`,
+              backgroundSize: 'cover', backgroundPosition: 'center',
+            }} />
+          )
         ) : (
           <video
-            autoPlay muted loop playsInline
+            key="hero-fallback"
+            autoPlay muted loop playsInline preload="auto"
             style={{
-              position: 'absolute', top: '50%', left: '50%',
-              transform: 'translate(-50%,-50%)',
-              minWidth: '100%', minHeight: '100%',
-              width: 'auto', height: 'auto',
+              position: 'absolute', inset: 0,
+              width: '100%', height: '100%',
               objectFit: 'cover', pointerEvents: 'none',
             }}
           >
-            <source src="/hero.mp4" type="video/mp4" />
+            <source src="/videos/hero-home.mp4" type="video/mp4" />
           </video>
         )}
 
@@ -1247,22 +1282,33 @@ export default function ExpeditionDetail() {
               {/* Group cards */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
                 {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
-                  const spotsLeft       = capacity - g.count;
+                  const groupCap        = g.capacity || exp?.groupCapacity || 15;
+                  const spotsLeft       = groupCap - g.count;
                   const depYM           = (() => { const d = new Date(g.departure); return `${d.getUTCFullYear()}-${d.getUTCMonth()}`; })();
                   const isManualSoldOut = (exp?.soldOutGroups || []).some(m => {
                     const sd = new Date(m);
                     return `${sd.getUTCFullYear()}-${sd.getUTCMonth()}` === depYM;
                   });
-                  const isFull   = spotsLeft <= 0 || isManualSoldOut;
-                  const isAlmost = !isFull && spotsLeft <= 4;
-                  const isSafari = g.eventName.toLowerCase().includes('safari');
-                  const label    = eventLabel(g.eventName);
-                  const spotsColor = isFull ? '#DC2626' : isAlmost ? '#D97706' : '#059669';
+                  const isFull    = spotsLeft <= 0 || isManualSoldOut;
+                  const isLow     = !isFull && spotsLeft <= 6;
+                  const isOpen    = !isFull && !isLow;
+                  const isSafari      = g.eventName.toLowerCase().includes('safari');
+                  const typeLabel     = eventLabel(g.eventName);
+                  const showTypeLabel = exp.slug?.includes('kilimanjaro');
+
+                  /* Spots badge config */
+                  const spotsBadge = isFull
+                    ? { bg: '#FEE2E2', color: '#991B1B', text: isRtl ? 'קבוצה מלאה' : 'Group Full' }
+                    : isLow
+                    ? { bg: '#FEF3C7', color: '#92400E', text: isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left` }
+                    : { bg: '#D1FAE5', color: '#065F46', text: isRtl ? 'הרשמה פתוחה' : 'Open' };
                   return (
                     <div key={g.id} style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr auto 1fr',
+                      display: 'flex',
+                      flexDirection: 'row',
                       alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px',
                       border: '1px solid #ECEAF8',
                       borderRadius: RADIUS.lg,
                       padding: isMobile ? '14px 16px' : '12px 20px',
@@ -1274,41 +1320,43 @@ export default function ExpeditionDetail() {
                     onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
                     onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'}
                     >
-                      {/* Right: calendar icon + date */}
-                      <div style={{
-                        display: 'flex', alignItems: 'center', gap: '8px',
-                        width: isMobile ? '140px' : '155px',
-                        flexShrink: 0,
-                      }}>
+                      {/* Date */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
                         <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
                         <span style={{
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: isMobile ? '15px' : '17px',
                           fontWeight: 800, color: '#0A0818',
-                          lineHeight: 1.1,
-                          direction: 'ltr',
-                          whiteSpace: 'nowrap',
+                          lineHeight: 1.1, direction: 'ltr', whiteSpace: 'nowrap',
                         }}>
                           {formatDateRange(g.departure, g.returnDate)}
                         </span>
                       </div>
 
-                      {/* Center: badge */}
-                      <span style={{
-                        display: 'flex', justifyContent: 'center',
-                      }}>
+                      {/* Badges */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                        {showTypeLabel && (
+                          <span style={{
+                            background: '#EDE9FE',
+                            color:      '#5B21B6',
+                            fontFamily: "'Ploni', sans-serif",
+                            fontSize: '11px', fontWeight: 700,
+                            padding: '3px 10px', borderRadius: '999px',
+                            letterSpacing: '0.02em', whiteSpace: 'nowrap',
+                          }}>
+                            {typeLabel}
+                          </span>
+                        )}
                         <span style={{
-                          background: isSafari ? '#FEF3C7' : '#EDE9FE',
-                          color: isSafari ? '#92400E' : '#5B21B6',
+                          background: spotsBadge.bg, color: spotsBadge.color,
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: '11px', fontWeight: 700,
                           padding: '3px 10px', borderRadius: '999px',
-                          letterSpacing: '0.02em',
-                          whiteSpace: 'nowrap',
+                          letterSpacing: '0.01em', whiteSpace: 'nowrap',
                         }}>
-                          {label}
+                          {spotsBadge.text}
                         </span>
-                      </span>
+                      </div>
 
                       {/* Left: CTA */}
                       <button
@@ -1323,7 +1371,7 @@ export default function ExpeditionDetail() {
                           fontSize: '14px', fontWeight: 700,
                           cursor: isFull ? 'not-allowed' : 'pointer',
                           whiteSpace: 'nowrap',
-                          justifySelf: 'end',
+                          flexShrink: 0,
                           transition: 'background 0.2s',
                         }}
                       >
@@ -1390,7 +1438,7 @@ export default function ExpeditionDetail() {
             gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
             gap: '12px',
           }}>
-            {galleryImages.slice(0, isMobile ? 4 : 5).map((src, i) => (
+            {galleryImages.map((src, i) => (
               <img
                 key={i}
                 src={src}

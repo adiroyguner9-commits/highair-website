@@ -7,18 +7,16 @@
  * · Staggered 1.5s fade-up entrance · No navbar · No buttons · No scrollbar
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, FS } from '../../website/theme.js';
-import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { Analytics } from '../../utils/analytics.js';
 
-/* ── Hero background video — plays on every device + every connection.
-       `/hero.mp4` is the TRUE source clip from the initial repo (~30 MB,
-       2:26 at 1280×720). Expedition detail pages share this fallback until
-       each gets its own per-trip clip filled into `videoUrl` in
-       src/data/mockData.js (which takes precedence as a YouTube embed).
-       Long-cache header in vercel.json keeps repeat visits cheap. */
-const VIDEO_SRC = '/hero.mp4';
+/* ── Hero background video.
+       hero-compressed.mp4 = 1.1 MB (trimmed 20s, H.264 CRF 26, no audio, faststart).
+       Video plays on all devices — poster shown until first frame loads. */
+const VIDEO_SRC  = '/videos/hero-home.mp4';
+const POSTER_SRC = '/videos/hero-home-poster.jpg';
 
 /* ── Keyframes injected once into <head> ── */
 const KEYFRAMES = `
@@ -47,9 +45,23 @@ export default function HeroSection() {
   useEffect(() => { injectKeyframes(); }, []);
   const [btn1Hovered, setBtn1Hovered] = useState(false);
   const [btn2Hovered, setBtn2Hovered] = useState(false);
-  const { isMobile } = useBreakpoint();
+  const videoRef = useRef(null);
+  const playTracked = useRef(false);
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
+
+  /* Track first video play (fires once per page load) */
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const onPlay = () => {
+      if (playTracked.current) return;
+      playTracked.current = true;
+      Analytics.videoPlay('hero');
+    };
+    el.addEventListener('play', onPlay, { once: true });
+    return () => el.removeEventListener('play', onPlay);
+  }, []);
 
   return (
     <section id="hero" style={{
@@ -62,29 +74,26 @@ export default function HeroSection() {
       justifyContent:  'center',
     }}>
 
-      {/* ── 01. Background video — always rendered, every device.
-              `preload="metadata"` keeps the initial request small (just enough
-              to start playback); the rest streams as needed. The browser will
-              still issue HTTP range requests as it decodes — that's normal
-              video behaviour, not a duplicate fetch.
-              Poster image intentionally NOT set: the dark overlay below
-              covers any flash-of-nothing before the first frame paints. */}
+      {/* ── 01. Background video — plays on all devices (mobile + desktop).
+              poster shown as placeholder until first frame loads. */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
+        poster={POSTER_SRC}
         aria-hidden="true"
         style={{
-          position:        'absolute',
-          inset:           0,
-          width:           '100%',
-          height:          '100%',
-          objectFit:       'cover',
-          zIndex:          0,
-          transform:       'translateZ(0)',
-          willChange:      'transform',
+          position:           'absolute',
+          inset:              0,
+          width:              '100%',
+          height:             '100%',
+          objectFit:          'cover',
+          zIndex:             0,
+          transform:          'translateZ(0)',
+          willChange:         'transform',
           backfaceVisibility: 'hidden',
         }}
       >
@@ -172,6 +181,7 @@ export default function HeroSection() {
           {/* Primary - לכל המשלחות */}
           <a
             href="#expeditions"
+            onClick={() => Analytics.clickCTA('all_expeditions', 'hero')}
             onMouseEnter={() => setBtn1Hovered(true)}
             onMouseLeave={() => setBtn1Hovered(false)}
             style={{
@@ -203,6 +213,7 @@ export default function HeroSection() {
           {/* Secondary - הסיפור שלנו */}
           <a
             href="/about"
+            onClick={() => Analytics.clickCTA('our_story', 'hero')}
             onMouseEnter={() => setBtn2Hovered(true)}
             onMouseLeave={() => setBtn2Hovered(false)}
             style={{

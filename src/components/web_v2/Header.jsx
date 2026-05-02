@@ -215,8 +215,9 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
     { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15]              },
   ];
 
-  /* Israel trips – rendered separately (flat list, israel route) */
+  /* Israel trips – same layout as international menus */
   if (type === 'israel') {
+    const liveTrips = ISRAEL_TRIPS.filter(t => t.live !== false);
     return (
       <div
         onMouseEnter={onKeepOpen}
@@ -230,7 +231,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
           background: '#FFFFFF',
           boxShadow:  '0 12px 40px rgba(0,0,0,0.10)',
           borderTop:  '1px solid #F0F0F0',
-          padding:    '28px 5%',
+          padding:    '32px 5% 28px',
           direction:  dir,
         }}
       >
@@ -239,23 +240,31 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
           margin:              '0 auto',
           display:             'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
+          gap:                 '0',
         }}>
-          {/* Israel column — column 1 = leftmost in LTR, rightmost in RTL (grid axis flips with direction) */}
-          <div style={{ padding: '0 24px', gridColumn: 1 }}>
+          <div style={{
+            padding:     '0 24px',
+            borderRight: '1px solid #EDE9FE',
+          }}>
+            {/* Column header — identical style to international */}
             <div style={{
               marginBottom:  '10px',
               paddingBottom: '10px',
               borderBottom:  '1px solid #EEEEEE',
-              fontFamily:    "'Ploni', sans-serif",
-              fontSize:      '14px',
-              fontWeight:    800,
-              color:         '#6D28D9',
             }}>
-              {isEn ? 'Israel' : 'ישראל'}
+              <span style={{
+                fontFamily:    "'Ploni', sans-serif",
+                fontSize:      '14px',
+                fontWeight:    800,
+                color:         '#6D28D9',
+                letterSpacing: '0.01em',
+              }}>
+                {isEn ? 'Israel' : 'ישראל'}
+              </span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              {ISRAEL_TRIPS.map(trip => (
-                <IsraelMegaItem key={trip.id} trip={trip} onClose={onClose} />
+              {liveTrips.map(trip => (
+                <IsraelMegaItem key={trip.id || trip.slug} trip={trip} onClose={onClose} />
               ))}
             </div>
           </div>

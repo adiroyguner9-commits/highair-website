@@ -97,6 +97,8 @@ export default function ImpactSection() {
               <button
                 key={i}
                 onClick={() => setActive(i)}
+                aria-label={`Photo ${i + 1} of ${SLIDES.length}`}
+                aria-pressed={i === active}
                 style={{
                   width:        i === active ? '22px' : '7px',
                   height:       '7px',

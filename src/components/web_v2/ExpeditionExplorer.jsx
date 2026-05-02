@@ -17,10 +17,14 @@ function NavArrow({ direction, disabled, onClick, isRtl }) {
   const symbol = direction === 'prev'
     ? (isRtl ? '→' : '←')
     : (isRtl ? '←' : '→');
+  const ariaLabel = direction === 'prev'
+    ? (isRtl ? 'הבא' : 'Previous')
+    : (isRtl ? 'הקודם' : 'Next');
   return (
     <button
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
       onMouseEnter={() => !disabled && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -70,10 +74,16 @@ function ExpCard({ exp }) {
     ? (imgReady ? `url(${exp.img}) center/cover no-repeat` : exp.grad)
     : exp.grad;
 
+  const handleNav = () => navigate(`/expedition/${exp.slug}`);
+
   return (
     <div
       ref={cardRef}
-      onClick={() => navigate(`/expedition/${exp.slug}`)}
+      role="button"
+      tabIndex={0}
+      aria-label={isEn ? exp.name : exp.nameHe}
+      onClick={handleNav}
+      onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handleNav()}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -91,6 +101,7 @@ function ExpCard({ exp }) {
         boxShadow:      hovered ? '0 20px 48px rgba(0,0,0,0.22)' : '0 6px 20px rgba(0,0,0,0.12)',
         transition:     `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
         position:       'relative',
+        outline:        'none',
       }}
     >
       {exp.img && (
@@ -199,16 +210,28 @@ export default function ExpeditionExplorer({ type }) {
     return () => el.removeEventListener('scroll', updateArrows);
   }, [updateArrows, cardWidth]);
 
-  /* Reset scroll on type or language (RTL/LTR) change */
+  /* Reset scroll on type or language (RTL/LTR) change.
+     Double-rAF ensures the browser has painted the new direction
+     attribute before we touch scrollLeft — a single setTimeout(0)
+     is not enough on Chrome/Safari when direction flips RTL↔LTR.
+     The 150ms fallback handles browser scroll-restoration which fires
+     asynchronously after paint and can overwrite the rAF reset. */
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    // Small timeout so iOS Safari applies the direction before we set scrollLeft
-    const t = setTimeout(() => {
-      el.scrollLeft = 0;
-      updateArrows();
-    }, 0);
-    return () => clearTimeout(t);
+    const reset = () => { el.scrollLeft = 0; updateArrows(); };
+    let raf2, timer;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        reset();
+        timer = setTimeout(reset, 150);
+      });
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      if (raf2)  cancelAnimationFrame(raf2);
+      if (timer) clearTimeout(timer);
+    };
   }, [type, isRtl, updateArrows]);
 
   /* Arrow click — scroll by one card */

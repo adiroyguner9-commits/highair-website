@@ -4,8 +4,14 @@
  * Business hours: Sun–Thu 09:00–18:00 | Fri 09:00–13:00 | Sat closed
  */
 
+import { checkRateLimit, setSecurityHeaders } from './_security.js';
+
 export default async function handler(req, res) {
+  setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+  if (!checkRateLimit(req, 'default')) {
+    return res.status(429).json({ error: 'Too many requests' });
+  }
 
   const { date } = req.query;
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {

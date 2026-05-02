@@ -18,6 +18,7 @@ const he = {
     climbs: 'טיפוסי הרים בעולם',
     israelTrips: 'טרקים בארץ',
     annualPlan: 'תכנית שנתית',
+    about: 'הסיפור שלנו',
     blog: 'בלוג',
     contact: 'צור קשר',
     contactUs: 'צור קשר',
@@ -99,7 +100,7 @@ const he = {
     sending: 'שולח',
     send: 'שלח',
     thankYou: 'תודה {{name}}!',
-    received: 'פנייתכם התקבלה - נחזור אליכם בהקדם 🙌',
+    received: 'פנייתך התקבלה - נחזור אליך תוך 24 שעות 🙌',
     sendAnother: 'שלח פנייה נוספת',
   },
   footer: {
@@ -115,6 +116,9 @@ const he = {
     accessibility: 'הצהרת נגישות',
     tagline: 'משלחות טיפוס הרים וטרקים בעולם ובישראל\nבשילוב תרומה לחולי סרטן בכל מסע.',
     copyright: 'HighAir Expeditions © {{year}}',
+    contact: 'צור קשר',
+    phone: '+972-55-563-6975',
+    email: 'info@highair-expeditions.com',
   },
   expedition: {
     days: 'ימים',
@@ -198,6 +202,7 @@ const en = {
     climbs: 'Expeditions',
     israelTrips: 'Israel Treks',
     annualPlan: 'Annual Plan',
+    about: 'Our Story',
     blog: 'Blog',
     contact: 'Contact',
     contactUs: 'Contact Us',
@@ -237,7 +242,7 @@ const en = {
     heading: 'Travel with Purpose!',
     p1: 'A portion of our profits is dedicated to fulfilling the dreams of cancer patients in Israel. Thanks to each and every one of you who joins us on a journey, we are able to donate and strengthen people who are in the biggest fight of their lives.',
     p2: 'Every month we visit hospital wards, meet families, distribute gifts and support children and adults who fight day by day - creating small moments of joy within their complex reality.',
-    p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated over ₪200,000 to date and helped fulfill the dreams of cancer patients and their families!',
+    p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated over ₪200000 to date and helped fulfill the dreams of cancer patients and their families!',
     cta: 'Every expedition makes a difference!',
   },
   reviews: {
@@ -279,7 +284,7 @@ const en = {
     sending: 'Sending',
     send: 'Send',
     thankYou: 'Thank you, {{name}}!',
-    received: "Your message has been received - we'll be in touch soon 🙌",
+    received: "Your message has been received — we'll get back to you within 24 hours 🙌",
     sendAnother: 'Send another message',
   },
   footer: {
@@ -295,6 +300,9 @@ const en = {
     accessibility: 'Accessibility',
     tagline: 'Trekking and Climbing Expeditions\nEvery Expedition Supports Cancer Patients',
     copyright: 'HighAir Expeditions © {{year}}',
+    contact: 'Contact',
+    phone: '+972-55-563-6975',
+    email: 'info@highair-expeditions.com',
   },
   expedition: {
     days: 'days',
