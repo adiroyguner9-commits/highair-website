@@ -1146,15 +1146,17 @@ export default function ExpeditionDetail() {
                           {item.desc}
                         </p>
                         {(item.travelTime || item.distance || item.duration || item.accommodation || item.elevationGain || item.elevationLoss || item.elevationStart || item.elevationMax || item.elevationEnd) && (() => {
-                          const bdg = (bg, color, iconPath, text, extraStyle) => (
+                          const bdg = (bg, color, iconPath, text, numericLtr) => (
                             <span key={text} style={{
                               display: 'inline-flex', alignItems: 'center', gap: '5px',
                               padding: '6px 14px', borderRadius: '24px', background: bg,
                               fontFamily: "'Ploni', sans-serif", fontSize: '13px',
-                              fontWeight: 700, color, ...extraStyle,
+                              fontWeight: 700, color,
                             }}>
                               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{iconPath}</svg>
-                              {text}
+                              {numericLtr
+                                ? <span style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>{text}</span>
+                                : text}
                             </span>
                           );
                           const ICONS = {
@@ -1169,8 +1171,8 @@ export default function ExpeditionDetail() {
                           return (
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', padding: '0 20px 20px', direction: dir }}>
                               {item.travelTime    && bdg('#EDE9FE','#4C1D95', ICONS.bus,      item.travelTime)}
-                              {item.distance      && bdg('#EDE9FE','#4C1D95', ICONS.ruler,    item.distance)}
-                              {item.duration      && bdg('#EDE9FE','#4C1D95', ICONS.clock,    item.duration,   {direction:'ltr'})}
+                              {item.distance      && bdg('#EDE9FE','#4C1D95', ICONS.ruler,    item.distance,  true)}
+                              {item.duration      && bdg('#EDE9FE','#4C1D95', ICONS.clock,    item.duration,  true)}
                               {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp,  item.elevationGain)}
                               {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn,  item.elevationLoss)}
                               {item.accommodation && bdg('#FFF7ED','#C2410C', ICONS.home,     item.accommodation)}
