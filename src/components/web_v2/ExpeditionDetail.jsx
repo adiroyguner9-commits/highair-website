@@ -16,6 +16,7 @@ import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
+import GHLCalendarWidget from './GHLCalendarWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
 
 /* ─── Translation helpers ───────────────────────────────────────── */
@@ -282,6 +283,7 @@ export default function ExpeditionDetail() {
   }, []);
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+  useEffect(() => { setShowBooking(false); }, [slug]);
 
   /* ── Dynamic SEO ── */
   useEffect(() => {
@@ -439,7 +441,8 @@ export default function ExpeditionDetail() {
   /* unique months from live groups */
   const months = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
-  const capacity = exp?.groupCapacity || 15;
+  const capacity = liveGroups.find(g => g.capacity)?.capacity || exp?.groupCapacity || 15;
+  const noDates = months.length === 0 && (exp?.dates || []).length === 0;
   const [heroBtnHovered, setHeroBtnHovered] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -453,6 +456,11 @@ export default function ExpeditionDetail() {
   const [showBooking, setShowBooking] = useState(true);
   const [isWaitlist,  setIsWaitlist]  = useState(false);
   const [ageError,   setAgeError]   = useState('');
+
+  /* ── Auto-set month when no dates available ── */
+  useEffect(() => {
+    if (noDates) setForm(f => ({ ...f, month: 'גמיש / טרם החלטתי' }));
+  }, [noDates]);
 
   /* ── Phone validation ── */
   function validatePhone(val) {
@@ -1103,18 +1111,19 @@ export default function ExpeditionDetail() {
                   const isOpen = openItinerary.includes(idx);
                   const isLast = idx === activeItinerary.length - 1;
                   const isSafariDay = hasSafari && itineraryTab === 'safari' && idx >= (exp.itinerary.length - 1);
+                  const hasContent = !!(item.desc || item.distance || item.duration || item.elevationGain || item.elevationLoss || item.accommodation || item.travelTime);
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
                       <button
                         className="accordion-row"
-                        onClick={() => toggleItinerary(idx)}
+                        onClick={() => hasContent && toggleItinerary(idx)}
                         aria-expanded={isOpen}
                         aria-controls={`itinerary-panel-${idx}`}
-                        onMouseEnter={() => setHoveredItinerary(idx)}
+                        onMouseEnter={() => hasContent && setHoveredItinerary(idx)}
                         onMouseLeave={() => setHoveredItinerary(null)}
                         style={{
                           display: 'flex', alignItems: 'center', gap: '16px',
-                          padding: '16px 20px', cursor: 'pointer',
+                          padding: '16px 20px', cursor: hasContent ? 'pointer' : 'default',
                           background: (isOpen || hoveredItinerary === idx) ? '#FAFAFE' : 'white',
                           transition: `background 150ms ${EASING.smooth}`, direction: dir,
                           width: '100%', border: 'none', textAlign: 'start',
@@ -1133,9 +1142,11 @@ export default function ExpeditionDetail() {
                         <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>
                           {item.title}
                         </span>
-                        <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>
-                          {isOpen ? '▴' : '▾'}
-                        </span>
+                        {hasContent && (
+                          <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>
+                            {isOpen ? '▴' : '▾'}
+                          </span>
+                        )}
                       </button>
                       <div id={`itinerary-panel-${idx}`} style={{ maxHeight: isOpen ? '900px' : '0', overflow: 'hidden', transition: 'max-height 0.35s ease' }}>
                         <p style={{
@@ -1169,13 +1180,28 @@ export default function ExpeditionDetail() {
                             home:     <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
                           };
                           return (
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', padding: '0 20px 20px', direction: dir }}>
-                              {item.travelTime    && bdg('#EDE9FE','#4C1D95', ICONS.bus,      item.travelTime)}
-                              {item.distance      && bdg('#EDE9FE','#4C1D95', ICONS.ruler,    item.distance,  true)}
-                              {item.duration      && bdg('#EDE9FE','#4C1D95', ICONS.clock,    item.duration,  true)}
-                              {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp,  item.elevationGain)}
-                              {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn,  item.elevationLoss)}
-                              {item.accommodation && bdg('#FFF7ED','#C2410C', ICONS.home,     item.accommodation)}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '0 20px 20px' }}>
+                              {/* Row 1: travel time / distance / duration */}
+                              {(item.travelTime || item.distance || item.duration) && (
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
+                                  {item.travelTime && bdg('#EDE9FE','#4C1D95', ICONS.bus,   item.travelTime)}
+                                  {item.distance   && bdg('#EDE9FE','#4C1D95', ICONS.ruler, item.distance)}
+                                  {item.duration   && bdg('#EDE9FE','#4C1D95', ICONS.clock, item.duration)}
+                                </div>
+                              )}
+                              {/* Row 2: elevation gain / loss */}
+                              {(item.elevationGain || item.elevationLoss) && (
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
+                                  {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp, item.elevationGain)}
+                                  {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn, item.elevationLoss)}
+                                </div>
+                              )}
+                              {/* Row 3: accommodation */}
+                              {item.accommodation && (
+                                <div style={{ display: 'flex', direction: dir }}>
+                                  {bdg('#FFF7ED','#C2410C', ICONS.home, item.accommodation)}
+                                </div>
+                              )}
                             </div>
                           );
                         })()}
@@ -1232,12 +1258,19 @@ export default function ExpeditionDetail() {
                 background: '#FFFBEB', border: '1px solid #FEF3C7',
                 borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
-                {importantToNote.map((note, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
-                    <span style={{ color: '#F59E0B', fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
-                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#92400E', lineHeight: 1.6 }}>{note}</span>
-                  </div>
-                ))}
+                {importantToNote.map((note, i) => {
+                  const text = i === 0 && capacity
+                    ? (isRtl
+                        ? `ה${exp.typeHe || 'טיפוס'} מתבצע בקבוצה עד ${capacity} משתתפים בלבד!`
+                        : `The ${exp.type?.toLowerCase() || 'expedition'} runs in groups of up to ${capacity} participants only!`)
+                    : note;
+                  return (
+                    <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
+                      <span style={{ color: '#F59E0B', fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
+                      <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#92400E', lineHeight: 1.6 }}>{text}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -1643,13 +1676,23 @@ export default function ExpeditionDetail() {
                 padding: '28px 24px',
                 border: '1px solid rgba(255,255,255,0.1)',
               }}>
-                <BookingWidget
-                  name={form.name}
-                  phone={form.phone}
-                  email={form.email}
-                  expedition={exp?.nameHe}
-                  onSkip={() => setShowBooking(false)}
-                />
+                {exp?.ghlCalendarId ? (
+                  <GHLCalendarWidget
+                    calendarId={exp.ghlCalendarId}
+                    name={form.name}
+                    phone={formatFullPhone(form.dial, form.phone)}
+                    email={form.email}
+                    onSkip={() => setShowBooking(false)}
+                  />
+                ) : (
+                  <BookingWidget
+                    name={form.name}
+                    phone={form.phone}
+                    email={form.email}
+                    expedition={exp?.nameHe}
+                    onSkip={() => setShowBooking(false)}
+                  />
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ direction: dir }}>
@@ -1675,24 +1718,36 @@ export default function ExpeditionDetail() {
                   {/* חודש */}
                   <div>
                     <label style={labelStyle}>{isRtl ? 'באיזה חודש תרצו לטייל? *' : 'Which month would you like to travel? *'}</label>
-                    <select
-                      required value={form.month}
-                      onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
-                      style={inputStyle}
-                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
-                    >
-                      <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
-                      {months.length > 0
-                        ? months.map(([key, label]) => (
-                            <option key={key} value={label}>{label}</option>
-                          ))
-                        : (exp.dates || []).map((d, i) => (
-                            <option key={i} value={d}>{d}</option>
-                          ))
-                      }
-                      <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : 'Flexible / Not decided yet'}</option>
-                    </select>
+                    {noDates ? (
+                      <select
+                        required value={form.month || 'גמיש / טרם החלטתי'}
+                        onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
+                        style={inputStyle}
+                        onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                        onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      >
+                        <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : 'Flexible / Not decided yet'}</option>
+                      </select>
+                    ) : (
+                      <select
+                        required value={form.month}
+                        onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
+                        style={inputStyle}
+                        onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                        onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      >
+                        <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
+                        {months.length > 0
+                          ? months.map(([key, label]) => (
+                              <option key={key} value={label}>{label}</option>
+                            ))
+                          : (exp.dates || []).map((d, i) => (
+                              <option key={i} value={d}>{d}</option>
+                            ))
+                        }
+                        <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : 'Flexible / Not decided yet'}</option>
+                      </select>
+                    )}
                   </div>
 
                   {/* גיל + כמות אנשים */}
@@ -1781,12 +1836,12 @@ export default function ExpeditionDetail() {
 
                   {/* ניסיון */}
                   <div>
-                    <label style={labelStyle}>{isRtl ? 'מה הניסיון שלך בטרקים? *' : 'What is your trekking experience? *'}</label>
+                    <label style={labelStyle}>{isRtl ? 'מה הניסיון שלכם בטרקים? *' : 'What is your trekking experience? *'}</label>
                     <textarea
                       rows={3} required value={form.experience}
                       onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
                       style={{ ...inputStyle, resize: 'vertical' }}
-                      placeholder={isRtl ? 'ספרו לנו על ניסיון טרק קודם' : 'Tell us about your previous trekking experience'}
+                      placeholder={isRtl ? 'ספרו לנו על הניסיון שלכם בטרקים' : 'Tell us about your trekking experience'}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                       onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                     />
@@ -1845,7 +1900,7 @@ export default function ExpeditionDetail() {
                       transition: `background 200ms ${EASING.smooth}`,
                     }}
                   >
-                    {status === 'loading' ? (isRtl ? 'שולח...' : 'Sending...') : (isRtl ? 'שלחו פרטים ←' : 'Send Details →')}
+                    {status === 'loading' ? (isRtl ? 'שולח...' : 'Sending...') : (isRtl ? 'לתיאום שיחה עם מומחה ←' : 'Schedule a Call with an Expert →')}
                   </button>
                 </div>
               </form>

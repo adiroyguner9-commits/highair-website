@@ -96,7 +96,25 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Submission failed' });
   }
 
-  /* ── 2. Send email via Resend (HTML-escaped) ── */
+  /* ── 2. Fire Make webhook (non-blocking) ── */
+  const MAKE_WEBHOOK = 'https://hook.eu2.make.com/qq7w1dck9ovbdk1aqft3hh0j8xk5xlnd';
+  fetch(MAKE_WEBHOOK, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name:       sanitised['Name']            || '',
+      phone:      sanitised['Phone']           || '',
+      email:      sanitised['Email']           || '',
+      expedition: sanitised['Expedition']      || '',
+      month:      sanitised['Preferred Month'] || '',
+      age:        sanitised['Age']             || '',
+      groupSize:  sanitised['Group Size']      || '',
+      experience: sanitised['Experience']      || '',
+      source:     sanitised['Source']          || '',
+    }),
+  }).catch(err => console.warn('[submit-lead] Make webhook non-fatal:', err.message));
+
+  /* ── 3. Send email via Resend (HTML-escaped) ── */
   const RESEND_KEY = process.env.RESEND_API_KEY;
   if (RESEND_KEY) {
     const f = sanitised;
