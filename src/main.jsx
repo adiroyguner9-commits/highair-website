@@ -8,11 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner  from './components/web_v2/CookieBanner.jsx';
 import FloatingWA    from './components/web_v2/FloatingWA.jsx';
-import { installScrollDepthTracker } from './utils/analytics.js';
-
-/* Fire scroll-depth events at 25/50/75/100% — once per session.
-   Useful for measuring engagement / where users actually drop off. */
-installScrollDepthTracker();
+/* Scroll depth is now tracked per-page via useScrollDepth() hook in each component */
 
 /* ── Prevent right-click save on images & videos ── */
 document.addEventListener('contextmenu', e => {

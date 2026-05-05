@@ -28,25 +28,34 @@ const PIXEL_ID = '293738523242679';
    Keys must match the GHL tag names exactly (case-insensitive).
    Update prices here as needed.
    ───────────────────────────────────────────────────────────────────────── */
+// Each entry: [price, currency]
 const EXPEDITION_PRICES = {
-  'kilimanjaro':        3700,
-  'kilimanjaro-kosher': 3700,
-  'elbrus':             3500,
-  'kazbek':             0,      // TODO: set price
-  'aconcagua':          0,      // TODO: set price
-  'annapurna':          0,      // TODO: set price
-  'manaslu':            0,      // TODO: set price
-  'everest-base-camp':  0,      // TODO: set price
-  'olympus':            0,      // TODO: set price
-  'ethiopia':           0,      // TODO: set price
-  'peaks-of-balkan':    0,      // TODO: set price
-  'lobuche-peak':       0,      // TODO: set price
-  'island-peak':        0,      // TODO: set price
-  'mera-peak':          0,      // TODO: set price
-  'lenin-peak':         0,      // TODO: set price
+  // ── Kilimanjaro variants ──────────────────────────────────────────────────
+  'kilimanjaro':                    [2700, 'USD'],
+  'kilimanjaro-kosher':             [2900, 'USD'],
+  'kilimanjaro-with-safari':        [3700, 'USD'],
+  'kilimanjaro-kosher-with-safari': [3900, 'USD'],
+  // ── Africa ───────────────────────────────────────────────────────────────
+  'ethiopia':                       [2960, 'USD'],
+  // ── Caucasus ─────────────────────────────────────────────────────────────
+  'elbrus':                         [3500, 'USD'],
+  'kazbek':                         [2300, 'EUR'],
+  // ── Nepal / Himalaya ─────────────────────────────────────────────────────
+  'everest-base-camp':              [3300, 'USD'],
+  'ebc-gokyo':                      [3300, 'USD'],
+  'annapurna':                      [2150, 'USD'],
+  'annapurna-kosher':               [2150, 'USD'],
+  'manaslu':                        [2250, 'USD'],
+  'island-peak':                    [3550, 'USD'],
+  'mera-peak':                      [3550, 'USD'],
+  'lobuche-peak':                   [3550, 'USD'],
+  // ── Central Asia ─────────────────────────────────────────────────────────
+  'aconcagua':                      [6000, 'USD'],
+  'lenin-peak':                     [6200, 'USD'],
+  // ── Europe ───────────────────────────────────────────────────────────────
+  'olympus':                        [1700, 'EUR'],
+  'peaks-of-balkan':                [1750, 'EUR'],
 };
-
-const CURRENCY = 'USD';
 
 /* ── Helpers ── */
 function sha256(str) {
@@ -86,8 +95,8 @@ export default async function handler(req, res) {
   const tags      = parseTags(body.tags);
 
   // Determine expedition and value from tags
-  const matchedTag = tags.find(t => t in EXPEDITION_PRICES && EXPEDITION_PRICES[t] > 0);
-  const value      = matchedTag ? EXPEDITION_PRICES[matchedTag] : null;
+  const matchedTag = tags.find(t => t in EXPEDITION_PRICES && EXPEDITION_PRICES[t][0] > 0);
+  const [value, currency] = matchedTag ? EXPEDITION_PRICES[matchedTag] : [null, null];
 
   if (!value) {
     const msg = matchedTag
@@ -98,7 +107,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: false, reason: msg });
   }
 
-  console.log(`[ghl-payment] Purchase: ${matchedTag} | ${value} ${CURRENCY} | ${email || phone}`);
+  console.log(`[ghl-payment] Purchase: ${matchedTag} | ${value} ${currency} | ${email || phone}`);
 
   /* ── Build hashed user data ── */
   const userData = {};
@@ -120,7 +129,7 @@ export default async function handler(req, res) {
       user_data:     userData,
       custom_data: {
         value,
-        currency:     CURRENCY,
+        currency,
         content_name: matchedTag,
         content_type: 'product',
       },
@@ -148,7 +157,7 @@ export default async function handler(req, res) {
       ok:         true,
       expedition: matchedTag,
       value,
-      currency:   CURRENCY,
+      currency,
       fb:         { events_received: fbData.events_received },
     });
 

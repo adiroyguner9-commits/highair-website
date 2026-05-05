@@ -7,6 +7,8 @@ export const EXPS = [
     airtableEvents: ['Olympus'],
     groupCapacity: 15,
     img: '/images/cards/olympus.webp',
+    seoTitle:       'טרק האולימפוס ביוון 2025 | HighAir Expeditions',
+    seoDescription: 'טרק לפסגת הר האולימפוס ביוון (2917מ׳) — 6 ימים. הר האלים עם מדריכים מקצועיים, יום קניונינג בנהר האורליאס ותרומה למלחמה בסרטן. מתאים לכל רמות כושר!',
     grad: 'linear-gradient(135deg,#3b82f6,#1d4ed8,#1e3a8a)',
     desc: `הצטרפו אלינו למסע אתגרי לפסגת הר האולימפוס ביוון, ההר הגבוה ביותר במדינה ומקום משכנם של האלים האולימפיים לפי המיתולוגיה היוונית. הר האולימפוס מציע נופים עוצרי נשימה עם פסגות מדהימות, יערות עבותים וכרי דשא ירוקים, שיהפכו את המסע לחוויה בלתי נשכחת.
 
@@ -120,6 +122,8 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     elev: '2656m', elevNum: 2656, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     img: '/images/cards/peaks-of-balkan.webp',
+    seoTitle:       'טרק פסגות הבלקן באלבניה | HighAir Expeditions',
+    seoDescription: 'טרק פסגות הבלקן באלבניה (2656מ׳) — 10 ימים. נופים עוצרי נשימה, כפרים מסורתיים ושבילי הרים ירוקים. מסע ייחודי עם מדריכים מנוסים ותרומה למלחמה בסרטן.',
     grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
     desc: `הצטרפו אלינו לטרק פסגות הבלקן, אחד ממסלולי הטרק המרהיבים והנידחים ביותר באירופה. השביל חוצה את גבולות אלבניה, קוסובו ומונטנגרו, ומוביל אתכם דרך עמקים אלפיניים בתוליים, מעברי הרים דרמטיים וכפרים מסורתיים שנותרו מחוץ למסלול התיירות ההמוני.
 
@@ -246,6 +250,8 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     diff: 'Moderate', diffHe: 'בינוני', price: 2960, priceStr: '$2960', continent: 'africa',
     airtableEvents: ['Ethiopia'],
     img: '/images/cards/ethiopia.webp',
+    seoTitle:       'טרק הרי סימיאן ומדבר דנקיל | HighAir Expeditions',
+    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה (4550מ׳) — 11 ימים. אחד המסעות הנדירים בעולם: ג׳לדות, נוף וולקני ואגם חומצי. חוויה שלא תשכחו לעולם!',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
     desc: `הצטרפו אלינו למסע יוצא דופן באתיופיה, בין הר געש ארטה אלה, מדבר דנקיל המרהיב ושקע דאלול, עד לפסגות הגבוהות במדינה בטרק הרי סימיאן.
 
@@ -351,30 +357,30 @@ This journey combines the contrast between desert heat and cold mountain winds -
       'Safety first - safety is always the top priority!',
     ],
     itinerary: [
-      { day: 1,  title: 'תל אביב - אדיס אבבה - סמארה',                                                    desc: '' },
-      { day: 2,  title: 'סמארה - הר געש ארטה אלה (דנקיל)',                                                desc: '' },
-      { day: 3,  title: 'הר געש ארטה אלה - אחמד אילה (דנקיל)',                                           desc: '' },
-      { day: 4,  title: 'אחמד אילה - דאלול - מקלה (דנקיל)',                                              desc: '' },
-      { day: 5,  title: 'מקלה - אדיס אבבה - גונדר',                                                      desc: '' },
-      { day: 6,  title: 'גונדר - דבארק (2850 מ׳) - סנקבר (3250 מ׳)',                                     desc: '4 ק״מ, 2-3 שעות הליכה, 400 מ׳ עלייה' },
-      { day: 7,  title: 'סנקבר (3250 מ׳) - גיץ׳ (3600 מ׳)',                                              desc: '12 ק״מ, 5-7 שעות הליכה, 350 מ׳ עלייה' },
-      { day: 8,  title: 'גיץ׳ - אימט גוגו (3900 מ׳) - צ׳נק (3620 מ׳)',                                   desc: '13 ק״מ, 5-7 שעות הליכה, 300 מ׳ עלייה' },
-      { day: 9,  title: 'צ׳נק (3620 מ׳) - ראס בואהיט (4430 מ׳) - גונדר',                                desc: '15 ק״מ, 7-9 שעות הליכה, 810 מ׳ עלייה' },
-      { day: 10, title: 'גונדר - אדיס אבבה',                                                              desc: '' },
-      { day: 11, title: 'אדיס אבבה - תל אביב',                                                            desc: '' },
+      { day: 1,  title: 'תל אביב - אדיס אבבה - סמארה', desc: 'נצא בטיסה מתל אביב לסמארה, עם קונקשן קצר באדיס אבבה. לאחר הנחיתה נגיע למלון בעיירה, נבצע צ׳ק-אין וניקח זמן למנוחה והתארגנות. בערב ניפגש לארוחת ערב חגיגית לפתיחת הטיול, היכרות עם הצוות והקבוצה, ותדרוך קצר לקראת ההרפתקה שממתינה לנו.', accommodation: 'מלון Ruftana Hotel, סמארה' },
+      { day: 2,  title: 'סמארה - הר געש ארטה אלה (דנקיל)', desc: 'הבוקר נצא בנסיעה אל תוך מדבר הדנקיל המלווה בנוף פראי. בדרך נעצור לארוחת צהריים מול אגם אפדרה, מקום יפהפה בלב המדבר, ואז נמשיך להר הגעש ארטה אלה, מהפעילים והמרתקים בעולם. בשעות הערב נצא לטיפוס קצר אל לוע הר הגעש במחזה עוצמתי של אגם לבה רותח, אחד המחזות הנדירים והמרשימים ביותר שיש לכדור הארץ להציע. את היום נסיים בשינה במחנה שטח למרגלות ההר.', travelTime: 'כ-6-7 שעות נסיעה (165 ק״מ)', duration: 'עד שעה ללוע ההר', accommodation: 'אוהלים במחנה אסקומה' },
+      { day: 3,  title: 'הר געש ארטה אלה - אחמד אילה (דנקיל)', desc: 'עם שחר ניפרד מהר הגעש ונצא לעומק מדבר הדנקיל אל הכפר אחמד אילה, שער הכניסה לאחד האזורים המרהיבים בעולם. במהלך הדרך נחלוף לצד שיירות גמלים אינסופיות הנושאות בלוקים של מלח, ממש כמו בימי עבר רחוקים. נבקר באתרי החציבה ונתבונן מקרוב בתהליך שבירת המלח, חיתוכו והעמסתו על גב הגמלים. את היום נסיים בתצפית שקיעה על אגם אסאלה ולינת שטח באחמד אילה.', travelTime: 'כ-4-5 שעות נסיעה (100 ק״מ)', duration: 'עד שעה לתצפית באגם', accommodation: 'אוהלים במחנה אחמד אילה' },
+      { day: 4,  title: 'אחמד אילה - דאלול - מקלה (דנקיל)', desc: 'בשעות הבוקר נמשיך אל שקע דאלול, אזור וולקני יוצא דופן שבו מתפרצים צבעים בלתי נתפסים של אדמה, גופרית ומים חומציים – כמו לנחות על פלנטה אחרת. לאחר שלושה ימים עוצמתיים בלב מדבר הדנקיל, ניפרד מהשקט הצורב ונצא בנסיעה אל העיר מקלה – בירת מחוז טיגראי. בערב נצא להרגיש את הדופק המקומי ולחגוג את המעבר החד מהמדבר הקדום אל העולם האורבני.', travelTime: 'כ-4-5 שעות נסיעה (135 ק״מ)', accommodation: 'מלון Planet Hotel, מקלה' },
+      { day: 5,  title: 'מקלה - אדיס אבבה - גונדר', desc: 'נמריא ממקלה בטיסת פנים עם קונקשן קצר באדיס אבבה, ונמשיך לגונדר "עיר המלכים" של אתיופיה. עם ההגעה נצא לסיור: נבקר במתחם הארמונות המלכותיים מהמאה ה-17, נתרשם מכנסיית דברה ברהן סלעסי המפורסמת בציורי הקיר המרשימים שלה, ונלמד על ההיסטוריה המפוארת של בירתה הקדומה של אתיופיה.', accommodation: 'מלון AG Hotel Gondar, גונדר' },
+      { day: 6,  title: 'גונדר - דבארק (2850 מ׳) - סנקבר (3250 מ׳)', desc: 'נצא מגונדר, נחלוף בכפר יהודי אתיופי מסורתי ונבקר בבית הכנסת המקומי. נמשיך לדבארק להסדרת האישורים לפארק הלאומי הרי הסימיאן, ואז נתחיל בטרק לאורך המצוקים הדרמטיים של רכס הסימיאן תוך חיפוש אחר להקות קופי הג׳לאדה המפורסמים החיים כאן בטבע הפראי.', distance: 'כ-10 ק״מ', duration: 'כ-2-3 שעות', elevationGain: '400 מ׳', accommodation: 'אוהלים במחנה סנקבר' },
+      { day: 7,  title: 'סנקבר (3250 מ׳) - גיץ׳ (3600 מ׳)', desc: 'נצעד מסנקבר לכיוון מחנה גיץ׳ במסלול מגוון הכולל עליות, ירידות והליכה לאורך שפת מצוקים מרשימים. בדרך נעצור ליד מפל ג׳ינבר האדיר, נשקיף אל נופי הפארק הפתוחים ונפגוש שוב את קופי הג׳לאדה המדהימים בסביבתם הטבעית. נסיים את היום במחנה גיץ׳ עם נקודת תצפית עוצרת נשימה לשקיעה מעל הרי הסימיאן.', distance: '10-12 ק״מ', duration: 'כ-5-7 שעות', elevationGain: '350 מ׳', accommodation: 'אוהלים במחנה גיץ׳' },
+      { day: 8,  title: 'גיץ׳ - אימט גוגו (3900 מ׳) - צ׳נק (3620 מ׳)', desc: 'נתחיל בעלייה הדרגתית אל פסגת אימט גוגו (3,900 מ׳), אחת הנקודות המפורסמות בשמורה, ונמשיך אל פסגת אינתיי (4,050 מ׳). נלך לאורך רכס מרהיב כשבכל צעד נחשפים נופים דרמטיים של מצוקים, עמקים ירוקים ומרחקים אין-סופיים. ייתכן ונפגוש את היעל האתיופי האנדמי, את השועל האתיופי הנדיר, ומגוון ציפורים ייחודיות לאזור.', distance: '12-14 ק״מ', duration: 'כ-5-7 שעות', elevationGain: '450 מ׳', accommodation: 'אוהלים במחנה צ׳נק' },
+      { day: 9,  title: 'צ׳נק (3620 מ׳) - ראס בוהאיט (4430 מ׳) - גונדר', desc: 'נצא בשעות הבוקר המוקדמות לטיפוס אל פסגת ראס בוהאיט (4,430 מ׳), הנקודה הגבוהה במסע והמרשימה ביותר בנופי השמורה. נחפש את הוואליה, היעל האתיופי הנדיר, את הזאב האתיופי, ועופות דורסים מרשימים המרחפים מעל הרכסים. לאחר הירידה חזרה למחנה, ניפרד מההרים ונסע לגונדר להתקלח, לנוח ולחגוג יחד את סיום ההרפתקה.', distance: '15 ק״מ', duration: 'כ-7-9 שעות', elevationGain: '810 מ׳', accommodation: 'מלון AG Hotel Gondar, גונדר' },
+      { day: 10, title: 'גונדר - אדיס אבבה', desc: 'לאחר שינה טובה אחרי הטרק, נצא בבוקר בטיסת פנים חזרה לאדיס אבבה. עם ההגעה נקדיש את היום לטיול בעיר הבירה: נפתח בביקור בשוק מרקאטו, השוק הפתוח הגדול באפריקה. נמשיך לטקס קפה אתיופי מסורתי (בונה), ולאחר מכן ארוחה אתיופית חגיגית עם מופע מוזיקה וריקודים מסורתיים – סיום חם וטעים למסע.', accommodation: 'מלון Cot Hotel, אדיס אבבה' },
+      { day: 11, title: 'אדיס אבבה - תל אביב', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק-אאוט מהמלון. עולים להסעה לשדה התעופה לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.' },
     ],
     itineraryEn: [
-      { day: 1,  title: 'Tel Aviv – Addis Ababa – Samara',                                               desc: '' },
-      { day: 2,  title: 'Samara – Erta Ale Volcano (Danakil)',                                           desc: '' },
-      { day: 3,  title: 'Erta Ale – Ahmed Ela (Danakil)',                                               desc: '' },
-      { day: 4,  title: 'Ahmed Ela – Dallol – Mekele (Danakil)',                                        desc: '' },
-      { day: 5,  title: 'Mekele – Addis Ababa – Gondar',                                               desc: '' },
-      { day: 6,  title: 'Gondar – Debark (2,850m) – Sankaber (3,250m)',                                 desc: '4 km, 2-3 hours walking, 400m ascent' },
-      { day: 7,  title: 'Sankaber (3,250m) – Geech (3,600m)',                                          desc: '12 km, 5-7 hours walking, 350m ascent' },
-      { day: 8,  title: 'Geech – Imet Gogo (3,900m) – Chennek (3,620m)',                               desc: '13 km, 5-7 hours walking, 300m ascent' },
-      { day: 9,  title: 'Chennek (3,620m) – Ras Bwahit (4,430m) – Gondar',                             desc: '15 km, 7-9 hours walking, 810m ascent' },
-      { day: 10, title: 'Gondar – Addis Ababa',                                                        desc: '' },
-      { day: 11, title: 'Addis Ababa – Tel Aviv',                                                      desc: '' },
+      { day: 1,  title: 'Tel Aviv – Addis Ababa – Samara', desc: 'We fly from Tel Aviv to Samara with a short connection in Addis Ababa. After landing we check into the hotel, rest and get organised. In the evening we gather for a celebratory opening dinner, meet the team and the group, and receive a briefing for the adventure ahead.', accommodation: 'Ruftana Hotel, Samara' },
+      { day: 2,  title: 'Samara – Erta Ale Volcano (Danakil)', desc: 'In the morning we set off into the wild Danakil Desert by jeep. En route we stop for lunch beside Lake Afdera, a beautiful oasis in the heart of the desert, then continue to Erta Ale — one of the most active and fascinating volcanoes on Earth. In the evening we hike up to the crater rim for a powerful spectacle of a boiling lava lake, one of the rarest sights our planet has to offer. We end the day sleeping at a field camp at the foot of the volcano.', travelTime: '~6–7 hours driving (165 km)', duration: 'Up to 1 hour to crater rim', accommodation: 'Tents at Erta Ale camp' },
+      { day: 3,  title: 'Erta Ale – Ahmed Ela (Danakil)', desc: 'At dawn we say goodbye to the volcano and drive deeper into the Danakil to Ahmed Ela, the gateway to one of the most spectacular regions on Earth. Along the way we pass endless camel caravans carrying blocks of salt — an ancient tradition still very much alive. We visit the salt-mining sites and watch up close as workers chip, cut and load salt onto the camels\' backs. The day ends with a breathtaking sunset view over Lake Asale and a night in the open desert at Ahmed Ela.', travelTime: '~4–5 hours driving (100 km)', duration: 'Up to 1 hour to lake viewpoint', accommodation: 'Tents at Ahmed Ela camp' },
+      { day: 4,  title: 'Ahmed Ela – Dallol – Mekele (Danakil)', desc: 'In the morning we continue to the Dallol Depression, an extraordinary volcanic zone where mind-bending colours of sulphur, acid pools and mineral formations erupt from the earth — like landing on another planet. After three intense days in the heart of the Danakil, we leave the ancient desert behind and drive to Mekele, capital of the Tigray region and one of Ethiopia\'s most vibrant cities. In the evening we hit the streets to feel the local pulse and celebrate the transition from raw desert to urban life.', travelTime: '~4–5 hours driving (135 km)', accommodation: 'Planet Hotel, Mekele' },
+      { day: 5,  title: 'Mekele – Addis Ababa – Gondar', desc: 'We take a domestic flight from Mekele with a short connection in Addis Ababa, then continue to Gondar — the "City of Kings." On arrival we head out on a sightseeing tour: the 17th-century Royal Enclosure (Fasil Ghebbi), the famous Debre Berhan Selassie church with its stunning frescoes, and sweeping views over the green hills surrounding the ancient imperial capital.', accommodation: 'AG Hotel Gondar, Gondar' },
+      { day: 6,  title: 'Gondar – Debark (2,850m) – Sankaber (3,250m)', desc: 'We leave Gondar, pass through a traditional Ethiopian Jewish village and visit the local synagogue. We continue to Debark to arrange entry permits for the Simien Mountains National Park, then begin the trek along the dramatic cliffs of the Simien ridge in search of the famous Gelada baboon troops that roam here in the wild.', distance: '~10 km', duration: '~2–3 hours', elevationGain: '400m', accommodation: 'Tents at Sankaber camp' },
+      { day: 7,  title: 'Sankaber (3,250m) – Geech (3,600m)', desc: 'We trek from Sankaber to Geech on a varied trail of ascents, descents and cliff-edge walking. Along the way we stop at the powerful Jinbar waterfall, gaze out over the open park landscapes and encounter the remarkable Gelada baboons again in their natural habitat. The day ends at Geech camp with a breathtaking sunset viewpoint above the Simien Mountains.', distance: '10–12 km', duration: '~5–7 hours', elevationGain: '350m', accommodation: 'Tents at Geech camp' },
+      { day: 8,  title: 'Geech – Imet Gogo (3,900m) – Chennek (3,620m)', desc: 'We climb gradually to the iconic viewpoint of Imet Gogo (3,900m), then push on to Inatye Peak (4,050m), one of the highest points on the trek. The ridge walk offers dramatic views of cliffs, green valleys and endless horizons. Along the way we may spot the endemic Walia ibex, the rare Ethiopian wolf, and a variety of birds found nowhere else on Earth.', distance: '12–14 km', duration: '~5–7 hours', elevationGain: '450m', accommodation: 'Tents at Chennek camp' },
+      { day: 9,  title: 'Chennek (3,620m) – Ras Bwahit (4,430m) – Gondar', desc: 'An early start for the summit push to Ras Bwahit (4,430m) — the highest point of the expedition and the most spectacular viewpoint in the reserve. We search for the Walia ibex, Ethiopian wolf and impressive raptors soaring above the ridges. After the descent we leave the mountains behind, drive back to Gondar and celebrate the end of the adventure together.', distance: '15 km', duration: '~7–9 hours', elevationGain: '810m', accommodation: 'AG Hotel Gondar, Gondar' },
+      { day: 10, title: 'Gondar – Addis Ababa', desc: 'After a well-earned rest following the trek, we take a domestic flight back to Addis Ababa. We spend the final day exploring the capital: a visit to Merkato — the largest open-air market in Africa — a traditional Ethiopian coffee ceremony (buna), and a celebratory dinner with traditional music and dance. A warm, delicious and emotional end to our journey.', accommodation: 'Cot Hotel, Addis Ababa' },
+      { day: 11, title: 'Addis Ababa – Tel Aviv', desc: 'After breakfast at the hotel we pack up, check out and transfer to the airport for our flight home to Israel. On board we swap memories and stories from the amazing expedition — cameras full and hearts fuller.', },
     ],
   },
   {
@@ -386,6 +392,8 @@ This journey combines the contrast between desert heat and cold mountain winds -
     airtableEvents: ['Kazbek'],
     groupCapacity: 15,
     img: '/images/cards/kazbek.webp',
+    seoTitle:       'טיפוס לקזבק בגאורגיה | HighAir Expeditions',
+    seoDescription: 'טיפוס לקזבק (5047מ׳) בגאורגיה — 8 ימים. הר הגעש בקווקז עם כנסיות עתיקות ונוף עוצר נשימה. מסע אתגרי עם מדריכים מנוסים ותרומה למלחמה בסרטן.',
     grad: 'linear-gradient(135deg,#4338ca,#3730a3,#1e1b4b)',
     desc: `הצטרפו אלינו למסע טיפוס על הר קזבק המתנשא לגובה של 5054 מטרים. הר קזבק הוא יעד מושלם עבור מטפסים מתחילים המחפשים אתגר מרתק בלב רכס הקווקז המרהיב של גאורגיה.
 
@@ -517,6 +525,8 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     diff: 'Moderate', diffHe: 'בינוני', price: 2250, priceStr: '$2250', continent: 'asia',
     airtableEvents: ['Manaslu_Circut'],
     img: '/images/cards/manaslu.avif',
+    seoTitle:       'טרק סובב מנסלו בנפאל | HighAir Expeditions',
+    seoDescription: 'טרק סובב מנסלו (5160מ׳) בנפאל — 16 ימים. האלטרנטיבה השקטה לאוורסט עם נופי הימלאיה מרהיבים ופחות תיירים. מדריכים ישראלים, תרומה למלחמה בסרטן.',
     grad: 'linear-gradient(135deg,#0f766e,#0d9488,#042f2e)',
     desc: `הצטרפו אלינו למסע בלתי נשכח, טרק סובב מנסלו בנפאל - ההר נמצא בלבו של רכס ההימלאיה הפראי, ונחשב לאחד מהטיולים היפים והבתוליים ביותר בעולם.
 
@@ -665,6 +675,8 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     diff: 'Hard', diffHe: 'קשה', price: 3300, priceStr: '$3300', continent: 'asia',
     airtableEvents: ['EBC + Gokyo'],
     img: '/images/cards/EBC.webp',
+    seoTitle:       'טרק אוורסט בייס קמפ וגוקיו | HighAir Expeditions',
+    seoDescription: 'טרק אוורסט בייס קמפ (5364מ׳) + אגמי גוקיו — 19 ימים. חוויית חיים בנפאל עם מדריכים ישראלים מנוסים. כולל אקלימציה מלאה ותרומה למלחמה בסרטן.',
     grad: 'linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)',
     desc: `טרק האוורסט בייס קמפ הוא אחד המסלולים האייקוניים והמלהיבים ביותר בהימלאיה. המסע מתחיל בלוקלה וממשיך דרך נופים מרהיבים של נחלים, יערות ובעלי חיים, תוך מפגש עם כפרים אותנטיים של בני שבט השרפה ותרבות בודהיסטית עשירה.
 
@@ -821,6 +833,8 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     diff: 'Moderate', diffHe: 'בינוני', price: 2150, priceStr: '$2150', continent: 'asia',
     airtableEvents: ['Annapurna_Circut'],
     img: '/images/cards/annapurna.webp',
+    seoTitle:       'טרק סובב אנאפורנה בנפאל | HighAir Expeditions',
+    seoDescription: 'טרק סובב אנאפורנה (5416מ׳) בנפאל — 16 ימים. אחד הטרקים הקלאסיים ביותר בעולם דרך כפרים, יערות ונוף הימלאיה. מדריכים ישראלים.',
     grad: 'linear-gradient(135deg,#0891b2,#0e7490,#083344)',
     desc: `הצטרפו אלינו לטרק סובב אנאפורנה בנפאל, אשר נחשב לאחד מהטרקים היפים והפופולריים ביותר בעולם. במהלך המסע המעגלי סביב ההר המרהיב אנאפורנה המתנשא לגובה של 8091 מ׳, תיחשפו לנופים עוצרי נשימה של פסגות מושלגות, קרחונים, עמקים ירוקים ויערות עבותים.
 
@@ -976,6 +990,8 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     airtableEvents: ['Elbrus'],
     groupCapacity: 15,
     img: '/images/cards/elbrus.webp',
+    seoTitle:       'טיפוס לאלברוס — ההר הגבוה באירופה | HighAir',
+    seoDescription: 'טיפוס לאלברוס (5642מ׳) — ההר הגבוה באירופה, אחת מ-7 הפסגות! 8 ימים. קווקז, רוסיה. מסע טיפוס עם מדריכים מקצועיים ותרומה למלחמה בסרטן.',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
     desc: `הצטרפו אלינו למסע אל הפסגה הגבוהה באירופה, הר אלברוס המתנשא לגובה של 5642 מ׳ ואחת מ"שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים לכבוש פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
 
@@ -1103,6 +1119,8 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     elev: '5895m', elevNum: 5895, days: '9 ימים | ספארי +3', daysEn: '9 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
     img: '/images/cards/kilimanjaro.webp',
+    seoTitle:       'טיפוס לקילימנג׳רו 2025 | HighAir Expeditions',
+    seoDescription: 'טיפוס לקילימנג׳רו (5895מ׳) — ההר הגבוה באפריקה! 9 ימים. שיעור הצלחה 94%, מדריכים ישראלים, ספארי אופציונלי. הזמינו את המקום שלכם!',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
     tagline: 'הצטרפו לטיפוס אל פסגת הקילימנג׳רו בטנזניה\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
@@ -1276,6 +1294,8 @@ HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the hi
     elev: '5895m', elevNum: 5895, days: '10 ימים | ספארי +3', daysEn: '10 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2900, priceStr: '$2900', continent: 'africa',
     img: '/images/cards/kilimanjaroKosher.webp',
+    seoTitle:       'קילימנג׳רו כשר לשומרי מסורת | HighAir Expeditions',
+    seoDescription: 'טיפוס לקילימנג׳רו (5895מ׳) לשומרי מסורת — אוכל כשר מהדרין, 10 ימים. ספארי אופציונלי. המשלחת הכשרה המובילה מישראל לקילימנג׳רו!',
     airtableEvents: ['Kilimanjaro_Kosher', 'Kilimanjaro_Kosher_with_Safari'],
     groupCapacity: 15,
     grad: 'linear-gradient(135deg,#f59e0b,#d97706,#92400e)',
@@ -1433,6 +1453,13 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
       { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25,000 animals "enclosed" within the crater — including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
       { day: 12, title: 'Visit to the Hadza Tribe – Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants — a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
+    summitUpdates: [
+      { name: 'משפחת כספי',       nameEn: 'The Kaspi Family',    date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/1.webp' },
+      { name: 'נחמה ליבר',       nameEn: 'Nehama Liber',        date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/2.webp' },
+      { name: 'יוסי וליאן והבה', nameEn: 'Yossi, Lian & Hava', date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'משה ושושי ניר',   nameEn: 'Moshe & Shoshi Nir', date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/4.webp' },
+      { name: 'דיויד רד',        nameEn: 'David Red',           date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/5.webp' },
+    ],
     reviews: [
       { name: 'משה כץ', date: 'אוגוסט 2025', rating: 5, text: 'קילימנג׳רו עם שמירת מסורת - חוויה ייחודית שלא ציפיתי שאפשרית. HighAir ידעו לשמור על כל הפרטים החשובים לנו.', initial: 'מ' },
       { name: 'דבורה פרידמן', date: 'יולי 2025', rating: 5, text: 'עלינו לפסגה עם קבוצה נפלאה של שומרי מסורת. האווירה הייתה מיוחדת במינה - כוח הקהילה הוסיף לכל רגע.', initial: 'ד' },
@@ -1446,6 +1473,8 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     elev: '6119m', elevNum: 6119, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3450, priceStr: '$3450', continent: 'asia',
     img: '/images/cards/lobuchePeak.webp',
+    seoTitle:       'טיפוס ללובוצ׳ה פיק בנפאל | HighAir Expeditions',
+    seoDescription: 'טיפוס ללובוצ׳ה פיק (6119מ׳) בנפאל — 19 ימים. פסגת שלג ממול אוורסט. כולל טרק בייס קמפ + ציוד טיפוס. מדריכים ישראלים ומקומיים מנוסים.',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
     desc: `הצטרפו אלינו למסע אל פסגת לובוצ׳ה, המתנשאת לגובה של 6119 מטר באזור קוהומבו בנפאל, והפכה לאחת הפסגות המבוקשות ביותר עבור מטפסי הרים המעוניינים לצבור ניסיון בטיפוס מאתגר בהימלאיה.
 
@@ -1612,6 +1641,8 @@ This peak is considered one of the best entry points into Himalayan mountaineeri
     groupCapacity: 15,
     airtableEvents: ['Island_Peak'],
     img: '/images/cards/IslandPeak.webp',
+    seoTitle:       'טיפוס לאיילנד פיק בנפאל | HighAir Expeditions',
+    seoDescription: 'טיפוס לאיילנד פיק (6189מ׳) בנפאל — 20 ימים. פסגה טכנית עם נוף ישיר על אוורסט, לוצה ונופצה. כולל טרק EBC מלא ועם ציוד טיפוס מקצועי.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
     desc: `איילנד פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6189 מטר מעל פני הים. הפסגה ממוקמת באזור קוהומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
 
@@ -1777,6 +1808,8 @@ This expedition can be combined with the Everest Base Camp trek, creating the ul
     elev: '6476m', elevNum: 6476, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     img: '/images/cards/MeraPeak.webp',
+    seoTitle:       'טיפוס למרה פיק | HighAir Expeditions',
+    seoDescription: 'טיפוס למרה פיק (6476מ׳) — הפסגה הגבוהה ביותר לטיפוס טרקינג בנפאל! 19 ימים. נוף על 5 שמיניות מהפסגה. HighAir Expeditions.',
     grad: 'linear-gradient(135deg,#1d4ed8,#1e3a8a,#0f172a)',
     desc: `מרה פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6476 מטר מעל פני הים. הפסגה ממוקמת באזור קוהומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
 
@@ -1941,6 +1974,8 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
     diff: 'Hard', diffHe: 'אתגרי', price: 9800, priceStr: '$9800', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.webp',
+    seoTitle:       'טיפוס לאקונקגואה — 7 הפסגות | HighAir Expeditions',
+    seoDescription: 'טיפוס לאקונקגואה (6961מ׳) — ההר הגבוה מחוץ לאסיה, אחת מ-7 הפסגות! 20 ימים, ארגנטינה. מסע אקספדיציה ברמה גבוהה עם HighAir Expeditions.',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
     desc: `הצטרפו אלינו למסע טיפוס אל פסגת הר אקונקגואה, המתנשא לגובה של 6962 מטרים., השוכן בארגנטינה בהרי האנדים, הוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם!
 
@@ -2100,6 +2135,8 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     elev: '7134m', elevNum: 7134, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 6200, priceStr: '$6200', continent: 'asia',
     img: '/images/cards/leninPeak.avif',
+    seoTitle:       'טיפוס ללנין פיק — 7134מ׳ | HighAir Expeditions',
+    seoDescription: 'טיפוס ללנין פיק (7134מ׳) בקירגיזסטן — 20 ימים. אחת מ-7 הפסגות הסובייטיות, הנגישה מבין ה-7,000מ׳. מסע אקספדיציה מלא עם HighAir Expeditions.',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',
     desc: `הצטרפו אלינו למסע טיפוס אל אחת הפסגות הגבוהות ביותר במרכז אסיה - פסגת הר לנין, המתנשא לגובה אדיר של 7134 מטרים. הר לנין, השוכן ברכס פמיר שבין קירגיזסטן לטג'יקיסטן, נחשב לאחד ההרים הנגישים ביותר בעולם מעל קו 7000 המטרים, והוא השלב הבא והמתבקש עבור מטפסים החולמים על גבהים חדשים.
 

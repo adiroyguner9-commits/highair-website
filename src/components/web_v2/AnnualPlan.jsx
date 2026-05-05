@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
+import { usePageMeta } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
@@ -213,6 +214,14 @@ export default function AnnualPlan() {
   const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState(null);
   const [activeMonth, setActiveMonth] = useState(null);
+
+  usePageMeta({
+    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'Annual Plan | HighAir Expeditions',
+    description:   isRtl
+      ? 'כל המשלחות והטרקים המתוכננים של HighAir Expeditions לשנה הקרובה — קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד. בחרו תאריך והצטרפו אלינו!'
+      : 'All upcoming HighAir Expeditions treks and climbs for the year — Kilimanjaro, Everest, Elbrus, Annapurna and more. Pick a date and join us!',
+    canonicalPath: '/annual-plan',
+  });
 
   /* ── Fetch all groups from Airtable ── */
   useEffect(() => {

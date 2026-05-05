@@ -18,7 +18,7 @@ import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import GHLCalendarWidget from './GHLCalendarWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
-import { Analytics } from '../../utils/analytics.js';
+import { Analytics, useScrollDepth } from '../../utils/analytics.js';
 
 /* ─── Translation helpers ───────────────────────────────────────── */
 const HE_TO_EN_MONTHS = {
@@ -237,16 +237,21 @@ export default function ExpeditionDetail() {
   /* Schema.org JSON-LD: Tour + Breadcrumbs + FAQ — built once per expedition.
      This is what unlocks rich-result eligibility on Google for tour queries
      ("טיפוס קילימנג'רו", "Mt Kilimanjaro tour from Israel", etc.). */
+  /* Determine price currency from the priceStr field (€ = EUR, else USD) */
+  const expPriceCurrency = exp?.priceStr?.startsWith('€') ? 'EUR' : 'USD';
+
   const expJsonLd = exp ? [
     tourSchema({
-      name:         `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
-      description:  `${exp.nameHe} ב${exp.countryHe || ''} - ${exp.elev || ''}. משלחת מלאה עם HighAir Expeditions.`,
-      image:        exp.img,
-      url:          `/expedition/${exp.slug}`,
-      country:      exp.countryHe || exp.country,
-      durationDays: typeof exp.days === 'number' ? exp.days : undefined,
-      ratingValue:  4.9,
-      reviewCount:  exp.reviews?.length || 229,
+      name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
+      description:   `${exp.nameHe} ב${exp.countryHe || ''} — ${exp.elev || ''}, ${exp.days || ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions. החל מ-${exp.priceStr || ''}.`,
+      image:         exp.img,
+      url:           `/expedition/${exp.slug}`,
+      country:       exp.countryHe || exp.country,
+      durationDays:  typeof exp.days === 'number' ? exp.days : (parseInt(exp.days) || undefined),
+      priceFrom:     exp.price || undefined,
+      priceCurrency: expPriceCurrency,
+      ratingValue:   4.9,
+      reviewCount:   exp.reviews?.length || 229,
     }),
     breadcrumbList([
       { name: 'בית',       url: '/' },
@@ -257,8 +262,8 @@ export default function ExpeditionDetail() {
   ] : null;
 
   usePageMeta(exp ? {
-    title:         `${exp.nameHe} | HighAir Expeditions`,
-    description:   `הצטרפו למשלחת ${exp.nameHe} עם HighAir Expeditions. ${exp.elev ? exp.elev + ' - ' : ''}טיפוס הרים וטרקים בשילוב תרומה למלחמה בסרטן.`,
+    title:         exp.seoTitle       || `${exp.nameHe} ${exp.countryHe ? '(' + exp.countryHe + ')' : ''} | HighAir Expeditions`,
+    description:   exp.seoDescription || `${exp.nameHe} ב${exp.countryHe || exp.country} — ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. ${exp.priceStr ? 'מחיר: ' + exp.priceStr + '. ' : ''}הצטרפו למשלחת מאורגנת עם מדריכים מקצועיים, תרומה למלחמה בסרטן.`,
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
@@ -285,6 +290,29 @@ export default function ExpeditionDetail() {
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
   useEffect(() => { setShowBooking(false); }, [slug]);
+
+  /* ── Scroll depth tracking — 25/50/75/90% per expedition page ── */
+  useScrollDepth({ page: 'expedition', label: exp?.slug || slug });
+
+  /* ── Google Ads remarketing — tag expedition page visitors ── */
+  useEffect(() => {
+    if (!exp) return;
+    // Fires on every expedition page view — used to build remarketing audiences
+    // in Google Ads: "visited /expedition/ AND NOT converted"
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event:           'view_expedition',
+      expedition_slug: exp.slug,
+      expedition_name: exp.nameHe,
+    });
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'view_expedition', {
+        send_to:         'AW-16520015098',
+        expedition_slug: exp.slug,
+        expedition_name: exp.nameHe,
+      });
+    }
+  }, [exp?.slug]);
 
   /* ── Probe gallery images — only keep URLs that actually exist ── */
   useEffect(() => {
@@ -543,6 +571,8 @@ export default function ExpeditionDetail() {
       Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
       if (typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: 'AW-16520015098/O_fECOOa4KccEPrZrcU9', currency: 'ILS' });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'lead', expedition: exp.nameHe, source: isWaitlist ? 'waitlist' : 'expedition_page' });
     } catch (err) {
       setErrorMsg(err.message || 'שגיאה. נסו שוב.');
       setStatus('error');

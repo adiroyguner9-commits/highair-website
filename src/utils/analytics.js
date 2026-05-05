@@ -9,8 +9,13 @@
 
 export function trackEvent(eventName, params = {}) {
   if (typeof window === 'undefined') return;
-  if (typeof window.gtag !== 'function') return;
-  window.gtag('event', eventName, params);
+  // Push to dataLayer so GTM triggers can also fire
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: eventName, ...params });
+  // Also send directly to GA4
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', eventName, params);
+  }
 }
 
 /* ── Predefined events ── */
@@ -51,29 +56,39 @@ export const Analytics = {
   clickExpeditionsCTA: ()    => trackEvent('cta_click', { cta_location: 'expeditions' }),
 };
 
-/* ── Scroll-depth tracker — fires once per threshold crossed ── */
-let _scrollDepthInstalled = false;
-export function installScrollDepthTracker() {
-  if (typeof window === 'undefined') return;
-  if (_scrollDepthInstalled) return;
-  _scrollDepthInstalled = true;
+/* ── useScrollDepth hook — resets per page, includes page context ──────────
+   Usage: useScrollDepth({ page: 'expedition', label: exp.slug })
+   Fires dataLayer + gtag events at 25 / 50 / 75 / 90 % scroll depth.
+   Safe to call in any React component; cleans up on unmount.
+   ─────────────────────────────────────────────────────────────────────── */
+import { useEffect } from 'react';
 
-  const fired = new Set();
-  const THRESHOLDS = [25, 50, 75, 100];
+export function useScrollDepth({ page = '', label = '' } = {}) {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const fired  = new Set();
+    const THRESHOLDS = [25, 50, 75, 90];
 
-  function onScroll() {
-    const doc = document.documentElement;
-    const scrolled = (window.scrollY + window.innerHeight) / doc.scrollHeight * 100;
-    for (const t of THRESHOLDS) {
-      if (scrolled >= t && !fired.has(t)) {
-        fired.add(t);
-        Analytics.scrollDepth(t);
+    function onScroll() {
+      const doc     = document.documentElement;
+      const scrolled = (window.scrollY + window.innerHeight) / doc.scrollHeight * 100;
+      for (const t of THRESHOLDS) {
+        if (scrolled >= t && !fired.has(t)) {
+          fired.add(t);
+          trackEvent('scroll_depth', {
+            percent_scrolled: t,
+            page_section:     page,
+            page_label:       label,
+          });
+        }
+      }
+      if (fired.size === THRESHOLDS.length) {
+        window.removeEventListener('scroll', onScroll);
       }
     }
-    if (fired.size === THRESHOLDS.length) {
-      window.removeEventListener('scroll', onScroll);
-    }
-  }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  // Re-register whenever the page/label changes (SPA navigation)
+  }, [page, label]);
 }
