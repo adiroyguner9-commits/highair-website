@@ -97,6 +97,8 @@ export default function CTASection() {
     try {
       await submitLead(form);
       Analytics.leadSubmit({ source: 'cta_section' });
+      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+      if (typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: 'AW-16520015098/O_fECOOa4KccEPrZrcU9', currency: 'ILS' });
       setSubmitted(true);
     } catch (err) {
       console.error(err);

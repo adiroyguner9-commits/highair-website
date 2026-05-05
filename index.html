@@ -32,21 +32,42 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="HighAir" />
 
-    <!-- Google Analytics — default denied until cookie consent -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MVJ7Z7FB');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Analytics + Ads — default denied until cookie consent -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', { analytics_storage: 'denied' });
-      /* Restore consent if user already accepted */
+      gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
       if (localStorage.getItem('highair_cookie_consent') === 'accepted') {
-        gtag('consent', 'update', { analytics_storage: 'granted' });
+        gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
       }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HJY4E5HQC"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XBRSD9V1M"></script>
     <script>
       gtag('js', new Date());
-      gtag('config', 'G-7HJY4E5HQC', { send_page_view: false });
+      gtag('config', 'G-5XBRSD9V1M', { send_page_view: false });
+      gtag('config', 'AW-6948606470');
+      gtag('config', 'AW-16520015098');
     </script>
+
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','293738523242679');
+    fbq('track','PageView');
+    </script>
+    <!-- End Facebook Pixel -->
 
     <!-- Fonts preload -->
     <link rel="preload" href="/PloniBold.otf"   as="font" type="font/otf" crossorigin>
@@ -72,6 +93,14 @@
     </style>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MVJ7Z7FB"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Facebook Pixel (noscript) -->
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=293738523242679&ev=PageView&noscript=1"/></noscript>
+    <!-- End Facebook Pixel (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

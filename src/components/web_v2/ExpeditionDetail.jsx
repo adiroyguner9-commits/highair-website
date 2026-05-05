@@ -18,6 +18,7 @@ import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import GHLCalendarWidget from './GHLCalendarWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
+import { Analytics } from '../../utils/analytics.js';
 
 /* ─── Translation helpers ───────────────────────────────────────── */
 const HE_TO_EN_MONTHS = {
@@ -285,6 +286,22 @@ export default function ExpeditionDetail() {
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
   useEffect(() => { setShowBooking(false); }, [slug]);
 
+  /* ── Probe gallery images — only keep URLs that actually exist ── */
+  useEffect(() => {
+    if (!exp) return;
+    setResolvedGallery(null);
+    setImgOrientations({});
+    const potential = Array.from({ length: 12 }, (_, i) => `/images/gallery/${exp.slug}/${i + 1}.webp`);
+    Promise.all(
+      potential.map(url => new Promise(resolve => {
+        const img = new Image();
+        img.onload  = () => resolve(url);
+        img.onerror = () => resolve(null);
+        img.src = url;
+      }))
+    ).then(results => setResolvedGallery(results.filter(Boolean)));
+  }, [exp?.slug]);
+
   /* ── Dynamic SEO ── */
   useEffect(() => {
     if (!exp) return;
@@ -309,6 +326,11 @@ export default function ExpeditionDetail() {
 
   /* ── FAQ accordion ── */
   const [openFaq, setOpenFaq] = useState(null);
+
+  /* ── Gallery lightbox ── */
+  const [lightboxIdx, setLightboxIdx] = useState(null);
+  const [imgOrientations, setImgOrientations] = useState({});
+  const [resolvedGallery, setResolvedGallery] = useState(null); // null = still probing
 
   /* ── Live groups from Airtable ── */
   const hasAirtable = !!(exp?.airtableEvents?.length);
@@ -517,6 +539,10 @@ export default function ExpeditionDetail() {
         throw new Error(msg);
       }
       setStatus('success');
+      /* ── Conversion tracking ── */
+      Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
+      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+      if (typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: 'AW-16520015098/O_fECOOa4KccEPrZrcU9', currency: 'ILS' });
     } catch (err) {
       setErrorMsg(err.message || 'שגיאה. נסו שוב.');
       setStatus('error');
@@ -593,16 +619,10 @@ export default function ExpeditionDetail() {
     ? [...itinerary.slice(0, -1), ...safariItinerary]
     : itinerary;
 
-  const galleryImages = galleryUrls.length > 0
+  // Use probed results if ready, otherwise fall back to Airtable URLs or empty
+  const validGalleryImages = galleryUrls.length > 0
     ? galleryUrls
-    : [
-        exp.img,
-        `/images/gallery/${exp.slug}/1.webp`,
-        `/images/gallery/${exp.slug}/2.webp`,
-        `/images/gallery/${exp.slug}/3.webp`,
-        `/images/gallery/${exp.slug}/4.webp`,
-        `/images/gallery/${exp.slug}/5.webp`,
-      ].filter(Boolean);
+    : (resolvedGallery ?? []);
 
   /* ─────────────── RENDER ─────────────────────────────────────── */
   return (
@@ -1503,29 +1523,129 @@ export default function ExpeditionDetail() {
           }}>
             {isRtl ? `תמונות מה${exp.typeHe}` : t('expedition.gallery')}
           </h2>
+
+          {/* Masonry columns */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
-            gap: '12px',
+            columnCount: isMobile ? 2 : 3,
+            columnGap: '10px',
           }}>
-            {galleryImages.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`${exp.nameHe} ${i + 1}`}
-                style={{
-                  borderRadius: RADIUS.lg,
-                  width: '100%',
-                  height: i === 0 ? (isMobile ? '220px' : 'auto') : (isMobile ? '160px' : '220px'),
-                  objectFit: 'cover',
-                  display: 'block',
-                  gridColumn: i === 0 && isMobile ? 'span 2' : 'auto',
-                  gridRow: i === 0 && !isMobile ? 'span 2' : 'auto',
-                }}
-                onError={e => { e.currentTarget.style.display = 'none'; }}
-              />
-            ))}
+            {validGalleryImages.map((src, i) => {
+              const orient = imgOrientations[i];
+              // Portrait → 3:4, Landscape → 4:3
+              const ratio = orient === 'portrait' ? '3/4' : orient === 'landscape' ? '4/3' : undefined;
+              return (
+                <div
+                  key={src}
+                  onClick={() => setLightboxIdx(i)}
+                  style={{
+                    breakInside: 'avoid',
+                    marginBottom: '10px',
+                    borderRadius: RADIUS.lg,
+                    overflow: 'hidden',
+                    cursor: 'zoom-in',
+                    position: 'relative',
+                    ...(ratio ? { aspectRatio: ratio } : {}),
+                  }}
+                  onMouseEnter={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '1')}
+                  onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
+                >
+                  <img
+                    src={src}
+                    alt={`${exp.nameHe} ${i + 1}`}
+                    style={{
+                      width: '100%',
+                      height: ratio ? '100%' : 'auto',
+                      objectFit: ratio ? 'cover' : undefined,
+                      objectPosition: 'center',
+                      display: 'block',
+                      transition: 'transform 0.3s ease',
+                    }}
+                    onLoad={e => {
+                      const { naturalWidth: w, naturalHeight: h } = e.target;
+                      setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
+                    }}
+                    onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                  />
+                  {/* Hover overlay — subtle dim only */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: 'rgba(0,0,0,0.15)',
+                    opacity: 0, transition: 'opacity 0.2s ease',
+                    pointerEvents: 'none',
+                  }} />
+                </div>
+              );
+            })}
           </div>
+
+          {/* Lightbox */}
+          {lightboxIdx !== null && (() => {
+            const hasPrev = lightboxIdx > 0;
+            const hasNext = lightboxIdx < validGalleryImages.length - 1;
+            const btnStyle = {
+              background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '50%',
+              width: '48px', height: '48px', fontSize: '26px', color: '#fff', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute',
+            };
+            // In RTL: left = next, right = prev (reading direction flipped)
+            const leftAction  = isRtl ? () => setLightboxIdx(i => i + 1) : () => setLightboxIdx(i => i - 1);
+            const rightAction = isRtl ? () => setLightboxIdx(i => i - 1) : () => setLightboxIdx(i => i + 1);
+            const leftArrow   = isRtl ? '›' : '‹';
+            const rightArrow  = isRtl ? '‹' : '›';
+            const showLeft    = isRtl ? hasNext : hasPrev;
+            const showRight   = isRtl ? hasPrev : hasNext;
+            return (
+              <div
+                onClick={() => setLightboxIdx(null)}
+                style={{
+                  position: 'fixed', inset: 0, zIndex: 9999,
+                  background: 'rgba(0,0,0,0.92)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  padding: '20px',
+                }}
+              >
+                {showLeft && (
+                  <button onClick={e => { e.stopPropagation(); leftAction(); }}
+                    style={{ ...btnStyle, left: isMobile ? '8px' : '24px' }}>
+                    {leftArrow}
+                  </button>
+                )}
+                <img
+                  src={validGalleryImages[lightboxIdx]}
+                  alt=""
+                  onClick={e => e.stopPropagation()}
+                  style={{
+                    maxWidth: '100%', maxHeight: '90vh',
+                    borderRadius: RADIUS.xl,
+                    boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+                    objectFit: 'contain',
+                  }}
+                />
+                {showRight && (
+                  <button onClick={e => { e.stopPropagation(); rightAction(); }}
+                    style={{ ...btnStyle, right: isMobile ? '8px' : '24px' }}>
+                    {rightArrow}
+                  </button>
+                )}
+                {/* Close */}
+                <button onClick={() => setLightboxIdx(null)} style={{
+                  ...btnStyle, width: '40px', height: '40px', fontSize: '18px',
+                  top: '16px', right: '16px',
+                }}>✕</button>
+                {/* Counter — always LTR so numbers don't flip */}
+                <div style={{
+                  position: 'absolute', bottom: '20px', direction: 'ltr',
+                  background: 'rgba(255,255,255,0.15)', borderRadius: '20px',
+                  padding: '6px 16px', color: '#fff', fontSize: '14px',
+                  fontFamily: "'Ploni', sans-serif",
+                }}>
+                  {lightboxIdx + 1} / {validGalleryImages.length}
+                </div>
+              </div>
+            );
+          })()}
         </section>
 
         {/* ── J. עדכוני פסגה ──────────────────────── */}
@@ -1581,32 +1701,16 @@ export default function ExpeditionDetail() {
                       background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)',
                     }} />
 
-                    {/* Summit badge */}
+                    {/* Summit verified badge */}
                     <div style={{
-                      position: 'absolute', top: '12px', right: '12px',
-                      background: 'rgba(0,0,0,0.45)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      color: 'white',
-                      fontFamily: "'Ploni', sans-serif",
-                      fontSize: '12px', fontWeight: 600,
-                      padding: '5px 10px 5px 8px', borderRadius: '999px',
-                      display: 'flex', alignItems: 'center', gap: '6px',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      letterSpacing: '0.02em',
+                      position: 'absolute', top: '10px', right: '10px',
+                      width: '30px', height: '30px',
+                      filter: 'drop-shadow(0 2px 8px rgba(29,155,240,0.6))',
                     }}>
-                      {/* Green circle checkmark */}
-                      <div style={{
-                        width: '18px', height: '18px', borderRadius: '50%',
-                        background: '#22C55E',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        flexShrink: 0,
-                      }}>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                      </div>
-                      Verified
+                      <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#1D9BF0" d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.441c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.438 1.69-.882.445-.47.749-1.055.878-1.688.13-.633.08-1.29-.144-1.896.587-.274 1.087-.705 1.443-1.245.356-.54.555-1.17.574-1.817z"/>
+                        <path fill="white" d="M9.662 14.338 6.29 10.966l.943-.944 2.43 2.43 4.58-4.58.943.944z"/>
+                      </svg>
                     </div>
 
                     {/* Name + date */}
