@@ -128,24 +128,20 @@ export const ISRAEL_TRIPS = [
     desc:    'נחל יגור חוצה את הכרמל ממזרח למערב ומציע אחת מהליכות הנחל הציוריות ביותר בצפון הארץ. לאורך המסלול תגלו יערות אלה ואורן, בריכות טבעיות ומפלים שקטים המציעים רגע של שלווה אמיתית.\n\nהמסלול מתאים לכל רמות הכושר ומושלם לאנשים המעוניינים להתחיל ולהכיר את עולם ההליכות בטבע. האווירה בנחל שונה בכל עונה — בחורף הנחל זורם במלוא כוחו ומציג את הכרמל לבוש בירוק עשיר ומרענן.',
     descEn:  'Nahal Yagur cuts through the Carmel from east to west, offering one of the most scenic stream hikes in northern Israel. Along the route you\'ll discover oak and pine forests, natural pools and quiet waterfalls that offer a moment of true tranquility.\n\nThe trail suits all fitness levels and is perfect for those looking to discover the world of nature hiking. The atmosphere changes with every season — in winter the stream flows at full strength, revealing the Carmel draped in lush, refreshing green.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -199,26 +195,20 @@ export const ISRAEL_TRIPS = [
     desc:    'מסלול עוקף מצודת נמרוד הוא שילוב מנצח של טבע, היסטוריה ונוף עוצר נשימה. מצודת נמרוד, הנחשבת לאחת ממצודות הצלבנים הגדולות והמשומרות ביותר בעולם, שולטת על הנוף מגובה 815 מטרים בשולי הגולן.\n\nהמסלול מקיף את המצודה ומציע מבטים מרהיבים לחרמון, לגולן ולבקעת הירדן. לאורך הדרך תלכו בין יערות אלה, חורשות זית ושטחי בזלת ירוקים — שילוב ייחודי המעניק למקום אופי שאין בשום אתר אחר בארץ.',
     descEn:  'The Nimrod Fortress circuit is a winning combination of nature, history and breathtaking views. Nimrod Fortress, considered one of the largest and best-preserved Crusader fortresses in the world, dominates the landscape from 815 meters on the edge of the Golan.\n\nThe trail circles the fortress and offers stunning views of the Hermon, the Golan and the Jordan Valley. Along the way you walk through oak forests, olive groves and green basalt fields — a unique combination that gives this place a character unlike anywhere else in Israel.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
-      'כניסה לאתר מצודת נמרוד (בתשלום)',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
-      'Entry fee to Nimrod Fortress site',
     ],
     itinerary: [
       {
@@ -272,26 +262,20 @@ export const ISRAEL_TRIPS = [
     desc:    'מצדה היא אחד מסמלי ישראל — אבל רוב האנשים מכירים אותה רק מלמעלה. אנחנו נגלה אותה מזווית אחרת לגמרי: מסלול מסביב לסלע האגדי, דרך נתיב הנחש, בגובה המצוק ולאורך שביל הגמלים.\n\nהמסלול מציע נוף ייחודי ומרהיב אל ים המלח, ההרים הירדניים ומדבר יהודה. בשעות הבוקר המוקדמות, האור הזהוב שפוגע בסלע האדמוני מייצר תמונה שאי אפשר לשכוח.',
     descEn:  'Masada is one of Israel\'s great symbols — but most people only know it from the top. We\'ll discover it from a completely different angle: a trail circling the iconic rock, via the Snake Path, along the cliff edge and the Camel Trail.\n\nThe route offers a unique and breathtaking view of the Dead Sea, the Jordanian mountains and the Judean Desert. In the early morning hours, the golden light hitting the red rock creates an unforgettable picture.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
-      'כניסה לאתר מצדה (בתשלום)',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
-      'Entry fee to Masada National Park',
     ],
     itinerary: [
       {
@@ -345,24 +329,20 @@ export const ISRAEL_TRIPS = [
     desc:    'מצוקי אבנת הם אחד מהנוף הנגבי האיקוני ביותר — שרשרת מצוקי גיר מרשימה בגובה של עשרות מטרים החוצה את הנגב הגבוה. המסלול עוקב לאורך שפת המצוק ומציע תצפיות פנורמיות מרהיבות אל מישורי הנגב הרחוקים.\n\nמדובר בטרק מאתגר הדורש ניסיון בהליכה בשטח פתוח ומיומנות בניווט. הנוף הגיאולוגי הייחודי, צבעי הסלע הנפלאים ותחושת הבדידות הגדולה הופכים את המסלול הזה לאחד מסמלי הטיולים בדרום הארץ.',
     descEn:  'The Avnat Cliffs are one of the Negev\'s most iconic landscapes — an impressive chain of limestone cliffs tens of meters high cutting through the High Negev. The trail follows along the cliff edge and offers breathtaking panoramic views across the far Negev plains.\n\nThis is a challenging trek requiring experience in open-terrain hiking and navigation skills. The unique geological landscape, wonderful rock colors and great sense of solitude make this one of the signature hikes of southern Israel.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -505,24 +485,20 @@ export const ISRAEL_TRIPS = [
     desc:    'הר הגלבוע מפורסם בעיקר בזכות פריחת האירוס הסגול — אחת מתופעות הטבע המרהיבות ביותר בישראל, המציירת את ההר בגוונים סגולים עזים בסוף החורף ותחילת האביב. מסלול ג׳ילבון ועין תינה לוקח אתכם דרך שדות הפריחה ועד למעיין עין תינה, המוקף בעצי פיקוס עתיקים ומספק רגעי שקט נדירים.\n\nמהפסגה נשקפים נופים עוצרי נשימה לבקעת יזרעאל, לכנרת ולהרי הגולן. מסלול ייחודי שמשלב פריחה, מים, היסטוריה ונוף בסטנדרד גבוה במיוחד.',
     descEn:  'Mount Gilboa is famous above all for the purple iris bloom — one of Israel\'s most stunning natural phenomena, painting the mountain in vivid purple hues at the end of winter and start of spring. The Gilboa and Ein Tina trail takes you through the blooming fields and down to Ein Tina spring, surrounded by ancient fig trees and offering rare moments of quiet.\n\nFrom the summit, breathtaking views stretch across the Jezreel Valley, the Sea of Galilee and the Golan Heights. A unique trail that combines bloom, water, history and outstanding scenery.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -576,24 +552,20 @@ export const ISRAEL_TRIPS = [
     desc:    'נחל כזיב הוא אחד הנחלים הציוריים בישראל — נחל רב-מים הזורם בגליל המערבי לאורך כל השנה ומגיע לשיאו בחורף ובאביב. לאורך המסלול תפגשו מפלים עוצרי נשימה, בריכות רחצה טבעיות ויער ירוק ורענן.\n\nהאטרקציה ההיסטורית של המסלול היא מצודת מונפור — מצודת הצלבנים המרשימה שמשקיפה על הנחל מגובה. השילוב בין ההליכה לאורך המים לבין הסטייה לעלייה אל המצודה הופך את המסלול הזה לאחד המגוונים ביותר בצפון הארץ.',
     descEn:  'Nahal Keziv is one of Israel\'s most scenic streams — a perennial river flowing through the Western Galilee year-round, reaching its peak in winter and spring. Along the trail you\'ll encounter breathtaking waterfalls, natural swimming pools and a lush green forest.\n\nThe trail\'s historic attraction is Montfort Castle — the impressive Crusader fortress overlooking the stream from above. The combination of walking along the water with the detour up to the castle makes this one of the most varied hikes in northern Israel.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -647,24 +619,20 @@ export const ISRAEL_TRIPS = [
     desc:    'נחל כלח הוא אחד מנחלי הגליל הציוריים, המשלב נחל זורם, עצי אלון עתיקים ומעיינות סמויים. עין אלון, הממוקמת בלב המסלול, היא מעיין מפתיע בתוך ערוץ הנחל — נקודת מנוחה ורעננות מושלמת באמצע ההליכה.\n\nהמסלול מתאים לכל הגילאים ורמות הכושר, ומציע שילוב מנצח של נוף, טבע ושקט. הוא אחד מאלו שאפשר ללכת בהם כמה פעמים ולגלות כל פעם משהו חדש.',
     descEn:  'Nahal Kelah is one of the Galilee\'s most scenic streams, combining a flowing river, ancient oak trees and hidden springs. Ein Alon, located in the heart of the trail, is a surprising spring inside the stream channel — a perfect spot of rest and refreshment mid-hike.\n\nThe trail suits all ages and fitness levels, offering a winning combination of scenery, nature and quiet. It\'s one of those routes you can walk several times and discover something new each time.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -718,26 +686,20 @@ export const ISRAEL_TRIPS = [
     desc:    'נחל ערוגות הוא אחד הנחלים המרהיבים ביותר בישראל — ערוץ ציורי החוצה את מדבר יהודה מהרי יהודה ועד לים המלח. לאורך המסלול תגלו בריכות טבעיות, מפלים גבוהים וצמחייה ים-תיכונית סבוכה שנראית לגמרי לא במקומה בלב המדבר.\n\nהיעד המרכזי הוא בריכת השולמית — בריכת רחצה ירוקה ומרעננת שנראית כאילו הגיעה מספר אגדות. בדרך תוכלו לראות יעלים, תנשמות ואפשר שאפילו נמרים — נחל ערוגות הוא בית לאחת מהאוכלוסיות הצפופות ביותר של יעלים בישראל.',
     descEn:  'Nahal Arugot is one of Israel\'s most stunning streams — a scenic canyon cutting through the Judean Desert from the Judean Hills to the Dead Sea. Along the route you\'ll discover natural pools, high waterfalls and dense Mediterranean vegetation that looks completely out of place in the heart of the desert.\n\nThe main destination is the Shulamit Pool — a green and refreshing bathing pool that looks like something from a fairy tale. Along the way you can spot ibex, barn owls and possibly even leopards — Nahal Arugot is home to one of the densest ibex populations in Israel.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
-      'כניסה לשמורת עין גדי (בתשלום)',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
-      'Entry fee to Ein Gedi Nature Reserve',
     ],
     itinerary: [
       {
@@ -791,24 +753,20 @@ export const ISRAEL_TRIPS = [
     desc:    'הר סדום הוא פנומן גיאולוגי ייחודי — הר המורכב כמעט כולו ממלח, הנמצא בגובה הנמוך ביותר בעולם ליד ים המלח. המסלול מציע הליכה לאורך מחילות מלח מרשימות, צוקי מלח לבנים ותצורות גיאולוגיות שלא תמצאו בשום מקום אחר על פני כדור הארץ.\n\nנחל פרצים מוסיף לחוויה עם ערוץ דרמטי ורחב שחרץ את הסלעים לאורך שנים רבות. בשילוב — הר סדום ונחל פרצים — מדובר בקומבינציה גיאולוגית ונופית שאין שנייה לה בישראל.',
     descEn:  'Mount Sodom is a unique geological phenomenon — a mountain composed almost entirely of salt, located at the lowest point on earth beside the Dead Sea. The trail offers a walk through impressive salt caves, white salt cliffs and geological formations you\'ll find nowhere else on earth.\n\nNahal Partzim adds to the experience with a dramatic wide canyon carved through the rock over many years. Together — Mount Sodom and Nahal Partzim — this is a geological and scenic combination with no equal in Israel.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -862,26 +820,20 @@ export const ISRAEL_TRIPS = [
     desc:    'מעלה צאלים ונחל משמר הם שילוב מנצח של שני הנחלים הדרמטיים ביותר במדבר יהודה. המסלול יורד דרך ערוצי נחל צאלים הצרים והסלעיים, מגיע לנחל משמר ועוקב לאורכו עד להגיע לים המלח — ירידה של כ-400 מטרים בין מצוקים מרשימים.\n\nמדובר במסלול מאתגר הדורש ניסיון, כושר גופני טוב ויציבות בשטח טכני. זה הסוג של טרק שמחכים לו כל שנה — ההרגשה שלאחר הסיום שווה כל מאמץ.',
     descEn:  'Maale Tze\'elim and Nahal Mishmar are a winning combination of two of the Judean Desert\'s most dramatic canyons. The trail descends through the narrow rocky channels of Nahal Tze\'elim, reaches Nahal Mishmar and follows it all the way to the Dead Sea — a descent of around 400 meters between impressive cliffs.\n\nThis is a challenging trail requiring experience, good physical fitness and stability on technical terrain. It\'s the kind of trek you look forward to every year — the feeling after finishing is worth every effort.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
-      'הסעת רכבים בין נקודות הכניסה והיציאה',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
-      'Vehicle shuttle between start and end points',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {
@@ -935,24 +887,20 @@ export const ISRAEL_TRIPS = [
     desc:    'הר מירון הוא הפסגה הגבוהה ביותר בגליל ואחד ממוקדי הטבע הבולטים ביותר בישראל. בגובה 1208 מטרים מעל פני הים, הפסגה מעניקה נוף פנורמי מרהיב לגליל, לכנרת, לבנון ובימים בהירים אף לחרמון.\n\nהמסלול עובר דרך יערות אלה עתיקים — חלקם בני מאות שנים — שיוצרים אווירה ייחודית ומסתורית. בר-לבנה, עוזרד, ואורן הארץ ישראלי מלווים אתכם לאורך הדרך ומהווים תזכורת לטבע הים-תיכוני הפראי שפעם כיסה את רוב הארץ.',
     descEn:  'Mount Meron is the highest peak in the Galilee and one of Israel\'s most prominent natural landmarks. At 1,208 meters above sea level, the summit offers breathtaking panoramic views of the Galilee, the Sea of Galilee, Lebanon and on clear days even the Hermon.\n\nThe trail passes through ancient oak forests — some hundreds of years old — that create a unique and mysterious atmosphere. Strawberry tree, hawthorn and Aleppo pine accompany you along the way, serving as a reminder of the wild Mediterranean nature that once covered most of the country.',
     included: [
-      'מדריך מוסמך ומלווה מטעם HighAir',
-      'ציוד עזרה ראשונה',
-      'תיאומים לפני היציאה וקבוצת וואטסאפ',
+      'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
     ],
     includedEn: [
-      'Certified guide and escort from HighAir',
-      'First aid equipment',
-      'Pre-trip coordination and WhatsApp group',
+      'Professional certified Israeli guide from HighAir',
+      'A delicious lunch at the end of the trail',
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
       'ציוד אישי — לבוש, הנעלה וציוד הליכה',
-      'אוכל ושתייה לאורך המסלול',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
       'Personal gear — clothing, footwear and hiking equipment',
-      'Food and drinks along the trail',
     ],
     itinerary: [
       {

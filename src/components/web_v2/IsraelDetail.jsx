@@ -56,7 +56,7 @@ export default function IsraelDetail() {
   /* ── חבילות לפי סוג הטיול ── */
   const PACKAGES = {
     day: [
-      { id: 'day', labelHe: 'טרק יומי בארץ', labelEn: 'Day Trek in Israel', price: '₪249' },
+      { id: 'day', labelHe: `טרק ${trip?.name || 'יומי בארץ'}`, labelEn: `${trip?.nameEn || trip?.name || 'Day Trek'}`, price: '₪249' },
     ],
     overnight: [
       { id: 'no-stay',   labelHe: 'טיפוס בלבד ללא לינה',        labelEn: 'Trek only, no accommodation',  price: '₪349' },
