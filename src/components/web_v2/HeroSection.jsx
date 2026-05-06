@@ -82,7 +82,7 @@ export default function HeroSection() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
         poster={POSTER_SRC}
         aria-hidden="true"
         style={{

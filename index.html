@@ -57,15 +57,17 @@
       gtag('config', 'AW-16520015098');
     </script>
 
-    <!-- Facebook Pixel -->
+    <!-- Facebook Pixel — deferred after load to avoid blocking FCP/LCP -->
     <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init','293738523242679');
-    fbq('track','PageView');
+    window.addEventListener('load', function() {
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init','293738523242679');
+      fbq('track','PageView');
+    });
     </script>
     <!-- End Facebook Pixel -->
 
@@ -126,6 +128,9 @@
     <!-- Fonts preload -->
     <link rel="preload" href="/PloniBold.otf"   as="font" type="font/otf" crossorigin>
     <link rel="preload" href="/PloniMedium.otf" as="font" type="font/otf" crossorigin>
+
+    <!-- Hero poster preload — browser fetches this immediately, before React renders -->
+    <link rel="preload" href="/videos/hero-home-poster.jpg" as="image" fetchpriority="high">
 
     <style>
       @font-face {
