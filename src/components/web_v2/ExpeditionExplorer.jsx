@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { EXPS } from '../../data/mockData.js';
+import { CARD_EXPS as EXPS } from '../../data/navData.js';
 
 /* ── Arrow button ── */
 function NavArrow({ direction, disabled, onClick, isRtl }) {

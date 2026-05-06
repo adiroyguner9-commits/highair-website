@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { EXPS } from '../../data/mockData.js';
+import { NAV_EXPS as EXPS } from '../../data/navData.js';
 
 /* ── Expeditions ordered by continent: Africa → Europe → Asia → South America ── */
 const TREK_IDS  = [4,  3,  2, 6, 7, 8];

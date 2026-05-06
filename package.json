@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5175",
-    "build": "node scripts/generate-sitemap.mjs && vite build",
+    "prebuild": "node scripts/sync-nav.mjs && node scripts/generate-sitemap.mjs",
+    "build": "vite build",
+    "sync-nav": "node scripts/sync-nav.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

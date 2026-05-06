@@ -16,8 +16,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { EXPS } from '../../data/mockData.js';
-import { ISRAEL_TRIPS } from '../../data/israelData.js';
+import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
 
 /* ── Nav link keys (built dynamically in Header to allow language-aware hasMega) ── */
 
