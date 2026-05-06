@@ -81,6 +81,15 @@ export default function IsraelDetail() {
   const daysLabel      = isEn ? (trip?.daysEn  || trip?.days)   : trip?.days;
   const priceLabel     = isEn ? (trip?.price   || '') : (trip?.priceHe || trip?.price || '');
 
+  /* ── Day-trip stats (distance + elevation gain from itinerary) ── */
+  const dayItin      = isEn ? (trip?.itineraryEn?.[0] || trip?.itinerary?.[0]) : trip?.itinerary?.[0];
+  const tripDistance = dayItin?.distance || '–';
+  const rawElevGain  = (isEn ? trip?.itineraryEn?.[0]?.elevationGain : trip?.itinerary?.[0]?.elevationGain) || '';
+  const shortElevGain = rawElevGain
+    .replace(' עלייה', '').replace(' ירידה', '')
+    .replace(' gain', '').replace(' descent', '')
+    || '–';
+
   usePageMeta(trip ? {
     title:         `${displayName} | HighAir Expeditions`,
     description:   isEn
@@ -346,10 +355,21 @@ export default function IsraelDetail() {
           display: 'grid',
           gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
         }}>
-          <StatBox label={isRtl ? 'גובה' : 'Elevation'} value={`${trip.elev}m`}  isMobile={isMobile} first />
-          <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}    value={diffLabel}    isMobile={isMobile} />
-          <StatBox label={isRtl ? 'משך' : 'Duration'}        value={daysLabel}    isMobile={isMobile} />
-          <StatBox label={isRtl ? 'עלות' : 'Price'}          value={priceLabel}   isMobile={isMobile} last />
+          {trip.packageType === 'day' ? (
+            <>
+              <StatBox label={isRtl ? 'מרחק' : 'Distance'}         value={tripDistance}  isMobile={isMobile} first />
+              <StatBox label={isRtl ? 'טיפוס מצטבר' : 'Elev. Gain'} value={shortElevGain} isMobile={isMobile} />
+              <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}        value={diffLabel}     isMobile={isMobile} />
+              <StatBox label={isRtl ? 'עלות' : 'Price'}             value={priceLabel}    isMobile={isMobile} last />
+            </>
+          ) : (
+            <>
+              <StatBox label={isRtl ? 'גובה' : 'Elevation'} value={`${trip.elev}m`}  isMobile={isMobile} first />
+              <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}    value={diffLabel}    isMobile={isMobile} />
+              <StatBox label={isRtl ? 'משך' : 'Duration'}        value={daysLabel}    isMobile={isMobile} />
+              <StatBox label={isRtl ? 'עלות' : 'Price'}          value={priceLabel}   isMobile={isMobile} last />
+            </>
+          )}
         </div>
       </div>
 
@@ -362,21 +382,50 @@ export default function IsraelDetail() {
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 5%', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
-              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'גובה' : 'Elevation'}</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{trip.elev}{isRtl ? ' מ׳' : 'm'}</span>
-            </div>
-            {!isMobile && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'רמה' : 'Level'}</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{diffLabel}</span>
-              </div>
-            )}
-            {!isMobile && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מחיר' : 'Price'}</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>{priceLabel}</span>
-              </div>
+            {trip.packageType === 'day' ? (
+              <>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                  <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מרחק' : 'Distance'}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{tripDistance}</span>
+                </div>
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'טיפוס' : 'Gain'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{shortElevGain}</span>
+                  </div>
+                )}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'קושי' : 'Level'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{diffLabel}</span>
+                  </div>
+                )}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מחיר' : 'Price'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>{priceLabel}</span>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                  <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'גובה' : 'Elevation'}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{trip.elev}{isRtl ? ' מ׳' : 'm'}</span>
+                </div>
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'רמה' : 'Level'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{diffLabel}</span>
+                  </div>
+                )}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מחיר' : 'Price'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>{priceLabel}</span>
+                  </div>
+                )}
+              </>
             )}
           </div>
           <button onClick={scrollToForm} style={{
