@@ -1823,6 +1823,9 @@ export default function ExpeditionDetail() {
                     name={form.name}
                     phone={formatFullPhone(form.dial, form.phone)}
                     email={form.email}
+                    expedition={exp?.nameHe}
+                    expeditionSlug={exp?.slug}
+                    expeditionValue={exp?.price}
                     onSkip={() => setShowBooking(false)}
                   />
                 ) : (
@@ -1831,6 +1834,8 @@ export default function ExpeditionDetail() {
                     phone={form.phone}
                     email={form.email}
                     expedition={exp?.nameHe}
+                    expeditionSlug={exp?.slug}
+                    expeditionValue={exp?.price}
                     onSkip={() => setShowBooking(false)}
                   />
                 )}

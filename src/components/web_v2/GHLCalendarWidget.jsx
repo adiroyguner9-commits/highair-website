@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, FS, COLOR } from '../../website/theme.js';
 
-export default function GHLCalendarWidget({ calendarId, name, phone, email, onSkip }) {
+export default function GHLCalendarWidget({ calendarId, name, phone, email, expedition, expeditionSlug, expeditionValue, onSkip }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
   const scriptRef = useRef(false);
@@ -40,18 +40,17 @@ export default function GHLCalendarWidget({ calendarId, name, phone, email, onSk
       if (!isBooked) return;
       bookedRef.current = true;
 
-      // GA4 / GTM
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'book_appointment', { method: 'ghl_calendar' });
-        window.gtag('event', 'conversion', {
-          send_to: 'AW-16520015098/O_fECOOa4KccEPrZrcU9',
-          currency: 'ILS',
-        });
-      }
-      // Facebook Pixel
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'Schedule');
-      }
+      // Push to dataLayer — GTM handles GA4 + Google Ads + Facebook from here
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event:            'booking_submit',
+        expedition:       expedition       || '',
+        expedition_slug:  expeditionSlug   || '',
+        value:            expeditionValue  || 0,
+        booking_id:       `BK-${Date.now()}`,
+        currency:         'ILS',
+        method:           'ghl_calendar',
+      });
     }
 
     window.addEventListener('message', onMessage);

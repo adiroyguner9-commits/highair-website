@@ -85,7 +85,7 @@ const NAV_BTN = {
   alignItems:  'center',
 };
 
-export default function BookingWidget({ name, phone, email, expedition, onSkip }) {
+export default function BookingWidget({ name, phone, email, expedition, expeditionSlug, expeditionValue, onSkip }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
   const DAY_SHORT = isRtl ? HE_DAY_SHORT : EN_DAY_SHORT;
@@ -156,7 +156,15 @@ export default function BookingWidget({ name, phone, email, expedition, onSkip }
     if (!selDate || !selSlot) return;
     setSubmitting(true);
     setError('');
-    Analytics.bookingSubmit({ date: selDate, time: selSlot, expedition });
+    Analytics.bookingSubmit({
+      date:             selDate,
+      time:             selSlot,
+      expedition,
+      expedition_slug:  expeditionSlug,
+      value:            expeditionValue || 0,
+      booking_id:       `BK-${Date.now()}`,
+      currency:         'ILS',
+    });
     try {
       const res = await fetch('/api/book-slot', {
         method:  'POST',
