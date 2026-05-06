@@ -52,6 +52,18 @@ export default function IsraelDetail() {
   const { isMobile, isTablet } = useBreakpoint();
   const isNarrow   = isMobile || isTablet;
   const trip       = ISRAEL_TRIPS.find(t => t.slug === slug);
+
+  /* ── חבילות לפי סוג הטיול ── */
+  const PACKAGES = {
+    day: [
+      { id: 'day', labelHe: 'טרק יומי בארץ', labelEn: 'Day Trek in Israel', price: '₪249' },
+    ],
+    overnight: [
+      { id: 'no-stay',   labelHe: 'טיפוס בלבד ללא לינה',        labelEn: 'Trek only, no accommodation',  price: '₪349' },
+      { id: 'with-stay', labelHe: 'טיפוס כולל לינה ו-3 ארוחות', labelEn: 'Trek + accommodation & 3 meals', price: '₪549' },
+    ],
+  };
+  const tripPackages = trip?.packages || PACKAGES[trip?.packageType] || [];
   const { i18n }   = useTranslation();
   const dir        = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl      = dir === 'rtl';
@@ -101,8 +113,9 @@ export default function IsraelDetail() {
   }
 
   /* ── Contact form ── */
-  const [form, setForm]         = useState({ name: '', month: '', dial: '+972', phone: '', declaration: false });
+  const [form, setForm]         = useState({ name: '', email: '', month: '', dial: '+972', phone: '', pricePackage: '', declaration: false });
   const [phoneError, setPhoneError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   function validatePhone(val) {
     const ok = checkPhone(form.dial, val);
@@ -110,13 +123,31 @@ export default function IsraelDetail() {
     return ok;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!validatePhone(form.phone)) return;
     if (!form.declaration) return;
-    if (trip.paymentUrl) {
-      window.open(trip.paymentUrl, '_blank', 'noopener,noreferrer');
-    }
+    if (tripPackages?.length && !form.pricePackage) return;
+
+    const pkg    = tripPackages?.find(p => p.id === form.pricePackage);
+    const payUrl = pkg?.paymentUrl || trip.paymentUrl;
+
+    /* ── Save lead to Airtable (fire-and-forget; don't block payment) ── */
+    const fullPhone = formatFullPhone(form.dial, form.phone);
+    fetch('/api/israel-lead', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:      form.name,
+        phone:     fullPhone,
+        email:     form.email,
+        tripName:  trip.name,
+        tripDate:  form.month,   /* ISO date (YYYY-MM-DD) for live groups */
+        packageId: form.pricePackage,
+      }),
+    }).catch(err => console.error('[israel-lead]', err));
+
+    if (payUrl) window.open(payUrl, '_blank', 'noopener,noreferrer');
   }
 
 
@@ -466,10 +497,55 @@ export default function IsraelDetail() {
                         <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>{item.title}</span>
                         <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>{isOpen ? '▴' : '▾'}</span>
                       </div>
-                      <div style={{ maxHeight: isOpen ? '500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
-                        <p style={{ padding: '0 20px 20px', margin: 0, fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', lineHeight: 1.8, direction: dir, whiteSpace: 'pre-line' }}>
-                          {item.desc}
-                        </p>
+                      <div style={{ maxHeight: isOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
+                        {item.desc && (
+                          <p style={{ padding: '0 20px 16px', margin: 0, fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', lineHeight: 1.8, direction: dir, whiteSpace: 'pre-line' }}>
+                            {item.desc}
+                          </p>
+                        )}
+                        {(item.travelTime || item.distance || item.duration || item.elevationGain || item.elevationLoss || item.accommodation) && (() => {
+                          const bdg = (bg, color, iconPath, text) => (
+                            <span key={text} style={{
+                              display: 'inline-flex', alignItems: 'center', gap: '5px',
+                              padding: '6px 14px', borderRadius: '24px', background: bg,
+                              fontFamily: "'Ploni', sans-serif", fontSize: '13px',
+                              fontWeight: 700, color,
+                            }}>
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{iconPath}</svg>
+                              {text}
+                            </span>
+                          );
+                          const ICONS = {
+                            bus:     <><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>,
+                            ruler:   <><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></>,
+                            clock:   <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
+                            arrowUp: <><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></>,
+                            arrowDn: <><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></>,
+                            home:    <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
+                          };
+                          return (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '0 20px 20px' }}>
+                              {(item.travelTime || item.distance || item.duration) && (
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
+                                  {item.travelTime && bdg('#EDE9FE','#4C1D95', ICONS.bus,     item.travelTime)}
+                                  {item.distance   && bdg('#EDE9FE','#4C1D95', ICONS.ruler,   item.distance)}
+                                  {item.duration   && bdg('#EDE9FE','#4C1D95', ICONS.clock,   item.duration)}
+                                </div>
+                              )}
+                              {(item.elevationGain || item.elevationLoss) && (
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
+                                  {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp, item.elevationGain)}
+                                  {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn, item.elevationLoss)}
+                                </div>
+                              )}
+                              {item.accommodation && (
+                                <div style={{ display: 'flex', direction: dir }}>
+                                  {bdg('#FFF7ED','#C2410C', ICONS.home, item.accommodation)}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
                   );
@@ -723,17 +799,28 @@ export default function IsraelDetail() {
                     onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }} />
                 </div>
 
+                {/* אימייל */}
+                <div>
+                  <label style={labelStyle}>{isRtl ? 'אימייל *' : 'Email *'}</label>
+                  <input type="email" required value={form.email}
+                    placeholder={isRtl ? 'israel@example.com' : 'john@example.com'}
+                    onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                    style={{ ...inputStyle, direction: 'ltr' }}
+                    onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                    onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }} />
+                </div>
+
                 {/* תאריך */}
                 {(liveGroups.length > 0 || trip.dates?.length > 0) && (
                   <div>
                     <label style={labelStyle}>{isRtl ? 'באיזה תאריך תרצו לטייל? *' : 'Preferred Date *'}</label>
-                    <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={inputStyle}
+                    <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }} onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}>
                       <option value="">{isRtl ? 'בחרו תאריך' : 'Select a date'}</option>
                       {liveGroups.length > 0
                         ? liveGroups.map(g => {
                             const label = formatDateRange(g.departure, g.returnDate);
-                            return <option key={g.id} value={label}>{label}</option>;
+                            return <option key={g.id} value={g.departure}>{label}</option>;
                           })
                         : trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)
                       }
@@ -751,6 +838,45 @@ export default function IsraelDetail() {
                   error={!!phoneError}
                   errorMsg={phoneError}
                 />
+
+                {/* בחירת חבילה */}
+                {tripPackages?.length > 0 && (
+                  <div>
+                    <label style={labelStyle}>
+                      {isRtl ? 'בחרו חבילה *' : 'Select a package *'}
+                    </label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {tripPackages.map(pkg => {
+                        const selected = form.pricePackage === pkg.id;
+                        return (
+                          <label key={pkg.id} style={{
+                            display: 'flex', alignItems: 'center', gap: '12px',
+                            cursor: 'pointer', direction: dir,
+                            padding: '14px 16px', borderRadius: RADIUS.lg,
+                            border: `1.5px solid ${selected ? COLOR.primary : '#E5E3F0'}`,
+                            background: selected ? '#F5F0FF' : '#FAFAFA',
+                            transition: 'border-color 180ms, background 180ms',
+                          }}>
+                            <input
+                              type="radio"
+                              name="pricePackage"
+                              value={pkg.id}
+                              checked={selected}
+                              onChange={() => setForm(f => ({ ...f, pricePackage: pkg.id }))}
+                              style={{ width: '18px', height: '18px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
+                            />
+                            <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#3D3B5A', lineHeight: 1.5, fontWeight: 600 }}>
+                              {isRtl ? pkg.labelHe : pkg.labelEn}
+                            </span>
+                            <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', fontWeight: 800, color: selected ? COLOR.primary : '#6B6B8A', flexShrink: 0 }}>
+                              {pkg.price}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
 
                 {/* הצהרת בריאות */}
                 <label style={{
