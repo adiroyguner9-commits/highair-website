@@ -56,6 +56,14 @@ const DEFAULT_FAQ = [
   { q: 'מה כולל המחיר?', a: 'המחיר כולל את כל מה שמפורט בסעיף "מה כלול". טיסות וביטוח נסיעות אינם כלולים.' },
 ];
 
+const DEFAULT_FAQ_EN = [
+  { q: 'Is prior climbing experience required?', a: 'No prior climbing experience is required for most of our routes. All you need is good physical fitness and the will to succeed.' },
+  { q: 'What is the group size?', a: 'Our groups are limited to 12 participants at most, to ensure personal attention and maximum quality.' },
+  { q: 'Is a single room option available?', a: 'Yes, a single room can be requested for an additional fee. Please indicate this on the registration form.' },
+  { q: 'What happens if I turn back on the way?', a: 'Participant safety is our top priority. If a descent is required, the guide will safely accompany you back.' },
+  { q: 'What is included in the price?', a: 'The price includes everything listed in the "What\'s Included" section. Flights and travel insurance are not included.' },
+];
+
 const DEFAULT_NOT_INCLUDED = ['טיסות בינלאומיות', 'ביטוח נסיעות', 'הוצאות אישיות', 'ציוד אישי'];
 
 const DEFAULT_NOT_INCLUDED_EN = [
@@ -258,7 +266,7 @@ export default function ExpeditionDetail() {
       { name: 'משלחות',   url: '/#expeditions' },
       { name: exp.nameHe, url: `/expedition/${exp.slug}` },
     ]),
-    faqPage((exp.faq?.length ? exp.faq : DEFAULT_FAQ).slice(0, 8)),
+    faqPage((isRtl ? (exp.faq?.length ? exp.faq : DEFAULT_FAQ) : (exp.faqEn?.length ? exp.faqEn : DEFAULT_FAQ_EN)).slice(0, 8)),
   ] : null;
 
   usePageMeta(exp ? {
@@ -319,7 +327,7 @@ export default function ExpeditionDetail() {
     if (!exp) return;
     setResolvedGallery(null);
     setImgOrientations({});
-    const potential = Array.from({ length: 12 }, (_, i) => `/images/gallery/${exp.slug}/${i + 1}.webp`);
+    const potential = Array.from({ length: 50 }, (_, i) => `/images/gallery/${exp.slug}/${i + 1}.webp`);
     Promise.all(
       potential.map(url => new Promise(resolve => {
         const img = new Image();
@@ -492,7 +500,8 @@ export default function ExpeditionDetail() {
   const months = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
   const capacity = liveGroups.find(g => g.capacity)?.capacity || exp?.groupCapacity || 15;
-  const noDates = months.length === 0 && (exp?.dates || []).length === 0;
+  /* noDates = no live Airtable groups → show only "Flexible" in the form */
+  const noDates = months.length === 0;
   const [heroBtnHovered, setHeroBtnHovered] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -507,10 +516,6 @@ export default function ExpeditionDetail() {
   const [isWaitlist,  setIsWaitlist]  = useState(false);
   const [ageError,   setAgeError]   = useState('');
 
-  /* ── Auto-set month when no dates available ── */
-  useEffect(() => {
-    if (noDates) setForm(f => ({ ...f, month: 'גמיש / טרם החלטתי' }));
-  }, [noDates]);
 
   /* ── Phone validation ── */
   function validatePhone(val) {
@@ -630,7 +635,9 @@ export default function ExpeditionDetail() {
 
   /* ── Derived data ── */
   const reviews = exp.reviews?.length ? exp.reviews : DEFAULT_REVIEWS;
-  const faqItems = exp.faq?.length ? exp.faq : DEFAULT_FAQ;
+  const faqItems = isRtl
+    ? (exp.faq?.length       ? exp.faq       : DEFAULT_FAQ)
+    : (exp.faqEn?.length     ? exp.faqEn     : DEFAULT_FAQ_EN);
   const notIncluded = isRtl
     ? (exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED)
     : (exp.notIncludedEn?.length ? exp.notIncludedEn : DEFAULT_NOT_INCLUDED_EN);
@@ -1854,19 +1861,20 @@ export default function ExpeditionDetail() {
                     <label style={labelStyle}>{isRtl ? 'באיזה חודש תרצו לטייל? *' : 'Which month would you like to travel? *'}</label>
                     {noDates ? (
                       <select
-                        required value={form.month || 'גמיש / טרם החלטתי'}
+                        required value={form.month}
                         onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
-                        style={inputStyle}
+                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       >
+                        <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
                         <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : 'Flexible / Not decided yet'}</option>
                       </select>
                     ) : (
                       <select
                         required value={form.month}
                         onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
-                        style={inputStyle}
+                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       >

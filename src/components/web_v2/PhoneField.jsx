@@ -105,8 +105,8 @@ export default function PhoneField({
       : (dark ? 'rgba(255,255,255,0.15)' : '#E5E3F0');
 
   const bg      = dark ? 'rgba(255,255,255,0.07)' : '#fff';
-  const textCol = dark ? '#fff' : '#1e1b4b';
-  const phCol   = dark ? 'rgba(255,255,255,0.3)' : '#C4C2D6';
+  const textCol = dark ? '#fff' : '#3D3B5A';
+  const phCol   = dark ? 'rgba(255,255,255,0.3)' : '#9CA3AF';
 
   const sharedBorder = `1.5px solid ${borderColor}`;
   const radius = '10px';
@@ -117,10 +117,10 @@ export default function PhoneField({
       {label && (
         <label style={{
           display: 'block',
-          fontFamily: 'Ploni, sans-serif',
-          fontSize: '13px',
-          fontWeight: 500,
-          color: dark ? 'rgba(255,255,255,0.65)' : '#6B6B8A',
+          fontFamily: "'Ploni', sans-serif",
+          fontSize: '14px',
+          fontWeight: 600,
+          color: dark ? 'rgba(255,255,255,0.65)' : '#3D3B5A',
           marginBottom: '6px',
           direction: 'inherit',
           textAlign: 'start',
@@ -147,9 +147,9 @@ export default function PhoneField({
               borderRight: 'none',
               borderRadius: `${radius} 0 0 ${radius}`,
               color: textCol,
-              fontFamily: 'Ploni, sans-serif',
-              fontSize: '14px',
-              fontWeight: 500,
+              fontFamily: "'Ploni', sans-serif",
+              fontSize: '15px',
+              fontWeight: 400,
               cursor: 'pointer',
               outline: 'none',
               appearance: 'none',
@@ -200,7 +200,7 @@ export default function PhoneField({
             borderLeft: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : '#E5E3F0'}`,
             borderRadius: `0 ${radius} ${radius} 0`,
             color: textCol,
-            fontFamily: 'Ploni, sans-serif',
+            fontFamily: "'Ploni', sans-serif",
             fontSize: '15px',
             outline: 'none',
             direction: 'ltr',

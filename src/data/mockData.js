@@ -539,6 +539,13 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
 הצטרפו אלינו להרפתקה של פעם בחיים בהימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['מעבר לרקיה לה 5160מ׳', 'כפרי טיבט עתיקים', 'מנזרים בדרך', 'נוף מנסלו 8163מ׳'],
     nameEn: 'Manaslu Circuit',
+    descEn: `The Manaslu Circuit is one of Nepal's most beautiful and pristine trekking routes, winding through the heart of the wild Himalayas around the world's eighth highest mountain, Manaslu (8,163m).
+
+Over 16 days you'll witness breathtaking scenery of snow-capped peaks, glaciers, isolated valleys and roaring waterfalls. The route passes through traditional Tibetan-influenced villages, ancient monasteries and mani walls adorned with Buddhist prayer flags.
+
+The highlight of the trek is crossing Larkya La Pass at 5,106 meters — a rewarding high-altitude crossing with panoramic views of Manaslu and the surrounding Himalayan giants.
+
+Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the fight against cancer!`,
     highlightsEn: ['Larkya La Pass 5,160m', 'Ancient Tibetan villages', 'Buddhist monasteries', 'Manaslu 8,163m views'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -691,6 +698,13 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
 הצטרפו אלינו להרפתקה של פעם חיים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['מחנה בסיס אוורסט 5364מ׳', 'אגמי גוקיו', 'נוף על האוורסט', 'שוק נמצ׳ה בזאר'],
     nameEn: 'Everest Base Camp & Gokyo',
+    descEn: `The Everest Base Camp trek is one of the most iconic and exhilarating routes in the Himalayas. The journey begins in Lukla and winds through breathtaking scenery of rivers, forests and wildlife, passing authentic Sherpa villages and rich Buddhist culture.
+
+Base Camp itself sits at 5,364m above sea level — the very starting point for climbers attempting the summit of Everest. The trek also includes the dramatic Cho La Pass crossing, the unique village of Gokyo and its stunning glacial lakes, offering views found nowhere else on earth.
+
+Along the way you'll be surrounded by the great Himalayan peaks: Everest, Lhotse, Nuptse and many more. The route culminates at Kala Patthar (5,545m) — one of the world's most spectacular viewpoints for a sunrise over Everest. An unforgettable experience of power and altitude.
+
+Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the fight against cancer!`,
     highlightsEn: ['Everest Base Camp 5,364m', 'Gokyo Lakes', 'Everest panorama', 'Namche Bazaar market'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 90 ליטר!',
@@ -2147,6 +2161,13 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
 הצטרפו אלינו להרפתקה של פעם בחיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת לנין 7134מ׳', 'גבוה מ-7000מ׳', 'מחנות גובה מרובים', 'נוף על פמיר'],
     nameEn: 'Lenin Peak',
+    descEn: `Join us on an expedition to one of the highest peaks in Central Asia — Lenin Peak, rising to an impressive 7,134 meters. Located in the Pamir Range on the border of Kyrgyzstan and Tajikistan, Lenin Peak is considered one of the most accessible mountains in the world above 7,000 meters, and the natural next step for climbers dreaming of new heights.
+
+The route is not highly technical, but demands exceptional endurance, the ability to cope with significant altitude, and extended time in the field. Throughout the expedition you'll experience real alpine climbing — establishing high camps, walking on glaciers and crossing vast snowfields, all under professional supervision and close guidance.
+
+The reward is a summit with no equal — an immense sense of achievement with the entire Pamir Range spread beneath your feet and the desert-snow landscapes of Central Asia stretching to the horizon.
+
+Join us for a once-in-a-lifetime adventure and take part in the fight against cancer!`,
     highlightsEn: ['Lenin Peak 7,134m', 'Above 7000 meters', 'Multiple high camps', 'Pamir panorama'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',

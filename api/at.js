@@ -65,11 +65,15 @@ const RESPONSE_FIELDS = {
   ]),
 };
 
+// filterByFormula is only forwarded for tables where the client legitimately needs it
+// (Customers — group member count). It is blocked for all other tables.
+const TABLES_ALLOWING_FORMULA = new Set(['Customers']);
+
 const FORWARDED_QUERY_KEYS = new Set([
-  'maxRecords', 'pageSize', 'offset', 'filterByFormula', 'view',
+  'maxRecords', 'pageSize', 'offset', 'view',
 ]);
 
-function buildForwardedQuery(query, allowedFields) {
+function buildForwardedQuery(query, allowedFields, table) {
   const out = new URLSearchParams();
   for (const [k, v] of Object.entries(query || {})) {
     if (k === 'table' || k === 'id') continue;
@@ -79,6 +83,13 @@ function buildForwardedQuery(query, allowedFields) {
       for (const item of vals) {
         // Only forward field requests that are in the allowlist.
         if (allowedFields.has(String(item))) out.append('fields[]', String(item));
+      }
+      continue;
+    }
+    // filterByFormula only allowed for specific tables; truncated to 500 chars
+    if (k === 'filterByFormula') {
+      if (TABLES_ALLOWING_FORMULA.has(table)) {
+        out.append('filterByFormula', String(v).slice(0, 500));
       }
       continue;
     }
@@ -132,7 +143,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid record id' });
   }
 
-  const params = buildForwardedQuery(req.query, allowedFields);
+  const params = buildForwardedQuery(req.query, allowedFields, table);
   // If the client didn't request specific fields, force the full whitelist
   // so the upstream response is bounded server-side.
   if (![...params.keys()].some(k => k === 'fields[]')) {

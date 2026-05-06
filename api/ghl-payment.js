@@ -5,11 +5,13 @@
  * determined by the expedition tag on the contact.
  *
  * Required env vars:
- *   FB_CAPI_TOKEN  — Facebook System User / CAPI access token
+ *   FB_CAPI_TOKEN   — Facebook System User / CAPI access token
+ *   GHL_WEBHOOK_SECRET — Shared secret set in GHL Workflow → Webhook header
  *
  * GHL Workflow setup:
  *   Trigger: Pipeline Stage Changed → stage = "שולם" (or your paid stage name)
  *   Action:  Webhook → POST https://www.highair-expeditions.com/api/ghl-payment
+ *   Header:  x-ghl-secret: <same value as GHL_WEBHOOK_SECRET env var>
  *   Body (JSON):
  *     {
  *       "email":     "{{contact.email}}",
@@ -74,10 +76,32 @@ function parseTags(raw) {
   return String(raw).split(',').map(t => t.toLowerCase().trim()).filter(Boolean);
 }
 
+/* ── Constant-time string comparison (timing-safe) ── */
+function safeEqual(a, b) {
+  const ba = Buffer.from(String(a));
+  const bb = Buffer.from(String(b));
+  if (ba.length !== bb.length) return false;
+  let diff = 0;
+  for (let i = 0; i < ba.length; i++) diff |= ba[i] ^ bb[i];
+  return diff === 0;
+}
+
 /* ── Handler ── */
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  /* ── Shared-secret authentication ── */
+  const GHL_SECRET = process.env.GHL_WEBHOOK_SECRET;
+  if (GHL_SECRET) {
+    const incomingSecret = req.headers['x-ghl-secret'] || '';
+    if (!safeEqual(incomingSecret, GHL_SECRET)) {
+      console.warn('[ghl-payment] Unauthorized request — bad or missing x-ghl-secret');
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  } else {
+    console.warn('[ghl-payment] GHL_WEBHOOK_SECRET not set — running unauthenticated (set it in Vercel env vars)');
+  }
 
   const FB_TOKEN = process.env.FB_CAPI_TOKEN;
   if (!FB_TOKEN) {
@@ -125,7 +149,7 @@ export default async function handler(req, res) {
     data: [{
       event_name:    'Purchase',
       event_time:    Math.floor(Date.now() / 1000),
-      action_source: 'crm',
+      action_source: 'other',
       user_data:     userData,
       custom_data: {
         value,

@@ -12,6 +12,7 @@ export default function GHLCalendarWidget({ calendarId, name, phone, email, onSk
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
   const scriptRef = useRef(false);
+  const bookedRef = useRef(false);
 
   /* Inject GHL embed script once */
   useEffect(() => {
@@ -22,6 +23,39 @@ export default function GHLCalendarWidget({ calendarId, name, phone, email, onSk
     s.type = 'text/javascript';
     s.async = true;
     document.body.appendChild(s);
+  }, []);
+
+  /* Listen for GHL booking confirmation postMessage */
+  useEffect(() => {
+    function onMessage(event) {
+      // GHL sends various message types; booking confirmed looks like:
+      // { type: 'appointment-booked' } or { event: 'appointmentBooked' }
+      const data = event.data;
+      if (!data || bookedRef.current) return;
+      const isBooked =
+        data?.type === 'appointment-booked' ||
+        data?.event === 'appointmentBooked' ||
+        data?.message === 'appointment-booked' ||
+        (typeof data === 'string' && data.includes('appointment-booked'));
+      if (!isBooked) return;
+      bookedRef.current = true;
+
+      // GA4 / GTM
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'book_appointment', { method: 'ghl_calendar' });
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-16520015098/O_fECOOa4KccEPrZrcU9',
+          currency: 'ILS',
+        });
+      }
+      // Facebook Pixel
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Schedule');
+      }
+    }
+
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
   }, []);
 
   if (!calendarId) return null;

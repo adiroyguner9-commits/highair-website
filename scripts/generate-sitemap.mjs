@@ -88,8 +88,9 @@ for (const slug of blogSlugs) {
   }));
 }
 
-// /israel/:slug  — from israelData.js
-const israelSlugs = extractSlugs(path.join(ROOT, 'src/data/israelData.js'));
+// /israel/:slug  — from israelData.js (live: true only)
+const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'));
+const israelSlugs = ISRAEL_TRIPS.filter(t => t.live && t.slug).map(t => t.slug);
 for (const slug of israelSlugs) {
   urls.push(urlEntry({
     loc: `${BASE_URL}/israel/${slug}`,

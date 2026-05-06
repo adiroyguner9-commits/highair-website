@@ -232,7 +232,22 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Booking failed' });
   }
 
-  // 3. WhatsApp confirmation to client via Green API
+  // 3. Fire Make webhook (non-blocking) — triggers GHL stage update
+  const MAKE_APPT_WEBHOOK = 'https://hook.eu2.make.com/2xpqelx2obj2y78uzi1nvd8lr2kmjxar';
+  fetch(MAKE_APPT_WEBHOOK, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name:       name       || '',
+      phone:      phone      || '',
+      email:      email      || '',
+      expedition: expedition || '',
+      date:       date       || '',
+      time:       time       || '',
+    }),
+  }).catch(err => console.warn('[book-slot] Make webhook non-fatal:', err.message));
+
+  // 4. WhatsApp confirmation to client via Green API
   const GA_INSTANCE = process.env.GREENAPI_INSTANCE;
   const GA_TOKEN    = process.env.GREENAPI_TOKEN;
   if (GA_INSTANCE && GA_TOKEN && phone) {
@@ -254,7 +269,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // 4. Build shared assets
+  // 5. Build shared assets
   const RESEND_KEY = process.env.RESEND_API_KEY;
   const dateHe     = formatDateHe(date);
   const clientNum  = phone.replace(/^0/, '972').replace(/-/g, '');

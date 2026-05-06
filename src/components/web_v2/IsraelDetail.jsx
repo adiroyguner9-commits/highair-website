@@ -79,16 +79,28 @@ export default function IsraelDetail() {
   const seasons        = isEn ? (trip?.seasonsEn || trip?.seasons || []) : (trip?.seasons || []);
   const diffLabel      = isEn ? (trip?.diffEn  || trip?.diffHe) : trip?.diffHe;
   const daysLabel      = isEn ? (trip?.daysEn  || trip?.days)   : trip?.days;
-  const priceLabel     = isEn ? (trip?.price   || '') : (trip?.priceHe || trip?.price || '');
+  const priceLabel     = trip?.packageType === 'day'
+    ? '₪249'
+    : isEn ? (trip?.price || '') : (trip?.priceHe || trip?.price || '');
 
-  /* ── Day-trip stats (distance + elevation gain from itinerary) ── */
-  const dayItin      = isEn ? (trip?.itineraryEn?.[0] || trip?.itinerary?.[0]) : trip?.itinerary?.[0];
-  const tripDistance = dayItin?.distance || '–';
-  const rawElevGain  = (isEn ? trip?.itineraryEn?.[0]?.elevationGain : trip?.itinerary?.[0]?.elevationGain) || '';
-  const shortElevGain = rawElevGain
-    .replace(' עלייה', '').replace(' ירידה', '')
-    .replace(' gain', '').replace(' descent', '')
-    || '–';
+  /* ── Airtable distance / elevation (fetched in useEffect below) ── */
+  const [airtableDistance, setAirtableDistance] = useState('');
+  const [airtableElevGain, setAirtableElevGain] = useState('');
+
+  /* ── Day-trip stats (Airtable takes priority; itinerary is fallback) ── */
+  const dayItin         = isEn ? (trip?.itineraryEn?.[0] || trip?.itinerary?.[0]) : trip?.itinerary?.[0];
+  const itinDistance    = dayItin?.distance || '';
+  const rawElevGain     = (isEn ? trip?.itineraryEn?.[0]?.elevationGain : trip?.itinerary?.[0]?.elevationGain) || '';
+  function stripElev(s) {
+    return s
+      .replace(' עלייה', '').replace(' ירידה', '')
+      .replace(' gain', '').replace(' descent', '')
+      .replace('מ׳', '').replace(/m$/i, '')
+      .trim();
+  }
+  const shortItinElev = stripElev(rawElevGain) || '';
+  const tripDistance  = airtableDistance || itinDistance  || '–';
+  const shortElevGain = (airtableElevGain ? stripElev(airtableElevGain) : shortItinElev) || '–';
 
   usePageMeta(trip ? {
     title:         `${displayName} | HighAir Expeditions`,
@@ -166,7 +178,7 @@ export default function IsraelDetail() {
   const [groupsLoading, setGroupsLoading] = useState(false);
   const [groupsError, setGroupsError]     = useState(null);
   const [activeMonth, setActiveMonth]     = useState(null);
-  const [galleryUrls, setGalleryUrls]     = useState([]);
+  const [galleryUrls, setGalleryUrls]           = useState([]);
 
   useEffect(() => {
     if (!hasAirtable) return;
@@ -179,7 +191,7 @@ export default function IsraelDetail() {
     cutoff.setDate(cutoff.getDate() + 3); /* shorter cutoff for local trips */
 
     Promise.all([
-      fetch('/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Slug&fields[]=Gallery_URLs').then(r => r.json()),
+      fetch('/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Slug&fields[]=Gallery_URLs&fields[]=Distance&fields[]=ElevGain').then(r => r.json()),
       fetch('/api/airtable/Customers?fields[]=Group%20Name').then(r => r.json()),
     ]).then(([groupsData, custData]) => {
       if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
@@ -214,7 +226,7 @@ export default function IsraelDetail() {
         setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
       }
 
-      // Extract gallery URLs from the first record matching this slug
+      // Extract trip-level fields from the record matching this slug
       const slugRec = (groupsData.records || []).find(rec => rec.fields['Slug'] === slug);
       if (slugRec?.fields['Gallery_URLs']) {
         const urls = slugRec.fields['Gallery_URLs']
@@ -223,6 +235,8 @@ export default function IsraelDetail() {
           .filter(Boolean);
         if (urls.length) setGalleryUrls(urls);
       }
+      if (slugRec?.fields['Distance']) setAirtableDistance(String(slugRec.fields['Distance']).trim());
+      if (slugRec?.fields['ElevGain'])  setAirtableElevGain(String(slugRec.fields['ElevGain']).trim());
     }).catch(err => {
       setGroupsError(err.message);
     }).finally(() => setGroupsLoading(false));
@@ -305,7 +319,7 @@ export default function IsraelDetail() {
               color: 'white', letterSpacing: '-0.02em', margin: 0, lineHeight: 1.1,
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              {displayName} ({trip.elevStr})
+              {isRtl ? `טרק ${displayName}` : `${displayName} Trek`}
             </h1>
           </div>
 
@@ -442,36 +456,7 @@ export default function IsraelDetail() {
       {/* ══ CONTENT ══ */}
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: isMobile ? '0 5%' : '0' }}>
 
-        {/* ── א. מבוא ── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '48px', alignItems: 'stretch' }}>
-            <div>
-              <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(24px,3.5vw,36px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 10px' }}>
-                {isRtl ? 'מבוא' : 'Overview'}
-              </h2>
-              {seasons.length > 0 && (
-                <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
-                  {isRtl ? 'עונות מומלצות: ' : 'Recommended seasons: '}{seasons.join(' | ')}
-                </p>
-              )}
-              {desc ? (
-                desc.split('\n\n').map((p, i, arr) => (
-                  <p key={i} style={{ fontSize: '16px', color: i === arr.length - 1 ? COLOR.primary : '#3D3B5A', fontWeight: i === arr.length - 1 ? 700 : 400, lineHeight: 1.75, margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
-                    {p}
-                  </p>
-                ))
-              ) : (
-                <p style={{ fontSize: '16px', color: '#9591B0', lineHeight: 1.75, fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'תיאור יתווסף בקרוב.' : 'Description coming soon.'}</p>
-              )}
-            </div>
-            <div style={{ position: 'relative', minHeight: isNarrow ? '260px' : '400px' }}>
-              {trip.img
-                ? <img src={trip.img} alt={trip.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: RADIUS.xl }} />
-                : <div style={{ position: 'absolute', inset: 0, background: trip.grad, borderRadius: RADIUS.xl }} />
-              }
-            </div>
-          </div>
-        </section>
+        {/* ── א. מבוא — hidden ── */}
 
         {included.length > 0 && (
           <>
@@ -530,72 +515,59 @@ export default function IsraelDetail() {
               </h2>
               <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
                 {itinerary.map((item, idx) => {
-                  const isOpen = openItinerary.includes(idx);
                   const isLast = idx === itinerary.length - 1;
+                  const bdg = (bg, color, iconPath, text) => (
+                    <span key={text} style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '5px',
+                      padding: '6px 14px', borderRadius: '24px', background: bg,
+                      fontFamily: "'Ploni', sans-serif", fontSize: '13px',
+                      fontWeight: 700, color,
+                    }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{iconPath}</svg>
+                      {text}
+                    </span>
+                  );
+                  const ICONS = {
+                    bus:     <><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>,
+                    ruler:   <><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></>,
+                    clock:   <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
+                    arrowUp: <><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></>,
+                    arrowDn: <><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></>,
+                    home:    <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
+                  };
                   return (
-                    <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
-                      <div
-                        onClick={() => toggleItinerary(idx)}
-                        style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 20px', cursor: 'pointer', background: isOpen ? '#FAFAFE' : 'white', transition: `background 150ms ${EASING.smooth}`, direction: dir }}
-                        onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = '#FAFAFE'; }}
-                        onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = 'white'; }}
-                      >
+                    <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8', padding: '20px' }}>
+                      {/* Day label + title */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: item.desc ? '14px' : '0', direction: dir }}>
                         <span style={{ background: COLOR.primary, color: 'white', borderRadius: RADIUS.full, padding: '4px 12px', fontSize: '13px', fontWeight: 700, fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap', flexShrink: 0 }}>
-                          {isRtl ? `יום ${item.day}` : item.day}
+                          {item.day}
                         </span>
-                        <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>{item.title}</span>
-                        <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>{isOpen ? '▴' : '▾'}</span>
+                        <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>{item.title}</span>
                       </div>
-                      <div style={{ maxHeight: isOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
-                        {item.desc && (
-                          <p style={{ padding: '0 20px 16px', margin: 0, fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', lineHeight: 1.8, direction: dir, whiteSpace: 'pre-line' }}>
-                            {item.desc}
-                          </p>
-                        )}
-                        {(item.travelTime || item.distance || item.duration || item.elevationGain || item.elevationLoss || item.accommodation) && (() => {
-                          const bdg = (bg, color, iconPath, text) => (
-                            <span key={text} style={{
-                              display: 'inline-flex', alignItems: 'center', gap: '5px',
-                              padding: '6px 14px', borderRadius: '24px', background: bg,
-                              fontFamily: "'Ploni', sans-serif", fontSize: '13px',
-                              fontWeight: 700, color,
-                            }}>
-                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{iconPath}</svg>
-                              {text}
-                            </span>
-                          );
-                          const ICONS = {
-                            bus:     <><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>,
-                            ruler:   <><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></>,
-                            clock:   <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
-                            arrowUp: <><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></>,
-                            arrowDn: <><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></>,
-                            home:    <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
-                          };
-                          return (
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '0 20px 20px' }}>
-                              {(item.travelTime || item.distance || item.duration) && (
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
-                                  {item.travelTime && bdg('#EDE9FE','#4C1D95', ICONS.bus,     item.travelTime)}
-                                  {item.distance   && bdg('#EDE9FE','#4C1D95', ICONS.ruler,   item.distance)}
-                                  {item.duration   && bdg('#EDE9FE','#4C1D95', ICONS.clock,   item.duration)}
-                                </div>
-                              )}
-                              {(item.elevationGain || item.elevationLoss) && (
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
-                                  {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp, item.elevationGain)}
-                                  {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn, item.elevationLoss)}
-                                </div>
-                              )}
-                              {item.accommodation && (
-                                <div style={{ display: 'flex', direction: dir }}>
-                                  {bdg('#FFF7ED','#C2410C', ICONS.home, item.accommodation)}
-                                </div>
-                              )}
+                      {/* Schedule text */}
+                      {item.desc && (
+                        <p style={{ margin: '0 0 14px', fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A', lineHeight: 1.8, direction: dir, whiteSpace: 'pre-line' }}>
+                          {item.desc}
+                        </p>
+                      )}
+                      {/* Badges */}
+                      {(item.travelTime || item.distance || item.elevationGain || item.elevationLoss || item.accommodation) && (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {(item.travelTime || item.distance || item.elevationGain || item.elevationLoss) && (
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
+                              {item.travelTime    && bdg('#EDE9FE','#4C1D95', ICONS.bus,      item.travelTime)}
+                              {item.distance      && bdg('#EDE9FE','#4C1D95', ICONS.ruler,    item.distance)}
+                              {item.elevationGain && bdg('#DCFCE7','#166534', ICONS.arrowUp,  stripElev(item.elevationGain) || item.elevationGain)}
+                              {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn,  stripElev(item.elevationLoss) || item.elevationLoss)}
                             </div>
-                          );
-                        })()}
-                      </div>
+                          )}
+                          {item.accommodation && (
+                            <div style={{ display: 'flex', direction: dir }}>
+                              {bdg('#FFF7ED','#C2410C', ICONS.home, item.accommodation)}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   );
                 })}

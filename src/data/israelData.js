@@ -101,7 +101,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-2',
-    slug:    'nahal-yagur',
+    slug:    'yagur',
     name:       'נחל יגור',
     nameEn:     'Nahal Yagur',
     area:       '',
@@ -147,20 +147,20 @@ export const ISRAEL_TRIPS = [
       {
         day:   'יום הטיול',
         title: 'נחל יגור',
-        desc:  '07:30 - הגעה עצמאית לנקודת מפגש\n08:00 - תחילת מסלול\n13:00 - סיום משוער',
-        distance:      '8 ק"מ',
-        duration:      '4–5 שעות',
-        elevationGain: '+200 מ׳ עלייה',
+        desc:  '06:45 - התכנסות בנקודת מפגש\n07:00 - תחילת המסלול\n13:30 - סיום המסלול וארוחת צהריים מפנקת\n14:00 - סיום משוער ושבת שלום!',
+        distance:      '12 ק"מ',
+        duration:      '6–7 שעות',
+        elevationGain: '+750 מ׳ עלייה',
       },
     ],
     itineraryEn: [
       {
         day:   'Hike Day',
         title: 'Nahal Yagur',
-        desc:  '07:30 — Independent arrival at meeting point\n08:00 — Trail begins\n13:00 — Estimated finish',
-        distance:      '8 km',
-        duration:      '4–5 hours',
-        elevationGain: '+200m gain',
+        desc:  '06:45 — Gather at meeting point\n07:00 — Trail begins\n13:30 — End of trail & delicious lunch\n14:00 — Estimated finish',
+        distance:      '12 km',
+        duration:      '6–7 hours',
+        elevationGain: '+750m gain',
       },
     ],
     dates: [],
@@ -168,7 +168,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-3',
-    slug:    'nimrod-fortress',
+    slug:    'nimrod',
     name:       'סובב מצודת נמרוד',
     nameEn:     'Nimrod Fortress Circuit',
     area:       '',
@@ -235,7 +235,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-4',
-    slug:    'masada-circuit',
+    slug:    'masada',
     name:       'סובב מצדה',
     nameEn:     'Masada Circuit',
     area:       '',
@@ -302,7 +302,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-5',
-    slug:    'avnat-cliffs',
+    slug:    'avnat',
     name:       'מצוקי אבנת',
     nameEn:     'Avnat Cliffs',
     area:       '',
@@ -458,7 +458,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-7',
-    slug:    'gilboa-ein-tina',
+    slug:    'gilabon-ein-tina',
     name:       'ג׳ילבון ועין תינה',
     nameEn:     'Gilboa & Ein Tina',
     area:       '',
@@ -525,7 +525,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-8',
-    slug:    'nahal-keziv',
+    slug:    'Kziv',
     name:       'נחל כזיב',
     nameEn:     'Nahal Keziv',
     area:       '',
@@ -592,7 +592,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-9',
-    slug:    'nahal-kelah',
+    slug:    'kelah',
     name:       'נחל כלח ועין אלון',
     nameEn:     'Nahal Kelah & Ein Alon',
     area:       '',
@@ -659,7 +659,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-10',
-    slug:    'nahal-arugot',
+    slug:    'arugot',
     name:       'נחל ערוגות',
     nameEn:     'Nahal Arugot',
     area:       '',
@@ -726,7 +726,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-11',
-    slug:    'sodom-partzim',
+    slug:    'sodom',
     name:       'הר סדום ונחל פרצים',
     nameEn:     'Mount Sodom & Nahal Partzim',
     area:       '',
@@ -860,7 +860,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-13',
-    slug:    'mount-meron',
+    slug:    'meron',
     name:       'הר מירון',
     nameEn:     'Mount Meron',
     area:       '',
