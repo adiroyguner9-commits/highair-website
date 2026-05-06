@@ -8,6 +8,20 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // React core — changes rarely, long cache lifetime
+            'vendor-react': ['react', 'react-dom'],
+            // Router — changes occasionally
+            'vendor-router': ['react-router-dom'],
+            // i18n — changes occasionally, separate from react
+            'vendor-i18n': ['i18next', 'react-i18next'],
+          },
+        },
+      },
+    },
     server: {
       proxy: {
         // Proxy Vercel serverless functions to production (dev has no local runtime)
