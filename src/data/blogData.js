@@ -15,7 +15,7 @@ export const POSTS = [
 
     /* ── Hebrew ── */
     title:    'טיפוס לקילימנג׳רו: המדריך המלא לפני שאתם יוצאים לדרך',
-    author:   'שמואל',
+    author:   'חן',
     dateIso:  '2026-05-07',
     dateModified: '2026-05-07',
     dateHe:   '7 במאי 2026',
@@ -29,15 +29,15 @@ export const POSTS = [
 
     /* ── Hebrew content ── */
     content: [
-      { type: 'text', value: 'יש רגע אחד שכל מטפס בקילימנג׳רו זוכר. אצל רובנו זה קורה איפשהו אחרי חצות, כשאתה כבר שש שעות הולך בחושך, הקור חודר דרך שלוש שכבות של בגדים, והמדריך שלך אומר בקול שקט "pole pole" בערך בפעם המאתיים. אתה לא בטוח אם אתה עוד יכול. ואז, אחרי עוד שעה, אחרי עוד שעתיים, אתה מגיע לאוהורו פיק. 5,895 מטר. הגג של אפריקה.' },
-      { type: 'text', value: 'אני שמואל, אחד המייסדים של HighAir Expeditions, ואחרי עשר שנים של הוצאת קבוצות לקילימנג׳רו אני יכול להגיד דבר אחד בוודאות: רוב מה שיכריע אם תגיע לפסגה או לא, יקרה הרבה לפני שתגיע לטנזניה. בבחירת המסלול. באיך שתבחר סוכנות. בכמה רציני התייחסת להכנה הפיזית. בעיקר - בכמה פעמים תמשמע למדריך כשהוא יגיד לך ללכת לאט יותר.' },
+      { type: 'text', value: 'יש רגע אחד שכל מטפס בקילימנג׳רו זוכר. אצל רובנו זה קורה איפשהו אחרי חצות, כשאתה כבר שש שעות הולך בחושך, הקור חודר דרך שלוש שכבות של בגדים, והמדריך שלך אומר בקול שקט "pole pole" בערך בפעם המאתיים. אתה לא בטוח אם אתה עוד יכול. ואז, אחרי עוד שעה, אחרי עוד שעתיים, אתה מגיע לאוהורו פיק. 5895 מטר. הגג של אפריקה.' },
+      { type: 'text', value: 'אני חן, אחד המייסדים של HighAir Expeditions, ואחרי עשר שנים של הוצאת קבוצות לקילימנג׳רו אני יכול להגיד דבר אחד בוודאות: רוב מה שיכריע אם תגיע לפסגה או לא, יקרה הרבה לפני שתגיע לטנזניה. בבחירת המסלול. באיך שתבחר סוכנות. בכמה רציני התייחסת להכנה הפיזית. בעיקר - בכמה פעמים תמשמע למדריך כשהוא יגיד לך ללכת לאט יותר.' },
       { type: 'text', value: 'זה המדריך שהייתי רוצה לקרוא לפני המשלחת הראשונה שלי. בלי שטויות, בלי קישוטים, רק מה שעובד.' },
 
       { type: 'section', value: 'על קילימנג׳רו: מה שחייבים לדעת' },
-      { type: 'text', value: 'קילימנג׳רו זה לא פשוט הר. זה הר געש כבוי שמתנשא לבדו מעל המישורים של צפון טנזניה, וזה הופך אותו להר הבודד הכי גבוה בעולם. הוא מורכב משלושה קונוסים: שירא במערב (3,962 מ׳), מאוונזי במזרח (5,149 מ׳), וקיבו במרכז - שעליו יושבת הפסגה האמיתית, אוהורו פיק.' },
+      { type: 'text', value: 'קילימנג׳רו זה לא פשוט הר. זה הר געש כבוי שמתנשא לבדו מעל המישורים של צפון טנזניה, וזה הופך אותו להר הבודד הכי גבוה בעולם. הוא מורכב משלושה קונוסים: שירא במערב (3962 מ׳), מאוונזי במזרח (5149 מ׳), וקיבו במרכז - שעליו יושבת הפסגה האמיתית, אוהורו פיק.' },
       { type: 'text', value: 'מה שהופך את הטיפוס לקילימנג׳רו לחוויה ייחודית זה לא רק הגובה. זה העובדה שאתה עובר חמישה אזורי אקלים שונים בתוך שבוע: מיער גשם טרופי, דרך שדות אברך, ערבה אלפינית, מדבר ארקטי, ובסוף - פסגה מכוסה קרחונים. שום הר אחר בעולם לא נותן לך את זה. אתה למעשה מטייל מקו המשווה לקוטב הצפוני בתוך שישה ימים.' },
       { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', alt: 'אזורי האקלים של קילימנג׳רו', caption: 'חמישה אזורי אקלים בדרך לפסגה' },
-      { type: 'text', value: 'עוד עובדה שכדאי לדעת: למרות שמדובר בהר של כמעט 6,000 מטר, אין כאן טיפוס טכני. אם אתה יודע ללכת, אתה יכול בעיקרון להגיע לפסגה. ההר לא דורש חבלים, גרזני קרח או ניסיון בטיפוס. מה שהוא כן דורש זה כושר סביר, ראש חזק, וגוף שמסתגל עם גובה. השניים האחרונים זה החלק הקשה.' },
+      { type: 'text', value: 'עוד עובדה שכדאי לדעת: למרות שמדובר בהר של כמעט 6000 מטר, אין כאן טיפוס טכני. אם אתה יודע ללכת, אתה יכול בעיקרון להגיע לפסגה. ההר לא דורש חבלים, גרזני קרח או ניסיון בטיפוס. מה שהוא כן דורש זה כושר סביר, ראש חזק, וגוף שמסתגל עם גובה. השניים האחרונים זה החלק הקשה.' },
 
       { type: 'section', value: 'מסלולי הטיפוס בקילימנג׳רו: איך לבחור' },
       { type: 'text', value: 'זה השלב שבו רוב האנשים מתבלבלים. יש שבעה מסלולים רשמיים בקילימנג׳רו, ולכל סוכנות יש דעה למה דווקא המסלול שלה הכי טוב. הנה האמת על העיקריים שבהם.' },
@@ -51,7 +51,7 @@ export const POSTS = [
       { type: 'text', value: 'הגישה היחידה לקילימנג׳רו מהצפון. שקט, יבש יותר, נוף שונה לגמרי. טוב במיוחד בעונת הגשמים כי הצד הזה של ההר מקבל פחות גשם. אם הלוח שלך מאלץ אותך לטפס בנובמבר או באפריל, זאת אופציה רצינית.' },
       { type: 'subheading', value: 'Northern Circuit' },
       { type: 'text', value: 'המסלול הארוך ביותר, תשעה ימים. הכי שקט, הכי פחות אנשים, ואחוזי ההצלחה הגבוהים ביותר בכל קילימנג׳רו. הבעיה היחידה: עולה הכי הרבה ולוקח הכי הרבה זמן.' },
-      { type: 'text', value: 'עצה אחת חשובה: אל תתפתה לחסוך יום. כל יום נוסף על ההר זה סיכוי גדול יותר להצליח להגיע לפסגה. הכסף שתחסוך על מסלול קצר יותר יישכח. הזיכרון של חזרה ב-4,500 מטר בלי להגיע לפסגה יישאר.' },
+      { type: 'text', value: 'עצה אחת חשובה: אל תתפתה לחסוך יום. כל יום נוסף על ההר זה סיכוי גדול יותר להצליח להגיע לפסגה. הכסף שתחסוך על מסלול קצר יותר יישכח. הזיכרון של חזרה ב-4500 מטר בלי להגיע לפסגה יישאר.' },
       { type: 'callout', title: 'ככה אנחנו ב-HighAir עושים את זה', value: 'במשלחות שלנו לקילימנג׳רו אנחנו עובדים אך ורק במסלולי שמונה-תשעה ימים, בקבוצות של עד 10 מטפסים, עם יחס של מדריך אחד לכל ארבעה מטפסים. אנחנו חברים מלאים ב-KPAP, מה שאומר שתנאי ההעסקה של הפורטרים שלנו עומדים בתקני האתיקה הגבוהים ביותר. אחוזי ההצלחה שלנו לפסגה: מעל 95%.' },
       { type: 'image', src: '/images/blog/kilimanjaro-machame.webp', alt: 'מסלול מאצ׳אמה - קילימנג׳רו', caption: 'נוף מהמסלול המערבי בדרך לפסגה' },
 
@@ -63,7 +63,7 @@ export const POSTS = [
       { type: 'text', value: 'לילה של ירח מלא זה בונוס שלא ייאמן. הטיפוס לפסגה מתבצע בלילה, ובלילה של ירח מלא אתה רואה את כל ההר נצבע בכסף. שווה לתכנן סביב זה אם אפשר. לוח המשלחות שלנו מסונכרן עם תאריכי ירח מלא.' },
 
       { type: 'section', value: 'הכנה פיזית לטיפוס לקילימנג׳רו' },
-      { type: 'text', value: 'יש מיתוס שצריך להיות ספורטאי כדי לטפס לקילימנג׳רו. זה לא נכון. ראיתי אנשים בני 65 מגיעים לפסגה, וראיתי טריאתלטים בני 30 חוזרים מ-4,800 מטר עם בחילה. כושר עוזר, אבל לא מבטיח כלום.' },
+      { type: 'text', value: 'יש מיתוס שצריך להיות ספורטאי כדי לטפס לקילימנג׳רו. זה לא נכון. ראיתי אנשים בני 65 מגיעים לפסגה, וראיתי טריאתלטים בני 30 חוזרים מ-4800 מטר עם בחילה. כושר עוזר, אבל לא מבטיח כלום.' },
       { type: 'image', src: '/images/blog/kilimanjaro-training.webp', alt: 'הכנה פיזית לקילימנג׳רו', caption: '' },
       { type: 'text', value: 'מה שכן עובד: הליכה. הרבה הליכה. הליכה עם תיק על הגב. הליכה עליות וירידות. ארבעה חודשים לפני היציאה כדאי להתחיל לטייל ארוך פעם בשבוע, לפחות שש שעות, רצוי בשטח עם הפרשי גובה. אם אתה גר ליד הר, מצוין. אם לא - מדרגות בבניין גבוה זה תחליף סביר.' },
       { type: 'text', value: 'הוסף שניים-שלושה אימוני סיבולת באמצע השבוע. ריצה, אופניים, חתירה, מה שעובד לך. המטרה היא לב חזק, לא שרירים גדולים. שרירים גדולים סוחבים יותר חמצן וזה דווקא מקשה עליך בגובה.' },
@@ -89,8 +89,8 @@ export const POSTS = [
 
       { type: 'section', value: 'מחלת גובה בקילימנג׳רו: החלק שמכריע הכל' },
       { type: 'text', value: 'זה הסוד הכי גדול של קילימנג׳רו: רוב האנשים שלא מגיעים לפסגה לא נכשלים בגלל כושר. הם נכשלים בגלל גובה.' },
-      { type: 'text', value: 'מחלת גובה (AMS) מתחילה בדרך כלל סביב 3,000 מטר. כאב ראש, בחילה, חוסר תיאבון, קושי לישון. ברוב המקרים זה חולף עם זמן וירידה זמנית. אבל זה יכול להחמיר ל-HACE (בצקת מוחית) או HAPE (בצקת ריאות), ושני אלה הורגים אנשים גם בקילימנג׳רו, גם השנה.' },
-      { type: 'text', value: 'איך מתמודדים? בעיקר על ידי טיפוס לאט. ה-"pole pole" שהמדריכים חוזרים עליו זה לא בדיחה. כל מי שמתפתה ללכת מהר ב-3,500 מטר מוצא את עצמו בצרות ב-4,500. תשתה הרבה מים, ארבעה ליטרים ביום זה מינימום. תאכל גם כשאין לך תיאבון. פחמימות בעיקר.' },
+      { type: 'text', value: 'מחלת גובה (AMS) מתחילה בדרך כלל סביב 3000 מטר. כאב ראש, בחילה, חוסר תיאבון, קושי לישון. ברוב המקרים זה חולף עם זמן וירידה זמנית. אבל זה יכול להחמיר ל-HACE (בצקת מוחית) או HAPE (בצקת ריאות), ושני אלה הורגים אנשים גם בקילימנג׳רו, גם השנה.' },
+      { type: 'text', value: 'איך מתמודדים? בעיקר על ידי טיפוס לאט. ה-"pole pole" שהמדריכים חוזרים עליו זה לא בדיחה. כל מי שמתפתה ללכת מהר ב-3500 מטר מוצא את עצמו בצרות ב-4500. תשתה הרבה מים, ארבעה ליטרים ביום זה מינימום. תאכל גם כשאין לך תיאבון. פחמימות בעיקר.' },
       { type: 'text', value: 'דיאמוקס (Acetazolamide) זה תרופה שעוזרת להסתגלות. רוב הסוכנויות יתנו לך אותה, חלק מהמטפסים מתחילים שלושה ימים לפני העלייה. דבר עם רופא לפני היציאה.' },
       { type: 'text', value: 'הכלל הכי חשוב: אם המדריך אומר שאתה יורד, אתה יורד. אין על מה להתווכח. ראיתי מטפסים מתעקשים להמשיך עם סימני HAPE ברורים, ואני מאחל לאף אחד לא לראות איך זה נגמר.' },
 
@@ -98,14 +98,14 @@ export const POSTS = [
       { type: 'text', value: 'יום טיפוסי במאצ׳אמה או למושו נראה ככה: 6:30 בבוקר מעירים אותך עם תה ומים חמים לאוהל. 7:00 ארוחת בוקר באוהל המטבח - חביתה, פנקייקים, פרי, נס קפה. 8:00 יוצאים לדרך. הולכים 4-7 שעות, תלוי ביום, עם הפסקה לארוחת צהריים בערך באמצע. 14:00-16:00 מגיעים למחנה הבא. שותים תה עם פופקורן (ככה זה בקילימנג׳רו, אל תשאל), נחים, אולי הליכה קלה לטיול הסתגלות.' },
       { type: 'text', value: '19:00 ארוחת ערב, בדרך כלל מרק, פסטה או אורז עם בשר, פרי. 20:30 כולם בשק שינה. בלילה קר. בלילה מאוד קר.' },
       { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', alt: 'מחנה בקילימנג׳רו', caption: 'ערב במחנה - אחרי יום הליכה' },
-      { type: 'text', value: 'ליל הפסגה זה עניין אחר. יוצאים בחצות מקילימנג׳רו ביס מחנה ברפו או קוסובו, לפי המסלול. 1,200 מטר עלייה ב-7-8 שעות, בקור של מינוס 15 עד מינוס 25, בחושך. אתה הולך לאט, נושם עמוק, מסתכל על הכוכבים, מנסה לא לחשוב כמה רחוקה הפסגה. זריחה ברוב המקרים תופסת אותך איפשהו ליד סטלה פוינט. כשהאור מתחיל לפלח את הקרחונים - זה הרגע. ואז עוד שעה ואתה שם.' },
+      { type: 'text', value: 'ליל הפסגה זה עניין אחר. יוצאים בחצות מקילימנג׳רו ביס מחנה ברפו או קוסובו, לפי המסלול. 1200 מטר עלייה ב-7-8 שעות, בקור של מינוס 15 עד מינוס 25, בחושך. אתה הולך לאט, נושם עמוק, מסתכל על הכוכבים, מנסה לא לחשוב כמה רחוקה הפסגה. זריחה ברוב המקרים תופסת אותך איפשהו ליד סטלה פוינט. כשהאור מתחיל לפלח את הקרחונים - זה הרגע. ואז עוד שעה ואתה שם.' },
       { type: 'text', value: 'הירידה לוקחת בערך חצי מהזמן ופי שניים מהקושי. הברכיים שלך תכריזנה מרד. זה נורמלי.' },
 
       { type: 'section', value: 'מחיר טיפוס לקילימנג׳רו: מה באמת זה עולה' },
-      { type: 'text', value: 'הטווח של מחירי קילימנג׳רו רחב מאוד, ויש סיבות טובות לכך. סוכנות זולה ב-1,500 דולר וסוכנות איכותית ב-3,500 דולר זה לא אותו דבר.' },
+      { type: 'text', value: 'הטווח של מחירי קילימנג׳רו רחב מאוד, ויש סיבות טובות לכך. סוכנות זולה ב-1500 דולר וסוכנות איכותית ב-3500 דולר זה לא אותו דבר.' },
       { type: 'subheading', value: 'מה כלול במחיר טוב' },
       { type: 'list', items: [
-        'רישיונות פארק (כבר מהווים כ-1,000 דולר)',
+        'רישיונות פארק (כבר מהווים כ-1000 דולר)',
         'אוכל איכותי לכל אורך הטיפוס',
         'ציוד תקין ומוסדר',
         'יחס פורטרים הוגן - לא יותר מ-20 ק״ג לפורטר',
@@ -119,7 +119,7 @@ export const POSTS = [
         'טיפים לצוות (200-300 דולר זה הסטנדרט)',
         'ציוד אישי שאתה משכיר',
       ]},
-      { type: 'text', value: 'אם אתה רואה הצעה ב-1,200 דולר, תשאל איפה החיסכון. בדרך כלל זה במשכורות של הפורטרים. אלה אנשים שעובדים פיזית קשה בתנאים אכזריים בשביל הטיפוס שלך. תוודא שהסוכנות שלך חברה ב-KPAP, ארגון שמפקח על תנאי העסקה הוגנים בקילימנג׳רו.' },
+      { type: 'text', value: 'אם אתה רואה הצעה ב-1200 דולר, תשאל איפה החיסכון. בדרך כלל זה במשכורות של הפורטרים. אלה אנשים שעובדים פיזית קשה בתנאים אכזריים בשביל הטיפוס שלך. תוודא שהסוכנות שלך חברה ב-KPAP, ארגון שמפקח על תנאי העסקה הוגנים בקילימנג׳רו.' },
 
       { type: 'section', value: 'שאלות נפוצות' },
       { type: 'heading', value: 'כמה ימים לוקח לטפס לקילימנג׳רו?' },
@@ -135,7 +135,7 @@ export const POSTS = [
       { type: 'heading', value: 'צריך ויזה לטנזניה?' },
       { type: 'text', value: 'כן. אזרחי ישראל יכולים לקבל ויזה בנמל התעופה (50 דולר ל-30 ימים) או להזמין מראש אונליין. דרכון בתוקף לפחות 6 חודשים מיום הכניסה, והדבקות חיסונים מסוימות (במיוחד נגד צהבת ומלריה) הם חובה.' },
       { type: 'heading', value: 'איזה ביטוח צריך לטיפוס בקילימנג׳רו?' },
-      { type: 'text', value: 'ביטוח שמכסה גובה עד 6,000 מטר וחילוץ במסוק. ביטוחים סטנדרטיים בדרך כלל לא מכסים את זה. אנחנו עוזרים למטפסים שלנו לסדר ביטוח מתאים כחלק מהליווי לפני היציאה.' },
+      { type: 'text', value: 'ביטוח שמכסה גובה עד 6000 מטר וחילוץ במסוק. ביטוחים סטנדרטיים בדרך כלל לא מכסים את זה. אנחנו עוזרים למטפסים שלנו לסדר ביטוח מתאים כחלק מהליווי לפני היציאה.' },
 
       { type: 'cta', text: 'לצפייה במשלחות הקילימנג׳רו שלנו', textEn: 'View our Kilimanjaro expeditions', href: '/expedition/kilimanjaro' },
 
@@ -146,15 +146,15 @@ export const POSTS = [
     /* ── English content ── */
     titleEn: 'Kilimanjaro: the complete guide before you go',
     contentEn: [
-      { type: 'text', value: 'There\'s one moment every Kilimanjaro climber remembers. For most of us it happens somewhere after midnight, six hours into the darkness, cold coming through three layers, and your guide quietly saying "pole pole" for maybe the two-hundredth time. You\'re not sure you can keep going. Then, after another hour, another two, you reach Uhuru Peak. 5,895 metres. The roof of Africa.' },
-      { type: 'text', value: 'I\'m Shmuel, one of the founders of HighAir Expeditions. After ten years of taking groups to Kilimanjaro, I can say one thing with certainty: most of what decides whether you reach the summit happens long before you land in Tanzania. The route you choose. How you pick an operator. How seriously you took the physical preparation. Mostly - how many times you listened when your guide told you to slow down.' },
+      { type: 'text', value: 'There\'s one moment every Kilimanjaro climber remembers. For most of us it happens somewhere after midnight, six hours into the darkness, cold coming through three layers, and your guide quietly saying "pole pole" for maybe the two-hundredth time. You\'re not sure you can keep going. Then, after another hour, another two, you reach Uhuru Peak. 5895 metres. The roof of Africa.' },
+      { type: 'text', value: 'I\'m Chen, one of the founders of HighAir Expeditions. After ten years of taking groups to Kilimanjaro, I can say one thing with certainty: most of what decides whether you reach the summit happens long before you land in Tanzania. The route you choose. How you pick an operator. How seriously you took the physical preparation. Mostly - how many times you listened when your guide told you to slow down.' },
       { type: 'text', value: 'This is the guide I wish I\'d read before my first expedition. No fluff, no decorations, just what works.' },
 
       { type: 'section', value: 'About Kilimanjaro: what you need to know' },
-      { type: 'text', value: 'Kilimanjaro isn\'t just a mountain. It\'s an extinct stratovolcano that rises alone from the plains of northern Tanzania, making it the highest freestanding mountain in the world. It\'s made up of three cones: Shira in the west (3,962 m), Mawenzi in the east (5,149 m), and Kibo in the centre - where the actual summit, Uhuru Peak, sits.' },
+      { type: 'text', value: 'Kilimanjaro isn\'t just a mountain. It\'s an extinct stratovolcano that rises alone from the plains of northern Tanzania, making it the highest freestanding mountain in the world. It\'s made up of three cones: Shira in the west (3962 m), Mawenzi in the east (5149 m), and Kibo in the centre - where the actual summit, Uhuru Peak, sits.' },
       { type: 'text', value: 'What makes climbing Kilimanjaro a genuinely unusual experience isn\'t just the altitude. It\'s that you pass through five distinct climate zones in one week: tropical rainforest, heath, alpine meadow, arctic desert, and finally a glacier-covered summit. No other mountain in the world gives you that. You\'re essentially travelling from the equator to the North Pole in six days.' },
       { type: 'image', src: '/images/blog/kilimanjaro-layers.jpg', alt: 'Kilimanjaro climate zones', caption: 'Five climate zones on the way to the summit' },
-      { type: 'text', value: 'One more thing worth knowing: despite being nearly 6,000 metres high, there\'s no technical climbing here. If you can walk, you can in principle reach the summit. No ropes, no ice axes, no climbing experience required. What\'s required is reasonable fitness, a strong head, and a body that adapts to altitude. The last two are the hard part.' },
+      { type: 'text', value: 'One more thing worth knowing: despite being nearly 6000 metres high, there\'s no technical climbing here. If you can walk, you can in principle reach the summit. No ropes, no ice axes, no climbing experience required. What\'s required is reasonable fitness, a strong head, and a body that adapts to altitude. The last two are the hard part.' },
 
       { type: 'section', value: 'Kilimanjaro routes: how to choose' },
       { type: 'text', value: 'This is where most people get confused. There are seven official routes, and every operator has an opinion about why theirs is best. Here\'s the honest version.' },
@@ -168,7 +168,7 @@ export const POSTS = [
       { type: 'text', value: 'The only approach to Kilimanjaro from the north. Quiet, drier, a completely different landscape. Good choice during the rainy season because the northern side gets less rain. If your schedule forces you to climb in November or April, this is worth considering.' },
       { type: 'subheading', value: 'Northern Circuit' },
       { type: 'text', value: 'The longest route at nine days. The quietest, least crowded, and highest success rates on the whole mountain. The only downside: most expensive and most time-consuming.' },
-      { type: 'text', value: 'One important piece of advice: don\'t be tempted to save a day. Every extra day on the mountain is a significantly better chance of reaching the summit. The money you save on a shorter route will be forgotten. The memory of turning back at 4,500 m without reaching the summit will not.' },
+      { type: 'text', value: 'One important piece of advice: don\'t be tempted to save a day. Every extra day on the mountain is a significantly better chance of reaching the summit. The money you save on a shorter route will be forgotten. The memory of turning back at 4500 m without reaching the summit will not.' },
       { type: 'callout', title: 'How we do it at HighAir', value: 'Our Kilimanjaro expeditions run only on eight to nine-day routes, in groups of up to 10 climbers, with a guide-to-climber ratio of 1:4. We\'re full members of KPAP, meaning our porter employment standards meet the highest ethical benchmarks. Our summit success rate: above 95%.' },
       { type: 'image', src: '/images/blog/kilimanjaro-machame.webp', alt: 'Kilimanjaro Machame route', caption: 'Views from the western approach to the summit' },
 
@@ -180,7 +180,7 @@ export const POSTS = [
       { type: 'text', value: 'A full-moon night is a bonus that\'s hard to describe. The summit push is done at night, and on a full moon the entire mountain is lit silver. Worth planning around if you can. Our expedition calendar is synced to full-moon dates.' },
 
       { type: 'section', value: 'Physical preparation for Kilimanjaro' },
-      { type: 'text', value: 'There\'s a myth that you need to be an athlete to climb Kilimanjaro. It\'s not true. I\'ve seen 65-year-olds reach the summit and 30-year-old triathletes turn back at 4,800 m with altitude sickness. Fitness helps but doesn\'t guarantee anything.' },
+      { type: 'text', value: 'There\'s a myth that you need to be an athlete to climb Kilimanjaro. It\'s not true. I\'ve seen 65-year-olds reach the summit and 30-year-old triathletes turn back at 4800 m with altitude sickness. Fitness helps but doesn\'t guarantee anything.' },
       { type: 'image', src: '/images/blog/kilimanjaro-training.webp', alt: 'Training for Kilimanjaro', caption: '' },
       { type: 'text', value: 'What works: walking. Lots of walking. Walking with a pack on your back. Walking up and down hills. Four months before departure, start doing one long outing per week, at least six hours, ideally with elevation gain. If you live near a mountain, great. If not, stairs in a tall building is a reasonable substitute.' },
       { type: 'text', value: 'Add two or three cardio sessions mid-week. Running, cycling, rowing - whatever works for you. The goal is a strong heart, not big muscles. Big muscles consume more oxygen, which actually makes things harder at altitude.' },
@@ -206,8 +206,8 @@ export const POSTS = [
 
       { type: 'section', value: 'Altitude sickness on Kilimanjaro: the part that decides everything' },
       { type: 'text', value: 'Here\'s the biggest secret about Kilimanjaro: most people who don\'t reach the summit don\'t fail because of fitness. They fail because of altitude.' },
-      { type: 'text', value: 'Acute mountain sickness (AMS) typically starts around 3,000 m. Headache, nausea, loss of appetite, difficulty sleeping. In most cases it passes with time and a temporary descent. But it can worsen into HACE (cerebral oedema) or HAPE (pulmonary oedema), and both of those kill people on Kilimanjaro every year.' },
-      { type: 'text', value: 'How do you deal with it? Mainly by climbing slowly. The "pole pole" your guides repeat is not a joke. Anyone tempted to push the pace at 3,500 m will find themselves in trouble at 4,500. Drink plenty of water - four litres a day minimum. Eat even when you have no appetite. Focus on carbohydrates.' },
+      { type: 'text', value: 'Acute mountain sickness (AMS) typically starts around 3000 m. Headache, nausea, loss of appetite, difficulty sleeping. In most cases it passes with time and a temporary descent. But it can worsen into HACE (cerebral oedema) or HAPE (pulmonary oedema), and both of those kill people on Kilimanjaro every year.' },
+      { type: 'text', value: 'How do you deal with it? Mainly by climbing slowly. The "pole pole" your guides repeat is not a joke. Anyone tempted to push the pace at 3500 m will find themselves in trouble at 4500. Drink plenty of water - four litres a day minimum. Eat even when you have no appetite. Focus on carbohydrates.' },
       { type: 'text', value: 'Diamox (acetazolamide) is a medication that helps with acclimatisation. Most operators will give it to you; some climbers start three days before the ascent. Talk to a doctor before departure.' },
       { type: 'text', value: 'The most important rule: if your guide says you\'re descending, you\'re descending. There\'s nothing to argue about. I\'ve seen climbers insist on pushing forward with clear HAPE signs. I wouldn\'t wish on anyone what happens next.' },
 
@@ -215,14 +215,14 @@ export const POSTS = [
       { type: 'text', value: 'A typical day on Machame or Lemosho looks like this: 6:30 am, someone wakes you with tea and hot water to your tent. 7:00 am, breakfast in the mess tent - omelette, pancakes, fruit, instant coffee. 8:00 am, you start walking. 4-7 hours of hiking depending on the day, with a lunch break roughly in the middle. 2:00-4:00 pm, you reach the next camp. Tea with popcorn (that\'s just how it is on Kilimanjaro, don\'t ask), rest, maybe a short acclimatisation walk.' },
       { type: 'text', value: '7:00 pm, dinner - usually soup, pasta or rice with meat, fruit. 8:30 pm, everyone is in their sleeping bags. Cold night. Very cold night.' },
       { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', alt: 'Camp on Kilimanjaro', caption: 'Evening at camp - after a day\'s walk' },
-      { type: 'text', value: 'Summit night is a different matter entirely. You leave at midnight from Kilimanjaro Base Camp at Barafu or Kosovo, depending on the route. 1,200 metres of ascent over 7-8 hours, in temperatures of minus 15 to minus 25, in total darkness. You walk slowly, breathe deeply, look at the stars, try not to think about how far the summit still is. Sunrise usually catches you somewhere near Stella Point. When the light starts cutting through the glaciers - that\'s the moment. Then one more hour and you\'re there.' },
+      { type: 'text', value: 'Summit night is a different matter entirely. You leave at midnight from Kilimanjaro Base Camp at Barafu or Kosovo, depending on the route. 1200 metres of ascent over 7-8 hours, in temperatures of minus 15 to minus 25, in total darkness. You walk slowly, breathe deeply, look at the stars, try not to think about how far the summit still is. Sunrise usually catches you somewhere near Stella Point. When the light starts cutting through the glaciers - that\'s the moment. Then one more hour and you\'re there.' },
       { type: 'text', value: 'The descent takes about half the time and twice the toll on your knees. They will protest loudly. This is normal.' },
 
       { type: 'section', value: 'What Kilimanjaro actually costs' },
-      { type: 'text', value: 'The price range for Kilimanjaro is wide, and there are good reasons for that. A $1,500 operator and a $3,500 operator are not the same thing.' },
+      { type: 'text', value: 'The price range for Kilimanjaro is wide, and there are good reasons for that. A $1500 operator and a $3500 operator are not the same thing.' },
       { type: 'subheading', value: 'What\'s included in a good price' },
       { type: 'list', items: [
-        'Park fees (already around $1,000 by themselves)',
+        'Park fees (already around $1000 by themselves)',
         'Good food throughout the climb',
         'Proper, maintained equipment',
         'Fair porter treatment - no more than 20 kg per porter',
@@ -236,7 +236,7 @@ export const POSTS = [
         'Crew tips ($200-300 is the standard)',
         'Personal gear you rent',
       ]},
-      { type: 'text', value: 'If you see a $1,200 offer, ask where the savings are. It\'s usually porter wages. These are people doing physically brutal work in harsh conditions for your climb. Make sure your operator is a KPAP member - the organisation that monitors fair employment on Kilimanjaro.' },
+      { type: 'text', value: 'If you see a $1200 offer, ask where the savings are. It\'s usually porter wages. These are people doing physically brutal work in harsh conditions for your climb. Make sure your operator is a KPAP member - the organisation that monitors fair employment on Kilimanjaro.' },
 
       { type: 'section', value: 'Frequently asked questions' },
       { type: 'heading', value: 'How many days does it take to climb Kilimanjaro?' },
@@ -252,7 +252,7 @@ export const POSTS = [
       { type: 'heading', value: 'Do I need a visa for Tanzania?' },
       { type: 'text', value: 'Yes. Israeli citizens can get a visa on arrival ($50 for 30 days) or apply online in advance. A passport valid for at least 6 months beyond entry and certain vaccinations (particularly hepatitis and malaria prevention) are required.' },
       { type: 'heading', value: 'What insurance do I need for Kilimanjaro?' },
-      { type: 'text', value: 'Insurance covering altitude up to 6,000 m and helicopter rescue. Standard travel insurance usually doesn\'t cover this. We help our climbers arrange appropriate coverage as part of our pre-expedition support.' },
+      { type: 'text', value: 'Insurance covering altitude up to 6000 m and helicopter rescue. Standard travel insurance usually doesn\'t cover this. We help our climbers arrange appropriate coverage as part of our pre-expedition support.' },
 
       { type: 'cta', text: 'לצפייה במשלחות הקילימנג׳רו שלנו', textEn: 'View our Kilimanjaro expeditions', href: '/expedition/kilimanjaro' },
 
@@ -362,13 +362,13 @@ export const POSTS = [
       { type: 'text',    value: 'כושר טוב הוא חיוני, אבל אין סטנדרטים רשמיים. אף רופא לא יחתום לך "כשיר לטיפוס על האוורסט". מה שצריך הוא תהליך הדרגתי  -  טיפוסים בגבהים שונים ובתנאים שונים, צבירת ניסיון אמיתי.' },
 
       { type: 'heading', value: 'האם אפשר לטפס לבד?' },
-      { type: 'text',    value: 'לא על כולן. קילימנג\'רו  -  ללא מדריך מקומי אי אפשר על פי חוק, ומסיבה טובה: זה מקור הכנסה מרכזי לאנשי המקום. האוורסט דורש אישור מהממשלה הנפאלית  -  ב-2023 הונפקו רק 500 אישורים, כל אחד עולה 15,000 דולר. וינסון  -  אפשר לארגן רק דרך Antarctic Logistics & Expeditions LLC.' },
+      { type: 'text',    value: 'לא על כולן. קילימנג\'רו  -  ללא מדריך מקומי אי אפשר על פי חוק, ומסיבה טובה: זה מקור הכנסה מרכזי לאנשי המקום. האוורסט דורש אישור מהממשלה הנפאלית  -  ב-2023 הונפקו רק 500 אישורים, כל אחד עולה 15000 דולר. וינסון  -  אפשר לארגן רק דרך Antarctic Logistics & Expeditions LLC.' },
 
       { type: 'heading', value: 'איך להתכונן לאתגר?' },
       { type: 'text',    value: 'תלוי בכושר ובניסיון. כושר ממוצע? מתחילים בהכנה גופנית  -  ריצת שטח, שחייה, הליכה עם תיק. כושר טוב? אפשר להתחיל לטפס כבר השנה. עובדים עם חברות טרקים בארץ, מטפסים פסגות קרובות, צוברים ניסיון  -  ואז יוצאים לקילימנג\'רו.' },
 
       { type: 'heading', value: 'כמה זה אמור לעלות?' },
-      { type: 'text',    value: 'האפשרות הזולה ביותר עדיין תעלה לא פחות מ-120,000 דולר לכל הפרויקט. האוורסט הוא הגדול בתקציב  -  בין 36,000 ל-200,000 דולר, תלוי באיך מארגנים. תוכנית אפשרית: יוני  -  קילימנג\'רו, אוגוסט  -  אלברוס, דצמבר-פברואר  -  אקונקגואה ווינסון, אביב  -  אוורסט, וסתיו הבא  -  פירמידת קרסטנסז ודנאלי.' },
+      { type: 'text',    value: 'האפשרות הזולה ביותר עדיין תעלה לא פחות מ-120000 דולר לכל הפרויקט. האוורסט הוא הגדול בתקציב  -  בין 36000 ל-200000 דולר, תלוי באיך מארגנים. תוכנית אפשרית: יוני  -  קילימנג\'רו, אוגוסט  -  אלברוס, דצמבר-פברואר  -  אקונקגואה ווינסון, אביב  -  אוורסט, וסתיו הבא  -  פירמידת קרסטנסז ודנאלי.' },
 
       { type: 'heading', value: 'האם יש דרך לחסוך כסף?' },
       { type: 'text',    value: 'מטפסים רבים מסתמכים על חסויות או מימון ממשלתי. בארה"ב, קנדה, בריטניה ואוסטרליה יש תוכניות גיוס כספים שמאפשרות להקצות חלק מהתרומות לטיפוסים  -  חוקי לגמרי. זה גם מסביר למה רוב מסיימי הרשימה הם מאותן מדינות. מימון המונים עובד בשווקים מסוימים. ספונסר  -  חברה שרוצה לראות את הלוגו שלה על האוורסט  -  גם אפשרות.' },
@@ -410,7 +410,7 @@ export const POSTS = [
     /* ── English content ── */
     titleEn: 'The Seven Summits: the highest peaks on every continent',
     contentEn: [
-      { type: 'text',    value: 'The Seven Summits are the highest peaks on each of the world\'s seven continents: Everest in Asia (8,848 m), Aconcagua in South America (6,962 m), Denali in North America (6,190 m), Kilimanjaro in Africa (5,895 m), Elbrus in Europe (5,642 m), Vinson Massif in Antarctica (4,892 m), and Carstensz Pyramid in Oceania (4,884 m). Completing all seven is one of the most recognised goals in mountaineering  -  and for most people who pursue it, it takes years.' },
+      { type: 'text',    value: 'The Seven Summits are the highest peaks on each of the world\'s seven continents: Everest in Asia (8848 m), Aconcagua in South America (6962 m), Denali in North America (6190 m), Kilimanjaro in Africa (5895 m), Elbrus in Europe (5642 m), Vinson Massif in Antarctica (4892 m), and Carstensz Pyramid in Oceania (4884 m). Completing all seven is one of the most recognised goals in mountaineering  -  and for most people who pursue it, it takes years.' },
       { type: 'text',    value: 'This guide covers the difficulty of each mountain, which one is the logical starting point, world records, the debate over the official list, and what the whole thing actually costs.' },
 
       { type: 'heading', value: 'What is the Seven Summits Club?' },
@@ -422,14 +422,14 @@ export const POSTS = [
 
       { type: 'heading', value: 'The seven (or eight) summits' },
       { type: 'list',    items: [
-        'Everest (Asia)  -  8,848 m',
-        'Aconcagua (South America)  -  6,962 m',
-        'Denali (North America)  -  6,190 m',
-        'Kilimanjaro (Africa)  -  5,895 m',
-        'Elbrus (Europe)  -  5,642 m',
-        'Vinson Massif (Antarctica)  -  4,892 m',
-        'Carstensz Pyramid (Oceania)  -  4,884 m',
-        'Kosciuszko (Australia)  -  2,228 m',
+        'Everest (Asia)  -  8848 m',
+        'Aconcagua (South America)  -  6962 m',
+        'Denali (North America)  -  6190 m',
+        'Kilimanjaro (Africa)  -  5895 m',
+        'Elbrus (Europe)  -  5642 m',
+        'Vinson Massif (Antarctica)  -  4892 m',
+        'Carstensz Pyramid (Oceania)  -  4884 m',
+        'Kosciuszko (Australia)  -  2228 m',
       ]},
 
       { type: 'heading', value: 'Why are there eight peaks on a list of seven?' },
@@ -455,7 +455,7 @@ export const POSTS = [
 
       { type: 'heading', value: 'How hard is it?' },
       { type: 'text',    value: 'Mostly high-altitude trekking, not technical climbing. Even Everest is primarily an altitude challenge rather than a technical one. The real difficulty of the Seven Summits is time and money: flights, permits, visas, gear, insurance, and months away from normal life.' },
-      { type: 'text',    value: 'Everest alone can take two months and cost $60,000–$75,000. Not everyone has the resources.' },
+      { type: 'text',    value: 'Everest alone can take two months and cost $60000–$75000. Not everyone has the resources.' },
       { type: 'text',    value: 'The risk level varies dramatically. Everest, Denali, and Vinson Massif are serious mountaineering undertakings. Kilimanjaro, by contrast, is manageable for well-prepared beginners.' },
 
       { type: 'section', value: 'Seven Summits records' },
@@ -477,7 +477,7 @@ export const POSTS = [
       { type: 'image',   src: '/images/blog/kilimanjaro-trekkers.webp', alt: 'Trekkers on the way to Kilimanjaro', caption: '' },
 
       { type: 'heading', value: 'Which summit is hardest?' },
-      { type: 'text',    value: 'Everest, without question. Extreme altitude, a short and competitive climbing season, extensive preparation requirements, and costs that can exceed $75,000. Turning a summit attempt into an actual summit is an enormous undertaking for even experienced climbers.' },
+      { type: 'text',    value: 'Everest, without question. Extreme altitude, a short and competitive climbing season, extensive preparation requirements, and costs that can exceed $75000. Turning a summit attempt into an actual summit is an enormous undertaking for even experienced climbers.' },
       { type: 'image',   src: '/images/blog/everest-hardest.webp', alt: 'Climbers on Everest', caption: '' },
 
       { type: 'heading', value: 'What order should you climb them in?' },
@@ -487,13 +487,13 @@ export const POSTS = [
       { type: 'text',    value: 'Solid fitness is important, but there are no standard benchmarks. No medical board certifies you as "fit for Everest." What matters is building a training base that includes climbing at various altitudes and in varied conditions  -  then progressing through the list systematically.' },
 
       { type: 'heading', value: 'Can you climb solo?' },
-      { type: 'text',    value: 'Not all of them. Kilimanjaro requires a licensed local guide by law  -  a rule that makes good sense and provides income for local communities. Everest solo permits are rare (500 issued in 2023) and cost $15,000. Vinson Massif can only be organised through Antarctic Logistics & Expeditions LLC.' },
+      { type: 'text',    value: 'Not all of them. Kilimanjaro requires a licensed local guide by law  -  a rule that makes good sense and provides income for local communities. Everest solo permits are rare (500 issued in 2023) and cost $15000. Vinson Massif can only be organised through Antarctic Logistics & Expeditions LLC.' },
 
       { type: 'heading', value: 'How do you prepare?' },
       { type: 'text',    value: 'Start where you are. Average fitness? Begin with general conditioning  -  trail running, swimming, hiking. Good fitness already? You can probably start on Kilimanjaro this year. Work with a trekking company, climb locally, build altitude experience progressively. Don\'t skip steps.' },
 
       { type: 'heading', value: 'What does the full project cost?' },
-      { type: 'text',    value: 'Budget at least $120,000 for the most economical approach to all seven. Everest dominates the budget at $36,000–$200,000 depending on how you organise it. A realistic multi-year plan: June  -  Kilimanjaro, August  -  Elbrus, December–February  -  Aconcagua and Vinson, Spring  -  Everest. Then Carstensz Pyramid and Denali in the following seasons.' },
+      { type: 'text',    value: 'Budget at least $120000 for the most economical approach to all seven. Everest dominates the budget at $36000–$200000 depending on how you organise it. A realistic multi-year plan: June  -  Kilimanjaro, August  -  Elbrus, December–February  -  Aconcagua and Vinson, Spring  -  Everest. Then Carstensz Pyramid and Denali in the following seasons.' },
 
       { type: 'heading', value: 'Is there any way to reduce costs?' },
       { type: 'text',    value: 'Some climbers find sponsors  -  companies willing to pay for branding exposure on high-profile summits. In the US, Canada, UK, and Australia, charity fundraising programmes allow climbers to offset costs by raising money for non-profits. Crowdfunding works in some markets. These approaches require effort, but they\'ve funded real expeditions.' },
@@ -511,22 +511,22 @@ export const POSTS = [
       { type: 'section', value: 'What comes after the Seven Summits?' },
 
       { type: 'heading', value: 'The 14 eight-thousanders' },
-      { type: 'text',    value: 'The next level: all 14 mountains above 8,000 metres. Harder, more dangerous, and financially brutal. Only elite climbers attempt this, and fewer than 50 people have ever finished it.' },
+      { type: 'text',    value: 'The next level: all 14 mountains above 8000 metres. Harder, more dangerous, and financially brutal. Only elite climbers attempt this, and fewer than 50 people have ever finished it.' },
       { type: 'list',    noMarker: true, items: [
-        '1. Everest (Nepal)  -  8,848 m',
-        '2. K2 (Pakistan)  -  8,611 m',
-        '3. Kangchenjunga (Nepal)  -  8,586 m',
-        '4. Lhotse (Nepal)  -  8,516 m',
-        '5. Makalu (Nepal)  -  8,485 m',
-        '6. Cho Oyu (Nepal)  -  8,188 m',
-        '7. Dhaulagiri (Nepal)  -  8,167 m',
-        '8. Manaslu (Nepal)  -  8,156 m',
-        '9. Nanga Parbat (Pakistan)  -  8,125 m',
-        '10. Annapurna (Nepal)  -  8,091 m',
-        '11. Gasherbrum I (Pakistan)  -  8,080 m',
-        '12. Broad Peak (Pakistan)  -  8,051 m',
-        '13. Gasherbrum II (Pakistan)  -  8,035 m',
-        '14. Shishapangma (China)  -  8,027 m',
+        '1. Everest (Nepal)  -  8848 m',
+        '2. K2 (Pakistan)  -  8611 m',
+        '3. Kangchenjunga (Nepal)  -  8586 m',
+        '4. Lhotse (Nepal)  -  8516 m',
+        '5. Makalu (Nepal)  -  8485 m',
+        '6. Cho Oyu (Nepal)  -  8188 m',
+        '7. Dhaulagiri (Nepal)  -  8167 m',
+        '8. Manaslu (Nepal)  -  8156 m',
+        '9. Nanga Parbat (Pakistan)  -  8125 m',
+        '10. Annapurna (Nepal)  -  8091 m',
+        '11. Gasherbrum I (Pakistan)  -  8080 m',
+        '12. Broad Peak (Pakistan)  -  8051 m',
+        '13. Gasherbrum II (Pakistan)  -  8035 m',
+        '14. Shishapangma (China)  -  8027 m',
       ]},
       { type: 'text',    value: 'The speed record belongs to Norwegian climber Kristin Harila and Sherpa Tenjen Lama from Nepal: 92 days to complete all 14, breaking the previous record of Nirmal Purja (Nimsdai). About 50 people have ever completed the full list.' },
       { type: 'image',   src: '/images/blog/kristin-harila.webp', alt: 'Kristin Harila  -  one of the most accomplished high-altitude climbers active today', caption: 'Kristin Harila  -  one of the most accomplished high-altitude climbers active today', objectPosition: 'top' },
