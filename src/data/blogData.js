@@ -133,7 +133,7 @@ export const POSTS = [
       { type: 'heading', value: 'מה גיל המינימום לטיפוס בקילימנג׳רו?' },
       { type: 'text', value: 'הפארק הלאומי דורש גיל 10 לפחות. אנחנו ממליצים על גיל 14 ומעלה לחוויה מציאותית, ועד גיל 16 נדרש מלווה הורה.' },
       { type: 'heading', value: 'צריך ויזה לטנזניה?' },
-      { type: 'text', value: 'כן. אזרחי ישראל יכולים לקבל ויזה בנמל התעופה (50 דולר ל-30 ימים) או להזמין מראש אונליין. דרכון בתוקף לפחות 6 חודשים מיום הכניסה, והדבקות חיסונים מסוימות (במיוחד נגד צהבת ומלריה) הם חובה.' },
+      { type: 'text', value: 'כן. אזרחי ישראל צריכים ויזה לטנזניה - תקפה ל-90 יום. אנחנו תמיד ממליצים להזמין מראש אונליין דרך האתר הרשמי של הממשלה הטנזנית, כדי לא להיתקע בתור בנמל התעופה עם ציוד טיפוס. עלות: כ-50 דולר. דרכון בתוקף לפחות 6 חודשים מיום הכניסה, והדבקות חיסונים מסוימות (במיוחד נגד צהבת ומלריה) הם חובה.' },
       { type: 'heading', value: 'איזה ביטוח צריך לטיפוס בקילימנג׳רו?' },
       { type: 'text', value: 'ביטוח שמכסה גובה עד 6000 מטר וחילוץ במסוק. ביטוחים סטנדרטיים בדרך כלל לא מכסים את זה. אנחנו עוזרים למטפסים שלנו לסדר ביטוח מתאים כחלק מהליווי לפני היציאה.' },
 
@@ -250,7 +250,7 @@ export const POSTS = [
       { type: 'heading', value: 'What\'s the minimum age for Kilimanjaro?' },
       { type: 'text', value: 'The national park requires at least 10 years old. We recommend 14 and above for a realistic experience, and a parent or guardian must accompany climbers under 16.' },
       { type: 'heading', value: 'Do I need a visa for Tanzania?' },
-      { type: 'text', value: 'Yes. Israeli citizens can get a visa on arrival ($50 for 30 days) or apply online in advance. A passport valid for at least 6 months beyond entry and certain vaccinations (particularly hepatitis and malaria prevention) are required.' },
+      { type: 'text', value: 'Yes. Israeli citizens need a Tanzania visa - valid for 90 days. We always recommend applying online in advance through the official Tanzanian government portal, so you don\'t end up stuck in an airport queue with a full kit bag. Cost: around $50. A passport valid for at least 6 months beyond entry and certain vaccinations (particularly hepatitis and malaria prevention) are required.' },
       { type: 'heading', value: 'What insurance do I need for Kilimanjaro?' },
       { type: 'text', value: 'Insurance covering altitude up to 6000 m and helicopter rescue. Standard travel insurance usually doesn\'t cover this. We help our climbers arrange appropriate coverage as part of our pre-expedition support.' },
 
