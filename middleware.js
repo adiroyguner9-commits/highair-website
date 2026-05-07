@@ -24,26 +24,26 @@ const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
 /* ── Per-expedition SEO data (mirrors mockData.js seoTitle/seoDescription) ── */
 const EXPEDITION_META = {
-  'olympus':              { title: 'טרק האולימפוס ביוון 2025 | HighAir Expeditions',                   img: '/images/cards/olympus.webp',           description: 'טרק לפסגת הר האולימפוס ביוון (2917מ׳) — 6 ימים. הר האלים עם מדריכים מקצועיים, יום קניונינג בנהר האורליאס ותרומה למלחמה בסרטן. מתאים לכל רמות כושר!' },
-  'peaks-of-balkan':      { title: 'טרק פסגות הבלקן באלבניה | HighAir Expeditions',                    img: '/images/cards/peaks-of-balkan.webp',   description: 'טרק פסגות הבלקן באלבניה (2656מ׳) — 10 ימים. נופים עוצרי נשימה, כפרים מסורתיים ושבילי הרים ירוקים. מסע ייחודי עם מדריכים מנוסים ותרומה למלחמה בסרטן.' },
-  'ethiopia':             { title: 'טרק הרי סימיאן ומדבר דנקיל | HighAir Expeditions',                img: '/images/cards/ethiopia.webp',          description: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה (4550מ׳) — 11 ימים. אחד המסעות הנדירים בעולם: ג׳לדות, נוף וולקני ואגם חומצי. חוויה שלא תשכחו לעולם!' },
-  'kazbek':               { title: 'טיפוס לקזבק בגאורגיה | HighAir Expeditions',                       img: '/images/cards/kazbek.webp',            description: 'טיפוס לקזבק (5047מ׳) בגאורגיה — 8 ימים. הר הגעש בקווקז עם כנסיות עתיקות ונוף עוצר נשימה. מסע אתגרי עם מדריכים מנוסים ותרומה למלחמה בסרטן.' },
-  'manaslu':              { title: 'טרק סובב מנסלו בנפאל | HighAir Expeditions',                       img: '/images/cards/manaslu.avif',           description: 'טרק סובב מנסלו (5160מ׳) בנפאל — 16 ימים. האלטרנטיבה השקטה לאוורסט עם נופי הימלאיה מרהיבים ופחות תיירים. מדריכים ישראלים, תרומה למלחמה בסרטן.' },
-  'everest-base-camp':    { title: 'טרק אוורסט בייס קמפ וגוקיו | HighAir Expeditions',                img: '/images/cards/EBC.webp',               description: 'טרק אוורסט בייס קמפ (5364מ׳) + אגמי גוקיו — 19 ימים. חוויית חיים בנפאל עם מדריכים ישראלים מנוסים. כולל אקלימציה מלאה ותרומה למלחמה בסרטן.' },
-  'annapurna':            { title: 'טרק סובב אנאפורנה בנפאל | HighAir Expeditions',                   img: '/images/cards/annapurna.webp',         description: 'טרק סובב אנאפורנה (5416מ׳) בנפאל — 16 ימים. אחד הטרקים הקלאסיים ביותר בעולם דרך כפרים, יערות ונוף הימלאיה. מדריכים ישראלים.' },
-  'elbrus':               { title: 'טיפוס לאלברוס — ההר הגבוה באירופה | HighAir',                     img: '/images/cards/elbrus.webp',            description: 'טיפוס לאלברוס (5642מ׳) — ההר הגבוה באירופה, אחת מ-7 הפסגות! 8 ימים. קווקז, רוסיה. מסע טיפוס עם מדריכים מקצועיים ותרומה למלחמה בסרטן.' },
-  'kilimanjaro':          { title: 'טיפוס לקילימנג׳רו 2025 | HighAir Expeditions',                    img: '/images/cards/kilimanjaro.webp',       description: 'טיפוס לקילימנג׳רו (5895מ׳) — ההר הגבוה באפריקה! 9 ימים. שיעור הצלחה 94%, מדריכים ישראלים, ספארי אופציונלי. הזמינו את המקום שלכם!' },
-  'kilimanjaro-kosher':   { title: 'קילימנג׳רו כשר לשומרי מסורת | HighAir Expeditions',               img: '/images/cards/kilimanjaroKosher.webp', description: 'טיפוס לקילימנג׳רו (5895מ׳) לשומרי מסורת — אוכל כשר מהדרין, 10 ימים. ספארי אופציונלי. המשלחת הכשרה המובילה מישראל לקילימנג׳רו!' },
-  'lobuche-peak':         { title: 'טיפוס ללובוצ׳ה פיק בנפאל | HighAir Expeditions',                  img: '/images/cards/lobuchePeak.webp',       description: 'טיפוס ללובוצ׳ה פיק (6119מ׳) בנפאל — 19 ימים. פסגת שלג ממול אוורסט. כולל טרק בייס קמפ + ציוד טיפוס. מדריכים ישראלים ומקומיים מנוסים.' },
-  'island-peak':          { title: 'טיפוס לאיילנד פיק בנפאל | HighAir Expeditions',                   img: '/images/cards/IslandPeak.webp',        description: 'טיפוס לאיילנד פיק (6189מ׳) בנפאל — 20 ימים. פסגה טכנית עם נוף ישיר על אוורסט, לוצה ונופצה. כולל טרק EBC מלא עם ציוד טיפוס מקצועי.' },
-  'mera-peak':            { title: 'טיפוס למרה פיק | HighAir Expeditions',                            img: '/images/cards/MeraPeak.webp',          description: 'טיפוס למרה פיק (6476מ׳) — הפסגה הגבוהה ביותר לטיפוס טרקינג בנפאל! 19 ימים. נוף על 5 שמיניות מהפסגה. HighAir Expeditions.' },
-  'aconcagua':            { title: 'טיפוס לאקונקגואה — 7 הפסגות | HighAir Expeditions',               img: '/images/cards/aconcagua.webp',         description: 'טיפוס לאקונקגואה (6961מ׳) — ההר הגבוה מחוץ לאסיה, אחת מ-7 הפסגות! 20 ימים, ארגנטינה. מסע אקספדיציה ברמה גבוהה עם HighAir Expeditions.' },
-  'lenin-peak':           { title: 'טיפוס ללנין פיק — 7134מ׳ | HighAir Expeditions',                  img: '/images/cards/leninPeak.avif',         description: 'טיפוס ללנין פיק (7134מ׳) בקירגיזסטן — 20 ימים. אחת מ-7 הפסגות הסובייטיות, הנגישה מבין ה-7,000מ׳. מסע אקספדיציה מלא עם HighAir Expeditions.' },
+  'olympus':              { title: 'HighAir Expeditions | טרק לפסגת האולימפוס',           img: '/images/cards/olympus.webp',           description: 'טרק הר האולימפוס - הר האלים של יוון, 2,918 מטר. 6 ימים, מסלול דרך יערות פריוניה, פסגת מיטיקאס ויום קניונינג בנהר האורליאס. קבוצה קטנה.' },
+  'peaks-of-balkan':      { title: 'HighAir Expeditions | טרק פסגות הבלקן',               img: '/images/og/peaks-of-balkan.jpg',       description: 'טרק פסגות הבלקן - 2,656 מטר. 10 ימים, 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. קבוצה קטנה, נוף בלתי מוכר.' },
+  'ethiopia':             { title: 'HighAir Expeditions | טרק סימיאן ומדבר דנקיל',        img: '/images/cards/ethiopia.webp',          description: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה - 4,550 מטר. 11 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.' },
+  'kazbek':               { title: 'HighAir Expeditions | טיפוס לקזבק',                   img: '/images/cards/kazbek.webp',            description: 'טיפוס לקזבק - הר געש כבוי בקווקז, 5,054 מטר. 8 ימים בגאורגיה, מסלול דרך קרחון גרגטי ובייס קמפ ב-3,650 מטר. מדריכי IFMGA, קבוצה קטנה.' },
+  'manaslu':              { title: 'HighAir Expeditions | טרק סובב מנסלו',                 img: '/images/cards/manaslu.avif',           description: 'טרק סובב מנסלו - 5,106 מטר בנפאל. 16 ימים, לולאה מסביב להר השמיני בגובהו בעולם דרך כפרי טיבט ומעבר לרקיה לה. פחות תיירים, נוף בלתי מוכר.' },
+  'everest-base-camp':    { title: 'HighAir Expeditions | טרק אוורסט בייס קמפ',           img: '/images/cards/EBC.webp',               description: 'טרק אוורסט בייס קמפ ואגמי גוקיו - 5,364 מטר בנפאל. 19 ימים, בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו במסלול אחד. קבוצה עד 10 איש.' },
+  'annapurna':            { title: 'HighAir Expeditions | טרק סובב אנאפורנה',              img: '/images/cards/annapurna.webp',         description: 'טרק סובב אנאפורנה - 5,416 מטר בנפאל. 16 ימים, לולאה מלאה סביב אנאפורנה דרך כפרי גורקה, אגם טיליצ׳ו ומעבר תורונג לה. ירידה של 1,600 מטר בצד השני.' },
+  'elbrus':               { title: 'HighAir Expeditions | טיפוס לאלברוס',                 img: '/images/cards/elbrus.webp',            description: 'טיפוס לאלברוס - ההר הגבוה באירופה, 5,642 מטר. 8 ימים ברוסיה, אחת מ-7 הפסגות. מסלול דרומי עם רכבל עד 3,850 מטר, לינה בבקתות ויום פסגה של 10-14 שעות.' },
+  'kilimanjaro':          { title: 'HighAir Expeditions | טיפוס לקילימנג׳רו',             img: '/images/cards/kilimanjaro.webp',       description: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5,895 מטר. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.' },
+  'kilimanjaro-kosher':   { title: 'HighAir Expeditions | קילימנג׳רו לשומרי מסורת',       img: '/images/cards/kilimanjaroKosher.webp', description: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5,895 מטר - לשומרי מסורת. 10 ימים כולל שבת בארושה עם חב״ד, אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.' },
+  'lobuche-peak':         { title: 'HighAir Expeditions | טיפוס ללובוצ׳ה פיק',           img: '/images/cards/lobuchePeak.webp',       description: 'טיפוס ללובוצ׳ה פיק - 6,119 מטר בנפאל. 19 ימים, פסגה ממול קרחון קומבו עם נוף ישיר על אוורסט. כולל בייס קמפ אוורסט וקאלה פטאר לפני יום הפסגה.' },
+  'island-peak':          { title: 'HighAir Expeditions | טיפוס לאיילנד פיק',             img: '/images/cards/IslandPeak.webp',        description: 'טיפוס לאיילנד פיק - 6,189 מטר בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.' },
+  'mera-peak':            { title: 'HighAir Expeditions | טיפוס למרה פיק',                img: '/images/cards/MeraPeak.webp',          description: 'טיפוס למרה פיק - הפסגה הגבוהה לטרקינג בנפאל, 6,476 מטר. 19 ימים, מסלול דרך עמק הינקו, ללא טיפוס טכני. נוף על 5 שמיניות מהפסגה.' },
+  'aconcagua':            { title: 'HighAir Expeditions | טיפוס לאקונקגואה',              img: '/images/cards/aconcagua.webp',         description: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6,962 מטר. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.' },
+  'lenin-peak':           { title: 'HighAir Expeditions | טיפוס ללנין פיק',              img: '/images/cards/leninPeak.avif',         description: 'טיפוס ללנין פיק - ההר הנגיש מעל 7,000 מטר, 7,134 מטר בקירגיזסטן. 20 ימים, שלושה מחנות גובה, בייס קמפ עם יורטות. נדרש ניסיון מעל 5,500 מטר.' },
 };
 
 /* ── Israel trails ── */
 const ISRAEL_META = {
-  'hermon':  { title: 'טרק חרמון | HighAir Expeditions', img: '/images/cards/Hermon.avif', description: 'טרק חרמון עם HighAir Expeditions — מסע חד יומי להר הגבוה בישראל. נוף עוצר נשימה, שלג בחורף ואוויר הרים צח. הצטרפו לקבוצה הבאה!' },
+  'hermon':  { title: 'HighAir Expeditions | טרק לפסגת החרמון', img: '/images/cards/Hermon.avif', description: 'טרק לפסגת החרמון - הפסגה הגבוהה בישראל, 2,040 מטר. 2 ימים כולל לינה, עלייה של 1,040 מטר דרך מעלה גולני, ערב גיבוש עם ארוחה על האש וארוחת צהריים דרוזית.' },
 };
 
 function escape(str) {
@@ -134,7 +134,7 @@ export default function middleware(request) {
     status: 200,
     headers: {
       'Content-Type':  'text/html; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      'Cache-Control': 'public, max-age=0, s-maxage=0, must-revalidate',
     },
   });
 }
