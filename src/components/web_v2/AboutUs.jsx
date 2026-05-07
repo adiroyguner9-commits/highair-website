@@ -558,6 +558,8 @@ function PartnersTicker() {
             <img
               src={p.src}
               alt={p.name}
+              loading="lazy"
+              decoding="async"
               style={{
                 width:      '100px',
                 height:     '100px',
@@ -659,6 +661,8 @@ export default function AboutUs() {
                 <img
                   src="/images/about-story.avif"
                   alt={isEn ? 'Chen Shaked at the summit of Manaslu 8163m' : 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם'}
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     position:       'absolute',
                     inset:          0,

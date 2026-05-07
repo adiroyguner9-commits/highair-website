@@ -1005,6 +1005,8 @@ export default function ExpeditionDetail() {
                 <img
                   src={exp.img}
                   alt={exp.nameHe}
+                  fetchpriority="high"
+                  decoding="async"
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', borderRadius: RADIUS.xl, display: 'block' }}
                 />
               ) : (
@@ -1594,6 +1596,8 @@ export default function ExpeditionDetail() {
                   <img
                     src={src}
                     alt={`${exp.nameHe} ${i + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: ratio ? '100%' : 'auto',
@@ -1729,6 +1733,8 @@ export default function ExpeditionDetail() {
                     <img
                       src={u.img}
                       alt={u.name}
+                      loading="lazy"
+                      decoding="async"
                       style={{
                         position: 'absolute', inset: 0,
                         width: '100%', height: '100%',
