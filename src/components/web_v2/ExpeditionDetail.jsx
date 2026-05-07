@@ -270,8 +270,12 @@ export default function ExpeditionDetail() {
   ] : null;
 
   usePageMeta(exp ? {
-    title:         exp.seoTitle       || `${exp.nameHe} ${exp.countryHe ? '(' + exp.countryHe + ')' : ''} | HighAir Expeditions`,
-    description:   exp.seoDescription || `${exp.nameHe} ב${exp.countryHe || exp.country} — ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. ${exp.priceStr ? 'מחיר: ' + exp.priceStr + '. ' : ''}הצטרפו למשלחת מאורגנת עם מדריכים מקצועיים, תרומה למלחמה בסרטן.`,
+    title:         isRtl
+      ? (exp.seoTitle    || `${exp.nameHe} ${exp.countryHe ? '(' + exp.countryHe + ')' : ''} | HighAir Expeditions`)
+      : (exp.seoTitleEn  || `${exp.nameEn || exp.name} in ${exp.country} | HighAir Expeditions`),
+    description:   isRtl
+      ? (exp.seoDescription   || `${exp.nameHe} ב${exp.countryHe || exp.country} - ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. הצטרפו למשלחת מאורגנת עם מדריכים מקצועיים, תרומה למלחמה בסרטן.`)
+      : (exp.seoDescriptionEn || `${exp.nameEn || exp.name} expedition in ${exp.country}. ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. Professional guides, 94% summit success rate. Every expedition supports cancer patients.`),
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
@@ -574,8 +578,6 @@ export default function ExpeditionDetail() {
       setStatus('success');
       /* ── Conversion tracking ── */
       Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
-      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
-      if (typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: 'AW-16520015098/O_fECOOa4KccEPrZrcU9', currency: 'ILS' });
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'lead', expedition: exp.nameHe, source: isWaitlist ? 'waitlist' : 'expedition_page' });
     } catch (err) {
@@ -755,7 +757,10 @@ export default function ExpeditionDetail() {
               lineHeight: 1.1,
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              {isRtl ? exp.nameHe : (exp.nameEn || exp.name || exp.nameHe)} ({exp.elevNum}{'m'})
+              {isRtl
+                ? (exp.seoTitle ? exp.seoTitle.split(' | ')[0] : exp.nameHe)
+                : `${exp.nameEn || exp.name || exp.nameHe} in ${exp.country} (${exp.elevNum}m)`
+              }
             </h1>
           </div>
 

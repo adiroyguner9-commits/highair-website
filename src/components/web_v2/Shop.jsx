@@ -157,10 +157,10 @@ export default function Shop() {
   const { isMobile, isTablet } = useBreakpoint();
 
   usePageMeta({
-    title:         isRtl ? 'חנות | HighAir Expeditions' : 'Shop | HighAir Expeditions',
+    title:         isRtl ? 'HighAir Expeditions | חנות ציוד טרקים' : 'Expedition Gear & Merchandise | HighAir Expeditions',
     description:   isRtl
       ? 'ציוד טיולים ומשלחות מבית HighAir Expeditions - תיקים, ציוד הרים ועוד.'
-      : 'Trek and expedition gear from HighAir Expeditions — bags, mountain equipment and more.',
+      : 'Trekking and expedition gear from HighAir Expeditions - backpacks, mountain equipment and branded merchandise. Every purchase supports cancer patients.',
     canonicalPath: '/shop',
   });
 

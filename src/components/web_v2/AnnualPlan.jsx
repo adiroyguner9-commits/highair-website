@@ -216,10 +216,10 @@ export default function AnnualPlan() {
   const [activeMonth, setActiveMonth] = useState(null);
 
   usePageMeta({
-    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'Annual Plan | HighAir Expeditions',
+    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'Expedition Schedule 2026 | HighAir Expeditions',
     description:   isRtl
       ? 'כל המשלחות והטרקים המתוכננים של HighAir Expeditions לשנה הקרובה — קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד. בחרו תאריך והצטרפו אלינו!'
-      : 'All upcoming HighAir Expeditions treks and climbs for the year — Kilimanjaro, Everest, Elbrus, Annapurna and more. Pick a date and join us!',
+      : 'All upcoming HighAir Expeditions treks and climbs for 2026 - Kilimanjaro, Everest, Elbrus, Annapurna and more. Pick a date and join us.',
     canonicalPath: '/annual-plan',
   });
 

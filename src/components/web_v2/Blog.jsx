@@ -147,10 +147,10 @@ export default function Blog() {
 
   usePageMeta({
     title:         isEn
-      ? 'Blog | HighAir Expeditions'
-      : 'בלוג | HighAir Expeditions',
+      ? 'Trekking & Climbing Blog | HighAir Expeditions'
+      : 'HighAir Expeditions | בלוג טיפוס הרים וטרקים',
     description:   isEn
-      ? 'Articles, tips and stories from the world of trekking and mountaineering — by HighAir Expeditions.'
+      ? 'Articles, tips and stories from the world of trekking and mountain climbing - by the HighAir Expeditions team. Kilimanjaro, Everest, Elbrus and more.'
       : 'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים - מבית HighAir Expeditions.',
     canonicalPath: '/blog',
   });

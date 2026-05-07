@@ -105,8 +105,8 @@ export default function IsraelDetail() {
   usePageMeta(trip ? {
     title:         `${displayName} | HighAir Expeditions`,
     description:   isEn
-      ? `Join the ${displayName} trek with HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' — ' : ''}A ${daysLabel} trek with a donation to cancer patients.`
-      : `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`,
+      ? (trip.seoDescriptionEn || `Join the ${displayName} trek with HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}A ${daysLabel} trek with a donation to cancer patients.`)
+      : (trip.seoDescription   || `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`),
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
   } : {

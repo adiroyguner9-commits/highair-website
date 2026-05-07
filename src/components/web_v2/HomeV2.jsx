@@ -90,11 +90,11 @@ export default function HomeV2() {
 
   usePageMeta({
     title:         isRtl
-      ? 'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם'
-      : 'HighAir Expeditions | Mountain Climbing & Trekking Expeditions',
+      ? 'HighAir Expeditions | טרקים ומשלחות טיפוס הרים בארץ ובעולם'
+      : 'Trekking and Climbing Expeditions | HighAir Expeditions',
     description:   isRtl
-      ? 'HighAir Expeditions - משלחות טיפוס הרים וטרקים בארץ ובעולם. קילימנג׳רו, אוורסט, אנאפורנה, אקונקגואה ועוד - בשילוב תרומה למלחמה בסרטן.'
-      : 'HighAir Expeditions - mountain climbing and trekking expeditions in Israel and worldwide. Kilimanjaro, Everest, Annapurna, Aconcagua and more - including a donation to fight cancer on every trip.',
+      ? 'HighAir Expeditions מארגנת טרקים ומשלחות טיפוס הרים בארץ ובעולם. קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד — עם תרומה לחולי סרטן בכל מסע.'
+      : 'Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.',
     canonicalPath: '/',
   });
 

@@ -159,7 +159,7 @@ export default function BlogPost() {
   const postCategory = post ? (isEn ? (post.categoryEn || post.category) : post.category) : '';
 
   usePageMeta(post ? {
-    title:         `${postTitle} | HighAir Blog`,
+    title:         `${postTitle} | HighAir Expeditions`,
     description:   postExcerpt,
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,

@@ -153,7 +153,7 @@ export default function ContactPage() {
       ? 'Contact Us | HighAir Expeditions'
       : 'יצירת קשר | HighAir Expeditions',
     description:   isEn
-      ? 'Get in touch — phone, WhatsApp, email and business hours. The HighAir Expeditions team is available before, during and after every expedition.'
+      ? 'Get in touch with the HighAir Expeditions team - phone, WhatsApp or email. Available before, during and after every expedition. Response within 24 hours.'
       : 'דברו איתנו — טלפון, וואטסאפ, מייל ושעות פעילות. צוות HighAir Expeditions זמין לכם לפני, במהלך ואחרי כל משלחת.',
     canonicalPath: '/contact',
   });
@@ -235,7 +235,7 @@ export default function ContactPage() {
           }}>
             {isRtl
               ? 'אנחנו זמינים לכם לפני, במהלך ואחרי המשלחת. כל שאלה — אנחנו כאן.'
-              : 'We are here before, during and after every expedition. Any question — reach out.'}
+              : 'We are here before, during and after every expedition. Any question - reach out.'}
           </p>
         </div>
 

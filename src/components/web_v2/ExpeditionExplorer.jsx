@@ -263,8 +263,8 @@ export default function ExpeditionExplorer({ type }) {
     ? (isRtl ? 'טיפוסי הרים בעולם'  : 'Expeditions')
     : (isRtl ? 'טרקים בעולם'        : 'Trekking');
   const subtitle  = type === 'climbs'
-    ? (isRtl ? 'מאולימפוס ועד לנין פיק — בחרו את האתגר הבא שלכם' : 'High-Altitude Peaks from the Caucasus to the Andes')
-    : (isRtl ? 'מהבלקן דרך אתיופיה ועד נפאל — טרקים לכל רמה'    : 'Iconic Treks from the Balkans to the Himalayas');
+    ? (isRtl ? 'מקילימנג\'רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים' : 'From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives')
+    : (isRtl ? 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס'    : 'From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss');
 
   return (
     <section id={sectionId} style={{

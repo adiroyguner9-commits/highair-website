@@ -44,11 +44,11 @@ function extractSlugs(filePath) {
   return slugs;
 }
 
-function urlEntry({ loc, priority, changefreq }) {
+function urlEntry({ loc, priority, changefreq, lastmod }) {
   return [
     '  <url>',
     `    <loc>${loc}</loc>`,
-    `    <lastmod>${today}</lastmod>`,
+    `    <lastmod>${lastmod || today}</lastmod>`,
     `    <changefreq>${changefreq}</changefreq>`,
     `    <priority>${priority}</priority>`,
     '  </url>',
@@ -78,11 +78,13 @@ for (const slug of expeditionSlugs) {
   }));
 }
 
-// /blog/:slug  — from blogData.js
-const blogSlugs = extractSlugs(path.join(ROOT, 'src/data/blogData.js'));
-for (const slug of blogSlugs) {
+// /blog/:slug  — from blogData.js (with real lastmod from dateModified/dateIso)
+const { POSTS: BLOG_POSTS } = await import(path.join(ROOT, 'src/data/blogData.js'));
+for (const post of BLOG_POSTS) {
+  if (!post.slug) continue;
   urls.push(urlEntry({
-    loc: `${BASE_URL}/blog/${slug}`,
+    loc: `${BASE_URL}/blog/${post.slug}`,
+    lastmod: post.dateModified || post.dateIso || today,
     priority: '0.8',
     changefreq: 'monthly',
   }));
@@ -119,5 +121,5 @@ console.log(`  Date   : ${today}`);
 console.log(`  Total URLs    : ${urls.length}`);
 console.log(`    Static      : ${staticRoutes.length}`);
 console.log(`    Expeditions : ${expeditionSlugs.length}`);
-console.log(`    Blog posts  : ${blogSlugs.length}`);
+console.log(`    Blog posts  : ${BLOG_POSTS.filter(p => p.slug).length}`);
 console.log(`    Israel      : ${israelSlugs.length}`);

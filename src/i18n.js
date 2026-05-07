@@ -60,8 +60,8 @@ const he = {
     },
   },
   israelTrips: {
-    heading: 'הטיולים שלנו בארץ',
-    subtitle: 'מסעות יומיים ורב-יומיים ביעדי הטבע הכי יפים בישראל',
+    heading: 'הטרקים שלנו בארץ',
+    subtitle: 'טרקים יומיים ודו-יומיים במסלולי הטבע הכי יפים בישראל',
     viewAll: 'צפה בכל הטיולים בארץ',
   },
   impact: {
@@ -79,7 +79,7 @@ const he = {
   },
   gallery: {
     sectionTitle: 'הצטרפו לחוויה של פעם בחיים',
-    sectionSubtitle: 'תמונות אמיתיות מהמסעות של HighAir ברחבי העולם',
+    sectionSubtitle: 'תמונות של הלקוחות שלנו מהמסעות בכל רחבי העולם',
     captions: [
       'קבוצת HighAir במסע',
       'טרק HighAir Expeditions',
@@ -96,7 +96,7 @@ const he = {
   },
   cta: {
     heading: 'הפסגה הבאה שלכם מתחילה כאן!',
-    subtitle: 'השאירו פרטים ונחזור אליכם בהקדם',
+    subtitle: 'השאירו פרטים ונחזור אליכם עד 24 שעות בלבד!',
     namePlaceholder: 'ישראל ישראלי',
     nameLabel: 'שם מלא *',
     phoneLabel: 'טלפון *',
@@ -200,7 +200,7 @@ const he = {
   },
   press: {
     title: 'HighAir בתקשורת',
-    subtitle: 'כתבות ומדיה שסיפרו את הסיפור שלנו',
+    subtitle: 'כתבות וראיונות שמספרים את הסיפור שלנו',
   },
 };
 
@@ -219,8 +219,8 @@ const en = {
     skipToContent: 'Skip to content',
   },
   hero: {
-    subtitle: 'Organizing treks and mountain climbing expeditions in Israel and around the world',
-    cancer: 'Every expedition includes a donation to cancer patients!',
+    subtitle: 'Trekking and Climbing Expeditions',
+    cancer: 'Every Expedition Supports Cancer Patients',
     allExpeditions: 'All Expeditions',
     ourStory: 'Our Story',
   },
@@ -245,14 +245,14 @@ const en = {
   },
   israelTrips: {
     heading: 'Our Treks in Israel',
-    subtitle: "Day and multi-day journeys through Israel's most beautiful natural destinations",
+    subtitle: "Day and two-day treks on Israel's most beautiful nature trails",
     viewAll: 'View all Israel treks',
   },
   impact: {
     heading: 'Travel with Purpose!',
     p1: 'A portion of our profits is dedicated to fulfilling the dreams of cancer patients in Israel. Thanks to each and every one of you who joins us on a journey, we are able to donate and strengthen people who are in the biggest fight of their lives.',
     p2: 'Every month we visit hospital wards, meet families, distribute gifts and support children and adults who fight day by day - creating small moments of joy within their complex reality.',
-    p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated over ₪200000 to date and helped fulfill the dreams of cancer patients and their families!',
+    p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated over $70,000 to date and helped fulfill the dreams of cancer patients and their families!',
     cta: 'Every expedition makes a difference!',
   },
   reviews: {
@@ -263,7 +263,7 @@ const en = {
   },
   gallery: {
     sectionTitle: 'Join a Once-in-a-Lifetime Experience',
-    sectionSubtitle: 'Real photos from HighAir expeditions around the world',
+    sectionSubtitle: 'Photos from our clients on expeditions around the world',
     captions: [
       'HighAir group on expedition',
       'HighAir Expeditions trek',
@@ -280,7 +280,7 @@ const en = {
   },
   cta: {
     heading: 'Your next summit starts here!',
-    subtitle: "Leave your details and we'll get back to you soon",
+    subtitle: "Leave your details and we'll get back to you within 24 hours!",
     namePlaceholder: 'John Smith',
     nameLabel: 'Full Name *',
     phoneLabel: 'Phone *',
@@ -294,7 +294,7 @@ const en = {
     sending: 'Sending',
     send: 'Send',
     thankYou: 'Thank you, {{name}}!',
-    received: "Your message has been received — we'll get back to you within 24 hours 🙌",
+    received: "Your message has been received - we'll get back to you within 24 hours 🙌",
     sendAnother: 'Send another message',
   },
   footer: {

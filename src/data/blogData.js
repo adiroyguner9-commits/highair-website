@@ -321,7 +321,7 @@ export const POSTS = [
       { type: 'image',   src: '/images/blog/seven-summits-why-climb.webp', alt: 'מטפסים בדרך לפסגה', caption: '' },
 
       { type: 'heading', value: 'כמה אנשים צלחו את האתגר?' },
-      { type: 'text',    value: 'נכון לשנת 2016, כ-416 אנשים השלימו את רשימת שבע הפסגות, מתוכם 71 נשים. חשוב לציין שאין ארגון רשמי או רישום יחיד של כל המטפסים, ועל כן מדובר בהערכה. ההערכה הכללית היא שכ-500 אנשים סיימו את האתגר.' },
+      { type: 'text',    value: 'נכון לשנת 2024, כ-700 אנשים השלימו את רשימת שבע הפסגות, מתוכם כ-120 נשים. חשוב לציין שאין ארגון רשמי או רישום יחיד של כל המטפסים, ועל כן מדובר בהערכה מצטברת.' },
 
       { type: 'heading', value: 'מי הגה את הרעיון?' },
       { type: 'text',    value: 'וויליאם האקט האמריקאי, לאחר שטיפס על הרים בחמש יבשות שונות (דנאלי, אקונקגואה, קילימנג\'רו, קוסצ\'ושקו ומון בלאן), ניסה לטפס גם את הר וינסון וקיבל אישור לטיפוס על האוורסט. למרות שלא הצליח להשלים את האתגר בשל כוויות קור וחוסר מימון, הרעיון שלו תפס תאוצה.' },
@@ -446,7 +446,7 @@ export const POSTS = [
       { type: 'image',   src: '/images/blog/seven-summits-why-climb.webp', alt: 'Climbers on the way to the summit', caption: '' },
 
       { type: 'heading', value: 'How many people have finished it?' },
-      { type: 'text',    value: 'As of 2016, roughly 416 people had completed the Seven Summits list (including 71 women). There\'s no official register, so this is an estimate. The current figure is probably around 500.' },
+      { type: 'text',    value: 'As of 2024, roughly 700 people have completed the Seven Summits list (including around 120 women). There\'s no official register, so this is a cumulative estimate.' },
 
       { type: 'heading', value: 'Who had the idea?' },
       { type: 'text',    value: 'American climber William Hackett climbed mountains on five continents and tried to add Vinson and Everest to the count. He never finished  -  frostbite and funding ran out  -  but the concept caught on.' },

@@ -582,10 +582,10 @@ export default function AboutUs() {
   const dir  = isEn ? 'ltr' : 'rtl';
 
   usePageMeta({
-    title:         isEn ? 'Our Story | HighAir Expeditions' : 'הסיפור שלנו | HighAir Expeditions',
+    title:         isEn ? 'Our Story | HighAir Expeditions' : 'HighAir Expeditions | הסיפור שלנו',
     description:   isEn
-      ? 'Meet the HighAir Expeditions team — the people behind every summit.'
-      : 'הכירו את צוות HighAir Expeditions — האנשים מאחורי כל פסגה.',
+      ? 'Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients in Israel.'
+      : 'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק — ותורמים מדי חודש לילדים חולי סרטן.',
     canonicalPath: '/about',
   });
 

@@ -102,7 +102,7 @@ export function tourSchema({
 }) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type':    'TouristTrip',
+    '@type':    ['TouristTrip', 'Product'],
     name,
     description,
     url:        url.startsWith('http') ? url : BASE_URL + url,
@@ -113,6 +113,14 @@ export function tourSchema({
       '@type':    'TravelAgency',
       name:       'HighAir Expeditions',
       url:        BASE_URL,
+      telephone:  '+972555636975',
+      image:      BASE_URL + '/Logo.png',
+      priceRange: '$$$',
+      address: {
+        '@type':           'PostalAddress',
+        addressLocality:   'Tel Aviv',
+        addressCountry:    'IL',
+      },
     },
   };
   if (country) {
@@ -126,6 +134,18 @@ export function tourSchema({
       priceCurrency,
       price:           priceFrom,
       availability:    'https://schema.org/InStock',
+      shippingDetails: {
+        '@type':       'OfferShippingDetails',
+        shippingRate:  { '@type': 'MonetaryAmount', value: '0', currency: priceCurrency },
+        shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'IL' },
+        deliveryTime:  { '@type': 'ShippingDeliveryTime', handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' } },
+      },
+      hasMerchantReturnPolicy: {
+        '@type':              'MerchantReturnPolicy',
+        applicableCountry:    'IL',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+        merchantReturnLink:   'https://www.highair-expeditions.com/cancellation-policy',
+      },
     };
   }
   if (ratingValue && reviewCount) {

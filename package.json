@@ -7,6 +7,7 @@
     "dev": "vite --port 5175",
     "prebuild": "node scripts/sync-nav.mjs && node scripts/generate-sitemap.mjs",
     "build": "vite build",
+    "postbuild": "node scripts/generate-html-shells.mjs",
     "sync-nav": "node scripts/sync-nav.mjs",
     "preview": "vite preview"
   },
