@@ -10,7 +10,7 @@ export const PRODUCTS = [
     name:          'דאפל באג HighAir',
     nameEn:        'HighAir Duffel Bag',
     description:   'תיק דאפל מקצועי בעיצוב HighAir Expeditions - עמיד במים, חזק ומחזיק לאורך כל המסע. מושלם לטרקים, משלחות ונסיעות.',
-    descriptionEn: 'Professional duffel bag designed by HighAir Expeditions — water-resistant, durable, and built for the long haul. Perfect for treks, expeditions, and travel.',
+    descriptionEn: 'Professional duffel bag designed by HighAir Expeditions  -  water-resistant, durable, and built for the long haul. Perfect for treks, expeditions, and travel.',
     price:         449,
     currency:      '₪',
     img:           '/images/shop/duffel-bag.webp',

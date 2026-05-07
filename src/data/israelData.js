@@ -31,7 +31,7 @@ export const ISRAEL_TRIPS = [
     groupCapacity:   12,
     paymentUrl:      'https://pay.grow.link/db6fa9095ee92d6941a0e55656d0355e-MzE5MDMyNw',
     desc:    'הצטרפו אלינו לטרק אל הפסגה הגבוהה ביותר בישראל המיועדת למטיילים ומיטיבי לכת בלבד. עם טיפוס מצטבר של 1040 מטרים, מדובר במסלול המדמה תנאי שטח אלפיניים ומהווה את ההכנה הטובה ביותר עבור אלו המתכננים טרקים ומשלחות בחו"ל.\n\nנצא למסלול מאתגר דרך מעלה גולני והר חבושית. הדרך רצופה בנופים פראיים של רמת הגולן והחרמון, המעניקים תחושת מרחב ועוצמה שאין בשום מקום אחר בארץ. זהו טרק מאתגר ומתגמל הדורש נחישות וכושר הליכה טוב, ומסתיים בסיפוק האמיתי של עמידה על פסגת המדינה.\n\nהמסע שלנו מתחיל כבר בערב שלפני. נישן יחד במתחם קמפינג כפרי, עם ארוחת ערב ״על האש״, מוזיקה וזמן איכות להיכרות וגיבוש הקבוצה לפני היציאה להר עם אור ראשון.\n\nהמסע הזה הוא הזדמנות לשלב בין אתגר פיזי לתרומה חברתית. הטרק מהווה חלק משמעותי במאבק ובגיוס תרומות למלחמה בסרטן, כך שכל צעד בדרך לפסגה נושא איתו ערך מוסף.',
-    descEn:  'Join us on a challenging trek to the highest peak in Israel — designed for experienced hikers and trekkers only. With a cumulative ascent of 1,040 meters, this trail simulates alpine conditions and is the ideal preparation for those planning treks and expeditions abroad.\n\nWe take a demanding route through Ma\'ale Golani and Mount Havushit. The way is lined with wild landscapes of the Golan Heights and the Hermon, offering a sense of space and power found nowhere else in the country. This is a challenging yet rewarding trek that demands determination and solid walking fitness, ending with the true satisfaction of standing on the country\'s highest summit.\n\nOur journey begins the evening before. We sleep together at a rural camping site, with a barbecue dinner, music and quality time to get to know each other and bond as a group before heading to the mountain at first light.\n\nThis journey is an opportunity to combine physical challenge with social contribution. The trek forms a significant part of our fundraising fight against cancer — so every step toward the summit carries real added value.',
+    descEn:  'Join us on a challenging trek to the highest peak in Israel  -  designed for experienced hikers and trekkers only. With a cumulative ascent of 1,040 meters, this trail simulates alpine conditions and is the ideal preparation for those planning treks and expeditions abroad.\n\nWe take a demanding route through Ma\'ale Golani and Mount Havushit. The way is lined with wild landscapes of the Golan Heights and the Hermon, offering a sense of space and power found nowhere else in the country. This is a challenging yet rewarding trek that demands determination and solid walking fitness, ending with the true satisfaction of standing on the country\'s highest summit.\n\nOur journey begins the evening before. We sleep together at a rural camping site, with a barbecue dinner, music and quality time to get to know each other and bond as a group before heading to the mountain at first light.\n\nThis journey is an opportunity to combine physical challenge with social contribution. The trek forms a significant part of our fundraising fight against cancer  -  so every step toward the summit carries real added value.',
     included: [
       'טרק לפסגת החרמון בגובה 2040m',
       'מדריך מוסמך ומלווה מטעם HighAir',
@@ -49,7 +49,7 @@ export const ISRAEL_TRIPS = [
       'Shared yurt accommodation (up to 7 people) at Khan Al-Rom',
       'Breakfast at Khan Al-Rom camping site',
       'Druze lunch after the trek',
-      'Military permits — entry fully coordinated and approved',
+      'Military permits  -  entry fully coordinated and approved',
       'A meaningful contribution to the fight against cancer!',
     ],
     notIncluded: [
@@ -59,8 +59,8 @@ export const ISRAEL_TRIPS = [
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing and footwear',
-      'Cable car descent — ₪35 per person',
+      'Personal gear  -  clothing and footwear',
+      'Cable car descent  -  ₪35 per person',
     ],
     itinerary: [
       {
@@ -82,13 +82,13 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Friday',
         title: 'Camping & Bonding Evening',
-        desc:  '17:00 — Arrive independently to camping site + light refreshments\n19:30 — Friday BBQ dinner + group bonding evening\n22:00 — Good night!',
+        desc:  '17:00  -  Arrive independently to camping site + light refreshments\n19:30  -  Friday BBQ dinner + group bonding evening\n22:00  -  Good night!',
         accommodation: 'Shared yurt at Khan Al-Rom',
       },
       {
         day:   'Saturday',
         title: 'Hermon Summit Trek',
-        desc:  '05:30 — Wake up + breakfast\n06:00 — Depart to meeting point\n06:30 — Shuttle to Neve Ativ\n07:00 — Trail begins from Neve Ativ\n14:00 — Finish & Druze lunch\n14:30 — Shuttle back to Neve Ativ\n15:00 — Estimated end',
+        desc:  '05:30  -  Wake up + breakfast\n06:00  -  Depart to meeting point\n06:30  -  Shuttle to Neve Ativ\n07:00  -  Trail begins from Neve Ativ\n14:00  -  Finish & Druze lunch\n14:30  -  Shuttle back to Neve Ativ\n15:00  -  Estimated end',
         distance:      '12 km',
         duration:      '7–8 hours',
         elevationGain: '+1,040m gain',
@@ -125,8 +125,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Yagur'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'נחל יגור חוצה את הכרמל ממזרח למערב ומציע אחת מהליכות הנחל הציוריות ביותר בצפון הארץ. לאורך המסלול תגלו יערות אלה ואורן, בריכות טבעיות ומפלים שקטים המציעים רגע של שלווה אמיתית.\n\nהמסלול מתאים לכל רמות הכושר ומושלם לאנשים המעוניינים להתחיל ולהכיר את עולם ההליכות בטבע. האווירה בנחל שונה בכל עונה — בחורף הנחל זורם במלוא כוחו ומציג את הכרמל לבוש בירוק עשיר ומרענן.',
-    descEn:  'Nahal Yagur cuts through the Carmel from east to west, offering one of the most scenic stream hikes in northern Israel. Along the route you\'ll discover oak and pine forests, natural pools and quiet waterfalls that offer a moment of true tranquility.\n\nThe trail suits all fitness levels and is perfect for those looking to discover the world of nature hiking. The atmosphere changes with every season — in winter the stream flows at full strength, revealing the Carmel draped in lush, refreshing green.',
+    desc:    'נחל יגור חוצה את הכרמל ממזרח למערב ומציע אחת מהליכות הנחל הציוריות ביותר בצפון הארץ. לאורך המסלול תגלו יערות אלה ואורן, בריכות טבעיות ומפלים שקטים המציעים רגע של שלווה אמיתית.\n\nהמסלול מתאים לכל רמות הכושר ומושלם לאנשים המעוניינים להתחיל ולהכיר את עולם ההליכות בטבע. האווירה בנחל שונה בכל עונה  -  בחורף הנחל זורם במלוא כוחו ומציג את הכרמל לבוש בירוק עשיר ומרענן.',
+    descEn:  'Nahal Yagur cuts through the Carmel from east to west, offering one of the most scenic stream hikes in northern Israel. Along the route you\'ll discover oak and pine forests, natural pools and quiet waterfalls that offer a moment of true tranquility.\n\nThe trail suits all fitness levels and is perfect for those looking to discover the world of nature hiking. The atmosphere changes with every season  -  in winter the stream flows at full strength, revealing the Carmel draped in lush, refreshing green.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -137,11 +137,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -157,7 +157,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Nahal Yagur',
-        desc:  '06:45 — Gather at meeting point\n07:00 — Trail begins\n13:30 — End of trail & delicious lunch\n14:00 — Estimated finish',
+        desc:  '06:45  -  Gather at meeting point\n07:00  -  Trail begins\n13:30  -  End of trail & delicious lunch\n14:00  -  Estimated finish',
         distance:      '12 km',
         duration:      '6–7 hours',
         elevationGain: '+750m gain',
@@ -184,16 +184,16 @@ export const ISRAEL_TRIPS = [
     typeHe:     'טרק',
     seasons:    ['מרץ–נובמבר'],
     seasonsEn:  ['March–November'],
-    tagline:    'היסטוריה, נוף ועוצמה — סביב אחת ממצודות הצלבנים המרשימות בעולם\nבלב ירק הגולן ובמרגלות החרמון',
-    taglineEn:  'History, views and power — around one of the world\'s most impressive Crusader fortresses\nin the heart of the Golan and at the foot of the Hermon',
+    tagline:    'היסטוריה, נוף ועוצמה  -  סביב אחת ממצודות הצלבנים המרשימות בעולם\nבלב ירק הגולן ובמרגלות החרמון',
+    taglineEn:  'History, views and power  -  around one of the world\'s most impressive Crusader fortresses\nin the heart of the Golan and at the foot of the Hermon',
     grad:    'linear-gradient(135deg, #2a3a1a, #4a7b30, #1a2b0d)',
     img:     '/images/cards/Nimrod.avif',
     live:            false,
     airtableEvents:  ['Nimrod'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'מסלול עוקף מצודת נמרוד הוא שילוב מנצח של טבע, היסטוריה ונוף עוצר נשימה. מצודת נמרוד, הנחשבת לאחת ממצודות הצלבנים הגדולות והמשומרות ביותר בעולם, שולטת על הנוף מגובה 815 מטרים בשולי הגולן.\n\nהמסלול מקיף את המצודה ומציע מבטים מרהיבים לחרמון, לגולן ולבקעת הירדן. לאורך הדרך תלכו בין יערות אלה, חורשות זית ושטחי בזלת ירוקים — שילוב ייחודי המעניק למקום אופי שאין בשום אתר אחר בארץ.',
-    descEn:  'The Nimrod Fortress circuit is a winning combination of nature, history and breathtaking views. Nimrod Fortress, considered one of the largest and best-preserved Crusader fortresses in the world, dominates the landscape from 815 meters on the edge of the Golan.\n\nThe trail circles the fortress and offers stunning views of the Hermon, the Golan and the Jordan Valley. Along the way you walk through oak forests, olive groves and green basalt fields — a unique combination that gives this place a character unlike anywhere else in Israel.',
+    desc:    'מסלול עוקף מצודת נמרוד הוא שילוב מנצח של טבע, היסטוריה ונוף עוצר נשימה. מצודת נמרוד, הנחשבת לאחת ממצודות הצלבנים הגדולות והמשומרות ביותר בעולם, שולטת על הנוף מגובה 815 מטרים בשולי הגולן.\n\nהמסלול מקיף את המצודה ומציע מבטים מרהיבים לחרמון, לגולן ולבקעת הירדן. לאורך הדרך תלכו בין יערות אלה, חורשות זית ושטחי בזלת ירוקים  -  שילוב ייחודי המעניק למקום אופי שאין בשום אתר אחר בארץ.',
+    descEn:  'The Nimrod Fortress circuit is a winning combination of nature, history and breathtaking views. Nimrod Fortress, considered one of the largest and best-preserved Crusader fortresses in the world, dominates the landscape from 815 meters on the edge of the Golan.\n\nThe trail circles the fortress and offers stunning views of the Hermon, the Golan and the Jordan Valley. Along the way you walk through oak forests, olive groves and green basalt fields  -  a unique combination that gives this place a character unlike anywhere else in Israel.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -204,11 +204,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -224,7 +224,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Nimrod Fortress Circuit',
-        desc:  '07:30 — Independent arrival at meeting point\n08:00 — Trail begins\n13:30 — Estimated finish',
+        desc:  '07:30  -  Independent arrival at meeting point\n08:00  -  Trail begins\n13:30  -  Estimated finish',
         distance:      '10 km',
         duration:      '4–5 hours',
         elevationGain: '+350m gain',
@@ -251,7 +251,7 @@ export const ISRAEL_TRIPS = [
     typeHe:     'טרק',
     seasons:    ['ספטמבר–מרץ'],
     seasonsEn:  ['September–March'],
-    tagline:    'לא רק מצדה לא תיפול — מצדה תוכבש\nטרק מסביב לסלע האגדי עם נוף חסר מעצור אל ים המלח',
+    tagline:    'לא רק מצדה לא תיפול  -  מצדה תוכבש\nטרק מסביב לסלע האגדי עם נוף חסר מעצור אל ים המלח',
     taglineEn:  'Experience the legend of Masada from a completely different angle\na circuit hike around the iconic rock with unobstructed views of the Dead Sea',
     grad:    'linear-gradient(135deg, #3d2a15, #7a5030, #2b1a08)',
     img:     '/images/cards/Masada.avif',
@@ -259,8 +259,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Masada'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'מצדה היא אחד מסמלי ישראל — אבל רוב האנשים מכירים אותה רק מלמעלה. אנחנו נגלה אותה מזווית אחרת לגמרי: מסלול מסביב לסלע האגדי, דרך נתיב הנחש, בגובה המצוק ולאורך שביל הגמלים.\n\nהמסלול מציע נוף ייחודי ומרהיב אל ים המלח, ההרים הירדניים ומדבר יהודה. בשעות הבוקר המוקדמות, האור הזהוב שפוגע בסלע האדמוני מייצר תמונה שאי אפשר לשכוח.',
-    descEn:  'Masada is one of Israel\'s great symbols — but most people only know it from the top. We\'ll discover it from a completely different angle: a trail circling the iconic rock, via the Snake Path, along the cliff edge and the Camel Trail.\n\nThe route offers a unique and breathtaking view of the Dead Sea, the Jordanian mountains and the Judean Desert. In the early morning hours, the golden light hitting the red rock creates an unforgettable picture.',
+    desc:    'מצדה היא אחד מסמלי ישראל  -  אבל רוב האנשים מכירים אותה רק מלמעלה. אנחנו נגלה אותה מזווית אחרת לגמרי: מסלול מסביב לסלע האגדי, דרך נתיב הנחש, בגובה המצוק ולאורך שביל הגמלים.\n\nהמסלול מציע נוף ייחודי ומרהיב אל ים המלח, ההרים הירדניים ומדבר יהודה. בשעות הבוקר המוקדמות, האור הזהוב שפוגע בסלע האדמוני מייצר תמונה שאי אפשר לשכוח.',
+    descEn:  'Masada is one of Israel\'s great symbols  -  but most people only know it from the top. We\'ll discover it from a completely different angle: a trail circling the iconic rock, via the Snake Path, along the cliff edge and the Camel Trail.\n\nThe route offers a unique and breathtaking view of the Dead Sea, the Jordanian mountains and the Judean Desert. In the early morning hours, the golden light hitting the red rock creates an unforgettable picture.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -271,11 +271,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -291,7 +291,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Masada Circuit',
-        desc:  '05:30 — Independent arrival at meeting point (sunrise start)\n06:00 — Trail begins\n12:00 — Estimated finish',
+        desc:  '05:30  -  Independent arrival at meeting point (sunrise start)\n06:00  -  Trail begins\n12:00  -  Estimated finish',
         distance:      '10 km',
         duration:      '5–6 hours',
         elevationGain: '+400m gain',
@@ -326,8 +326,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Avnat'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'מצוקי אבנת הם אחד מהנוף הנגבי האיקוני ביותר — שרשרת מצוקי גיר מרשימה בגובה של עשרות מטרים החוצה את הנגב הגבוה. המסלול עוקב לאורך שפת המצוק ומציע תצפיות פנורמיות מרהיבות אל מישורי הנגב הרחוקים.\n\nמדובר בטרק מאתגר הדורש ניסיון בהליכה בשטח פתוח ומיומנות בניווט. הנוף הגיאולוגי הייחודי, צבעי הסלע הנפלאים ותחושת הבדידות הגדולה הופכים את המסלול הזה לאחד מסמלי הטיולים בדרום הארץ.',
-    descEn:  'The Avnat Cliffs are one of the Negev\'s most iconic landscapes — an impressive chain of limestone cliffs tens of meters high cutting through the High Negev. The trail follows along the cliff edge and offers breathtaking panoramic views across the far Negev plains.\n\nThis is a challenging trek requiring experience in open-terrain hiking and navigation skills. The unique geological landscape, wonderful rock colors and great sense of solitude make this one of the signature hikes of southern Israel.',
+    desc:    'מצוקי אבנת הם אחד מהנוף הנגבי האיקוני ביותר  -  שרשרת מצוקי גיר מרשימה בגובה של עשרות מטרים החוצה את הנגב הגבוה. המסלול עוקב לאורך שפת המצוק ומציע תצפיות פנורמיות מרהיבות אל מישורי הנגב הרחוקים.\n\nמדובר בטרק מאתגר הדורש ניסיון בהליכה בשטח פתוח ומיומנות בניווט. הנוף הגיאולוגי הייחודי, צבעי הסלע הנפלאים ותחושת הבדידות הגדולה הופכים את המסלול הזה לאחד מסמלי הטיולים בדרום הארץ.',
+    descEn:  'The Avnat Cliffs are one of the Negev\'s most iconic landscapes  -  an impressive chain of limestone cliffs tens of meters high cutting through the High Negev. The trail follows along the cliff edge and offers breathtaking panoramic views across the far Negev plains.\n\nThis is a challenging trek requiring experience in open-terrain hiking and navigation skills. The unique geological landscape, wonderful rock colors and great sense of solitude make this one of the signature hikes of southern Israel.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -338,11 +338,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -358,7 +358,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Avnat Cliffs',
-        desc:  '06:00 — Independent arrival at meeting point\n06:30 — Trail begins\n14:00 — Estimated finish',
+        desc:  '06:00  -  Independent arrival at meeting point\n06:30  -  Trail begins\n14:00  -  Estimated finish',
         distance:      '14 km',
         duration:      '6–7 hours',
         elevationGain: '+450m gain',
@@ -393,8 +393,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['GreatFin'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'הסנפיר הגדול הוא אחד מהנוף הגיאולוגי המרהיב ביותר בישראל — תצורת סלע ייחודית בתוך מכתש רמון, הגדול מסוגו בעולם. המסלול מציע ניווט בשטח מגוון ומאתגר, לאורך יצירות גיאולוגיות עתיקות שנוצרו לפני מאות מיליוני שנים.\n\nהמסע מתחיל בערב — נגיע למחנה בתוך המכתש, נקים אוהלים לאור שקיעה ונבשל יחד ארוחת ערב על האש. הלינה מתחת לכוכבי מכתש רמון היא חוויה בפני עצמה. למחרת, עם אור ראשון, נצא לטרק מלא ונחקור את הסנפיר הגדול ואת תצורות הסלע הייחודיות שמסביבו.',
-    descEn:  'The Great Fin is one of Israel\'s most stunning geological landscapes — a unique rock formation inside Makhtesh Ramon, the world\'s largest makhtesh. The trail offers navigation through diverse and challenging terrain, along ancient geological formations created hundreds of millions of years ago.\n\nThe journey begins in the evening — we arrive at camp inside the makhtesh, pitch tents at sunset and cook dinner together over a fire. Sleeping under the stars of Makhtesh Ramon is an experience in itself. The next morning, at first light, we set out for the full trek and explore the Great Fin and the unique rock formations surrounding it.',
+    desc:    'הסנפיר הגדול הוא אחד מהנוף הגיאולוגי המרהיב ביותר בישראל  -  תצורת סלע ייחודית בתוך מכתש רמון, הגדול מסוגו בעולם. המסלול מציע ניווט בשטח מגוון ומאתגר, לאורך יצירות גיאולוגיות עתיקות שנוצרו לפני מאות מיליוני שנים.\n\nהמסע מתחיל בערב  -  נגיע למחנה בתוך המכתש, נקים אוהלים לאור שקיעה ונבשל יחד ארוחת ערב על האש. הלינה מתחת לכוכבי מכתש רמון היא חוויה בפני עצמה. למחרת, עם אור ראשון, נצא לטרק מלא ונחקור את הסנפיר הגדול ואת תצורות הסלע הייחודיות שמסביבו.',
+    descEn:  'The Great Fin is one of Israel\'s most stunning geological landscapes  -  a unique rock formation inside Makhtesh Ramon, the world\'s largest makhtesh. The trail offers navigation through diverse and challenging terrain, along ancient geological formations created hundreds of millions of years ago.\n\nThe journey begins in the evening  -  we arrive at camp inside the makhtesh, pitch tents at sunset and cook dinner together over a fire. Sleeping under the stars of Makhtesh Ramon is an experience in itself. The next morning, at first light, we set out for the full trek and explore the Great Fin and the unique rock formations surrounding it.',
     included: [
       'מדריך מוסמך ומלווה מטעם HighAir',
       'ציוד עזרה ראשונה',
@@ -413,12 +413,12 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה, ציוד שינה ומזרן',
+      'ציוד אישי  -  לבוש, הנעלה, ציוד שינה ומזרן',
       'אוכל ושתייה במהלך הטרק',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear, sleeping bag and mat',
+      'Personal gear  -  clothing, footwear, sleeping bag and mat',
       'Food and drinks during the trek',
     ],
     itinerary: [
@@ -441,13 +441,13 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Evening',
         title: 'Arrival & Camp Setup',
-        desc:  '16:00 — Independent arrival at meeting point in Makhtesh Ramon\n17:00 — Camp and tent setup\n19:00 — Campfire dinner + group bonding evening\n22:00 — Good night under the stars',
+        desc:  '16:00  -  Independent arrival at meeting point in Makhtesh Ramon\n17:00  -  Camp and tent setup\n19:00  -  Campfire dinner + group bonding evening\n22:00  -  Good night under the stars',
         accommodation: 'Tents inside Makhtesh Ramon',
       },
       {
         day:   'Day 2',
         title: 'Great Fin Trek',
-        desc:  '06:00 — Wake up + breakfast\n07:00 — Trail begins\n14:00 — Estimated finish',
+        desc:  '06:00  -  Wake up + breakfast\n07:00  -  Trail begins\n14:00  -  Estimated finish',
         distance:      '14 km',
         duration:      '6–7 hours',
         elevationGain: '+500m gain',
@@ -482,8 +482,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Gilboa'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'הר הגלבוע מפורסם בעיקר בזכות פריחת האירוס הסגול — אחת מתופעות הטבע המרהיבות ביותר בישראל, המציירת את ההר בגוונים סגולים עזים בסוף החורף ותחילת האביב. מסלול ג׳ילבון ועין תינה לוקח אתכם דרך שדות הפריחה ועד למעיין עין תינה, המוקף בעצי פיקוס עתיקים ומספק רגעי שקט נדירים.\n\nמהפסגה נשקפים נופים עוצרי נשימה לבקעת יזרעאל, לכנרת ולהרי הגולן. מסלול ייחודי שמשלב פריחה, מים, היסטוריה ונוף בסטנדרד גבוה במיוחד.',
-    descEn:  'Mount Gilboa is famous above all for the purple iris bloom — one of Israel\'s most stunning natural phenomena, painting the mountain in vivid purple hues at the end of winter and start of spring. The Gilboa and Ein Tina trail takes you through the blooming fields and down to Ein Tina spring, surrounded by ancient fig trees and offering rare moments of quiet.\n\nFrom the summit, breathtaking views stretch across the Jezreel Valley, the Sea of Galilee and the Golan Heights. A unique trail that combines bloom, water, history and outstanding scenery.',
+    desc:    'הר הגלבוע מפורסם בעיקר בזכות פריחת האירוס הסגול  -  אחת מתופעות הטבע המרהיבות ביותר בישראל, המציירת את ההר בגוונים סגולים עזים בסוף החורף ותחילת האביב. מסלול ג׳ילבון ועין תינה לוקח אתכם דרך שדות הפריחה ועד למעיין עין תינה, המוקף בעצי פיקוס עתיקים ומספק רגעי שקט נדירים.\n\nמהפסגה נשקפים נופים עוצרי נשימה לבקעת יזרעאל, לכנרת ולהרי הגולן. מסלול ייחודי שמשלב פריחה, מים, היסטוריה ונוף בסטנדרד גבוה במיוחד.',
+    descEn:  'Mount Gilboa is famous above all for the purple iris bloom  -  one of Israel\'s most stunning natural phenomena, painting the mountain in vivid purple hues at the end of winter and start of spring. The Gilboa and Ein Tina trail takes you through the blooming fields and down to Ein Tina spring, surrounded by ancient fig trees and offering rare moments of quiet.\n\nFrom the summit, breathtaking views stretch across the Jezreel Valley, the Sea of Galilee and the Golan Heights. A unique trail that combines bloom, water, history and outstanding scenery.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -494,11 +494,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -514,7 +514,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Gilboa & Ein Tina',
-        desc:  '07:30 — Independent arrival at meeting point\n08:00 — Trail begins\n13:30 — Estimated finish',
+        desc:  '07:30  -  Independent arrival at meeting point\n08:00  -  Trail begins\n13:30  -  Estimated finish',
         distance:      '9 km',
         duration:      '4–5 hours',
         elevationGain: '+280m gain',
@@ -549,8 +549,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Keziv'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'נחל כזיב הוא אחד הנחלים הציוריים בישראל — נחל רב-מים הזורם בגליל המערבי לאורך כל השנה ומגיע לשיאו בחורף ובאביב. לאורך המסלול תפגשו מפלים עוצרי נשימה, בריכות רחצה טבעיות ויער ירוק ורענן.\n\nהאטרקציה ההיסטורית של המסלול היא מצודת מונפור — מצודת הצלבנים המרשימה שמשקיפה על הנחל מגובה. השילוב בין ההליכה לאורך המים לבין הסטייה לעלייה אל המצודה הופך את המסלול הזה לאחד המגוונים ביותר בצפון הארץ.',
-    descEn:  'Nahal Keziv is one of Israel\'s most scenic streams — a perennial river flowing through the Western Galilee year-round, reaching its peak in winter and spring. Along the trail you\'ll encounter breathtaking waterfalls, natural swimming pools and a lush green forest.\n\nThe trail\'s historic attraction is Montfort Castle — the impressive Crusader fortress overlooking the stream from above. The combination of walking along the water with the detour up to the castle makes this one of the most varied hikes in northern Israel.',
+    desc:    'נחל כזיב הוא אחד הנחלים הציוריים בישראל  -  נחל רב-מים הזורם בגליל המערבי לאורך כל השנה ומגיע לשיאו בחורף ובאביב. לאורך המסלול תפגשו מפלים עוצרי נשימה, בריכות רחצה טבעיות ויער ירוק ורענן.\n\nהאטרקציה ההיסטורית של המסלול היא מצודת מונפור  -  מצודת הצלבנים המרשימה שמשקיפה על הנחל מגובה. השילוב בין ההליכה לאורך המים לבין הסטייה לעלייה אל המצודה הופך את המסלול הזה לאחד המגוונים ביותר בצפון הארץ.',
+    descEn:  'Nahal Keziv is one of Israel\'s most scenic streams  -  a perennial river flowing through the Western Galilee year-round, reaching its peak in winter and spring. Along the trail you\'ll encounter breathtaking waterfalls, natural swimming pools and a lush green forest.\n\nThe trail\'s historic attraction is Montfort Castle  -  the impressive Crusader fortress overlooking the stream from above. The combination of walking along the water with the detour up to the castle makes this one of the most varied hikes in northern Israel.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -561,11 +561,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -581,7 +581,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Nahal Keziv',
-        desc:  '07:30 — Independent arrival at meeting point\n08:00 — Trail begins\n13:00 — Estimated finish',
+        desc:  '07:30  -  Independent arrival at meeting point\n08:00  -  Trail begins\n13:00  -  Estimated finish',
         distance:      '9 km',
         duration:      '4–5 hours',
         elevationGain: '+250m gain',
@@ -616,8 +616,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Kelah'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'נחל כלח הוא אחד מנחלי הגליל הציוריים, המשלב נחל זורם, עצי אלון עתיקים ומעיינות סמויים. עין אלון, הממוקמת בלב המסלול, היא מעיין מפתיע בתוך ערוץ הנחל — נקודת מנוחה ורעננות מושלמת באמצע ההליכה.\n\nהמסלול מתאים לכל הגילאים ורמות הכושר, ומציע שילוב מנצח של נוף, טבע ושקט. הוא אחד מאלו שאפשר ללכת בהם כמה פעמים ולגלות כל פעם משהו חדש.',
-    descEn:  'Nahal Kelah is one of the Galilee\'s most scenic streams, combining a flowing river, ancient oak trees and hidden springs. Ein Alon, located in the heart of the trail, is a surprising spring inside the stream channel — a perfect spot of rest and refreshment mid-hike.\n\nThe trail suits all ages and fitness levels, offering a winning combination of scenery, nature and quiet. It\'s one of those routes you can walk several times and discover something new each time.',
+    desc:    'נחל כלח הוא אחד מנחלי הגליל הציוריים, המשלב נחל זורם, עצי אלון עתיקים ומעיינות סמויים. עין אלון, הממוקמת בלב המסלול, היא מעיין מפתיע בתוך ערוץ הנחל  -  נקודת מנוחה ורעננות מושלמת באמצע ההליכה.\n\nהמסלול מתאים לכל הגילאים ורמות הכושר, ומציע שילוב מנצח של נוף, טבע ושקט. הוא אחד מאלו שאפשר ללכת בהם כמה פעמים ולגלות כל פעם משהו חדש.',
+    descEn:  'Nahal Kelah is one of the Galilee\'s most scenic streams, combining a flowing river, ancient oak trees and hidden springs. Ein Alon, located in the heart of the trail, is a surprising spring inside the stream channel  -  a perfect spot of rest and refreshment mid-hike.\n\nThe trail suits all ages and fitness levels, offering a winning combination of scenery, nature and quiet. It\'s one of those routes you can walk several times and discover something new each time.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -628,11 +628,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -648,7 +648,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Nahal Kelah & Ein Alon',
-        desc:  '07:30 — Independent arrival at meeting point\n08:00 — Trail begins\n13:30 — Estimated finish',
+        desc:  '07:30  -  Independent arrival at meeting point\n08:00  -  Trail begins\n13:30  -  Estimated finish',
         distance:      '10 km',
         duration:      '4–5 hours',
         elevationGain: '+300m gain',
@@ -683,8 +683,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Arugot'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'נחל ערוגות הוא אחד הנחלים המרהיבים ביותר בישראל — ערוץ ציורי החוצה את מדבר יהודה מהרי יהודה ועד לים המלח. לאורך המסלול תגלו בריכות טבעיות, מפלים גבוהים וצמחייה ים-תיכונית סבוכה שנראית לגמרי לא במקומה בלב המדבר.\n\nהיעד המרכזי הוא בריכת השולמית — בריכת רחצה ירוקה ומרעננת שנראית כאילו הגיעה מספר אגדות. בדרך תוכלו לראות יעלים, תנשמות ואפשר שאפילו נמרים — נחל ערוגות הוא בית לאחת מהאוכלוסיות הצפופות ביותר של יעלים בישראל.',
-    descEn:  'Nahal Arugot is one of Israel\'s most stunning streams — a scenic canyon cutting through the Judean Desert from the Judean Hills to the Dead Sea. Along the route you\'ll discover natural pools, high waterfalls and dense Mediterranean vegetation that looks completely out of place in the heart of the desert.\n\nThe main destination is the Shulamit Pool — a green and refreshing bathing pool that looks like something from a fairy tale. Along the way you can spot ibex, barn owls and possibly even leopards — Nahal Arugot is home to one of the densest ibex populations in Israel.',
+    desc:    'נחל ערוגות הוא אחד הנחלים המרהיבים ביותר בישראל  -  ערוץ ציורי החוצה את מדבר יהודה מהרי יהודה ועד לים המלח. לאורך המסלול תגלו בריכות טבעיות, מפלים גבוהים וצמחייה ים-תיכונית סבוכה שנראית לגמרי לא במקומה בלב המדבר.\n\nהיעד המרכזי הוא בריכת השולמית  -  בריכת רחצה ירוקה ומרעננת שנראית כאילו הגיעה מספר אגדות. בדרך תוכלו לראות יעלים, תנשמות ואפשר שאפילו נמרים  -  נחל ערוגות הוא בית לאחת מהאוכלוסיות הצפופות ביותר של יעלים בישראל.',
+    descEn:  'Nahal Arugot is one of Israel\'s most stunning streams  -  a scenic canyon cutting through the Judean Desert from the Judean Hills to the Dead Sea. Along the route you\'ll discover natural pools, high waterfalls and dense Mediterranean vegetation that looks completely out of place in the heart of the desert.\n\nThe main destination is the Shulamit Pool  -  a green and refreshing bathing pool that looks like something from a fairy tale. Along the way you can spot ibex, barn owls and possibly even leopards  -  Nahal Arugot is home to one of the densest ibex populations in Israel.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -695,11 +695,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -715,7 +715,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Nahal Arugot',
-        desc:  '06:00 — Independent arrival at meeting point\n06:30 — Trail begins\n13:00 — Estimated finish',
+        desc:  '06:00  -  Independent arrival at meeting point\n06:30  -  Trail begins\n13:00  -  Estimated finish',
         distance:      '10 km',
         duration:      '5–6 hours',
         elevationGain: '+400m gain',
@@ -750,8 +750,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Sodom'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'הר סדום הוא פנומן גיאולוגי ייחודי — הר המורכב כמעט כולו ממלח, הנמצא בגובה הנמוך ביותר בעולם ליד ים המלח. המסלול מציע הליכה לאורך מחילות מלח מרשימות, צוקי מלח לבנים ותצורות גיאולוגיות שלא תמצאו בשום מקום אחר על פני כדור הארץ.\n\nנחל פרצים מוסיף לחוויה עם ערוץ דרמטי ורחב שחרץ את הסלעים לאורך שנים רבות. בשילוב — הר סדום ונחל פרצים — מדובר בקומבינציה גיאולוגית ונופית שאין שנייה לה בישראל.',
-    descEn:  'Mount Sodom is a unique geological phenomenon — a mountain composed almost entirely of salt, located at the lowest point on earth beside the Dead Sea. The trail offers a walk through impressive salt caves, white salt cliffs and geological formations you\'ll find nowhere else on earth.\n\nNahal Partzim adds to the experience with a dramatic wide canyon carved through the rock over many years. Together — Mount Sodom and Nahal Partzim — this is a geological and scenic combination with no equal in Israel.',
+    desc:    'הר סדום הוא פנומן גיאולוגי ייחודי  -  הר המורכב כמעט כולו ממלח, הנמצא בגובה הנמוך ביותר בעולם ליד ים המלח. המסלול מציע הליכה לאורך מחילות מלח מרשימות, צוקי מלח לבנים ותצורות גיאולוגיות שלא תמצאו בשום מקום אחר על פני כדור הארץ.\n\nנחל פרצים מוסיף לחוויה עם ערוץ דרמטי ורחב שחרץ את הסלעים לאורך שנים רבות. בשילוב  -  הר סדום ונחל פרצים  -  מדובר בקומבינציה גיאולוגית ונופית שאין שנייה לה בישראל.',
+    descEn:  'Mount Sodom is a unique geological phenomenon  -  a mountain composed almost entirely of salt, located at the lowest point on earth beside the Dead Sea. The trail offers a walk through impressive salt caves, white salt cliffs and geological formations you\'ll find nowhere else on earth.\n\nNahal Partzim adds to the experience with a dramatic wide canyon carved through the rock over many years. Together  -  Mount Sodom and Nahal Partzim  -  this is a geological and scenic combination with no equal in Israel.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -762,11 +762,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -782,7 +782,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Mount Sodom & Nahal Partzim',
-        desc:  '06:00 — Independent arrival at meeting point\n06:30 — Trail begins\n13:00 — Estimated finish',
+        desc:  '06:00  -  Independent arrival at meeting point\n06:30  -  Trail begins\n13:00  -  Estimated finish',
         distance:      '12 km',
         duration:      '5–6 hours',
         elevationGain: '+300m gain',
@@ -817,8 +817,8 @@ export const ISRAEL_TRIPS = [
     airtableEvents:  ['Tzeelim'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'מעלה צאלים ונחל משמר הם שילוב מנצח של שני הנחלים הדרמטיים ביותר במדבר יהודה. המסלול יורד דרך ערוצי נחל צאלים הצרים והסלעיים, מגיע לנחל משמר ועוקב לאורכו עד להגיע לים המלח — ירידה של כ-400 מטרים בין מצוקים מרשימים.\n\nמדובר במסלול מאתגר הדורש ניסיון, כושר גופני טוב ויציבות בשטח טכני. זה הסוג של טרק שמחכים לו כל שנה — ההרגשה שלאחר הסיום שווה כל מאמץ.',
-    descEn:  'Maale Tze\'elim and Nahal Mishmar are a winning combination of two of the Judean Desert\'s most dramatic canyons. The trail descends through the narrow rocky channels of Nahal Tze\'elim, reaches Nahal Mishmar and follows it all the way to the Dead Sea — a descent of around 400 meters between impressive cliffs.\n\nThis is a challenging trail requiring experience, good physical fitness and stability on technical terrain. It\'s the kind of trek you look forward to every year — the feeling after finishing is worth every effort.',
+    desc:    'מעלה צאלים ונחל משמר הם שילוב מנצח של שני הנחלים הדרמטיים ביותר במדבר יהודה. המסלול יורד דרך ערוצי נחל צאלים הצרים והסלעיים, מגיע לנחל משמר ועוקב לאורכו עד להגיע לים המלח  -  ירידה של כ-400 מטרים בין מצוקים מרשימים.\n\nמדובר במסלול מאתגר הדורש ניסיון, כושר גופני טוב ויציבות בשטח טכני. זה הסוג של טרק שמחכים לו כל שנה  -  ההרגשה שלאחר הסיום שווה כל מאמץ.',
+    descEn:  'Maale Tze\'elim and Nahal Mishmar are a winning combination of two of the Judean Desert\'s most dramatic canyons. The trail descends through the narrow rocky channels of Nahal Tze\'elim, reaches Nahal Mishmar and follows it all the way to the Dead Sea  -  a descent of around 400 meters between impressive cliffs.\n\nThis is a challenging trail requiring experience, good physical fitness and stability on technical terrain. It\'s the kind of trek you look forward to every year  -  the feeling after finishing is worth every effort.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -829,11 +829,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -849,7 +849,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Maale Tze\'elim & Nahal Mishmar',
-        desc:  '05:30 — Independent arrival at meeting point\n06:00 — Vehicle shuttle to start point\n06:30 — Trail begins\n14:00 — Estimated finish at Dead Sea shore',
+        desc:  '05:30  -  Independent arrival at meeting point\n06:00  -  Vehicle shuttle to start point\n06:30  -  Trail begins\n14:00  -  Estimated finish at Dead Sea shore',
         distance:      '14 km',
         duration:      '7–8 hours',
         elevationGain: '-400m descent',
@@ -876,16 +876,16 @@ export const ISRAEL_TRIPS = [
     typeHe:     'טרק',
     seasons:    ['מרץ–נובמבר'],
     seasonsEn:  ['March–November'],
-    tagline:    'אל הפסגה הגבוהה ביותר של גליל — 1208 מטרים\nיערות אלה עתיקים, נוף פנורמי ואוויר הר צלול',
-    taglineEn:  'To the highest peak in the Galilee — 1,208 meters\nancient oak forests, panoramic views and crisp mountain air',
+    tagline:    'אל הפסגה הגבוהה ביותר של גליל  -  1208 מטרים\nיערות אלה עתיקים, נוף פנורמי ואוויר הר צלול',
+    taglineEn:  'To the highest peak in the Galilee  -  1,208 meters\nancient oak forests, panoramic views and crisp mountain air',
     grad:    'linear-gradient(135deg, #1a3020, #2d6040, #0d201a)',
     img:     '/images/cards/Meron.avif',
     live:            false,
     airtableEvents:  ['Meron'],
     groupCapacity:   12,
     paymentUrl:      '',
-    desc:    'הר מירון הוא הפסגה הגבוהה ביותר בגליל ואחד ממוקדי הטבע הבולטים ביותר בישראל. בגובה 1208 מטרים מעל פני הים, הפסגה מעניקה נוף פנורמי מרהיב לגליל, לכנרת, לבנון ובימים בהירים אף לחרמון.\n\nהמסלול עובר דרך יערות אלה עתיקים — חלקם בני מאות שנים — שיוצרים אווירה ייחודית ומסתורית. בר-לבנה, עוזרד, ואורן הארץ ישראלי מלווים אתכם לאורך הדרך ומהווים תזכורת לטבע הים-תיכוני הפראי שפעם כיסה את רוב הארץ.',
-    descEn:  'Mount Meron is the highest peak in the Galilee and one of Israel\'s most prominent natural landmarks. At 1,208 meters above sea level, the summit offers breathtaking panoramic views of the Galilee, the Sea of Galilee, Lebanon and on clear days even the Hermon.\n\nThe trail passes through ancient oak forests — some hundreds of years old — that create a unique and mysterious atmosphere. Strawberry tree, hawthorn and Aleppo pine accompany you along the way, serving as a reminder of the wild Mediterranean nature that once covered most of the country.',
+    desc:    'הר מירון הוא הפסגה הגבוהה ביותר בגליל ואחד ממוקדי הטבע הבולטים ביותר בישראל. בגובה 1208 מטרים מעל פני הים, הפסגה מעניקה נוף פנורמי מרהיב לגליל, לכנרת, לבנון ובימים בהירים אף לחרמון.\n\nהמסלול עובר דרך יערות אלה עתיקים  -  חלקם בני מאות שנים  -  שיוצרים אווירה ייחודית ומסתורית. בר-לבנה, עוזרד, ואורן הארץ ישראלי מלווים אתכם לאורך הדרך ומהווים תזכורת לטבע הים-תיכוני הפראי שפעם כיסה את רוב הארץ.',
+    descEn:  'Mount Meron is the highest peak in the Galilee and one of Israel\'s most prominent natural landmarks. At 1,208 meters above sea level, the summit offers breathtaking panoramic views of the Galilee, the Sea of Galilee, Lebanon and on clear days even the Hermon.\n\nThe trail passes through ancient oak forests  -  some hundreds of years old  -  that create a unique and mysterious atmosphere. Strawberry tree, hawthorn and Aleppo pine accompany you along the way, serving as a reminder of the wild Mediterranean nature that once covered most of the country.',
     included: [
       'מדריך ישראלי מוסמך מקצועי מלווה מטעם HighAir',
       'ארוחת צהריים מפנקת בסוף המסלול',
@@ -896,11 +896,11 @@ export const ISRAEL_TRIPS = [
     ],
     notIncluded: [
       'הגעה עצמאית לנקודת מפגש',
-      'ציוד אישי — לבוש, הנעלה וציוד הליכה',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
     ],
     notIncludedEn: [
       'Independent transport to meeting point',
-      'Personal gear — clothing, footwear and hiking equipment',
+      'Personal gear  -  clothing, footwear and hiking equipment',
     ],
     itinerary: [
       {
@@ -916,7 +916,7 @@ export const ISRAEL_TRIPS = [
       {
         day:   'Hike Day',
         title: 'Mount Meron',
-        desc:  '07:30 — Independent arrival at meeting point\n08:00 — Trail begins\n14:00 — Estimated finish',
+        desc:  '07:30  -  Independent arrival at meeting point\n08:00  -  Trail begins\n14:00  -  Estimated finish',
         distance:      '11 km',
         duration:      '5–6 hours',
         elevationGain: '+600m gain',

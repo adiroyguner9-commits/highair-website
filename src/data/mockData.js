@@ -7,25 +7,25 @@ export const EXPS = [
     airtableEvents: ['Olympus'],
     groupCapacity: 15,
     img: '/images/cards/olympus.webp',
-    seoTitle:       'טרק האולימפוס ביוון 2025 | HighAir Expeditions',
-    seoDescription: 'טרק לפסגת הר האולימפוס ביוון (2917מ׳) — 6 ימים. הר האלים עם מדריכים מקצועיים, יום קניונינג בנהר האורליאס ותרומה למלחמה בסרטן. מתאים לכל רמות כושר!',
+    seoTitle:       'טרק האולימפוס ביוון 2026 | HighAir Expeditions',
+    seoDescription: 'טרק לפסגת הר האולימפוס ביוון (2917מ׳)  -  6 ימים. מסלול דרך יערות פריוניה, פסגת מיטיקאס ויום קניונינג בנהר האורליאס. מדריכים מקצועיים, קבוצה עד 15 איש.',
     grad: 'linear-gradient(135deg,#3b82f6,#1d4ed8,#1e3a8a)',
-    desc: `הצטרפו אלינו למסע אתגרי לפסגת הר האולימפוס ביוון, ההר הגבוה ביותר במדינה ומקום משכנם של האלים האולימפיים לפי המיתולוגיה היוונית. הר האולימפוס מציע נופים עוצרי נשימה עם פסגות מדהימות, יערות עבותים וכרי דשא ירוקים, שיהפכו את המסע לחוויה בלתי נשכחת.
+    desc: `הר האולימפוס הוא ההר הגבוה ביותר ביוון ומקום משכנם של האלים לפי המיתולוגיה היוונית  -  2918 מטרים של יערות אלפיניים, צוקים ופסגות שנשקפות עד הים האגאי.
 
-המסע מתחיל בכפר ליטוחורו, עובר דרך פריוניה אל בקתות, וממשיך לפסגות סקאלה ומיטיקאס, המתנשאת לגובה 2918 מטרים. זהו מסלול מאתגר המתאים למטיילים בעלי רמות שונות של כושר גופני וניסיון בהליכה בהרים. עם הכנה נכונה וציוד מתאים, כל אחד יכול ליהנות מהנוף הפנורמי המרהיב שההר מציע.
+המסע מתחיל בכפר ליטוחורו, עולה דרך יערות פריוניה אל הבקתות, וממשיך לפסגות סקאלה ומיטיקאס. המסלול מאתגר אך בר-השגה: מי שמסוגל ללכת 15–20 ק"מ ביום בטיפוס משמעותי  -  יגיע לפסגה. המדריכים המקומיים מכירים את המסלול לעומק ומלווים את הקבוצה בכל שלב.
 
-טיפוס לפסגת האולימפוס הוא לא רק אתגר פיזי, אלא גם חוויה רוחנית ותרבותית. האוויר הצלול, השקט והשלווה, והקשר העמוק להיסטוריה ולמיתולוגיה היוונית, יותירו עליכם רושם עמוק שילווה אתכם לשנים רבות.
+היום החמישי מוקדש לקניונינג בנהר האורליאס  -  גלישת מפלים, שחייה בבריכות טבעיות ותרגול על סלעים. איזון טוב בין מאמץ וכיף.
 
-הצטרפו אלינו למסע מדהים לפסגת הר האלים וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת מיטיקאס 2917מ׳', 'יערות פריוניה', 'מיתולוגיה יוונית עתיקה', 'נוף הים האגאי'],
     nameEn: 'Olympus',
-    descEn: `Join us on an exhilarating journey to the summit of Mount Olympus in Greece - the country's highest peak and legendary home of the Olympian gods. With breathtaking panoramas, lush forests, and pristine alpine meadows, this expedition delivers an unforgettable experience.
+    descEn: `Mount Olympus is Greece's highest peak at 2,917m, and yes, it's the mountain the ancient Greeks decided the gods lived on. Whether or not you buy the mythology, the mountain itself earns the reputation.
 
-The journey begins in the village of Litochoro, passes through Prionia towards the mountain huts, and continues to the legendary Skala and Mytikas summits, reaching 2918 meters. This challenging route welcomes trekkers of all fitness levels with proper preparation.
+We start in the village of Litochoro and work our way up through the Prionia forests to the mountain huts, then push on to Skala and Mytikas at 2,918m. The route is challenging but accessible. If you can walk 15–20 km a day and don't mind gaining serious elevation, this is for you.
 
-Climbing Olympus is not just a physical challenge - it's a spiritual and cultural experience. The crisp air, the silence, and the deep connection to ancient Greek history and mythology will leave a lasting impression for years to come.
+The forests here are proper alpine forest, not decorative. The air at the top is cold and clear, and when the mist drops you get a view straight down to the Aegean. It's one of those moments that's hard to explain until you're in it.
 
-Join us on this incredible adventure to the Peak of the Gods and make a meaningful contribution to the fight against cancer!`,
+We run this route as a 6-day expedition. One of those days is a canyoning session at the Orlias River. Good balance of effort and fun.`,
     highlightsEn: ['Mytikas Summit 2,917m', 'Prionia forests', 'Ancient Greek mythology', 'Aegean Sea panorama'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -90,7 +90,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -108,11 +108,11 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     ],
     itineraryEn: [
       { day: 1, title: 'Welcome to Greece!', desc: 'Before landing in Thessaloniki, enjoy a stunning aerial view of the Greek islands. After landing, board the transfer to Bayiri Petit Pension hotel in Litochoro, driving through unique rural and mountain landscapes along the way. After checking in and settling into your rooms, take time to rest and prepare for the days ahead. You\'ll receive a detailed briefing from the guiding team who will accompany you throughout the journey. A good night\'s rest awaits before heading to the mountain.', travelTime: 'Approx. 1.5-hour drive from Thessaloniki airport to Litochoro hotel', accommodation: 'Bayiri Petit Pension hotel in Litochoro or similar' },
-      { day: 2, title: 'Gortsias – Petrostrouga Hut (1,940m)', desc: 'After breakfast at the hotel, board the transfer to Gortsias — the starting point of the climb at 1,140m. The trail winds through dense forests, rocky terrain, and stunning ridgelines with panoramic views. The path is well-marked, and trekkers enjoy both the challenge and the beauty of the ascent all the way to Petrostrouga Hut. The hut offers a comfortable resting spot with breathtaking views of the surrounding area. Enjoy a warm meal and recover from the day\'s climb before continuing the adventure.', distance: '7 km', duration: '3–4 hours', elevationGain: '+800m gain', accommodation: 'Petrostrouga Hut' },
-      { day: 3, title: 'Muses Plateau – Mytikas Summit – Kaklos Hut (2,918m)', desc: 'We set out from the hut on a winding trail leading to the central summits of the mountain. Weather permitting, we climb to the highest peak — Mytikas at 2,918m — passing through the Muses Plateau and a section that includes a narrow couloir (requiring approx. 1 km of scrambling). After reaching the summit, we descend carefully and safely to Kaklos Hut for rest and sleep.', distance: '15 km', duration: '6–8 hours', elevationGain: '+978m gain', elevationLoss: '-268m loss', accommodation: 'Kaklos Hut' },
+      { day: 2, title: 'Gortsias – Petrostrouga Hut (1,940m)', desc: 'After breakfast at the hotel, board the transfer to Gortsias  -  the starting point of the climb at 1,140m. The trail winds through dense forests, rocky terrain, and stunning ridgelines with panoramic views. The path is well-marked, and trekkers enjoy both the challenge and the beauty of the ascent all the way to Petrostrouga Hut. The hut offers a comfortable resting spot with breathtaking views of the surrounding area. Enjoy a warm meal and recover from the day\'s climb before continuing the adventure.', distance: '7 km', duration: '3–4 hours', elevationGain: '+800m gain', accommodation: 'Petrostrouga Hut' },
+      { day: 3, title: 'Muses Plateau – Mytikas Summit – Kaklos Hut (2,918m)', desc: 'We set out from the hut on a winding trail leading to the central summits of the mountain. Weather permitting, we climb to the highest peak  -  Mytikas at 2,918m  -  passing through the Muses Plateau and a section that includes a narrow couloir (requiring approx. 1 km of scrambling). After reaching the summit, we descend carefully and safely to Kaklos Hut for rest and sleep.', distance: '15 km', duration: '6–8 hours', elevationGain: '+978m gain', elevationLoss: '-268m loss', accommodation: 'Kaklos Hut' },
       { day: 4, title: 'Prionia – Litochoro (1,140m)', desc: 'After breakfast at the hut, we pack our gear and hit the trail. Today\'s route takes us from the hut down to Prionia through the magnificent landscapes of Mount Olympus, with dense forests and breathtaking viewpoints. At the end of the trail, we board the transfer back to the hotel in Litochoro, where you can shower and rest after the exhilarating journey.', distance: '8 km', duration: '4–5 hours', elevationLoss: '-1,510m loss', accommodation: 'Bayiri Petit Pension hotel in Litochoro or similar' },
       { day: 5, title: 'Canyoning Day at the Orlias River', desc: 'A full day of adventure and adrenaline with canyoning at the Orlias River. After breakfast in Litochoro, board a short transfer to the starting point. Canyoning at the Orlias River offers an unforgettable experience including waterfall rappelling, swimming in natural pools, and rock scrambling. Professional guides accompany you every step of the way, ensuring a safe and fun experience for every participant. Enjoy the natural beauty of the river, surrounded by lush vegetation and the stunning landscapes of Mount Olympus. After the activity, return to Litochoro to freshen up and rest before heading home.', duration: 'Approx. 4 hours', accommodation: 'Bayiri Petit Pension hotel in Litochoro or similar' },
-      { day: 6, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. Board the transfer to Thessaloniki airport for the flight back home to Israel. During the flight, share memories and experiences from this wonderful journey — full of photos and stories to tell :)' },
+      { day: 6, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. Board the transfer to Thessaloniki airport for the flight back home to Israel. During the flight, share memories and experiences from this wonderful journey  -  full of photos and stories to tell :)' },
     ],
   },
   {
@@ -123,24 +123,24 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     img: '/images/cards/peaks-of-balkan.webp',
     seoTitle:       'טרק פסגות הבלקן באלבניה | HighAir Expeditions',
-    seoDescription: 'טרק פסגות הבלקן באלבניה (2656מ׳) — 10 ימים. נופים עוצרי נשימה, כפרים מסורתיים ושבילי הרים ירוקים. מסע ייחודי עם מדריכים מנוסים ותרומה למלחמה בסרטן.',
+    seoDescription: 'טרק פסגות הבלקן באלבניה (2656מ׳)  -  10 ימים. 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. מדריכים מנוסים, קבוצה עד 15 איש.',
     grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
-    desc: `הצטרפו אלינו לטרק פסגות הבלקן, אחד ממסלולי הטרק המרהיבים והנידחים ביותר באירופה. השביל חוצה את גבולות אלבניה, קוסובו ומונטנגרו, ומוביל אתכם דרך עמקים אלפיניים בתוליים, מעברי הרים דרמטיים וכפרים מסורתיים שנותרו מחוץ למסלול התיירות ההמוני.
+    desc: `טרק פסגות הבלקן חוצה את גבולות אלבניה, קוסובו ומונטנגרו במהלך 8 ימי הליכה. המסלול מוביל דרך עמקים אלפיניים, מעברי הרים ברום 2000 מטר וכפרי רועים מרוחקים שאין אליהם גישה בכביש.
 
-במהלך 8 ימים תצעדו בלב הבלקן המערבי, תגלו תרבויות עשירות, ותלונו בגסטהאוסים ביתיים המנוהלים על ידי משפחות מקומיות. זהו מסע אמיתי מחוץ לשביל המוכר, למי שמחפש טבע, פשטות ואותנטיות.
+לאורך כל הדרך לנים בגסטהאוסים ביתיים המנוהלים על ידי משפחות מקומיות  -  אוכלים מה שהן מבשלות, שומעים את הסיפורים שלהן. ביום השישי מגיעים לנקודה שבה נפגשים גבולות שלוש המדינות בגובה 2366 מ׳  -  אנדרטה קטנה, ואפשרות לעמוד בו-זמנית בשלוש מדינות.
 
-הטרק בפסגות הבלקן הוא לא רק מסע גופני, אלא גם חוויה רוחנית ותרבותית. הנוף ההררי המושלג, האוויר הצח, השקט והמרהיב יותירו עליכם רושם עמוק שילווה אתכם לאורך שנים רבות.
+הפסגה הגבוהה ביותר היא ג׳רביצה בגובה 2656 מ׳  -  הנקודה הגבוהה בקוסובו. 13–22 ק"מ ביום, בהתאם לשלב. מסלול בינוני ללא טיפוס טכני.
 
-הצטרפו אלינו להרפתקה של פעם בחיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת ג׳רביצה 2656מ׳', 'שייט באגם קומאני', 'גבולות אלבניה-קוסובו-מונטנגרו', 'גסטהאוסים ביתיים מקומיים'],
     nameEn: 'Peaks of the Balkans',
-    descEn: `Join us on the Peaks of the Balkans trek - one of the most spectacular and remote trekking routes in Europe. The trail crosses the borders of Albania, Kosovo and Montenegro, leading you through pristine alpine valleys, dramatic mountain passes and traditional villages that remain off the beaten tourist track.
+    descEn: `The Peaks of the Balkans trail crosses Albania, Kosovo, and Montenegro over 8 trekking days. It's one of the least crowded long-distance routes in Europe, and the landscapes  -  alpine passes, river valleys, remote shepherd villages  -  are the real thing.
 
-Over 8 days you'll walk through the heart of the Western Balkans, discover rich cultures, and stay in family-run guesthouses managed by local families. This is a true journey off the well-known path, for those seeking nature, simplicity and authenticity.
+You stay in family-run guesthouses throughout, eating what the families cook. The border crossings are genuine: on Day 6 you stand at a small monument where all three countries meet and you can get a foot in each simultaneously. People love that moment more than they expect to.
 
-The Peaks of the Balkans trek is not just a physical journey - it's a spiritual and cultural experience. The snow-capped mountain scenery, the fresh air, the silence and the majesty will leave a deep impression that will stay with you for years to come.
+The highest point is Jezerca at 2,656m. The terrain varies day to day, from forest tracks to rocky ridgelines. Daily distances run 13–20 km depending on the stage. It's a moderate route  -  no technical climbing  -  but the cumulative days add up, so reasonable fitness matters.
 
-Join us for a once-in-a-lifetime adventure, and make a meaningful contribution to the fight against cancer!`,
+We've run this route with groups and know which guesthouses are worth staying at. The Gacafari family guesthouse near the triple-border point is a highlight: warm, well-fed, and memorable.`,
     highlightsEn: ['Jezerca Peak 2,656m', 'Lake Komani boat ride', 'Albania-Kosovo-Montenegro borders', 'Local family guesthouses'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -222,7 +222,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     ],
     importantToNoteEn: [
       'The trek runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -231,16 +231,16 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       'Safety first - in the mountains there is no guarantee of reaching the summit, but safety is always the top priority!',
     ],
     itineraryEn: [
-      { day: 1,  title: 'Welcome to Albania!', desc: 'After landing at Tirana International Airport, we head north toward Shkodra — one of Albania\'s oldest and most fascinating cities, with a history spanning more than 2,500 years. We check in to our hotel and, after a short rest, set out for an evening stroll along the lively main street, buzzing with cafés, restaurants and vibrant local culture. In the evening we enjoy a celebratory opening dinner and get to know the team and fellow group members.', travelTime: 'Approx. 2-hour drive from Tirana airport to Shkodra hotel', accommodation: 'Hotel Tradita in Shkodra or similar' },
-      { day: 2,  title: 'Shkodra – Komani Lake Ferry – Valbona (927m)', desc: 'Our journey begins with a drive from Shkodra to Lake Komani, the departure point for one of Europe\'s most beautiful ferry crossings. We glide across turquoise waters flanked by dramatic gorges, sheer cliffs and untouched wilderness.\n\nAfter disembarking, we continue by vehicle to a local town for a traditional lunch at a restaurant. We then drive on to the village of Dragobia — the starting point of today\'s hike. From here we follow the crystal-clear Valbona River through pristine nature and breathtaking mountain scenery, all the way to the village of Valbona, the heart of the national park.', distance: '7 km', duration: '3–4 hours', elevationGain: '+280m gain', accommodation: 'Guesthouse in Valbona' },
-      { day: 3,  title: 'Valbona – Prishtevica Pass (2,030m) – Çerem (1,150m)', desc: 'After breakfast, we begin our ascent on a stunning trail toward the remote Prishtevica mountain pass. We climb in steep switchbacks for several hours until we reach the day\'s highest point at approximately 2,030m. Throughout the ascent, breathtaking views of the Albanian Alps unfold in every direction.\n\nAfter crossing the border into Montenegro, we stop for lunch at the Buri Pass — an open meadow that serves as grazing land for shepherds from the villages of Çerem and Vuthaj. From Buri, a short half-hour walk brings us to a local shepherd\'s hut where we rest over a coffee and mountain tea. From here the village of Çerem is already visible in the distance. We descend gradually for another two hours through dense forest until we reach our accommodation.', distance: '13–14 km', duration: '7–8 hours', elevationGain: '+1,103m gain', elevationLoss: '-880m loss', accommodation: 'Guesthouse in Çerem' },
-      { day: 4,  title: 'Çerem – Dobërdol (1,800m)', desc: 'After breakfast at the guesthouse, we continue toward Dobërdol. Today is a transition day leading us from Çerem to Dobërdol — a remote shepherds\' village accessible only by mule tracks, inhabited in summer only by local herders.\n\nFrom Çerem we begin a gradual climb to the Montenegro border, cross the beautiful shepherds\' hamlet of Bjelkim, and continue through the Gashi Valley — a protected nature area renowned for its wild beauty. The trail winds up through the valley all the way to Dobërdol, one of the most remote and pastoral spots in Albania, where we settle in for the night.', distance: '16–17 km', duration: '7–8 hours', elevationGain: '+650m gain', accommodation: 'Guesthouse in Dobërdol' },
-      { day: 5,  title: 'Dobërdol – Jezerca Summit (2,656m) – Gacafar (1,840m)', desc: 'Today we leave Albania and cross into Kosovo. After a few hours of steady climbing, we reach a high mountain pass on the Albania–Kosovo border. From there we push on to the summit of Jezerca, rising to 2,656m — the highest point in Kosovo. The view from the top is particularly dramatic: sharp cliffs, deep valleys and endless peaks in every direction.\n\nAt the end of the day we descend toward Gacafar, situated close to the Triple-Border Point. The guesthouse is run by the Gacafari family, known for their warm hospitality, outstanding mountain cuisine and wonderful atmosphere.', distance: '16–17 km', duration: '7–8 hours', elevationGain: '+856m gain', elevationLoss: '-816m loss', accommodation: 'Guesthouse in Gacafar' },
-      { day: 6,  title: 'Gacafar – Triple-Border Peak (2,366m) – Babino Polje (1,550m)', desc: 'Our first goal today is the Triple-Border Peak at 2,366m — a symbolic point where the borders of Kosovo, Albania and Montenegro converge. A small monument marks the spot, and many trekkers stop here to be photographed standing in three countries at once!\n\nAfter a short rest we descend the ridge separating Kosovo and Montenegro, ending at the lush alpine meadows of Kosovo. We cross into Montenegro and hike toward Lake Hrid — a magical, crystal-clear mountain lake. From there we continue down into the pastoral valley of Babino Polje, a picturesque mountain village in Montenegro surrounded by green meadows and dramatic alpine scenery.', distance: '16–17 km', duration: '7–8 hours', elevationGain: '+526m gain', elevationLoss: '-816m loss', accommodation: 'Guesthouse in Babino Polje' },
-      { day: 7,  title: 'Babino Polje – Taljanka Peak (2,056m) – Vasanija (953m)', desc: 'We wake to a crisp clear morning, enjoy a warm drink and breakfast while taking in the stunning views around us, then set off on a short drive to the Grbajas Valley — considered one of the most beautiful and dramatic valleys in Montenegro, enclosed by the immense rock walls of the Karanfili massif.\n\nFrom here we begin today\'s hike, ascending through alpine forest until we reach the Vlušnica summit — the first of the day\'s two peaks. From this vantage point we enjoy a sweeping view of the valley and the jagged peaks of the Accursed Mountains. We then continue along a narrow, impressive ridge to the day\'s main summit, Taljanka at 2,056m. We finish by descending back to the Grbajas Valley and driving back to the village of Vasanija for the night.', distance: '20–22 km', duration: '9–10 hours', elevationGain: '+506m gain', elevationLoss: '-1,103m loss', accommodation: 'Guesthouse in Vasanija' },
-      { day: 8,  title: 'Vasanija – Theth (750m)', desc: 'Today\'s hike through the Prokletije reserve promises to be one of the most memorable of the entire journey. It is a relatively long trekking day crossing the border between Montenegro and Albania. The trail passes through the wildest and most dramatic section of the Prokletije range — the jagged mountain ridge. For almost the entire route we walk between steep peaks and breathtaking scenery with infinite views in all directions.\n\nAlong the way we glimpse the history of the region: an old military border post, Communist-era bunkers, and a border pyramid marker — remnants of a time when this area was a forbidden zone. We stop for a picnic in a meadow carpeted with colourful wildflowers and butterflies, soaking up the stillness of the wild Balkans. We end the day with the descent to the village of Theth for our last night in the mountains.', distance: '17–18 km', duration: '7–8 hours', elevationLoss: '-203m loss', accommodation: 'Guesthouse in Theth' },
-      { day: 9,  title: 'Theth – Grunas Waterfall – Blue Eye – Shkodra', desc: 'The final day of our journey combines a short magical hike to Grunas Waterfall and a visit to the "Blue Eye" of Theth — two of the most beautiful natural sites in the Albanian Alps. The village of Theth is one of Albania\'s most iconic destinations, a place where time stands still and nature preserves its raw power.\n\nAlong the way we enjoy stunning views of the Albanian Alpine peaks and the sound of a river rushing through a deep canyon beside the trail. As we approach the waterfall the forest thickens, the air cools, and the roar of water plunging some 30 metres into a crystal-clear natural pool grows louder.\n\nAfter the waterfall visit, we drive to the "Blue Eye" — a natural turquoise pool fed by a deep underground spring in the heart of the forest. It is the perfect spot for a moment of rest and for some final breathtaking photos of the journey. At day\'s end we drive back to Shkodra, where we close out this adventure.', distance: '6–7 km', duration: '3–4 hours', accommodation: 'Hotel Tradita in Shkodra or similar' },
-      { day: 10, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. Board the transfer to Tirana airport for the flight back home to Israel. During the flight, share memories and experiences from this wonderful journey — full of photos and stories to tell :)' },
+      { day: 1,  title: 'Welcome to Albania!', desc: 'After landing at Tirana International Airport, we head north toward Shkodra  -  one of Albania\'s oldest and most fascinating cities, with a history spanning more than 2,500 years. We check in to our hotel and, after a short rest, set out for an evening stroll along the lively main street, buzzing with cafés, restaurants and vibrant local culture. In the evening we enjoy a celebratory opening dinner and get to know the team and fellow group members.', travelTime: 'Approx. 2-hour drive from Tirana airport to Shkodra hotel', accommodation: 'Hotel Tradita in Shkodra or similar' },
+      { day: 2,  title: 'Shkodra – Komani Lake Ferry – Valbona (927m)', desc: 'Our journey begins with a drive from Shkodra to Lake Komani, the departure point for one of Europe\'s most beautiful ferry crossings. We glide across turquoise waters flanked by dramatic gorges, sheer cliffs and untouched wilderness.\n\nAfter disembarking, we continue by vehicle to a local town for a traditional lunch at a restaurant. We then drive on to the village of Dragobia  -  the starting point of today\'s hike. From here we follow the crystal-clear Valbona River through pristine nature and breathtaking mountain scenery, all the way to the village of Valbona, the heart of the national park.', distance: '7 km', duration: '3–4 hours', elevationGain: '+280m gain', accommodation: 'Guesthouse in Valbona' },
+      { day: 3,  title: 'Valbona – Prishtevica Pass (2,030m) – Çerem (1,150m)', desc: 'After breakfast, we begin our ascent on a stunning trail toward the remote Prishtevica mountain pass. We climb in steep switchbacks for several hours until we reach the day\'s highest point at approximately 2,030m. Throughout the ascent, breathtaking views of the Albanian Alps unfold in every direction.\n\nAfter crossing the border into Montenegro, we stop for lunch at the Buri Pass  -  an open meadow that serves as grazing land for shepherds from the villages of Çerem and Vuthaj. From Buri, a short half-hour walk brings us to a local shepherd\'s hut where we rest over a coffee and mountain tea. From here the village of Çerem is already visible in the distance. We descend gradually for another two hours through dense forest until we reach our accommodation.', distance: '13–14 km', duration: '7–8 hours', elevationGain: '+1,103m gain', elevationLoss: '-880m loss', accommodation: 'Guesthouse in Çerem' },
+      { day: 4,  title: 'Çerem – Dobërdol (1,800m)', desc: 'After breakfast at the guesthouse, we continue toward Dobërdol. Today is a transition day leading us from Çerem to Dobërdol  -  a remote shepherds\' village accessible only by mule tracks, inhabited in summer only by local herders.\n\nFrom Çerem we begin a gradual climb to the Montenegro border, cross the beautiful shepherds\' hamlet of Bjelkim, and continue through the Gashi Valley  -  a protected nature area renowned for its wild beauty. The trail winds up through the valley all the way to Dobërdol, one of the most remote and pastoral spots in Albania, where we settle in for the night.', distance: '16–17 km', duration: '7–8 hours', elevationGain: '+650m gain', accommodation: 'Guesthouse in Dobërdol' },
+      { day: 5,  title: 'Dobërdol – Jezerca Summit (2,656m) – Gacafar (1,840m)', desc: 'Today we leave Albania and cross into Kosovo. After a few hours of steady climbing, we reach a high mountain pass on the Albania–Kosovo border. From there we push on to the summit of Jezerca, rising to 2,656m  -  the highest point in Kosovo. The view from the top is particularly dramatic: sharp cliffs, deep valleys and endless peaks in every direction.\n\nAt the end of the day we descend toward Gacafar, situated close to the Triple-Border Point. The guesthouse is run by the Gacafari family, known for their warm hospitality, outstanding mountain cuisine and wonderful atmosphere.', distance: '16–17 km', duration: '7–8 hours', elevationGain: '+856m gain', elevationLoss: '-816m loss', accommodation: 'Guesthouse in Gacafar' },
+      { day: 6,  title: 'Gacafar – Triple-Border Peak (2,366m) – Babino Polje (1,550m)', desc: 'Our first goal today is the Triple-Border Peak at 2,366m  -  a symbolic point where the borders of Kosovo, Albania and Montenegro converge. A small monument marks the spot, and many trekkers stop here to be photographed standing in three countries at once!\n\nAfter a short rest we descend the ridge separating Kosovo and Montenegro, ending at the lush alpine meadows of Kosovo. We cross into Montenegro and hike toward Lake Hrid  -  a magical, crystal-clear mountain lake. From there we continue down into the pastoral valley of Babino Polje, a picturesque mountain village in Montenegro surrounded by green meadows and dramatic alpine scenery.', distance: '16–17 km', duration: '7–8 hours', elevationGain: '+526m gain', elevationLoss: '-816m loss', accommodation: 'Guesthouse in Babino Polje' },
+      { day: 7,  title: 'Babino Polje – Taljanka Peak (2,056m) – Vasanija (953m)', desc: 'We wake to a crisp clear morning, enjoy a warm drink and breakfast while taking in the stunning views around us, then set off on a short drive to the Grbajas Valley  -  considered one of the most beautiful and dramatic valleys in Montenegro, enclosed by the immense rock walls of the Karanfili massif.\n\nFrom here we begin today\'s hike, ascending through alpine forest until we reach the Vlušnica summit  -  the first of the day\'s two peaks. From this vantage point we enjoy a sweeping view of the valley and the jagged peaks of the Accursed Mountains. We then continue along a narrow, impressive ridge to the day\'s main summit, Taljanka at 2,056m. We finish by descending back to the Grbajas Valley and driving back to the village of Vasanija for the night.', distance: '20–22 km', duration: '9–10 hours', elevationGain: '+506m gain', elevationLoss: '-1,103m loss', accommodation: 'Guesthouse in Vasanija' },
+      { day: 8,  title: 'Vasanija – Theth (750m)', desc: 'Today\'s hike through the Prokletije reserve promises to be one of the most memorable of the entire journey. It is a relatively long trekking day crossing the border between Montenegro and Albania. The trail passes through the wildest and most dramatic section of the Prokletije range  -  the jagged mountain ridge. For almost the entire route we walk between steep peaks and breathtaking scenery with infinite views in all directions.\n\nAlong the way we glimpse the history of the region: an old military border post, Communist-era bunkers, and a border pyramid marker  -  remnants of a time when this area was a forbidden zone. We stop for a picnic in a meadow carpeted with colourful wildflowers and butterflies, soaking up the stillness of the wild Balkans. We end the day with the descent to the village of Theth for our last night in the mountains.', distance: '17–18 km', duration: '7–8 hours', elevationLoss: '-203m loss', accommodation: 'Guesthouse in Theth' },
+      { day: 9,  title: 'Theth – Grunas Waterfall – Blue Eye – Shkodra', desc: 'The final day of our journey combines a short magical hike to Grunas Waterfall and a visit to the "Blue Eye" of Theth  -  two of the most beautiful natural sites in the Albanian Alps. The village of Theth is one of Albania\'s most iconic destinations, a place where time stands still and nature preserves its raw power.\n\nAlong the way we enjoy stunning views of the Albanian Alpine peaks and the sound of a river rushing through a deep canyon beside the trail. As we approach the waterfall the forest thickens, the air cools, and the roar of water plunging some 30 metres into a crystal-clear natural pool grows louder.\n\nAfter the waterfall visit, we drive to the "Blue Eye"  -  a natural turquoise pool fed by a deep underground spring in the heart of the forest. It is the perfect spot for a moment of rest and for some final breathtaking photos of the journey. At day\'s end we drive back to Shkodra, where we close out this adventure.', distance: '6–7 km', duration: '3–4 hours', accommodation: 'Hotel Tradita in Shkodra or similar' },
+      { day: 10, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. Board the transfer to Tirana airport for the flight back home to Israel. During the flight, share memories and experiences from this wonderful journey  -  full of photos and stories to tell :)' },
     ],
   },
   {
@@ -251,26 +251,26 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     airtableEvents: ['Ethiopia'],
     img: '/images/cards/ethiopia.webp',
     seoTitle:       'טרק הרי סימיאן ומדבר דנקיל | HighAir Expeditions',
-    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה (4550מ׳) — 11 ימים. אחד המסעות הנדירים בעולם: ג׳לדות, נוף וולקני ואגם חומצי. חוויה שלא תשכחו לעולם!',
+    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה (4550מ׳)  -  11 ימים. אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
-    desc: `הצטרפו אלינו למסע יוצא דופן באתיופיה, בין הר געש ארטה אלה, מדבר דנקיל המרהיב ושקע דאלול, עד לפסגות הגבוהות במדינה בטרק הרי סימיאן.
+    desc: `שני חצאים, שתי אתיופיות שונות לחלוטין  -  11 יום.
 
-הטיול שלנו מתחיל במדבר דנקיל, אחד האזורים המרהיבים על פני כדור הארץ, נבקר בשקע דאלול הצבעוני, נטייל בין אגמי מלח ושדות גופרית ונצעד לתוך לוע של הר געש פעיל בלב לילה תחת שמי מדבר זרועי הכוכבים.
+החצי הראשון הוא מדבר דנקיל. מגיעים לשפת לוע ארטה אלה בלילה  -  אגם לבה פעיל שזורח בחושך. למחרת, שקע דאלול: אגמי גופרית, מים חומציים ותצורות מינרלים בצבעים שקשה להאמין שהם טבעיים. שיירות גמלים נושאות בלוקי מלח, בדיוק כפי שהיה לפני מאות שנים.
 
-משם נעלה לגבהים ונצעד בשבילי שמורת הרי סימיאן, בין מצוקים דרמטיים, פסגות מעל 4000 מ׳ ונופים עוצרי נשימה של טבע פראי מלא בחיות בר.
+החצי השני הוא הרי סימיאן. מ-3000 מטר ומעלה, ביערות הרריים, צופים בג׳לדות  -  פרימטים עם חזה אדום החיים רק באתיופיה  -  רועות על שפת מצוקים מעל תהומות של 1000 מטר. הטרק עולה לפסגת ראס בוהאיט ב-4430 מ׳ עם סיכוי לראות יעל ואליה וזאב אתיופי.
 
-זהו מסע שמשלב את הניגוד שבין חום המדבר לרוחות הקרות בפסגות הגבוהות, חוויה בלתי נשכחת של טבע במלוא הדרו!
+הניגוד בין שני החצאים הוא מה שהופך את המסע הזה לקשה לשכפול.
 
-הצטרפו אלינו למסע המדהים באתיופיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת רס דשן 4550מ׳', 'ג׳לדות ניידות', 'בקתות לבה פעילה', 'נוף הפרהיסטורי של דנקיל'],
     nameEn: 'Simien & Danakil Desert',
-    descEn: `Join us on an extraordinary journey to Ethiopia - from the volcanic Erta Ale, through the surreal Danakil Depression and the colorful Dallol crater, all the way to the high peaks of the Simien Mountains.
+    descEn: `This expedition covers two completely different Ethiopias in 11 days.
 
-Our adventure begins in the Danakil Desert, one of the most spectacular places on Earth. We visit the colorful Dallol Depression, hike between salt lakes and sulfur fields, and trek to the crater of an active volcano in the heart of the night under a sky full of stars.
+The first half is the Danakil Depression, one of the hottest and most geologically active places on the planet. We walk to the crater rim of Erta Ale at night  -  an active lava lake, glowing in the dark. The next day takes us to the Dallol crater: sulfur pools, acid lakes, and mineral formations in colors that don't look like they belong on Earth. Salt camel caravans still pass through here exactly as they have for centuries.
 
-From there we ascend to the heights of the Simien Mountains National Park - between dramatic cliffs, peaks over 4,000m, and breathtaking views of wild nature teeming with wildlife.
+The second half is the Simien Mountains. After the heat of Danakil, you're suddenly at 3,000m in highland forest, watching gelada baboons  -  big, red-chested primates found only in Ethiopia  -  grazing on clifftops above 1,000-meter drops. We trek 4–5 days through the park, climbing to Ras Bwahit at 4,430m, with a chance to spot the rare Ethiopian wolf and Walia ibex.
 
-This journey combines the contrast between desert heat and cold mountain winds - an unforgettable experience of nature in all its glory!`,
+The contrast between the two halves is what makes this trip hard to replicate anywhere else.`,
     highlightsEn: ['Ras Dashen Peak 4,550m', 'Gelada baboons', 'Erta Ale active lava lake', 'Prehistoric Danakil landscape'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -348,7 +348,7 @@ This journey combines the contrast between desert heat and cold mountain winds -
     ],
     importantToNoteEn: [
       'The trek runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -371,16 +371,16 @@ This journey combines the contrast between desert heat and cold mountain winds -
     ],
     itineraryEn: [
       { day: 1,  title: 'Tel Aviv – Addis Ababa – Samara', desc: 'We fly from Tel Aviv to Samara with a short connection in Addis Ababa. After landing we check into the hotel, rest and get organised. In the evening we gather for a celebratory opening dinner, meet the team and the group, and receive a briefing for the adventure ahead.', accommodation: 'Ruftana Hotel, Samara' },
-      { day: 2,  title: 'Samara – Erta Ale Volcano (Danakil)', desc: 'In the morning we set off into the wild Danakil Desert by jeep. En route we stop for lunch beside Lake Afdera, a beautiful oasis in the heart of the desert, then continue to Erta Ale — one of the most active and fascinating volcanoes on Earth. In the evening we hike up to the crater rim for a powerful spectacle of a boiling lava lake, one of the rarest sights our planet has to offer. We end the day sleeping at a field camp at the foot of the volcano.', travelTime: '~6–7 hours driving (165 km)', duration: 'Up to 1 hour to crater rim', accommodation: 'Tents at Erta Ale camp' },
-      { day: 3,  title: 'Erta Ale – Ahmed Ela (Danakil)', desc: 'At dawn we say goodbye to the volcano and drive deeper into the Danakil to Ahmed Ela, the gateway to one of the most spectacular regions on Earth. Along the way we pass endless camel caravans carrying blocks of salt — an ancient tradition still very much alive. We visit the salt-mining sites and watch up close as workers chip, cut and load salt onto the camels\' backs. The day ends with a breathtaking sunset view over Lake Asale and a night in the open desert at Ahmed Ela.', travelTime: '~4–5 hours driving (100 km)', duration: 'Up to 1 hour to lake viewpoint', accommodation: 'Tents at Ahmed Ela camp' },
-      { day: 4,  title: 'Ahmed Ela – Dallol – Mekele (Danakil)', desc: 'In the morning we continue to the Dallol Depression, an extraordinary volcanic zone where mind-bending colours of sulphur, acid pools and mineral formations erupt from the earth — like landing on another planet. After three intense days in the heart of the Danakil, we leave the ancient desert behind and drive to Mekele, capital of the Tigray region and one of Ethiopia\'s most vibrant cities. In the evening we hit the streets to feel the local pulse and celebrate the transition from raw desert to urban life.', travelTime: '~4–5 hours driving (135 km)', accommodation: 'Planet Hotel, Mekele' },
-      { day: 5,  title: 'Mekele – Addis Ababa – Gondar', desc: 'We take a domestic flight from Mekele with a short connection in Addis Ababa, then continue to Gondar — the "City of Kings." On arrival we head out on a sightseeing tour: the 17th-century Royal Enclosure (Fasil Ghebbi), the famous Debre Berhan Selassie church with its stunning frescoes, and sweeping views over the green hills surrounding the ancient imperial capital.', accommodation: 'AG Hotel Gondar, Gondar' },
+      { day: 2,  title: 'Samara – Erta Ale Volcano (Danakil)', desc: 'In the morning we set off into the wild Danakil Desert by jeep. En route we stop for lunch beside Lake Afdera, a beautiful oasis in the heart of the desert, then continue to Erta Ale  -  one of the most active and fascinating volcanoes on Earth. In the evening we hike up to the crater rim for a powerful spectacle of a boiling lava lake, one of the rarest sights our planet has to offer. We end the day sleeping at a field camp at the foot of the volcano.', travelTime: '~6–7 hours driving (165 km)', duration: 'Up to 1 hour to crater rim', accommodation: 'Tents at Erta Ale camp' },
+      { day: 3,  title: 'Erta Ale – Ahmed Ela (Danakil)', desc: 'At dawn we say goodbye to the volcano and drive deeper into the Danakil to Ahmed Ela, the gateway to one of the most spectacular regions on Earth. Along the way we pass endless camel caravans carrying blocks of salt  -  an ancient tradition still very much alive. We visit the salt-mining sites and watch up close as workers chip, cut and load salt onto the camels\' backs. The day ends with a breathtaking sunset view over Lake Asale and a night in the open desert at Ahmed Ela.', travelTime: '~4–5 hours driving (100 km)', duration: 'Up to 1 hour to lake viewpoint', accommodation: 'Tents at Ahmed Ela camp' },
+      { day: 4,  title: 'Ahmed Ela – Dallol – Mekele (Danakil)', desc: 'In the morning we continue to the Dallol Depression, an extraordinary volcanic zone where mind-bending colours of sulphur, acid pools and mineral formations erupt from the earth  -  like landing on another planet. After three intense days in the heart of the Danakil, we leave the ancient desert behind and drive to Mekele, capital of the Tigray region and one of Ethiopia\'s most vibrant cities. In the evening we hit the streets to feel the local pulse and celebrate the transition from raw desert to urban life.', travelTime: '~4–5 hours driving (135 km)', accommodation: 'Planet Hotel, Mekele' },
+      { day: 5,  title: 'Mekele – Addis Ababa – Gondar', desc: 'We take a domestic flight from Mekele with a short connection in Addis Ababa, then continue to Gondar  -  the "City of Kings." On arrival we head out on a sightseeing tour: the 17th-century Royal Enclosure (Fasil Ghebbi), the famous Debre Berhan Selassie church with its stunning frescoes, and sweeping views over the green hills surrounding the ancient imperial capital.', accommodation: 'AG Hotel Gondar, Gondar' },
       { day: 6,  title: 'Gondar – Debark (2,850m) – Sankaber (3,250m)', desc: 'We leave Gondar, pass through a traditional Ethiopian Jewish village and visit the local synagogue. We continue to Debark to arrange entry permits for the Simien Mountains National Park, then begin the trek along the dramatic cliffs of the Simien ridge in search of the famous Gelada baboon troops that roam here in the wild.', distance: '~10 km', duration: '~2–3 hours', elevationGain: '400m', accommodation: 'Tents at Sankaber camp' },
       { day: 7,  title: 'Sankaber (3,250m) – Geech (3,600m)', desc: 'We trek from Sankaber to Geech on a varied trail of ascents, descents and cliff-edge walking. Along the way we stop at the powerful Jinbar waterfall, gaze out over the open park landscapes and encounter the remarkable Gelada baboons again in their natural habitat. The day ends at Geech camp with a breathtaking sunset viewpoint above the Simien Mountains.', distance: '10–12 km', duration: '~5–7 hours', elevationGain: '350m', accommodation: 'Tents at Geech camp' },
       { day: 8,  title: 'Geech – Imet Gogo (3,900m) – Chennek (3,620m)', desc: 'We climb gradually to the iconic viewpoint of Imet Gogo (3,900m), then push on to Inatye Peak (4,050m), one of the highest points on the trek. The ridge walk offers dramatic views of cliffs, green valleys and endless horizons. Along the way we may spot the endemic Walia ibex, the rare Ethiopian wolf, and a variety of birds found nowhere else on Earth.', distance: '12–14 km', duration: '~5–7 hours', elevationGain: '450m', accommodation: 'Tents at Chennek camp' },
-      { day: 9,  title: 'Chennek (3,620m) – Ras Bwahit (4,430m) – Gondar', desc: 'An early start for the summit push to Ras Bwahit (4,430m) — the highest point of the expedition and the most spectacular viewpoint in the reserve. We search for the Walia ibex, Ethiopian wolf and impressive raptors soaring above the ridges. After the descent we leave the mountains behind, drive back to Gondar and celebrate the end of the adventure together.', distance: '15 km', duration: '~7–9 hours', elevationGain: '810m', accommodation: 'AG Hotel Gondar, Gondar' },
-      { day: 10, title: 'Gondar – Addis Ababa', desc: 'After a well-earned rest following the trek, we take a domestic flight back to Addis Ababa. We spend the final day exploring the capital: a visit to Merkato — the largest open-air market in Africa — a traditional Ethiopian coffee ceremony (buna), and a celebratory dinner with traditional music and dance. A warm, delicious and emotional end to our journey.', accommodation: 'Cot Hotel, Addis Ababa' },
-      { day: 11, title: 'Addis Ababa – Tel Aviv', desc: 'After breakfast at the hotel we pack up, check out and transfer to the airport for our flight home to Israel. On board we swap memories and stories from the amazing expedition — cameras full and hearts fuller.', },
+      { day: 9,  title: 'Chennek (3,620m) – Ras Bwahit (4,430m) – Gondar', desc: 'An early start for the summit push to Ras Bwahit (4,430m)  -  the highest point of the expedition and the most spectacular viewpoint in the reserve. We search for the Walia ibex, Ethiopian wolf and impressive raptors soaring above the ridges. After the descent we leave the mountains behind, drive back to Gondar and celebrate the end of the adventure together.', distance: '15 km', duration: '~7–9 hours', elevationGain: '810m', accommodation: 'AG Hotel Gondar, Gondar' },
+      { day: 10, title: 'Gondar – Addis Ababa', desc: 'After a well-earned rest following the trek, we take a domestic flight back to Addis Ababa. We spend the final day exploring the capital: a visit to Merkato  -  the largest open-air market in Africa  -  a traditional Ethiopian coffee ceremony (buna), and a celebratory dinner with traditional music and dance. A warm, delicious and emotional end to our journey.', accommodation: 'Cot Hotel, Addis Ababa' },
+      { day: 11, title: 'Addis Ababa – Tel Aviv', desc: 'After breakfast at the hotel we pack up, check out and transfer to the airport for our flight home to Israel. On board we swap memories and stories from the amazing expedition  -  cameras full and hearts fuller.', },
     ],
   },
   {
@@ -393,24 +393,24 @@ This journey combines the contrast between desert heat and cold mountain winds -
     groupCapacity: 15,
     img: '/images/cards/kazbek.webp',
     seoTitle:       'טיפוס לקזבק בגאורגיה | HighAir Expeditions',
-    seoDescription: 'טיפוס לקזבק (5047מ׳) בגאורגיה — 8 ימים. הר הגעש בקווקז עם כנסיות עתיקות ונוף עוצר נשימה. מסע אתגרי עם מדריכים מנוסים ותרומה למלחמה בסרטן.',
+    seoDescription: 'טיפוס לקזבק (5047מ׳) בגאורגיה  -  8 ימים. הר געש כבוי בקווקז, מסלול דרך קרחון גרגטי ובייס קמפ ב-3650מ׳. מדריכי IFMGA, קבוצה עד 15 איש.',
     grad: 'linear-gradient(135deg,#4338ca,#3730a3,#1e1b4b)',
-    desc: `הצטרפו אלינו למסע טיפוס על הר קזבק המתנשא לגובה של 5054 מטרים. הר קזבק הוא יעד מושלם עבור מטפסים מתחילים המחפשים אתגר מרתק בלב רכס הקווקז המרהיב של גאורגיה.
+    desc: `קזבק הוא הר געש כבוי בגאורגיה, 5054 מטרים, ואחת מנקודות הגישה הטובות ביותר לטיפוס בגובה קיצוני. מתחילים בסטפנצמינדה, חוצים את קרחון גרגטי ומבלים 3–4 לילות בבייס קמפ ב-3650 מ׳ לפני יציאה לפסגה.
 
-המסלול אל פסגת הר קזבק טכני ומאתגר, אך עם הכנה נכונה וכושר גופני הוא בהחלט בר השגה גם עבור מטפסים מתחילים. במהלך הטיפוס, תלמדו כיצד להשתמש בציוד טיפוס כמו גרזן קרח, קרמפונים, רתמה, נעלי טיפוס וקסדה.
+המסלול דורש קרמפונים, גרזן קרח ועבודה בחבלים  -  המדריכים מלמדים את כל זה בימי ההתאקלמות לפני יום הפסגה. אין צורך בניסיון טיפוס קודם, אבל כושר גופני סביר ויכולת לצעוד לאט בגובה אינם אופציונליים.
 
-התגמול על ההשקעה יהיה עצום - תזכו לחזות בנופים פנורמיים מרהיבים מהפסגה, כשכל רכס הקווקז פרוס לרגליכם. בנוסף לחוויית הטיפוס עצמה, הטיול מהווה הזדמנות לחקור את התרבות והטבע הייחודיים של גיאורגיה. תוכלו לבקר בכפרים מקומיים ולטעום מהמטבח הגיאורגי המסורתי.
+יום הפסגה מתחיל סביב חצות. מטפסים בחושך עם פנסי ראש, מגיעים לשדות השלג, ועולים לפסגה ב-5054 מ׳. בתנאי מזג אוויר טוב, רואים את כל הקווקז. שעתיים טיסה מישראל.
 
-טיפוס להר קזבק הוא חוויה בלתי נשכחת שתיזכר לשנים רבות. הנופים והתרבות הייחודית של גאורגיה יותירו עליכם רושם עז. אל תחמיצו הזדמנות להרפתקה ברמה הבאה - רק שעתיים מישראל!
-
-הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת קזבק 5047מ׳', 'מנזר גרגטי הנצחי', 'כפרי קווקז אותנטיים', 'מסדרון קרחון'],
     nameEn: 'Kazbek',
-    descEn: `Mount Kazbek in Georgia is one of the Caucasus's most iconic peaks, standing at 5047 meters and deeply embedded in Georgian mythology. This expedition takes you through dramatic glaciers, ancient monasteries, and breathtaking mountain scenery.
+    descEn: `Kazbek is a 5,047m dormant volcano in Georgia's Greater Caucasus range, with one of the better approaches in high-altitude mountaineering. You start in Stepantsminda, cross the Gergeti Glacier, and spend 3–4 nights at base camp at 3,650m before the summit push.
 
-The journey begins in the historic town of Kazbegi, with the famous Gergeti Trinity Church as a backdrop. We acclimatize through high-altitude camps before making our summit push across spectacular glaciers.
+The mountain requires crampons, ice axe, harness, and rope work  -  your IFMGA-certified guides teach all of it during acclimatization days before the summit attempt. No prior mountaineering experience required, but reasonable fitness and a tolerance for cold, slow walking at altitude are non-negotiable.
 
-This is a true mountaineering expedition requiring crampons, ice axes, and rope work - perfect for climbers looking for their first high-altitude experience beyond trekking peaks.`,
+Summit day starts around midnight. You climb through the dark by headlamp, reach the snowfields, and push to the top at 5,047m. The Caucasus spread out in every direction when conditions are clear. Coming back down feels faster than it should.
+
+Two hours from Israel. Three hours by road from Tbilisi. It's genuinely one of the most accessible 5,000m peaks available.`,
     highlightsEn: ['Kazbek Summit 5,047m', 'Gergeti Trinity Church', 'Caucasus glaciers', 'Georgian mountain culture'],
     included: ['מדריך IFMGA', 'לינה מעורבת', 'כל הארוחות', 'הסעות', 'ציוד טיפוס'],
     safety: ['ציוד לוויין Magnus', 'עדכונים למשפחות', 'מדריכי קווקז מנוסים', 'ניטור גובה'],
@@ -458,7 +458,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -500,7 +500,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
       { day: 1, title: 'ברוכים הבאים לגאורגיה!', desc: 'לפני הנחיתה בגאורגיה, נהנים מתצפית יפהפיה על הרי הקווקז מהמטוס. לאחר הנחיתה, עולים להסעה למלון Capra בעיירה סטפנצמינדה, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים וציוד הטיפוס, תוכלו לנוח ולהתכונן לקראת יום המחר. מקבלים תדרוך לגבי הטיפוס מטעם צוות המדריכים שילווה אתכם במהלך המסע. הלילה תזכו למנוחה טובה לפני היציאה להר.', travelTime: 'כשלוש שעות נסיעה מהשדה בטביליסי לסטפנצמינדה', accommodation: 'מלון Capra בסטפנצמינדה או דומה לו' },
       { day: 2, title: 'כנסיית גרגטי (2200 מ׳) - בקתת אלטי (3000 מ׳)', desc: 'את הבוקר נתחיל בנקודה המצולמת ביותר בגאורגיה, כנסיית השילוש הקדוש בגרגטי (2200 מ׳), המשקיפה על העמק וההר. מכאן נפרד מהרכב ונתחיל בטיפוס הרגלי, הנוף הירוק יתחלף לאט לאט בנוף אלפיני פתוח. נסיים את היום בטיפוס עד לבקתת אלטי המודרנית בגובה 3000 מ׳, שם נבלה את הלילה הראשון בגובה משמעותי.', distance: '6 ק"מ', duration: '4–5 שעות', elevationGain: '+800 מ׳ עלייה', accommodation: 'בקתת אלטי' },
       { day: 3, title: 'בקתת אלטי (3000 מ׳) - בייס קמפ (3650 מ׳)', desc: 'היום נעמיק אל תוך השטח הפראי של ההר. המסלול ייקח אותנו לראשונה אל תוך עולם הקרח, עם חצייה של קרחון גרגטי, חוויה עוצמתית בפני עצמה. נמשיך בטיפוס מתון אך מתמשך עד שנגיע לתחנה המטאורולוגית המפורסמת בגובה 3650 מ׳. זהו ה"בייס קמפ" שלנו, הבית לימים הקרובים, והנקודה ממנה נצא לפסגה.', distance: '5 ק"מ', duration: '6–7 שעות', elevationGain: '+650 מ׳ עלייה', accommodation: 'אוהלים בבייס קמפ' },
-      { day: 4, title: 'יום התאקלמות לכנסיית בטלמי + אימון אלפיני (3650 מ׳)', desc: 'יום קריטי להצלחת ובטיחות המסע. המטרה היום היא כפולה: ראשית, "התאקלמות אקטיבית" — נצא לטיפוס התאקלמות קצר לכנסיית בטלמי הגבוהה כדי לעזור לגוף להתרגל לדלילות החמצן. שנית, נערוך אימון אלפיני מעשי על השלג, בו נתרגל שימוש בטוח בקרמפונים וגרזן קרח, כדי להבטיח שכולם מוכנים טכנית ליום הגדול.', distance: '5 ק"מ', duration: '6–7 שעות', elevationGain: '+450 מ׳ עלייה', elevationLoss: '-450 מ׳ ירידה', accommodation: 'אוהלים בבייס קמפ' },
+      { day: 4, title: 'יום התאקלמות לכנסיית בטלמי + אימון אלפיני (3650 מ׳)', desc: 'יום קריטי להצלחת ובטיחות המסע. המטרה היום היא כפולה: ראשית, "התאקלמות אקטיבית"  -  נצא לטיפוס התאקלמות קצר לכנסיית בטלמי הגבוהה כדי לעזור לגוף להתרגל לדלילות החמצן. שנית, נערוך אימון אלפיני מעשי על השלג, בו נתרגל שימוש בטוח בקרמפונים וגרזן קרח, כדי להבטיח שכולם מוכנים טכנית ליום הגדול.', distance: '5 ק"מ', duration: '6–7 שעות', elevationGain: '+450 מ׳ עלייה', elevationLoss: '-450 מ׳ ירידה', accommodation: 'אוהלים בבייס קמפ' },
       { day: 5, title: 'טיפוס לפסגת הר קזבק (5054 מ׳) - בייס קמפ (3650 מ׳)', desc: 'זהו רגע האמת. נצא לדרך באישון לילה, לאור פנסי ראש, בקור המקפיא של הגבהים. הטיפוס ארוך, מאתגר פיזית ומנטלית, וכולל הליכה ממושכת על שלג וקרח בשיפועים משתנים. עם הזריחה, המאמץ האדיר ישתלם כשנעמוד על פסגת הקזבק בגובה 5054 מטרים. לאחר חגיגות וצילומים בפסגה, נחל בירידה ארוכה, זהירה ומבוקרת חזרה לבייס קמפ למנוחה.', distance: '7 ק"מ', duration: '10–12 שעות', elevationGain: '+1404 מ׳ עלייה', elevationLoss: '-1404 מ׳ ירידה', accommodation: 'אוהלים בבייס קמפ' },
       { day: 6, title: 'בייס קמפ (3650 מ׳) - כנסיית גרגטי (2200 מ׳) - סטפנצמינדה', desc: 'לאחר לילה של התאוששות בבייס קמפ, ניפרד מההר ונתחיל בירידה ארוכה חזרה מטה. נחצה שוב את הקרחון, נעבור את בקתת אלטי והשדות הירוקים, עד שנגיע חזרה לכנסיית גרגטי ונסיעה לעיירה סטפנצמינדה. זה הזמן למקלחת חמה אמיתית, ארוחת ערב חגיגית וסיכום החוויה המטורפת.', distance: '11 ק"מ', duration: '5–6 שעות', elevationLoss: '-1450 מ׳ ירידה', accommodation: 'מלון Capra בסטפנצמינדה או דומה לו' },
       { day: 7, title: 'יום ספייר למזג אוויר גרוע או יום חופשי בטביליסי', desc: 'במקרה של מזג אוויר גרוע שאינו מאפשר טיפוס לפסגה, נשארים לילה נוסף בבייס קמפ וממתינים ליום הבא לתנאים טובים יותר. ביום זה ננצל את הזמן ללימוד נוסף על תנאי ההר והטכניקות הנדרשות לטיפוס, נשמור על כושר גופני עם תרגילי אימון קלים ומנוחה.\n\nבמקרה של מזג אוויר טוב שמאפשר טיפוס לפסגה, נהנים מיום חופשי בעיר טביליסי. בעיירה תוכלו לטייל בשווקים המקומיים, לטעום ממאכלים מסורתיים, לבקר במוזיאונים ובאתרים היסטוריים, ולהירגע בבתי הקפה. זהו יום נהדר להתרעננות, להנאה ולהיכרות עם התרבות המקומית.', accommodation: 'אוהלים בבייס קמפ או מלון בטביליסי' },
@@ -508,13 +508,13 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     ],
     itineraryEn: [
       { day: 1, title: 'Welcome to Georgia!', desc: 'Before landing in Georgia, enjoy a stunning aerial view of the Caucasus mountains from the plane. After landing, board the shuttle to Capra Hotel in Stepantsminda, passing through unique rural and mountain landscapes. After arriving at the hotel, checking in and collecting your climbing gear, take some time to rest and prepare for the day ahead. Receive a full briefing from the guide team who will accompany you throughout the expedition. Tonight you\'ll rest well before heading to the mountain.', travelTime: 'About 3 hours\' drive from Tbilisi airport to Stepantsminda', accommodation: 'Capra Hotel in Stepantsminda, or similar' },
-      { day: 2, title: 'Gergeti Trinity Church (2,200m) – Altı Hut (3,000m)', desc: 'We begin the morning at Georgia\'s most photographed landmark — the Holy Trinity Church at Gergeti (2,200m), overlooking the valley and the mountain. From here we leave the vehicle and start the foot ascent, as the green scenery gradually gives way to open alpine terrain. We finish the day reaching the modern Altı Hut at 3,000m, where we\'ll spend our first night at significant altitude.', distance: '6 km', duration: '4–5 hours', elevationGain: '+800m gain', accommodation: 'Altı Hut' },
-      { day: 3, title: 'Altı Hut (3,000m) – Base Camp (3,650m)', desc: 'Today we venture deep into the raw wilderness of the mountain. The route takes us for the first time into a world of ice — crossing the Gergeti Glacier, a powerful experience in its own right. We continue with a steady, gradual ascent until reaching the famous meteorological station at 3,650m. This is our base camp — our home for the coming days and the launching point for the summit push.', distance: '5 km', duration: '6–7 hours', elevationGain: '+650m gain', accommodation: 'Tents at Base Camp' },
-      { day: 4, title: 'Acclimatization to Bethlemi Church + Alpine Training (3,650m)', desc: 'A critical day for the success and safety of the expedition. Today\'s goal is twofold: first, active acclimatization — a short ascent to the high Bethlemi Church to help the body adjust to the thinning air. Second, a practical alpine training session on the snow, practicing safe use of crampons and ice axe, to ensure everyone is technically ready for the big day.', distance: '5 km', duration: '6–7 hours', elevationGain: '+450m gain', elevationLoss: '-450m loss', accommodation: 'Tents at Base Camp' },
+      { day: 2, title: 'Gergeti Trinity Church (2,200m) – Altı Hut (3,000m)', desc: 'We begin the morning at Georgia\'s most photographed landmark  -  the Holy Trinity Church at Gergeti (2,200m), overlooking the valley and the mountain. From here we leave the vehicle and start the foot ascent, as the green scenery gradually gives way to open alpine terrain. We finish the day reaching the modern Altı Hut at 3,000m, where we\'ll spend our first night at significant altitude.', distance: '6 km', duration: '4–5 hours', elevationGain: '+800m gain', accommodation: 'Altı Hut' },
+      { day: 3, title: 'Altı Hut (3,000m) – Base Camp (3,650m)', desc: 'Today we venture deep into the raw wilderness of the mountain. The route takes us for the first time into a world of ice  -  crossing the Gergeti Glacier, a powerful experience in its own right. We continue with a steady, gradual ascent until reaching the famous meteorological station at 3,650m. This is our base camp  -  our home for the coming days and the launching point for the summit push.', distance: '5 km', duration: '6–7 hours', elevationGain: '+650m gain', accommodation: 'Tents at Base Camp' },
+      { day: 4, title: 'Acclimatization to Bethlemi Church + Alpine Training (3,650m)', desc: 'A critical day for the success and safety of the expedition. Today\'s goal is twofold: first, active acclimatization  -  a short ascent to the high Bethlemi Church to help the body adjust to the thinning air. Second, a practical alpine training session on the snow, practicing safe use of crampons and ice axe, to ensure everyone is technically ready for the big day.', distance: '5 km', duration: '6–7 hours', elevationGain: '+450m gain', elevationLoss: '-450m loss', accommodation: 'Tents at Base Camp' },
       { day: 5, title: 'Summit Push to Kazbek (5,054m) – Base Camp (3,650m)', desc: 'This is the moment of truth. We set out in the dead of night by headlamp, in the freezing cold of altitude. The ascent is long, physically and mentally demanding, involving extended walking on snow and ice across varying slopes. At sunrise, the immense effort pays off as we stand on the summit of Kazbek at 5,054 meters. After celebrating and taking photos at the top, we begin the long, careful and controlled descent back to base camp to rest.', distance: '7 km', duration: '10–12 hours', elevationGain: '+1,404m gain', elevationLoss: '-1,404m loss', accommodation: 'Tents at Base Camp' },
       { day: 6, title: 'Base Camp (3,650m) – Gergeti Trinity Church (2,200m) – Stepantsminda', desc: 'After a night of recovery at base camp, we say goodbye to the mountain and begin the long descent back down. We cross the glacier once more, pass through Altı Hut and the green fields, until we reach Gergeti Trinity Church and drive to Stepantsminda. Time for a real hot shower, a celebratory dinner, and reflecting on this incredible experience.', distance: '11 km', duration: '5–6 hours', elevationLoss: '-1,450m loss', accommodation: 'Capra Hotel in Stepantsminda, or similar' },
       { day: 7, title: 'Spare Day for Bad Weather / Free Day in Tbilisi', desc: 'In case of bad weather preventing a summit attempt, we stay an extra night at base camp and wait for better conditions the following day. We use the time for additional learning about mountain conditions and required techniques, maintaining fitness with light training and rest.\n\nIf weather was good and the summit was reached, enjoy a free day in the city of Tbilisi. Explore the local markets, taste traditional food, visit museums and historic sites, and relax at the local cafés. A wonderful day for refreshment, enjoyment, and discovering the local culture.', accommodation: 'Tents at Base Camp or hotel in Tbilisi' },
-      { day: 8, title: 'Flight Back Home!', desc: 'Start the day with breakfast at the hotel, then pack up and check out. Board the shuttle to Tbilisi Airport for the flight back home to Israel. On the way, share memories and stories from this incredible journey — full of photos and experiences that will stay with you forever :)' },
+      { day: 8, title: 'Flight Back Home!', desc: 'Start the day with breakfast at the hotel, then pack up and check out. Board the shuttle to Tbilisi Airport for the flight back home to Israel. On the way, share memories and stories from this incredible journey  -  full of photos and experiences that will stay with you forever :)' },
     ],
   },
   {
@@ -526,26 +526,24 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     airtableEvents: ['Manaslu_Circut'],
     img: '/images/cards/manaslu.avif',
     seoTitle:       'טרק סובב מנסלו בנפאל | HighAir Expeditions',
-    seoDescription: 'טרק סובב מנסלו (5160מ׳) בנפאל — 16 ימים. האלטרנטיבה השקטה לאוורסט עם נופי הימלאיה מרהיבים ופחות תיירים. מדריכים ישראלים, תרומה למלחמה בסרטן.',
+    seoDescription: 'טרק סובב מנסלו (5160מ׳) בנפאל  -  16 ימים. לולאה מסביב להר השמיני בגובהו בעולם דרך כפרי טיבט ומעבר לרקיה לה. פחות תיירים, נוף בלתי מוכר.',
     grad: 'linear-gradient(135deg,#0f766e,#0d9488,#042f2e)',
-    desc: `הצטרפו אלינו למסע בלתי נשכח, טרק סובב מנסלו בנפאל - ההר נמצא בלבו של רכס ההימלאיה הפראי, ונחשב לאחד מהטיולים היפים והבתוליים ביותר בעולם.
+    desc: `טרק סובב מנסלו מקיף את ההר השמיני בגובהו בעולם (8163 מ׳) ב-16 יום. המסלול פחות עמוס ממסלולי האוורסט, והנוף שונה: כפרים שעוצבו על ידי תרבות טיבטית במשך מאות שנים  -  קירות מאני, דגלי תפילה, מנזרי אבן, יאקים.
 
-במהלך המסע המעגלי סביב הר מנסלו המתנשא לגובה 8163 מ׳, תיחשפו לנופים עוצרי נשימה של פסגות מושלגות, קרחונים, עמקים מבודדים ופראיים ומפלים שוצפים.
+הנקודה הגבוהה ביותר היא מעבר לרקיה לה ב-5106 מ׳. יוצאים מהדארמסלה לפני עלות השחר, חוצים את המעבר בקור ובחושך, ואז יורדים 1500 מ׳ לבימטאנג  -  עמק שלו עם נוף שונה לחלוטין מכל מה שראיתם עד אז.
 
-תכירו לעומק את התרבות המקומית, תחוו את אורח החיים הפשוט והאותנטי של האוכלוסיה המקומית ותזכו להכיר את תושביה החמים והידידותיים של האזור, שמארחים בנדיבות את המטיילים לאורך הדרך. אתם תתרשמו גם מטקסים מסורתיים, מהתרבות הטיבטית העשירה וממנזרים עתיקים בדרך.
+ביום התשיעי מטייל יומי אל מחנה הבסיס של מנסלו ב-4800 מ׳  -  קצת יצא מהדרך, שווה את המאמץ.
 
-הטרק המאתגר סובב את הפסגה הגבוהה של מנסלו ומציג תצפיות מרהיבות על כמה מהפסגות הגבוהות בעולם, בדרך עוברים בכפרים וישובים הרריים קסומים. לאורך הדרך תיחשפו לסממנים רבים של התרבות הבודהיסטית המסורתית - מקירות מאני עתיקים, דגלי תפילה מתנופפים ברוח, ומנזרים הרריים מבודדים.
-
-הצטרפו אלינו להרפתקה של פעם בחיים בהימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['מעבר לרקיה לה 5160מ׳', 'כפרי טיבט עתיקים', 'מנזרים בדרך', 'נוף מנסלו 8163מ׳'],
     nameEn: 'Manaslu Circuit',
-    descEn: `The Manaslu Circuit is one of Nepal's most beautiful and pristine trekking routes, winding through the heart of the wild Himalayas around the world's eighth highest mountain, Manaslu (8,163m).
+    descEn: `The Manaslu Circuit goes around the world's eighth highest mountain (8,163m) without the crowds you get on the Everest routes. We've been running this trek for years and it remains one of our favorites.
 
-Over 16 days you'll witness breathtaking scenery of snow-capped peaks, glaciers, isolated valleys and roaring waterfalls. The route passes through traditional Tibetan-influenced villages, ancient monasteries and mani walls adorned with Buddhist prayer flags.
+The route takes 16 days. It passes through villages that have been shaped by Tibetan culture for centuries  -  mani walls, prayer flags, stone monasteries, yaks. The valley floors are forested and green; the high sections are exposed and rocky. The landscape changes significantly day to day.
 
-The highlight of the trek is crossing Larkya La Pass at 5,106 meters — a rewarding high-altitude crossing with panoramic views of Manaslu and the surrounding Himalayan giants.
+The high point is Larkya La Pass at 5,106m. You leave Dharamsala before dawn to cross it in cold, dark conditions, then descend into a completely different valley. It's a long day and a satisfying one. Most groups stop to take photos at the pass in the wind before the long descent to Bimtang.
 
-Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the fight against cancer!`,
+Day 9 includes a full-day side trip to Manaslu Base Camp at 4,800m, which gives you a close-up view of the mountain you've been circling all week. Worth it.`,
     highlightsEn: ['Larkya La Pass 5,160m', 'Ancient Tibetan villages', 'Buddhist monasteries', 'Manaslu 8,163m views'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -629,7 +627,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     ],
     importantToNoteEn: [
       'The trek runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -650,7 +648,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 10, title: 'סאמגון - סאמדו (3860 מ׳)', desc: 'לאחר ארוחת הבוקר, נצא מסאמגון בירידה לעבר נהר הבודי גנדהקי ונחצה פלג צדדי באמצעות גשר תלוי. בדרך נעבור לצד קירות מאני ודגלי תפילה צבעוניים. ככל שנתקרב אל סאמדו, השביל עובר בין כפרים קטנים ויישובים טיבטיים-בודהיסטיים מסורתיים. בהגעה לכפר, ניתן לצאת לטיול קצר לתצפית על פסגת סאמדו, המשקיפה על העמק ועל השביל המוביל ללרקה פס.', distance: '8-10 ק״מ', duration: 'כ-4-5 שעות', elevationGain: '330 מ׳', accommodation: 'בקתה בסאמדו' },
       { day: 11, title: 'יום התאקלמות בסאמדו (3860 מ׳)', desc: 'נפתח את היום בארוחת בוקר ונצא ליום הליכה רגוע שמטרתו העיקרית היא התאקלמות לגובה. השביל מטפס בהדרגה לעבר גבול טיבט, תוך תצפיות מרהיבות על פסגות ההימלאיה, העמקים הפראיים וקרחון סיאצ׳ה. בהגעה לגבול טיבט נשהה זמן קצר להתרשם מהנוף הפנורמי הייחודי, ונרד בחזרה לסאמדו בקצב רגוע.', accommodation: 'בקתה בסאמדו' },
       { day: 12, title: 'סאמדו - דארמסלה (4460 מ׳)', desc: 'נתחיל את הטרק מסאמדו, כפר שקט בו נזכה לצפות בתרבות המושפעת מהמורשת הטיבטית. השביל מטפס בהדרגה דרך נופים מגוונים, נחצה נחל קרחוני בגובה רב, ואז נעבור אל נוף דרמטי המאופיין במדרונות סלעיים וצחיחים. נגיע אל דארמסלה עד אמצע היום, ונקדיש את אחר הצהריים למנוחה מלאה לצורך התאקלמות אופטימלית לקראת יום השיא של המחר.', distance: '8-10 ק״מ', duration: 'כ-4-5 שעות', elevationGain: '600 מ׳', accommodation: 'בקתה בדארמסלה' },
-      { day: 13, title: 'דארמסלה - לרקה פס (5106 מ׳) - בימטאנג (3590 מ׳)', desc: 'זהו יום השיא של הטרק! נתחיל מוקדם מאוד כדי להבטיח תנאי טרק בטוחים לחציית מעבר ההרים לרקה פס, אחד המעברים הגבוהים והמפורסמים בנפאל. הטיפוס אל הפס מתגמל באופן בלתי רגיל עם נופים פנורמיים על פסגת מנסלו ופסגות האזור. בפס נחגוג את ההישג בגובה 5,106 מטר לצד דגלי תפילה מתנופפים. הירידה אל בימטאנג דורשת ניווט זהיר בשטח תלול ולעיתים קרחוני, ובהגעה לעמק השליו המוקף פסגות — נוח ונתאושש.', distance: '18-20 ק״מ', duration: 'כ-8-10 שעות', elevationGain: '646 מ׳', elevationLoss: '1,516 מ׳', accommodation: 'בקתה בבימטאנג' },
+      { day: 13, title: 'דארמסלה - לרקה פס (5106 מ׳) - בימטאנג (3590 מ׳)', desc: 'זהו יום השיא של הטרק! נתחיל מוקדם מאוד כדי להבטיח תנאי טרק בטוחים לחציית מעבר ההרים לרקה פס, אחד המעברים הגבוהים והמפורסמים בנפאל. הטיפוס אל הפס מתגמל באופן בלתי רגיל עם נופים פנורמיים על פסגת מנסלו ופסגות האזור. בפס נחגוג את ההישג בגובה 5,106 מטר לצד דגלי תפילה מתנופפים. הירידה אל בימטאנג דורשת ניווט זהיר בשטח תלול ולעיתים קרחוני, ובהגעה לעמק השליו המוקף פסגות  -  נוח ונתאושש.', distance: '18-20 ק״מ', duration: 'כ-8-10 שעות', elevationGain: '646 מ׳', elevationLoss: '1,516 מ׳', accommodation: 'בקתה בבימטאנג' },
       { day: 14, title: 'בימטאנג - דראפני (1860 מ׳)', desc: 'נתחיל את הירידה מבימטאנג, נחצה גשר תלוי מעל נהר פונקאר ונעבור דרך יערות עבותים ומרהיבים המלאים בעצי רודודנדרון. נעצור לארוחת צהריים בכפר קארצ׳ה על גדות נהר דוד קולה. נמשיך לכפר הציורי גואה, העמק מתרחב ומגלה שדות חקלאיים פוריים וטראסות. הגעה לדראפני מסמנת את סיומו הרשמי של טרק סובב מנסלו.', distance: '18-20 ק״מ', duration: 'כ-6-8 שעות', elevationLoss: '1,730 מ׳', accommodation: 'בקתה בדראפני' },
       { day: 15, title: 'נסיעה בג׳יפ מדראפני לקטמנדו', desc: 'לאחר ארוחת בוקר מוקדמת, נסיעה בג׳יפ של כ-3 שעות אל בסיסהר, דרך יערות ירוקים, שדות מדורגים וכפרים מקסימים – נקודת מבט אחרונה על החיים הכפריים בהימלאיה. מבסיסהר, נמשיך כ-6-7 שעות נוספות חזרה אל קטמנדו. בערב, ארוחת ערב מסורתית במסעדה נפאלית עם מופע ריקודים תרבותיים.', accommodation: 'מלון Barahi, קטמנדו', travelTime: 'כ-9-10 שעות נסיעה' },
       { day: 16, title: 'קטמנדו - דובאי - תל אביב', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק-אאוט מהמלון. עולים להסעה לשדה התעופה בקטמנדו לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.', travelTime: 'כ-12 שעות טיסה' },
@@ -660,7 +658,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 2,  title: 'Gear check and orientation in Kathmandu', desc: 'On our second day in Kathmandu we prepare for the trek. In the morning we meet the local guides for a briefing, equipment check and packing. We pick up any last-minute gear and soak up the vibrant atmosphere of the city before the journey begins.', accommodation: 'Hotel Barahi, Kathmandu' },
       { day: 3,  title: 'Jeep drive from Kathmandu to Machha Khola (920m)', desc: 'Our journey begins with a drive from Kathmandu through lush green hills and agricultural terraces. The road follows the Trishuli River, offering magical views of traditional villages, rushing rivers and mountain scenery. The final stretch takes us along a rugged mountain track to Machha Khola, our overnight stop.', accommodation: 'Teahouse in Machha Khola', travelTime: '~8–10 hours drive' },
       { day: 4,  title: 'Machha Khola – Jagat (1,400m)', desc: 'Leaving Machha Khola we walk along the Budhi Gandaki River through traditional mountain villages and stop at Tatopani to rest at natural hot springs. The trail crosses suspension bridges with dramatic views of cliffs and rushing rivers. The day ends at Jagat, a beautiful village marking the official entry gate to the Manaslu Restricted Area.', distance: '22 km', duration: '~8–10 hours', elevationGain: '480m', accommodation: 'Teahouse in Jagat' },
-      { day: 5,  title: 'Jagat – Deng (1,830m)', desc: 'From Jagat, a gentle climb leads to Salleri and then down to Sirdibas, where the valley opens up with a stunning river view. The trail is decorated with colourful prayer flags and small monasteries. We pass through Philim — the largest village in the area and an important checkpoint — experiencing daily life among the local Gurung people. After lunch in Chhisapani we continue to Deng through small villages, millet fields and bamboo forests.', distance: '20 km', duration: '~8–10 hours', elevationGain: '430m', accommodation: 'Teahouse in Deng' },
+      { day: 5,  title: 'Jagat – Deng (1,830m)', desc: 'From Jagat, a gentle climb leads to Salleri and then down to Sirdibas, where the valley opens up with a stunning river view. The trail is decorated with colourful prayer flags and small monasteries. We pass through Philim  -  the largest village in the area and an important checkpoint  -  experiencing daily life among the local Gurung people. After lunch in Chhisapani we continue to Deng through small villages, millet fields and bamboo forests.', distance: '20 km', duration: '~8–10 hours', elevationGain: '430m', accommodation: 'Teahouse in Deng' },
       { day: 6,  title: 'Deng – Namrung (2,660m)', desc: 'We climb from Deng toward Bhi Phedi, a beautiful village overlooking the Budhi Gandaki River, high peaks and traditional monasteries. The trail continues through forests to Ghap, passing through an area affected by an earthquake where wild monkeys are sometimes spotted. After a short break in Ghap, about two more hours of walking brings us to Namrung, a village surrounded by magnificent peaks, dense forests and Buddhist monasteries.', distance: '16 km', duration: '~6–7 hours', elevationGain: '830m', accommodation: 'Teahouse in Namrung' },
       { day: 7,  title: 'Namrung – Lho (3,180m)', desc: 'We leave Namrung and gradually ascend through forests and valleys toward higher villages. We pass through Shyala, a peaceful village with a monastery, stupa, prayer wall and small community centre offering stunning views of Manaslu, Himchuli and Ngadi Chuli. We continue through dense forests to Lho, arriving in the evening for a restful night in a calm local atmosphere.', distance: '8 km', duration: '~4–5 hours', elevationGain: '520m', accommodation: 'Teahouse in Lho' },
       { day: 8,  title: 'Lho – Samagaon (3,530m)', desc: 'The trail winds through green forests and open slopes, with a stop at a small village offering monasteries and spectacular viewpoints over Manaslu and Himchuli. After a rest we continue with a gentle descent to Samagaon, the largest and most important village in the Manaslu region, serving as a cultural hub with traditional Tibetan-style homes and monasteries surrounded by Himalayan peaks.', distance: '7 km', duration: '~4–5 hours', elevationGain: '350m', accommodation: 'Teahouse in Samagaon' },
@@ -670,8 +668,8 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 12, title: 'Samdo – Dharamsala (4,460m)', desc: 'We set off from Samdo, a quiet village reflecting its Tibetan cultural heritage. The trail climbs gradually through varied terrain, crossing a glacial stream at high altitude before entering a dramatic landscape of rocky, arid slopes typical of the high Himalayas. We aim to reach Dharamsala by midday, leaving the afternoon for full rest and optimal acclimatization ahead of tomorrow\'s summit day.', distance: '8–10 km', duration: '~4–5 hours', elevationGain: '600m', accommodation: 'Teahouse in Dharamsala' },
       { day: 13, title: 'Dharamsala – Larkya La Pass (5,106m) – Bimtang (3,590m)', desc: 'The highlight of the trek! We start very early to ensure safe conditions for crossing Larkya La Pass, one of the highest and most renowned mountain passes in Nepal. The climb rewards us with extraordinary panoramic views of Manaslu and the surrounding peaks. At the pass (5,106 m) we celebrate the achievement beside fluttering Buddhist prayer flags. The descent to Bimtang requires careful navigation on steep and sometimes icy terrain; upon reaching the peaceful valley surrounded by towering peaks we rest and recover.', distance: '18–20 km', duration: '~8–10 hours', elevationGain: '646m', elevationLoss: '1,516m', accommodation: 'Teahouse in Bimtang' },
       { day: 14, title: 'Bimtang – Dharapani (1,860m)', desc: 'We begin the descent from Bimtang, cross a suspension bridge over the Ponkar River and pass through dense forests of rhododendron (spectacular in bloom during spring). We stop for lunch at the village of Karche on the banks of the Dudh Khola River. Continuing to the picturesque village of Goa, the valley broadens to reveal fertile farmland and terraces. Reaching Dharapani marks the official end of the Manaslu Circuit Trek.', distance: '18–20 km', duration: '~6–8 hours', elevationLoss: '1,730m', accommodation: 'Teahouse in Dharapani' },
-      { day: 15, title: 'Jeep drive from Dharapani to Kathmandu', desc: 'After an early breakfast we take a jeep for roughly 3 hours to Besisahar, passing through green forests, terraced fields and charming villages — a final glimpse of Himalayan rural life. From Besisahar we continue another 6–7 hours to Kathmandu. In the evening enjoy a traditional Nepali dinner with cultural dance performances.', accommodation: 'Hotel Barahi, Kathmandu', travelTime: '~9–10 hours drive' },
-      { day: 16, title: 'Kathmandu – Dubai – Tel Aviv', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey — full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
+      { day: 15, title: 'Jeep drive from Dharapani to Kathmandu', desc: 'After an early breakfast we take a jeep for roughly 3 hours to Besisahar, passing through green forests, terraced fields and charming villages  -  a final glimpse of Himalayan rural life. From Besisahar we continue another 6–7 hours to Kathmandu. In the evening enjoy a traditional Nepali dinner with cultural dance performances.', accommodation: 'Hotel Barahi, Kathmandu', travelTime: '~9–10 hours drive' },
+      { day: 16, title: 'Kathmandu – Dubai – Tel Aviv', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
     ],
   },
   {
@@ -683,28 +681,24 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     airtableEvents: ['EBC + Gokyo'],
     img: '/images/cards/EBC.webp',
     seoTitle:       'טרק אוורסט בייס קמפ וגוקיו | HighAir Expeditions',
-    seoDescription: 'טרק אוורסט בייס קמפ (5364מ׳) + אגמי גוקיו — 19 ימים. חוויית חיים בנפאל עם מדריכים ישראלים מנוסים. כולל אקלימציה מלאה ותרומה למלחמה בסרטן.',
+    seoDescription: 'טרק אוורסט בייס קמפ (5364מ׳) + אגמי גוקיו  -  19 ימים. בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו במסלול אחד. קבוצה עד 15 איש.',
     grad: 'linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)',
-    desc: `טרק האוורסט בייס קמפ הוא אחד המסלולים האייקוניים והמלהיבים ביותר בהימלאיה. המסע מתחיל בלוקלה וממשיך דרך נופים מרהיבים של נחלים, יערות ובעלי חיים, תוך מפגש עם כפרים אותנטיים של בני שבט השרפה ותרבות בודהיסטית עשירה.
+    desc: `המסלול המשולב שרוב המטיילים הרציניים מגיעים אליו נפאל בשבילו: אוורסט בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו  -  הכל במסע אחד של 19 ימים.
 
-המחנה עצמו נמצא בגובה 5364 מ' מעל פני הים ומהווה את נקודת ההתחלה של המטפסים הרבים שמתחילים את הטיפוס לפסגת האוורסט. הטרק כולל גם את מעבר צו לה פס, את הכפר הייחודי גוקיו, ואת אגמיו המרהיבים, המציעים נופים שלא תמצאו בשום מקום אחר.
+עפים במסוק ללוקלה ומתקדמים בהדרגה דרך עמק הקומבו. מעמק כהמבו, אמה דבלאם מופיעה ביום הרביעי ונשארת בנוף רוב הדרך. ביום העשירי מגיעים לבייס קמפ ב-5364 מ׳  -  שטח הקמפינג האמיתי של משלחות אוורסט, עם שורות אוהלים לכיוון קרחון הקומבו. בבוקר הבא קמים ב-3 לפנות בוקר לעלות לקאלה פטאר ב-5545 מ׳ לזריחה מעל הפנים הדרום-מערבית של אוורסט.
 
-לאורך הדרך תתרשמו מפסגות ההימלאיה המרשימות: האוורסט, להוטסה, נופטסה ועוד פסגות גבוהות רבות. שיאו של המסלול מגיע בקאלה פטאר (5545 מ'), אחת מנקודות התצפית המרשימות ביותר בעולם על פסגת האוורסט, חוויה בלתי נשכחת של עוצמה וגובה.
+אחרי זה מעבר צ׳ו לה ב-5420 מ׳  -  היום הדרשני ביותר, קול קרחוני עם חבל קבוע. מגוקיו עולים לגוקיו רי ורואים בו-זמנית ארבע שמיניות: אוורסט, להוצה, מקאלו, צ׳ו אויו.
 
-בנוסף לנופים, תחשפו במהלך המסע לתרבות המקומית, ביקור בבקתות מסורתיות, מנזרים עתיקים, טעימות אוכל נפאלי אותנטי והזדמנות לפגוש יאקים נודדים בדרך.
-
-טרק לאוורסט בייס קמפ ואגמי גוקיו משלב הישג ספורטיבי עם חוויה תרבותית עמוקה ונופים מרהיבים, ויוצר אחת מהרפתקאות הטרקינג המרגשות והטובות ביותר בעולם!
-
-הצטרפו אלינו להרפתקה של פעם חיים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['מחנה בסיס אוורסט 5364מ׳', 'אגמי גוקיו', 'נוף על האוורסט', 'שוק נמצ׳ה בזאר'],
     nameEn: 'Everest Base Camp & Gokyo',
-    descEn: `The Everest Base Camp trek is one of the most iconic and exhilarating routes in the Himalayas. The journey begins in Lukla and winds through breathtaking scenery of rivers, forests and wildlife, passing authentic Sherpa villages and rich Buddhist culture.
+    descEn: `This is the combined route that most serious trekkers come to Nepal for: Everest Base Camp, Kala Patthar, Cho La Pass, and the Gokyo Lakes  -  all in one 19-day trip.
 
-Base Camp itself sits at 5,364m above sea level — the very starting point for climbers attempting the summit of Everest. The trek also includes the dramatic Cho La Pass crossing, the unique village of Gokyo and its stunning glacial lakes, offering views found nowhere else on earth.
+We fly in by helicopter to Lukla and spend the first week gaining altitude through Namche Bazaar, Tengboche, and Dingboche. The Khumbu valley is impressive from the start. Ama Dablam appears on day 4 and stays in view for most of the trek. On Day 10 you reach Base Camp at 5,364m  -  the actual staging ground for Everest expeditions, with lines of tents stretching toward the Khumbu Icefall. The next morning starts at 3am to catch sunrise from Kala Patthar at 5,545m. The view of Everest's southwest face from there is what the photos try to capture.
 
-Along the way you'll be surrounded by the great Himalayan peaks: Everest, Lhotse, Nuptse and many more. The route culminates at Kala Patthar (5,545m) — one of the world's most spectacular viewpoints for a sunrise over Everest. An unforgettable experience of power and altitude.
+After that, the Cho La Pass (5,420m) crosses into the Gokyo valley. It's the most demanding single day on the trek  -  a glaciated col with some fixed rope. From Gokyo you climb Gokyo Ri for the four-peak panorama: Everest, Lhotse, Makalu, Cho Oyu all at once.
 
-Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the fight against cancer!`,
+This is classified as a hard trek because of the altitude, the 19-day length, and the Cho La crossing. You do not need mountaineering experience. You need good legs, a willingness to go slowly, and time.`,
     highlightsEn: ['Everest Base Camp 5,364m', 'Gokyo Lakes', 'Everest panorama', 'Namche Bazaar market'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 90 ליטר!',
@@ -788,7 +782,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     ],
     importantToNoteEn: [
       'The trek runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -820,22 +814,22 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     itineraryEn: [
       { day: 1,  title: 'Tel Aviv – Dubai – Kathmandu', desc: 'Before landing in Kathmandu, enjoy breathtaking views of the Himalayas from the plane. After landing, transfer to Hotel Barahi in Kathmandu, passing through unique rural and mountain scenery along the way. Check in, rest and prepare for the adventure ahead.', travelTime: 'Flight + transfer', accommodation: 'Hotel Barahi Kathmandu' },
       { day: 2,  title: 'Gear check and orientation in Kathmandu', desc: 'The second day in Kathmandu is all about preparing for the trek. Meet the local guides in the morning for a briefing, gear check and packing. Squeeze in any last-minute shopping and soak up the colourful atmosphere of the city before the journey begins.', accommodation: 'Hotel Barahi Kathmandu' },
-      { day: 3,  title: 'Helicopter to Lukla – Phakding (2,610m)', desc: 'An early start for the helicopter flight to Lukla Airport — one of the most challenging airstrips in the world. Begin the trek from Lukla village and walk toward Phakding, a 3–4 hour walk offering stunning views of the mountains and valleys.', distance: '9 km', duration: '3–4 hrs', elevationLoss: '250m', accommodation: 'Teahouse in Phakding' },
+      { day: 3,  title: 'Helicopter to Lukla – Phakding (2,610m)', desc: 'An early start for the helicopter flight to Lukla Airport  -  one of the most challenging airstrips in the world. Begin the trek from Lukla village and walk toward Phakding, a 3–4 hour walk offering stunning views of the mountains and valleys.', distance: '9 km', duration: '3–4 hrs', elevationLoss: '250m', accommodation: 'Teahouse in Phakding' },
       { day: 4,  title: 'Phakding – Namche Bazaar (3,440m)', desc: 'A day defined by significant altitude gain. A highlight is crossing the famous Hillary Suspension Bridge high above the Dudh Koshi River. The climb to Namche takes 5–6 hours, rewarding you with arrival at the colourful Sherpa market town.', distance: '12 km', duration: '6 hrs', elevationGain: '830m', accommodation: 'Teahouse in Namche Bazaar' },
       { day: 5,  title: 'Acclimatization day in Namche Bazaar (3,440m)', desc: 'A short acclimatization hike to a viewpoint above Namche, then free time to explore the local markets and traditional shops. This rest day is essential for adjusting to altitude and keeping you healthy for the days ahead.', accommodation: 'Teahouse in Namche Bazaar' },
       { day: 6,  title: 'Namche Bazaar – Tengboche (3,860m)', desc: 'Descend from Namche through green forests and winding trails, passing authentic Sherpa villages along the way. Continue to Tengboche and visit the ancient Tengboche Monastery, offering incredible views of the Himalayan peaks.', distance: '10 km', duration: '5 hrs', elevationGain: '420m', accommodation: 'Teahouse in Tengboche' },
       { day: 7,  title: 'Tengboche – Dingboche (4,410m)', desc: 'After breakfast, descend through the valley toward Pangboche. Pass traditional villages and fresh mountain streams, enjoying sweeping views of the surrounding peaks. Arrive at Dingboche at 4,410m by afternoon.', distance: '12 km', duration: '6 hrs', elevationGain: '550m', accommodation: 'Teahouse in Dingboche' },
       { day: 8,  title: 'Acclimatization day in Dingboche (4,410m)', desc: 'A short acclimatization hike around the area helps the body adapt to the cold and altitude. The walk offers beautiful views of the surrounding mountains and valleys, giving your body the time it needs to adjust.', accommodation: 'Teahouse in Dingboche' },
       { day: 9,  title: 'Dingboche – Lobuche (4,940m)', desc: 'A moving and meaningful day as the trail passes memorial cairns for climbers who have fallen on Everest. Walk through dramatic mountain scenery and arrive at Lobuche in the late afternoon.', distance: '12 km', duration: '6 hrs', elevationGain: '530m', accommodation: 'Teahouse in Lobuche' },
-      { day: 10, title: 'Lobuche – Everest Base Camp (5,364m) – Gorakshep (5,140m)', desc: 'The day you have been building toward — Everest Base Camp. Set off from Lobuche and climb to Base Camp at 5,364m. Take in the extraordinary atmosphere before descending to Gorakshep for the night. Steady pace and plenty of water are essential.', distance: '15 km', duration: '7–8 hrs', elevationGain: '424m', accommodation: 'Teahouse in Gorakshep' },
-      { day: 11, title: 'Gorakshep – Kala Patthar (5,545m) – Dzongla (4,830m)', desc: 'One of the great highlights of the entire journey — an early-morning climb to Kala Patthar at 5,545m for a jaw-dropping sunrise view of Everest. Then descend to Dzongla to rest and absorb the powerful experiences of recent days.', distance: '13 km', duration: '6–7 hrs', elevationGain: '405m', accommodation: 'Teahouse in Dzongla' },
-      { day: 12, title: 'Dzongla – Cho La Pass (5,420m) – Thagnag (4,700m)', desc: 'A challenging high-altitude day. The ascent from Dzongla leads to Cho La Pass at 5,420m — the toughest section of the route. After crossing the pass, descend toward Thagnag through glaciers and stunning alpine lakes in complete wilderness.', distance: '12 km', duration: '10–11 hrs', elevationGain: '590m', accommodation: 'Teahouse in Thagnag' },
+      { day: 10, title: 'Lobuche – Everest Base Camp (5,364m) – Gorakshep (5,140m)', desc: 'The day you have been building toward  -  Everest Base Camp. Set off from Lobuche and climb to Base Camp at 5,364m. Take in the extraordinary atmosphere before descending to Gorakshep for the night. Steady pace and plenty of water are essential.', distance: '15 km', duration: '7–8 hrs', elevationGain: '424m', accommodation: 'Teahouse in Gorakshep' },
+      { day: 11, title: 'Gorakshep – Kala Patthar (5,545m) – Dzongla (4,830m)', desc: 'One of the great highlights of the entire journey  -  an early-morning climb to Kala Patthar at 5,545m for a jaw-dropping sunrise view of Everest. Then descend to Dzongla to rest and absorb the powerful experiences of recent days.', distance: '13 km', duration: '6–7 hrs', elevationGain: '405m', accommodation: 'Teahouse in Dzongla' },
+      { day: 12, title: 'Dzongla – Cho La Pass (5,420m) – Thagnag (4,700m)', desc: 'A challenging high-altitude day. The ascent from Dzongla leads to Cho La Pass at 5,420m  -  the toughest section of the route. After crossing the pass, descend toward Thagnag through glaciers and stunning alpine lakes in complete wilderness.', distance: '12 km', duration: '10–11 hrs', elevationGain: '590m', accommodation: 'Teahouse in Thagnag' },
       { day: 13, title: 'Thagnag – Gokyo Ri (5,360m) – Gokyo (4,750m)', desc: 'Climb to the summit of Gokyo Ri at 5,360m for breathtaking 360° views of the Himalayan range, including Everest, Lhotse and the famous Gokyo Lakes. Descend to Gokyo for a well-earned rest.', distance: '2 km', duration: '3–4 hrs', elevationGain: '610m', accommodation: 'Teahouse in Gokyo' },
       { day: 14, title: 'Gokyo – Machhermo (4,470m)', desc: 'A relatively short and gentle descent from Gokyo to Machhermo, passing the beautiful Gokyo Lakes one last time. Rest in the quiet valley and let the body recover before continuing the return journey.', distance: '7 km', duration: '4–5 hrs', elevationLoss: '280m', accommodation: 'Teahouse in Machhermo' },
-      { day: 15, title: 'Machhermo – Namche Bazaar (3,440m)', desc: 'Begin the long descent back to Namche Bazaar — a day that marks the return toward civilisation. Stop for rest along the way and take in the changing landscape. Spend the evening resting and enjoying a good meal.', distance: '16 km', duration: '8–10 hrs', elevationLoss: '1,030m', accommodation: 'Teahouse in Namche Bazaar' },
-      { day: 16, title: 'Namche Bazaar – Lukla (2,860m)', desc: 'The final day of trekking. Familiar scenery, now in descent, marks the end of an incredible journey. Arriving in Lukla, a sense of achievement fills the air. The evening is a celebration dinner with guides and porters — an opportunity to thank them and reflect on the unforgettable adventure.', distance: '15 km', duration: '7–8 hrs', elevationLoss: '580m', accommodation: 'Teahouse in Lukla' },
-      { day: 17, title: 'Helicopter from Lukla to Kathmandu', desc: 'An early rise and transfer by helicopter back to Kathmandu. After reaching the hotel, the evening is yours — explore the city streets or rest at the hotel. A deep sense of satisfaction from completing one of the world\'s great treks.', travelTime: 'Helicopter flight', accommodation: 'Hotel Barahi Kathmandu' },
-      { day: 18, title: 'Spare day / free day in Kathmandu', desc: 'A spare day built into the schedule for bad weather or flight delays — or simply a free day to explore Kathmandu at your own pace.', accommodation: 'Hotel Barahi Kathmandu' },
+      { day: 15, title: 'Machhermo – Namche Bazaar (3,440m)', desc: 'Begin the long descent back to Namche Bazaar  -  a day that marks the return toward civilisation. Stop for rest along the way and take in the changing landscape. Spend the evening resting and enjoying a good meal.', distance: '16 km', duration: '8–10 hrs', elevationLoss: '1,030m', accommodation: 'Teahouse in Namche Bazaar' },
+      { day: 16, title: 'Namche Bazaar – Lukla (2,860m)', desc: 'The final day of trekking. Familiar scenery, now in descent, marks the end of an incredible journey. Arriving in Lukla, a sense of achievement fills the air. The evening is a celebration dinner with guides and porters  -  an opportunity to thank them and reflect on the unforgettable adventure.', distance: '15 km', duration: '7–8 hrs', elevationLoss: '580m', accommodation: 'Teahouse in Lukla' },
+      { day: 17, title: 'Helicopter from Lukla to Kathmandu', desc: 'An early rise and transfer by helicopter back to Kathmandu. After reaching the hotel, the evening is yours  -  explore the city streets or rest at the hotel. A deep sense of satisfaction from completing one of the world\'s great treks.', travelTime: 'Helicopter flight', accommodation: 'Hotel Barahi Kathmandu' },
+      { day: 18, title: 'Spare day / free day in Kathmandu', desc: 'A spare day built into the schedule for bad weather or flight delays  -  or simply a free day to explore Kathmandu at your own pace.', accommodation: 'Hotel Barahi Kathmandu' },
       { day: 19, title: 'Kathmandu – Dubai – Tel Aviv', desc: 'Breakfast at the hotel, check out, and a free day in Kathmandu before the evening transfer to the airport for the flight home. Full of photos, stories and memories that will last a lifetime.', travelTime: 'Flight home' },
     ],
   },
@@ -848,22 +842,26 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     airtableEvents: ['Annapurna_Circut'],
     img: '/images/cards/annapurna.webp',
     seoTitle:       'טרק סובב אנאפורנה בנפאל | HighAir Expeditions',
-    seoDescription: 'טרק סובב אנאפורנה (5416מ׳) בנפאל — 16 ימים. אחד הטרקים הקלאסיים ביותר בעולם דרך כפרים, יערות ונוף הימלאיה. מדריכים ישראלים.',
+    seoDescription: 'טרק סובב אנאפורנה (5416מ׳) בנפאל  -  16 ימים. לולאה מלאה סביב אנאפורנה דרך כפרי גורקה, אגם טיליצ׳ו ומעבר תורונג לה. ירידה 1600מ׳ בצד השני.',
     grad: 'linear-gradient(135deg,#0891b2,#0e7490,#083344)',
-    desc: `הצטרפו אלינו לטרק סובב אנאפורנה בנפאל, אשר נחשב לאחד מהטרקים היפים והפופולריים ביותר בעולם. במהלך המסע המעגלי סביב ההר המרהיב אנאפורנה המתנשא לגובה של 8091 מ׳, תיחשפו לנופים עוצרי נשימה של פסגות מושלגות, קרחונים, עמקים ירוקים ויערות עבותים.
+    desc: `טרק סובב אנאפורנה הוא לולאה מלאה סביב הר אנאפורנה (8091 מ׳)  -  16 יום שמתחילים ביערות גשם טרופיים ומסיימים בכפרי מוסטאנג היבשים.
 
-תכירו לעומק את התרבות המקומית, תחוו את אורח החיים הפשוט והאותנטי של האוכלוסייה המקומית ותזכו להכיר את תושביה החמים והידידותיים של האזור, שמארחים בנדיבות את המטיילים לאורך הדרך. אתם תתרשמו מטקסים מסורתיים, מהתרבות הבודהיסטית העשירה וממנזרים עתיקים בדרך.
+הדרך עוברת דרך כפרי גורקה ומנאנג, מנזרים בודהיסטיים ואזורים שנראים כאילו הזמן עצר בהם. ביום העשירי יוצאים לסיור יומי לאגם טיליצ׳ו ב-4919 מ׳  -  אחד האגמים הגבוהים בעולם, צעד אחד מהמסלול הראשי שכדאי לעשות.
 
-הטרק סובב את הפסגה הגבוהה של אנאפורנה ומציג תצפיות מרהיבות על כמה מהפסגות הגבוהות בעולם, בדרך עוברים בכפרים וישובים הרריים קסומים. לאורך הדרך תיחשפו לסממנים רבים של התרבות הבודהיסטית המסורתית - מקידות הודיות צבעוניות, דגלי תפילה מתנופפים ברוח, ומנזרים הרריים עתיקים.
+הנקודה המרכזית היא מעבר תורונג לה ב-5416 מ׳. יוצאים מהיי קמפ לפני עלות השחר ועולים בקור לקול רוח, מגיעים לפסגת המעבר עם דהואלאגירי (8167 מ׳) לצד מערב. אחר כך ירידה של 1600 מ׳ לעבר מוקטינאת  -  יום ארוך, מניח את הדעת, ומסיים את הלולאה מהצד השני.
 
-הצטרפו אלינו להרפתקה של פעם בחיים בהימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+עמק קאלי גנדאקי הוא הגורג העמוק ביותר בעולם לפי מדידות מסוימות. הולכים לאורך אפיק הנהר על פני שטח שהיה פעם דרך מסחר עתיקה.
+
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['מעבר תורונג לה 5416מ׳', 'יערות רודודנדרון', 'כפרי גורקה', 'נוף על אנאפורנה I'],
     nameEn: 'Annapurna Circuit',
-    descEn: `The Annapurna Circuit is one of the world's great classic treks - a complete circumnavigation of the Annapurna massif in Nepal, passing through diverse landscapes from subtropical forests to high-altitude desert.
+    descEn: `The Annapurna Circuit is a full loop around the Annapurna massif in Nepal  -  16 days, diverse terrain, and a high pass crossing that's been a benchmark trek for decades.
 
-The highlight of the circuit is crossing Thorong La Pass at 5416 meters - the highest point of the trek - with panoramic views of the Annapurna and Dhaulagiri ranges stretching in every direction.
+The route starts in subtropical forest and works up through Gurung and Manangi villages into the high arid country of the Mustang region. We add a detour to Tilicho Lake (4,919m)  -  one of the highest lakes in the world and worth the extra effort. The Kali Gandaki gorge, which cuts between Annapurna and Dhaulagiri, is the deepest gorge on Earth by some measurements. You walk along the riverbed on one of those days.
 
-This 14-day adventure takes you through traditional Gurung and Manangi villages, past ancient Buddhist monasteries, and through the dramatic Kali Gandaki gorge - the world's deepest valley.`,
+The main event is Thorong La Pass at 5,416m. You leave high camp before first light, cross the pass in cold morning air with Dhaulagiri (8,167m) to the west, then drop 1,600m down to Muktinath by afternoon. It's a long day but the route logic is satisfying: you've been building to that crossing for two weeks.
+
+No technical experience needed. The terrain is trekking throughout  -  no ropes or crampons required.`,
     highlightsEn: ['Thorong La Pass 5,416m', 'Annapurna panoramas', 'Kali Gandaki gorge', 'Traditional Nepalese villages'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -941,7 +939,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     ],
     importantToNoteEn: [
       'The trek runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -990,10 +988,10 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
       { day: 10, title: 'Tilicho Base Camp – Tilicho Lake (4,919m) – Tilicho Base Camp', desc: 'An early start as we climb to Tilicho Lake, one of the highest lakes in the world at 4,919 m. The views of the lake set against soaring peaks are nothing short of spectacular. After taking in the scenery we descend back to base camp for lunch and rest before tomorrow\'s long day.', distance: '11–12 km', duration: '~7–8 hours', elevationGain: '769m', accommodation: 'Teahouse at Tilicho Base Camp' },
       { day: 11, title: 'Tilicho Base Camp – Leddar (4,200m)', desc: 'After the unforgettable Tilicho Lake experience we rejoin the main Annapurna Circuit trail. We trek from Tilicho Base Camp to Leddar, a vital day for ongoing acclimatization and energy conservation in preparation for the centrepiece challenge: crossing Thorong La Pass.', distance: '10–11 km', duration: '~6–7 hours', elevationGain: '50m', accommodation: 'Teahouse in Leddar' },
       { day: 12, title: 'Leddar – Thorong High Camp (4,880m)', desc: 'We move from Leddar to Thorong High Camp via steep trails and suspension bridges, with magnificent views throughout. The hard climb to high camp rewards us with a sense of achievement. The day is also about mental and physical preparation for the crossing of Thorong La, one of the most challenging sections of the entire trek.', distance: '16–17 km', duration: '~9–10 hours', elevationGain: '680m', accommodation: 'Teahouse at Thorong High Camp' },
-      { day: 13, title: 'Thorong High Camp – Thorong La Pass (5,416m) – Muktinath (3,800m)', desc: 'An early start as we push for Thorong La Pass at 5,416 m. Panoramic views of Annapurna, Dhaulagiri (8,167 m — the world\'s 7th highest peak) and the Mustang region unfold before us. After the pass we descend to Muktinath, where we can visit one of Hinduism\'s most revered temples. A breathtaking yet demanding day requiring both physical and mental strength.', distance: '16–17 km', duration: '~9–10 hours', elevationGain: '616m', elevationLoss: '1,616m', accommodation: 'Teahouse in Muktinath' },
+      { day: 13, title: 'Thorong High Camp – Thorong La Pass (5,416m) – Muktinath (3,800m)', desc: 'An early start as we push for Thorong La Pass at 5,416 m. Panoramic views of Annapurna, Dhaulagiri (8,167 m  -  the world\'s 7th highest peak) and the Mustang region unfold before us. After the pass we descend to Muktinath, where we can visit one of Hinduism\'s most revered temples. A breathtaking yet demanding day requiring both physical and mental strength.', distance: '16–17 km', duration: '~9–10 hours', elevationGain: '616m', elevationLoss: '1,616m', accommodation: 'Teahouse in Muktinath' },
       { day: 14, title: 'Jeep drive from Muktinath to Pokhara (820m)', desc: 'We wind down through local villages, small towns and green valleys on a scenic 7–8 hour drive to Pokhara. On arrival we check into the hotel and rest after our incredible trek. In the evening enjoy a traditional Nepali dinner with cultural dance performances and a stunning view over the city.', accommodation: 'Hotel in Pokhara', travelTime: '~7–8 hours drive' },
-      { day: 15, title: 'Domestic flight from Pokhara to Kathmandu', desc: 'An early wake-up and a short domestic flight back to Kathmandu. After check-in at the hotel we have the day free — explore the colourful streets, pick up souvenirs or simply rest. We close the day with a sense of deep satisfaction at completing this epic circuit.', accommodation: 'Hotel Barahi, Kathmandu' },
-      { day: 16, title: 'Kathmandu – Dubai – Tel Aviv', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey — full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
+      { day: 15, title: 'Domestic flight from Pokhara to Kathmandu', desc: 'An early wake-up and a short domestic flight back to Kathmandu. After check-in at the hotel we have the day free  -  explore the colourful streets, pick up souvenirs or simply rest. We close the day with a sense of deep satisfaction at completing this epic circuit.', accommodation: 'Hotel Barahi, Kathmandu' },
+      { day: 16, title: 'Kathmandu – Dubai – Tel Aviv', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
     ],
   },
   {
@@ -1004,23 +1002,27 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     airtableEvents: ['Elbrus'],
     groupCapacity: 15,
     img: '/images/cards/elbrus.webp',
-    seoTitle:       'טיפוס לאלברוס — ההר הגבוה באירופה | HighAir',
-    seoDescription: 'טיפוס לאלברוס (5642מ׳) — ההר הגבוה באירופה, אחת מ-7 הפסגות! 8 ימים. קווקז, רוסיה. מסע טיפוס עם מדריכים מקצועיים ותרומה למלחמה בסרטן.',
+    seoTitle:       'טיפוס לאלברוס  -  ההר הגבוה באירופה | HighAir',
+    seoDescription: 'טיפוס לאלברוס (5642מ׳) ברוסיה  -  8 ימים. ההר הגבוה באירופה, אחת מ-7 הפסגות. מסלול דרומי עם כבלית עד 3850מ׳, לינה בבקתות ויום פסגה 10–14 שעות.',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
-    desc: `הצטרפו אלינו למסע אל הפסגה הגבוהה באירופה, הר אלברוס המתנשא לגובה של 5642 מ׳ ואחת מ"שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים לכבוש פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
+    desc: `אלברוס הוא הר הגעש הכבוי הגבוה באירופה  -  5642 מ׳, ואחת משבע הפסגות. המסלול הדרומי עם הכבלית ובקתות ההרים הופך את הלוגיסטיקה לניתנת לניהול.
 
-הטיפוס דרך המסלול הדרומי נחשב לדרך הפופולרית והבטוחה ביותר להגיע אל הפסגה. המסלול מאתגר ודורש כושר גופני טוב, אך בעזרת התאקלמות נכונה ושימוש בתשתיות המסלול הדרומי (כמו הרכבלים ובקתות ההרים), הוא בהחלט בר השגה עבור מטפסים נחושים! במהלך המשלחת תלמדו ותתרגלו עבודה עם ציוד טכני הכולל קרמפונים, גרזן קרח ועבודה בחבלים.
+מתחילים מצ׳גט ב-2100 מ׳, עולים ברכבל ל-3850 מ׳, לנים בבקתת לפרוס ב-3910 מ׳ ועושים יום אימון בסלעי פסטוחוב ב-4800 מ׳  -  קרמפונים, גרזן קרח, עבודה בחבלים. הכל מלמדים לפני יום הפסגה. ניסיון טיפוס קודם לא נדרש, אבל גובה של 4000 מ׳ מאחוריכם יעזור.
 
-התגמול על המאמץ יהיה עוצר נשימה - עמידה על הנקודה הגבוהה ביותר ביבשת אירופה, כשמתחתיכם מרבדי קרחונים ופסגות משוננות שנמתחות עד האופק. מעבר לאתגר הפיזי, המסע הוא הזדמנות להתחבר לטבע הפראי ולתרבות הייחודית של אזור הקווקז ברוסיה, הכוללת הכנסת אורחים חמה ומטבח מקומי משביע.
+יום הפסגה מתחיל סביב שעה-שתיים לפנות בוקר. 1732 מ׳ עלייה, 10–14 שעות הלוך ושוב. בתנאי מזג אוויר נקי, כל הקווקז גלוי מלמעלה. שיעור הצלחה 85%  -  הסיבה העיקרית לאי-הגעה לפסגה היא מזג אוויר ומחלת גבהים, לא כושר.
 
-הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+בצ׳גט, בין ימי הטיפוס, אפשר לנסות רכיבה על סוסים, דייג או סאונה רוסית.
+
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת אלברוס 5642מ׳', 'הר הגבוה באירופה', 'נסיעה בכבלית', 'מחנות חבית היסטוריים'],
     nameEn: 'Elbrus',
-    descEn: `Mount Elbrus is Europe's highest peak at 5642 meters - a dormant twin-peaked volcano in the Russian Caucasus and one of the Seven Summits. This expedition offers the perfect introduction to high-altitude mountaineering with a high success rate.
+    descEn: `Elbrus is the highest point in Europe at 5,642m, a twin-peaked dormant volcano in the Russian Caucasus and one of the Seven Summits. It's a real high-altitude objective  -  but the south route with its cable cars and established huts makes the logistics manageable compared to most peaks at this altitude.
 
-We use modern cable cars and snowcats to reach high camps, minimizing the physical toll and maximizing summit success. From the top on a clear day, you can see the entire Caucasus range stretching into the distance.
+We use the cable cars to reach 3,850m on acclimatization days, sleep at the Leaprus hut at 3,910m, and run a training day at the Pastukhov Rocks (4,800m) before the summit push. No technical rock climbing  -  but you do need crampons, ice axe, and harness, and you'll practice all of it on snow before the main day.
 
-This is a non-technical climb requiring crampons and ice axes, but no prior mountaineering experience is needed - just good physical fitness and the will to stand on top of Europe.`,
+Summit day starts around 1–2am in the cold and dark. The 1,732m of elevation gain takes 10–14 hours round trip. On a clear day the whole Caucasus is visible from the top. Our success rate on this route is 85%  -  the main reasons groups don't summit are weather and altitude sickness, not fitness.
+
+Prior mountaineering experience is not required. Prior high-altitude experience (above 4,000m) helps significantly.`,
     highlightsEn: ['Elbrus Summit 5,642m', "Europe's highest peak", 'Caucasus panoramas', 'Cable car ascent'],
     included: [
       'קיט HighAir מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
@@ -1107,7 +1109,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -1120,10 +1122,10 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
       { day: 2, title: 'Acclimatization hike from Cheget to Cheget-2 station (2,750m)', desc: 'After breakfast at the hotel, we head out for an acclimatization hike toward Cheget-2 station, located at 2,750m. Along the way, our guide coaches us on proper walking techniques and introduces the basics of high-altitude breathing. In the evening, the guide delivers an engaging theoretical session on the fundamentals of mountaineering and alpine safety.', distance: '6 km', duration: '4–5 hours', elevationGain: '+650m gain', elevationLoss: '-650m loss', accommodation: '"Snezhny Bars" hotel in Cheget or similar' },
       { day: 3, title: 'Transfer to Cheeper Azau, acclimatization to Garabashi (3,850m)', desc: 'This morning we move deeper into the mountain. We ride the cable car to "Stary Krugozor" station and check in at the "Cheeper-Azau" hut at 3,000m. After lunch at the hut, we set out on an acclimatization hike passing the scenic "Sarykaya-Su" waterfall toward "Mir" station (3,450m). Depending on weather, we continue up to "Gara-Bashi" station (3,850m) or visit a stunning glacial lake.', distance: '6 km', duration: '4–5 hours', elevationGain: '+850m gain', elevationLoss: '-850m loss', accommodation: '"Cheeper-Azau" hut' },
       { day: 4, title: 'Acclimatization climb to Pastuhov Rocks + alpine training (4,800m)', desc: 'Today we ride the cable car to "Gara-Bashi" station at 3,850m, home to the most comfortable mountain huts in the area. After checking our gear, we begin an acclimatization climb to Pastuhov Rocks at 4,800m. At this elevation we undergo critical hands-on training: walking in crampons, rope techniques, knot tying, and self-arrest with an ice axe. The guide reviews essential safety protocols in preparation for summit day. After training, we descend to the hut for rest and recovery.', distance: '6 km', duration: '5–6 hours', elevationGain: '+950m gain', elevationLoss: '-950m loss', accommodation: '"Cheeper-Azau" hut' },
-      { day: 5, title: 'Transfer to high camp, rest day + final alpine training (3,910m)', desc: 'After the efforts of recent days, today is dedicated to rest and building reserves. We start with breakfast then ascend to high camp — the "Leaprus" hut at 3,910m. Weather permitting, we run a final ice-and-snow training session. The rest of the day is spent resting, playing board games, and enjoying quality time with the group. After dinner we hold one last detailed briefing before the summit push, then turn in early.', elevationGain: '+910m gain', accommodation: '"Leaprus" hut' },
-      { day: 6, title: 'Summit push to Elbrus (5,642m)', desc: "This is the culmination of the expedition — our push to Europe's highest summit. You may climb on foot from the hut (starting ~4 hours earlier) or take a snow cat to 4,800m to conserve energy (extra cost). After crossing the \"Kosaya Polyana\" shelf and a tea break at the saddle (5,300m), we make the final push to the summit at 5,642m. Standing on the roof of Europe, you'll experience a moment of elevation and personal achievement against the endless panorama of the Caucasus peaks. We then begin a controlled descent back to high camp for dinner and rest.", distance: '12–15 km', duration: '10–14 hours', elevationGain: '+1,732m gain', elevationLoss: '-1,732m loss', accommodation: '"Leaprus" hut' },
+      { day: 5, title: 'Transfer to high camp, rest day + final alpine training (3,910m)', desc: 'After the efforts of recent days, today is dedicated to rest and building reserves. We start with breakfast then ascend to high camp  -  the "Leaprus" hut at 3,910m. Weather permitting, we run a final ice-and-snow training session. The rest of the day is spent resting, playing board games, and enjoying quality time with the group. After dinner we hold one last detailed briefing before the summit push, then turn in early.', elevationGain: '+910m gain', accommodation: '"Leaprus" hut' },
+      { day: 6, title: 'Summit push to Elbrus (5,642m)', desc: "This is the culmination of the expedition  -  our push to Europe's highest summit. You may climb on foot from the hut (starting ~4 hours earlier) or take a snow cat to 4,800m to conserve energy (extra cost). After crossing the \"Kosaya Polyana\" shelf and a tea break at the saddle (5,300m), we make the final push to the summit at 5,642m. Standing on the roof of Europe, you'll experience a moment of elevation and personal achievement against the endless panorama of the Caucasus peaks. We then begin a controlled descent back to high camp for dinner and rest.", distance: '12–15 km', duration: '10–14 hours', elevationGain: '+1,732m gain', elevationLoss: '-1,732m loss', accommodation: '"Leaprus" hut' },
       { day: 7, title: 'Spare day for bad weather / descent to Cheget (2,100m)', desc: "This day serves as an additional weather window if conditions delayed the summit push the previous day. If the summit was completed successfully, we descend back to Cheget for rest and celebrations. This is the time to enjoy the outstanding Caucasian cuisine. You can choose leisure activities such as horse riding, fishing, or a traditional Russian banya. In the evening we gather for a celebratory dinner at which official summit certificates are presented to all expedition participants.", elevationLoss: '-1,810m loss', accommodation: '"Snezhny Bars" hotel in Cheget or similar' },
-      { day: 8, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. We board the transfer that will take us to the airport for our flight back home to Israel. During the flight, you can share memories and experiences from this incredible journey — full of photos and stories to tell :)' },
+      { day: 8, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. We board the transfer that will take us to the airport for our flight back home to Israel. During the flight, you can share memories and experiences from this incredible journey  -  full of photos and stories to tell :)' },
     ],
   },
   {
@@ -1133,20 +1135,30 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     elev: '5895m', elevNum: 5895, days: '9 ימים | ספארי +3', daysEn: '9 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
     img: '/images/cards/kilimanjaro.webp',
-    seoTitle:       'טיפוס לקילימנג׳רו 2025 | HighAir Expeditions',
-    seoDescription: 'טיפוס לקילימנג׳רו (5895מ׳) — ההר הגבוה באפריקה! 9 ימים. שיעור הצלחה 94%, מדריכים ישראלים, ספארי אופציונלי. הזמינו את המקום שלכם!',
+    seoTitle:       'טיפוס לקילימנג׳רו 2026 | HighAir Expeditions',
+    seoDescription: 'טיפוס לקילימנג׳רו (5895מ׳) טנזניה  -  9 ימים. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
     tagline: 'הצטרפו לטיפוס אל פסגת הקילימנג׳רו בטנזניה\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
     grad: 'linear-gradient(135deg,#f97316,#ea580c,#7c2d12)',
-    desc: 'הצטרפו אלינו למסע טיפוס אל הר קילימנג׳רו המתנשא לגובה של 5895 מ׳ מעל פני הים. הר הקילימנג׳רו הוא הפסגה הגבוהה ביותר באפריקה ואחת משבע הפסגות הגבוהות בעולם בכל יבשת. ההגעה לפסגה מהווה אתגר פיזי ומנטלי אך מתאימה לכל מטפס הרים מתחיל.\n\nהמסלול הקלאסי לפסגת הקילימנג׳רו הוא דרך מסלול מאצ׳מה, מסלול בן 7 ימים החוצה נופים מגוונים מיערות הגשם דרך אדמת הסוואנה ועד האזורים המושלגים של הפסגה. חמישה ימי טיפוס יובילו אתכם אל הבייס קמפ בגובה 4673 מ׳, תוך לינה במחנות קמפינג חדשים מדי יום.\n\nהטיפוס לפסגה מתחיל בחצות, המאמץ הגדול משתלם עם צפייה בזריחה מרהיבה בדרך לפסגת אוהורו ותצפית פנורמית עוצרת נשימה על כל אפריקה.\n\nהצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!',
+    desc: `קילימנג׳רו הוא הפסגה הגבוהה באפריקה  -  5895 מ׳, ללא טיפוס טכני. הליכה ארוכה בגובה שהולך ועולה, שנהיית קשה יותר ככל שהאוויר נהיה דליל יותר.
+
+משתמשים במסלול מאצ׳מה  -  7 ימי טיפוס שעוברים בחמישה אזורי אקלים: יערות גשם, מישורי שיח, מדבר אלפיני, סלע וקרחונים. כל יום נראה אחרת. יוצאים ממחנה בראפו ב-4673 מ׳ בחצות, מטפסים 8 שעות בחשכה עם פנסי ראש, מגיעים לסטלה פוינט עם הזריחה ולאוהורו פיק ב-5895 מ׳ כמה זמן אחר כך. קר, איטי  -  הגובה עושה את שלו.
+
+94% מהקבוצות שלנו מגיעות לפסגה. שומרים על המספר הזה על ידי הליכה לאט ומעקב צמוד אחר כל אחד. הירידה ביום השביעי  -  2700 מ׳ עד מחנה מוואקה  -  תורגש ברגליים.
+
+אחרי הטיפוס, אפשר לצאת לספארי בטרנגירי ובמכתש נגורונגורו, ולבקר בשבט ההדזבה באגם אייסי.
+
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת אוהורו 5895מ׳', '5 אזורי אקלים ייחודיים', 'ללא טיפוס טכני', 'זריחה מעל העננים'],
     nameEn: 'Kilimanjaro',
-    descEn: `Kilimanjaro is Africa's highest peak and one of the world's most iconic mountains - a dormant stratovolcano rising 5895 meters above the Tanzanian savanna. No technical climbing required, making it the perfect "first big mountain" for adventurous hikers.
+    descEn: `Kilimanjaro is Africa's highest mountain at 5,895m. No ropes, no technical climbing  -  just a long walk at altitude that gets progressively harder as the air thins. It's the right first big mountain for most people.
 
-We use the Machame Route - the most scenic path on the mountain - taking 7 days to allow proper acclimatization. You'll pass through five distinct climate zones, from tropical rainforest at the base to Arctic summit conditions at Uhuru Peak.
+We use the Machame Route, which takes 7 days and gives your body time to adjust properly. You move through five climate zones on the way up: rainforest, moorland, alpine desert, rock and finally the glacier zone near the summit. Each day looks and feels different.
 
-HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the highest in the industry - thanks to our experienced Israeli guides and careful acclimatization schedule.`,
+Summit night starts at midnight from Barafu Camp (4,673m). You climb in the dark with a headlamp for 7–8 hours, hit Stella Point at sunrise, and reach Uhuru Peak at 5,895m. It's cold and slow going  -  altitude does that. But 94% of our groups make it. We keep that number high by going slowly, monitoring everyone, and not rushing.
+
+The descent on Day 7 is long  -  over 2,700m down to Mweka Camp. Your legs will know about it. But by the gate celebration with the local crew, most people are grinning.`,
     highlightsEn: ['Uhuru Peak 5,895m', "Africa's highest mountain", 'Machame Scenic Route', 'Five climate zones'],
     included: [
       'טיפוס לקילימנג׳רו:',
@@ -1248,7 +1260,7 @@ HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the hi
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -1271,22 +1283,22 @@ HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the hi
       { day: 1, title: 'Welcome to Tanzania!', desc: 'Before landing in Tanzania, enjoy a stunning aerial view of Mount Kilimanjaro from the plane. At the airport, representatives will be waiting to escort you by shuttle to the hotel in Moshi, passing through unique rural and mountain landscapes along the way. After arriving at the hotel and checking in, you\'ll conduct a gear check ahead of the expedition and receive a comprehensive briefing from the guide team who will accompany you throughout the climb. Tonight you\'ll rest well before setting off the following morning.', travelTime: 'About an hour\'s drive from Kilimanjaro Airport to the hotel in Moshi', accommodation: 'Panama Garden Hotel in Moshi, or similar' },
       { day: 2, title: 'Machame Gate (1,800m) – Machame Camp (2,835m)', desc: 'After breakfast at the hotel, gear up and meet the local crew for celebrations and dancing before departure. Drive about an hour to Machame Gate, the entrance to Kilimanjaro National Park at 1,800m. Enjoy lunch at the gate, then begin the ascent through spectacular rainforests. By mid-afternoon you\'ll arrive at Machame Camp, settle in, and share a group dinner together in the communal tent.', distance: '11 km', duration: '5–7 hours', elevationGain: '+1035m gain', accommodation: 'Tents at Machame Camp' },
       { day: 3, title: 'Machame Camp (2,835m) – Shira Camp (3,750m)', desc: 'Wake up to your first mountain morning as the guides conduct a routine medical check before heading out. Continue ascending and transition from rainforest into heath and savanna-like zones, where the air grows thinner and the vegetation more sparse. Along the way you\'ll encounter uniquely beautiful plants set against breathtaking scenery. At day\'s end, arrive at Shira Camp at 3,750m and be rewarded with a stunning sunset. Rest well tonight before continuing the journey tomorrow.', distance: '5 km', duration: '4–6 hours', elevationGain: '+915m gain', accommodation: 'Tents at Shira Camp' },
-      { day: 4, title: 'Shira Camp – Lava Tower (4,600m) – Barranco Camp (3,900m)', desc: 'Wake up to a new morning at Shira Camp. After breakfast, begin hiking toward Lava Tower at 4,600m — a 90-meter volcanic rock formation. Pass through alpine desert and encounter giant endemic plants that grow only at these altitudes. After this acclimatization day, descend to Barranco Camp to rest at 3,900m. Climbing high and sleeping lower accelerates the acclimatization process.', distance: '10 km', duration: '6–8 hours', elevationGain: '+850m gain', elevationLoss: '-700m loss', accommodation: 'Tents at Barranco Camp' },
-      { day: 5, title: 'Barranco Camp – Barranco Wall (4,200m) – Karanga Camp (3,995m)', desc: 'Wake up with the summit looking closer than ever. After breakfast and a medical check, head toward the famous Barranco Wall. Cross bridges over streams then climb the narrow path up the wall, using hands and feet on steeper sections. Afterwards, descend to Karanga Camp at 3,995m — an open campsite and the second-to-last stop before the summit push.', distance: '6 km', duration: '4–6 hours', elevationGain: '+300m gain', elevationLoss: '-205m loss', accommodation: 'Tents at Karanga Camp' },
-      { day: 6, title: 'Karanga Camp (3,995m) – Barafu Camp (4,673m)', desc: 'The best way to boost energy before the summit? Start the day with dancing! This is the shortest hiking day of the climb. Set off from Karanga Camp toward Barafu Camp at 4,673m. "Barafu" means "cold" in Swahili — and for good reason. On arrival, enjoy lunch and rest ahead of the midnight summit departure. Excitement is at its peak!', distance: '4 km', duration: '4–5 hours', elevationGain: '+678m gain', accommodation: 'Tents at Barafu Camp' },
-      { day: 7, title: 'Barafu Camp – Uhuru Peak (5,895m) – Mweka Camp (3,100m)', desc: 'Wake at midnight, gear up, and set out with headlamps. Climb for approximately 8 hours to the summit of Kilimanjaro at 5,895m, with short rest and hydration breaks along the way. Soak in the breathtaking view and the incredible achievement — then the mission continues. Descend to Barafu Camp for lunch, then continue down to Mweka Camp at 3,100m for the final night on the mountain.', distance: '17 km', duration: '13–15 hours', elevationGain: '+1222m gain', elevationLoss: '-2795m loss', accommodation: 'Tents at Mweka Camp' },
+      { day: 4, title: 'Shira Camp – Lava Tower (4,600m) – Barranco Camp (3,900m)', desc: 'Wake up to a new morning at Shira Camp. After breakfast, begin hiking toward Lava Tower at 4,600m  -  a 90-meter volcanic rock formation. Pass through alpine desert and encounter giant endemic plants that grow only at these altitudes. After this acclimatization day, descend to Barranco Camp to rest at 3,900m. Climbing high and sleeping lower accelerates the acclimatization process.', distance: '10 km', duration: '6–8 hours', elevationGain: '+850m gain', elevationLoss: '-700m loss', accommodation: 'Tents at Barranco Camp' },
+      { day: 5, title: 'Barranco Camp – Barranco Wall (4,200m) – Karanga Camp (3,995m)', desc: 'Wake up with the summit looking closer than ever. After breakfast and a medical check, head toward the famous Barranco Wall. Cross bridges over streams then climb the narrow path up the wall, using hands and feet on steeper sections. Afterwards, descend to Karanga Camp at 3,995m  -  an open campsite and the second-to-last stop before the summit push.', distance: '6 km', duration: '4–6 hours', elevationGain: '+300m gain', elevationLoss: '-205m loss', accommodation: 'Tents at Karanga Camp' },
+      { day: 6, title: 'Karanga Camp (3,995m) – Barafu Camp (4,673m)', desc: 'The best way to boost energy before the summit? Start the day with dancing! This is the shortest hiking day of the climb. Set off from Karanga Camp toward Barafu Camp at 4,673m. "Barafu" means "cold" in Swahili  -  and for good reason. On arrival, enjoy lunch and rest ahead of the midnight summit departure. Excitement is at its peak!', distance: '4 km', duration: '4–5 hours', elevationGain: '+678m gain', accommodation: 'Tents at Barafu Camp' },
+      { day: 7, title: 'Barafu Camp – Uhuru Peak (5,895m) – Mweka Camp (3,100m)', desc: 'Wake at midnight, gear up, and set out with headlamps. Climb for approximately 8 hours to the summit of Kilimanjaro at 5,895m, with short rest and hydration breaks along the way. Soak in the breathtaking view and the incredible achievement  -  then the mission continues. Descend to Barafu Camp for lunch, then continue down to Mweka Camp at 3,100m for the final night on the mountain.', distance: '17 km', duration: '13–15 hours', elevationGain: '+1222m gain', elevationLoss: '-2795m loss', accommodation: 'Tents at Mweka Camp' },
       { day: 8, title: 'Mweka Camp (3,100m) – Mweka Gate (1,640m)', desc: 'Wake up to the final morning at Mweka Camp after an emotional summit day. Trek toward Mweka Gate, the park exit, as the landscape transforms again back into lush rainforest. At the gate, stop for a group photo with the entire local crew, raise a toast and thank them for their incredible work throughout the journey. Enjoy a festive celebratory lunch with dancing, then return to the hotel in Moshi for a well-deserved shower after a full week on the mountain!', distance: '8 km', duration: '3–4 hours', elevationLoss: '-1460m loss', accommodation: 'Panama Garden Hotel in Moshi, or similar' },
-      { day: 9, title: 'Flight Back Home', desc: 'Start the day with breakfast at the hotel, then pack your bags and check out. Board the shuttle to Kilimanjaro Airport for your flight back to Israel. During the flight, share memories and experiences from the incredible journey — full of photos and stories to tell :)' },
+      { day: 9, title: 'Flight Back Home', desc: 'Start the day with breakfast at the hotel, then pack your bags and check out. Board the shuttle to Kilimanjaro Airport for your flight back to Israel. During the flight, share memories and experiences from the incredible journey  -  full of photos and stories to tell :)' },
     ],
     safariItinerary: [
       { day: 9,  title: 'ספארי בשמורת טרנגירי', desc: 'טרנגירי היא השמורה הגדולה ביותר בטנזניה אחרי הסרנגטי. בשמורה נוכל ליהנות מטיול ספארי מהנה ושונה מיתר השמורות במדינה, לצפות בעדרים גדולים של פילים אפריקאים, להתרשם מנדידת הציפורים ולראות מגוון בעלי חיים: אריות, נמרים, צ׳יטות, ג׳ירפות, באפלו, זברות, קופים ועוד.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
-      { day: 10, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה — אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
-      { day: 11, title: 'ביקור בשבט ההדזבה באגם אייסי', desc: 'שבט ההדזבה הוא אחד מהקהילות האחרונות בעולם שחיות אורח חיים של ציידים, הם ממוקמים בצפון טנזניה, בעיקר סביב אזור אגם אייסי. בני שבט ההדזבה מדברים בשפה ייחודית משלהם, המורכבת מצלילים מיוחדים הנקראים "קליקים", והם ממשיכים לשמור על המסורת העתיקה שלהם למרות השפעות המודרניזציה. התזונה שלהם מבוססת בעיקר על ציד בעלי חיים, איסוף פירות יער, דבש וצמחים — דוגמה נדירה ומרתקת לאורח חיים אנושי קדום המעוררת עניין רב בקרב חוקרים ואנתרופולוגים. בצהריים נוסעים לשדה התעופה קילימנג׳רו לטיסה חזרה הביתה.' },
+      { day: 10, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה  -  אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
+      { day: 11, title: 'ביקור בשבט ההדזבה באגם אייסי', desc: 'שבט ההדזבה הוא אחד מהקהילות האחרונות בעולם שחיות אורח חיים של ציידים, הם ממוקמים בצפון טנזניה, בעיקר סביב אזור אגם אייסי. בני שבט ההדזבה מדברים בשפה ייחודית משלהם, המורכבת מצלילים מיוחדים הנקראים "קליקים", והם ממשיכים לשמור על המסורת העתיקה שלהם למרות השפעות המודרניזציה. התזונה שלהם מבוססת בעיקר על ציד בעלי חיים, איסוף פירות יער, דבש וצמחים  -  דוגמה נדירה ומרתקת לאורח חיים אנושי קדום המעוררת עניין רב בקרב חוקרים ואנתרופולוגים. בצהריים נוסעים לשדה התעופה קילימנג׳רו לטיסה חזרה הביתה.' },
     ],
     safariItineraryEn: [
-      { day: 9,  title: 'Safari at Tarangire National Park', desc: 'Tarangire is the largest national park in Tanzania after the Serengeti. Enjoy a safari experience that stands apart from other reserves in the country — spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Marera Valley Lodge or similar' },
-      { day: 10, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25,000 animals "enclosed" within the crater — including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
-      { day: 11, title: 'Visit to the Hadza Tribe – Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants — a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
+      { day: 9,  title: 'Safari at Tarangire National Park', desc: 'Tarangire is the largest national park in Tanzania after the Serengeti. Enjoy a safari experience that stands apart from other reserves in the country  -  spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Marera Valley Lodge or similar' },
+      { day: 10, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25,000 animals "enclosed" within the crater  -  including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
+      { day: 11, title: 'Visit to the Hadza Tribe – Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
       { name: 'משפחת כספי',       nameEn: 'The Kaspi Family',    date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/1.webp' },
@@ -1308,21 +1320,46 @@ HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the hi
     elev: '5895m', elevNum: 5895, days: '10 ימים | ספארי +3', daysEn: '10 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2900, priceStr: '$2900', continent: 'africa',
     img: '/images/cards/kilimanjaroKosher.webp',
-    seoTitle:       'קילימנג׳רו כשר לשומרי מסורת | HighAir Expeditions',
-    seoDescription: 'טיפוס לקילימנג׳רו (5895מ׳) לשומרי מסורת — אוכל כשר מהדרין, 10 ימים. ספארי אופציונלי. המשלחת הכשרה המובילה מישראל לקילימנג׳רו!',
+    seoTitle:       'קילימנג׳רו כשר לשומרי מסורת 2026 | HighAir Expeditions',
+    seoTitleEn:     'Kosher Kilimanjaro Expedition 2026 | HighAir Expeditions',
+    seoDescription: 'טיפוס לקילימנג׳רו (5895מ׳) לשומרי מסורת  -  10 ימים כולל שבת בארושה עם חב״ד. אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.',
+    seoDescriptionEn: 'The world\'s only fully glatt kosher Kilimanjaro expedition. 10 days, Shabbat-aware scheduling, Hebrew guides, 94% summit success rate. Optional kosher safari. Book your place!',
     airtableEvents: ['Kilimanjaro_Kosher', 'Kilimanjaro_Kosher_with_Safari'],
     groupCapacity: 15,
     grad: 'linear-gradient(135deg,#f59e0b,#d97706,#92400e)',
-    desc: 'הצטרפו אלינו למשלחת ייחודית לשומרי מסורת לטיפוס על הר הקילימנג׳רו, המתנשא לגובה 5895 מ׳. זו ההזדמנות להגשים חלום ולכבוש את הפסגה הגבוהה באפריקה באווירה דתית ותומכת, באתגר המותאם גם למטפסים מתחילים, מבלי להתפשר על שמירת השבת והערכים בליווי של בית חב״ד ארושה.\n\nהמסע תוכנן בקפידה סביב השבת: ננחת בשישי לשבת התאקלמות בארושה, ובראשון נצא למסלול מאצ׳מה הקלאסי. שישה ימים של נופי בראשית, מסוואנה ועד לקרחונים, כאשר את הירידה נסיים ביום שישי בצהריים - בדיוק בזמן לשבת מנוחה במלון, לפני החזרה לארץ או היציאה לספארי ביום ראשון.\n\nהטיפוס לפסגה מתחיל בחצות ממחנה בראפו, לאור פנסים. המאמץ הגדול משתלם עם זריחה מרהיבה מעל פסגת אוהורו, ברגע רוחני ועוצמתי של "מה רבו מעשיך ה׳" מול תצפית פנורמית עוצרת נשימה על כל יבשת אפריקה.\n\nהצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!',
-    highlights: ['פסגת אוהורו 5895מ׳', 'ליווי רוחני מיוחד', 'קהילה ייחודית', 'חוויה בלתי נשכחת'],
-    nameEn: 'Kilimanjaro Kosher',
-    descEn: `The world's only fully kosher Kilimanjaro expedition - and we've been running it for years.
+    desc: `אותו הר, אותו מסלול מאצ׳מה, אותן 5895 מ׳  -  עם שבת ואוכל כשר מהדרין.
 
-Everything about this trek is identical to our standard Kilimanjaro expedition in terms of route, guides, and success rate. The difference: every meal is freshly prepared kosher, the group schedule is adapted to respect Shabbat and Jewish holidays, and you're surrounded by a Jewish group that shares your values.
+המסע תוכנן סביב השבת: נוחתים ביום שישי, שבת בארושה עם חב״ד, יוצאים למסלול ביום ראשון. שישה ימי טיפוס דרך יערות גשם, מישורי שיח ומדבר אלפיני. הירידה מסתיימת ביום שישי בצהריים  -  בדיוק לפני שבת שנייה.
 
-This is Kilimanjaro without compromise - the adventure of a lifetime, done your way.
+האוכל מבושל טרי על ההר בכל יום. לא קפוא, לא מוכן מראש  -  מהדרין לאורך כל הטיפוס.
 
-Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English guides · Cancer charity donation included`,
+יוצאים ממחנה בראפו ב-4673 מ׳ בחצות. 8 שעות בחשכה. מגיעים לאוהורו פיק ב-5895 מ׳ עם הזריחה  -  גג אפריקה. 94% מהקבוצות שלנו עולות לפסגה.
+
+אחרי הטיפוס, ספארי כשר בטרנגירי ובמכתש נגורונגורו  -  לוגיסטיקה שעבדנו עליה שנים כדי לסגור.
+
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
+    highlights: ['פסגת אוהורו 5895מ׳', 'ליווי רוחני מיוחד', 'שבת בארושה עם חב״ד', 'אוכל כשר מבושל טרי על ההר'],
+    nameEn: 'Kosher Kilimanjaro Expedition',
+    descEn: `We've been running kosher Kilimanjaro expeditions for years. As far as we know, nobody else does.
+
+The mountain is the same Machame route everyone else uses. Same 5,895m. Same overnight summit push from Barafu Camp at midnight. What's different: the food is glatt kosher  -  cooked fresh on the mountain, not freeze-dried  -  and the whole trip is built around Shabbat. We land Friday, Shabbat in Arusha with Chabad, start the climb Sunday. The descent finishes Friday afternoon. It took some logistical work to get the timing right, but after years of running this we have it down.
+
+Summit night is the part people ask about most. You leave Barafu (4,673m) at midnight in the cold and the dark. It's slow going  -  altitude slows everything down. Stella Point hits around sunrise. By the time you reach Uhuru Peak, you're looking out over the whole of Africa. A lot of people in our groups say the moment hits harder than they expected.
+
+The Machame route gives you 6 days through four climate zones  -  rainforest, moorland, high-altitude desert, then the glaciated summit area. The gradual ascent is why the success rate stays at 94%. Your body gets time to adjust.
+
+No technical experience needed. If you can walk 6–8 hours a day and want to be there, you can do this. Our groups have included first-timers in their 20s and people in their late 60s. Both groups made it.
+
+Key facts:
+- Uhuru Peak: 5,895m
+- 10 days including Shabbat rest
+- 94% summit rate
+- Max 15 per group
+- Glatt kosher throughout, supervised by Chabad Arusha
+- Local English-speaking guides
+- Donation to cancer research included
+
+A lot of people add the 3-day kosher safari after  -  Tarangire and Ngorongoro Crater, all kosher. After the mountain, the pace is easier. Most people say it's the better half of the trip.`,
     highlightsEn: ['Uhuru Peak 5,895m', 'Fully glatt kosher meals', 'Shabbat-aware scheduling', 'Jewish group experience'],
     included: [
       'טיפוס לקילימנג׳רו:',
@@ -1425,7 +1462,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -1447,25 +1484,25 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Tanzania!', desc: 'Before landing in Tanzania, enjoy a stunning aerial view of Mount Kilimanjaro from the plane. After landing, board the shuttle to Palace Hotel in Arusha, passing through unique rural and mountain landscapes along the way. After arriving at the hotel and checking in, enjoy a Shabbat dinner at Chabad House Arusha.', travelTime: 'About 2 hours\' drive from Kilimanjaro Airport to Arusha', accommodation: 'Palace Hotel in Arusha, or similar' },
-      { day: 2,  title: 'Shabbat Rest at the Hotel in Arusha', desc: 'A full Shabbat rest day at the hotel — enjoying the calm before the expedition begins tomorrow.', accommodation: 'Palace Hotel in Arusha, or similar' },
-      { day: 3,  title: 'Machame Gate – Machame Camp (2,835m)', desc: 'After breakfast at the hotel, gear up and meet the local crew for a pre-departure briefing. Drive about an hour to Machame Gate — the entrance to the nature reserve at 1,800m. This route is considered one of the most beautiful paths to the summit. Today we trek through lush rainforest on a well-marked trail. By mid-afternoon we arrive at Machame Camp, settle in, and share a delicious group dinner together in the communal tent.', distance: '11 km', duration: '5–7 hours', elevationGain: '+1,035m gain', accommodation: 'Tents at Machame Camp' },
+      { day: 2,  title: 'Shabbat Rest at the Hotel in Arusha', desc: 'A full Shabbat rest day at the hotel  -  enjoying the calm before the expedition begins tomorrow.', accommodation: 'Palace Hotel in Arusha, or similar' },
+      { day: 3,  title: 'Machame Gate – Machame Camp (2,835m)', desc: 'After breakfast at the hotel, gear up and meet the local crew for a pre-departure briefing. Drive about an hour to Machame Gate  -  the entrance to the nature reserve at 1,800m. This route is considered one of the most beautiful paths to the summit. Today we trek through lush rainforest on a well-marked trail. By mid-afternoon we arrive at Machame Camp, settle in, and share a delicious group dinner together in the communal tent.', distance: '11 km', duration: '5–7 hours', elevationGain: '+1,035m gain', accommodation: 'Tents at Machame Camp' },
       { day: 4,  title: 'Machame Camp – Shira Cave Camp (3,750m)', desc: 'Wake up to your first mountain morning as the local guides conduct a routine medical check before heading out. Continue ascending through the transition from rainforest into savanna-like zones, where the air grows thinner and the vegetation more sparse. Along the way you\'ll encounter uniquely beautiful plants set against breathtaking scenery. At day\'s end, arrive at Shira Cave Camp at 3,750m and be rewarded with a stunning sunset. Rest well tonight before continuing tomorrow.', distance: '5 km', duration: '4–6 hours', elevationGain: '+915m gain', accommodation: 'Tents at Shira Cave Camp' },
-      { day: 5,  title: 'Shira Cave Camp – Lava Tower (4,650m) – Barranco Camp (3,900m)', desc: 'Wake up to a new morning at Shira Cave Camp. After breakfast, begin hiking toward Lava Tower at 4,650m — a 90-meter volcanic rock formation. Pass through alpine desert and encounter giant groundsels — endemic giant plants that grow only at these altitudes. After a long and tiring day, descend to Barranco Camp to rest at 3,900m. Climbing high and sleeping lower accelerates the acclimatization process.', distance: '10 km', duration: '6–8 hours', elevationGain: '+900m gain', elevationLoss: '-750m loss', accommodation: 'Tents at Barranco Camp' },
-      { day: 6,  title: 'Barranco Camp – Barranco Wall – Barafu Camp (4,673m)', desc: 'Wake up with the summit looking closer than ever. After breakfast and a medical check, head toward the famous Barranco Wall. Cross bridges over streams, then climb the narrow steep path — using hands and feet on certain sections. Afterwards, continue ascending toward Barafu Camp at 4,673m. The camp sits on open ground and is the final stop before the summit push.', distance: '9 km', duration: '7–8 hours', elevationGain: '+773m gain', accommodation: 'Tents at Barafu Camp' },
-      { day: 7,  title: 'Barafu Camp – Uhuru Peak (5,895m) – Mweka Camp (3,100m)', desc: 'Wake at midnight, gear up, and set out with headlamps. Climb for approximately 8 hours to the summit of Kilimanjaro at 5,895m, with short rest and hydration breaks along the way. Soak in the breathtaking view and the incredible achievement — then the mission continues. Descend to Barafu Camp for lunch, then continue down through the rainforest all the way to Mweka Camp at 3,100m.', distance: '17 km', duration: '13–15 hours', elevationGain: '+1,222m gain', elevationLoss: '-2,795m loss', accommodation: 'Tents at Mweka Camp' },
+      { day: 5,  title: 'Shira Cave Camp – Lava Tower (4,650m) – Barranco Camp (3,900m)', desc: 'Wake up to a new morning at Shira Cave Camp. After breakfast, begin hiking toward Lava Tower at 4,650m  -  a 90-meter volcanic rock formation. Pass through alpine desert and encounter giant groundsels  -  endemic giant plants that grow only at these altitudes. After a long and tiring day, descend to Barranco Camp to rest at 3,900m. Climbing high and sleeping lower accelerates the acclimatization process.', distance: '10 km', duration: '6–8 hours', elevationGain: '+900m gain', elevationLoss: '-750m loss', accommodation: 'Tents at Barranco Camp' },
+      { day: 6,  title: 'Barranco Camp – Barranco Wall – Barafu Camp (4,673m)', desc: 'Wake up with the summit looking closer than ever. After breakfast and a medical check, head toward the famous Barranco Wall. Cross bridges over streams, then climb the narrow steep path  -  using hands and feet on certain sections. Afterwards, continue ascending toward Barafu Camp at 4,673m. The camp sits on open ground and is the final stop before the summit push.', distance: '9 km', duration: '7–8 hours', elevationGain: '+773m gain', accommodation: 'Tents at Barafu Camp' },
+      { day: 7,  title: 'Barafu Camp – Uhuru Peak (5,895m) – Mweka Camp (3,100m)', desc: 'Wake at midnight, gear up, and set out with headlamps. Climb for approximately 8 hours to the summit of Kilimanjaro at 5,895m, with short rest and hydration breaks along the way. Soak in the breathtaking view and the incredible achievement  -  then the mission continues. Descend to Barafu Camp for lunch, then continue down through the rainforest all the way to Mweka Camp at 3,100m.', distance: '17 km', duration: '13–15 hours', elevationGain: '+1,222m gain', elevationLoss: '-2,795m loss', accommodation: 'Tents at Mweka Camp' },
       { day: 8,  title: 'Mweka Camp – Mweka Gate (1,640m)', desc: 'Wake up to the final morning at Mweka Camp after an emotional summit day. Trek toward Mweka Gate as the landscape transforms back into lush rainforest. At the gate, stop for a group photo with the entire local crew, raise a toast and thank them for their incredible hard work throughout the journey! Enjoy a festive celebratory lunch with dancing, then return to the hotel in Arusha for a well-deserved shower after a full week on the mountain!', distance: '8 km', duration: '3–4 hours', elevationLoss: '-1,460m loss', accommodation: 'Palace Hotel in Arusha, or similar' },
       { day: 9,  title: 'Shabbat Rest at the Hotel in Arusha', desc: 'Back from the summit with an incredible sense of achievement! Time to rest and celebrate the end of an unforgettable journey.', accommodation: 'Palace Hotel in Arusha, or similar' },
-      { day: 10, title: 'Flight Back Home!', desc: 'Start the day with breakfast at the hotel, then pack up and check out. Board the shuttle to Kilimanjaro Airport for the flight back home to Israel. On the way, share memories and stories from this incredible journey — full of photos and experiences that will stay with you forever :)' },
+      { day: 10, title: 'Flight Back Home!', desc: 'Start the day with breakfast at the hotel, then pack up and check out. Board the shuttle to Kilimanjaro Airport for the flight back home to Israel. On the way, share memories and stories from this incredible journey  -  full of photos and experiences that will stay with you forever :)' },
     ],
     safariItinerary: [
       { day: 10, title: 'ספארי בשמורת טרנגירי', desc: 'טרנגירי היא השמורה הגדולה ביותר בטנזניה אחרי הסרנגטי. בשמורה נוכל ליהנות מטיול ספארי מהנה ושונה מיתר השמורות במדינה, לצפות בעדרים גדולים של פילים אפריקאים, להתרשם מנדידת הציפורים ולראות מגוון בעלי חיים: אריות, נמרים, צ׳יטות, ג׳ירפות, באפלו, זברות, קופים ועוד.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
-      { day: 11, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה — אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
-      { day: 12, title: 'ביקור בשבט ההדזבה באגם אייסי', desc: 'שבט ההדזבה הוא אחד מהקהילות האחרונות בעולם שחיות אורח חיים של ציידים, הם ממוקמים בצפון טנזניה, בעיקר סביב אזור אגם אייסי. בני שבט ההדזבה מדברים בשפה ייחודית משלהם, המורכבת מצלילים מיוחדים הנקראים "קליקים", והם ממשיכים לשמור על המסורת העתיקה שלהם למרות השפעות המודרניזציה. התזונה שלהם מבוססת בעיקר על ציד בעלי חיים, איסוף פירות יער, דבש וצמחים — דוגמה נדירה ומרתקת לאורח חיים אנושי קדום המעוררת עניין רב בקרב חוקרים ואנתרופולוגים. בצהריים נוסעים לשדה התעופה קילימנג׳רו לטיסה חזרה הביתה.' },
+      { day: 11, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה  -  אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
+      { day: 12, title: 'ביקור בשבט ההדזבה באגם אייסי', desc: 'שבט ההדזבה הוא אחד מהקהילות האחרונות בעולם שחיות אורח חיים של ציידים, הם ממוקמים בצפון טנזניה, בעיקר סביב אזור אגם אייסי. בני שבט ההדזבה מדברים בשפה ייחודית משלהם, המורכבת מצלילים מיוחדים הנקראים "קליקים", והם ממשיכים לשמור על המסורת העתיקה שלהם למרות השפעות המודרניזציה. התזונה שלהם מבוססת בעיקר על ציד בעלי חיים, איסוף פירות יער, דבש וצמחים  -  דוגמה נדירה ומרתקת לאורח חיים אנושי קדום המעוררת עניין רב בקרב חוקרים ואנתרופולוגים. בצהריים נוסעים לשדה התעופה קילימנג׳רו לטיסה חזרה הביתה.' },
     ],
     safariItineraryEn: [
-      { day: 10, title: 'Safari at Tarangire National Park', desc: 'Tarangire is the largest national park in Tanzania after the Serengeti. Enjoy a safari experience that stands apart from other reserves in the country — spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Marera Valley Lodge or similar' },
-      { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25,000 animals "enclosed" within the crater — including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
-      { day: 12, title: 'Visit to the Hadza Tribe – Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants — a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
+      { day: 10, title: 'Safari at Tarangire National Park', desc: 'Tarangire is the largest national park in Tanzania after the Serengeti. Enjoy a safari experience that stands apart from other reserves in the country  -  spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Marera Valley Lodge or similar' },
+      { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25,000 animals "enclosed" within the crater  -  including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
+      { day: 12, title: 'Visit to the Hadza Tribe – Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
       { name: 'משפחת כספי',       nameEn: 'The Kaspi Family',    date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/1.webp' },
@@ -1488,24 +1525,26 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     diff: 'Hard', diffHe: 'אתגרי', price: 3450, priceStr: '$3450', continent: 'asia',
     img: '/images/cards/lobuchePeak.webp',
     seoTitle:       'טיפוס ללובוצ׳ה פיק בנפאל | HighAir Expeditions',
-    seoDescription: 'טיפוס ללובוצ׳ה פיק (6119מ׳) בנפאל — 19 ימים. פסגת שלג ממול אוורסט. כולל טרק בייס קמפ + ציוד טיפוס. מדריכים ישראלים ומקומיים מנוסים.',
+    seoDescription: 'טיפוס ללובוצ׳ה פיק (6119מ׳) בנפאל  -  19 ימים. פסגה ממול קרחון קומבו עם נוף ישיר על אוורסט. כולל EBC וקאלה פטאר לפני יום הפסגה.',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
-    desc: `הצטרפו אלינו למסע אל פסגת לובוצ׳ה, המתנשאת לגובה של 6119 מטר באזור קוהומבו בנפאל, והפכה לאחת הפסגות המבוקשות ביותר עבור מטפסי הרים המעוניינים לצבור ניסיון בטיפוס מאתגר בהימלאיה.
+    desc: `לובוצ׳ה איסט ב-6119 מ׳ יושבת ישירות ממול קרחון הקומבו באזור האוורסט. מגיעים אליה אחרי טרק ה-EBC הקלאסי  -  אוורסט בייס קמפ וקאלה פטאר קודם, ואז פונים לפסגה.
 
-פסגת לובוצ׳ה הפכה לפסגת הסתגלות לגובה מצוינת עבור מטפסים המתכוננים לכבוש את הרי הענק של ההימלאיה בגובה 8000 מטר ומעלה. המסלול ברמת קושי בינוני ומאפשר למטפסים לשפר את כישוריהם בשימוש בקסדה, רתמה, גרזן קרח, ג׳ומאר, קרמפונים, חבלים קבועים וציוד מקצועי נוסף על פני השלג, הקרח והסלע של ההר.
+הטיפוס כולל חבלים קבועים, קרמפונים, עבודה עם גרזן קרח ושיפוע תלול בראש ההר. זה השלב הראשון בתוך טיפוס הימלאי אמיתי  -  לא טרק גבוה, אלא טיפוס טכני. נדרש ניסיון בגובה ונכונות ללמוד טכניקות. המדריכים מלמדים את הבסיס, אבל מי שהתאמן מראש מגיע עם יתרון.
 
-הטיפוס דורש כושר גופני גבוה, כישורי טיפוס טכניים וניסיון קודם במסלולים בגובה רב, אך אינו דורש להתמודד עם אתגרים טכניים קיצוניים במיוחד.
+מהפסגה רואים בו-זמנית אוורסט, להוצה, נופצה ואמה דבלאם  -  פנורמה שלוקחת רגע לעכל.
 
-עבור מטפסים השואפים להצטרף לתחום טיפוס ההרים בהימלאיה, פסגת לובוצ׳ה היא הזדמנות מצוינת לצבור מיומנויות וניסיון יקר ערך לקראת פסגות גבוהות יותר בהמשך. שילוב של הרפתקה, אימון ונופים מרהיבים תורמים למוניטין שלה כאחת הפסגות המרהיבות בנפאל.
+שיעור ההצלחה שלנו הוא 82%. מה שמבדיל בין מי שמגיע לפסגה למי שחוזר  -  התאקלמות, קצב ופיזי, לא קושי טכני.
 
-הצטרפו אלינו להרפתקה של פעם בחיים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת לובוצ׳ה 6119מ׳', 'נוף על קומבו אייספול', 'טיפוס טכני בבטחה', 'שרפה מנוסה'],
     nameEn: 'Lobuche Peak',
-    descEn: `Lobuche East (6,119m) is the perfect stepping stone between trekking and technical mountaineering in the Everest region of Nepal. Standing on its summit reveals one of the most spectacular views in the Himalaya - with Everest, Lhotse, Nuptse, and Ama Dablam all visible at once.
+    descEn: `Lobuche East (6,119m) sits directly opposite the Khumbu Icefall in the Everest region. The approach follows the classic Everest Base Camp route, so you get EBC and Kala Patthar before turning your attention to the technical climbing.
 
-The approach follows the classic Everest Base Camp trek, making it possible to combine both objectives in a single 18-day expedition. Technical sections include fixed ropes, crampons, and basic ice axe work.
+From the summit you're looking straight at Everest, Lhotse, Nuptse, and Ama Dablam at the same time. It's one of those views that takes a moment to process.
 
-This peak is considered one of the best entry points into Himalayan mountaineering - challenging enough to be meaningful, achievable with proper training.`,
+The climb involves fixed ropes, crampons, ice axe work, and a steep headwall above high camp. It's the first step into real Himalayan mountaineering  -  not just trekking altitude. You'll need basic technical skills or the willingness to learn them. Our guides cover the fundamentals, but this expedition rewards people who have practiced beforehand.
+
+Our summit rate here is 82%. The mountain is demanding but not extreme. What separates summitters from turnarounds is usually acclimatization, fitness, and pace  -  not technical difficulty.`,
     highlightsEn: ['Lobuche East 6,119m', 'Everest region views', 'Combined with EBC trek', 'First Himalayan peak'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1637,7 +1676,7 @@ This peak is considered one of the best entry points into Himalayan mountaineeri
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -1656,24 +1695,26 @@ This peak is considered one of the best entry points into Himalayan mountaineeri
     airtableEvents: ['Island_Peak'],
     img: '/images/cards/IslandPeak.webp',
     seoTitle:       'טיפוס לאיילנד פיק בנפאל | HighAir Expeditions',
-    seoDescription: 'טיפוס לאיילנד פיק (6189מ׳) בנפאל — 20 ימים. פסגה טכנית עם נוף ישיר על אוורסט, לוצה ונופצה. כולל טרק EBC מלא ועם ציוד טיפוס מקצועי.',
+    seoDescription: 'טיפוס לאיילנד פיק (6189מ׳) בנפאל  -  20 ימים. פסגה טכנית עם נוף על אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל EBC מלא.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
-    desc: `איילנד פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6189 מטר מעל פני הים. הפסגה ממוקמת באזור קוהומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
+    desc: `איילנד פיק (אימג׳ה צה, 6189 מ׳) קיבלה את שמה ממטפסים ראשונים שראו אותה מרחוק  -  "אי בים של קרח". השם נשאר 70 שנה, וההר מגיע עד אליו.
 
-הפסגה קיבלה את כינויה, "פסגת האי", בשל צורתה הייחודית והבולטת, המזכירה אי בודד המתנשא מעל סביבתו. צורה זו באה לידי ביטוי במיוחד כאשר מסתכלים על הפסגה מהצד הדרומי שלה.
+המסע משלב את כל מסלול אוורסט בייס קמפ: עושים EBC וקאלה פטאר קודם, ואז לוקחים לולאה לאיילנד פיק בייס קמפ. 20 יום שמכסים יותר מהקומבו ממה שרוב האנשים רואים בביקור בודד.
 
-הדרך לפסגה כוללת עלייה תלולה, חציית מעברי שלג וקרחונים, טיפוס קל על סלעים ושימוש בציוד טיפוס בסיסי כגון חבלים, קסדה, גרזן קרח, רתמה, קרמפונים וג׳ומאר. המסלול עובר דרך נקודות תצפית מרהיבות על האוורסט, פסגת להוטסה ושאר פסגות הרי ההימלאיה הגבוהות.
+ראש ההר כולל חבלים קבועים, קרמפונים ושיפוע תלול  -  החלק הטכני שמבדיל בין פסגה זו לטרקים גבוהים. מהפסגה רואים אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. לא הרבה נקודות על כדור הארץ מספקות את זה.
 
-טיפוס לאיילנד פיק דורש כושר גופני טוב, ניסיון קודם בטיפוס הרים והסתגלות לתנאי הגובה הקיצוניים. עם זאת, היא מהווה יעד נגיש יחסית ומאתגר עבור מטפסים מתחילים ובינוניים.
+שיעור ההצלחה שלנו הוא 84%. נדרשת כשירות גופנית סבירה בגובה ונכונות ללמוד עבודה בחבל.
 
-הצטרפו אלינו למסע מדהים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
-    highlights: ['פסגת איילנד 6189מ׳', 'קרחון עם ציוד טיפוס', 'נוף על האוורסט ולוצ׳ה', 'חוויית הר גבוה'],
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
+    highlights: ['פסגת איילנד 6189מ׳', 'קרחון עם ציוד טיפוס', 'נוף על האוורסט ולוצ׳ה', '5 שמיניות בנוף אחד'],
     nameEn: 'Island Peak',
-    descEn: `Island Peak (Imja Tse, 6,189m) earned its name from early Everest expedition members who thought it looked like an island in a sea of ice from afar. Today it's one of Nepal's most popular trekking peaks - and for good reason.
+    descEn: `Island Peak (Imja Tse, 6,189m) gets its name from early Everest climbers who saw it from afar as an island in a sea of glacial ice. The name has stuck for 70 years, and the mountain lives up to it.
 
-The summit approach involves a dramatic headwall with fixed ropes and glacier travel, rewarding climbers with a 360° panorama of Everest, Lhotse, Makalu, Cho Oyu, and Ama Dablam.
+The summit headwall is steep and involves fixed ropes, crampons, and glacier travel. It's the most technically involved section, and the one that separates this from a pure trekking peak. The 360° view from the top  -  Everest, Lhotse, Makalu, Cho Oyu, and Ama Dablam all at once  -  is the payoff.
 
-This expedition can be combined with the Everest Base Camp trek, creating the ultimate Himalayan adventure in a single trip.`,
+This expedition runs alongside the full Everest Base Camp route. You do EBC and Kala Patthar first, then loop across to Island Peak Base Camp. It's 20 days total and covers more of the Khumbu than most people see in a single trip.
+
+Our success rate is 84%. You need reasonable high-altitude fitness and some openness to learning rope technique. Previous trekking peaks help but are not required.`,
     highlightsEn: ['Island Peak 6,189m', 'Himalayan glacier travel', 'Everest panorama', 'Can combine with EBC'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1806,7 +1847,7 @@ This expedition can be combined with the Everest Base Camp trek, creating the ul
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -1823,24 +1864,26 @@ This expedition can be combined with the Everest Base Camp trek, creating the ul
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     img: '/images/cards/MeraPeak.webp',
     seoTitle:       'טיפוס למרה פיק | HighAir Expeditions',
-    seoDescription: 'טיפוס למרה פיק (6476מ׳) — הפסגה הגבוהה ביותר לטיפוס טרקינג בנפאל! 19 ימים. נוף על 5 שמיניות מהפסגה. HighAir Expeditions.',
+    seoDescription: 'טיפוס למרה פיק (6476מ׳)  -  הפסגה הגבוהה לטרקינג בנפאל, 19 ימים. מסלול דרום דרך עמק הינקו, ללא טיפוס טכני. נוף על 5 שמיניות מהפסגה.',
     grad: 'linear-gradient(135deg,#1d4ed8,#1e3a8a,#0f172a)',
-    desc: `מרה פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6476 מטר מעל פני הים. הפסגה ממוקמת באזור קוהומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
+    desc: `מרה פיק ב-6476 מ׳ היא הפסגה הגבוהה ביותר לטרקינג בנפאל  -  גבוהה מכל פסגה באלפים או בקווקז, ומגיעים אליה ללא חבלים או טיפוס קרח טכני. רק קרמפונים, גרזן קרח והליכה על קרחון בחלק העליון.
 
-הטיפוס למרה פיק משמש כשער הכניסה לעולם טיפוס ההרים ומאפשר להגיע לגובה רב מבלי להיות טכני במיוחד. הוא נחשב לטרק הגבוה ביותר בהימלאיה, משום שהוא משלב הליכה על קרחונים ושלג, קטעים תלולים, ואתגר בגובה מבלי לדרוש ניסיון בטיפוס הרים. יחד עם זאת, מדובר באתגר אמיתי שמספק תחושת הישג משמעותית.
+המסלול לוקח נתיב דרומי מרוחק דרך עמק הינקו  -  19 יום שנמנעים לגמרי מהמולת אזור האוורסט. שקט יחסי, נוף שונה.
 
-מהפסגה נשקפים נופים מרהיבים של ההימלאיה, כולל ארבעה מתוך ששת ההרים הגבוהים בעולם: האוורסט, להוצה, מקאלו וצ׳ו אויו, לצד פסגות רבות נוספות מעל 7000 מטרים. החוויה והנוף עוצרי הנשימה הופכים את הטיפוס לבלתי נשכח.
+מהפסגה, ביום בהיר, רואים חמש שמיניות בבת-אחת: אוורסט, קנצ׳נג׳ונגה, להוצה, מקאלו וצ׳ו אויו. האופק כולו מורכב מהרים מעל 8000 מ׳. לא הרבה נקודות על כדור הארץ מציעות את זה.
 
-מרה פיק מתאים למי שמחפש אתגר בגובה רב, צבירת ניסיון בטכניקות טיפוס בסיסיות, וחשיפה לעוצמה של ההימלאיה, אידיאלי למטיילים שמוכנים לגובה אך רוצים חוויה נגישה ובטוחה יחסית.
+שיעור ההצלחה שלנו הוא 80%. הגובה הוא האתגר המרכזי  -  זו הפסגה הנכונה למטיילים גופניים שרוצים את הפסגה הגבוהה הראשונה שלהם ועדיין לא עם טיפוס טכני.
 
-הצטרפו אלינו למסע מדהים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
-    highlights: ['פסגת מרה 6476מ׳', 'נוף על 5 פסגות 8000מ׳', 'הפיק הגבוה לכלל', 'מסלול ייחודי'],
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
+    highlights: ['פסגת מרה 6476מ׳', 'נוף על 5 פסגות 8000מ׳', 'הפסגה הגבוהה לטרקינג בנפאל', 'עמק הינקו  -  ללא קהל'],
     nameEn: 'Mera Peak',
-    descEn: `Mera Peak (6,476m) is Nepal's highest trekking peak and offers one of the most accessible routes to high altitude in the Himalaya. The summit stands higher than any mountain in the Alps or the Caucasus.
+    descEn: `Mera Peak at 6,476m is Nepal's highest trekking peak. Higher than anything in the Alps or the Caucasus, it's reached without ropes or technical ice climbing  -  just crampons, ice axe, and glacier walking on the upper section.
 
-From the summit on a clear day, five of the world's six highest mountains are visible simultaneously - Everest, Kangchenjunga, Lhotse, Makalu, and Cho Oyu. This is one of the great panoramas on Earth.
+The approach takes a remote southern route through the Hinku valley, avoiding the Everest region crowds entirely. It's a quieter 19 days.
 
-Non-technical but high-altitude, Mera is perfect for fit trekkers who want to experience what it feels like to stand above 6000 meters.`,
+The view from the summit is one of the best reasons to do this peak: on a clear day you can see five eight-thousanders at once  -  Everest, Kangchenjunga, Lhotse, Makalu, and Cho Oyu. The horizon is entirely made of mountains above 8,000m. Not many places on Earth offer that.
+
+Our success rate is 80%. The altitude is the main challenge. This is the right peak for fit trekkers who want their first real high-altitude summit and aren't ready for technical climbing yet.`,
     highlightsEn: ["Mera Peak 6,476m", "View of 5 eight-thousanders", "Nepal's highest trekking peak", "Non-technical ascent"],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1972,7 +2015,7 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -1988,23 +2031,27 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
     diff: 'Hard', diffHe: 'אתגרי', price: 9800, priceStr: '$9800', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.webp',
-    seoTitle:       'טיפוס לאקונקגואה — 7 הפסגות | HighAir Expeditions',
-    seoDescription: 'טיפוס לאקונקגואה (6961מ׳) — ההר הגבוה מחוץ לאסיה, אחת מ-7 הפסגות! 20 ימים, ארגנטינה. מסע אקספדיציה ברמה גבוהה עם HighAir Expeditions.',
+    seoTitle:       'טיפוס לאקונקגואה  -  7 הפסגות | HighAir Expeditions',
+    seoDescription: 'טיפוס לאקונקגואה (6962מ׳)  -  הגבוה בחצי הכדור המערבי, אחת מ-7 הפסגות. 20 ימים, ארגנטינה. שלושה מחנות גובה, פרדות עד בייס קמפ, שיעור הצלחה 75%.',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
-    desc: `הצטרפו אלינו למסע טיפוס אל פסגת הר אקונקגואה, המתנשא לגובה של 6962 מטרים., השוכן בארגנטינה בהרי האנדים, הוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם!
+    desc: `אקונקגואה ב-6962 מ׳ הוא הגבוה מחוץ לאסיה  -  הנקודה הגבוהה ביותר בחצי הכדור המערבי ואחת משבע הפסגות. לאחר שנים בגבהים בינוניים, זה המקום שבו מבינים מה אקספדיציה אמיתית דורשת.
 
-המסלול אל פסגת האקונקגואה הוא אתגר לוגיסטי ופיזי מהמעלה הראשונה. למרות שהמסלול אינו נחשב לטכני מאוד מבחינת טיפוס סלעים או קרח, הגובה הקיצוני, הרוחות העזות והתנאים המדבריים דורשים חוסן מנטלי יוצא דופן וסיבולת גבוהה. במהלך המשלחת תתנסו בחיים האמיתיים של מטפס הרים בגובה רב: התאקלמות הדרגתית, הקמת מחנות גובה והתמודדות עם איתני הטבע בלב הרי האנדים הפראיים.
+המסלול הרגיל דרך עמק הורקונס לא כולל טיפוס סלע או קרח טכני, אבל שלושה שבועות בגובה קיצוני עם רוחות אנדיות לא נותנים הנחות. בייס קמפ ב-4300 מ׳ מאובזר  -  מקלחות, ווי-פיי, אוהלי אוכל  -  ומשם מקימים שלושה מחנות גובה בהדרגה. פרדות נושאות את הציוד עד הבייס קמפ.
 
-התגמול על המאמץ הוא חוויה של פעם בחיים - עמידה על הנקודה הגבוהה ביותר בעולם מחוץ לרכס ההימלאיה, כשמתחת לרגליכם פרוס רכס האנדים האינסופי והנופים עוצרי הנשימה של דרום אמריקה. המסע כולל גם מפגש עם התרבות הארגנטינאית המרתקת, מהעיר מנדוזה התוססת ועד לבשר המצוין והיינות המפורסמים של האזור.
+שיעור ההצלחה שלנו הוא 75%. הפער בין מי שמגיע לפסגה למי שלא  -  בדרך כלל התאקלמות ומאגר מנטלי, לא כוח פיזי. מנדוזה, שתי לילות לפני הטיפוס ולאחריו, היא עיר עם יין מצוין ואוכל טוב  -  חלק הגיוני של המסע.
 
-הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+נדרש ניסיון קודם מעל 5000 מ׳ לפני ההרשמה.
+
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת אקונקגואה 6961מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
     nameEn: 'Aconcagua',
-    descEn: `Aconcagua (6,962m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
+    descEn: `Aconcagua at 6,962m is the highest point in both the Western and Southern Hemispheres  -  the second of the Seven Summits by elevation and, for many climbers, the expedition where they find out what they're actually made of.
 
-This 21-day expedition uses the Normal Route via Horcones Valley and high camps at Nido de Condores and Camp 3. While non-technical, the extreme altitude and harsh Andean weather make this a serious mountaineering objective requiring excellent fitness and prior high-altitude experience.
+The route is the Normal Route through the Horcones Valley: no technical rock or ice, but three weeks of living at altitude in unpredictable Andean weather. The mountain has a reputation for brutal winds at high camp. Cold, exhaustion, and altitude sickness are real factors. Our summit rate is 75%, and the gap between those who make it and those who turn back is usually acclimatization and mental reserves, not physical strength.
 
-The reward: standing on the highest point in the Americas, with the Andes stretching endlessly in every direction.`,
+We use mules to Base Camp (4,300m), establish three high camps above that, and carry gear progressively before moving up for the summit push. Personal porter service is included for the high camps. The base camp has showers, WiFi, and proper dining tents  -  as good as it gets for three weeks on a mountain.
+
+Prior high-altitude experience above 5,000m is required for this expedition.`,
     highlightsEn: ['Aconcagua 6,962m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
     included: [
       'מלווה ישראלי צמוד (חן שקד - מטפס הרים מקצועי)',
@@ -2090,7 +2137,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
@@ -2149,25 +2196,27 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     elev: '7134m', elevNum: 7134, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 6200, priceStr: '$6200', continent: 'asia',
     img: '/images/cards/leninPeak.avif',
-    seoTitle:       'טיפוס ללנין פיק — 7134מ׳ | HighAir Expeditions',
-    seoDescription: 'טיפוס ללנין פיק (7134מ׳) בקירגיזסטן — 20 ימים. אחת מ-7 הפסגות הסובייטיות, הנגישה מבין ה-7,000מ׳. מסע אקספדיציה מלא עם HighAir Expeditions.',
+    seoTitle:       'טיפוס ללנין פיק  -  7134מ׳ | HighAir Expeditions',
+    seoDescription: 'טיפוס ללנין פיק (7134מ׳) בקירגיזסטן  -  20 ימים. ההר הנגיש מעל 7000מ׳, שלושה מחנות גובה, בייס קמפ עם יורטות. נדרש ניסיון מעל 5500מ׳.',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',
-    desc: `הצטרפו אלינו למסע טיפוס אל אחת הפסגות הגבוהות ביותר במרכז אסיה - פסגת הר לנין, המתנשא לגובה אדיר של 7134 מטרים. הר לנין, השוכן ברכס פמיר שבין קירגיזסטן לטג'יקיסטן, נחשב לאחד ההרים הנגישים ביותר בעולם מעל קו 7000 המטרים, והוא השלב הבא והמתבקש עבור מטפסים החולמים על גבהים חדשים.
+    desc: `לנין פיק ב-7134 מ׳ הוא ההר הנגיש ביותר מעל 7000 מ׳ בעולם  -  הכרזה יחסית. זה עדיין אקספדיציה רצינית של 20 יום בגובה קיצוני, אבל המסלול לא טכני: אין טיפוס סלע, אין שיפועי קרח תלולים. מה שנדרש הוא יכולת לחיות ולנוע בגובה 6000 מ׳ ומעלה לאורך ימים.
 
-המסלול אל הפסגה הוא אתגר פיזי ומנטלי יוצא דופן. הטיפוס אינו נחשב לטכני באופן קיצוני, אך הוא דורש סיבולת גבוהה מאוד, התמודדות עם תנאי גובה משמעותיים ושהייה ממושכת בשטח. במהלך המשלחת תתנסו בטיפוס אלפיני אמיתי הכולל הקמת מחנות גובה, הליכה בקרחונים וחציית שדות שלג אינסופיים, כל זאת תחת פיקוח מקצועי וליווי צמוד.
+מקימים שלושה מחנות גובה על פני שבועיים הראשונים, עולים ויורדים כדי לבנות סבילות לפני הדחיפה הסופית ל-7134 מ׳. הנוף מהפמיר הוא רחב ויבש  -  קרחונים, מישורי גובה, סלע ושמיים. בייס קמפ ב-3600 מ׳ כולל יורטות ותשתית בסיסית שעוזרת בימי מנוחה.
 
-התגמול על העבודה הקשה הוא פסגה שאין שנייה לה - תחושת סיפוק אדירה כשמתחת לרגליכם פרוס כל רכס הפמיר והנופים המדבריים-מושלגים של מרכז אסיה. מעבר לטיפוס, המשלחת היא הזדמנות להכיר את התרבות המרתקת של קירגיזסטן, על נוודיה והכנסת האורחים הייחודית שלה.
+שיעור ההצלחה שלנו הוא 68%  -  מספר כן עבור פסגה ב-7000 מ׳. מי שלא מגיע לפסגה לרוב קיבל את ההחלטה הנכונה לפי התנאים ביום.
 
-הצטרפו אלינו להרפתקה של פעם בחיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+נדרש ניסיון מעל 5500 מ׳. בודקים כושר וניסיון לפני אישור ההרשמה.
+
+כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת לנין 7134מ׳', 'גבוה מ-7000מ׳', 'מחנות גובה מרובים', 'נוף על פמיר'],
     nameEn: 'Lenin Peak',
-    descEn: `Join us on an expedition to one of the highest peaks in Central Asia — Lenin Peak, rising to an impressive 7,134 meters. Located in the Pamir Range on the border of Kyrgyzstan and Tajikistan, Lenin Peak is considered one of the most accessible mountains in the world above 7,000 meters, and the natural next step for climbers dreaming of new heights.
+    descEn: `Lenin Peak at 7,134m in the Kyrgyz Pamirs is the most accessible 7,000m mountain on Earth. That's a relative statement  -  it's still a serious 20-day expedition at extreme altitude  -  but the route is non-technical compared to most peaks of similar height. No rock climbing, no steep ice faces. What it does require is the ability to live and move at 6,000m+ for extended periods, and the patience to acclimatize properly.
 
-The route is not highly technical, but demands exceptional endurance, the ability to cope with significant altitude, and extended time in the field. Throughout the expedition you'll experience real alpine climbing — establishing high camps, walking on glaciers and crossing vast snowfields, all under professional supervision and close guidance.
+We establish three high camps on the mountain over the first two weeks, rotating up and down to build tolerance before the final push to 7,134m. The Pamir landscape is enormous and spare  -  glaciers, high plateaus, rock and sky. The camp at Base Camp (3,600m) has some infrastructure including yurts and basic facilities, which helps on rest days.
 
-The reward is a summit with no equal — an immense sense of achievement with the entire Pamir Range spread beneath your feet and the desert-snow landscapes of Central Asia stretching to the horizon.
+Our success rate is 68%. This is the honest number for a 7,000m peak, and the people who don't summit usually made the right call given conditions on the day.
 
-Join us for a once-in-a-lifetime adventure and take part in the fight against cancer!`,
+Prior experience above 5,500m is required. We assess fitness and experience before confirming bookings for this expedition.`,
     highlightsEn: ['Lenin Peak 7,134m', 'Above 7000 meters', 'Multiple high camps', 'Pamir panorama'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -2294,7 +2343,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
     ],
     importantToNoteEn: [
       'The climb runs in groups of up to 15 participants only!',
-      'Experienced local team with English-speaking guides, extensive mountain leadership experience - delivering professional support and an authentic experience!',
+      'Experienced local team with English-speaking guides who know these routes well.',
       'Every participant must follow the team\'s instructions and take personal responsibility for their safety throughout the journey!',
       'Medical clearance and a health declaration are required before departure!',
       'Any participant who does not meet the health or physical requirements will not be permitted to join!',
