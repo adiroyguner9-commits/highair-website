@@ -2,7 +2,7 @@
  * generate-html-shells.mjs
  * Post-build script: generates static HTML files for every expedition, blog post,
  * and Israel trip page so Googlebot sees correct <title> / <meta> on the first
- * crawl — without needing SSR or Puppeteer.
+ * crawl - without needing SSR or Puppeteer.
  *
  * Run: node scripts/generate-html-shells.mjs
  * Triggered automatically by the "postbuild" npm script.
@@ -218,12 +218,12 @@ const staticPages = [
   {
     path:  'about',
     title: 'HighAir Expeditions | הסיפור שלנו',
-    desc:  'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק — ותורמים מדי חודש לילדים חולי סרטן.',
+    desc:  'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק - ותורמים מדי חודש לילדים חולי סרטן.',
   },
   {
     path:  'blog',
     title: 'HighAir Expeditions | בלוג טיפוס הרים וטרקים',
-    desc:  'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים — מבית HighAir Expeditions. קילימנג׳רו, אוורסט, אנאפורנה ועוד.',
+    desc:  'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים - מבית HighAir Expeditions. קילימנג׳רו, אוורסט, אנאפורנה ועוד.',
   },
   {
     path:  'contact',
@@ -233,12 +233,12 @@ const staticPages = [
   {
     path:  'shop',
     title: 'HighAir Expeditions | חנות ציוד טרקים',
-    desc:  'ציוד טיולים ומשלחות עם הלוגו של HighAir Expeditions — תיקים, ציוד הרים ועוד. כל רכישה תורמת לחולי סרטן.',
+    desc:  'ציוד טיולים ומשלחות עם הלוגו של HighAir Expeditions - תיקים, ציוד הרים ועוד. כל רכישה תורמת לחולי סרטן.',
   },
   {
     path:  'annual-plan',
     title: 'HighAir Expeditions | תכנית שנתית',
-    desc:  'כל תאריכי המשלחות של HighAir Expeditions — קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד.',
+    desc:  'כל תאריכי המשלחות של HighAir Expeditions - קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד.',
   },
 ];
 
