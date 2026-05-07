@@ -451,6 +451,40 @@ export default function BlogPost() {
               </div>
             );
 
+            if (block.type === 'callout') return (
+              <div key={i} style={{
+                background:   '#F5F0FF',
+                border:       '1.5px solid #DDD6FE',
+                borderRadius: RADIUS.lg,
+                padding:      isMobile ? '20px 20px' : '24px 28px',
+                margin:       '28px 0',
+                direction:    dir,
+              }}>
+                {block.title && (
+                  <p style={{
+                    fontFamily:    "'Ploni', sans-serif",
+                    fontSize:      isMobile ? '15px' : '16px',
+                    fontWeight:    700,
+                    color:         '#4C1D95',
+                    margin:        '0 0 10px',
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {block.title}
+                  </p>
+                )}
+                <p style={{
+                  fontFamily: "'Ploni', sans-serif",
+                  fontSize:   isMobile ? '15px' : '17px',
+                  fontWeight: 300,
+                  color:      '#3D3B5A',
+                  lineHeight: 1.8,
+                  margin:     0,
+                }}>
+                  {block.value}
+                </p>
+              </div>
+            );
+
             if (block.type === 'image') return (
               <figure key={i} style={{ margin: '36px 0' }}>
                 <img
