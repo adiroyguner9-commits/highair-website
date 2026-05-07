@@ -9,7 +9,7 @@ export const EXPS = [
     img: '/images/cards/olympus.webp',
     seoTitle:       'HighAir Expeditions | טרק לפסגת האולימפוס',
     seoTitleEn:     'Mount Olympus Trek | HighAir Expeditions',
-    seoDescription: 'טרק הר האולימפוס — הר האלים של יוון, 2,918 מטר. 6 ימים, מסלול דרך יערות פריוניה, פסגת מיטיקאס ויום קניונינג בנהר האורליאס. קבוצה קטנה.',
+    seoDescription: 'טרק הר האולימפוס - הר האלים של יוון, 2,918 מטר. 6 ימים, מסלול דרך יערות פריוניה, פסגת מיטיקאס ויום קניונינג בנהר האורליאס. קבוצה קטנה.',
     seoDescriptionEn: 'Trek to the summit of Mount Olympus (2,918m) in Greece - 6 days. Through Prionia forests, summit Mytikas peak & canyoning on the Orlias River. Groups up to 15.',
     grad: 'linear-gradient(135deg,#3b82f6,#1d4ed8,#1e3a8a)',
     desc: `הר האולימפוס הוא ההר הגבוה ביותר ביוון ומקום משכנם של האלים לפי המיתולוגיה היוונית  -  2918 מטרים של יערות אלפיניים, צוקים ופסגות שנשקפות עד הים האגאי.
@@ -124,7 +124,7 @@ We run this route as a 6-day expedition. One of those days is a canyoning sessio
     img: '/images/cards/peaks-of-balkan.webp',
     seoTitle:       'HighAir Expeditions | טרק פסגות הבלקן',
     seoTitleEn:     'Peaks of the Balkans Trek | HighAir Expeditions',
-    seoDescription: 'טרק פסגות הבלקן — 2,656 מטר. 10 ימים, 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. קבוצה קטנה, נוף בלתי מוכר.',
+    seoDescription: 'טרק פסגות הבלקן - 2,656 מטר. 10 ימים, 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. קבוצה קטנה, נוף בלתי מוכר.',
     seoDescriptionEn: 'Trek the Peaks of the Balkans (2,656m) in Albania - 10 days. 8 hiking days across Albania, Kosovo & Montenegro with stays in local guesthouses. Groups up to 15.',
     grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
     desc: `טרק פסגות הבלקן חוצה את גבולות אלבניה, קוסובו ומונטנגרו במהלך 8 ימי הליכה. המסלול מוביל דרך עמקים אלפיניים, מעברי הרים ברום 2000 מטר וכפרי רועים מרוחקים שאין אליהם גישה בכביש.
@@ -252,7 +252,7 @@ We've run this route with groups and know which guesthouses are worth staying at
     img: '/images/cards/ethiopia.webp',
     seoTitle:       'HighAir Expeditions | טרק סימיאן ומדבר דנקיל',
     seoTitleEn:     'Simien & Danakil Desert Trek | HighAir Expeditions',
-    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה — 4,550 מטר. 11 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
+    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה - 4,550 מטר. 11 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
     seoDescriptionEn: 'Trek Simien Mountains & Danakil Desert in Ethiopia - 11 days. Active lava lake at Erta Ale, colorful Dallol depression & Gelada baboons in the Simiens.',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
     desc: `שני חצאים, שתי אתיופיות שונות לחלוטין  -  11 יום.
@@ -394,7 +394,7 @@ The contrast between the two halves is what makes this trip hard to replicate an
     img: '/images/cards/kazbek.webp',
     seoTitle:       'HighAir Expeditions | טיפוס לקזבק',
     seoTitleEn:     'Climbing Kazbek | HighAir Expeditions',
-    seoDescription: 'טיפוס לקזבק — הר געש כבוי בקווקז, 5,054 מטר. 8 ימים בגאורגיה, מסלול דרך קרחון גרגטי ובייס קמפ ב-3,650 מטר. מדריכי IFMGA, קבוצה קטנה.',
+    seoDescription: 'טיפוס לקזבק - הר געש כבוי בקווקז, 5,054 מטר. 8 ימים בגאורגיה, מסלול דרך קרחון גרגטי ובייס קמפ ב-3,650 מטר. מדריכי IFMGA, קבוצה קטנה.',
     seoDescriptionEn: 'Climb Kazbek (5,054m) in Georgia - 8 days. A dormant volcano in the Caucasus via the Gergeti Glacier. IFMGA guides, groups up to 15. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#4338ca,#3730a3,#1e1b4b)',
     desc: `קזבק הוא הר געש כבוי בגאורגיה, 5054 מטרים, ואחת מנקודות הגישה הטובות ביותר לטיפוס בגובה קיצוני. מתחילים בסטפנצמינדה, חוצים את קרחון גרגטי ומבלים 3–4 לילות בבייס קמפ ב-3650 מ׳ לפני יציאה לפסגה.
@@ -527,7 +527,7 @@ Two hours from Israel. Three hours by road from Tbilisi. It's genuinely one of t
     img: '/images/cards/manaslu.avif',
     seoTitle:       'HighAir Expeditions | טרק סובב מנסלו',
     seoTitleEn:     'Manaslu Circuit Trek | HighAir Expeditions',
-    seoDescription: 'טרק סובב מנסלו — 5,106 מטר בנפאל. 16 ימים, לולאה מסביב להר השמיני בגובהו בעולם דרך כפרי טיבט ומעבר לרקיה לה. פחות תיירים, נוף בלתי מוכר.',
+    seoDescription: 'טרק סובב מנסלו - 5,106 מטר בנפאל. 16 ימים, לולאה מסביב להר השמיני בגובהו בעולם דרך כפרי טיבט ומעבר לרקיה לה. פחות תיירים, נוף בלתי מוכר.',
     seoDescriptionEn: 'Trek the Manaslu Circuit (5,106m) in Nepal - 16 days. A full loop around the 8th highest mountain via Tibetan villages & Larkya La Pass. Fewer crowds, raw scenery.',
     grad: 'linear-gradient(135deg,#0f766e,#0d9488,#042f2e)',
     desc: `טרק סובב מנסלו מקיף את ההר השמיני בגובהו בעולם (8163 מ׳) ב-16 יום. המסלול פחות עמוס ממסלולי האוורסט, והנוף שונה: כפרים שעוצבו על ידי תרבות טיבטית במשך מאות שנים  -  קירות מאני, דגלי תפילה, מנזרי אבן, יאקים.
@@ -682,7 +682,7 @@ Day 9 includes a full-day side trip to Manaslu Base Camp at 4,800m, which gives 
     img: '/images/cards/EBC.webp',
     seoTitle:       'HighAir Expeditions | טרק אוורסט בייס קמפ',
     seoTitleEn:     'Everest Base Camp Trek | HighAir Expeditions',
-    seoDescription: 'טרק אוורסט בייס קמפ ואגמי גוקיו — 5,364 מטר בנפאל. 19 ימים, בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו במסלול אחד. קבוצה עד 10 איש.',
+    seoDescription: 'טרק אוורסט בייס קמפ ואגמי גוקיו - 5,364 מטר בנפאל. 19 ימים, בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו במסלול אחד. קבוצה עד 10 איש.',
     seoDescriptionEn: 'Trek to Everest Base Camp & Gokyo Lakes (5,364m) in Nepal - 19 days. EBC, Kala Patthar, Cho La Pass & Gokyo Lakes in one route. Expert guides, groups up to 10.',
     grad: 'linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)',
     desc: `המסלול המשולב שרוב המטיילים הרציניים מגיעים אליו נפאל בשבילו: אוורסט בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו  -  הכל במסע אחד של 19 ימים.
@@ -843,7 +843,7 @@ This is classified as a hard trek because of the altitude, the 19-day length, an
     img: '/images/cards/annapurna.webp',
     seoTitle:       'HighAir Expeditions | טרק סובב אנאפורנה',
     seoTitleEn:     'Annapurna Circuit Trek | HighAir Expeditions',
-    seoDescription: 'טרק סובב אנאפורנה — 5,416 מטר בנפאל. 16 ימים, לולאה מלאה סביב אנאפורנה דרך כפרי גורקה, אגם טיליצ׳ו ומעבר תורונג לה. ירידה של 1,600 מטר בצד השני.',
+    seoDescription: 'טרק סובב אנאפורנה - 5,416 מטר בנפאל. 16 ימים, לולאה מלאה סביב אנאפורנה דרך כפרי גורקה, אגם טיליצ׳ו ומעבר תורונג לה. ירידה של 1,600 מטר בצד השני.',
     seoDescriptionEn: "Trek the Annapurna Circuit (5,416m) in Nepal - 16 days. Full loop via Gurung villages, Tilicho Lake & Thorong La Pass. One of the world's greatest treks.",
     grad: 'linear-gradient(135deg,#0891b2,#0e7490,#083344)',
     desc: `טרק סובב אנאפורנה הוא לולאה מלאה סביב הר אנאפורנה (8091 מ׳)  -  16 יום שמתחילים ביערות גשם טרופיים ומסיימים בכפרי מוסטאנג היבשים.
@@ -1004,7 +1004,7 @@ No technical experience needed. The terrain is trekking throughout  -  no ropes 
     img: '/images/cards/elbrus.webp',
     seoTitle:       'HighAir Expeditions | טיפוס לאלברוס',
     seoTitleEn:     'Climbing Elbrus | HighAir Expeditions',
-    seoDescription: 'טיפוס לאלברוס — ההר הגבוה באירופה, 5,642 מטר. 8 ימים ברוסיה, אחת מ-7 הפסגות. מסלול דרומי עם רכבל עד 3,850 מטר, לינה בבקתות ויום פסגה של 10–14 שעות.',
+    seoDescription: 'טיפוס לאלברוס - ההר הגבוה באירופה, 5,642 מטר. 8 ימים ברוסיה, אחת מ-7 הפסגות. מסלול דרומי עם רכבל עד 3,850 מטר, לינה בבקתות ויום פסגה של 10–14 שעות.',
     seoDescriptionEn: 'Climb Elbrus (5,642m) - the highest peak in Europe, one of the 7 Summits. 8 days, cable car to 3,850m, summit day 10-14 hours. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
     desc: `אלברוס הוא הר הגעש הכבוי הגבוה באירופה  -  5642 מ׳, ואחת משבע הפסגות. המסלול הדרומי עם הכבלית ובקתות ההרים הופך את הלוגיסטיקה לניתנת לניהול.
@@ -1137,7 +1137,7 @@ Prior mountaineering experience is not required. Prior high-altitude experience 
     img: '/images/cards/kilimanjaro.webp',
     seoTitle:       'HighAir Expeditions | טיפוס לקילימנג׳רו',
     seoTitleEn:     'Climbing Kilimanjaro | HighAir Expeditions',
-    seoDescription: 'טיפוס לקילימנג׳רו — הפסגה הגבוהה באפריקה, 5,895 מטר. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
+    seoDescription: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5,895 מטר. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
     seoDescriptionEn: 'Climb Kilimanjaro (5,895m) via the Machame Route - 7 days, 5 climate zones, summit at midnight. 94% success rate. Every expedition supports cancer patients.',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
@@ -1321,7 +1321,7 @@ The descent on Day 7 is long  -  over 2,700m down to Mweka Camp. Your legs will 
     img: '/images/cards/kilimanjaroKosher.webp',
     seoTitle:       'HighAir Expeditions | קילימנג׳רו לשומרי מסורת',
     seoTitleEn:     'Climbing Kilimanjaro Kosher | HighAir Expeditions',
-    seoDescription: 'טיפוס לקילימנג׳רו — הפסגה הגבוהה באפריקה, 5,895 מטר — לשומרי מסורת. 10 ימים כולל שבת בארושה עם חב״ד, אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.',
+    seoDescription: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5,895 מטר - לשומרי מסורת. 10 ימים כולל שבת בארושה עם חב״ד, אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.',
     seoDescriptionEn: "Climb Kilimanjaro (5,895m) - the world's only glatt kosher expedition. 10 days, Shabbat in Arusha, kosher food throughout. 94% success rate. Optional kosher safari.",
     airtableEvents: ['Kilimanjaro_Kosher', 'Kilimanjaro_Kosher_with_Safari'],
     groupCapacity: 15,
@@ -1523,7 +1523,7 @@ A lot of people add the 3-day kosher safari after  -  Tarangire and Ngorongoro C
     img: '/images/cards/lobuchePeak.webp',
     seoTitle:       'HighAir Expeditions | טיפוס ללובוצ׳ה פיק',
     seoTitleEn:     'Climbing Lobuche Peak | HighAir Expeditions',
-    seoDescription: 'טיפוס ללובוצ׳ה פיק — 6,119 מטר בנפאל. 19 ימים, פסגה ממול קרחון קומבו עם נוף ישיר על אוורסט. כולל בייס קמפ אוורסט וקאלה פטאר לפני יום הפסגה.',
+    seoDescription: 'טיפוס ללובוצ׳ה פיק - 6,119 מטר בנפאל. 19 ימים, פסגה ממול קרחון קומבו עם נוף ישיר על אוורסט. כולל בייס קמפ אוורסט וקאלה פטאר לפני יום הפסגה.',
     seoDescriptionEn: 'Climb Lobuche Peak (6,119m) in Nepal - 19 days. Technical summit opposite the Khumbu Glacier with direct views of Everest. Includes EBC & Kala Patthar. Expert guides.',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
     desc: `לובוצ׳ה איסט ב-6119 מ׳ יושבת ישירות ממול קרחון הקומבו באזור האוורסט. מגיעים אליה אחרי טרק ה-EBC הקלאסי  -  אוורסט בייס קמפ וקאלה פטאר קודם, ואז פונים לפסגה.
@@ -1693,7 +1693,7 @@ Our summit rate here is 82%. The mountain is demanding but not extreme. What sep
     img: '/images/cards/IslandPeak.webp',
     seoTitle:       'HighAir Expeditions | טיפוס לאיילנד פיק',
     seoTitleEn:     'Climbing Island Peak | HighAir Expeditions',
-    seoDescription: 'טיפוס לאיילנד פיק — 6,189 מטר בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
+    seoDescription: 'טיפוס לאיילנד פיק - 6,189 מטר בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
     seoDescriptionEn: 'Climb Island Peak (6,189m) in Nepal - 20 days. Technical summit with views of Everest, Lhotse & Ama Dablam. Includes full EBC trek. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
     desc: `איילנד פיק (אימג׳ה צה, 6189 מ׳) קיבלה את שמה ממטפסים ראשונים שראו אותה מרחוק  -  "אי בים של קרח". השם נשאר 70 שנה, וההר מגיע עד אליו.
@@ -1862,7 +1862,7 @@ Our success rate is 84%. You need reasonable high-altitude fitness and some open
     img: '/images/cards/MeraPeak.webp',
     seoTitle:       'HighAir Expeditions | טיפוס למרה פיק',
     seoTitleEn:     'Climbing Mera Peak | HighAir Expeditions',
-    seoDescription: 'טיפוס למרה פיק — הפסגה הגבוהה לטרקינג בנפאל, 6,476 מטר. 19 ימים, מסלול דרך עמק הינקו, ללא טיפוס טכני. נוף על 5 שמיניות מהפסגה.',
+    seoDescription: 'טיפוס למרה פיק - הפסגה הגבוהה לטרקינג בנפאל, 6,476 מטר. 19 ימים, מסלול דרך עמק הינקו, ללא טיפוס טכני. נוף על 5 שמיניות מהפסגה.',
     seoDescriptionEn: 'Climb Mera Peak (6,476m) - the highest trekking peak in Nepal, 19 days. No technical climbing required. Summit views of 5 eight-thousanders. Expert guides.',
     grad: 'linear-gradient(135deg,#1d4ed8,#1e3a8a,#0f172a)',
     desc: `מרה פיק ב-6476 מ׳ היא הפסגה הגבוהה ביותר לטרקינג בנפאל  -  גבוהה מכל פסגה באלפים או בקווקז, ומגיעים אליה ללא חבלים או טיפוס קרח טכני. רק קרמפונים, גרזן קרח והליכה על קרחון בחלק העליון.
@@ -2030,7 +2030,7 @@ Our success rate is 80%. The altitude is the main challenge. This is the right p
     img: '/images/cards/aconcagua.webp',
     seoTitle:       'HighAir Expeditions | טיפוס לאקונקגואה',
     seoTitleEn:     'Climbing Aconcagua | HighAir Expeditions',
-    seoDescription: 'טיפוס לאקונקגואה — הפסגה הגבוהה בחצי הכדור המערבי, 6,962 מטר. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
+    seoDescription: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6,962 מטר. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
     seoDescriptionEn: 'Climb Aconcagua (6,962m) - the highest peak in the Western Hemisphere, one of the 7 Summits. 20 days in Argentina, 3 high camps, mules to base camp. 75% success rate.',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
     desc: `אקונקגואה ב-6962 מ׳ הוא הגבוה מחוץ לאסיה  -  הנקודה הגבוהה ביותר בחצי הכדור המערבי ואחת משבע הפסגות. לאחר שנים בגבהים בינוניים, זה המקום שבו מבינים מה אקספדיציה אמיתית דורשת.
@@ -2195,7 +2195,7 @@ Prior high-altitude experience above 5,000m is required for this expedition.`,
     img: '/images/cards/leninPeak.avif',
     seoTitle:       'HighAir Expeditions | טיפוס ללנין פיק',
     seoTitleEn:     'Climbing Lenin Peak | HighAir Expeditions',
-    seoDescription: 'טיפוס ללנין פיק — ההר הנגיש מעל 7,000 מטר, 7,134 מטר בקירגיזסטן. 20 ימים, שלושה מחנות גובה, בייס קמפ עם יורטות. נדרש ניסיון מעל 5,500 מטר.',
+    seoDescription: 'טיפוס ללנין פיק - ההר הנגיש מעל 7,000 מטר, 7,134 מטר בקירגיזסטן. 20 ימים, שלושה מחנות גובה, בייס קמפ עם יורטות. נדרש ניסיון מעל 5,500 מטר.',
     seoDescriptionEn: 'Climb Lenin Peak (7,134m) in Kyrgyzstan - 20 days. The most accessible peak above 7,000m, 3 high camps, yurt base camp. Prior experience above 5,500m required.',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',
     desc: `לנין פיק ב-7134 מ׳ הוא ההר הנגיש ביותר מעל 7000 מ׳ בעולם  -  הכרזה יחסית. זה עדיין אקספדיציה רצינית של 20 יום בגובה קיצוני, אבל המסלול לא טכני: אין טיפוס סלע, אין שיפועי קרח תלולים. מה שנדרש הוא יכולת לחיות ולנוע בגובה 6000 מ׳ ומעלה לאורך ימים.
