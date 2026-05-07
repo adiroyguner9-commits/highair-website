@@ -160,7 +160,7 @@ for (const exp of EXPS) {
     title:         exp.seoTitle        || `${exp.nameHe} | HighAir Expeditions`,
     description:   exp.seoDescription  || exp.descEn || '',
     canonicalPath: `/expedition/${exp.slug}`,
-    image:         exp.img             || '',
+    image:         exp.ogImage         || exp.img || '',
     jsonLd,
   });
   expCount++;

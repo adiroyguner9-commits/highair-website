@@ -122,6 +122,7 @@ We run this route as a 6-day expedition. One of those days is a canyoning sessio
     elev: '2656m', elevNum: 2656, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     img: '/images/cards/peaks-of-balkan.webp',
+    ogImage: '/images/og/peaks-of-balkan.jpg',
     seoTitle:       'HighAir Expeditions | טרק פסגות הבלקן',
     seoTitleEn:     'Peaks of the Balkans Trek | HighAir Expeditions',
     seoDescription: 'טרק פסגות הבלקן - 2,656 מטר. 10 ימים, 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. קבוצה קטנה, נוף בלתי מוכר.',
