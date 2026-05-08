@@ -758,7 +758,7 @@ export default function ExpeditionDetail() {
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
               {isRtl
-                ? (exp.seoTitle ? exp.seoTitle.split(' | ')[0] : exp.nameHe)
+                ? exp.nameHe
                 : `${exp.nameEn || exp.name || exp.nameHe} in ${exp.country} (${exp.elevNum}m)`
               }
             </h1>
