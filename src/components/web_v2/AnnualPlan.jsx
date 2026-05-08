@@ -252,17 +252,29 @@ export default function AnnualPlan() {
   const [error,        setError]        = useState(null);
   const [activeMonth,  setActiveMonth]  = useState(null);
   const [filter,       setFilter]       = useState('all'); // 'all' | 'world' | 'israel'
-  const [contentFaded, setContentFaded] = useState(false); // drives fade on filter switch
+  const [contentFaded, setContentFaded] = useState(false);
   const filterTimerRef = useRef(null);
+  const rafRef         = useRef(null);
 
   function changeFilter(key) {
     if (key === filter) return;
     clearTimeout(filterTimerRef.current);
-    setContentFaded(true);                          // fade out
+    cancelAnimationFrame(rafRef.current);
+
+    /* Step 1 – fade out */
+    setContentFaded(true);
+
+    /* Step 2 – after fade-out completes, swap filter data */
     filterTimerRef.current = setTimeout(() => {
       setFilter(key);
-      setContentFaded(false);                       // fade in with new content
-    }, 160);
+      /* Step 3 – two rAFs: first lets React paint the new (still-hidden) content,
+         second triggers the fade-in transition in a fresh paint cycle */
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = requestAnimationFrame(() => {
+          setContentFaded(false);
+        });
+      });
+    }, 180); // slightly longer than the 160ms CSS transition
   }
 
   usePageMeta({
@@ -382,20 +394,22 @@ export default function AnnualPlan() {
     }).finally(() => setLoading(false));
   }, []);
 
-  /* ── Filter by category — reset active month tab when filter changes ── */
-  const prevFilterRef = useRef(filter);
+  /* ── Filter by category ── */
   const filteredGroups = filter === 'all'    ? groups
     : filter === 'israel' ? groups.filter(g =>  g._isIsrael)
     : groups.filter(g => !g._isIsrael);
 
-  /* When filter changes, set activeMonth to first visible month */
-  if (prevFilterRef.current !== filter) {
-    prevFilterRef.current = filter;
-    const firstKey = Object.keys(
-      filteredGroups.reduce((acc, g) => { acc[monthKey(g.departure)] = true; return acc; }, {})
-    ).sort()[0];
-    if (firstKey && firstKey !== activeMonth) setActiveMonth(firstKey);
-  }
+  /* Reset active month tab to first visible month when filter changes */
+  useEffect(() => {
+    if (groups.length === 0) return;
+    const keys = [...new Set(
+      (filter === 'all' ? groups : filter === 'israel'
+        ? groups.filter(g => g._isIsrael)
+        : groups.filter(g => !g._isIsrael)
+      ).map(g => monthKey(g.departure))
+    )].sort();
+    if (keys.length > 0) setActiveMonth(keys[0]);
+  }, [filter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ── Group by month ── */
   const byMonth = {};
@@ -505,8 +519,9 @@ export default function AnnualPlan() {
             borderBottom: '1px solid #ECEAF8',
             boxShadow:    '0 2px 12px rgba(0,0,0,0.06)',
             animation:    'fadeIn 0.35s ease forwards',
-            opacity:      contentFaded ? 0 : 1,
-            transition:   'opacity 0.16s ease',
+            opacity:    contentFaded ? 0 : 1,
+            transition: 'opacity 0.16s ease',
+            willChange: 'opacity',
           }}>
             <div
               ref={tabsRef}
@@ -604,6 +619,7 @@ export default function AnnualPlan() {
           padding:    isMobile ? '32px 5%' : '48px 5%',
           opacity:    contentFaded ? 0 : 1,
           transition: 'opacity 0.16s ease',
+          willChange: 'opacity',
         }}>
 
           {/* ── Skeleton cards (during load) ── */}
