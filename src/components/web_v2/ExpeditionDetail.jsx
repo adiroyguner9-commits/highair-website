@@ -134,8 +134,10 @@ const getWhyCards = (exp, isRtl) => {
 function scrollToForm() {
   const el = document.getElementById('contact-form');
   if (!el) return;
-  const top = el.getBoundingClientRect().top + window.scrollY - 32;
-  window.scrollTo({ top, behavior: 'smooth' });
+  /* scrollIntoView re-calculates position in real-time during the scroll,
+     so lazy-loaded images shifting the layout don't break the target.
+     scroll-margin-top on the element handles the fixed header offset. */
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ─── Separator ─────────────────────────────────────────────────── */
@@ -888,7 +890,7 @@ export default function ExpeditionDetail() {
       {/* ══════════════════════════════════
           SECTION 2: FLOATING STATS BAR
       ══════════════════════════════════ */}
-      <div style={{
+      <div id="floating-bar" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
         background: 'white',
         boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
@@ -1576,8 +1578,10 @@ export default function ExpeditionDetail() {
           }}>
             {validGalleryImages.map((src, i) => {
               const orient = imgOrientations[i];
-              // Portrait → 3:4, Landscape → 4:3
-              const ratio = orient === 'portrait' ? '3/4' : orient === 'landscape' ? '4/3' : undefined;
+              // Portrait → 3:4, Landscape/unknown → 4:3
+              // Default to 4/3 so containers have height before images load,
+              // preventing layout shift that breaks scroll-to-form accuracy.
+              const ratio = orient === 'portrait' ? '3/4' : '4/3';
               return (
                 <div
                   key={src}
@@ -1798,9 +1802,10 @@ export default function ExpeditionDetail() {
       <div
         id="contact-form"
         style={{
-          background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)',
-          padding: isMobile ? '48px 5%' : '72px 5%',
-          direction: dir,
+          background:      'linear-gradient(135deg, #1e1b4b, #2d1b69)',
+          padding:         isMobile ? '48px 5%' : '72px 5%',
+          direction:       dir,
+          scrollMarginTop: '96px',
         }}
       >
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>

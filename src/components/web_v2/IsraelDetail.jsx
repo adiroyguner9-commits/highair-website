@@ -19,7 +19,7 @@ import { ISRAEL_TRIPS }                from '../../data/israelData.js';
 function scrollToForm() {
   const el = document.getElementById('israel-form');
   if (!el) return;
-  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 32, behavior: 'smooth' });
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function Separator() {
@@ -620,7 +620,7 @@ export default function IsraelDetail() {
               <div style={{ columnCount: isMobile ? 2 : 3, columnGap: '10px' }}>
                 {validGalleryImages.map((src, i) => {
                   const orient = imgOrientations[i];
-                  const ratio = orient === 'portrait' ? '3/4' : orient === 'landscape' ? '4/3' : undefined;
+                  const ratio = orient === 'portrait' ? '3/4' : '4/3';
                   return (
                     <div
                       key={src}
@@ -853,7 +853,7 @@ export default function IsraelDetail() {
       </main>
 
       {/* ══ CONTACT FORM ══ */}
-      <div id="israel-form" style={{ background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)', padding: isMobile ? '48px 5%' : '72px 5%', direction: dir }}>
+      <div id="israel-form" style={{ background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)', padding: isMobile ? '48px 5%' : '72px 5%', direction: dir, scrollMarginTop: '96px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(24px,4vw,40px)', fontWeight: 700, color: 'white', letterSpacing: '-0.02em', margin: '0 0 12px' }}>
             {isRtl ? 'הרשמה לטרק' : 'Register for Trek'}
