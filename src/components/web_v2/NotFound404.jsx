@@ -3,12 +3,20 @@
  * RTL Hebrew · on-brand design
  */
 
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
+import { usePageMeta } from '../../website/usePageMeta.js';
 
 export default function NotFound404() {
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir  = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const isEn = dir === 'ltr';
+  usePageMeta({
+    title:       isEn ? '404 – Page Not Found | HighAir Expeditions' : '404 – הדף לא נמצא | HighAir Expeditions',
+    description: isEn ? 'The page you were looking for does not exist.' : 'הדף שחיפשת לא קיים.',
+    noIndex:     true,
+  });
   return (
     <div style={{
       minHeight:      '100vh',
@@ -83,8 +91,8 @@ export default function NotFound404() {
       </p>
 
       {/* Back to home button */}
-      <a
-        href="/"
+      <Link
+        to="/"
         style={{
           display:        'inline-flex',
           alignItems:     'center',
@@ -112,7 +120,7 @@ export default function NotFound404() {
         }}
       >
         {t('notFound.back')}
-      </a>
+      </Link>
 
       {/* Mountain decoration */}
       <div style={{

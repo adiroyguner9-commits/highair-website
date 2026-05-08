@@ -546,7 +546,7 @@ export const ISRAEL_TRIPS = [
 
   {
     id:      'il-8',
-    slug:    'Kziv',
+    slug:    'kziv',
     name:       'נחל כזיב',
     nameEn:     'Nahal Keziv',
     area:       '',

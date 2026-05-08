@@ -742,16 +742,38 @@ function SearchModal({ onClose }) {
     return () => window.removeEventListener('keydown', h);
   }, [onClose]);
 
-  const results = query.trim().length < 1 ? [] : EXPS.filter(exp => {
+  const israelResults = query.trim().length < 1 ? [] : ISRAEL_TRIPS.filter(t => t.live !== false).filter(trip => {
     const q = query.toLowerCase();
     return (
-      exp.name?.toLowerCase().includes(q)    ||
-      exp.nameHe?.includes(query)            ||
-      exp.nameEn?.toLowerCase().includes(q)  ||
-      exp.country?.toLowerCase().includes(q) ||
-      exp.countryHe?.includes(query)
+      trip.name?.includes(query)              ||
+      trip.nameEn?.toLowerCase().includes(q)
     );
-  }).slice(0, 7);
+  }).map(trip => ({
+    ...trip,
+    slug:      trip.slug,
+    nameHe:    trip.name,
+    flag:      '🇮🇱',
+    countryHe: 'ישראל',
+    country:   'Israel',
+    elev:      trip.elevStr || '',
+    typeHe:    'טרק בארץ',
+    type:      'Israel Trek',
+    _isIsrael: true,
+  }));
+
+  const results = query.trim().length < 1 ? [] : [
+    ...EXPS.filter(exp => {
+      const q = query.toLowerCase();
+      return (
+        exp.name?.toLowerCase().includes(q)    ||
+        exp.nameHe?.includes(query)            ||
+        exp.nameEn?.toLowerCase().includes(q)  ||
+        exp.country?.toLowerCase().includes(q) ||
+        exp.countryHe?.includes(query)
+      );
+    }),
+    ...israelResults,
+  ].slice(0, 7);
 
   return (
     <div
@@ -809,7 +831,7 @@ function SearchModal({ onClose }) {
             {results.map((exp, idx) => (
               <button
                 key={exp.id}
-                onClick={() => { navigate(`/expedition/${exp.slug}`); onClose(); }}
+                onClick={() => { navigate(exp._isIsrael ? `/israel/${exp.slug}` : `/expedition/${exp.slug}`); onClose(); }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '14px',
                   width: '100%', padding: '13px 18px',

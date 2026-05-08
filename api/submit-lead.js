@@ -20,6 +20,7 @@ import {
 const AIRTABLE_FIELDS = new Set([
   'Name', 'Phone', 'Email', 'Expedition',
   'Preferred Month', 'Age', 'Group Size', 'Experience', 'Source',
+  'Message', 'Submitted',
 ]);
 
 export default async function handler(req, res) {

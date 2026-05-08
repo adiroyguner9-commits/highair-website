@@ -163,6 +163,7 @@ export default function BlogPost() {
     description:   postExcerpt,
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,
+    ogType:        'article',
   } : {
     title:         isRtl ? 'מאמר | HighAir Blog' : 'Article | HighAir Blog',
     canonicalPath: `/blog/${slug}`,

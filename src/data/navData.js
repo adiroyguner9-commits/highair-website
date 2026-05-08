@@ -602,7 +602,7 @@ export const NAV_ISRAEL = [
     "live": false
   },
   {
-    "slug": "Kziv",
+    "slug": "kziv",
     "name": "נחל כזיב",
     "nameEn": "Nahal Keziv",
     "live": false

@@ -103,12 +103,13 @@ export default function IsraelDetail() {
   const shortElevGain = (airtableElevGain ? stripElev(airtableElevGain) : shortItinElev) || '–';
 
   usePageMeta(trip ? {
-    title:         trip.seoTitle || `${displayName} | HighAir Expeditions`,
+    title:         isEn ? (trip.seoTitleEn || `${trip.nameEn || trip.name} Trek | HighAir Expeditions`) : (trip.seoTitle || `${displayName} | HighAir Expeditions`),
     description:   isEn
       ? (trip.seoDescriptionEn || `Join the ${displayName} trek with HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}A ${daysLabel} trek with a donation to cancer patients.`)
       : (trip.seoDescription   || `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`),
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
+    ogType:        'product',
   } : {
     title:       isEn ? 'HighAir Expeditions | Treks in Israel' : 'HighAir Expeditions | טרקים בישראל',
     description: isEn ? 'Treks in Israel with HighAir Expeditions.' : 'טרקים בישראל עם HighAir Expeditions.',
@@ -136,6 +137,7 @@ export default function IsraelDetail() {
   /* ── Contact form ── */
   const [form, setForm]         = useState({ name: '', email: '', month: '', dial: '+972', phone: '', pricePackage: '', declaration: false });
   const [phoneError, setPhoneError] = useState('');
+  const [packageError, setPackageError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   function validatePhone(val) {
@@ -146,13 +148,19 @@ export default function IsraelDetail() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (submitting) return;
     if (!validatePhone(form.phone)) return;
     if (!form.declaration) return;
-    if (tripPackages?.length && !form.pricePackage) return;
+    if (tripPackages?.length && !form.pricePackage) {
+      setPackageError(isRtl ? 'יש לבחור חבילה' : 'Please select a package');
+      return;
+    }
+    setPackageError('');
 
     const pkg    = tripPackages?.find(p => p.id === form.pricePackage);
     const payUrl = pkg?.paymentUrl || trip.paymentUrl;
 
+    setSubmitting(true);
     /* ── Save lead to Airtable (fire-and-forget; don't block payment) ── */
     const fullPhone = formatFullPhone(form.dial, form.phone);
     fetch('/api/israel-lead', {
@@ -166,7 +174,8 @@ export default function IsraelDetail() {
         tripDate:  form.month,   /* ISO date (YYYY-MM-DD) for live groups */
         packageId: form.pricePackage,
       }),
-    }).catch(err => console.error('[israel-lead]', err));
+    }).catch(err => console.error('[israel-lead]', err))
+      .finally(() => setSubmitting(false));
 
     if (payUrl) window.open(payUrl, '_blank', 'noopener,noreferrer');
   }
@@ -308,7 +317,7 @@ export default function IsraelDetail() {
 
   /* ─────────── RENDER ─────────── */
   return (
-    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div id="main-content" style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header />
 
       {/* ══ HERO ══ */}
@@ -694,7 +703,7 @@ export default function IsraelDetail() {
                   )}
                   <img
                     src={validGalleryImages[lightboxIdx]}
-                    alt=""
+                    alt={`${displayName} – תמונה ${lightboxIdx + 1}`}
                     onClick={e => e.stopPropagation()}
                     style={{
                       maxWidth: '100%', maxHeight: '90vh',
@@ -921,7 +930,7 @@ export default function IsraelDetail() {
                             display: 'flex', alignItems: 'center', gap: '12px',
                             cursor: 'pointer', direction: dir,
                             padding: '14px 16px', borderRadius: RADIUS.lg,
-                            border: `1.5px solid ${selected ? COLOR.primary : '#E5E3F0'}`,
+                            border: `1.5px solid ${selected ? COLOR.primary : packageError ? '#DC2626' : '#E5E3F0'}`,
                             background: selected ? '#F5F0FF' : '#FAFAFA',
                             transition: 'border-color 180ms, background 180ms',
                           }}>
@@ -930,7 +939,7 @@ export default function IsraelDetail() {
                               name="pricePackage"
                               value={pkg.id}
                               checked={selected}
-                              onChange={() => setForm(f => ({ ...f, pricePackage: pkg.id }))}
+                              onChange={() => { setForm(f => ({ ...f, pricePackage: pkg.id })); setPackageError(''); }}
                               style={{ width: '18px', height: '18px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
                             />
                             <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#3D3B5A', lineHeight: 1.5, fontWeight: 600 }}>
@@ -943,6 +952,11 @@ export default function IsraelDetail() {
                         );
                       })}
                     </div>
+                    {packageError && (
+                      <p style={{ margin: '6px 0 0', fontSize: '13px', color: '#DC2626', fontFamily: "'Ploni', sans-serif", direction: dir }}>
+                        {packageError}
+                      </p>
+                    )}
                   </div>
                 )}
 
@@ -966,15 +980,17 @@ export default function IsraelDetail() {
                 </label>
 
                 {/* כפתור תשלום */}
-                <button type="submit" disabled={!form.declaration} style={{
+                <button type="submit" disabled={!form.declaration || submitting} style={{
                   width: '100%', border: 'none', borderRadius: RADIUS.full, padding: '15px',
                   fontSize: FS.body, fontWeight: 700, fontFamily: "'Ploni', sans-serif",
-                  background: form.declaration ? COLOR.primary : '#9CA3AF',
+                  background: (form.declaration && !submitting) ? COLOR.primary : '#9CA3AF',
                   color: 'white',
-                  cursor: form.declaration ? 'pointer' : 'not-allowed',
+                  cursor: (form.declaration && !submitting) ? 'pointer' : 'not-allowed',
                   transition: `background 200ms ${EASING.smooth}`,
                 }}>
-                  {isRtl ? 'לתשלום ←' : 'Proceed to Payment →'}
+                  {submitting
+                    ? (isRtl ? 'שולח...' : 'Sending...')
+                    : (isRtl ? 'לתשלום ←' : 'Proceed to Payment →')}
                 </button>
 
               </div>

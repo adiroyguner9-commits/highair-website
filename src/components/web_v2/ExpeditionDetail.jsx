@@ -279,6 +279,7 @@ export default function ExpeditionDetail() {
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
+    ogType:        'product',
   } : {
     title:       'HighAir Expeditions | משלחות הרים',
     description: 'משלחות טיפוס הרים וטרקים בעולם.',
@@ -665,7 +666,7 @@ export default function ExpeditionDetail() {
 
   /* ─────────────── RENDER ─────────────────────────────────────── */
   return (
-    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div id="main-content" style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header />
 
       {/* ══════════════════════════════════
@@ -1660,7 +1661,7 @@ export default function ExpeditionDetail() {
                 )}
                 <img
                   src={validGalleryImages[lightboxIdx]}
-                  alt=""
+                  alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} – תמונה ${lightboxIdx + 1}`}
                   onClick={e => e.stopPropagation()}
                   style={{
                     maxWidth: '100%', maxHeight: '90vh',

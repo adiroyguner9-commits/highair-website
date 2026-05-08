@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { NAV_EXPS as EXPS } from '../../data/navData.js';
+import { ISRAEL_TRIPS as ALL_ISRAEL_TRIPS } from '../../data/israelData.js';
 
 /* ── Expeditions ordered by continent: Africa → Europe → Asia → South America ── */
 const TREK_IDS  = [4,  3,  2, 6, 7, 8];
@@ -112,9 +113,9 @@ export default function SiteFooter() {
   const dir = isEn ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
-  const ISRAEL_TRIPS = [
-    { label: t('footer.hermon'), href: '/israel/hermon' },
-  ];
+  const ISRAEL_TRIPS = ALL_ISRAEL_TRIPS
+    .filter(trip => trip.live !== false)
+    .map(trip => ({ label: isEn ? (trip.nameEn || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
 
   const INFO_LINKS = [
     { label: t('footer.blog'),         href: '/blog'          },

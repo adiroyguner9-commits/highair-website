@@ -75,7 +75,10 @@ export const LINK = {
 export default function LegalPageLayout({ title, subtitle, children, pageMeta }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
-  const defaultSubtitle = isRtl ? 'עודכן לאחרונה: אפריל 2025' : 'Last updated: April 2025';
+  const now = new Date();
+  const updatedHe = `עודכן לאחרונה: ${now.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' })}`;
+  const updatedEn = `Last updated: ${now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+  const defaultSubtitle = isRtl ? updatedHe : updatedEn;
   const resolvedSubtitle = subtitle || defaultSubtitle;
   useEffect(() => { window.scrollTo(0, 0); }, []);
 

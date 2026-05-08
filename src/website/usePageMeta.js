@@ -12,7 +12,7 @@ const BASE_URL    = 'https://www.highair-expeditions.com';
 const BASE_URL_EN = 'https://en.highair-expeditions.com';
 const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
-export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG, jsonLd }) {
+export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG, jsonLd, ogType = 'website', noIndex = false }) {
   useEffect(() => {
     document.title = title;
 
@@ -37,7 +37,17 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
     setMeta('meta[property="og:description"]', 'content', description);
     setMeta('meta[property="og:url"]',         'content', BASE_URL + canonicalPath);
     setMeta('meta[property="og:image"]',       'content', image);
+    setMeta('meta[property="og:type"]',        'content', ogType);
     setMeta('link[rel="canonical"]',           'href',    BASE_URL + canonicalPath);
+
+    // noIndex — for pages like 404 that should not be indexed
+    let robotsMeta = document.querySelector('meta[name="robots"]');
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta');
+      robotsMeta.setAttribute('name', 'robots');
+      document.head.appendChild(robotsMeta);
+    }
+    robotsMeta.setAttribute('content', noIndex ? 'noindex, nofollow' : 'index, follow');
 
     // hreflang — tells Google about the HE ↔ EN language variants
     setHreflang('he',        BASE_URL    + canonicalPath);
@@ -144,7 +154,7 @@ export function tourSchema({
         '@type':              'MerchantReturnPolicy',
         applicableCountry:    'IL',
         returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-        merchantReturnLink:   'https://www.highair-expeditions.com/cancellation-policy',
+        merchantReturnLink:   'https://www.highair-expeditions.com/cancellation',
       },
     };
   }

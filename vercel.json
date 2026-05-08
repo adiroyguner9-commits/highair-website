@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "/hero.mp4",
+      "source": "/videos/hero-home.mp4",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
@@ -47,13 +47,14 @@
     { "source": "/mera-peak",          "destination": "/expedition/mera-peak",         "permanent": true },
     { "source": "/lenin-peak",         "destination": "/expedition/lenin-peak",        "permanent": true },
     { "source": "/hermon",             "destination": "/israel/hermon",                "permanent": true },
+    { "source": "/israel/Kziv",        "destination": "/israel/kziv",                 "permanent": true },
     { "source": "/about-us",           "destination": "/about",                        "permanent": true },
     { "source": "/contact-us",         "destination": "/contact",                      "permanent": true },
     { "source": "/post/%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%A9%D7%91%D7%A2-%D7%94%D7%A4%D7%A1%D7%92%D7%95%D7%AA-%D7%94%D7%94%D7%A8%D7%99%D7%9D-%D7%94%D7%92%D7%91%D7%95%D7%94%D7%99%D7%9D-%D7%91%D7%99%D7%95%D7%AA%D7%A8-%D7%91%D7%9B%D7%9C-%D7%99%D7%91%D7%A9%D7%AA", "destination": "/blog/seven-summits-guide", "permanent": true },
-    { "source": "/post/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%94%D7%A6%D7%99%D7%95%D7%93-%D7%94%D7%9E%D7%9C%D7%90%D7%94-%D7%9C%D7%98%D7%99%D7%A4%D7%95%D7%A1-%D7%94%D7%A8%D7%99%D7%9D-%D7%95%D7%9E%D7%A9%D7%9C%D7%97%D7%95%D7%AA-2026-%D7%9B%D7%9C-%D7%9E%D7%94-%D7%A9%D7%A6%D7%A8%D7%99%D7%9A-%D7%9C%D7%90%D7%A8%D7%95%D7%96", "destination": "/blog/mountain-gear-list", "permanent": true },
-    { "source": "/post/%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%98%D7%A8%D7%A7-%D7%9C%D7%91%D7%99%D7%99%D7%A1-%D7%A7%D7%9E%D7%A4-%D7%90%D7%95%D7%95%D7%A8%D7%A1%D7%98-2026-%D7%A6%D7%99%D7%95%D7%93-%D7%9E%D7%A1%D7%9C%D7%95%D7%9C-%D7%95%D7%9E%D7%94-%D7%9C%D7%A6%D7%A4%D7%95%D7%AA", "destination": "/blog/everest-base-camp-guide", "permanent": true },
-    { "source": "/post/%D7%9E%D7%97%D7%9C%D7%AA-%D7%92%D7%91%D7%94%D7%99%D7%9D-%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%9E%D7%A0%D7%99%D7%A2%D7%94-%D7%96%D7%99%D7%94%D7%95%D7%99-%D7%95%D7%98%D7%99%D7%A4%D7%95%D7%9C-2026", "destination": "/blog/altitude-sickness-guide", "permanent": true },
-    { "source": "/post/%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%98%D7%99%D7%A4%D7%95%D7%A1-%D7%A2%D7%9C-%D7%94%D7%A7%D7%99%D7%9C%D7%99%D7%9E%D7%A0%D7%92%D7%A8%D7%95-2025-%D7%9B%D7%9C-%D7%9E%D7%94-%D7%A9%D7%A6%D7%A8%D7%99%D7%9A-%D7%9C%D7%93%D7%A2%D7%AA-%D7%9C%D7%A4%D7%A0%D7%99-%D7%A9%D7%99%D7%95%D7%A6%D7%90%D7%99%D7%9D-%D7%9C%D7%A4%D7%A1%D7%92%D7%94", "destination": "/blog/kilimanjaro-guide", "permanent": true }
+    { "source": "/post/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%94%D7%A6%D7%99%D7%95%D7%93-%D7%94%D7%9E%D7%9C%D7%90%D7%94-%D7%9C%D7%98%D7%99%D7%A4%D7%95%D7%A1-%D7%94%D7%A8%D7%99%D7%9D-%D7%95%D7%9E%D7%A9%D7%9C%D7%97%D7%95%D7%AA-2026-%D7%9B%D7%9C-%D7%9E%D7%94-%D7%A9%D7%A6%D7%A8%D7%99%D7%9A-%D7%9C%D7%90%D7%A8%D7%95%D7%96", "destination": "/blog/tipus-kilimanjaro-madrich-male", "permanent": true },
+    { "source": "/post/%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%98%D7%A8%D7%A7-%D7%9C%D7%91%D7%99%D7%99%D7%A1-%D7%A7%D7%9E%D7%A4-%D7%90%D7%95%D7%95%D7%A8%D7%A1%D7%98-2026-%D7%A6%D7%99%D7%95%D7%93-%D7%9E%D7%A1%D7%9C%D7%95%D7%9C-%D7%95%D7%9E%D7%94-%D7%9C%D7%A6%D7%A4%D7%95%D7%AA", "destination": "/blog", "permanent": true },
+    { "source": "/post/%D7%9E%D7%97%D7%9C%D7%AA-%D7%92%D7%91%D7%94%D7%99%D7%9D-%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%9E%D7%A0%D7%99%D7%A2%D7%94-%D7%96%D7%99%D7%94%D7%95%D7%99-%D7%95%D7%98%D7%99%D7%A4%D7%95%D7%9C-2026", "destination": "/blog", "permanent": true },
+    { "source": "/post/%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A-%D7%94%D7%9E%D7%9C%D7%90-%D7%9C%D7%98%D7%99%D7%A4%D7%95%D7%A1-%D7%A2%D7%9C-%D7%94%D7%A7%D7%99%D7%9C%D7%99%D7%9E%D7%A0%D7%92%D7%A8%D7%95-2025-%D7%9B%D7%9C-%D7%9E%D7%94-%D7%A9%D7%A6%D7%A8%D7%99%D7%9A-%D7%9C%D7%93%D7%A2%D7%AA-%D7%9C%D7%A4%D7%A0%D7%99-%D7%A9%D7%99%D7%95%D7%A6%D7%90%D7%99%D7%9D-%D7%9C%D7%A4%D7%A1%D7%92%D7%94", "destination": "/blog/tipus-kilimanjaro-madrich-male", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/airtable/:table/:id", "destination": "/api/at?table=:table&id=:id" },

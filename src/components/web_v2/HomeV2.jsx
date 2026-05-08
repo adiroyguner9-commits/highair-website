@@ -63,7 +63,10 @@ const ORG_SCHEMA = {
     contactType:         'customer service',
     availableLanguage:   'Hebrew',
   },
-  sameAs: [],
+  sameAs: [
+    'https://www.facebook.com/HighAirExpeditions',
+    'https://www.instagram.com/highair_expeditions',
+  ],
 };
 
 /* ── Page ── */
