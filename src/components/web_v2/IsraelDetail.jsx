@@ -179,6 +179,9 @@ export default function IsraelDetail() {
   const [groupsError, setGroupsError]     = useState(null);
   const [activeMonth, setActiveMonth]     = useState(null);
   const [galleryUrls, setGalleryUrls]           = useState([]);
+  const [lightboxIdx, setLightboxIdx]       = useState(null);
+  const [imgOrientations, setImgOrientations] = useState({});
+  const [resolvedGallery, setResolvedGallery] = useState(null); // null = probing
 
   useEffect(() => {
     if (!hasAirtable) return;
@@ -242,6 +245,20 @@ export default function IsraelDetail() {
     }).finally(() => setGroupsLoading(false));
   }, [trip?.airtableEvents?.join(',')]);
 
+  /* ── Probe local gallery images ── */
+  useEffect(() => {
+    if (!trip?.slug) return;
+    setResolvedGallery(null);
+    const potential = Array.from({ length: 10 }, (_, i) => `/images/gallery/${trip.slug}/${i + 1}.webp`);
+    Promise.all(
+      potential.map(url =>
+        fetch(url, { method: 'HEAD' })
+          .then(r => r.ok ? url : null)
+          .catch(() => null)
+      )
+    ).then(results => setResolvedGallery(results.filter(Boolean)));
+  }, [trip?.slug]);
+
   /* ── Date helpers ── */
   function formatDateRange(dep, ret) {
     const d = new Date(dep);
@@ -286,6 +303,8 @@ export default function IsraelDetail() {
       </div>
     );
   }
+
+  const validGalleryImages = galleryUrls.length > 0 ? galleryUrls : (resolvedGallery ?? []);
 
   /* ─────────── RENDER ─────────── */
   return (
@@ -577,109 +596,128 @@ export default function IsraelDetail() {
         )}
 
         {/* ── ג2. גלריה ── */}
-        {(() => {
-          const galleryImgs = galleryUrls.length > 0
-            ? galleryUrls
-            : [1,2,3,4,5].map(n => `/images/gallery/${trip.slug}/${n}.webp`);
-          const [lbIdx, setLbIdx] = useState(null);
-          const lbPrev = (e) => { e.stopPropagation(); setLbIdx(i => (i - 1 + galleryImgs.length) % galleryImgs.length); };
-          const lbNext = (e) => { e.stopPropagation(); setLbIdx(i => (i + 1) % galleryImgs.length); };
+        {validGalleryImages.length > 0 && (
+          <>
+            <Separator />
+            <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+              <h2 style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)',
+                fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px',
+              }}>
+                {isRtl ? `תמונות מה${trip.typeHe}` : 'Gallery'}
+              </h2>
 
-          return (
-            <>
-              <Separator />
-              <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-                <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 28px' }}>
-                  {isRtl ? `תמונות מה${trip.typeHe}` : 'Gallery'}
-                </h2>
-
-                {isMobile ? (
-                  /* Mobile: horizontal scroll strip */
-                  <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch', paddingBottom: '4px' }}>
-                    {galleryImgs.map((src, i) => (
-                      <img
-                        key={i} src={src} alt={`${trip.name} ${i + 1}`} loading="lazy"
-                        onClick={() => setLbIdx(i)}
-                        style={{ flexShrink: 0, width: '72vw', height: '200px', objectFit: 'cover', borderRadius: RADIUS.xl, cursor: 'pointer', display: 'block' }}
-                        onError={e => { e.currentTarget.style.display = 'none'; }}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  /* Desktop: bento grid - large left + 2×2 right */
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gridTemplateRows: '240px 240px', gap: '10px' }}>
-                    {/* Large featured image */}
+              {/* Masonry columns */}
+              <div style={{ columnCount: isMobile ? 2 : 3, columnGap: '10px' }}>
+                {validGalleryImages.map((src, i) => {
+                  const orient = imgOrientations[i];
+                  const ratio = orient === 'portrait' ? '3/4' : orient === 'landscape' ? '4/3' : undefined;
+                  return (
                     <div
-                      onClick={() => setLbIdx(0)}
-                      style={{ gridRow: '1 / 3', borderRadius: RADIUS.xl, overflow: 'hidden', cursor: 'pointer', position: 'relative' }}
-                      onMouseEnter={e => e.currentTarget.querySelector('div').style.opacity = '1'}
-                      onMouseLeave={e => e.currentTarget.querySelector('div').style.opacity = '0'}
+                      key={src}
+                      onClick={() => setLightboxIdx(i)}
+                      style={{
+                        breakInside: 'avoid',
+                        marginBottom: '10px',
+                        borderRadius: RADIUS.lg,
+                        overflow: 'hidden',
+                        cursor: 'zoom-in',
+                        position: 'relative',
+                        ...(ratio ? { aspectRatio: ratio } : {}),
+                      }}
+                      onMouseEnter={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '1')}
+                      onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
                     >
-                      <img src={galleryImgs[0]} alt={`${trip.name} 1`} loading="lazy"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: `transform 0.4s ${EASING.out}` }}
+                      <img
+                        src={src}
+                        alt={`${trip.name} ${i + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        style={{
+                          width: '100%',
+                          height: ratio ? '100%' : 'auto',
+                          objectFit: ratio ? 'cover' : undefined,
+                          objectPosition: 'center',
+                          display: 'block',
+                          transition: 'transform 0.3s ease',
+                        }}
+                        onLoad={e => {
+                          const { naturalWidth: w, naturalHeight: h } = e.target;
+                          setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
+                        }}
+                        onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
                         onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
                         onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-                        onError={e => { e.currentTarget.style.display = 'none'; }}
                       />
-                      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.18)', opacity: 0, transition: 'opacity 0.3s ease', borderRadius: RADIUS.xl, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ color: '#fff', fontSize: '28px' }}>⊕</span>
-                      </div>
+                      <div style={{
+                        position: 'absolute', inset: 0,
+                        background: 'rgba(0,0,0,0.15)',
+                        opacity: 0, transition: 'opacity 0.2s ease',
+                        pointerEvents: 'none',
+                      }} />
                     </div>
-                    {/* 4 smaller images */}
-                    {galleryImgs.slice(1, 5).map((src, i) => (
-                      <div
-                        key={i} onClick={() => setLbIdx(i + 1)}
-                        style={{ borderRadius: RADIUS.xl, overflow: 'hidden', cursor: 'pointer', position: 'relative' }}
-                        onMouseEnter={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1.04)'; }}
-                        onMouseLeave={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1)'; }}
-                      >
-                        <img src={src} alt={`${trip.name} ${i + 2}`} loading="lazy"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: `transform 0.4s ${EASING.out}` }}
-                          onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  );
+                })}
+              </div>
+            </section>
 
-                {/* Extra images beyond 5 — horizontal scroll strip */}
-                {galleryImgs.length > 5 && (
-                  <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch', marginTop: '10px', paddingBottom: '4px' }}>
-                    {galleryImgs.slice(5).map((src, i) => (
-                      <img
-                        key={i} src={src} alt={`${trip.name} ${i + 6}`} loading="lazy"
-                        onClick={() => setLbIdx(i + 5)}
-                        style={{ flexShrink: 0, width: isMobile ? '72vw' : '320px', height: '200px', objectFit: 'cover', borderRadius: RADIUS.xl, cursor: 'pointer', display: 'block' }}
-                        onError={e => { e.currentTarget.style.display = 'none'; }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </section>
-
-              {/* Lightbox */}
-              {lbIdx !== null && (
-                <div onClick={() => setLbIdx(null)} style={{ position: 'fixed', inset: 0, zIndex: 2000, background: 'rgba(5,3,18,0.97)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <button onClick={() => setLbIdx(null)} style={{ position: 'absolute', top: '20px', right: '20px', width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', fontSize: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
-                  <div style={{ position: 'absolute', top: '24px', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Ploni, sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{lbIdx + 1} / {galleryImgs.length}</div>
-                  <img src={galleryImgs[lbIdx]} alt={`${trip.name} ${lbIdx + 1}`} onClick={e => e.stopPropagation()} style={{ maxWidth: isMobile ? '95vw' : '88vw', maxHeight: '85vh', objectFit: 'contain', borderRadius: RADIUS.xl, boxShadow: '0 32px 80px rgba(0,0,0,0.6)', userSelect: 'none' }} />
-                  {!isMobile && (
-                    <>
-                      <button onClick={lbPrev} style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', fontSize: '28px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>‹</button>
-                      <button onClick={lbNext} style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', fontSize: '28px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>›</button>
-                    </>
+            {/* Lightbox */}
+            {lightboxIdx !== null && (() => {
+              const hasPrev = lightboxIdx > 0;
+              const hasNext = lightboxIdx < validGalleryImages.length - 1;
+              const btnStyle = {
+                background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '50%',
+                width: '48px', height: '48px', fontSize: '26px', color: '#fff', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute',
+              };
+              const leftAction  = isRtl ? () => setLightboxIdx(i => i + 1) : () => setLightboxIdx(i => i - 1);
+              const rightAction = isRtl ? () => setLightboxIdx(i => i - 1) : () => setLightboxIdx(i => i + 1);
+              const leftArrow   = isRtl ? '›' : '‹';
+              const rightArrow  = isRtl ? '‹' : '›';
+              const showLeft    = isRtl ? hasNext : hasPrev;
+              const showRight   = isRtl ? hasPrev : hasNext;
+              return (
+                <div
+                  onClick={() => setLightboxIdx(null)}
+                  style={{
+                    position: 'fixed', inset: 0, zIndex: 9999,
+                    background: 'rgba(0,0,0,0.92)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    padding: '20px',
+                  }}
+                >
+                  {showLeft && (
+                    <button onClick={e => { e.stopPropagation(); leftAction(); }}
+                      style={{ ...btnStyle, left: isMobile ? '8px' : '24px' }}>
+                      {leftArrow}
+                    </button>
                   )}
-                  {isMobile && (
-                    <div style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      <button onClick={lbPrev} style={{ background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: '22px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer' }}>‹</button>
-                      <button onClick={lbNext} style={{ background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: '22px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer' }}>›</button>
-                    </div>
+                  <img
+                    src={validGalleryImages[lightboxIdx]}
+                    alt=""
+                    onClick={e => e.stopPropagation()}
+                    style={{
+                      maxWidth: '100%', maxHeight: '90vh',
+                      borderRadius: RADIUS.xl,
+                      boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+                      objectFit: 'contain',
+                    }}
+                  />
+                  {showRight && (
+                    <button onClick={e => { e.stopPropagation(); rightAction(); }}
+                      style={{ ...btnStyle, right: isMobile ? '8px' : '24px' }}>
+                      {rightArrow}
+                    </button>
                   )}
+                  <button onClick={() => setLightboxIdx(null)} style={{
+                    ...btnStyle, width: '40px', height: '40px', fontSize: '18px',
+                    position: 'absolute', top: '16px', right: '16px',
+                  }}>✕</button>
                 </div>
-              )}
-            </>
-          );
-        })()}
+              );
+            })()}
+          </>
+        )}
 
         <Separator />
 
