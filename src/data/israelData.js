@@ -7,7 +7,7 @@ export const ISRAEL_TRIPS = [
   {
     id:      'il-1',
     slug:    'hermon',
-    name:       'טרק לפסגת החרמון',
+    name:       'לפסגת החרמון',
     nameEn:     'Mount Hermon Trek',
     area:       '08-09/05',
     elev:       '2040',

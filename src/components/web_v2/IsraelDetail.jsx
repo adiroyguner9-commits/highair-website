@@ -103,7 +103,7 @@ export default function IsraelDetail() {
   const shortElevGain = (airtableElevGain ? stripElev(airtableElevGain) : shortItinElev) || '–';
 
   usePageMeta(trip ? {
-    title:         `${displayName} | HighAir Expeditions`,
+    title:         trip.seoTitle || `${displayName} | HighAir Expeditions`,
     description:   isEn
       ? (trip.seoDescriptionEn || `Join the ${displayName} trek with HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}A ${daysLabel} trek with a donation to cancer patients.`)
       : (trip.seoDescription   || `הצטרפו לטרק ${trip.name} עם HighAir Expeditions. ${trip.elevStr ? trip.elevStr + ' - ' : ''}טרק ${trip.days} בשילוב תרומה למלחמה בסרטן.`),
