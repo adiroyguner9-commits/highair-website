@@ -247,11 +247,23 @@ export default function AnnualPlan() {
   const tabsRef = useRef(null);
   const monthNames = t('annualPlan.months', { returnObjects: true });
 
-  const [groups,  setGroups]  = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState(null);
-  const [activeMonth, setActiveMonth] = useState(null);
-  const [filter, setFilter]   = useState('all'); // 'all' | 'world' | 'israel'
+  const [groups,       setGroups]       = useState([]);
+  const [loading,      setLoading]      = useState(true);
+  const [error,        setError]        = useState(null);
+  const [activeMonth,  setActiveMonth]  = useState(null);
+  const [filter,       setFilter]       = useState('all'); // 'all' | 'world' | 'israel'
+  const [contentFaded, setContentFaded] = useState(false); // drives fade on filter switch
+  const filterTimerRef = useRef(null);
+
+  function changeFilter(key) {
+    if (key === filter) return;
+    clearTimeout(filterTimerRef.current);
+    setContentFaded(true);                          // fade out
+    filterTimerRef.current = setTimeout(() => {
+      setFilter(key);
+      setContentFaded(false);                       // fade in with new content
+    }, 160);
+  }
 
   usePageMeta({
     title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'Expedition Schedule 2026 | HighAir Expeditions',
@@ -460,7 +472,7 @@ export default function AnnualPlan() {
               return (
                 <button
                   key={opt.key}
-                  onClick={() => setFilter(opt.key)}
+                  onClick={() => changeFilter(opt.key)}
                   style={{
                     padding:      isMobile ? '7px 16px' : '8px 22px',
                     borderRadius: RADIUS.full,
@@ -486,13 +498,15 @@ export default function AnnualPlan() {
         {/* ── Sticky month tabs (real data) ── */}
         {!loading && months.length > 0 && (
           <div style={{
-            position:   'sticky',
-            top:        '80px',
-            zIndex:     100,
-            background: '#FFFFFF',
+            position:     'sticky',
+            top:          '80px',
+            zIndex:       100,
+            background:   '#FFFFFF',
             borderBottom: '1px solid #ECEAF8',
-            boxShadow:  '0 2px 12px rgba(0,0,0,0.06)',
-            animation:  'fadeIn 0.35s ease forwards',
+            boxShadow:    '0 2px 12px rgba(0,0,0,0.06)',
+            animation:    'fadeIn 0.35s ease forwards',
+            opacity:      contentFaded ? 0 : 1,
+            transition:   'opacity 0.16s ease',
           }}>
             <div
               ref={tabsRef}
@@ -584,7 +598,13 @@ export default function AnnualPlan() {
         )}
 
         {/* ── Content ── */}
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: isMobile ? '32px 5%' : '48px 5%' }}>
+        <div style={{
+          maxWidth:   '1280px',
+          margin:     '0 auto',
+          padding:    isMobile ? '32px 5%' : '48px 5%',
+          opacity:    contentFaded ? 0 : 1,
+          transition: 'opacity 0.16s ease',
+        }}>
 
           {/* ── Skeleton cards (during load) ── */}
           {loading && (
