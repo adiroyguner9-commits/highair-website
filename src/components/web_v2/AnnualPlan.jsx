@@ -483,8 +483,8 @@ export default function AnnualPlan() {
           </div>
         </div>
 
-        {/* ── Sticky month tabs ── */}
-        {months.length > 0 && (
+        {/* ── Sticky month tabs (real data) ── */}
+        {!loading && months.length > 0 && (
           <div style={{
             position:   'sticky',
             top:        '80px',
@@ -554,32 +554,62 @@ export default function AnnualPlan() {
           </div>
         )}
 
+        {/* ── Skeleton tabs (during load) ── */}
+        {loading && (
+          <div style={{
+            position:     'sticky',
+            top:          '80px',
+            zIndex:       100,
+            background:   '#FFFFFF',
+            borderBottom: '1px solid #ECEAF8',
+            boxShadow:    '0 2px 12px rgba(0,0,0,0.06)',
+          }}>
+            <div style={{
+              display:  'flex',
+              gap:      '8px',
+              padding:  isMobile ? '12px 5%' : '14px 5%',
+              maxWidth: '1280px',
+              margin:   '0 auto',
+            }}>
+              {[96, 80, 110, 88, 102].map((w, i) => (
+                <div key={i} style={{
+                  width: `${w}px`, height: '36px', borderRadius: RADIUS.full, flexShrink: 0,
+                  background: 'linear-gradient(90deg,#ECEAF8 25%,#F5F3FF 50%,#ECEAF8 75%)',
+                  backgroundSize: '400% 100%',
+                  animation: `shimmer 1.6s ease-in-out ${i * 0.12}s infinite`,
+                }} />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ── Content ── */}
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: isMobile ? '32px 5%' : '48px 5%' }}>
 
-          {/* Loading — skeleton cards */}
+          {/* ── Skeleton cards (during load) ── */}
           {loading && (
-            <div style={{ animation: 'fadeOut 0.2s ease forwards' }}>
+            <div>
               {[0, 1, 2].map(monthIdx => (
                 <div key={monthIdx} style={{ marginBottom: isMobile ? '40px' : '56px' }}>
+
                   {/* Month title skeleton */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                     <div style={{
-                      width: monthIdx === 0 ? '110px' : monthIdx === 1 ? '130px' : '100px',
-                      height: '28px', borderRadius: '8px',
+                      width: [110, 130, 100][monthIdx], height: '26px', borderRadius: '8px',
                       background: 'linear-gradient(90deg,#ECEAF8 25%,#F5F3FF 50%,#ECEAF8 75%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 1.4s ease-in-out infinite',
+                      backgroundSize: '400% 100%',
+                      animation: 'shimmer 1.6s ease-in-out infinite',
                     }} />
                     <div style={{ height: '2px', flex: 1, background: '#ECEAF8', borderRadius: '1px' }} />
                     <div style={{
-                      width: '70px', height: '22px', borderRadius: '20px',
+                      width: '72px', height: '22px', borderRadius: RADIUS.full,
                       background: 'linear-gradient(90deg,#ECEAF8 25%,#F5F3FF 50%,#ECEAF8 75%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 1.4s ease-in-out infinite',
+                      backgroundSize: '400% 100%',
+                      animation: 'shimmer 1.6s ease-in-out infinite',
                     }} />
                   </div>
-                  {/* Card skeletons */}
+
+                  {/* Card skeletons — mimic TripCard layout */}
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
@@ -587,14 +617,37 @@ export default function AnnualPlan() {
                   }}>
                     {[0, 1, 2].map(i => (
                       <div key={i} style={{
-                        borderRadius: RADIUS.xl,
-                        minHeight: isMobile ? '220px' : '280px',
-                        background: 'linear-gradient(90deg,#E8E6F4 25%,#F0EEF8 50%,#E8E6F4 75%)',
-                        backgroundSize: '200% 100%',
-                        animation: `shimmer 1.4s ease-in-out ${i * 0.15}s infinite`,
-                      }} />
+                        borderRadius:  RADIUS.xl,
+                        minHeight:     isMobile ? '220px' : '280px',
+                        background:    '#1e1b3a',
+                        position:      'relative',
+                        overflow:      'hidden',
+                        display:       'flex',
+                        flexDirection: 'column',
+                        justifyContent:'space-between',
+                        padding:       '16px',
+                      }}>
+                        {/* Shimmer sweep */}
+                        <div style={{
+                          position:   'absolute', inset: 0,
+                          background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%)',
+                          backgroundSize: '250% 100%',
+                          animation: `shimmer 1.8s ease-in-out ${i * 0.18 + monthIdx * 0.1}s infinite`,
+                        }} />
+                        {/* Top: badge placeholders */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
+                          <div style={{ width: '80px', height: '26px', borderRadius: RADIUS.full, background: 'rgba(255,255,255,0.13)' }} />
+                          <div style={{ width: '68px', height: '26px', borderRadius: RADIUS.full, background: 'rgba(255,255,255,0.13)' }} />
+                        </div>
+                        {/* Bottom: name + date placeholders */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', position: 'relative', zIndex: 1 }}>
+                          <div style={{ width: '65%', height: '20px', borderRadius: '6px', background: 'rgba(255,255,255,0.18)' }} />
+                          <div style={{ width: '42%', height: '13px', borderRadius: '6px', background: 'rgba(255,255,255,0.11)' }} />
+                        </div>
+                      </div>
                     ))}
                   </div>
+
                 </div>
               ))}
             </div>
