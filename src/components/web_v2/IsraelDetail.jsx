@@ -319,7 +319,7 @@ export default function IsraelDetail() {
               color: 'white', letterSpacing: '-0.02em', margin: 0, lineHeight: 1.1,
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              {isRtl ? `טרק ${displayName}` : `${displayName} Trek`}
+              {isRtl ? (displayName.startsWith('טרק') ? displayName : `טרק ${displayName}`) : `${displayName} Trek`}
             </h1>
           </div>
 
