@@ -713,6 +713,15 @@ export default function IsraelDetail() {
                     ...btnStyle, width: '40px', height: '40px', fontSize: '18px',
                     position: 'absolute', top: '16px', right: '16px',
                   }}>✕</button>
+                  {/* Counter — always LTR so numbers don't flip */}
+                  <div style={{
+                    position: 'absolute', bottom: '20px', direction: 'ltr',
+                    background: 'rgba(255,255,255,0.15)', borderRadius: '20px',
+                    padding: '6px 16px', color: '#fff', fontSize: '14px',
+                    fontFamily: "'Ploni', sans-serif",
+                  }}>
+                    {lightboxIdx + 1} / {validGalleryImages.length}
+                  </div>
                 </div>
               );
             })()}
