@@ -69,9 +69,20 @@ function classifyGroup(eventName) {
 /* ══════════════════════════════════════════════════════════════
    TripCard
 ══════════════════════════════════════════════════════════════ */
-function TripCard({ group, exp, israelTrip, months, isRtl }) {
+function TripCard({ group, exp, months, isRtl }) {
   const [hovered, setHovered] = useState(false);
-  const trip      = israelTrip || null;
+
+  /* Resolve Israel trip data: prefer rich israelData.js lookup, fall back to embedded Airtable fields */
+  const trip = group._isIsrael
+    ? (findIsraelTrip(group.eventName) || {
+        name:   group._nameHe || group.eventName,
+        nameEn: group._nameEn || group.eventName,
+        slug:   group._slug,
+        img:    group._img,
+        grad:   group._grad,
+      })
+    : null;
+
   const imgSrc    = exp?.img || trip?.img || null;
   const [imgReady, setImgReady] = useState(!imgSrc);
   const cardRef  = useRef(null);
@@ -124,9 +135,9 @@ function TripCard({ group, exp, israelTrip, months, isRtl }) {
         flexDirection:  'column',
         justifyContent: 'space-between',
         minHeight:      isMobile ? '220px' : '280px',
-        cursor:         exp?.slug ? 'pointer' : 'default',
-        transform:      hovered && exp?.slug ? 'translateY(-5px)' : 'translateY(0)',
-        boxShadow:      hovered && exp?.slug
+        cursor:         (exp?.slug || trip?.slug) ? 'pointer' : 'default',
+        transform:      hovered && (exp?.slug || trip?.slug) ? 'translateY(-5px)' : 'translateY(0)',
+        boxShadow:      hovered && (exp?.slug || trip?.slug)
                           ? '0 20px 48px rgba(0,0,0,0.22)'
                           : '0 4px 16px rgba(0,0,0,0.10)',
         transition:     `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
@@ -250,12 +261,12 @@ export default function AnnualPlan() {
     canonicalPath: '/annual-plan',
   });
 
-  /* ── Fetch all groups from Airtable ── */
+  /* ── Fetch world + Israel groups from Airtable ── */
   useEffect(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    /* Paginate through ALL records of a table, respecting Airtable's 100-record limit */
+    /* Paginate through ALL records of a table */
     async function fetchAllRecords(url) {
       const records = [];
       let offset = null;
@@ -269,65 +280,79 @@ export default function AnnualPlan() {
       return records;
     }
 
-    fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity`)
-      .then(r => r.json())
-      .then(async groupsData => {
-      if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
+    /* Normalise a raw Airtable record into our group shape */
+    function normaliseGroup(rec, isIsrael, counts) {
+      const groupName  = rec.fields['Group Name'] || rec.id;
+      const returnDate = rec.fields['Return']     || null;
+      const departure  = rec.fields['Departure']  || null;
+      return {
+        id:         rec.id,
+        groupName,
+        eventName:  rec.fields['Event'] || '',
+        departure,
+        returnDate,
+        count:      counts[groupName] || 0,
+        capacity:   rec.fields['Capacity'] || null,
+        /* Israel-specific embedded fields (from IsraelGroups table) */
+        _isIsrael:  isIsrael,
+        _nameHe:    rec.fields['Name']       || '',
+        _nameEn:    rec.fields['Name_En']    || '',
+        _slug:      rec.fields['Slug']       || '',
+        _img:       rec.fields['Image_URL']  || null,
+        _grad:      rec.fields['Gradient']   || null,
+      };
+    }
 
-      /* Fetch ALL customers with full pagination — guarantees accurate count */
-      const custRecords = await fetchAllRecords(
-        `/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`
-      );
+    /* Common date filters (same rules for both tables) */
+    function dateFilter(g) {
+      if (!g.departure) return false;
+      const weekFromNow = new Date(today);
+      weekFromNow.setDate(weekFromNow.getDate() + 7);
+      return new Date(g.departure) >= weekFromNow;
+    }
+
+    Promise.all([
+      fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity`).then(r => r.json()),
+      fetch(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient`).then(r => r.json()),
+      fetchAllRecords(`/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`),
+    ]).then(([worldData, israelData, custRecords]) => {
+      if (worldData.error)  throw new Error(JSON.stringify(worldData.error));
+      if (israelData.error) throw new Error(JSON.stringify(israelData.error));
+
+      /* Build group-name → customer count map */
       const counts = {};
       custRecords.forEach(rec => {
         const gn = rec.fields['Group Name'] || rec.fields['group name'];
         if (gn) counts[gn] = (counts[gn] || 0) + 1;
       });
 
-      const enriched = (groupsData.records || [])
-        .map(rec => {
-          const groupName  = rec.fields['Group Name'] || rec.id;
-          const returnDate = rec.fields['Return']     || null;
-          const departure  = rec.fields['Departure']  || null;
-          return {
-            id:         rec.id,
-            groupName,
-            eventName:  rec.fields['Event'] || '',
-            departure,
-            returnDate,
-            count:      counts[groupName] || 0,
-            capacity:   rec.fields['Capacity'] || null,
-          };
-        })
-        /* Hide trips departing within 7 days (or no departure date) */
-        .filter(g => {
-          if (!g.departure) return false;
-          const weekFromNow = new Date(today);
-          weekFromNow.setDate(weekFromNow.getDate() + 7);
-          return new Date(g.departure) >= weekFromNow;
-        })
-        /* Hide April (3) and May (4) departures */
-        .filter(g => {
-          const m = new Date(g.departure).getMonth();
-          return m !== 3 && m !== 4;
-        })
-        /* Hide specific excluded events */
-        .filter(g => g.eventName !== 'Annapurna_Circut_Kosher')
-        /* Sort by departure date ascending */
+      /* Process world groups */
+      const worldGroups = (worldData.records || [])
+        .map(rec => normaliseGroup(rec, false, counts))
+        .filter(dateFilter)
+        .filter(g => { const m = new Date(g.departure).getMonth(); return m !== 3 && m !== 4; })
+        .filter(g => g.eventName !== 'Annapurna_Circut_Kosher');
+
+      /* Process Israel groups */
+      const israelGroups = (israelData.records || [])
+        .map(rec => normaliseGroup(rec, true, counts))
+        .filter(dateFilter);
+
+      /* Combine and sort by departure date */
+      const all = [...worldGroups, ...israelGroups]
         .sort((a, b) => new Date(a.departure) - new Date(b.departure));
 
-      /* Merge groups with same expedition + same departure date.
-         Use the expedition slug as the key so variants like
-         "Kilimanjaro" and "Kilimanjaro Safari" collapse together. */
+      /* Merge duplicate rows (same expedition slug + same departure date) */
       const mergedMap = new Map();
-      enriched.forEach(g => {
-        const expSlug = findExp(g.eventName)?.slug || g.eventName;
-        const key = `${expSlug}|${(g.departure || '').slice(0, 10)}`;
+      all.forEach(g => {
+        const slug = g._isIsrael
+          ? (g._slug || g.eventName)
+          : (findExp(g.eventName)?.slug || g.eventName);
+        const key = `${slug}|${(g.departure || '').slice(0, 10)}`;
         if (mergedMap.has(key)) {
           const ex = mergedMap.get(key);
           ex.count    += g.count;
           ex.capacity  = (ex.capacity || 0) + (g.capacity || 0);
-          /* keep the latest return date */
           if (g.returnDate && (!ex.returnDate || new Date(g.returnDate) > new Date(ex.returnDate))) {
             ex.returnDate = g.returnDate;
           }
@@ -338,19 +363,27 @@ export default function AnnualPlan() {
       const merged = Array.from(mergedMap.values());
 
       setGroups(merged);
-      if (enriched.length > 0) {
-        setActiveMonth(monthKey(enriched[0].departure));
-      }
+      if (merged.length > 0) setActiveMonth(monthKey(merged[0].departure));
     }).catch(err => {
       console.error('[annual-plan]', err);
       setError(err.message);
     }).finally(() => setLoading(false));
   }, []);
 
-  /* ── Filter by category ── */
+  /* ── Filter by category — reset active month tab when filter changes ── */
+  const prevFilterRef = useRef(filter);
   const filteredGroups = filter === 'all'    ? groups
-    : filter === 'israel' ? groups.filter(g => classifyGroup(g.eventName) === 'israel')
-    : groups.filter(g => classifyGroup(g.eventName) === 'world');
+    : filter === 'israel' ? groups.filter(g =>  g._isIsrael)
+    : groups.filter(g => !g._isIsrael);
+
+  /* When filter changes, set activeMonth to first visible month */
+  if (prevFilterRef.current !== filter) {
+    prevFilterRef.current = filter;
+    const firstKey = Object.keys(
+      filteredGroups.reduce((acc, g) => { acc[monthKey(g.departure)] = true; return acc; }, {})
+    ).sort()[0];
+    if (firstKey && firstKey !== activeMonth) setActiveMonth(firstKey);
+  }
 
   /* ── Group by month ── */
   const byMonth = {};
@@ -580,7 +613,7 @@ export default function AnnualPlan() {
             </div>
           )}
 
-          {/* Empty state */}
+          {/* Empty state — no data at all */}
           {!loading && !error && groups.length === 0 && (
             <div style={{
               textAlign:   'center',
@@ -605,11 +638,23 @@ export default function AnnualPlan() {
             </div>
           )}
 
+          {/* Empty state — filter has no results */}
+          {!loading && !error && groups.length > 0 && filteredGroups.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '80px 24px', fontFamily: "'Ploni', sans-serif" }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🗓️</div>
+              <p style={{ fontSize: '18px', fontWeight: 700, color: '#0A0818', margin: '0 0 8px' }}>
+                {isRtl ? 'אין טיולים מתוכננים בקטגוריה זו' : 'No trips in this category'}
+              </p>
+              <p style={{ fontSize: FS.body, color: '#6B6B8A', margin: 0 }}>
+                {isRtl ? 'נסו לבחור "הכל" כדי לראות את כל הטיולים' : 'Try selecting "All" to see all trips'}
+              </p>
+            </div>
+          )}
+
           {/* Month sections */}
-          {!loading && !error && months.map((key, idx) => (
+          {!loading && !error && months.map((key) => (
             <div key={key} id={`month-${key}`} style={{
               marginBottom: isMobile ? '40px' : '56px',
-              animation:    `fadeIn 0.4s ease ${idx * 60}ms both`,
             }}>
 
               {/* Month title */}
@@ -655,17 +700,9 @@ export default function AnnualPlan() {
                 gap:                 '16px',
               }}>
                 {byMonth[key].map(group => {
-                  const israelTrip = findIsraelTrip(group.eventName);
-                  const exp        = israelTrip ? null : findExp(group.eventName);
+                  const exp = group._isIsrael ? null : findExp(group.eventName);
                   return (
-                    <TripCard
-                      key={group.id}
-                      group={group}
-                      exp={exp}
-                      israelTrip={israelTrip}
-                      months={monthNames}
-                      isRtl={isRtl}
-                    />
+                    <TripCard key={group.id} group={group} exp={exp} months={monthNames} isRtl={isRtl} />
                   );
                 })}
               </div>
