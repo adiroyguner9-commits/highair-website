@@ -485,7 +485,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
       { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15]              },
     ],
     israel: [
-      { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS },
+      { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(t => t.live !== false) },
     ],
   };
 
