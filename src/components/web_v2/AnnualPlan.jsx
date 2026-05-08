@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
+import { ISRAEL_TRIPS } from '../../data/israelData.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -50,17 +51,34 @@ function findExp(eventName) {
   ) || null;
 }
 
+/* Find Israel trip by matching eventName → airtableEvents */
+function findIsraelTrip(eventName) {
+  if (!eventName) return null;
+  const lower = eventName.toLowerCase();
+  return ISRAEL_TRIPS.find(t =>
+    (t.airtableEvents || []).some(ev => ev.toLowerCase() === lower)
+  ) || null;
+}
+
+/* Classify a group: 'israel' or 'world' */
+function classifyGroup(eventName) {
+  if (findIsraelTrip(eventName)) return 'israel';
+  return 'world';
+}
+
 /* ══════════════════════════════════════════════════════════════
    TripCard
 ══════════════════════════════════════════════════════════════ */
-function TripCard({ group, exp, months, isRtl }) {
+function TripCard({ group, exp, israelTrip, months, isRtl }) {
   const [hovered, setHovered] = useState(false);
-  const [imgReady, setImgReady] = useState(!exp?.img);
+  const trip      = israelTrip || null;
+  const imgSrc    = exp?.img || trip?.img || null;
+  const [imgReady, setImgReady] = useState(!imgSrc);
   const cardRef  = useRef(null);
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
 
-  const capacity  = group.capacity || exp?.groupCapacity || 15;
+  const capacity  = group.capacity || exp?.groupCapacity || trip?.groupCapacity || 15;
   const spotsLeft = capacity - (group.count || 0);
   const isFull    = spotsLeft <= 0;
   const isLow     = !isFull && spotsLeft <= 6;
@@ -73,21 +91,23 @@ function TripCard({ group, exp, months, isRtl }) {
 
   /* Lazy-load image */
   useEffect(() => {
-    if (!exp?.img) return;
+    if (!imgSrc) return;
     const el  = cardRef.current;
     const obs = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setImgReady(true); obs.disconnect(); }
     }, { rootMargin: '200px' });
     obs.observe(el);
     return () => obs.disconnect();
-  }, [exp?.img]);
+  }, [imgSrc]);
 
-  const bg = exp?.img
-    ? (imgReady ? `url(${exp.img}) center/cover no-repeat` : (exp?.grad || '#1a1a2e'))
-    : (exp?.grad || 'linear-gradient(135deg,#4338ca,#7c3aed,#1e1b4b)');
+  const fallbackGrad = exp?.grad || trip?.grad || 'linear-gradient(135deg,#4338ca,#7c3aed,#1e1b4b)';
+  const bg = imgSrc
+    ? (imgReady ? `url(${imgSrc}) center/cover no-repeat` : fallbackGrad)
+    : fallbackGrad;
 
   function handleClick() {
-    if (exp?.slug) navigate(`/expedition/${exp.slug}`);
+    if (trip?.slug)  return navigate(`/israel/${trip.slug}`);
+    if (exp?.slug)   return navigate(`/expedition/${exp.slug}`);
   }
 
   return (
@@ -146,7 +166,10 @@ function TripCard({ group, exp, months, isRtl }) {
           color:                'rgba(255,255,255,0.92)',
           direction:            'ltr',
         }}>
-          {exp?.flag || ''} {isRtl ? (exp?.countryHe || '-') : (exp?.country || exp?.countryHe || '-')}
+          {trip
+            ? `🇮🇱 ${isRtl ? 'ישראל' : 'Israel'}`
+            : `${exp?.flag || ''} ${isRtl ? (exp?.countryHe || '-') : (exp?.country || exp?.countryHe || '-')}`
+          }
         </div>
 
         {/* Spots badge — top left (end in RTL) */}
@@ -179,7 +202,10 @@ function TripCard({ group, exp, months, isRtl }) {
           letterSpacing: '-0.02em',
           lineHeight:    1.2,
         }}>
-          {isRtl ? (exp?.nameHe || group.eventName) : (exp?.nameEn || exp?.name || exp?.nameHe || group.eventName)}
+          {trip
+            ? (isRtl ? trip.name : (trip.nameEn || trip.name))
+            : (isRtl ? (exp?.nameHe || group.eventName) : (exp?.nameEn || exp?.name || exp?.nameHe || group.eventName))
+          }
         </h3>
 
         {/* Date range */}
@@ -214,6 +240,7 @@ export default function AnnualPlan() {
   const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState(null);
   const [activeMonth, setActiveMonth] = useState(null);
+  const [filter, setFilter]   = useState('all'); // 'all' | 'world' | 'israel'
 
   usePageMeta({
     title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'Expedition Schedule 2026 | HighAir Expeditions',
@@ -320,9 +347,14 @@ export default function AnnualPlan() {
     }).finally(() => setLoading(false));
   }, []);
 
+  /* ── Filter by category ── */
+  const filteredGroups = filter === 'all'    ? groups
+    : filter === 'israel' ? groups.filter(g => classifyGroup(g.eventName) === 'israel')
+    : groups.filter(g => classifyGroup(g.eventName) === 'world');
+
   /* ── Group by month ── */
   const byMonth = {};
-  groups.forEach(g => {
+  filteredGroups.forEach(g => {
     const key = monthKey(g.departure);
     if (!byMonth[key]) byMonth[key] = [];
     byMonth[key].push(g);
@@ -371,11 +403,51 @@ export default function AnnualPlan() {
             fontSize:   FS.body,
             fontWeight: 300,
             color:      '#6B6B8A',
-            margin:     0,
+            margin:     '0 0 24px',
             lineHeight: 1.7,
           }}>
             {t('annualPlan.subtitle')}
           </p>
+
+          {/* ── Category filter ── */}
+          <div style={{
+            display:        'inline-flex',
+            alignItems:     'center',
+            gap:            '4px',
+            background:     '#F3F1FB',
+            borderRadius:   RADIUS.full,
+            padding:        '4px',
+          }}>
+            {[
+              { key: 'all',    label: t('annualPlan.filterAll') },
+              { key: 'world',  label: t('annualPlan.filterWorld') },
+              { key: 'israel', label: t('annualPlan.filterIsrael') },
+            ].map(opt => {
+              const active = filter === opt.key;
+              return (
+                <button
+                  key={opt.key}
+                  onClick={() => setFilter(opt.key)}
+                  style={{
+                    padding:      isMobile ? '7px 16px' : '8px 22px',
+                    borderRadius: RADIUS.full,
+                    border:       'none',
+                    background:   active ? '#FFFFFF' : 'transparent',
+                    color:        active ? COLOR.primary : '#7B78A0',
+                    fontFamily:   "'Ploni', sans-serif",
+                    fontSize:     FS.btn,
+                    fontWeight:   active ? 700 : 400,
+                    cursor:       'pointer',
+                    whiteSpace:   'nowrap',
+                    transition:   `all 0.22s ${EASING.out}`,
+                    boxShadow:    active ? '0 2px 10px rgba(109,40,217,0.15)' : 'none',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* ── Sticky month tabs ── */}
@@ -583,9 +655,17 @@ export default function AnnualPlan() {
                 gap:                 '16px',
               }}>
                 {byMonth[key].map(group => {
-                  const exp = findExp(group.eventName);
+                  const israelTrip = findIsraelTrip(group.eventName);
+                  const exp        = israelTrip ? null : findExp(group.eventName);
                   return (
-                    <TripCard key={group.id} group={group} exp={exp} months={monthNames} isRtl={isRtl} />
+                    <TripCard
+                      key={group.id}
+                      group={group}
+                      exp={exp}
+                      israelTrip={israelTrip}
+                      months={monthNames}
+                      isRtl={isRtl}
+                    />
                   );
                 })}
               </div>

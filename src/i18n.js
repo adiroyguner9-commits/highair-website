@@ -197,6 +197,9 @@ const he = {
     empty: 'אין טיולים מתוכננים כרגע',
     emptyDetail: 'התכנית השנתית תתעדכן בקרוב עם תאריכים חדשים',
     months: ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'],
+    filterAll:    'הכל',
+    filterWorld:  'משלחות בחו״ל',
+    filterIsrael: 'טרקים בארץ',
   },
   press: {
     title: 'HighAir בתקשורת',
@@ -381,6 +384,9 @@ const en = {
     empty: 'No trips planned at the moment',
     emptyDetail: 'The annual plan will be updated soon with new dates',
     months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+    filterAll:    'All',
+    filterWorld:  'World Expeditions',
+    filterIsrael: 'Israel Treks',
   },
   press: {
     title: 'HighAir in the Media',
