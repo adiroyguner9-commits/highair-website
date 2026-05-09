@@ -1,19 +1,42 @@
 /**
  * FloatingWA.jsx - Floating WhatsApp button (shared across all pages)
+ *
+ * Listens for 'ha:cookie-banner' custom events from CookieBanner so the
+ * button slides up above the banner while it's visible, then slides back
+ * down once the user accepts or declines.
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 
-const WA_PHONE  = '972555636975';
-const WA_MSG_HE = encodeURIComponent('היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️');
-const WA_MSG_EN = encodeURIComponent('Hi! I\'d love to hear more about HighAir expeditions 🏔️');
+const COOKIE_KEY = 'highair_cookie_consent';
+const WA_PHONE   = '972555636975';
+const WA_MSG_HE  = encodeURIComponent('היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️');
+const WA_MSG_EN  = encodeURIComponent('Hi! I\'d love to hear more about HighAir expeditions 🏔️');
+
+/* Cookie banner is ~160px tall + 24px gap from bottom = 184px needed.
+   Add 16px clearance → 200px when banner is showing. */
+const BOTTOM_NORMAL = '28px';
+const BOTTOM_ABOVE  = '200px';
 
 export default function FloatingWA() {
   const [hovered, setHovered] = useState(false);
   const { i18n } = useTranslation();
   const isEn = i18n.language === 'en';
   const href = `https://wa.me/${WA_PHONE}?text=${isEn ? WA_MSG_EN : WA_MSG_HE}`;
+
+  /* Start above the banner if consent hasn't been given yet */
+  const [bottom, setBottom] = useState(
+    () => localStorage.getItem(COOKIE_KEY) ? BOTTOM_NORMAL : BOTTOM_ABOVE
+  );
+
+  useEffect(() => {
+    function onBanner(e) {
+      setBottom(e.detail ? BOTTOM_ABOVE : BOTTOM_NORMAL);
+    }
+    window.addEventListener('ha:cookie-banner', onBanner);
+    return () => window.removeEventListener('ha:cookie-banner', onBanner);
+  }, []);
 
   return (
     <a
@@ -25,19 +48,19 @@ export default function FloatingWA() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        position:     'fixed',
-        bottom:       '28px',
-        left:         '28px',
-        zIndex:       998,
-        width:        '58px',
-        height:       '58px',
-        borderRadius: '50%',
-        background:   hovered ? '#1aab52' : '#25D366',
-        boxShadow:    hovered
-                        ? '0 8px 32px rgba(37,211,102,0.60)'
-                        : '0 4px 20px rgba(37,211,102,0.45)',
-        transform:    hovered ? 'scale(1.12)' : 'scale(1)',
-        transition:   'all 0.22s cubic-bezier(0.22,1,0.36,1)',
+        position:       'fixed',
+        bottom,
+        left:           '28px',
+        zIndex:         998,
+        width:          '58px',
+        height:         '58px',
+        borderRadius:   '50%',
+        background:     hovered ? '#1aab52' : '#25D366',
+        boxShadow:      hovered
+                          ? '0 8px 32px rgba(37,211,102,0.60)'
+                          : '0 4px 20px rgba(37,211,102,0.45)',
+        transform:      hovered ? 'scale(1.12)' : 'scale(1)',
+        transition:     'bottom 0.35s cubic-bezier(0.22,1,0.36,1), background 0.22s, box-shadow 0.22s, transform 0.22s cubic-bezier(0.22,1,0.36,1)',
         textDecoration: 'none',
       }}
     >

@@ -17,7 +17,10 @@ export default function CookieBanner() {
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) setVisible(true);
+    if (!saved) {
+      setVisible(true);
+      window.dispatchEvent(new CustomEvent('ha:cookie-banner', { detail: true }));
+    }
   }, []);
 
   function accept() {
@@ -25,6 +28,7 @@ export default function CookieBanner() {
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'granted' });
     }
+    window.dispatchEvent(new CustomEvent('ha:cookie-banner', { detail: false }));
     setVisible(false);
   }
 
@@ -33,6 +37,7 @@ export default function CookieBanner() {
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'denied' });
     }
+    window.dispatchEvent(new CustomEvent('ha:cookie-banner', { detail: false }));
     setVisible(false);
   }
 

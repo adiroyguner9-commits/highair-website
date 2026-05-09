@@ -43,7 +43,19 @@ const EXPEDITION_META = {
 
 /* ── Israel trails ── */
 const ISRAEL_META = {
-  'hermon':  { title: 'HighAir Expeditions | טרק לפסגת החרמון', img: '/images/cards/Hermon.avif', description: 'טרק לפסגת החרמון - הפסגה הגבוהה בישראל, 2,040 מטר. 2 ימים כולל לינה, עלייה של 1,040 מטר דרך מעלה גולני, ערב גיבוש עם ארוחה על האש וארוחת צהריים דרוזית.' },
+  'hermon':           { title: 'HighAir Expeditions | טרק לפסגת החרמון',       img: '/images/cards/Hermon.avif',   description: 'טרק לפסגת החרמון - הפסגה הגבוהה בישראל, 2,040 מטר. 2 ימים כולל לינה, עלייה של 1,040 מטר דרך מעלה גולני, ערב גיבוש עם ארוחה על האש וארוחת צהריים דרוזית.' },
+  'yagur':            { title: 'HighAir Expeditions | טרק נחל יגור',            img: '/images/cards/Yagur.avif',    description: 'טרק נחל יגור בכרמל - יום אחד. מפלים, בריכות טבעיות ויערות אלה ואורן בנחל הציורי של הכרמל. מדריך מוסמך, ארוחת צהריים כלולה.' },
+  'nimrod':           { title: 'HighAir Expeditions | טרק סובב מצודת נמרוד',   img: '/images/cards/Nimrod.avif',   description: 'טרק סובב מצודת נמרוד בגולן - 815 מטר, יום אחד. מסלול מסביב לאחת ממצודות הצלבנים הגדולות בעולם עם נוף לחרמון, לגולן ולבקעת הירדן.' },
+  'masada':           { title: 'HighAir Expeditions | טרק סובב מצדה',           img: '/images/cards/Masada.avif',   description: 'טרק סובב מצדה - יום אחד. מסלול מסביב לסלע האגדי דרך נתיב הנחש ושביל הגמלים, עם נוף פנורמי לים המלח ולמדבר יהודה. מדריך מוסמך, ארוחת צהריים כלולה.' },
+  'avnat':            { title: 'HighAir Expeditions | טרק מצוקי אבנת',          img: '/images/cards/Avnat.avif',    description: 'טרק מצוקי אבנת בנגב הגבוה - 1,000 מטר, יום אחד מאתגר. שרשרת מצוקי גיר דרמטיים עם תצפיות פנורמיות למישורי הנגב. מדריך מוסמך, ארוחת צהריים כלולה.' },
+  'great-fin':        { title: 'HighAir Expeditions | טרק הסנפיר הגדול',        img: '/images/cards/GreatFin.avif', description: 'טרק הסנפיר הגדול במכתש רמון - 2 ימים כולל לינה באוהלים. תצורת סלע ייחודית בתוך המכתש הגדול בעולם, ארוחה על האש וטרק מאתגר עם אור ראשון.' },
+  'gilabon-ein-tina': { title: 'HighAir Expeditions | טרק גילבון ועין תינה',    img: '/images/cards/Gilboa.avif',   description: 'טרק גילבון ועין תינה בהר הגלבוע - יום אחד. פריחת אירוסים סגולים, מעיין עין תינה ונוף לבקעת יזרעאל. עונה: פברואר-מאי. מדריך מוסמך, ארוחת צהריים כלולה.' },
+  'kziv':             { title: 'HighAir Expeditions | טרק נחל כזיב',            img: '/images/cards/Keziv.avif',    description: 'טרק נחל כזיב בגליל המערבי - יום אחד. נחל רב-מים עם מפלים ובריכות רחצה, ומצודת מונפור הצלבנית. עונה: נובמבר-מרץ. מדריך מוסמך, ארוחת צהריים כלולה.' },
+  'kelah':            { title: 'HighAir Expeditions | טרק נחל כלח ועין אלון',   img: '/images/cards/Kelah.avif',    description: 'טרק נחל כלח ועין אלון בגליל - יום אחד. נחל ציורי עם עצי אלון עתיקים ומעיין מפתיע בלב המסלול. מתאים לכל הגילאים. מדריך מוסמך, ארוחת צהריים כלולה.' },
+  'arugot':           { title: 'HighAir Expeditions | טרק נחל ערוגות',          img: '/images/cards/Arugot.avif',   description: 'טרק נחל ערוגות במדבר יהודה - יום אחד. ערוץ ציורי עם מפלים, בריכות טבעיות ויעלים בדרך לבריכת השולמית. עונה: ספטמבר-מרץ. מדריך מוסמך.' },
+  'sodom':            { title: 'HighAir Expeditions | טרק הר סדום ונחל פרצים', img: '/images/cards/Sodom.avif',    description: 'טרק הר סדום ונחל פרצים ליד ים המלח - יום אחד. הר מורכב ממלח עם מחילות וצוקים לבנים, ונחל פרצים הדרמטי. עונה: ספטמבר-מרץ.' },
+  'tzeelim-mishmar':  { title: 'HighAir Expeditions | טרק מעלה צאלים ונחל משמר', img: '/images/cards/Tzeelim.avif', description: 'טרק מעלה צאלים ונחל משמר במדבר יהודה - יום אחד מאתגר. ירידה של 400 מטר בין מצוקים דרך ערוצי נחל צאלים הצרים עד לים המלח. מדריך מוסמך.' },
+  'meron':            { title: 'HighAir Expeditions | טרק הר מירון',            img: '/images/cards/Meron.avif',    description: 'טרק הר מירון - הפסגה הגבוהה בגליל, 1,208 מטר. יום אחד, יערות אלה עתיקים ונוף פנורמי לכנרת, לבנון וחרמון. מדריך מוסמך, ארוחת צהריים כלולה.' },
 };
 
 function escape(str) {
@@ -54,7 +66,7 @@ function escape(str) {
     .replace(/>/g, '&gt;');
 }
 
-function buildHtml({ title, description, url, image }) {
+function buildHtml({ title, description, url, image, section = 'expedition' }) {
   const t = escape(title);
   const d = escape(description);
   const u = escape(url);
@@ -68,7 +80,7 @@ function buildHtml({ title, description, url, image }) {
   <meta name="description" content="${d}" />
   <link rel="canonical" href="${u}" />
 
-  <meta property="og:type"        content="website" />
+  <meta property="og:type"        content="${section === 'blog' ? 'article' : 'product'}" />
   <meta property="og:site_name"   content="HighAir Expeditions" />
   <meta property="og:title"       content="${t}" />
   <meta property="og:description" content="${d}" />
@@ -128,6 +140,7 @@ export default function middleware(request) {
     description: meta.description,
     url:         pageUrl,
     image,
+    section,
   });
 
   return new Response(html, {

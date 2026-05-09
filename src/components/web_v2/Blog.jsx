@@ -23,9 +23,15 @@ function PostCard({ post }) {
   const excerpt  = isEn ? (post.excerptEn  || post.excerpt) : post.excerpt;
   const category = isEn ? (post.categoryEn || post.category) : post.category;
 
+  function handleNav() { navigate(`/blog/${post.slug}`); }
+
   return (
     <div
-      onClick={() => navigate(`/blog/${post.slug}`)}
+      role="button"
+      tabIndex={0}
+      aria-label={title}
+      onClick={handleNav}
+      onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handleNav()}
       onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(109,40,217,0.14)'; }}
       onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.05)'; }}
       style={{
@@ -38,6 +44,7 @@ function PostCard({ post }) {
         transition:   `box-shadow 0.25s ${EASING.out}`,
         display:      'flex',
         flexDirection:'column',
+        outline:      'none',
       }}
     >
       {/* Image or gradient placeholder */}
@@ -115,7 +122,9 @@ export default function Blog() {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
   const dir  = isEn ? 'ltr' : 'rtl';
-  const [activeCategory, setActiveCategory] = useState(t('blog.all'));
+  /* Use a stable key ('all' or the category string) rather than a
+     translated label so the filter survives language switches. */
+  const [activeCategory, setActiveCategory] = useState('all');
   const [posts, setPosts] = useState(POSTS);
 
   useEffect(() => {
@@ -156,19 +165,19 @@ export default function Blog() {
   });
 
   const allLabel = t('blog.all');
-  // Derive categories dynamically from live data (falling back to imported constants)
-  const derivedCats = isEn
-    ? [...new Set(posts.map(p => p.categoryEn || p.category).filter(Boolean))]
-    : [...new Set(posts.map(p => p.category).filter(Boolean))];
-  const catList    = derivedCats.length ? derivedCats : (isEn ? CATEGORIES_EN : CATEGORIES);
-  const categories = [allLabel, ...catList];
 
-  const filtered = activeCategory === allLabel
+  // Derive unique category keys (raw strings) from live data
+  const derivedCats = [...new Set(posts.map(p => p.category).filter(Boolean))];
+  const catKeys     = derivedCats.length ? derivedCats : CATEGORIES;
+  // Prepend 'all' sentinel — label is translated, key stays 'all'
+  const categories  = [{ key: 'all', label: allLabel }, ...catKeys.map(k => ({
+    key:   k,
+    label: isEn ? (posts.find(p => p.category === k)?.categoryEn || k) : k,
+  }))];
+
+  const filtered = activeCategory === 'all'
     ? posts
-    : posts.filter(p => {
-        const cat = isEn ? (p.categoryEn || p.category) : p.category;
-        return cat === activeCategory;
-      });
+    : posts.filter(p => p.category === activeCategory);
 
   const cols = isMobile ? 1 : isTablet ? 2 : 3;
 
@@ -212,12 +221,13 @@ export default function Blog() {
           {/* Category filter */}
           {categories.length > 1 && (
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '36px' }}>
-              {categories.map(cat => {
-                const active = cat === activeCategory;
+              {categories.map(({ key, label }) => {
+                const active = key === activeCategory;
                 return (
                   <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
+                    key={key}
+                    onClick={() => setActiveCategory(key)}
+                    aria-pressed={active}
                     style={{
                       padding:      '8px 20px',
                       borderRadius: RADIUS.full,
@@ -232,7 +242,7 @@ export default function Blog() {
                       transition:   `all 0.2s ${EASING.out}`,
                     }}
                   >
-                    {cat}
+                    {label}
                   </button>
                 );
               })}

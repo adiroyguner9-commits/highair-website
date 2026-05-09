@@ -121,10 +121,19 @@ function TripCard({ group, exp, months, isRtl }) {
     if (exp?.slug)   return navigate(`/expedition/${exp.slug}`);
   }
 
+  const isClickable = !!(exp?.slug || trip?.slug);
+  const cardLabel   = isRtl
+    ? (trip?.name || exp?.nameHe || group.eventName || '')
+    : (trip?.nameEn || exp?.name || group.eventName || '');
+
   return (
     <div
       ref={cardRef}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      aria-label={isClickable ? cardLabel : undefined}
       onClick={handleClick}
+      onKeyDown={isClickable ? (e => (e.key === 'Enter' || e.key === ' ') && handleClick()) : undefined}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -135,13 +144,14 @@ function TripCard({ group, exp, months, isRtl }) {
         flexDirection:  'column',
         justifyContent: 'space-between',
         minHeight:      isMobile ? '220px' : '280px',
-        cursor:         (exp?.slug || trip?.slug) ? 'pointer' : 'default',
-        transform:      hovered && (exp?.slug || trip?.slug) ? 'translateY(-5px)' : 'translateY(0)',
-        boxShadow:      hovered && (exp?.slug || trip?.slug)
+        cursor:         isClickable ? 'pointer' : 'default',
+        transform:      hovered && isClickable ? 'translateY(-5px)' : 'translateY(0)',
+        boxShadow:      hovered && isClickable
                           ? '0 20px 48px rgba(0,0,0,0.22)'
                           : '0 4px 16px rgba(0,0,0,0.10)',
         transition:     `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
         position:       'relative',
+        outline:        'none',
       }}
     >
       {/* Dark overlay */}
