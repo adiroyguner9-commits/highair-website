@@ -1,22 +1,18 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-/* ── Detect language from subdomain, localStorage, or browser preference ── */
+/* ── Detect language: Hebrew by default, English only if user switched ── */
 function detectLang() {
   // 1. Subdomain (en.highair-expeditions.com) → always English
   const hostname = window.location.hostname;
   if (hostname.startsWith('en.')) return 'en';
 
-  // 2. User already made an explicit choice → honour it
+  // 2. User already made an explicit choice via the language toggle → honour it
   const stored = localStorage.getItem('HA_lang');
   if (stored === 'en' || stored === 'he') return stored;
 
-  // 3. Browser / OS language preference → English if the first preferred
-  //    language is English (e.g. en, en-US, en-GB …)
-  const browserLang = (navigator.languages?.[0] || navigator.language || '').toLowerCase();
-  if (browserLang.startsWith('en')) return 'en';
-
-  // 4. Default → Hebrew
+  // 3. Default → Hebrew (browser language is intentionally ignored;
+  //    the site is Israel-first and visitors switch manually if needed)
   return 'he';
 }
 
