@@ -169,7 +169,7 @@ export default function Shop() {
   return (
     <>
       <Header />
-      <main style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: isRtl ? 'rtl' : 'ltr' }}>
+      <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: isRtl ? 'rtl' : 'ltr' }}>
 
         {/* ── Page header ── */}
         <div style={{

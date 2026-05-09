@@ -93,6 +93,7 @@ export default function LegalPageLayout({ title, subtitle, children, pageMeta })
   return (
     <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
       <Header />
+      <main id="main-content">
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '120px 5% 80px' }}>
 
         <h1 style={{
@@ -112,6 +113,7 @@ export default function LegalPageLayout({ title, subtitle, children, pageMeta })
 
         {children}
       </div>
+      </main>
       <SiteFooter />
     </div>
   );

@@ -64,8 +64,10 @@ const ORG_SCHEMA = {
     availableLanguage:   'Hebrew',
   },
   sameAs: [
-    'https://www.facebook.com/HighAirExpeditions',
-    'https://www.instagram.com/highair_expeditions',
+    'https://www.facebook.com/highair.expeditions',
+    'https://www.instagram.com/highair_expeditions/',
+    'https://www.youtube.com/@HighAirExpeditions',
+    'https://www.tiktok.com/@highair_expeditions',
   ],
 };
 

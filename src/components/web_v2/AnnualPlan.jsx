@@ -442,7 +442,7 @@ export default function AnnualPlan() {
   return (
     <>
       <Header />
-      <main style={{
+      <main id="main-content" style={{
         background: '#FAFAF8',
         minHeight:  '100vh',
         paddingTop: '80px',

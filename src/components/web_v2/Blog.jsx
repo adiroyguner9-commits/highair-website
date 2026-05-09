@@ -2,13 +2,13 @@
  * Blog.jsx - /blog
  * Article listing page - Hebrew RTL
  */
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import { POSTS, CATEGORIES, CATEGORIES_EN } from '../../data/blogData.js';
+import { POSTS, CATEGORIES } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
