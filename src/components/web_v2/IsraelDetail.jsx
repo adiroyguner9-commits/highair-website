@@ -973,7 +973,7 @@ export default function IsraelDetail() {
                     onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                   >
                     {[1,2,3,4,5,6,7,8,9,10].map(n => (
-                      <option key={n} value={String(n)}>{isRtl ? `${n} ${n === 1 ? 'אדם' : 'אנשים'}` : `${n} ${n === 1 ? 'person' : 'people'}`}</option>
+                      <option key={n} value={String(n)}>{n}</option>
                     ))}
                   </select>
                 </div>
