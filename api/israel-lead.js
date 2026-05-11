@@ -60,7 +60,8 @@ export default async function handler(req, res) {
   }
 
   const body = req.body || {};
-  const { name, phone, email, tripName, tripDate, packageId } = body;
+  const { name, phone, email, tripName, tripDate, packageId, participants } = body;
+  const participantsCount = Math.min(Math.max(parseInt(participants || 1, 10), 1), 10);
 
   /* ── Honeypot ── */
   if (body._hp) {
@@ -82,7 +83,8 @@ export default async function handler(req, res) {
   const cleanPhone    = String(phone).trim().slice(0, 25);
   const cleanEmail    = email ? String(email).trim().slice(0, 255) : '';
   const cleanTripName = String(tripName || '').trim().slice(0, 200);
-  const pkg = packageId ? PACKAGE_MAP[packageId] : null;
+  const pkg        = packageId ? PACKAGE_MAP[packageId] : null;
+  const totalPrice = pkg ? pkg.price * participantsCount : null;
 
   /* ── Build Airtable fields ── */
   const fields = {
@@ -92,9 +94,10 @@ export default async function handler(req, res) {
     [F.paymentStatus]: 'ממתין לתשלום',
   };
 
-  if (cleanEmail)  fields[F.email]     = cleanEmail;
-  if (pkg)         fields[F.package]   = pkg.label;
-  if (pkg)         fields[F.pricePaid] = pkg.price;
+  if (cleanEmail)        fields[F.email]     = cleanEmail;
+  if (pkg)               fields[F.package]   = pkg.label;
+  if (totalPrice)        fields[F.pricePaid] = totalPrice;
+  if (participantsCount > 1) fields[F.notes] = `משתתפים: ${participantsCount}`;
 
   /* tripDate should be YYYY-MM-DD for Airtable date field */
   if (tripDate && /^\d{4}-\d{2}-\d{2}$/.test(tripDate)) {
@@ -186,11 +189,13 @@ export default async function handler(req, res) {
           </div>` : ''}
 
           <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #D0EDE0;border-radius:12px;overflow:hidden;">
-            ${iRow('שם מלא',  cleanName)}
-            ${iRow('טלפון',   cleanPhone)}
+            ${iRow('שם מלא',        cleanName)}
+            ${iRow('טלפון',         cleanPhone)}
             ${cleanEmail ? iRow('מייל', cleanEmail) : ''}
-            ${pkg ? iRow('חבילה', pkg.label) : ''}
-            ${pkg ? iRow('מחיר', `₪${pkg.price}`) : ''}
+            ${iRow('משתתפים',       String(participantsCount))}
+            ${pkg ? iRow('חבילה',   pkg.label) : ''}
+            ${pkg && participantsCount > 1 ? iRow('מחיר לאדם', `₪${pkg.price}`) : ''}
+            ${totalPrice ? iRow('סה"כ לתשלום', `₪${totalPrice.toLocaleString()}`) : ''}
           </table>
         </td></tr>
 

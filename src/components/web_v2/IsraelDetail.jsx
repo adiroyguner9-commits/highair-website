@@ -135,7 +135,7 @@ export default function IsraelDetail() {
   }
 
   /* ── Contact form ── */
-  const [form, setForm]         = useState({ name: '', email: '', month: '', dial: '+972', phone: '', pricePackage: '', declaration: false });
+  const [form, setForm]         = useState({ name: '', email: '', month: '', dial: '+972', phone: '', pricePackage: '', participants: '1', declaration: false });
   const [phoneError, setPhoneError] = useState('');
   const [packageError, setPackageError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -167,12 +167,13 @@ export default function IsraelDetail() {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name:      form.name,
-        phone:     fullPhone,
-        email:     form.email,
-        tripName:  trip.name,
-        tripDate:  form.month,   /* ISO date (YYYY-MM-DD) for live groups */
-        packageId: form.pricePackage,
+        name:         form.name,
+        phone:        fullPhone,
+        email:        form.email,
+        tripName:     trip.name,
+        tripDate:     form.month,   /* ISO date (YYYY-MM-DD) for live groups */
+        packageId:    form.pricePackage,
+        participants: parseInt(form.participants || '1', 10),
       }),
     }).catch(err => console.error('[israel-lead]', err))
       .finally(() => setSubmitting(false));
@@ -959,6 +960,57 @@ export default function IsraelDetail() {
                     )}
                   </div>
                 )}
+
+                {/* כמות משתתפים */}
+                <div>
+                  <label style={labelStyle}>{isRtl ? 'כמות משתתפים *' : 'Number of Participants *'}</label>
+                  <select
+                    required
+                    value={form.participants}
+                    onChange={e => setForm(f => ({ ...f, participants: e.target.value }))}
+                    style={{ ...inputStyle, color: '#3D3B5A' }}
+                    onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                    onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                  >
+                    {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                      <option key={n} value={String(n)}>{isRtl ? `${n} משתתף${n === 1 ? '' : 'ים'}` : `${n} participant${n === 1 ? '' : 's'}`}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* סה"כ לתשלום */}
+                {form.pricePackage && (() => {
+                  const selectedPkg = tripPackages.find(p => p.id === form.pricePackage);
+                  const basePrice   = selectedPkg
+                    ? parseInt((selectedPkg.price || '').replace(/[^\d]/g, ''), 10)
+                    : 0;
+                  const count = parseInt(form.participants || '1', 10);
+                  const total = basePrice * count;
+                  if (!total) return null;
+                  return (
+                    <div style={{
+                      display:        'flex',
+                      justifyContent: 'space-between',
+                      alignItems:     'center',
+                      padding:        '14px 18px',
+                      borderRadius:   RADIUS.lg,
+                      background:     '#F5F0FF',
+                      border:         `1.5px solid ${COLOR.primary}`,
+                    }}>
+                      <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600, color: '#3D3B5A' }}>
+                        {isRtl ? 'סה"כ לתשלום' : 'Total'}
+                        {count > 1 && (
+                          <span style={{ fontWeight: 400, color: '#9591B0', marginRight: '6px', marginLeft: '6px' }}>
+                            ({isRtl ? `₪${basePrice} × ${count}` : `₪${basePrice} × ${count}`})
+                          </span>
+                        )}
+                      </span>
+                      <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '20px', fontWeight: 900, color: COLOR.primary, letterSpacing: '-0.02em' }}>
+                        ₪{total.toLocaleString()}
+                      </span>
+                    </div>
+                  );
+                })()}
 
                 {/* הצהרת בריאות */}
                 <label style={{
