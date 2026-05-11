@@ -160,7 +160,7 @@ export default async function handler(req, res) {
     }),
   }).catch(err => console.warn('[israel-lead] Make non-fatal:', err.message));
 
-  /* ── 4. Email notification via Resend ── */
+  /* ── 4. Email notification via Resend (awaited to ensure delivery on Vercel) ── */
   const RESEND_KEY = process.env.RESEND_API_KEY;
   if (RESEND_KEY) {
     const emailHtml = `
@@ -204,19 +204,26 @@ export default async function handler(req, res) {
 </body>
 </html>`;
 
-    fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization:  `Bearer ${RESEND_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from:    'HighAir Website <noreply@highair-expeditions.com>',
-        to:      ['info@highair-expeditions.com'],
-        subject: `🥾 הרשמה לטרק - ${escapeHtml(cleanTripName || 'לא צוין')} | ${escapeHtml(cleanName)}`,
-        html:    emailHtml,
-      }),
-    }).catch(err => console.warn('[israel-lead] Resend non-fatal:', err.message));
+    try {
+      const emailRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization:  `Bearer ${RESEND_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from:    'HighAir Website <noreply@highair-expeditions.com>',
+          to:      ['info@highair-expeditions.com'],
+          subject: `🥾 הרשמה לטרק - ${escapeHtml(cleanTripName || 'לא צוין')} | ${escapeHtml(cleanName)}`,
+          html:    emailHtml,
+        }),
+      });
+      if (!emailRes.ok) {
+        console.error('[israel-lead] Resend error:', emailRes.status);
+      }
+    } catch (emailErr) {
+      console.warn('[israel-lead] Resend non-fatal:', emailErr.message);
+    }
   }
 
   return res.status(200).json({ ok: true, id: recordId });
