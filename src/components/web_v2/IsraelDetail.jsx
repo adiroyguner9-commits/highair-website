@@ -1006,7 +1006,7 @@ export default function IsraelDetail() {
                         )}
                       </span>
                       <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '20px', fontWeight: 900, color: COLOR.primary, letterSpacing: '-0.02em' }}>
-                        ₪{total.toLocaleString()}
+                        ₪{total}
                       </span>
                     </div>
                   );
