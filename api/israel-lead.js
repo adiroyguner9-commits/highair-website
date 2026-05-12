@@ -171,36 +171,36 @@ export default async function handler(req, res) {
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F0FFF4;font-family:Arial,sans-serif;direction:rtl;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F0FFF4;padding:32px 0;">
+<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(29,183,89,0.10);max-width:600px;width:100%;">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
 
-        <tr><td style="background:linear-gradient(135deg,#1a7a4a,#2d9d5f);padding:28px 32px;text-align:center;">
+        <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
           <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">🥾 הרשמה לטרק בארץ</h1>
           <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
         </td></tr>
 
         <tr><td style="padding:32px;">
           ${cleanTripName ? `
-          <div style="background:#F0FFF4;border-right:4px solid #2d9d5f;border-radius:8px;padding:16px 20px;margin-bottom:20px;">
-            <p style="margin:0;font-size:12px;color:#6B8A7A;font-weight:600;">טרק</p>
-            <p style="margin:6px 0 0;font-size:18px;font-weight:700;color:#0d2b1a;">${escapeHtml(cleanTripName)}</p>
-            ${tripDate ? `<p style="margin:4px 0 0;font-size:14px;color:#6B8A7A;">${escapeHtml(tripDate)}</p>` : ''}
+          <div style="background:#F5F0FF;border-right:4px solid #7c3aed;border-radius:8px;padding:16px 20px;margin-bottom:20px;">
+            <p style="margin:0;font-size:12px;color:#9591B0;font-weight:600;">טרק</p>
+            <p style="margin:6px 0 0;font-size:18px;font-weight:700;color:#1e1b4b;">${escapeHtml(cleanTripName)}</p>
+            ${tripDate ? `<p style="margin:4px 0 0;font-size:14px;color:#9591B0;">${escapeHtml(tripDate)}</p>` : ''}
           </div>` : ''}
 
-          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #D0EDE0;border-radius:12px;overflow:hidden;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
             ${iRow('שם מלא',        cleanName)}
             ${iRow('טלפון',         cleanPhone)}
             ${cleanEmail ? iRow('מייל', cleanEmail) : ''}
             ${iRow('משתתפים',       String(participantsCount))}
             ${pkg ? iRow('חבילה',   pkg.label) : ''}
             ${pkg && participantsCount > 1 ? iRow('מחיר לאדם', `₪${pkg.price}`) : ''}
-            ${totalPrice ? iRow('סה"כ לתשלום', `₪${totalPrice.toLocaleString()}`) : ''}
+            ${totalPrice ? iRow('סה"כ לתשלום', `₪${totalPrice}`) : ''}
           </table>
         </td></tr>
 
-        <tr><td style="background:#F9FFF9;padding:20px 32px;text-align:center;border-top:1px solid #D0EDE0;">
+        <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
           <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
         </td></tr>
 
@@ -239,7 +239,7 @@ function iRow(label, value) {
   if (!value && value !== 0) return '';
   return `
     <tr>
-      <td style="padding:12px 16px;border-bottom:1px solid #D0EDE0;background:#F9FFF9;font-size:12px;color:#6B8A7A;font-weight:600;width:35%;vertical-align:top;">${escapeHtml(label)}</td>
-      <td style="padding:12px 16px;border-bottom:1px solid #D0EDE0;font-size:14px;color:#0d2b1a;font-weight:500;">${escapeHtml(String(value))}</td>
+      <td style="padding:12px 16px;border-bottom:1px solid #ECEAF8;background:#FAFAF8;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;vertical-align:top;">${escapeHtml(label)}</td>
+      <td style="padding:12px 16px;border-bottom:1px solid #ECEAF8;font-size:14px;color:#1e1b4b;font-weight:500;">${escapeHtml(String(value))}</td>
     </tr>`;
 }
