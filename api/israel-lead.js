@@ -220,7 +220,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: `🥾 הרשמה לטרק - ${escapeHtml(cleanTripName || 'לא צוין')} | ${escapeHtml(cleanName)}`,
+          subject: `ליד חדש - ${escapeHtml(cleanTripName || 'לא צוין')} 🇮🇱`,
           html:    emailHtml,
         }),
       });
