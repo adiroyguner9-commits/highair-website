@@ -132,23 +132,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Network error' });
   }
 
-  /* ── 2. GHL webhook (non-blocking) ── */
-  const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/7oNUbFCcBxWykamhpW9D/webhook-trigger/38652f32-bf41-45a5-8494-11e7bc34769d';
-  fetch(GHL_WEBHOOK, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fullName:   cleanName,
-      phone:      cleanPhone,
-      email:      cleanEmail,
-      expedition: cleanTripName,
-      travelMonth: tripDate ? tripDate.slice(0, 7) : '',
-      source:     'Israel Trek',
-      package:    pkg?.label || '',
-    }),
-  }).catch(err => console.warn('[israel-lead] GHL non-fatal:', err.message));
-
-  /* ── 3. Make webhook (non-blocking) ── */
+  /* ── 2. Make webhook (non-blocking) ── */
   const MAKE_WEBHOOK = 'https://hook.eu2.make.com/qq7w1dck9ovbdk1aqft3hh0j8xk5xlnd';
   fetch(MAKE_WEBHOOK, {
     method:  'POST',
