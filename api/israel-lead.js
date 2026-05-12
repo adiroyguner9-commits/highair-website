@@ -177,7 +177,7 @@ export default async function handler(req, res) {
       <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
 
         <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
-          <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">🥾 הרשמה לטרק בארץ</h1>
+          <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">ליד חדש - טרק בארץ 🇮🇱</h1>
           <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
         </td></tr>
 
