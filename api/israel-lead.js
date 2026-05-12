@@ -39,6 +39,7 @@ const F = {
   pricePaid:     'fldaASxJJ6xBuiyja',
   paymentStatus: 'fldiz7jcYO3GwH7Nh',
   notes:         'flderzKj1hhTrja9E',
+  participants:  'fldCrgHvTemf1ze4m',
 };
 
 export default async function handler(req, res) {
@@ -94,10 +95,10 @@ export default async function handler(req, res) {
     [F.paymentStatus]: 'ממתין לתשלום',
   };
 
-  if (cleanEmail)        fields[F.email]     = cleanEmail;
-  if (pkg)               fields[F.package]   = pkg.label;
-  if (totalPrice)        fields[F.pricePaid] = totalPrice;
-  if (participantsCount > 1) fields[F.notes] = `משתתפים: ${participantsCount}`;
+  if (cleanEmail)   fields[F.email]        = cleanEmail;
+  if (pkg)          fields[F.package]      = pkg.label;
+  if (totalPrice)   fields[F.pricePaid]    = totalPrice;
+  fields[F.participants] = participantsCount;
 
   /* tripDate should be YYYY-MM-DD for Airtable date field */
   if (tripDate && /^\d{4}-\d{2}-\d{2}$/.test(tripDate)) {
