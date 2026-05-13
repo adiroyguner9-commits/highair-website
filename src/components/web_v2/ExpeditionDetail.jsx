@@ -374,6 +374,8 @@ export default function ExpeditionDetail() {
   const [lightboxIdx, setLightboxIdx] = useState(null);
   const [imgOrientations, setImgOrientations] = useState({});
   const [resolvedGallery, setResolvedGallery] = useState(null); // null = still probing
+  const [mobileGalleryIdx, setMobileGalleryIdx] = useState(0);
+  const mobileCarouselRef = useRef(null);
 
   /* ── Live groups from Airtable ── */
   const hasAirtable = !!(exp?.airtableEvents?.length);
@@ -1573,65 +1575,164 @@ export default function ExpeditionDetail() {
             {isRtl ? `תמונות מה${exp.typeHe}` : t('expedition.gallery')}
           </h2>
 
-          {/* Masonry columns */}
-          <div style={{
-            columnCount: isMobile ? 2 : 3,
-            columnGap: '10px',
-          }}>
-            {validGalleryImages.map((src, i) => {
-              const orient = imgOrientations[i];
-              // Portrait → 3:4, Landscape/unknown → 4:3
-              // Default to 4/3 so containers have height before images load,
-              // preventing layout shift that breaks scroll-to-form accuracy.
-              const ratio = orient === 'portrait' ? '3/4' : '4/3';
-              return (
-                <div
-                  key={src}
-                  onClick={() => setLightboxIdx(i)}
-                  style={{
-                    breakInside: 'avoid',
-                    marginBottom: '10px',
-                    borderRadius: RADIUS.lg,
-                    overflow: 'hidden',
-                    cursor: 'zoom-in',
-                    position: 'relative',
-                    ...(ratio ? { aspectRatio: ratio } : {}),
-                  }}
-                  onMouseEnter={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '1')}
-                  onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
-                >
-                  <img
-                    src={src}
-                    alt={`${exp.nameHe} ${i + 1}`}
-                    loading="lazy"
-                    decoding="async"
+          {/* ── Mobile: full-width snap carousel ── */}
+          {isMobile ? (
+            <div style={{ position: 'relative' }}>
+              {/* Scrollable track */}
+              <div
+                ref={mobileCarouselRef}
+                onScroll={e => {
+                  const el = e.currentTarget;
+                  const cardW = el.offsetWidth * 0.88 + 12;
+                  const idx = Math.round(Math.abs(el.scrollLeft) / cardW);
+                  setMobileGalleryIdx(Math.max(0, Math.min(idx, validGalleryImages.length - 1)));
+                }}
+                style={{
+                  display: 'flex',
+                  gap: '12px',
+                  direction: 'ltr',   /* force LTR so scrollLeft is always positive */
+                  overflowX: 'auto',
+                  scrollSnapType: 'x mandatory',
+                  scrollBehavior: 'smooth',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                  WebkitOverflowScrolling: 'touch',
+                  paddingLeft: '5%',
+                  paddingRight: '5%',
+                  paddingBottom: '4px',
+                }}
+              >
+                {validGalleryImages.map((src, i) => (
+                  <div
+                    key={src}
+                    onClick={() => setLightboxIdx(i)}
                     style={{
-                      width: '100%',
-                      height: ratio ? '100%' : 'auto',
-                      objectFit: ratio ? 'cover' : undefined,
-                      objectPosition: 'center',
-                      display: 'block',
-                      transition: 'transform 0.3s ease',
+                      flex: '0 0 88%',
+                      scrollSnapAlign: 'center',
+                      borderRadius: RADIUS.xl,
+                      overflow: 'hidden',
+                      aspectRatio: '4/3',
+                      cursor: 'zoom-in',
+                      position: 'relative',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
                     }}
-                    onLoad={e => {
-                      const { naturalWidth: w, naturalHeight: h } = e.target;
-                      setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
+                  >
+                    <img
+                      src={src}
+                      alt={`${exp.nameHe} ${i + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      onLoad={e => {
+                        const { naturalWidth: w, naturalHeight: h } = e.target;
+                        setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
+                      }}
+                      onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: imgOrientations[i] === 'portrait' ? 'center 20%' : 'center',
+                        display: 'block',
+                      }}
+                    />
+                    {/* Tap-to-zoom hint on first image only */}
+                    {i === 0 && (
+                      <div style={{
+                        position: 'absolute', bottom: '12px', left: '12px',
+                        background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)',
+                        borderRadius: '20px', padding: '4px 10px',
+                        color: '#fff', fontSize: '11px', fontFamily: "'Ploni', sans-serif",
+                        pointerEvents: 'none',
+                      }}>
+                        {isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Dots indicator */}
+              <div style={{
+                display: 'flex', justifyContent: 'center', gap: '6px',
+                marginTop: '14px', direction: 'ltr',
+              }}>
+                {validGalleryImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      const el = mobileCarouselRef.current;
+                      if (!el) return;
+                      const cardW = el.offsetWidth * 0.88 + 12;
+                      el.scrollTo({ left: i * cardW, behavior: 'smooth' });
+                      setMobileGalleryIdx(i);
                     }}
-                    onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                    style={{
+                      width: mobileGalleryIdx === i ? '20px' : '7px',
+                      height: '7px',
+                      borderRadius: '4px',
+                      background: mobileGalleryIdx === i ? '#6D28D9' : '#D1C9F0',
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      transition: 'all 0.25s ease',
+                    }}
+                    aria-label={`תמונה ${i + 1}`}
                   />
-                  {/* Hover overlay — subtle dim only */}
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'rgba(0,0,0,0.15)',
-                    opacity: 0, transition: 'opacity 0.2s ease',
-                    pointerEvents: 'none',
-                  }} />
-                </div>
-              );
-            })}
-          </div>
+                ))}
+              </div>
+            </div>
+
+          ) : (
+            /* ── Desktop: masonry columns ── */
+            <div style={{ columnCount: 3, columnGap: '10px' }}>
+              {validGalleryImages.map((src, i) => {
+                const orient = imgOrientations[i];
+                const ratio = orient === 'portrait' ? '3/4' : '4/3';
+                return (
+                  <div
+                    key={src}
+                    onClick={() => setLightboxIdx(i)}
+                    style={{
+                      breakInside: 'avoid',
+                      marginBottom: '10px',
+                      borderRadius: RADIUS.lg,
+                      overflow: 'hidden',
+                      cursor: 'zoom-in',
+                      position: 'relative',
+                      aspectRatio: ratio,
+                    }}
+                    onMouseEnter={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '1')}
+                    onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
+                  >
+                    <img
+                      src={src}
+                      alt={`${exp.nameHe} ${i + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      style={{
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', objectPosition: 'center',
+                        display: 'block', transition: 'transform 0.3s ease',
+                      }}
+                      onLoad={e => {
+                        const { naturalWidth: w, naturalHeight: h } = e.target;
+                        setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
+                      }}
+                      onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                      onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                    />
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'rgba(0,0,0,0.15)',
+                      opacity: 0, transition: 'opacity 0.2s ease',
+                      pointerEvents: 'none',
+                    }} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* Lightbox */}
           {lightboxIdx !== null && (() => {
