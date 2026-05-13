@@ -1611,7 +1611,7 @@ export default function ExpeditionDetail() {
                       scrollSnapAlign: 'center',
                       borderRadius: RADIUS.xl,
                       overflow: 'hidden',
-                      aspectRatio: '4/3',
+                      aspectRatio: '3/4',
                       cursor: 'zoom-in',
                       position: 'relative',
                       boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
