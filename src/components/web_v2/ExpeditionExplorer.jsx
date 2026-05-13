@@ -71,7 +71,7 @@ function ExpCard({ exp }) {
   }, [exp.img]);
 
   const bg = exp.img
-    ? (imgReady ? `url(${exp.img}) center/cover no-repeat` : exp.grad)
+    ? (imgReady ? `url(${exp.img}) ${exp.imgPosition || 'center'}/cover no-repeat` : exp.grad)
     : exp.grad;
 
   const handleNav = () => navigate(`/expedition/${exp.slug}`);

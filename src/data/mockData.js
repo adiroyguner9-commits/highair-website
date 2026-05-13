@@ -118,6 +118,7 @@ We run this route as a 6-day expedition. One of those days is a canyoning sessio
   {
     id: 3, slug: 'peaks-of-balkan', name: 'Peaks of Balkan', nameHe: 'טרק פסגות הבלקן', country: 'Albania', countryHe: 'אלבניה', flag: '🇦🇱',
     ghlCalendarId: '59MhqbiTU29pRbWMrG3A', tagHe: 'פסגות הבלקן',
+    imgPosition: 'center 30%',
     heroVideo: '/videos/hero-peaks-of-balkan.mp4',
     elev: '2656m', elevNum: 2656, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
