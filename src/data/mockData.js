@@ -1,7 +1,7 @@
 export const EXPS = [
   {
     id: 2, slug: 'olympus', name: 'Olympus', nameHe: 'טרק לפסגת האולימפוס', nameEn: 'Olympus', country: 'Greece', countryHe: 'יוון', flag: '🇬🇷',
-    ghlCalendarId: 'Wr9he2kPJt1zRGZWBaGR',
+    ghlCalendarId: 'Wr9he2kPJt1zRGZWBaGR', tagHe: 'אולימפוס',
     elev: '2917m', elevNum: 2918, days: '6 ימים', daysEn: '6 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     airtableEvents: ['Olympus'],
@@ -117,7 +117,7 @@ We run this route as a 6-day expedition. One of those days is a canyoning sessio
   },
   {
     id: 3, slug: 'peaks-of-balkan', name: 'Peaks of Balkan', nameHe: 'טרק פסגות הבלקן', country: 'Albania', countryHe: 'אלבניה', flag: '🇦🇱',
-    ghlCalendarId: '59MhqbiTU29pRbWMrG3A',
+    ghlCalendarId: '59MhqbiTU29pRbWMrG3A', tagHe: 'פסגות הבלקן',
     heroVideo: '/videos/hero-peaks-of-balkan.mp4',
     elev: '2656m', elevNum: 2656, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
@@ -246,7 +246,7 @@ We've run this route with groups and know which guesthouses are worth staying at
   },
   {
     id: 4, slug: 'ethiopia', name: 'Simien & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
-    ghlCalendarId: 'LCsG9BWSQnq5x00sUiJS',
+    ghlCalendarId: 'LCsG9BWSQnq5x00sUiJS', tagHe: 'סימיאן ודנקיל',
     elev: '4550m', elevNum: 4430, days: '11 ימים', daysEn: '11 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2960, priceStr: '$2960', continent: 'africa',
     airtableEvents: ['Ethiopia'],
@@ -386,7 +386,7 @@ The contrast between the two halves is what makes this trip hard to replicate an
   },
   {
     id: 5, slug: 'kazbek', name: 'Kazbek', nameHe: 'טיפוס לקזבק', country: 'Georgia', countryHe: 'גאורגיה', flag: '🇬🇪',
-    ghlCalendarId: 'RK4rdhJqwJmjH48EISPu',
+    ghlCalendarId: 'RK4rdhJqwJmjH48EISPu', tagHe: 'קזבק',
     heroVideo: '/videos/hero-kazbek.mp4',
     elev: '5054m', elevNum: 5054, days: '8 ימים', daysEn: '8 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 2300, priceStr: '€2300', continent: 'europe',
@@ -520,7 +520,7 @@ Two hours from Israel. Three hours by road from Tbilisi. It's genuinely one of t
   },
   {
     id: 6, slug: 'manaslu', name: 'Manaslu Circuit', nameHe: 'טרק סובב מנסלו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    ghlCalendarId: 'mQaQAUkU2d4HwljMHIzw',
+    ghlCalendarId: 'mQaQAUkU2d4HwljMHIzw', tagHe: 'מנסלו',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '5160m', elevNum: 5106, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2250, priceStr: '$2250', continent: 'asia',
@@ -675,7 +675,7 @@ Day 9 includes a full-day side trip to Manaslu Base Camp at 4,800m, which gives 
   },
   {
     id: 7, slug: 'everest-base-camp', name: 'Everest Base Camp & Gokyo', nameHe: 'טרק אוורסט בייס קמפ וגוקיו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    ghlCalendarId: 'fAoV0DZ2sHKgQtQ66lPA',
+    ghlCalendarId: 'fAoV0DZ2sHKgQtQ66lPA', tagHe: 'אוורסט בייס קמפ',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '5364m', elevNum: 5545, days: '19 ימים', daysEn: '19 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Hard', diffHe: 'קשה', price: 3300, priceStr: '$3300', continent: 'asia',
@@ -836,7 +836,7 @@ This is classified as a hard trek because of the altitude, the 19-day length, an
   },
   {
     id: 8, slug: 'annapurna', name: 'Annapurna Circuit', nameHe: 'טרק סובב אנאפורנה', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    ghlCalendarId: 'AgaJz8eLIAvY6SZ3VaGF',
+    ghlCalendarId: 'AgaJz8eLIAvY6SZ3VaGF', tagHe: 'אנאפורנה',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '5416m', elevNum: 5416, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2150, priceStr: '$2150', continent: 'asia',
@@ -997,7 +997,7 @@ No technical experience needed. The terrain is trekking throughout  -  no ropes 
   },
   {
     id: 9, slug: 'elbrus', name: 'Elbrus', nameHe: 'טיפוס לאלברוס', country: 'Russia', countryHe: 'רוסיה', flag: '🇷🇺',
-    ghlCalendarId: 'nkG51gty4AoZHVCSGT2L',
+    ghlCalendarId: 'nkG51gty4AoZHVCSGT2L', tagHe: 'אלברוס',
     elev: '5642m', elevNum: 5642, days: '8 ימים', daysEn: '8 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3500, priceStr: '$3500', continent: 'europe',
     airtableEvents: ['Elbrus'],
@@ -1131,7 +1131,7 @@ Prior mountaineering experience is not required. Prior high-altitude experience 
   },
   {
     id: 10, slug: 'kilimanjaro', name: 'Kilimanjaro', nameHe: 'טיפוס לקילימנג׳רו', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
-    ghlCalendarId: '4BOEM2HY0Tsun4JJOwZU',
+    ghlCalendarId: '4BOEM2HY0Tsun4JJOwZU', tagHe: 'קילימנג׳רו',
     heroVideo: '/videos/hero-kilimanjaro.mp4',
     elev: '5895m', elevNum: 5895, days: '9 ימים | ספארי +3', daysEn: '9 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
@@ -1315,7 +1315,7 @@ The descent on Day 7 is long  -  over 2,700m down to Mweka Camp. Your legs will 
   },
   {
     id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'קילימנג׳רו לשומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
-    ghlCalendarId: '4BOEM2HY0Tsun4JJOwZU',
+    ghlCalendarId: '4BOEM2HY0Tsun4JJOwZU', tagHe: 'קילימנג׳רו כשר',
     heroVideo: '/videos/hero-kilimanjaro.mp4',
     elev: '5895m', elevNum: 5895, days: '10 ימים | ספארי +3', daysEn: '10 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Moderate', diffHe: 'בינוני', price: 2900, priceStr: '$2900', continent: 'africa',
@@ -1517,7 +1517,7 @@ A lot of people add the 3-day kosher safari after  -  Tarangire and Ngorongoro C
   },
   {
     id: 12, slug: 'lobuche-peak', name: 'Lobuche Peak', nameHe: 'טיפוס ללובוצ׳ה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    ghlCalendarId: 'Ala9X5mln6i45N30Xhpm',
+    ghlCalendarId: 'Ala9X5mln6i45N30Xhpm', tagHe: 'לובוצ׳ה פיק',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '6119m', elevNum: 6119, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3450, priceStr: '$3450', continent: 'asia',
@@ -1685,7 +1685,7 @@ Our summit rate here is 82%. The mountain is demanding but not extreme. What sep
   },
   {
     id: 13, slug: 'island-peak', name: 'Island Peak', nameHe: 'טיפוס לאיילנד פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    ghlCalendarId: 'zzvpDSzgRpx0DytluTtS',
+    ghlCalendarId: 'zzvpDSzgRpx0DytluTtS', tagHe: 'איילנד פיק',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '6189m', elevNum: 6189, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
@@ -1856,7 +1856,7 @@ Our success rate is 84%. You need reasonable high-altitude fitness and some open
   },
   {
     id: 14, slug: 'mera-peak', name: 'Mera Peak', nameHe: 'טיפוס למרה פיק', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
-    ghlCalendarId: 'KWcNLifWHtfL6Gtiuksx',
+    ghlCalendarId: 'KWcNLifWHtfL6Gtiuksx', tagHe: 'מרה פיק',
     heroVideo: '/videos/hero-mera-peak.mp4',
     elev: '6476m', elevNum: 6476, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
@@ -2024,7 +2024,7 @@ Our success rate is 80%. The altitude is the main challenge. This is the right p
   },
   {
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
-    ghlCalendarId: 'wrrh6IYs1eCAe9kuNxnW',
+    ghlCalendarId: 'wrrh6IYs1eCAe9kuNxnW', tagHe: 'אקונקגואה',
     elev: '6961m', elevNum: 6962, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 9800, priceStr: '$9800', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
@@ -2190,7 +2190,7 @@ Prior high-altitude experience above 5,000m is required for this expedition.`,
   },
   {
     id: 16, slug: 'lenin-peak', name: 'Lenin Peak', nameHe: 'טיפוס ללנין פיק', country: 'Kyrgyzstan', countryHe: 'קירגיזסטן', flag: '🇰🇬',
-    ghlCalendarId: '6Foewe8NxIjTlxWC3sRK',
+    ghlCalendarId: '6Foewe8NxIjTlxWC3sRK', tagHe: 'לנין פיק',
     elev: '7134m', elevNum: 7134, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 6200, priceStr: '$6200', continent: 'asia',
     img: '/images/cards/leninPeak.avif',

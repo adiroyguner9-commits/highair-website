@@ -571,6 +571,8 @@ export default function ExpeditionDetail() {
             'Experience': form.experience || undefined,
             'Source': (isWaitlist ? 'Waitlist - ' : 'Expedition Page - ') + exp.nameHe,
           },
+          calendarId: exp.ghlCalendarId || '',
+          expeditionTag: exp.tagHe || exp.name || '',
         }),
       });
       if (!res.ok) {

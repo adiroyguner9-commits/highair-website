@@ -43,6 +43,8 @@ export default async function handler(req, res) {
   }
 
   const rawFields = req.body?.fields || {};
+  const calendarId = String(req.body?.calendarId || '').trim().slice(0, 100);
+  const expeditionTag = String(req.body?.expeditionTag || '').trim().slice(0, 100);
 
   /* ── Input validation ── */
   const name  = (rawFields['Name']  || '').trim();
@@ -98,7 +100,7 @@ export default async function handler(req, res) {
   }
 
   /* ── 2. Fire GHL webhook — adds contact to pipeline (non-blocking) ── */
-  const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/7oNUbFCcBxWykamhpW9D/webhook-trigger/38652f32-bf41-45a5-8494-11e7bc34769d';
+  const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/7oNUbFCcBxWykamhpW9D/webhook-trigger/11e52ede-fe7d-4e7a-ac93-e5b7d7fbff3b';
   fetch(GHL_WEBHOOK, {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -112,6 +114,8 @@ export default async function handler(req, res) {
       peopleCount: sanitised['Group Size']      || '',
       experience:  sanitised['Experience']      || '',
       source:      sanitised['Source']          || 'Website',
+      calendarId:     calendarId,
+      expeditionTag:  expeditionTag,
     }),
   }).catch(err => console.warn('[submit-lead] GHL webhook non-fatal:', err.message));
 
