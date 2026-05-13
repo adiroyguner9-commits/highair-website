@@ -843,6 +843,7 @@ This is classified as a hard trek because of the altitude, the 19-day length, an
     diff: 'Moderate', diffHe: 'בינוני', price: 2150, priceStr: '$2150', continent: 'asia',
     airtableEvents: ['Annapurna_Circut'],
     img: '/images/cards/annapurna.webp',
+    imgPosition: 'center 35%',
     seoTitle:       'HighAir Expeditions | טרק סובב אנאפורנה',
     seoTitleEn:     'Annapurna Circuit Trek | HighAir Expeditions',
     seoDescription: 'טרק סובב אנאפורנה - 5,416 מטר בנפאל. 16 ימים, לולאה מלאה סביב אנאפורנה דרך כפרי גורקה, אגם טיליצ׳ו ומעבר תורונג לה. ירידה של 1,600 מטר בצד השני.',
