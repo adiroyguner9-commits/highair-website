@@ -326,6 +326,7 @@ export default function GallerySection() {
               display:        'flex',
               gap:            '8px',
               alignItems:     'center',
+              direction:      'ltr',
             }}>
               <button onClick={lbPrev} aria-label="Previous photo" style={{
                 background: 'rgba(255,255,255,0.15)', border: 'none',
