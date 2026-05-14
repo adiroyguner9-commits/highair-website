@@ -7,7 +7,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 
 const PHOTO_SRCS = [
   { src: '/images/gallery/home/1.webp',  ratio: '4/3' },
@@ -160,49 +159,56 @@ export default function GallerySection() {
           </p>
         </div>
 
-        {/* ── Mobile: snap carousel / Desktop: arrow slider ── */}
-        {isMobile ? (
-          <MobilePhotoCarousel
-            images={PHOTOS.map(p => p.src)}
-            altPrefix="HighAir"
-            onImageClick={i => setLightboxIdx(i)}
-            hint=""
-          />
-        ) : (
-          <div style={{ position: 'relative' }}>
+        {/* ── Slider wrapper (landscape on all screen sizes) ── */}
+        <div style={{ position: 'relative' }}>
+
+          {/* Left arrow — desktop only */}
+          {!isMobile && (
             <ArrowBtn dir="left" onClick={() => scrollBy(-SCROLL_AMT)} />
-            <div
-              ref={trackRef}
-              style={{
-                display:                 'flex',
-                gap:                     '14px',
-                overflowX:               'auto',
-                scrollBehavior:          'smooth',
-                scrollbarWidth:          'none',
-                msOverflowStyle:         'none',
-                WebkitOverflowScrolling: 'touch',
-                padding:                 '8px 68px 20px',
-                boxSizing:               'border-box',
-              }}
-            >
-              {PHOTOS.map((p, i) => {
-                const [num, den] = p.ratio.split('/').map(Number);
-                const cardWidth = Math.round(CARD_HEIGHT * (num / den));
-                return (
-                  <SlideCard
-                    key={i}
-                    src={p.src}
-                    caption={p.caption}
-                    width={cardWidth}
-                    height={CARD_HEIGHT}
-                    onClick={() => setLightboxIdx(i)}
-                  />
-                );
-              })}
-            </div>
-            <ArrowBtn dir="right" onClick={() => scrollBy(SCROLL_AMT)} />
+          )}
+
+          {/* Scrollable track */}
+          <div
+            ref={trackRef}
+            style={{
+              display:                 'flex',
+              gap:                     isMobile ? '10px' : '14px',
+              overflowX:               'auto',
+              scrollSnapType:          isMobile ? 'x mandatory' : 'none',
+              scrollBehavior:          'smooth',
+              scrollbarWidth:          'none',
+              msOverflowStyle:         'none',
+              WebkitOverflowScrolling: 'touch',
+              padding:                 isMobile
+                ? '8px 5% 16px'
+                : '8px 68px 20px',
+              boxSizing:               'border-box',
+            }}
+          >
+            {PHOTOS.map((p, i) => {
+              const [num, den] = p.ratio.split('/').map(Number);
+              const cardWidth = isMobile
+                ? Math.round(CARD_HEIGHT * (num / den))
+                : Math.round(CARD_HEIGHT * (num / den));
+              return (
+                <SlideCard
+                  key={i}
+                  src={p.src}
+                  caption={p.caption}
+                  width={cardWidth}
+                  height={CARD_HEIGHT}
+                  onClick={() => setLightboxIdx(i)}
+                  snapAlign={isMobile}
+                />
+              );
+            })}
           </div>
-        )}
+
+          {/* Right arrow — desktop only */}
+          {!isMobile && (
+            <ArrowBtn dir="right" onClick={() => scrollBy(SCROLL_AMT)} />
+          )}
+        </div>
 
       </section>
 
@@ -307,16 +313,17 @@ export default function GallerySection() {
   );
 }
 
-function SlideCard({ src, caption, width, height, onClick }) {
+function SlideCard({ src, caption, width, height, onClick, snapAlign }) {
   return (
     <button
       onClick={onClick}
       aria-label={caption || 'View photo'}
       style={{
-        flexShrink:   0,
-        width:        `${width}px`,
-        height:       `${height}px`,
-        borderRadius: RADIUS.xl,
+        flexShrink:      0,
+        width:           `${width}px`,
+        height:          `${height}px`,
+        borderRadius:    RADIUS.xl,
+        scrollSnapAlign: snapAlign ? 'start' : undefined,
         overflow:     'hidden',
         position:     'relative',
         cursor:       'pointer',
