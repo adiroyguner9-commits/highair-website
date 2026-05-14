@@ -625,6 +625,7 @@ export default function IsraelDetail() {
                   altPrefix={isRtl ? trip.nameHe || trip.name : trip.name}
                   onImageClick={i => setLightboxIdx(i)}
                   hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+                  isRtl={isRtl}
                 />
               ) : (
                 <div style={{ columnCount: 3, columnGap: '10px' }}>

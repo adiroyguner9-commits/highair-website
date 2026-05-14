@@ -1581,6 +1581,7 @@ export default function ExpeditionDetail() {
               altPrefix={isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)}
               onImageClick={i => setLightboxIdx(i)}
               hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+              isRtl={isRtl}
             />
           ) : (
             /* ── Desktop: masonry columns ── */

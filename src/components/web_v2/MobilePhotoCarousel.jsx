@@ -1,24 +1,49 @@
 /**
  * MobilePhotoCarousel.jsx
  * Reusable full-width snap-scroll carousel for mobile galleries.
- * Used in: ExpeditionDetail, IsraelDetail, GallerySection
+ * Used in: ExpeditionDetail, IsraelDetail
  *
  * Props:
  *   images        – string[]  – array of image src URLs
- *   altPrefix     – string    – prefix for alt text  (e.g. "טרק סובב אנאפורנה")
+ *   altPrefix     – string    – prefix for alt text
  *   onImageClick  – (idx) =>  – called when a card is tapped (for lightbox)
- *   hint          – string    – optional badge on first card (default "לחץ להגדלה")
+ *   hint          – string    – optional badge on first/last card
+ *   isRtl         – boolean   – true = RTL (Hebrew): first image on right, swipe R→L
  */
 
 import { useState, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
 
-export default function MobilePhotoCarousel({ images, altPrefix = '', onImageClick, hint }) {
-  const [activeIdx, setActiveIdx]           = useState(0);
+export default function MobilePhotoCarousel({ images, altPrefix = '', onImageClick, hint, isRtl = false }) {
+  const [activeIdx, setActiveIdx]             = useState(0);
   const [imgOrientations, setImgOrientations] = useState({});
   const carouselRef = useRef(null);
 
-  const hintLabel = hint !== undefined ? hint : 'לחץ להגדלה';
+  const hintLabel = hint !== undefined ? hint : (isRtl ? 'לחץ להגדלה' : 'Tap to zoom');
+
+  /* In RTL the flex container has direction:rtl so item 0 is on the right.
+     scrollLeft starts at 0 (first item visible) and goes negative as you scroll left.
+     Math.abs(scrollLeft) / cardW gives the correct active index in both directions. */
+  const handleScroll = e => {
+    const el = e.currentTarget;
+    const cardW = el.offsetWidth * 0.88 + 12;
+    const idx = Math.round(Math.abs(el.scrollLeft) / cardW);
+    setActiveIdx(Math.max(0, Math.min(idx, images.length - 1)));
+  };
+
+  const scrollToIdx = i => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const cardW = el.offsetWidth * 0.88 + 12;
+    /* RTL: negative scrollLeft moves content leftward (toward later items) */
+    el.scrollTo({ left: isRtl ? -(i * cardW) : i * cardW, behavior: 'smooth' });
+    setActiveIdx(i);
+  };
+
+  /* The "first" card carries the hint badge.
+     In LTR the first image (i=0) is on the left — badge on card 0.
+     In RTL the first image (i=0) is on the right — badge on card 0 (still). */
+  const hintCardIdx = 0;
 
   return (
     <div style={{ position: 'relative' }}>
@@ -26,16 +51,11 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
       {/* ── Scrollable track ── */}
       <div
         ref={carouselRef}
-        onScroll={e => {
-          const el = e.currentTarget;
-          const cardW = el.offsetWidth * 0.88 + 12;
-          const idx = Math.round(Math.abs(el.scrollLeft) / cardW);
-          setActiveIdx(Math.max(0, Math.min(idx, images.length - 1)));
-        }}
+        onScroll={handleScroll}
         style={{
           display:                 'flex',
           gap:                     '12px',
-          direction:               'ltr',          /* keep scrollLeft positive in RTL pages */
+          direction:               isRtl ? 'rtl' : 'ltr',
           overflowX:               'auto',
           scrollSnapType:          'x mandatory',
           scrollBehavior:          'smooth',
@@ -82,11 +102,12 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
             />
 
             {/* Hint badge on first card */}
-            {i === 0 && hintLabel && (
+            {i === hintCardIdx && hintLabel && (
               <div style={{
                 position:       'absolute',
                 bottom:         '12px',
-                left:           '12px',
+                /* badge sticks to the reading-start edge */
+                [isRtl ? 'right' : 'left']: '12px',
                 background:     'rgba(0,0,0,0.45)',
                 backdropFilter: 'blur(6px)',
                 borderRadius:   '20px',
@@ -103,7 +124,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
         ))}
       </div>
 
-      {/* ── Dots ── */}
+      {/* ── Dots — always LTR order so dot 0 = leftmost in both languages ── */}
       <div style={{
         display:        'flex',
         justifyContent: 'center',
@@ -114,22 +135,16 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
         {images.map((_, i) => (
           <button
             key={i}
-            onClick={() => {
-              const el = carouselRef.current;
-              if (!el) return;
-              const cardW = el.offsetWidth * 0.88 + 12;
-              el.scrollTo({ left: i * cardW, behavior: 'smooth' });
-              setActiveIdx(i);
-            }}
+            onClick={() => scrollToIdx(i)}
             style={{
-              width:      activeIdx === i ? '20px' : '7px',
-              height:     '7px',
+              width:        activeIdx === i ? '20px' : '7px',
+              height:       '7px',
               borderRadius: '4px',
-              background: activeIdx === i ? '#6D28D9' : '#D1C9F0',
-              border:     'none',
-              padding:    0,
-              cursor:     'pointer',
-              transition: 'all 0.25s ease',
+              background:   activeIdx === i ? '#6D28D9' : '#D1C9F0',
+              border:       'none',
+              padding:      0,
+              cursor:       'pointer',
+              transition:   'all 0.25s ease',
             }}
             aria-label={`תמונה ${i + 1}`}
           />
