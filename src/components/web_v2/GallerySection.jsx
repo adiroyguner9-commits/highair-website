@@ -164,7 +164,7 @@ export default function GallerySection() {
 
           {/* Left arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="left" onClick={() => scrollBy(-SCROLL_AMT)} />
+            <ArrowBtn dir="left" onClick={() => scrollBy(isRtl ? SCROLL_AMT : -SCROLL_AMT)} />
           )}
 
           {/* Scrollable track */}
@@ -208,7 +208,7 @@ export default function GallerySection() {
 
           {/* Right arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="right" onClick={() => scrollBy(SCROLL_AMT)} />
+            <ArrowBtn dir="right" onClick={() => scrollBy(isRtl ? -SCROLL_AMT : SCROLL_AMT)} />
           )}
         </div>
 
