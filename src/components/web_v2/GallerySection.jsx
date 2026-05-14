@@ -180,9 +180,10 @@ export default function GallerySection() {
               scrollbarWidth:          'none',
               msOverflowStyle:         'none',
               WebkitOverflowScrolling: 'touch',
-              padding:                 isMobile
-                ? '8px 5% 16px'
-                : '8px 68px 20px',
+              paddingTop:    '8px',
+              paddingBottom: isMobile ? '16px' : '20px',
+              paddingRight:  isMobile ? '5%' : (isRtl ? '5%'  : '68px'),
+              paddingLeft:   isMobile ? '5%' : (isRtl ? '68px' : '5%'),
               boxSizing:               'border-box',
             }}
           >
