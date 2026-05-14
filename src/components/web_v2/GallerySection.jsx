@@ -96,7 +96,7 @@ export default function GallerySection() {
   const SCROLL_AMT  = isMobile ? 260 : 440;
 
   function scrollBy(amount) {
-    trackRef.current?.scrollBy({ left: amount, behavior: 'smooth' });
+    trackRef.current?.scrollBy({ left: isRtl ? -amount : amount, behavior: 'smooth' });
   }
 
   /* Keyboard navigation for lightbox */
@@ -172,6 +172,7 @@ export default function GallerySection() {
             ref={trackRef}
             style={{
               display:                 'flex',
+              direction:               dir,
               gap:                     isMobile ? '10px' : '14px',
               overflowX:               'auto',
               scrollSnapType:          isMobile ? 'x mandatory' : 'none',
