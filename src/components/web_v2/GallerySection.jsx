@@ -3,7 +3,7 @@
  * Horizontal slider · lightbox · RTL Hebrew
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -23,14 +23,18 @@ const PHOTO_SRCS = [
 ];
 
 /* ── Nav arrow button ── */
-function ArrowBtn({ dir, onClick }) {
+function ArrowBtn({ dir, disabled, onClick, isRtl }) {
   const [hovered, setHovered] = useState(false);
+  /* ‹ on the left = forward (toward photo 11, left side in RTL)
+     › on the right = backward (toward photo 1, right side in RTL) */
+  const symbol = dir === 'left' ? '‹' : '›';
   return (
     <button
       onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
+      disabled={disabled}
+      onMouseEnter={() => !disabled && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      aria-label={dir === 'right' ? 'Next photos' : 'Previous photos'}
+      aria-label={dir === 'left' ? 'Next photos' : 'Previous photos'}
       style={{
         position:       'absolute',
         top:            '50%',
@@ -40,20 +44,21 @@ function ArrowBtn({ dir, onClick }) {
         width:          '44px',
         height:         '44px',
         borderRadius:   '50%',
-        background:     hovered ? 'rgba(109,40,217,0.85)' : 'rgba(255,255,255,0.92)',
+        background:     disabled ? 'rgba(255,255,255,0.5)' : hovered ? 'rgba(109,40,217,0.85)' : 'rgba(255,255,255,0.92)',
         border:         'none',
-        boxShadow:      '0 4px 16px rgba(0,0,0,0.18)',
-        cursor:         'pointer',
+        boxShadow:      disabled ? 'none' : '0 4px 16px rgba(0,0,0,0.18)',
+        cursor:         disabled ? 'default' : 'pointer',
         display:        'flex',
         alignItems:     'center',
         justifyContent: 'center',
         fontSize:       '20px',
-        color:          hovered ? '#FFFFFF' : '#4B4869',
+        color:          disabled ? 'rgba(75,72,105,0.3)' : hovered ? '#FFFFFF' : '#4B4869',
         transition:     `all 0.22s ${EASING.out}`,
         flexShrink:     0,
+        opacity:        disabled ? 0.5 : 1,
       }}
     >
-      {dir === 'right' ? '›' : '‹'}
+      {symbol}
     </button>
   );
 }
@@ -88,6 +93,8 @@ export default function GallerySection() {
   const isRtl = dir === 'rtl';
   const trackRef     = useRef(null);
   const [lightboxIdx, setLightboxIdx] = useState(null);
+  const [canPrev,     setCanPrev]     = useState(false);
+  const [canNext,     setCanNext]     = useState(true);
 
   const captions = t('gallery.captions', { returnObjects: true });
   const PHOTOS = PHOTO_SRCS.map((p, i) => ({ ...p, caption: captions[i] || '' }));
@@ -95,7 +102,30 @@ export default function GallerySection() {
   const CARD_HEIGHT = isMobile ? 220 : 360;
   const SCROLL_AMT  = isMobile ? 260 : 440;
 
-  function scrollBy(amount) {
+  /* Update arrow disabled state on scroll */
+  const updateArrows = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const sl  = Math.abs(Math.round(el.scrollLeft));
+    const max = Math.round(el.scrollWidth - el.clientWidth);
+    if (isRtl) {
+      setCanPrev(sl > 4);          // prev = toward photo 1 (right) = scrollLeft toward 0
+      setCanNext(sl < max - 4);    // next = toward photo 11 (left) = scrollLeft more negative
+    } else {
+      setCanPrev(sl > 4);
+      setCanNext(sl < max - 4);
+    }
+  }, [isRtl]);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener('scroll', updateArrows, { passive: true });
+    return () => el.removeEventListener('scroll', updateArrows);
+  }, [updateArrows]);
+
+  function doScroll(amount) {
     trackRef.current?.scrollBy({ left: amount, behavior: 'smooth' });
   }
 
@@ -164,7 +194,7 @@ export default function GallerySection() {
 
           {/* Left arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="left" onClick={() => scrollBy(-SCROLL_AMT)} />
+            <ArrowBtn dir="left" disabled={!canNext} onClick={() => doScroll(-SCROLL_AMT)} isRtl={isRtl} />
           )}
 
           {/* Scrollable track */}
@@ -208,7 +238,7 @@ export default function GallerySection() {
 
           {/* Right arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="right" onClick={() => scrollBy(SCROLL_AMT)} />
+            <ArrowBtn dir="right" disabled={!canPrev} onClick={() => doScroll(SCROLL_AMT)} isRtl={isRtl} />
           )}
         </div>
 
