@@ -3,27 +3,28 @@
  * Reusable full-width snap-scroll carousel for mobile galleries.
  * Used in: ExpeditionDetail, IsraelDetail
  *
+ * Each card has a fixed height. The photo is shown full (object-fit: contain)
+ * with a blurred copy of the same image as background — no cropping ever.
+ *
  * Props:
  *   images        – string[]  – array of image src URLs
  *   altPrefix     – string    – prefix for alt text
  *   onImageClick  – (idx) =>  – called when a card is tapped (for lightbox)
- *   hint          – string    – optional badge on first/last card
- *   isRtl         – boolean   – true = RTL (Hebrew): first image on right, swipe R→L
+ *   hint          – string    – optional badge on first card
+ *   isRtl         – boolean   – RTL (Hebrew): first image on right, swipe R→L
  */
 
 import { useState, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
 
+const CARD_HEIGHT = 280; // px — fixed height for all cards
+
 export default function MobilePhotoCarousel({ images, altPrefix = '', onImageClick, hint, isRtl = false }) {
-  const [activeIdx, setActiveIdx]             = useState(0);
-  const [imgOrientations, setImgOrientations] = useState({});
+  const [activeIdx, setActiveIdx] = useState(0);
   const carouselRef = useRef(null);
 
   const hintLabel = hint !== undefined ? hint : (isRtl ? 'לחץ להגדלה' : 'Tap to zoom');
 
-  /* In RTL the flex container has direction:rtl so item 0 is on the right.
-     scrollLeft starts at 0 (first item visible) and goes negative as you scroll left.
-     Math.abs(scrollLeft) / cardW gives the correct active index in both directions. */
   const handleScroll = e => {
     const el = e.currentTarget;
     const cardW = el.offsetWidth * 0.88 + 12;
@@ -35,15 +36,9 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
     const el = carouselRef.current;
     if (!el) return;
     const cardW = el.offsetWidth * 0.88 + 12;
-    /* RTL: negative scrollLeft moves content leftward (toward later items) */
     el.scrollTo({ left: isRtl ? -(i * cardW) : i * cardW, behavior: 'smooth' });
     setActiveIdx(i);
   };
-
-  /* The "first" card carries the hint badge.
-     In LTR the first image (i=0) is on the left — badge on card 0.
-     In RTL the first image (i=0) is on the right — badge on card 0 (still). */
-  const hintCardIdx = 0;
 
   return (
     <div style={{ position: 'relative' }}>
@@ -76,37 +71,44 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
               scrollSnapAlign: 'center',
               borderRadius:    RADIUS.xl,
               overflow:        'hidden',
-              aspectRatio:     '4/3',
+              height:          `${CARD_HEIGHT}px`,
               cursor:          onImageClick ? 'zoom-in' : 'default',
               position:        'relative',
-              boxShadow:       '0 4px 20px rgba(0,0,0,0.12)',
+              boxShadow:       '0 4px 20px rgba(0,0,0,0.15)',
+              background:      '#111',
             }}
           >
+            {/* ── Blurred background (same image, covers gaps) ── */}
+            <div style={{
+              position:   'absolute',
+              inset:      '-10px',       /* extend past edges to hide blur fringe */
+              background: `url(${src}) center/cover no-repeat`,
+              filter:     'blur(18px) brightness(0.55)',
+              transform:  'scale(1.05)', /* prevent thin transparent edge from blur */
+            }} />
+
+            {/* ── Main image — full, no crop ── */}
             <img
               src={src}
               alt={`${altPrefix} ${i + 1}`}
               loading="lazy"
               decoding="async"
-              onLoad={e => {
-                const { naturalWidth: w, naturalHeight: h } = e.target;
-                setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
-              }}
               onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
               style={{
-                width:          '100%',
-                height:         '100%',
-                objectFit:      'cover',
-                objectPosition: imgOrientations[i] === 'portrait' ? 'center 20%' : 'center',
-                display:        'block',
+                position:   'absolute',
+                inset:       0,
+                width:      '100%',
+                height:     '100%',
+                objectFit:  'contain',
+                display:    'block',
               }}
             />
 
-            {/* Hint badge on first card */}
-            {i === hintCardIdx && hintLabel && (
+            {/* ── Hint badge on first card ── */}
+            {i === 0 && hintLabel && (
               <div style={{
                 position:       'absolute',
                 bottom:         '12px',
-                /* badge sticks to the reading-start edge */
                 [isRtl ? 'right' : 'left']: '12px',
                 background:     'rgba(0,0,0,0.45)',
                 backdropFilter: 'blur(6px)',
@@ -116,6 +118,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
                 fontSize:       '11px',
                 fontFamily:     "'Ploni', sans-serif",
                 pointerEvents:  'none',
+                zIndex:         1,
               }}>
                 {hintLabel}
               </div>
@@ -124,7 +127,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
         ))}
       </div>
 
-      {/* ── Dots — always LTR order so dot 0 = leftmost in both languages ── */}
+      {/* ── Dots ── */}
       <div style={{
         display:        'flex',
         justifyContent: 'center',
