@@ -14,6 +14,7 @@ import SiteFooter                      from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import { CalendarIcon }                from '../Icons.jsx';
 import { ISRAEL_TRIPS }                from '../../data/israelData.js';
+import MobilePhotoCarousel            from './MobilePhotoCarousel.jsx';
 
 /* ─── helpers ─── */
 function scrollToForm() {
@@ -617,58 +618,64 @@ export default function IsraelDetail() {
                 {isRtl ? `תמונות מה${trip.typeHe}` : 'Gallery'}
               </h2>
 
-              {/* Masonry columns */}
-              <div style={{ columnCount: isMobile ? 2 : 3, columnGap: '10px' }}>
-                {validGalleryImages.map((src, i) => {
-                  const orient = imgOrientations[i];
-                  const ratio = orient === 'portrait' ? '3/4' : '4/3';
-                  return (
-                    <div
-                      key={src}
-                      onClick={() => setLightboxIdx(i)}
-                      style={{
-                        breakInside: 'avoid',
-                        marginBottom: '10px',
-                        borderRadius: RADIUS.lg,
-                        overflow: 'hidden',
-                        cursor: 'zoom-in',
-                        position: 'relative',
-                        ...(ratio ? { aspectRatio: ratio } : {}),
-                      }}
-                      onMouseEnter={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '1')}
-                      onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
-                    >
-                      <img
-                        src={src}
-                        alt={`${trip.name} ${i + 1}`}
-                        loading="lazy"
-                        decoding="async"
+              {/* Mobile: snap carousel / Desktop: masonry */}
+              {isMobile ? (
+                <MobilePhotoCarousel
+                  images={validGalleryImages}
+                  altPrefix={isRtl ? trip.nameHe || trip.name : trip.name}
+                  onImageClick={i => setLightboxIdx(i)}
+                  hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+                />
+              ) : (
+                <div style={{ columnCount: 3, columnGap: '10px' }}>
+                  {validGalleryImages.map((src, i) => {
+                    const orient = imgOrientations[i];
+                    const ratio = orient === 'portrait' ? '3/4' : '4/3';
+                    return (
+                      <div
+                        key={src}
+                        onClick={() => setLightboxIdx(i)}
                         style={{
-                          width: '100%',
-                          height: ratio ? '100%' : 'auto',
-                          objectFit: ratio ? 'cover' : undefined,
-                          objectPosition: 'center',
-                          display: 'block',
-                          transition: 'transform 0.3s ease',
+                          breakInside: 'avoid',
+                          marginBottom: '10px',
+                          borderRadius: RADIUS.lg,
+                          overflow: 'hidden',
+                          cursor: 'zoom-in',
+                          position: 'relative',
+                          aspectRatio: ratio,
                         }}
-                        onLoad={e => {
-                          const { naturalWidth: w, naturalHeight: h } = e.target;
-                          setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
-                        }}
-                        onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-                      />
-                      <div style={{
-                        position: 'absolute', inset: 0,
-                        background: 'rgba(0,0,0,0.15)',
-                        opacity: 0, transition: 'opacity 0.2s ease',
-                        pointerEvents: 'none',
-                      }} />
-                    </div>
-                  );
-                })}
-              </div>
+                        onMouseEnter={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '1')}
+                        onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
+                      >
+                        <img
+                          src={src}
+                          alt={`${trip.name} ${i + 1}`}
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            width: '100%', height: '100%',
+                            objectFit: 'cover', objectPosition: 'center',
+                            display: 'block', transition: 'transform 0.3s ease',
+                          }}
+                          onLoad={e => {
+                            const { naturalWidth: w, naturalHeight: h } = e.target;
+                            setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
+                          }}
+                          onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                          onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                          onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                        />
+                        <div style={{
+                          position: 'absolute', inset: 0,
+                          background: 'rgba(0,0,0,0.15)',
+                          opacity: 0, transition: 'opacity 0.2s ease',
+                          pointerEvents: 'none',
+                        }} />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </section>
 
             {/* Lightbox */}

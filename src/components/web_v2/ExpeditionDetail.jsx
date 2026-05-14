@@ -19,6 +19,7 @@ import BookingWidget from './BookingWidget.jsx';
 import GHLCalendarWidget from './GHLCalendarWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
 import { Analytics, useScrollDepth } from '../../utils/analytics.js';
+import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 
 /* ─── Translation helpers ───────────────────────────────────────── */
 const HE_TO_EN_MONTHS = {
@@ -374,8 +375,6 @@ export default function ExpeditionDetail() {
   const [lightboxIdx, setLightboxIdx] = useState(null);
   const [imgOrientations, setImgOrientations] = useState({});
   const [resolvedGallery, setResolvedGallery] = useState(null); // null = still probing
-  const [mobileGalleryIdx, setMobileGalleryIdx] = useState(0);
-  const mobileCarouselRef = useRef(null);
 
   /* ── Live groups from Airtable ── */
   const hasAirtable = !!(exp?.airtableEvents?.length);
@@ -1575,113 +1574,14 @@ export default function ExpeditionDetail() {
             {isRtl ? `תמונות מה${exp.typeHe}` : t('expedition.gallery')}
           </h2>
 
-          {/* ── Mobile: full-width snap carousel ── */}
+          {/* ── Mobile: snap carousel / Desktop: masonry ── */}
           {isMobile ? (
-            <div style={{ position: 'relative' }}>
-              {/* Scrollable track */}
-              <div
-                ref={mobileCarouselRef}
-                onScroll={e => {
-                  const el = e.currentTarget;
-                  const cardW = el.offsetWidth * 0.88 + 12;
-                  const idx = Math.round(Math.abs(el.scrollLeft) / cardW);
-                  setMobileGalleryIdx(Math.max(0, Math.min(idx, validGalleryImages.length - 1)));
-                }}
-                style={{
-                  display: 'flex',
-                  gap: '12px',
-                  direction: 'ltr',   /* force LTR so scrollLeft is always positive */
-                  overflowX: 'auto',
-                  scrollSnapType: 'x mandatory',
-                  scrollBehavior: 'smooth',
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  WebkitOverflowScrolling: 'touch',
-                  paddingLeft: '5%',
-                  paddingRight: '5%',
-                  paddingBottom: '4px',
-                }}
-              >
-                {validGalleryImages.map((src, i) => (
-                  <div
-                    key={src}
-                    onClick={() => setLightboxIdx(i)}
-                    style={{
-                      flex: '0 0 88%',
-                      scrollSnapAlign: 'center',
-                      borderRadius: RADIUS.xl,
-                      overflow: 'hidden',
-                      aspectRatio: '3/4',
-                      cursor: 'zoom-in',
-                      position: 'relative',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
-                    }}
-                  >
-                    <img
-                      src={src}
-                      alt={`${exp.nameHe} ${i + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      onLoad={e => {
-                        const { naturalWidth: w, naturalHeight: h } = e.target;
-                        setImgOrientations(prev => ({ ...prev, [i]: w >= h ? 'landscape' : 'portrait' }));
-                      }}
-                      onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: imgOrientations[i] === 'portrait' ? 'center 20%' : 'center',
-                        display: 'block',
-                      }}
-                    />
-                    {/* Tap-to-zoom hint on first image only */}
-                    {i === 0 && (
-                      <div style={{
-                        position: 'absolute', bottom: '12px', left: '12px',
-                        background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)',
-                        borderRadius: '20px', padding: '4px 10px',
-                        color: '#fff', fontSize: '11px', fontFamily: "'Ploni', sans-serif",
-                        pointerEvents: 'none',
-                      }}>
-                        {isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Dots indicator */}
-              <div style={{
-                display: 'flex', justifyContent: 'center', gap: '6px',
-                marginTop: '14px', direction: 'ltr',
-              }}>
-                {validGalleryImages.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => {
-                      const el = mobileCarouselRef.current;
-                      if (!el) return;
-                      const cardW = el.offsetWidth * 0.88 + 12;
-                      el.scrollTo({ left: i * cardW, behavior: 'smooth' });
-                      setMobileGalleryIdx(i);
-                    }}
-                    style={{
-                      width: mobileGalleryIdx === i ? '20px' : '7px',
-                      height: '7px',
-                      borderRadius: '4px',
-                      background: mobileGalleryIdx === i ? '#6D28D9' : '#D1C9F0',
-                      border: 'none',
-                      padding: 0,
-                      cursor: 'pointer',
-                      transition: 'all 0.25s ease',
-                    }}
-                    aria-label={`תמונה ${i + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-
+            <MobilePhotoCarousel
+              images={validGalleryImages}
+              altPrefix={isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)}
+              onImageClick={i => setLightboxIdx(i)}
+              hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+            />
           ) : (
             /* ── Desktop: masonry columns ── */
             <div style={{ columnCount: 3, columnGap: '10px' }}>

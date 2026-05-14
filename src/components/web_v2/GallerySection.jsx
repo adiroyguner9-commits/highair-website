@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 
 const PHOTO_SRCS = [
   { src: '/images/gallery/home/1.webp',  ratio: '4/3' },
@@ -159,52 +160,49 @@ export default function GallerySection() {
           </p>
         </div>
 
-        {/* ── Slider wrapper ── */}
-        <div style={{ position: 'relative' }}>
-
-          {/* Left arrow */}
-          {!isMobile && (
+        {/* ── Mobile: snap carousel / Desktop: arrow slider ── */}
+        {isMobile ? (
+          <MobilePhotoCarousel
+            images={PHOTOS.map(p => p.src)}
+            altPrefix="HighAir"
+            onImageClick={i => setLightboxIdx(i)}
+            hint=""
+          />
+        ) : (
+          <div style={{ position: 'relative' }}>
             <ArrowBtn dir="left" onClick={() => scrollBy(-SCROLL_AMT)} />
-          )}
-
-          {/* Scrollable track */}
-          <div
-            ref={trackRef}
-            style={{
-              display:                 'flex',
-              gap:                     isMobile ? '10px' : '14px',
-              overflowX:               'auto',
-              scrollBehavior:          'smooth',
-              scrollbarWidth:          'none',
-              msOverflowStyle:         'none',
-              WebkitOverflowScrolling: 'touch',
-              padding:                 isMobile
-                ? '8px 5% 16px'
-                : '8px 68px 20px',
-              boxSizing:               'border-box',
-            }}
-          >
-            {PHOTOS.map((p, i) => {
-              const [num, den] = p.ratio.split('/').map(Number);
-              const cardWidth = Math.round(CARD_HEIGHT * (num / den));
-              return (
-                <SlideCard
-                  key={i}
-                  src={p.src}
-                  caption={p.caption}
-                  width={cardWidth}
-                  height={CARD_HEIGHT}
-                  onClick={() => setLightboxIdx(i)}
-                />
-              );
-            })}
-          </div>
-
-          {/* Right arrow */}
-          {!isMobile && (
+            <div
+              ref={trackRef}
+              style={{
+                display:                 'flex',
+                gap:                     '14px',
+                overflowX:               'auto',
+                scrollBehavior:          'smooth',
+                scrollbarWidth:          'none',
+                msOverflowStyle:         'none',
+                WebkitOverflowScrolling: 'touch',
+                padding:                 '8px 68px 20px',
+                boxSizing:               'border-box',
+              }}
+            >
+              {PHOTOS.map((p, i) => {
+                const [num, den] = p.ratio.split('/').map(Number);
+                const cardWidth = Math.round(CARD_HEIGHT * (num / den));
+                return (
+                  <SlideCard
+                    key={i}
+                    src={p.src}
+                    caption={p.caption}
+                    width={cardWidth}
+                    height={CARD_HEIGHT}
+                    onClick={() => setLightboxIdx(i)}
+                  />
+                );
+              })}
+            </div>
             <ArrowBtn dir="right" onClick={() => scrollBy(SCROLL_AMT)} />
-          )}
-        </div>
+          </div>
+        )}
 
       </section>
 
