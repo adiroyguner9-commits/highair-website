@@ -310,8 +310,43 @@ export default function GallerySection() {
             }}
           />
 
-          <button onClick={lbPrev} aria-label="Previous photo" style={{ ...LB_BTN, left: isMobile ? '8px' : '20px' }}>{isRtl ? '›' : '‹'}</button>
-          <button onClick={lbNext} aria-label="Next photo"     style={{ ...LB_BTN, right: isMobile ? '8px' : '20px' }}>{isRtl ? '‹' : '›'}</button>
+          {!isMobile && (
+            <>
+              <button onClick={lbPrev} aria-label="Previous photo" style={{ ...LB_BTN, left: '20px' }}>{isRtl ? '›' : '‹'}</button>
+              <button onClick={lbNext} aria-label="Next photo"     style={{ ...LB_BTN, right: '20px' }}>{isRtl ? '‹' : '›'}</button>
+            </>
+          )}
+
+          {isMobile && (
+            <div style={{
+              position:  'absolute',
+              bottom:    '28px',
+              left:      '50%',
+              transform: 'translateX(-50%)',
+              display:   'flex',
+              gap:       '8px',
+              alignItems:'center',
+              direction: 'ltr',
+            }}>
+              <button onClick={lbPrev} aria-label="Previous photo" style={{
+                width: '44px', height: '44px', borderRadius: '50%',
+                background: 'rgba(255,255,255,0.15)', border: 'none',
+                color: '#fff', fontSize: '22px', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                lineHeight: 1, padding: 0, flexShrink: 0,
+              }}>‹</button>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px', fontFamily: 'Ploni', direction: 'ltr' }}>
+                {lightboxIdx + 1} / {PHOTOS.length}
+              </span>
+              <button onClick={lbNext} aria-label="Next photo" style={{
+                width: '44px', height: '44px', borderRadius: '50%',
+                background: 'rgba(255,255,255,0.15)', border: 'none',
+                color: '#fff', fontSize: '22px', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                lineHeight: 1, padding: 0, flexShrink: 0,
+              }}>›</button>
+            </div>
+          )}
         </div>
       )}
     </>
