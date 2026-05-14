@@ -135,9 +135,8 @@ export default function GallerySection() {
     if (lightboxIdx === null) return;
     const onKey = (e) => {
       if (e.key === 'Escape')     setLightboxIdx(null);
-      // RTL: ArrowLeft=next(+1), ArrowRight=prev(-1) — matches gallery scroll direction
-      if (e.key === 'ArrowLeft')  setLightboxIdx(i => isRtl ? (i + 1) % PHOTOS.length : (i - 1 + PHOTOS.length) % PHOTOS.length);
-      if (e.key === 'ArrowRight') setLightboxIdx(i => isRtl ? (i - 1 + PHOTOS.length) % PHOTOS.length : (i + 1) % PHOTOS.length);
+      if (e.key === 'ArrowLeft')  setLightboxIdx(i => (i - 1 + PHOTOS.length) % PHOTOS.length);
+      if (e.key === 'ArrowRight') setLightboxIdx(i => (i + 1) % PHOTOS.length);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
