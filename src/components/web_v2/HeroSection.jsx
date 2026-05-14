@@ -44,6 +44,7 @@ const fadeUp = (delayS = 0) => ({
 export default function HeroSection() {
   useEffect(() => { injectKeyframes(); }, []);
   const [btn1Hovered, setBtn1Hovered] = useState(false);
+  const [btn2Hovered, setBtn2Hovered] = useState(false);
   const videoRef = useRef(null);
   const playTracked = useRef(false);
   const { t, i18n } = useTranslation();
@@ -221,6 +222,42 @@ export default function HeroSection() {
             {t('hero.allExpeditions')}
           </a>
 
+          {/* Secondary - הסיפור שלנו */}
+          <a
+            href="/about"
+            onClick={() => Analytics.clickCTA('our_story', 'hero')}
+            onMouseEnter={() => setBtn2Hovered(true)}
+            onMouseLeave={() => setBtn2Hovered(false)}
+            style={{
+              display:             'inline-flex',
+              alignItems:          'center',
+              gap:                 '8px',
+              padding:             '15px 36px',
+              minWidth:            '180px',
+              justifyContent:      'center',
+              borderRadius:        '999px',
+              background:          btn2Hovered
+                                     ? 'rgba(255,255,255,0.15)'
+                                     : 'rgba(255,255,255,0.08)',
+              border:              '1.5px solid rgba(255,255,255,0.25)',
+              backdropFilter:      'blur(12px)',
+              WebkitBackdropFilter:'blur(12px)',
+              color:               '#FFFFFF',
+              fontFamily:          "'Ploni', sans-serif",
+              fontSize:            FS.btn,
+              fontWeight:          600,
+              textDecoration:      'none',
+              letterSpacing:       '0.01em',
+              transform:           btn2Hovered ? 'translateY(-2px)' : 'none',
+              boxShadow:           btn2Hovered
+                                     ? '0 10px 28px rgba(0,0,0,0.28)'
+                                     : '0 4px 14px rgba(0,0,0,0.18)',
+              transition:          'all 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
+              whiteSpace:          'nowrap',
+            }}
+          >
+            {t('hero.ourStory')}
+          </a>
 
         </div>
 

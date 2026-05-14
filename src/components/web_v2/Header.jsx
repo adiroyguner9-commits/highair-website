@@ -913,7 +913,6 @@ export default function Header() {
     { key: 'treks',       href: '#expeditions', hasMega: true, megaType: 'treks'    },
     { key: 'israelTrips', href: '#israel', hasMega: true, megaType: 'israel' },
     { key: 'annualPlan',  href: '/annual-plan', isPage: true                        },
-    { key: 'about',       href: '/about',       isPage: true                        },
     { key: 'blog',        href: '/blog',        isPage: true                        },
     { key: 'contact',     href: '/contact',     isPage: true                        },
   ];
