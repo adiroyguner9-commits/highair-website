@@ -25,8 +25,10 @@ const PHOTO_SRCS = [
 /* ── Nav arrow button ── */
 function ArrowBtn({ dir, disabled, onClick, isRtl }) {
   const [hovered, setHovered] = useState(false);
-  /* Arrow always points in the direction it scrolls — left=‹ right=›, RTL or LTR */
-  const symbol = dir === 'left' ? '‹' : '›';
+  /* In RTL the glyphs are visually mirrored by the browser, so swap them */
+  const symbol = isRtl
+    ? (dir === 'left' ? '›' : '‹')
+    : (dir === 'left' ? '‹' : '›');
   return (
     <button
       onClick={onClick}
@@ -133,10 +135,8 @@ export default function GallerySection() {
     if (lightboxIdx === null) return;
     const onKey = (e) => {
       if (e.key === 'Escape')     setLightboxIdx(null);
-      // RTL: left-key = next photo (higher idx), right-key = prev
-      // LTR: left-key = prev photo (lower idx),  right-key = next
-      if (e.key === 'ArrowLeft')  setLightboxIdx(i => isRtl ? (i + 1) % PHOTOS.length : (i - 1 + PHOTOS.length) % PHOTOS.length);
-      if (e.key === 'ArrowRight') setLightboxIdx(i => isRtl ? (i - 1 + PHOTOS.length) % PHOTOS.length : (i + 1) % PHOTOS.length);
+      if (e.key === 'ArrowLeft')  setLightboxIdx(i => (i - 1 + PHOTOS.length) % PHOTOS.length);
+      if (e.key === 'ArrowRight') setLightboxIdx(i => (i + 1) % PHOTOS.length);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -193,9 +193,9 @@ export default function GallerySection() {
         {/* ── Slider wrapper (landscape on all screen sizes) ── */}
         <div style={{ position: 'relative' }}>
 
-          {/* Left arrow — desktop only */}
+          {/* Left arrow: RTL=forward(disabled at end), LTR=backward(disabled at start) */}
           {!isMobile && (
-            <ArrowBtn dir="left" disabled={!canPrev} onClick={() => doScroll(isRtl ? SCROLL_AMT : -SCROLL_AMT)} isRtl={isRtl} />
+            <ArrowBtn dir="left" disabled={isRtl ? !canNext : !canPrev} onClick={() => doScroll(-SCROLL_AMT)} isRtl={isRtl} />
           )}
 
           {/* Scrollable track */}
@@ -237,9 +237,9 @@ export default function GallerySection() {
             })}
           </div>
 
-          {/* Right arrow — desktop only */}
+          {/* Right arrow: RTL=backward(disabled at start), LTR=forward(disabled at end) */}
           {!isMobile && (
-            <ArrowBtn dir="right" disabled={!canNext} onClick={() => doScroll(isRtl ? -SCROLL_AMT : SCROLL_AMT)} isRtl={isRtl} />
+            <ArrowBtn dir="right" disabled={isRtl ? !canPrev : !canNext} onClick={() => doScroll(SCROLL_AMT)} isRtl={isRtl} />
           )}
         </div>
 
