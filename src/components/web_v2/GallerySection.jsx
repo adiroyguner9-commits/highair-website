@@ -312,22 +312,8 @@ export default function GallerySection() {
 
           {!isMobile && (
             <>
-              {/* Left btn: RTL=next(lbNext/›→‹), LTR=prev(lbPrev/‹) */}
-              <button
-                onClick={isRtl ? lbNext : lbPrev}
-                aria-label={isRtl ? 'Next photo' : 'Previous photo'}
-                style={{ ...LB_BTN, left: '20px' }}
-              >
-                {isRtl ? '›' : '‹'}
-              </button>
-              {/* Right btn: RTL=prev(lbPrev/‹→›), LTR=next(lbNext/›) */}
-              <button
-                onClick={isRtl ? lbPrev : lbNext}
-                aria-label={isRtl ? 'Previous photo' : 'Next photo'}
-                style={{ ...LB_BTN, right: '20px' }}
-              >
-                {isRtl ? '‹' : '›'}
-              </button>
+              <button onClick={lbPrev} aria-label="Previous photo" style={{ ...LB_BTN, left: '20px' }}>{isRtl ? '›' : '‹'}</button>
+              <button onClick={lbNext} aria-label="Next photo"     style={{ ...LB_BTN, right: '20px' }}>{isRtl ? '‹' : '›'}</button>
             </>
           )}
 
@@ -341,31 +327,19 @@ export default function GallerySection() {
               gap:            '8px',
               alignItems:     'center',
             }}>
-              <button
-                onClick={isRtl ? lbNext : lbPrev}
-                aria-label={isRtl ? 'Next photo' : 'Previous photo'}
-                style={{
-                  background: 'rgba(255,255,255,0.15)', border: 'none',
-                  color: '#fff', fontSize: '22px', padding: '8px 16px',
-                  borderRadius: '20px', cursor: 'pointer',
-                }}
-              >
-                {isRtl ? '›' : '‹'}
-              </button>
+              <button onClick={lbPrev} aria-label="Previous photo" style={{
+                background: 'rgba(255,255,255,0.15)', border: 'none',
+                color: '#fff', fontSize: '22px', padding: '8px 16px',
+                borderRadius: '20px', cursor: 'pointer',
+              }}>{isRtl ? '›' : '‹'}</button>
               <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px', fontFamily: 'Ploni', direction: 'ltr' }}>
                 {lightboxIdx + 1} / {PHOTOS.length}
               </span>
-              <button
-                onClick={isRtl ? lbPrev : lbNext}
-                aria-label={isRtl ? 'Previous photo' : 'Next photo'}
-                style={{
-                  background: 'rgba(255,255,255,0.15)', border: 'none',
-                  color: '#fff', fontSize: '22px', padding: '8px 16px',
-                  borderRadius: '20px', cursor: 'pointer',
-                }}
-              >
-                {isRtl ? '‹' : '›'}
-              </button>
+              <button onClick={lbNext} aria-label="Next photo" style={{
+                background: 'rgba(255,255,255,0.15)', border: 'none',
+                color: '#fff', fontSize: '22px', padding: '8px 16px',
+                borderRadius: '20px', cursor: 'pointer',
+              }}>{isRtl ? '‹' : '›'}</button>
             </div>
           )}
         </div>
