@@ -403,7 +403,7 @@ function IsraelMegaItem({ trip, onClose }) {
 }
 
 /* ── Single nav link ── */
-function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnter }) {
+function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnter, isTransparent = false }) {
   const [hovered, setHovered] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -420,6 +420,10 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
     onClick?.();
   }
 
+  const textColor = isTransparent
+    ? (hovered ? '#FFFFFF' : 'rgba(255,255,255,0.85)')
+    : (hovered ? '#0A0818' : '#3D3D3D');
+
   return (
     <a
       href={href}
@@ -431,11 +435,11 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
         fontFamily:     "'Ploni', sans-serif",
         fontSize:       FS.body,
         fontWeight:     500,
-        color:          hovered ? '#0A0818' : '#3D3D3D',
+        color:          textColor,
         textDecoration: 'none',
         letterSpacing:  '0.01em',
         paddingBottom:  '3px',
-        transition:     'color 0.2s ease',
+        transition:     'color 0.3s ease',
       }}
     >
       {label}
@@ -449,14 +453,14 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
         }}>▾</span>
       )}
 
-      {/* Subtle dark underline on hover */}
+      {/* Underline on hover */}
       <span style={{
         position:        'absolute',
         bottom:          0,
         left:            0,
         right:           0,
         height:          '1.5px',
-        background:      '#0A0818',
+        background:      isTransparent ? '#FFFFFF' : '#0A0818',
         borderRadius:    '2px',
         transform:       hovered ? 'scaleX(1)' : 'scaleX(0)',
         transformOrigin: 'center',
@@ -893,13 +897,24 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen]     = useState(false);
   const [megaType, setMegaType]     = useState(null); // null | 'treks' | 'climbs'
+  const [scrolled, setScrolled]     = useState(false);
   const megaTimeout = useRef(null);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
   const dir   = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const isEn  = !isRtl;
+
+  /* Transparent header only on homepage when at the very top (desktop only) */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initialise on mount
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  const isTransparent = !isMobile && location.pathname === '/' && !scrolled;
 
   /* Build translated links array (israelTrips mega only in Hebrew) */
   const LINK_DEFS = [
@@ -946,8 +961,9 @@ export default function Header() {
       boxSizing: 'border-box',
       height:    '80px',
       padding:   '0 5%',
-      background: '#FFFFFF',
-      boxShadow:  '0 4px 20px rgba(0,0,0,0.08)',
+      background:  isTransparent ? 'transparent' : '#FFFFFF',
+      boxShadow:   isTransparent ? 'none' : '0 4px 20px rgba(0,0,0,0.08)',
+      transition:  'background 0.35s ease, box-shadow 0.35s ease',
       display:             'grid',
       gridTemplateColumns: isMobile ? 'auto 1fr' : '1fr auto 1fr',
       alignItems:          'center',
@@ -1031,7 +1047,14 @@ export default function Header() {
               <img
                 src="/Logo.png"
                 alt="HighAir Expeditions"
-                style={{ height: '64px', width: 'auto', display: 'block', objectFit: 'contain' }}
+                style={{
+                  height:     '64px',
+                  width:      'auto',
+                  display:    'block',
+                  objectFit:  'contain',
+                  filter:     isTransparent ? 'brightness(0) invert(1)' : 'none',
+                  transition: 'filter 0.35s ease',
+                }}
               />
             </button>
           </div>
@@ -1048,6 +1071,7 @@ export default function Header() {
                 hasMega={link.hasMega}
                 onNavigate={handleNavigation}
                 onMegaEnter={link.hasMega ? () => openMega(link.megaType) : undefined}
+                isTransparent={isTransparent}
               />
             ))}
           </nav>
@@ -1059,12 +1083,14 @@ export default function Header() {
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 width: '40px', height: '40px', borderRadius: '10px',
-                background: '#F8F6FF', border: '1px solid #E8E4F5',
-                cursor: 'pointer', color: '#5B21B6',
-                transition: 'background 0.15s ease',
+                background:  isTransparent ? 'rgba(255,255,255,0.12)' : '#F8F6FF',
+                border:      isTransparent ? '1px solid rgba(255,255,255,0.22)' : '1px solid #E8E4F5',
+                cursor: 'pointer',
+                color:       isTransparent ? 'rgba(255,255,255,0.85)' : '#5B21B6',
+                transition: 'background 0.35s ease, border 0.35s ease, color 0.35s ease',
               }}
-              onMouseEnter={e => e.currentTarget.style.background = '#F0EDFB'}
-              onMouseLeave={e => e.currentTarget.style.background = '#F8F6FF'}
+              onMouseEnter={e => e.currentTarget.style.background = isTransparent ? 'rgba(255,255,255,0.22)' : '#F0EDFB'}
+              onMouseLeave={e => e.currentTarget.style.background = isTransparent ? 'rgba(255,255,255,0.12)' : '#F8F6FF'}
             >
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>

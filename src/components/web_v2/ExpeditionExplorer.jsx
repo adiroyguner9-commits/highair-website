@@ -70,10 +70,6 @@ function ExpCard({ exp }) {
     return () => obs.disconnect();
   }, [exp.img]);
 
-  const bg = exp.img
-    ? (imgReady ? `url(${exp.img}) ${exp.imgPosition || 'center'}/cover no-repeat` : exp.grad)
-    : exp.grad;
-
   const handleNav = () => navigate(`/expedition/${exp.slug}`);
 
   return (
@@ -91,29 +87,54 @@ function ExpCard({ exp }) {
         height:         '100%',
         borderRadius:   RADIUS.xl,
         overflow:       'hidden',
-        background:     bg,
+        background:     exp.grad,
         display:        'flex',
         flexDirection:  'column',
         justifyContent: 'space-between',
         minHeight:      isMobile ? '300px' : '380px',
         cursor:         'pointer',
         transform:      hovered ? 'translateY(-6px)' : 'translateY(0)',
-        boxShadow:      hovered ? '0 20px 48px rgba(0,0,0,0.22)' : '0 6px 20px rgba(0,0,0,0.12)',
-        transition:     `transform 0.3s ${EASING.out}, box-shadow 0.3s ${EASING.out}`,
+        boxShadow:      hovered ? '0 20px 48px rgba(0,0,0,0.28)' : '0 6px 20px rgba(0,0,0,0.12)',
+        transition:     `transform 0.35s ${EASING.out}, box-shadow 0.35s ${EASING.out}`,
         position:       'relative',
         outline:        'none',
       }}
     >
-      {exp.img && (
+      {/* ── Background image (scales on hover) ── */}
+      {exp.img && imgReady && (
         <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%)',
-          zIndex: 0,
+          position:           'absolute',
+          inset:              '-6px',
+          backgroundImage:    `url(${exp.img})`,
+          backgroundSize:     'cover',
+          backgroundPosition: exp.imgPosition || 'center',
+          transform:          hovered ? 'scale(1.06)' : 'scale(1)',
+          transition:         `transform 0.55s ${EASING.out}`,
+          zIndex:             0,
         }} />
       )}
 
+      {/* ── Dark gradient overlay ── */}
+      <div style={{
+        position:   'absolute',
+        inset:      0,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,0.70) 100%)',
+        zIndex:     1,
+        transition: `opacity 0.35s ${EASING.out}`,
+      }} />
+
+      {/* ── Brand purple tint on hover ── */}
+      <div style={{
+        position:   'absolute',
+        inset:      0,
+        background: 'linear-gradient(to bottom, transparent 40%, rgba(76,29,149,0.35) 100%)',
+        opacity:    hovered ? 1 : 0,
+        transition: `opacity 0.35s ${EASING.out}`,
+        zIndex:     1,
+      }} />
+
       {/* Country badge */}
-      <div style={{ padding: '18px 18px 0', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div style={{ padding: '18px 18px 0', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '6px',
           padding: '5px 12px', borderRadius: RADIUS.full,
@@ -131,7 +152,7 @@ function ExpCard({ exp }) {
       </div>
 
       {/* Name / elevation / arrow */}
-      <div style={{ padding: '0 20px 24px', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '0 20px 24px', direction: isEn ? 'ltr' : 'rtl', position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px' }}>
           <div>
             <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.h3, fontWeight: 700, color: '#FFFFFF', margin: '0 0 6px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>

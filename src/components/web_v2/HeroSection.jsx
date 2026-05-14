@@ -50,6 +50,18 @@ export default function HeroSection() {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
 
+  /* ── Parallax: video moves at 30% of scroll speed ── */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const onScroll = () => {
+      const y = window.scrollY;
+      video.style.transform = `translateZ(0) translateY(${y * 0.3}px)`;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   /* Track first video play (fires once per page load) */
   useEffect(() => {
     const el = videoRef.current;

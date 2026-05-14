@@ -3,7 +3,7 @@
  * Active route: /test
  */
 
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useTranslation }  from 'react-i18next';
 import { useInView }      from '../../website/useInView.js';
 import { usePageMeta }    from '../../website/usePageMeta.js';
@@ -19,8 +19,36 @@ const ImpactSection  = lazy(() => import('./ImpactSection.jsx'));
 const ReviewsSection = lazy(() => import('./ReviewsSection.jsx'));
 const GallerySection = lazy(() => import('./GallerySection.jsx'));
 const PressSection   = lazy(() => import('./PressSection.jsx'));
+const FAQSection     = lazy(() => import('./FAQSection.jsx'));
+const BlogPreview    = lazy(() => import('./BlogPreview.jsx'));
 const CTASection     = lazy(() => import('./CTASection.jsx'));
 const SiteFooter     = lazy(() => import('./SiteFooter.jsx'));
+
+/* ── Scroll progress bar ── */
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docH > 0 ? (window.scrollY / docH) * 100 : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return (
+    <div style={{
+      position:   'fixed',
+      top:        0,
+      left:       0,
+      zIndex:     9999,
+      height:     '3px',
+      width:      `${progress}%`,
+      background: 'linear-gradient(90deg, #6D28D9, #A78BFA)',
+      transition: 'width 0.08s linear',
+      pointerEvents: 'none',
+    }} />
+  );
+}
 
 /* ── Divider between sections ── */
 function Divider() {
@@ -107,6 +135,9 @@ export default function HomeV2() {
   return (
     <div style={{ position: 'relative', background: '#FFFFFF' }}>
 
+      {/* ── Scroll progress bar ── */}
+      <ScrollProgress />
+
       {/* ── Fixed navbar ── */}
       <Header />
 
@@ -140,6 +171,11 @@ export default function HomeV2() {
 
           <Divider />
           <FadeIn><PressSection /></FadeIn>
+
+          <Divider />
+          <FadeIn><FAQSection /></FadeIn>
+
+          <FadeIn><BlogPreview /></FadeIn>
 
           <FadeIn><CTASection /></FadeIn>
           <SiteFooter />
