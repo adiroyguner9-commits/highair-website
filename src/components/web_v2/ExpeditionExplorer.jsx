@@ -307,17 +307,11 @@ export default function ExpeditionExplorer({ type }) {
           <div>
             <h2 style={{
               fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
-              color: '#0A0818', margin: '0 0 12px', letterSpacing: '-0.02em',
+              color: '#0A0818', margin: 0, letterSpacing: '-0.02em',
               lineHeight: 1.1, textAlign: 'start',
             }}>
               {heading}
             </h2>
-            <p style={{
-              fontFamily: "'Ploni', sans-serif", fontSize: FS.body, fontWeight: 300,
-              color: '#6B6B8A', margin: 0, lineHeight: 1.7, textAlign: 'start',
-            }}>
-              {subtitle}
-            </p>
           </div>
 
           {!isMobile && (

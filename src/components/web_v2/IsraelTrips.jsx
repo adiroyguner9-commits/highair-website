@@ -206,17 +206,6 @@ export default function IsraelTrips() {
             {t('israelTrips.heading')}
           </h2>
 
-          <p style={{
-            fontFamily:  "'Ploni', sans-serif",
-            fontSize:    FS.body,
-            fontWeight:  300,
-            color:       '#6B6B8A',
-            margin:      0,
-            lineHeight:  1.7,
-            textAlign:   'start',
-          }}>
-            {t('israelTrips.subtitle')}
-          </p>
         </div>
 
         {/* ── Cards grid ── */}
