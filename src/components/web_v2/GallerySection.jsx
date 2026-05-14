@@ -25,11 +25,8 @@ const PHOTO_SRCS = [
 /* ── Nav arrow button ── */
 function ArrowBtn({ dir, disabled, onClick, isRtl }) {
   const [hovered, setHovered] = useState(false);
-  /* RTL: left-btn = › (back toward photo 1 on right), right-btn = ‹ (next toward photo 11 on left)
-     LTR: left-btn = ‹ (back),                          right-btn = › (next)              */
-  const symbol = isRtl
-    ? (dir === 'left' ? '›' : '‹')
-    : (dir === 'left' ? '‹' : '›');
+  /* Arrow always points in the direction it scrolls — left=‹ right=›, RTL or LTR */
+  const symbol = dir === 'left' ? '‹' : '›';
   return (
     <button
       onClick={onClick}
@@ -198,7 +195,7 @@ export default function GallerySection() {
 
           {/* Left arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="left" disabled={!canPrev} onClick={() => doScroll(isRtl ? SCROLL_AMT : -SCROLL_AMT)} isRtl={isRtl} />
+            <ArrowBtn dir="left" disabled={!canNext} onClick={() => doScroll(-SCROLL_AMT)} isRtl={isRtl} />
           )}
 
           {/* Scrollable track */}
@@ -242,7 +239,7 @@ export default function GallerySection() {
 
           {/* Right arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="right" disabled={!canNext} onClick={() => doScroll(isRtl ? -SCROLL_AMT : SCROLL_AMT)} isRtl={isRtl} />
+            <ArrowBtn dir="right" disabled={!canPrev} onClick={() => doScroll(SCROLL_AMT)} isRtl={isRtl} />
           )}
         </div>
 
