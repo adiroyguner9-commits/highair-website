@@ -12,22 +12,22 @@ export const EXPS = [
     seoDescription: 'טרק הר האולימפוס - הר האלים של יוון, 2,918 מטר. 6 ימים, מסלול דרך יערות פריוניה, פסגת מיטיקאס ויום קניונינג בנהר האורליאס. קבוצה קטנה.',
     seoDescriptionEn: 'Trek to the summit of Mount Olympus (2,918m) in Greece - 6 days. Through Prionia forests, summit Mytikas peak & canyoning on the Orlias River. Groups up to 15.',
     grad: 'linear-gradient(135deg,#3b82f6,#1d4ed8,#1e3a8a)',
-    desc: `הר האולימפוס הוא ההר הגבוה ביותר ביוון ומקום משכנם של האלים לפי המיתולוגיה היוונית  -  2918 מטרים של יערות אלפיניים, צוקים ופסגות שנשקפות עד הים האגאי.
+    desc: `הצטרפו אלינו למסע אתגרי לפסגת הר האולימפוס ביוון, ההר הגבוה ביותר במדינה ומקום משכנם של האלים האולימפיים לפי המיתולוגיה היוונית. הר האולימפוס מציע נופים עוצרי נשימה עם פסגות מדהימות, יערות עבותים וכרי דשא ירוקים, שיהפכו את המסע לחוויה בלתי נשכחת.
 
-המסע מתחיל בכפר ליטוחורו, עולה דרך יערות פריוניה אל הבקתות, וממשיך לפסגות סקאלה ומיטיקאס. המסלול מאתגר אך בר-השגה: מי שמסוגל ללכת 15–20 ק"מ ביום בטיפוס משמעותי  -  יגיע לפסגה. המדריכים המקומיים מכירים את המסלול לעומק ומלווים את הקבוצה בכל שלב.
+המסע מתחיל בכפר ליטוחורו, עובר דרך פריוניה אל בקתות, וממשיך לפסגות סקאלה ומיטיקאס, המתנשאת לגובה 2918 מטרים. זהו מסלול מאתגר המתאים למטיילים בעלי רמות שונות של כושר גופני וניסיון בהליכה בהרים. עם הכנה נכונה וציוד מתאים, כל אחד יכול ליהנות מהנוף הפנורמי המרהיב שההר מציע.
 
-היום החמישי מוקדש לקניונינג בנהר האורליאס  -  גלישת מפלים, שחייה בבריכות טבעיות ותרגול על סלעים. איזון טוב בין מאמץ וכיף.
+טיפוס לפסגת האולימפוס הוא לא רק אתגר פיזי, אלא גם חוויה רוחנית ותרבותית. האוויר הצלול, השקט והשלווה, והקשר העמוק להיסטוריה ולמיתולוגיה היוונית, יותירו עליכם רושם עמוק שילווה אתכם לשנים רבות.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו למסע מדהים לפסגת הר האלים וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת מיטיקאס 2917מ׳', 'יערות פריוניה', 'מיתולוגיה יוונית עתיקה', 'נוף הים האגאי'],
     nameEn: 'Olympus',
-    descEn: `Mount Olympus is Greece's highest peak at 2,917m, and yes, it's the mountain the ancient Greeks decided the gods lived on. Whether or not you buy the mythology, the mountain itself earns the reputation.
+    descEn: `Join us on an exhilarating journey to the summit of Mount Olympus in Greece - the country's highest peak and legendary home of the Olympian gods. With breathtaking panoramas, lush forests, and pristine alpine meadows, this expedition delivers an unforgettable experience.
 
-We start in the village of Litochoro and work our way up through the Prionia forests to the mountain huts, then push on to Skala and Mytikas at 2,918m. The route is challenging but accessible. If you can walk 15–20 km a day and don't mind gaining serious elevation, this is for you.
+The journey begins in the village of Litochoro, passes through Prionia towards the mountain huts, and continues to the legendary Skala and Mytikas summits, reaching 2918 meters. This challenging route welcomes trekkers of all fitness levels with proper preparation.
 
-The forests here are proper alpine forest, not decorative. The air at the top is cold and clear, and when the mist drops you get a view straight down to the Aegean. It's one of those moments that's hard to explain until you're in it.
+Climbing Olympus is not just a physical challenge - it's a spiritual and cultural experience. The crisp air, the silence, and the deep connection to ancient Greek history and mythology will leave a lasting impression for years to come.
 
-We run this route as a 6-day expedition. One of those days is a canyoning session at the Orlias River. Good balance of effort and fun.`,
+Join us on this incredible adventure to the Peak of the Gods and make a meaningful contribution to the fight against cancer!`,
     highlightsEn: ['Mytikas Summit 2,917m', 'Prionia forests', 'Ancient Greek mythology', 'Aegean Sea panorama'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -129,22 +129,22 @@ We run this route as a 6-day expedition. One of those days is a canyoning sessio
     seoDescription: 'טרק פסגות הבלקן - 2,656 מטר. 10 ימים, 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. קבוצה קטנה, נוף בלתי מוכר.',
     seoDescriptionEn: 'Trek the Peaks of the Balkans (2,656m) in Albania - 10 days. 8 hiking days across Albania, Kosovo & Montenegro with stays in local guesthouses. Groups up to 15.',
     grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
-    desc: `טרק פסגות הבלקן חוצה את גבולות אלבניה, קוסובו ומונטנגרו במהלך 8 ימי הליכה. המסלול מוביל דרך עמקים אלפיניים, מעברי הרים ברום 2000 מטר וכפרי רועים מרוחקים שאין אליהם גישה בכביש.
+    desc: `הצטרפו אלינו לטרק פסגות הבלקן, אחד ממסלולי הטרק המרהיבים והנידחים ביותר באירופה. השביל חוצה את גבולות אלבניה, קוסובו ומונטנגרו, ומוביל אתכם דרך עמקים אלפיניים בתוליים, מעברי הרים דרמטיים וכפרים מסורתיים שנותרו מחוץ למסלול התיירות ההמוני.
 
-לאורך כל הדרך לנים בגסטהאוסים ביתיים המנוהלים על ידי משפחות מקומיות  -  אוכלים מה שהן מבשלות, שומעים את הסיפורים שלהן. ביום השישי מגיעים לנקודה שבה נפגשים גבולות שלוש המדינות בגובה 2366 מ׳  -  אנדרטה קטנה, ואפשרות לעמוד בו-זמנית בשלוש מדינות.
+במהלך 8 ימים תצעדו בלב הבלקן המערבי, תגלו תרבויות עשירות, ותלונו בגסטהאוסים ביתיים המנוהלים על ידי משפחות מקומיות. זהו מסע אמיתי מחוץ לשביל המוכר, למי שמחפש טבע, פשטות ואותנטיות.
 
-הפסגה הגבוהה ביותר היא ג׳רביצה בגובה 2656 מ׳  -  הנקודה הגבוהה בקוסובו. 13–22 ק"מ ביום, בהתאם לשלב. מסלול בינוני ללא טיפוס טכני.
+הטרק בפסגות הבלקן הוא לא רק מסע גופני, אלא גם חוויה רוחנית ותרבותית. הנוף ההררי המושלג, האוויר הצח, השקט והמרהיב יותירו עליכם רושם עמוק שילווה אתכם לאורך שנים רבות.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו להרפתקה של פעם בחיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת ג׳רביצה 2656מ׳', 'שייט באגם קומאני', 'גבולות אלבניה-קוסובו-מונטנגרו', 'גסטהאוסים ביתיים מקומיים'],
     nameEn: 'Peaks of the Balkans',
-    descEn: `The Peaks of the Balkans trail crosses Albania, Kosovo, and Montenegro over 8 trekking days. It's one of the least crowded long-distance routes in Europe, and the landscapes  -  alpine passes, river valleys, remote shepherd villages  -  are the real thing.
+    descEn: `Join us on the Peaks of the Balkans trek - one of the most spectacular and remote trekking routes in Europe. The trail crosses the borders of Albania, Kosovo and Montenegro, leading you through pristine alpine valleys, dramatic mountain passes and traditional villages that remain off the beaten tourist track.
 
-You stay in family-run guesthouses throughout, eating what the families cook. The border crossings are genuine: on Day 6 you stand at a small monument where all three countries meet and you can get a foot in each simultaneously. People love that moment more than they expect to.
+Over 8 days you'll walk through the heart of the Western Balkans, discover rich cultures, and stay in family-run guesthouses managed by local families. This is a true journey off the well-known path, for those seeking nature, simplicity and authenticity.
 
-The highest point is Jezerca at 2,656m. The terrain varies day to day, from forest tracks to rocky ridgelines. Daily distances run 13–20 km depending on the stage. It's a moderate route  -  no technical climbing  -  but the cumulative days add up, so reasonable fitness matters.
+The Peaks of the Balkans trek is not just a physical journey - it's a spiritual and cultural experience. The snow-capped mountain scenery, the fresh air, the silence and the majesty will leave a deep impression that will stay with you for years to come.
 
-We've run this route with groups and know which guesthouses are worth staying at. The Gacafari family guesthouse near the triple-border point is a highlight: warm, well-fed, and memorable.`,
+Join us for a once-in-a-lifetime adventure, and make a meaningful contribution to the fight against cancer!`,
     highlightsEn: ['Jezerca Peak 2,656m', 'Lake Komani boat ride', 'Albania-Kosovo-Montenegro borders', 'Local family guesthouses'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -257,24 +257,24 @@ We've run this route with groups and know which guesthouses are worth staying at
     seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה - 4,550 מטר. 11 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
     seoDescriptionEn: 'Trek Simien Mountains & Danakil Desert in Ethiopia - 11 days. Active lava lake at Erta Ale, colorful Dallol depression & Gelada baboons in the Simiens.',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
-    desc: `שני חצאים, שתי אתיופיות שונות לחלוטין  -  11 יום.
+    desc: `הצטרפו אלינו למסע יוצא דופן באתיופיה, בין הר געש ארטה אלה, מדבר דנקיל המרהיב ושקע דאלול, עד לפסגות הגבוהות במדינה בטרק הרי סימיאן.
 
-החצי הראשון הוא מדבר דנקיל. מגיעים לשפת לוע ארטה אלה בלילה  -  אגם לבה פעיל שזורח בחושך. למחרת, שקע דאלול: אגמי גופרית, מים חומציים ותצורות מינרלים בצבעים שקשה להאמין שהם טבעיים. שיירות גמלים נושאות בלוקי מלח, בדיוק כפי שהיה לפני מאות שנים.
+הטיול שלנו מתחיל במדבר דנקיל, אחד האזורים המרהיבים על פני כדור הארץ, נבקר בשקע דאלול הצבעוני, נטייל בין אגמי מלח ושדות גופרית ונצעד לתוך לוע של הר געש פעיל בלב לילה תחת שמי מדבר זרועי הכוכבים.
 
-החצי השני הוא הרי סימיאן. מ-3000 מטר ומעלה, ביערות הרריים, צופים בג׳לדות  -  פרימטים עם חזה אדום החיים רק באתיופיה  -  רועות על שפת מצוקים מעל תהומות של 1000 מטר. הטרק עולה לפסגת ראס בוהאיט ב-4430 מ׳ עם סיכוי לראות יעל ואליה וזאב אתיופי.
+משם נעלה לגבהים ונצעד בשבילי שמורת הרי סימיאן, בין מצוקים דרמטיים, פסגות מעל 4000 מ׳ ונופים עוצרי נשימה של טבע פראי מלא בחיות בר.
 
-הניגוד בין שני החצאים הוא מה שהופך את המסע הזה לקשה לשכפול.
+זהו מסע שמשלב את הניגוד שבין חום המדבר לרוחות הקרות בפסגות הגבוהות, חוויה בלתי נשכחת של טבע במלוא הדרו!
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו למסע המדהים באתיופיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['ראס בוהאיט 4430מ׳', 'ג׳לדות ניידות', 'אגם לבה פעיל בארטה אלה', 'נוף הפרהיסטורי של דנקיל'],
     nameEn: 'Simien & Danakil Desert',
-    descEn: `This expedition covers two completely different Ethiopias in 11 days.
+    descEn: `Join us on an extraordinary journey to Ethiopia - from the volcanic Erta Ale, through the surreal Danakil Depression and the colorful Dallol crater, all the way to the high peaks of the Simien Mountains.
 
-The first half is the Danakil Depression, one of the hottest and most geologically active places on the planet. We walk to the crater rim of Erta Ale at night  -  an active lava lake, glowing in the dark. The next day takes us to the Dallol crater: sulfur pools, acid lakes, and mineral formations in colors that don't look like they belong on Earth. Salt camel caravans still pass through here exactly as they have for centuries.
+Our adventure begins in the Danakil Desert, one of the most spectacular places on Earth. We visit the colorful Dallol Depression, hike between salt lakes and sulfur fields, and trek to the crater of an active volcano in the heart of the night under a sky full of stars.
 
-The second half is the Simien Mountains. After the heat of Danakil, you're suddenly at 3,000m in highland forest, watching gelada baboons  -  big, red-chested primates found only in Ethiopia  -  grazing on clifftops above 1,000-meter drops. We trek 4–5 days through the park, climbing to Ras Bwahit at 4,430m, with a chance to spot the rare Ethiopian wolf and Walia ibex.
+From there we ascend to the heights of the Simien Mountains National Park - between dramatic cliffs, peaks over 4,000m, and breathtaking views of wild nature teeming with wildlife.
 
-The contrast between the two halves is what makes this trip hard to replicate anywhere else.`,
+This journey combines the contrast between desert heat and cold mountain winds - an unforgettable experience of nature in all its glory!`,
     highlightsEn: ['Ras Bwahit 4,430m', 'Gelada baboons', 'Erta Ale active lava lake', 'Prehistoric Danakil landscape'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
@@ -399,22 +399,22 @@ The contrast between the two halves is what makes this trip hard to replicate an
     seoDescription: 'טיפוס לקזבק - הר געש כבוי בקווקז, 5,054 מטר. 8 ימים בגאורגיה, מסלול דרך קרחון גרגטי ובייס קמפ ב-3,650 מטר. מדריכי IFMGA, קבוצה קטנה.',
     seoDescriptionEn: 'Climb Kazbek (5,054m) in Georgia - 8 days. A dormant volcano in the Caucasus via the Gergeti Glacier. IFMGA guides, groups up to 15. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#4338ca,#3730a3,#1e1b4b)',
-    desc: `קזבק הוא הר געש כבוי בגאורגיה, 5054 מטרים, ואחת מנקודות הגישה הטובות ביותר לטיפוס בגובה קיצוני. מתחילים בסטפנצמינדה, חוצים את קרחון גרגטי ומבלים 3–4 לילות בבייס קמפ ב-3650 מ׳ לפני יציאה לפסגה.
+    desc: `הצטרפו אלינו למסע טיפוס על הר קזבק המתנשא לגובה של 5054 מטרים. הר קזבק הוא יעד מושלם עבור מטפסים מתחילים המחפשים אתגר מרתק בלב רכס הקווקז המרהיב של גאורגיה.
 
-המסלול דורש קרמפונים, גרזן קרח ועבודה בחבלים  -  המדריכים מלמדים את כל זה בימי ההתאקלמות לפני יום הפסגה. אין צורך בניסיון טיפוס קודם, אבל כושר גופני סביר ויכולת לצעוד לאט בגובה אינם אופציונליים.
+המסלול אל פסגת הר קזבק טכני ומאתגר, אך עם הכנה נכונה וכושר גופני הוא בהחלט בר השגה גם עבור מטפסים מתחילים. במהלך הטיפוס, תלמדו כיצד להשתמש בציוד טיפוס כמו גרזן קרח, קרמפונים, רתמה, נעלי טיפוס וקסדה.
 
-יום הפסגה מתחיל סביב חצות. מטפסים בחושך עם פנסי ראש, מגיעים לשדות השלג, ועולים לפסגה ב-5054 מ׳. בתנאי מזג אוויר טוב, רואים את כל הקווקז. שעתיים טיסה מישראל.
+התגמול על ההשקעה יהיה עצום - תזכו לחזות בנופים פנורמיים מרהיבים מהפסגה, כשכל רכס הקווקז פרוס לרגליכם. בנוסף לחוויית הטיפוס עצמה, הטיול מהווה הזדמנות לחקור את התרבות והטבע הייחודיים של גיאורגיה. תוכלו לבקר בכפרים מקומיים ולטעום מהמטבח הגיאורגי המסורתי.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+טיפוס להר קזבק הוא חוויה בלתי נשכחת שתיזכר לשנים רבות. הנופים והתרבות הייחודית של גאורגיה יותירו עליכם רושם עז. אל תחמיצו הזדמנות להרפתקה ברמה הבאה - רק שעתיים מישראל!
+
+הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת קזבק 5047מ׳', 'מנזר גרגטי הנצחי', 'כפרי קווקז אותנטיים', 'מסדרון קרחון'],
     nameEn: 'Kazbek',
-    descEn: `Kazbek is a 5,054m dormant volcano in Georgia's Greater Caucasus range, with one of the better approaches in high-altitude mountaineering. You start in Stepantsminda, cross the Gergeti Glacier, and spend 3–4 nights at base camp at 3,650m before the summit push.
+    descEn: `Mount Kazbek in Georgia is one of the Caucasus's most iconic peaks, standing at 5047 meters and deeply embedded in Georgian mythology. This expedition takes you through dramatic glaciers, ancient monasteries, and breathtaking mountain scenery.
 
-The mountain requires crampons, ice axe, harness, and rope work  -  your IFMGA-certified guides teach all of it during acclimatization days before the summit attempt. No prior mountaineering experience required, but reasonable fitness and a tolerance for cold, slow walking at altitude are non-negotiable.
+The journey begins in the historic town of Kazbegi, with the famous Gergeti Trinity Church as a backdrop. We acclimatize through high-altitude camps before making our summit push across spectacular glaciers.
 
-Summit day starts around midnight. You climb through the dark by headlamp, reach the snowfields, and push to the top at 5,047m. The Caucasus spread out in every direction when conditions are clear. Coming back down feels faster than it should.
-
-Two hours from Israel. Three hours by road from Tbilisi. It's genuinely one of the most accessible 5,000m peaks available.`,
+This is a true mountaineering expedition requiring crampons, ice axes, and rope work - perfect for climbers looking for their first high-altitude experience beyond trekking peaks.`,
     highlightsEn: ['Kazbek Summit 5,054m', 'Gergeti Trinity Church', 'Caucasus glaciers', 'Georgian mountain culture'],
     included: ['מדריך IFMGA', 'לינה מעורבת', 'כל הארוחות', 'הסעות', 'ציוד טיפוס'],
     safety: ['ציוד לוויין Magnus', 'עדכונים למשפחות', 'מדריכי קווקז מנוסים', 'ניטור גובה'],
@@ -532,22 +532,24 @@ Two hours from Israel. Three hours by road from Tbilisi. It's genuinely one of t
     seoDescription: 'טרק סובב מנסלו - 5,106 מטר בנפאל. 16 ימים, לולאה מסביב להר השמיני בגובהו בעולם דרך כפרי טיבט ומעבר לרקיה לה. פחות תיירים, נוף בלתי מוכר.',
     seoDescriptionEn: 'Trek the Manaslu Circuit (5,106m) in Nepal - 16 days. A full loop around the 8th highest mountain via Tibetan villages & Larkya La Pass. Fewer crowds, raw scenery.',
     grad: 'linear-gradient(135deg,#0f766e,#0d9488,#042f2e)',
-    desc: `טרק סובב מנסלו מקיף את ההר השמיני בגובהו בעולם (8163 מ׳) ב-16 יום. המסלול פחות עמוס ממסלולי האוורסט, והנוף שונה: כפרים שעוצבו על ידי תרבות טיבטית במשך מאות שנים  -  קירות מאני, דגלי תפילה, מנזרי אבן, יאקים.
+    desc: `הצטרפו אלינו למסע בלתי נשכח, טרק סובב מנסלו בנפאל - ההר נמצא בלבו של רכס ההימלאיה הפראי, ונחשב לאחד מהטיולים היפים והבתוליים ביותר בעולם.
 
-הנקודה הגבוהה ביותר היא מעבר לרקיה לה ב-5106 מ׳. יוצאים מהדארמסלה לפני עלות השחר, חוצים את המעבר בקור ובחושך, ואז יורדים 1500 מ׳ לבימטאנג  -  עמק שלו עם נוף שונה לחלוטין מכל מה שראיתם עד אז.
+במהלך המסע המעגלי סביב הר מנסלו המתנשא לגובה 8163 מ׳, תיחשפו לנופים עוצרי נשימה של פסגות מושלגות, קרחונים, עמקים מבודדים ופראיים ומפלים שוצפים.
 
-ביום התשיעי מטייל יומי אל מחנה הבסיס של מנסלו ב-4800 מ׳  -  קצת יצא מהדרך, שווה את המאמץ.
+תכירו לעומק את התרבות המקומית, תחוו את אורח החיים הפשוט והאותנטי של האוכלוסיה המקומית ותזכו להכיר את תושביה החמים והידידותיים של האזור, שמארחים בנדיבות את המטיילים לאורך הדרך. אתם תתרשמו גם מטקסים מסורתיים, מהתרבות הטיבטית העשירה וממנזרים עתיקים בדרך.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הטרק המאתגר סובב את הפסגה הגבוהה של מנסלו ומציג תצפיות מרהיבות על כמה מהפסגות הגבוהות בעולם, בדרך עוברים בכפרים וישובים הרריים קסומים. לאורך הדרך תיחשפו לסממנים רבים של התרבות הבודהיסטית המסורתית - מקירות מאני עתיקים, דגלי תפילה מתנופפים ברוח, ומנזרים הרריים מבודדים.
+
+הצטרפו אלינו להרפתקה של פעם בחיים בהימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['מעבר לרקיה לה 5160מ׳', 'כפרי טיבט עתיקים', 'מנזרים בדרך', 'נוף מנסלו 8163מ׳'],
     nameEn: 'Manaslu Circuit',
-    descEn: `The Manaslu Circuit goes around the world's eighth highest mountain (8,163m) without the crowds you get on the Everest routes. We've been running this trek for years and it remains one of our favorites.
+    descEn: `The Manaslu Circuit is one of Nepal's most beautiful and pristine trekking routes, winding through the heart of the wild Himalayas around the world's eighth highest mountain, Manaslu (8,163m).
 
-The route takes 16 days. It passes through villages that have been shaped by Tibetan culture for centuries  -  mani walls, prayer flags, stone monasteries, yaks. The valley floors are forested and green; the high sections are exposed and rocky. The landscape changes significantly day to day.
+Over 16 days you'll witness breathtaking scenery of snow-capped peaks, glaciers, isolated valleys and roaring waterfalls. The route passes through traditional Tibetan-influenced villages, ancient monasteries and mani walls adorned with Buddhist prayer flags.
 
-The high point is Larkya La Pass at 5,106m. You leave Dharamsala before dawn to cross it in cold, dark conditions, then descend into a completely different valley. It's a long day and a satisfying one. Most groups stop to take photos at the pass in the wind before the long descent to Bimtang.
+The highlight of the trek is crossing Larkya La Pass at 5,106 meters — a rewarding high-altitude crossing with panoramic views of Manaslu and the surrounding Himalayan giants.
 
-Day 9 includes a full-day side trip to Manaslu Base Camp at 4,800m, which gives you a close-up view of the mountain you've been circling all week. Worth it.`,
+Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the fight against cancer!`,
     highlightsEn: ['Larkya La Pass 5,106m', 'Ancient Tibetan villages', 'Buddhist monasteries', 'Manaslu 8,163m views'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -687,22 +689,26 @@ Day 9 includes a full-day side trip to Manaslu Base Camp at 4,800m, which gives 
     seoDescription: 'טרק אוורסט בייס קמפ ואגמי גוקיו - 5,364 מטר בנפאל. 19 ימים, בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו במסלול אחד. קבוצה עד 10 איש.',
     seoDescriptionEn: 'Trek to Everest Base Camp & Gokyo Lakes (5,364m) in Nepal - 19 days. EBC, Kala Patthar, Cho La Pass & Gokyo Lakes in one route. Expert guides, groups up to 10.',
     grad: 'linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)',
-    desc: `המסלול המשולב שרוב המטיילים הרציניים מגיעים אליו נפאל בשבילו: אוורסט בייס קמפ, קאלה פטאר, מעבר צ׳ו לה ואגמי גוקיו  -  הכל במסע אחד של 19 ימים.
+    desc: `טרק האוורסט בייס קמפ הוא אחד המסלולים האייקוניים והמלהיבים ביותר בהימלאיה. המסע מתחיל בלוקלה וממשיך דרך נופים מרהיבים של נחלים, יערות ובעלי חיים, תוך מפגש עם כפרים אותנטיים של בני שבט השרפה ותרבות בודהיסטית עשירה.
 
-עפים במסוק ללוקלה ומתקדמים בהדרגה דרך עמק הקומבו. מעמק כהמבו, אמה דבלאם מופיעה ביום הרביעי ונשארת בנוף רוב הדרך. ביום העשירי מגיעים לבייס קמפ ב-5364 מ׳  -  שטח הקמפינג האמיתי של משלחות אוורסט, עם שורות אוהלים לכיוון קרחון הקומבו. בבוקר הבא קמים ב-3 לפנות בוקר לעלות לקאלה פטאר ב-5545 מ׳ לזריחה מעל הפנים הדרום-מערבית של אוורסט.
+המחנה עצמו נמצא בגובה 5364 מ' מעל פני הים ומהווה את נקודת ההתחלה של המטפסים הרבים שמתחילים את הטיפוס לפסגת האוורסט. הטרק כולל גם את מעבר צו לה פס, את הכפר הייחודי גוקיו, ואת אגמיו המרהיבים, המציעים נופים שלא תמצאו בשום מקום אחר.
 
-אחרי זה מעבר צ׳ו לה ב-5420 מ׳  -  היום הדרשני ביותר, קול קרחוני עם חבל קבוע. מגוקיו עולים לגוקיו רי ורואים בו-זמנית ארבע שמיניות: אוורסט, להוצה, מקאלו, צ׳ו אויו.
+לאורך הדרך תתרשמו מפסגות ההימלאיה המרשימות: האוורסט, להוטסה, נופטסה ועוד פסגות גבוהות רבות. שיאו של המסלול מגיע בקאלה פטאר (5545 מ'), אחת מנקודות התצפית המרשימות ביותר בעולם על פסגת האוורסט, חוויה בלתי נשכחת של עוצמה וגובה.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+בנוסף לנופים, תחשפו במהלך המסע לתרבות המקומית, ביקור בבקתות מסורתיות, מנזרים עתיקים, טעימות אוכל נפאלי אותנטי והזדמנות לפגוש יאקים נודדים בדרך.
+
+טרק לאוורסט בייס קמפ ואגמי גוקיו משלב הישג ספורטיבי עם חוויה תרבותית עמוקה ונופים מרהיבים, ויוצר אחת מהרפתקאות הטרקינג המרגשות והטובות ביותר בעולם!
+
+הצטרפו אלינו להרפתקה של פעם חיים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['מחנה בסיס אוורסט 5364מ׳', 'אגמי גוקיו', 'נוף על האוורסט', 'שוק נמצ׳ה בזאר'],
     nameEn: 'Everest Base Camp & Gokyo',
-    descEn: `This is the combined route that most serious trekkers come to Nepal for: Everest Base Camp, Kala Patthar, Cho La Pass, and the Gokyo Lakes  -  all in one 19-day trip.
+    descEn: `The Everest Base Camp trek is one of the most iconic and exhilarating routes in the Himalayas. The journey begins in Lukla and winds through breathtaking scenery of rivers, forests and wildlife, passing authentic Sherpa villages and rich Buddhist culture.
 
-We fly in by helicopter to Lukla and spend the first week gaining altitude through Namche Bazaar, Tengboche, and Dingboche. The Khumbu valley is impressive from the start. Ama Dablam appears on day 4 and stays in view for most of the trek. On Day 10 you reach Base Camp at 5,364m  -  the actual staging ground for Everest expeditions, with lines of tents stretching toward the Khumbu Icefall. The next morning starts at 3am to catch sunrise from Kala Patthar at 5,545m. The view of Everest's southwest face from there is what the photos try to capture.
+Base Camp itself sits at 5,364m above sea level — the very starting point for climbers attempting the summit of Everest. The trek also includes the dramatic Cho La Pass crossing, the unique village of Gokyo and its stunning glacial lakes, offering views found nowhere else on earth.
 
-After that, the Cho La Pass (5,420m) crosses into the Gokyo valley. It's the most demanding single day on the trek  -  a glaciated col with some fixed rope. From Gokyo you climb Gokyo Ri for the four-peak panorama: Everest, Lhotse, Makalu, Cho Oyu all at once.
+Along the way you'll be surrounded by the great Himalayan peaks: Everest, Lhotse, Nuptse and many more. The route culminates at Kala Patthar (5,545m) — one of the world's most spectacular viewpoints for a sunrise over Everest. An unforgettable experience of power and altitude.
 
-This is classified as a hard trek because of the altitude, the 19-day length, and the Cho La crossing. You do not need mountaineering experience. You need good legs, a willingness to go slowly, and time.`,
+Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the fight against cancer!`,
     highlightsEn: ['Everest Base Camp 5,364m', 'Gokyo Lakes', 'Everest panorama', 'Namche Bazaar market'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 90 ליטר!',
@@ -849,24 +855,20 @@ This is classified as a hard trek because of the altitude, the 19-day length, an
     seoDescription: 'טרק סובב אנאפורנה - 5,416 מטר בנפאל. 16 ימים, לולאה מלאה סביב אנאפורנה דרך כפרי גורקה, אגם טיליצ׳ו ומעבר תורונג לה. ירידה של 1,600 מטר בצד השני.',
     seoDescriptionEn: "Trek the Annapurna Circuit (5,416m) in Nepal - 16 days. Full loop via Gurung villages, Tilicho Lake & Thorong La Pass. One of the world's greatest treks.",
     grad: 'linear-gradient(135deg,#0891b2,#0e7490,#083344)',
-    desc: `טרק סובב אנאפורנה הוא לולאה מלאה סביב הר אנאפורנה (8091 מ׳)  -  16 יום שמתחילים ביערות גשם טרופיים ומסיימים בכפרי מוסטאנג היבשים.
+    desc: `הצטרפו אלינו לטרק סובב אנאפורנה בנפאל, אשר נחשב לאחד מהטרקים היפים והפופולריים ביותר בעולם. במהלך המסע המעגלי סביב ההר המרהיב אנאפורנה המתנשא לגובה של 8091 מ׳, תיחשפו לנופים עוצרי נשימה של פסגות מושלגות, קרחונים, עמקים ירוקים ויערות עבותים.
 
-הדרך עוברת דרך כפרי גורקה ומנאנג, מנזרים בודהיסטיים ואזורים שנראים כאילו הזמן עצר בהם. ביום העשירי יוצאים לסיור יומי לאגם טיליצ׳ו ב-4919 מ׳  -  אחד האגמים הגבוהים בעולם, צעד אחד מהמסלול הראשי שכדאי לעשות.
+תכירו לעומק את התרבות המקומית, תחוו את אורח החיים הפשוט והאותנטי של האוכלוסייה המקומית ותזכו להכיר את תושביה החמים והידידותיים של האזור, שמארחים בנדיבות את המטיילים לאורך הדרך. אתם תתרשמו מטקסים מסורתיים, מהתרבות הבודהיסטית העשירה וממנזרים עתיקים בדרך.
 
-הנקודה המרכזית היא מעבר תורונג לה ב-5416 מ׳. יוצאים מהיי קמפ לפני עלות השחר ועולים בקור לקול רוח, מגיעים לפסגת המעבר עם דהואלאגירי (8167 מ׳) לצד מערב. אחר כך ירידה של 1600 מ׳ לעבר מוקטינאת  -  יום ארוך, מניח את הדעת, ומסיים את הלולאה מהצד השני.
+הטרק סובב את הפסגה הגבוהה של אנאפורנה ומציג תצפיות מרהיבות על כמה מהפסגות הגבוהות בעולם, בדרך עוברים בכפרים וישובים הרריים קסומים. לאורך הדרך תיחשפו לסממנים רבים של התרבות הבודהיסטית המסורתית - מקידות הודיות צבעוניות, דגלי תפילה מתנופפים ברוח, ומנזרים הרריים עתיקים.
 
-עמק קאלי גנדאקי הוא הגורג העמוק ביותר בעולם לפי מדידות מסוימות. הולכים לאורך אפיק הנהר על פני שטח שהיה פעם דרך מסחר עתיקה.
-
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו להרפתקה של פעם בחיים בהימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['מעבר תורונג לה 5416מ׳', 'יערות רודודנדרון', 'כפרי גורקה', 'נוף על אנאפורנה I'],
     nameEn: 'Annapurna Circuit',
-    descEn: `The Annapurna Circuit is a full loop around the Annapurna massif in Nepal  -  16 days, diverse terrain, and a high pass crossing that's been a benchmark trek for decades.
+    descEn: `The Annapurna Circuit is one of the world's great classic treks - a complete circumnavigation of the Annapurna massif in Nepal, passing through diverse landscapes from subtropical forests to high-altitude desert.
 
-The route starts in subtropical forest and works up through Gurung and Manangi villages into the high arid country of the Mustang region. We add a detour to Tilicho Lake (4,919m)  -  one of the highest lakes in the world and worth the extra effort. The Kali Gandaki gorge, which cuts between Annapurna and Dhaulagiri, is the deepest gorge on Earth by some measurements. You walk along the riverbed on one of those days.
+The highlight of the circuit is crossing Thorong La Pass at 5416 meters - the highest point of the trek - with panoramic views of the Annapurna and Dhaulagiri ranges stretching in every direction.
 
-The main event is Thorong La Pass at 5,416m. You leave high camp before first light, cross the pass in cold morning air with Dhaulagiri (8,167m) to the west, then drop 1,600m down to Muktinath by afternoon. It's a long day but the route logic is satisfying: you've been building to that crossing for two weeks.
-
-No technical experience needed. The terrain is trekking throughout  -  no ropes or crampons required.`,
+This 14-day adventure takes you through traditional Gurung and Manangi villages, past ancient Buddhist monasteries, and through the dramatic Kali Gandaki gorge - the world's deepest valley.`,
     highlightsEn: ['Thorong La Pass 5,416m', 'Annapurna panoramas', 'Kali Gandaki gorge', 'Traditional Nepalese villages'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1010,24 +1012,20 @@ No technical experience needed. The terrain is trekking throughout  -  no ropes 
     seoDescription: 'טיפוס לאלברוס - ההר הגבוה באירופה, 5,642 מטר. 8 ימים ברוסיה, אחת מ-7 הפסגות. מסלול דרומי עם רכבל עד 3,850 מטר, לינה בבקתות ויום פסגה של 10–14 שעות.',
     seoDescriptionEn: 'Climb Elbrus (5,642m) - the highest peak in Europe, one of the 7 Summits. 8 days, cable car to 3,850m, summit day 10-14 hours. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
-    desc: `אלברוס הוא הר הגעש הכבוי הגבוה באירופה  -  5642 מ׳, ואחת משבע הפסגות. המסלול הדרומי עם הכבלית ובקתות ההרים הופך את הלוגיסטיקה לניתנת לניהול.
+    desc: `הצטרפו אלינו למסע אל הפסגה הגבוהה באירופה, הר אלברוס המתנשא לגובה של 5642 מ׳ ואחת מ"שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים לכבוש פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
 
-מתחילים מצ׳גט ב-2100 מ׳, עולים ברכבל ל-3850 מ׳, לנים בבקתת לפרוס ב-3910 מ׳ ועושים יום אימון בסלעי פסטוחוב ב-4800 מ׳  -  קרמפונים, גרזן קרח, עבודה בחבלים. הכל מלמדים לפני יום הפסגה. ניסיון טיפוס קודם לא נדרש, אבל גובה של 4000 מ׳ מאחוריכם יעזור.
+הטיפוס דרך המסלול הדרומי נחשב לדרך הפופולרית והבטוחה ביותר להגיע אל הפסגה. המסלול מאתגר ודורש כושר גופני טוב, אך בעזרת התאקלמות נכונה ושימוש בתשתיות המסלול הדרומי (כמו הרכבלים ובקתות ההרים), הוא בהחלט בר השגה עבור מטפסים נחושים! במהלך המשלחת תלמדו ותתרגלו עבודה עם ציוד טכני הכולל קרמפונים, גרזן קרח ועבודה בחבלים.
 
-יום הפסגה מתחיל סביב שעה-שתיים לפנות בוקר. 1732 מ׳ עלייה, 10–14 שעות הלוך ושוב. בתנאי מזג אוויר נקי, כל הקווקז גלוי מלמעלה. שיעור הצלחה 85%  -  הסיבה העיקרית לאי-הגעה לפסגה היא מזג אוויר ומחלת גבהים, לא כושר.
+התגמול על המאמץ יהיה עוצר נשימה - עמידה על הנקודה הגבוהה ביותר ביבשת אירופה, כשמתחתיכם מרבדי קרחונים ופסגות משוננות שנמתחות עד האופק. מעבר לאתגר הפיזי, המסע הוא הזדמנות להתחבר לטבע הפראי ולתרבות הייחודית של אזור הקווקז ברוסיה, הכוללת הכנסת אורחים חמה ומטבח מקומי משביע.
 
-בצ׳גט, בין ימי הטיפוס, אפשר לנסות רכיבה על סוסים, דייג או סאונה רוסית.
-
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אלברוס 5642מ׳', 'הר הגבוה באירופה', 'נסיעה בכבלית', 'מחנות חבית היסטוריים'],
     nameEn: 'Elbrus',
-    descEn: `Elbrus is the highest point in Europe at 5,642m, a twin-peaked dormant volcano in the Russian Caucasus and one of the Seven Summits. It's a real high-altitude objective  -  but the south route with its cable cars and established huts makes the logistics manageable compared to most peaks at this altitude.
+    descEn: `Mount Elbrus is Europe's highest peak at 5642 meters - a dormant twin-peaked volcano in the Russian Caucasus and one of the Seven Summits. This expedition offers the perfect introduction to high-altitude mountaineering with a high success rate.
 
-We use the cable cars to reach 3,850m on acclimatization days, sleep at the Leaprus hut at 3,910m, and run a training day at the Pastukhov Rocks (4,800m) before the summit push. No technical rock climbing  -  but you do need crampons, ice axe, and harness, and you'll practice all of it on snow before the main day.
+We use modern cable cars and snowcats to reach high camps, minimizing the physical toll and maximizing summit success. From the top on a clear day, you can see the entire Caucasus range stretching into the distance.
 
-Summit day starts around 1–2am in the cold and dark. The 1,732m of elevation gain takes 10–14 hours round trip. On a clear day the whole Caucasus is visible from the top. Our success rate on this route is 85%  -  the main reasons groups don't summit are weather and altitude sickness, not fitness.
-
-Prior mountaineering experience is not required. Prior high-altitude experience (above 4,000m) helps significantly.`,
+This is a non-technical climb requiring crampons and ice axes, but no prior mountaineering experience is needed - just good physical fitness and the will to stand on top of Europe.`,
     highlightsEn: ['Elbrus Summit 5,642m', "Europe's highest peak", 'Caucasus panoramas', 'Cable car ascent'],
     included: [
       'קיט HighAir מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
@@ -1157,13 +1155,11 @@ Prior mountaineering experience is not required. Prior high-altitude experience 
 כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת אוהורו 5895מ׳', '5 אזורי אקלים ייחודיים', 'ללא טיפוס טכני', 'זריחה מעל העננים'],
     nameEn: 'Kilimanjaro',
-    descEn: `Kilimanjaro is Africa's highest mountain at 5,895m. No ropes, no technical climbing  -  just a long walk at altitude that gets progressively harder as the air thins. It's the right first big mountain for most people.
+    descEn: `Kilimanjaro is Africa's highest peak and one of the world's most iconic mountains - a dormant stratovolcano rising 5895 meters above the Tanzanian savanna. No technical climbing required, making it the perfect "first big mountain" for adventurous hikers.
 
-We use the Machame Route, which takes 7 days and gives your body time to adjust properly. You move through five climate zones on the way up: rainforest, moorland, alpine desert, rock and finally the glacier zone near the summit. Each day looks and feels different.
+We use the Machame Route - the most scenic path on the mountain - taking 7 days to allow proper acclimatization. You'll pass through five distinct climate zones, from tropical rainforest at the base to Arctic summit conditions at Uhuru Peak.
 
-Summit night starts at midnight from Barafu Camp (4,673m). You climb in the dark with a headlamp for 7–8 hours, hit Stella Point at sunrise, and reach Uhuru Peak at 5,895m. It's cold and slow going  -  altitude does that. But 94% of our groups make it. We keep that number high by going slowly, monitoring everyone, and not rushing.
-
-The descent on Day 7 is long  -  over 2,700m down to Mweka Camp. Your legs will know about it. But by the gate celebration with the local crew, most people are grinning.`,
+HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the highest in the industry - thanks to our experienced Israeli guides and careful acclimatization schedule.`,
     highlightsEn: ['Uhuru Peak 5,895m', "Africa's highest mountain", 'Machame Scenic Route', 'Five climate zones'],
     included: [
       'טיפוס לקילימנג׳רו:',
@@ -1342,26 +1338,13 @@ The descent on Day 7 is long  -  over 2,700m down to Mweka Camp. Your legs will 
 כל קבוצה תורמת למאבק במחלת הסרטן.`,
     highlights: ['פסגת אוהורו 5895מ׳', 'ליווי רוחני מיוחד', 'שבת בארושה עם חב״ד', 'אוכל כשר מבושל טרי על ההר'],
     nameEn: 'Kilimanjaro Kosher',
-    descEn: `We've been running kosher Kilimanjaro expeditions for years. As far as we know, nobody else does.
+    descEn: `The world's only fully kosher Kilimanjaro expedition - and we've been running it for years.
 
-The mountain is the same Machame route everyone else uses. Same 5,895m. Same overnight summit push from Barafu Camp at midnight. What's different: the food is glatt kosher  -  cooked fresh on the mountain, not freeze-dried  -  and the whole trip is built around Shabbat. We land Friday, Shabbat in Arusha with Chabad, start the climb Sunday. The descent finishes Friday afternoon. It took some logistical work to get the timing right, but after years of running this we have it down.
+Everything about this trek is identical to our standard Kilimanjaro expedition in terms of route, guides, and success rate. The difference: every meal is freshly prepared kosher, the group schedule is adapted to respect Shabbat and Jewish holidays, and you're surrounded by a Jewish group that shares your values.
 
-Summit night is the part people ask about most. You leave Barafu (4,673m) at midnight in the cold and the dark. It's slow going  -  altitude slows everything down. Stella Point hits around sunrise. By the time you reach Uhuru Peak, you're looking out over the whole of Africa. A lot of people in our groups say the moment hits harder than they expected.
+This is Kilimanjaro without compromise - the adventure of a lifetime, done your way.
 
-The Machame route gives you 6 days through four climate zones  -  rainforest, moorland, high-altitude desert, then the glaciated summit area. The gradual ascent is why the success rate stays at 94%. Your body gets time to adjust.
-
-No technical experience needed. If you can walk 6–8 hours a day and want to be there, you can do this. Our groups have included first-timers in their 20s and people in their late 60s. Both groups made it.
-
-Key facts:
-- Uhuru Peak: 5,895m
-- 10 days including Shabbat rest
-- 94% summit rate
-- Max 15 per group
-- Glatt kosher throughout, supervised by Chabad Arusha
-- Local English-speaking guides
-- Donation to cancer research included
-
-A lot of people add the 3-day kosher safari after  -  Tarangire and Ngorongoro Crater, all kosher. After the mountain, the pace is easier. Most people say it's the better half of the trip.`,
+Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English guides · Cancer charity donation included`,
     highlightsEn: ['Uhuru Peak 5,895m', 'Fully glatt kosher meals', 'Shabbat-aware scheduling', 'Jewish group experience'],
     included: [
       'טיפוס לקילימנג׳רו:',
@@ -1529,24 +1512,22 @@ A lot of people add the 3-day kosher safari after  -  Tarangire and Ngorongoro C
     seoDescription: 'טיפוס ללובוצ׳ה פיק - 6,119 מטר בנפאל. 19 ימים, פסגה ממול קרחון קומבו עם נוף ישיר על אוורסט. כולל בייס קמפ אוורסט וקאלה פטאר לפני יום הפסגה.',
     seoDescriptionEn: 'Climb Lobuche Peak (6,119m) in Nepal - 19 days. Technical summit opposite the Khumbu Glacier with direct views of Everest. Includes EBC & Kala Patthar. Expert guides.',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
-    desc: `לובוצ׳ה איסט ב-6119 מ׳ יושבת ישירות ממול קרחון הקומבו באזור האוורסט. מגיעים אליה אחרי טרק ה-EBC הקלאסי  -  אוורסט בייס קמפ וקאלה פטאר קודם, ואז פונים לפסגה.
+    desc: `הצטרפו אלינו למסע אל פסגת לובוצ׳ה, המתנשאת לגובה של 6119 מטר באזור קוהומבו בנפאל, והפכה לאחת הפסגות המבוקשות ביותר עבור מטפסי הרים המעוניינים לצבור ניסיון בטיפוס מאתגר בהימלאיה.
 
-הטיפוס כולל חבלים קבועים, קרמפונים, עבודה עם גרזן קרח ושיפוע תלול בראש ההר. זה השלב הראשון בתוך טיפוס הימלאי אמיתי  -  לא טרק גבוה, אלא טיפוס טכני. נדרש ניסיון בגובה ונכונות ללמוד טכניקות. המדריכים מלמדים את הבסיס, אבל מי שהתאמן מראש מגיע עם יתרון.
+פסגת לובוצ׳ה הפכה לפסגת הסתגלות לגובה מצוינת עבור מטפסים המתכוננים לכבוש את הרי הענק של ההימלאיה בגובה 8000 מטר ומעלה. המסלול ברמת קושי בינוני ומאפשר למטפסים לשפר את כישוריהם בשימוש בקסדה, רתמה, גרזן קרח, ג׳ומאר, קרמפונים, חבלים קבועים וציוד מקצועי נוסף על פני השלג, הקרח והסלע של ההר.
 
-מהפסגה רואים בו-זמנית אוורסט, להוצה, נופצה ואמה דבלאם  -  פנורמה שלוקחת רגע לעכל.
+הטיפוס דורש כושר גופני גבוה, כישורי טיפוס טכניים וניסיון קודם במסלולים בגובה רב, אך אינו דורש להתמודד עם אתגרים טכניים קיצוניים במיוחד.
 
-שיעור ההצלחה שלנו הוא 82%. מה שמבדיל בין מי שמגיע לפסגה למי שחוזר  -  התאקלמות, קצב ופיזי, לא קושי טכני.
+עבור מטפסים השואפים להצטרף לתחום טיפוס ההרים בהימלאיה, פסגת לובוצ׳ה היא הזדמנות מצוינת לצבור מיומנויות וניסיון יקר ערך לקראת פסגות גבוהות יותר בהמשך. שילוב של הרפתקה, אימון ונופים מרהיבים תורמים למוניטין שלה כאחת הפסגות המרהיבות בנפאל.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו להרפתקה של פעם בחיים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת לובוצ׳ה 6119מ׳', 'נוף על קומבו אייספול', 'טיפוס טכני בבטחה', 'שרפה מנוסה'],
     nameEn: 'Lobuche Peak',
-    descEn: `Lobuche East (6,119m) sits directly opposite the Khumbu Icefall in the Everest region. The approach follows the classic Everest Base Camp route, so you get EBC and Kala Patthar before turning your attention to the technical climbing.
+    descEn: `Lobuche East (6,119m) is the perfect stepping stone between trekking and technical mountaineering in the Everest region of Nepal. Standing on its summit reveals one of the most spectacular views in the Himalaya - with Everest, Lhotse, Nuptse, and Ama Dablam all visible at once.
 
-From the summit you're looking straight at Everest, Lhotse, Nuptse, and Ama Dablam at the same time. It's one of those views that takes a moment to process.
+The approach follows the classic Everest Base Camp trek, making it possible to combine both objectives in a single 18-day expedition. Technical sections include fixed ropes, crampons, and basic ice axe work.
 
-The climb involves fixed ropes, crampons, ice axe work, and a steep headwall above high camp. It's the first step into real Himalayan mountaineering  -  not just trekking altitude. You'll need basic technical skills or the willingness to learn them. Our guides cover the fundamentals, but this expedition rewards people who have practiced beforehand.
-
-Our summit rate here is 82%. The mountain is demanding but not extreme. What separates summitters from turnarounds is usually acclimatization, fitness, and pace  -  not technical difficulty.`,
+This peak is considered one of the best entry points into Himalayan mountaineering - challenging enough to be meaningful, achievable with proper training.`,
     highlightsEn: ['Lobuche East 6,119m', 'Everest region views', 'Combined with EBC trek', 'First Himalayan peak'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1699,24 +1680,22 @@ Our summit rate here is 82%. The mountain is demanding but not extreme. What sep
     seoDescription: 'טיפוס לאיילנד פיק - 6,189 מטר בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
     seoDescriptionEn: 'Climb Island Peak (6,189m) in Nepal - 20 days. Technical summit with views of Everest, Lhotse & Ama Dablam. Includes full EBC trek. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
-    desc: `איילנד פיק (אימג׳ה צה, 6189 מ׳) קיבלה את שמה ממטפסים ראשונים שראו אותה מרחוק  -  "אי בים של קרח". השם נשאר 70 שנה, וההר מגיע עד אליו.
+    desc: `איילנד פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6189 מטר מעל פני הים. הפסגה ממוקמת באזור קוהומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
 
-המסע משלב את כל מסלול אוורסט בייס קמפ: עושים EBC וקאלה פטאר קודם, ואז לוקחים לולאה לאיילנד פיק בייס קמפ. 20 יום שמכסים יותר מהקומבו ממה שרוב האנשים רואים בביקור בודד.
+הפסגה קיבלה את כינויה, "פסגת האי", בשל צורתה הייחודית והבולטת, המזכירה אי בודד המתנשא מעל סביבתו. צורה זו באה לידי ביטוי במיוחד כאשר מסתכלים על הפסגה מהצד הדרומי שלה.
 
-ראש ההר כולל חבלים קבועים, קרמפונים ושיפוע תלול  -  החלק הטכני שמבדיל בין פסגה זו לטרקים גבוהים. מהפסגה רואים אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. לא הרבה נקודות על כדור הארץ מספקות את זה.
+הדרך לפסגה כוללת עלייה תלולה, חציית מעברי שלג וקרחונים, טיפוס קל על סלעים ושימוש בציוד טיפוס בסיסי כגון חבלים, קסדה, גרזן קרח, רתמה, קרמפונים וג׳ומאר. המסלול עובר דרך נקודות תצפית מרהיבות על האוורסט, פסגת להוטסה ושאר פסגות הרי ההימלאיה הגבוהות.
 
-שיעור ההצלחה שלנו הוא 84%. נדרשת כשירות גופנית סבירה בגובה ונכונות ללמוד עבודה בחבל.
+טיפוס לאיילנד פיק דורש כושר גופני טוב, ניסיון קודם בטיפוס הרים והסתגלות לתנאי הגובה הקיצוניים. עם זאת, היא מהווה יעד נגיש יחסית ומאתגר עבור מטפסים מתחילים ובינוניים.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו למסע מדהים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת איילנד 6189מ׳', 'קרחון עם ציוד טיפוס', 'נוף על האוורסט ולוצ׳ה', '5 שמיניות בנוף אחד'],
     nameEn: 'Island Peak',
-    descEn: `Island Peak (Imja Tse, 6,189m) gets its name from early Everest climbers who saw it from afar as an island in a sea of glacial ice. The name has stuck for 70 years, and the mountain lives up to it.
+    descEn: `Island Peak (Imja Tse, 6,189m) earned its name from early Everest expedition members who thought it looked like an island in a sea of ice from afar. Today it's one of Nepal's most popular trekking peaks - and for good reason.
 
-The summit headwall is steep and involves fixed ropes, crampons, and glacier travel. It's the most technically involved section, and the one that separates this from a pure trekking peak. The 360° view from the top  -  Everest, Lhotse, Makalu, Cho Oyu, and Ama Dablam all at once  -  is the payoff.
+The summit approach involves a dramatic headwall with fixed ropes and glacier travel, rewarding climbers with a 360° panorama of Everest, Lhotse, Makalu, Cho Oyu, and Ama Dablam.
 
-This expedition runs alongside the full Everest Base Camp route. You do EBC and Kala Patthar first, then loop across to Island Peak Base Camp. It's 20 days total and covers more of the Khumbu than most people see in a single trip.
-
-Our success rate is 84%. You need reasonable high-altitude fitness and some openness to learning rope technique. Previous trekking peaks help but are not required.`,
+This expedition can be combined with the Everest Base Camp trek, creating the ultimate Himalayan adventure in a single trip.`,
     highlightsEn: ['Island Peak 6,189m', 'Himalayan glacier travel', 'Everest panorama', 'Can combine with EBC'],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -1868,24 +1847,22 @@ Our success rate is 84%. You need reasonable high-altitude fitness and some open
     seoDescription: 'טיפוס למרה פיק - הפסגה הגבוהה לטרקינג בנפאל, 6,476 מטר. 19 ימים, מסלול דרך עמק הינקו, ללא טיפוס טכני. נוף על 5 שמיניות מהפסגה.',
     seoDescriptionEn: 'Climb Mera Peak (6,476m) - the highest trekking peak in Nepal, 19 days. No technical climbing required. Summit views of 5 eight-thousanders. Expert guides.',
     grad: 'linear-gradient(135deg,#1d4ed8,#1e3a8a,#0f172a)',
-    desc: `מרה פיק ב-6476 מ׳ היא הפסגה הגבוהה ביותר לטרקינג בנפאל  -  גבוהה מכל פסגה באלפים או בקווקז, ומגיעים אליה ללא חבלים או טיפוס קרח טכני. רק קרמפונים, גרזן קרח והליכה על קרחון בחלק העליון.
+    desc: `מרה פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6476 מטר מעל פני הים. הפסגה ממוקמת באזור קוהומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
 
-המסלול לוקח נתיב דרומי מרוחק דרך עמק הינקו  -  19 יום שנמנעים לגמרי מהמולת אזור האוורסט. שקט יחסי, נוף שונה.
+הטיפוס למרה פיק משמש כשער הכניסה לעולם טיפוס ההרים ומאפשר להגיע לגובה רב מבלי להיות טכני במיוחד. הוא נחשב לטרק הגבוה ביותר בהימלאיה, משום שהוא משלב הליכה על קרחונים ושלג, קטעים תלולים, ואתגר בגובה מבלי לדרוש ניסיון בטיפוס הרים. יחד עם זאת, מדובר באתגר אמיתי שמספק תחושת הישג משמעותית.
 
-מהפסגה, ביום בהיר, רואים חמש שמיניות בבת-אחת: אוורסט, קנצ׳נג׳ונגה, להוצה, מקאלו וצ׳ו אויו. האופק כולו מורכב מהרים מעל 8000 מ׳. לא הרבה נקודות על כדור הארץ מציעות את זה.
+מהפסגה נשקפים נופים מרהיבים של ההימלאיה, כולל ארבעה מתוך ששת ההרים הגבוהים בעולם: האוורסט, להוצה, מקאלו וצ׳ו אויו, לצד פסגות רבות נוספות מעל 7000 מטרים. החוויה והנוף עוצרי הנשימה הופכים את הטיפוס לבלתי נשכח.
 
-שיעור ההצלחה שלנו הוא 80%. הגובה הוא האתגר המרכזי  -  זו הפסגה הנכונה למטיילים גופניים שרוצים את הפסגה הגבוהה הראשונה שלהם ועדיין לא עם טיפוס טכני.
+מרה פיק מתאים למי שמחפש אתגר בגובה רב, צבירת ניסיון בטכניקות טיפוס בסיסיות, וחשיפה לעוצמה של ההימלאיה, אידיאלי למטיילים שמוכנים לגובה אך רוצים חוויה נגישה ובטוחה יחסית.
 
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו למסע מדהים בהרי ההימלאיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת מרה 6476מ׳', 'נוף על 5 פסגות 8000מ׳', 'הפסגה הגבוהה לטרקינג בנפאל', 'עמק הינקו  -  ללא קהל'],
     nameEn: 'Mera Peak',
-    descEn: `Mera Peak at 6,476m is Nepal's highest trekking peak. Higher than anything in the Alps or the Caucasus, it's reached without ropes or technical ice climbing  -  just crampons, ice axe, and glacier walking on the upper section.
+    descEn: `Mera Peak (6,476m) is Nepal's highest trekking peak and offers one of the most accessible routes to high altitude in the Himalaya. The summit stands higher than any mountain in the Alps or the Caucasus.
 
-The approach takes a remote southern route through the Hinku valley, avoiding the Everest region crowds entirely. It's a quieter 19 days.
+From the summit on a clear day, five of the world's six highest mountains are visible simultaneously - Everest, Kangchenjunga, Lhotse, Makalu, and Cho Oyu. This is one of the great panoramas on Earth.
 
-The view from the summit is one of the best reasons to do this peak: on a clear day you can see five eight-thousanders at once  -  Everest, Kangchenjunga, Lhotse, Makalu, and Cho Oyu. The horizon is entirely made of mountains above 8,000m. Not many places on Earth offer that.
-
-Our success rate is 80%. The altitude is the main challenge. This is the right peak for fit trekkers who want their first real high-altitude summit and aren't ready for technical climbing yet.`,
+Non-technical but high-altitude, Mera is perfect for fit trekkers who want to experience what it feels like to stand above 6000 meters.`,
     highlightsEn: ["Mera Peak 6,476m", "View of 5 eight-thousanders", "Nepal's highest trekking peak", "Non-technical ascent"],
     included: [
       'קיט מתנה - כובע, כיסוי גשם לתרמיל גב ודאפל באג 100 ליטר!',
@@ -2036,24 +2013,20 @@ Our success rate is 80%. The altitude is the main challenge. This is the right p
     seoDescription: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6,962 מטר. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
     seoDescriptionEn: 'Climb Aconcagua (6,962m) - the highest peak in the Western Hemisphere, one of the 7 Summits. 20 days in Argentina, 3 high camps, mules to base camp. 75% success rate.',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
-    desc: `אקונקגואה ב-6962 מ׳ הוא הגבוה מחוץ לאסיה  -  הנקודה הגבוהה ביותר בחצי הכדור המערבי ואחת משבע הפסגות. לאחר שנים בגבהים בינוניים, זה המקום שבו מבינים מה אקספדיציה אמיתית דורשת.
+    desc: `הצטרפו אלינו למסע טיפוס אל פסגת הר אקונקגואה, המתנשא לגובה של 6962 מטרים., השוכן בארגנטינה בהרי האנדים, הוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם!
 
-המסלול הרגיל דרך עמק הורקונס לא כולל טיפוס סלע או קרח טכני, אבל שלושה שבועות בגובה קיצוני עם רוחות אנדיות לא נותנים הנחות. בייס קמפ ב-4300 מ׳ מאובזר  -  מקלחות, ווי-פיי, אוהלי אוכל  -  ומשם מקימים שלושה מחנות גובה בהדרגה. פרדות נושאות את הציוד עד הבייס קמפ.
+המסלול אל פסגת האקונקגואה הוא אתגר לוגיסטי ופיזי מהמעלה הראשונה. למרות שהמסלול אינו נחשב לטכני מאוד מבחינת טיפוס סלעים או קרח, הגובה הקיצוני, הרוחות העזות והתנאים המדבריים דורשים חוסן מנטלי יוצא דופן וסיבולת גבוהה. במהלך המשלחת תתנסו בחיים האמיתיים של מטפס הרים בגובה רב: התאקלמות הדרגתית, הקמת מחנות גובה והתמודדות עם איתני הטבע בלב הרי האנדים הפראיים.
 
-שיעור ההצלחה שלנו הוא 75%. הפער בין מי שמגיע לפסגה למי שלא  -  בדרך כלל התאקלמות ומאגר מנטלי, לא כוח פיזי. מנדוזה, שתי לילות לפני הטיפוס ולאחריו, היא עיר עם יין מצוין ואוכל טוב  -  חלק הגיוני של המסע.
+התגמול על המאמץ הוא חוויה של פעם בחיים - עמידה על הנקודה הגבוהה ביותר בעולם מחוץ לרכס ההימלאיה, כשמתחת לרגליכם פרוס רכס האנדים האינסופי והנופים עוצרי הנשימה של דרום אמריקה. המסע כולל גם מפגש עם התרבות הארגנטינאית המרתקת, מהעיר מנדוזה התוססת ועד לבשר המצוין והיינות המפורסמים של האזור.
 
-נדרש ניסיון קודם מעל 5000 מ׳ לפני ההרשמה.
-
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אקונקגואה 6961מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
     nameEn: 'Aconcagua',
-    descEn: `Aconcagua at 6,962m is the highest point in both the Western and Southern Hemispheres  -  the second of the Seven Summits by elevation and, for many climbers, the expedition where they find out what they're actually made of.
+    descEn: `Aconcagua (6,962m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
 
-The route is the Normal Route through the Horcones Valley: no technical rock or ice, but three weeks of living at altitude in unpredictable Andean weather. The mountain has a reputation for brutal winds at high camp. Cold, exhaustion, and altitude sickness are real factors. Our summit rate is 75%, and the gap between those who make it and those who turn back is usually acclimatization and mental reserves, not physical strength.
+This 21-day expedition uses the Normal Route via Horcones Valley and high camps at Nido de Condores and Camp 3. While non-technical, the extreme altitude and harsh Andean weather make this a serious mountaineering objective requiring excellent fitness and prior high-altitude experience.
 
-We use mules to Base Camp (4,300m), establish three high camps above that, and carry gear progressively before moving up for the summit push. Personal porter service is included for the high camps. The base camp has showers, WiFi, and proper dining tents  -  as good as it gets for three weeks on a mountain.
-
-Prior high-altitude experience above 5,000m is required for this expedition.`,
+The reward: standing on the highest point in the Americas, with the Andes stretching endlessly in every direction.`,
     highlightsEn: ['Aconcagua 6,962m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
     included: [
       'מלווה ישראלי צמוד (חן שקד - מטפס הרים מקצועי)',
@@ -2201,24 +2174,22 @@ Prior high-altitude experience above 5,000m is required for this expedition.`,
     seoDescription: 'טיפוס ללנין פיק - ההר הנגיש מעל 7,000 מטר, 7,134 מטר בקירגיזסטן. 20 ימים, שלושה מחנות גובה, בייס קמפ עם יורטות. נדרש ניסיון מעל 5,500 מטר.',
     seoDescriptionEn: 'Climb Lenin Peak (7,134m) in Kyrgyzstan - 20 days. The most accessible peak above 7,000m, 3 high camps, yurt base camp. Prior experience above 5,500m required.',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',
-    desc: `לנין פיק ב-7134 מ׳ הוא ההר הנגיש ביותר מעל 7000 מ׳ בעולם  -  הכרזה יחסית. זה עדיין אקספדיציה רצינית של 20 יום בגובה קיצוני, אבל המסלול לא טכני: אין טיפוס סלע, אין שיפועי קרח תלולים. מה שנדרש הוא יכולת לחיות ולנוע בגובה 6000 מ׳ ומעלה לאורך ימים.
+    desc: `הצטרפו אלינו למסע טיפוס אל אחת הפסגות הגבוהות ביותר במרכז אסיה - פסגת הר לנין, המתנשא לגובה אדיר של 7134 מטרים. הר לנין, השוכן ברכס פמיר שבין קירגיזסטן לטג'יקיסטן, נחשב לאחד ההרים הנגישים ביותר בעולם מעל קו 7000 המטרים, והוא השלב הבא והמתבקש עבור מטפסים החולמים על גבהים חדשים.
 
-מקימים שלושה מחנות גובה על פני שבועיים הראשונים, עולים ויורדים כדי לבנות סבילות לפני הדחיפה הסופית ל-7134 מ׳. הנוף מהפמיר הוא רחב ויבש  -  קרחונים, מישורי גובה, סלע ושמיים. בייס קמפ ב-3600 מ׳ כולל יורטות ותשתית בסיסית שעוזרת בימי מנוחה.
+המסלול אל הפסגה הוא אתגר פיזי ומנטלי יוצא דופן. הטיפוס אינו נחשב לטכני באופן קיצוני, אך הוא דורש סיבולת גבוהה מאוד, התמודדות עם תנאי גובה משמעותיים ושהייה ממושכת בשטח. במהלך המשלחת תתנסו בטיפוס אלפיני אמיתי הכולל הקמת מחנות גובה, הליכה בקרחונים וחציית שדות שלג אינסופיים, כל זאת תחת פיקוח מקצועי וליווי צמוד.
 
-שיעור ההצלחה שלנו הוא 68%  -  מספר כן עבור פסגה ב-7000 מ׳. מי שלא מגיע לפסגה לרוב קיבל את ההחלטה הנכונה לפי התנאים ביום.
+התגמול על העבודה הקשה הוא פסגה שאין שנייה לה - תחושת סיפוק אדירה כשמתחת לרגליכם פרוס כל רכס הפמיר והנופים המדבריים-מושלגים של מרכז אסיה. מעבר לטיפוס, המשלחת היא הזדמנות להכיר את התרבות המרתקת של קירגיזסטן, על נוודיה והכנסת האורחים הייחודית שלה.
 
-נדרש ניסיון מעל 5500 מ׳. בודקים כושר וניסיון לפני אישור ההרשמה.
-
-כל קבוצה תורמת למאבק במחלת הסרטן.`,
+הצטרפו אלינו להרפתקה של פעם בחיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת לנין 7134מ׳', 'גבוה מ-7000מ׳', 'מחנות גובה מרובים', 'נוף על פמיר'],
     nameEn: 'Lenin Peak',
-    descEn: `Lenin Peak at 7,134m in the Kyrgyz Pamirs is the most accessible 7,000m mountain on Earth. That's a relative statement  -  it's still a serious 20-day expedition at extreme altitude  -  but the route is non-technical compared to most peaks of similar height. No rock climbing, no steep ice faces. What it does require is the ability to live and move at 6,000m+ for extended periods, and the patience to acclimatize properly.
+    descEn: `Join us on an expedition to one of the highest peaks in Central Asia — Lenin Peak, rising to an impressive 7,134 meters. Located in the Pamir Range on the border of Kyrgyzstan and Tajikistan, Lenin Peak is considered one of the most accessible mountains in the world above 7,000 meters, and the natural next step for climbers dreaming of new heights.
 
-We establish three high camps on the mountain over the first two weeks, rotating up and down to build tolerance before the final push to 7,134m. The Pamir landscape is enormous and spare  -  glaciers, high plateaus, rock and sky. The camp at Base Camp (3,600m) has some infrastructure including yurts and basic facilities, which helps on rest days.
+The route is not highly technical, but demands exceptional endurance, the ability to cope with significant altitude, and extended time in the field. Throughout the expedition you'll experience real alpine climbing — establishing high camps, walking on glaciers and crossing vast snowfields, all under professional supervision and close guidance.
 
-Our success rate is 68%. This is the honest number for a 7,000m peak, and the people who don't summit usually made the right call given conditions on the day.
+The reward is a summit with no equal — an immense sense of achievement with the entire Pamir Range spread beneath your feet and the desert-snow landscapes of Central Asia stretching to the horizon.
 
-Prior experience above 5,500m is required. We assess fitness and experience before confirming bookings for this expedition.`,
+Join us for a once-in-a-lifetime adventure and take part in the fight against cancer!`,
     highlightsEn: ['Lenin Peak 7,134m', 'Above 7000 meters', 'Multiple high camps', 'Pamir panorama'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
