@@ -195,7 +195,7 @@ export default function GallerySection() {
 
           {/* Left arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="left" disabled={!canNext} onClick={() => doScroll(-SCROLL_AMT)} isRtl={isRtl} />
+            <ArrowBtn dir="left" disabled={!canPrev} onClick={() => doScroll(isRtl ? SCROLL_AMT : -SCROLL_AMT)} isRtl={isRtl} />
           )}
 
           {/* Scrollable track */}
@@ -239,7 +239,7 @@ export default function GallerySection() {
 
           {/* Right arrow — desktop only */}
           {!isMobile && (
-            <ArrowBtn dir="right" disabled={!canPrev} onClick={() => doScroll(SCROLL_AMT)} isRtl={isRtl} />
+            <ArrowBtn dir="right" disabled={!canNext} onClick={() => doScroll(isRtl ? -SCROLL_AMT : SCROLL_AMT)} isRtl={isRtl} />
           )}
         </div>
 
