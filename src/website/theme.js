@@ -79,13 +79,15 @@ export const FONT = {
 };
 
 /* ─────────────── Font Size Scale ─────────────── */
+// Standard: WCAG 2.1 + Apple HIG + Material Design 3
+// Mobile minimums: body ≥ 16px, buttons ≥ 15px, labels ≥ 13px
 export const FS = {
-  h1:    'clamp(30px, 7vw, 50px)',  // hero / display title
-  h2:    'clamp(24px, 4vw, 36px)',  // section headings
-  h3:    'clamp(17px, 3vw, 20px)',  // card titles
-  body:  '15px',                    // paragraphs
-  sm:    '15px',                    // labels, captions, small text
-  btn:   '13px',                    // buttons & tabs
+  h1:    'clamp(32px, 8vw, 56px)',   // hero / display title
+  h2:    'clamp(26px, 4.5vw, 42px)', // section headings
+  h3:    'clamp(18px, 3vw, 22px)',   // card titles
+  body:  '16px',                     // paragraphs (WCAG minimum)
+  sm:    '13px',                     // labels, captions, small text
+  btn:   '15px',                     // buttons & tabs
 };
 
 /* ─────────────── Border Radius Scale ─────────────── */
@@ -198,7 +200,7 @@ export const H2_DARK = {
 
 /* ─────────────── Body text ─────────────── */
 export const BODY = {
-  fontSize:   '16px',
+  fontSize:   FS.body,   // 16px — synced with FS.body
   color:      COLOR.muted,
   lineHeight: 1.8,
   margin:     '0 0 16px',
@@ -213,7 +215,7 @@ export const BTN = {
     cursor:        'pointer',
     background:    COLOR.grad.brand,
     color:         'white',
-    fontSize:      '15px',
+    fontSize:      FS.btn,   // 15px — synced with FS.btn
     fontWeight:    800,
     boxShadow:     SHADOW.brand.md,
     transition:    `transform ${DUR.base} ${EASING.out}, box-shadow ${DUR.base} ${EASING.out}`,
@@ -232,7 +234,7 @@ export const BTN = {
     WebkitBackdropFilter: 'blur(10px)',
     border:         '1.5px solid rgba(255,255,255,0.25)',
     color:          'white',
-    fontSize:       '15px',
+    fontSize:       FS.btn,   // 15px — synced with FS.btn
     fontWeight:     700,
     transition:     `background ${DUR.base} ${EASING.smooth}`,
     display:        'inline-flex',
@@ -246,7 +248,7 @@ export const BTN = {
     border:        `2px solid ${COLOR.primary}`,
     background:    'transparent',
     color:         COLOR.primary,
-    fontSize:      '15px',
+    fontSize:      FS.btn,   // 15px — synced with FS.btn
     fontWeight:    800,
     cursor:        'pointer',
     transition:    `all ${DUR.base} ${EASING.smooth}`,
@@ -262,7 +264,7 @@ export const BTN = {
     cursor:        'pointer',
     background:    'white',
     color:         COLOR.primary,
-    fontSize:      '15px',
+    fontSize:      FS.btn,   // 15px — synced with FS.btn
     fontWeight:    800,
     boxShadow:     SHADOW.lg,
     transition:    `transform ${DUR.base} ${EASING.out}, box-shadow ${DUR.base} ${EASING.out}`,
