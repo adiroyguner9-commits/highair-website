@@ -99,15 +99,6 @@ export default function GallerySection() {
     trackRef.current?.scrollBy({ left: amount, behavior: 'smooth' });
   }
 
-  /* In RTL, Chrome starts scrollLeft at 0 (left edge = last photo).
-     On mount we jump to the right edge so photo 1 is visible first. */
-  useEffect(() => {
-    if (!isRtl) return;
-    const el = trackRef.current;
-    if (!el) return;
-    el.scrollLeft = -(el.scrollWidth - el.clientWidth);
-  }, [isRtl]);
-
   /* Keyboard navigation for lightbox */
   useEffect(() => {
     if (lightboxIdx === null) return;
