@@ -12,256 +12,245 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, FS } from '../../website/theme.js';
 import { Analytics } from '../../utils/analytics.js';
 
-/* ── Hero background video.
-       hero-compressed.mp4 = 1.1 MB (trimmed 20s, H.264 CRF 26, no audio, faststart).
-       Video plays on all devices — poster shown until first frame loads. */
-const VIDEO_SRC  = '/videos/hero-home.mp4';
+const VIDEO_SRC = '/videos/hero-home.mp4';
 const POSTER_SRC = '/videos/hero-home-poster.jpg';
 
-/* ── Keyframes injected once into <head> ── */
 const KEYFRAMES = `
-  @keyframes heroFadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0);    }
-  }
+ @keyframes heroFadeUp {
+ from { opacity: 0; transform: translateY(22px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
 `;
 
 function injectKeyframes() {
-  if (document.getElementById('hero-v2-kf')) return;
-  const s = document.createElement('style');
-  s.id = 'hero-v2-kf';
-  s.textContent = KEYFRAMES;
-  document.head.appendChild(s);
+ if (document.getElementById('hero-v2-kf')) return;
+ const s = document.createElement('style');
+ s.id = 'hero-v2-kf';
+ s.textContent = KEYFRAMES;
+ document.head.appendChild(s);
 }
 
-/* ── Fade-up style helper  ── */
 const fadeUp = (delayS = 0) => ({
-  opacity:   0,
-  animation: `heroFadeUp 1.5s cubic-bezier(0.22, 1, 0.36, 1) ${delayS}s forwards`,
+ opacity: 0,
+ animation: `heroFadeUp 1.5s cubic-bezier(0.22, 1, 0.36, 1) ${delayS}s forwards`,
 });
 
-/* ════════════════════════════════════════ */
 export default function HeroSection() {
-  useEffect(() => { injectKeyframes(); }, []);
-  const [btn1Hovered, setBtn1Hovered] = useState(false);
-  const [btn2Hovered, setBtn2Hovered] = useState(false);
-  const videoRef = useRef(null);
-  const playTracked = useRef(false);
-  const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+ useEffect(() => { injectKeyframes(); }, []);
+ const [btn1Hovered, setBtn1Hovered] = useState(false);
+ const [btn2Hovered, setBtn2Hovered] = useState(false);
+ const videoRef = useRef(null);
+ const playTracked = useRef(false);
+ const { t, i18n } = useTranslation();
+ const isEn = i18n.language === 'en';
 
-  /* ── Parallax: video moves at 30% of scroll speed ── */
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const onScroll = () => {
-      const y = window.scrollY;
-      video.style.transform = `translateZ(0) translateY(${y * 0.3}px)`;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+ useEffect(() => {
+ const video = videoRef.current;
+ if (!video) return;
+ const onScroll = () => {
+ const y = window.scrollY;
+ video.style.transform = `translateZ(0) translateY(${y * 0.3}px)`;
+ };
+ window.addEventListener('scroll', onScroll, { passive: true });
+ return () => window.removeEventListener('scroll', onScroll);
+ }, []);
 
-  /* Track first video play (fires once per page load) */
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    const onPlay = () => {
-      if (playTracked.current) return;
-      playTracked.current = true;
-      Analytics.videoPlay('hero');
-    };
-    el.addEventListener('play', onPlay, { once: true });
-    return () => el.removeEventListener('play', onPlay);
-  }, []);
+ /* Track first video play (fires once per page load) */
+ useEffect(() => {
+ const el = videoRef.current;
+ if (!el) return;
+ const onPlay = () => {
+ if (playTracked.current) return;
+ playTracked.current = true;
+ Analytics.videoPlay('hero');
+ };
+ el.addEventListener('play', onPlay, { once: true });
+ return () => el.removeEventListener('play', onPlay);
+ }, []);
 
-  return (
-    <section id="hero" style={{
-      position:        'relative',
-      height:          '90vh',
-      width:           '100%',
-      overflow:        'hidden',
-      display:         'flex',
-      alignItems:      'center',
-      justifyContent:  'center',
-    }}>
+ return (
+ <section id="hero" style={{
+ position: 'relative',
+ height: '90vh',
+ width: '100%',
+ overflow: 'hidden',
+ display: 'flex',
+ alignItems: 'center',
+ justifyContent: 'center',
+ }}>
 
-      {/* ── 01. Background video — plays on all devices (mobile + desktop).
-              poster shown as placeholder until first frame loads. */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        poster={POSTER_SRC}
-        aria-hidden="true"
-        style={{
-          position:           'absolute',
-          inset:              0,
-          width:              '100%',
-          height:             '100%',
-          objectFit:          'cover',
-          zIndex:             0,
-          transform:          'translateZ(0)',
-          willChange:         'transform',
-          backfaceVisibility: 'hidden',
-        }}
-      >
-        <source src={VIDEO_SRC} type="video/mp4" />
-      </video>
+ {}
+ <video
+ ref={videoRef}
+ autoPlay
+ muted
+ loop
+ playsInline
+ preload="none"
+ poster={POSTER_SRC}
+ aria-hidden="true"
+ style={{
+ position: 'absolute',
+ inset: 0,
+ width: '100%',
+ height: '100%',
+ objectFit: 'cover',
+ zIndex: 0,
+ transform: 'translateZ(0)',
+ willChange: 'transform',
+ backfaceVisibility: 'hidden',
+ }}
+ >
+ <source src={VIDEO_SRC} type="video/mp4" />
+ </video>
 
-      {/* ── 02. Dark radial overlay ──────────────────────── */}
-      <div style={{
-        position:   'absolute',
-        inset:      0,
-        background: 'rgba(10,8,24,0.72)',
-        zIndex: 1,
-      }} />
+ <div style={{
+ position: 'absolute',
+ inset: 0,
+ background: 'rgba(10,8,24,0.72)',
+ zIndex: 1,
+ }} />
 
-      {/* ── 03. Centred text stack ───────────────────────── */}
-      <div style={{
-        position:   'relative',
-        zIndex:     2,
-        textAlign:  'center',
-        direction:  isEn ? 'ltr' : 'rtl',
-        padding:    '0 6vw',
-        userSelect: 'none',
-      }}>
+ <div style={{
+ position: 'relative',
+ zIndex: 2,
+ textAlign: 'center',
+ direction: isEn ? 'ltr' : 'rtl',
+ padding: '0 6vw',
+ userSelect: 'none',
+ }}>
 
-        {/* Brand name - English, Mazzard, massive display size */}
-        <h1 style={{
-          ...fadeUp(0.15),
-          fontFamily:    "'Mazzard', 'Ploni', sans-serif",
-          fontSize:      FS.h1,
-          fontWeight:    900,
-          color:         '#FFFFFF',
-          margin:        0,
-          lineHeight:    1,
-          letterSpacing: '-0.03em',
-          direction:     'ltr',           /* brand name always LTR */
-          whiteSpace:    'nowrap',
-        }}>
-          HighAir Expeditions
-        </h1>
+ {/* Brand name - English, Mazzard, massive display size */}
+ <h1 style={{
+ ...fadeUp(0.15),
+ fontFamily: "'Mazzard', 'Ploni', sans-serif",
+ fontSize: FS.h1,
+ fontWeight: 900,
+ color: '#FFFFFF',
+ margin: 0,
+ lineHeight: 1,
+ letterSpacing: '-0.03em',
+ direction: 'ltr', /* brand name always LTR */
+ whiteSpace: 'nowrap',
+ }}>
+ HighAir Expeditions
+ </h1>
 
-        {/* Hebrew subtitle block - sits below title with clear gap */}
-        <div style={{ marginTop: '28px' }}>
+ {/* Hebrew subtitle block - sits below title with clear gap */}
+ <div style={{ marginTop: '28px' }}>
 
-          {/* Line 1 */}
-          <p style={{
-            ...fadeUp(0.45),
-            fontFamily:    "'Ploni', sans-serif",
-            fontSize:      FS.body,
-            fontWeight:    300,
-            color:         '#FFFFFF',
-            margin:        0,
-            lineHeight:    1.5,
-            letterSpacing: '0.01em',
-          }}>
-            {t('hero.subtitle')}
-          </p>
+ {/* Line 1 */}
+ <p style={{
+ ...fadeUp(0.45),
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: FS.body,
+ fontWeight: 300,
+ color: '#FFFFFF',
+ margin: 0,
+ lineHeight: 1.5,
+ letterSpacing: '0.01em',
+ }}>
+ {t('hero.subtitle')}
+ </p>
 
-          {/* Line 2 - mission, tight under line 1 */}
-          <p style={{
-            ...fadeUp(0.65),
-            fontFamily:    "'Ploni', sans-serif",
-            fontSize:      FS.body,
-            fontWeight:    400,
-            color:         COLOR.lighter,   /* #A78BFA soft purple */
-            margin:        '2px 0 0',
-            lineHeight:    1.5,
-            letterSpacing: '0.02em',
-          }}>
-            {t('hero.cancer')}
-          </p>
+ {/* Line 2 - mission, tight under line 1 */}
+ <p style={{
+ ...fadeUp(0.65),
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: FS.body,
+ fontWeight: 400,
+ color: COLOR.lighter, /* #A78BFA soft purple */
+ margin: '2px 0 0',
+ lineHeight: 1.5,
+ letterSpacing: '0.02em',
+ }}>
+ {t('hero.cancer')}
+ </p>
 
-        </div>
+ </div>
 
-        {/* ── Buttons ── */}
-        <div style={{
-          ...fadeUp(0.9),
-          display:        'flex',
-          gap:            '16px',
-          justifyContent: 'center',
-          marginTop:      '44px',
-          pointerEvents:  'auto',
-          flexWrap:       'wrap',
-        }}>
+ <div style={{
+ ...fadeUp(0.9),
+ display: 'flex',
+ gap: '16px',
+ justifyContent: 'center',
+ marginTop: '44px',
+ pointerEvents: 'auto',
+ flexWrap: 'wrap',
+ }}>
 
-          {/* Primary - לכל המשלחות */}
-          <a
-            href="#expeditions"
-            onClick={() => Analytics.clickCTA('all_expeditions', 'hero')}
-            onMouseEnter={() => setBtn1Hovered(true)}
-            onMouseLeave={() => setBtn1Hovered(false)}
-            style={{
-              display:        'inline-flex',
-              alignItems:     'center',
-              gap:            '8px',
-              padding:        '15px 36px',
-              minWidth:       '180px',
-              justifyContent: 'center',
-              borderRadius:   '999px',
-              background:     btn1Hovered ? '#7C3AED' : COLOR.primary,
-              color:          '#FFFFFF',
-              fontFamily:     "'Ploni', sans-serif",
-              fontSize:       FS.btn,
-              fontWeight:     700,
-              textDecoration: 'none',
-              letterSpacing:  '0.01em',
-              boxShadow:      btn1Hovered
-                                ? '0 10px 32px rgba(109,40,217,0.55)'
-                                : '0 4px 18px rgba(109,40,217,0.35)',
-              transform:      btn1Hovered ? 'translateY(-2px)' : 'none',
-              transition:     'all 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
-              whiteSpace:     'nowrap',
-            }}
-          >
-            {t('hero.allExpeditions')}
-          </a>
+ {/* Primary - לכל המשלחות */}
+ <a
+ href="#expeditions"
+ onClick={() => Analytics.clickCTA('all_expeditions', 'hero')}
+ onMouseEnter={() => setBtn1Hovered(true)}
+ onMouseLeave={() => setBtn1Hovered(false)}
+ style={{
+ display: 'inline-flex',
+ alignItems: 'center',
+ gap: '8px',
+ padding: '15px 36px',
+ minWidth: '180px',
+ justifyContent: 'center',
+ borderRadius: '999px',
+ background: btn1Hovered ? '#7C3AED' : COLOR.primary,
+ color: '#FFFFFF',
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: FS.btn,
+ fontWeight: 700,
+ textDecoration: 'none',
+ letterSpacing: '0.01em',
+ boxShadow: btn1Hovered
+ ? '0 10px 32px rgba(109,40,217,0.55)'
+ : '0 4px 18px rgba(109,40,217,0.35)',
+ transform: btn1Hovered ? 'translateY(-2px)' : 'none',
+ transition: 'all 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
+ whiteSpace: 'nowrap',
+ }}
+ >
+ {t('hero.allExpeditions')}
+ </a>
 
-          {/* Secondary - הסיפור שלנו */}
-          <a
-            href="/about"
-            onClick={() => Analytics.clickCTA('our_story', 'hero')}
-            onMouseEnter={() => setBtn2Hovered(true)}
-            onMouseLeave={() => setBtn2Hovered(false)}
-            style={{
-              display:             'inline-flex',
-              alignItems:          'center',
-              gap:                 '8px',
-              padding:             '15px 36px',
-              minWidth:            '180px',
-              justifyContent:      'center',
-              borderRadius:        '999px',
-              background:          btn2Hovered
-                                     ? 'rgba(255,255,255,0.15)'
-                                     : 'rgba(255,255,255,0.08)',
-              border:              '1.5px solid rgba(255,255,255,0.25)',
-              backdropFilter:      'blur(12px)',
-              WebkitBackdropFilter:'blur(12px)',
-              color:               '#FFFFFF',
-              fontFamily:          "'Ploni', sans-serif",
-              fontSize:            FS.btn,
-              fontWeight:          600,
-              textDecoration:      'none',
-              letterSpacing:       '0.01em',
-              transform:           btn2Hovered ? 'translateY(-2px)' : 'none',
-              boxShadow:           btn2Hovered
-                                     ? '0 10px 28px rgba(0,0,0,0.28)'
-                                     : '0 4px 14px rgba(0,0,0,0.18)',
-              transition:          'all 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
-              whiteSpace:          'nowrap',
-            }}
-          >
-            {t('hero.ourStory')}
-          </a>
+ {/* Secondary - הסיפור שלנו */}
+ <a
+ href="/about"
+ onClick={() => Analytics.clickCTA('our_story', 'hero')}
+ onMouseEnter={() => setBtn2Hovered(true)}
+ onMouseLeave={() => setBtn2Hovered(false)}
+ style={{
+ display: 'inline-flex',
+ alignItems: 'center',
+ gap: '8px',
+ padding: '15px 36px',
+ minWidth: '180px',
+ justifyContent: 'center',
+ borderRadius: '999px',
+ background: btn2Hovered
+ ? 'rgba(255,255,255,0.15)'
+ : 'rgba(255,255,255,0.08)',
+ border: '1.5px solid rgba(255,255,255,0.25)',
+ backdropFilter: 'blur(12px)',
+ WebkitBackdropFilter:'blur(12px)',
+ color: '#FFFFFF',
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: FS.btn,
+ fontWeight: 600,
+ textDecoration: 'none',
+ letterSpacing: '0.01em',
+ transform: btn2Hovered ? 'translateY(-2px)' : 'none',
+ boxShadow: btn2Hovered
+ ? '0 10px 28px rgba(0,0,0,0.28)'
+ : '0 4px 14px rgba(0,0,0,0.18)',
+ transition: 'all 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
+ whiteSpace: 'nowrap',
+ }}
+ >
+ {t('hero.ourStory')}
+ </a>
 
-        </div>
+ </div>
 
-      </div>
-    </section>
-  );
+ </div>
+ </section>
+ );
 }
