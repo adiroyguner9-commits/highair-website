@@ -124,7 +124,7 @@ export default function GallerySection() {
     <>
       <section style={{
         background: '#FFFFFF',
-        padding:    isMobile ? '36px 0' : '60px 0',
+        padding:    isMobile ? '36px 5% 36px' : '60px 0',
         boxSizing:  'border-box',
         direction:  dir,
         overflow:   'hidden',
@@ -132,7 +132,7 @@ export default function GallerySection() {
 
         {/* ── Header ── */}
         <div style={{
-          padding: isMobile ? '0 5% 24px' : '0 5% 40px',
+          padding: isMobile ? '0 0 24px' : '0 5% 40px',
         }}>
           <h2 style={{
             fontFamily:    'Ploni, sans-serif',
@@ -182,8 +182,8 @@ export default function GallerySection() {
               WebkitOverflowScrolling: 'touch',
               paddingTop:    '8px',
               paddingBottom: isMobile ? '16px' : '20px',
-              paddingRight:  isMobile ? '5%' : (isRtl ? '5%'  : '68px'),
-              paddingLeft:   isMobile ? '5%' : (isRtl ? '68px' : '5%'),
+              paddingRight:  isMobile ? 0 : (isRtl ? '5%'  : '68px'),
+              paddingLeft:   isMobile ? 0 : (isRtl ? '68px' : '5%'),
               boxSizing:               'border-box',
             }}
           >
