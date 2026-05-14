@@ -10,6 +10,7 @@ import { usePageMeta }    from '../../website/usePageMeta.js';
 import Header             from './Header.jsx';
 import HeroSection        from './HeroSection.jsx';
 import StatsSection       from './StatsSection.jsx';
+import PartnersSection    from './PartnersSection.jsx';
 import ExpeditionExplorer from './ExpeditionExplorer.jsx';
 
 /* ── Lazy-loaded (below the fold) ── */
@@ -115,6 +116,7 @@ export default function HomeV2() {
         {/* Hero + Stats: above the fold, no FadeIn needed */}
         <HeroSection />
         <StatsSection />
+        <PartnersSection />
 
         <Suspense fallback={null}>
 
