@@ -19,8 +19,6 @@ const ImpactSection  = lazy(() => import('./ImpactSection.jsx'));
 const ReviewsSection = lazy(() => import('./ReviewsSection.jsx'));
 const GallerySection = lazy(() => import('./GallerySection.jsx'));
 const PressSection   = lazy(() => import('./PressSection.jsx'));
-const FAQSection     = lazy(() => import('./FAQSection.jsx'));
-const BlogPreview    = lazy(() => import('./BlogPreview.jsx'));
 const CTASection     = lazy(() => import('./CTASection.jsx'));
 const SiteFooter     = lazy(() => import('./SiteFooter.jsx'));
 
@@ -171,11 +169,6 @@ export default function HomeV2() {
 
           <Divider />
           <FadeIn><PressSection /></FadeIn>
-
-          <Divider />
-          <FadeIn><FAQSection /></FadeIn>
-
-          <FadeIn><BlogPreview /></FadeIn>
 
           <FadeIn><CTASection /></FadeIn>
           <SiteFooter />

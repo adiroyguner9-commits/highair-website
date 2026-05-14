@@ -897,24 +897,14 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen]     = useState(false);
   const [megaType, setMegaType]     = useState(null); // null | 'treks' | 'climbs'
-  const [scrolled, setScrolled]     = useState(false);
   const megaTimeout = useRef(null);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
-  const location = useLocation();
   const { t, i18n } = useTranslation();
   const dir   = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const isEn  = !isRtl;
-
-  /* Transparent header only on homepage when at the very top (desktop only) */
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // initialise on mount
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  const isTransparent = !isMobile && location.pathname === '/' && !scrolled;
+  const isTransparent = false;
 
   /* Build translated links array (israelTrips mega only in Hebrew) */
   const LINK_DEFS = [
@@ -961,9 +951,8 @@ export default function Header() {
       boxSizing: 'border-box',
       height:    '80px',
       padding:   '0 5%',
-      background:  isTransparent ? 'transparent' : '#FFFFFF',
-      boxShadow:   isTransparent ? 'none' : '0 4px 20px rgba(0,0,0,0.08)',
-      transition:  'background 0.35s ease, box-shadow 0.35s ease',
+      background: '#FFFFFF',
+      boxShadow:  '0 4px 20px rgba(0,0,0,0.08)',
       display:             'grid',
       gridTemplateColumns: isMobile ? 'auto 1fr' : '1fr auto 1fr',
       alignItems:          'center',
