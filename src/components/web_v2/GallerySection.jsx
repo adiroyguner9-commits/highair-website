@@ -116,8 +116,8 @@ export default function GallerySection() {
  const captions = t('gallery.captions', { returnObjects: true });
  const PHOTOS = PHOTO_SRCS.map((p, i) => ({ ...p, caption: captions[i] || '' }));
 
- const CARD_HEIGHT = isMobile ? 220 : 360;
- const SCROLL_AMT = isMobile ? 260 : 440;
+ const CARD_HEIGHT = isMobile ? 280 : 360;
+ const SCROLL_AMT = isMobile ? 320 : 440;
 
  const updateArrows = useCallback(() => {
  const el = trackRef.current;
