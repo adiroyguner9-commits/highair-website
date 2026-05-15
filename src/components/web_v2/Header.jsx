@@ -949,7 +949,7 @@ export default function Header() {
  background: '#FFFFFF',
  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
  display: 'grid',
- gridTemplateColumns: isMobile ? 'auto 1fr auto' : '1fr auto 1fr',
+ gridTemplateColumns: '1fr auto 1fr',
  alignItems: 'center',
  direction: dir,
  }}>
