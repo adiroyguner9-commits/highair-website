@@ -341,6 +341,7 @@ function MegaItem({ exp, onClose }) {
  className="nav-menu-item"
  onMouseEnter={() => setHovered(true)}
  onMouseLeave={() => setHovered(false)}
+ onMouseDown={e => e.preventDefault()}
  onClick={() => { navigate(`/expedition/${exp.slug}`); onClose(); }}
  style={{
  display: 'block',
@@ -375,6 +376,7 @@ function IsraelMegaItem({ trip, onClose }) {
  className="nav-menu-item"
  onMouseEnter={() => setHovered(true)}
  onMouseLeave={() => setHovered(false)}
+ onMouseDown={e => e.preventDefault()}
  onClick={() => { navigate(`/israel/${trip.slug}`); onClose(); }}
  style={{
  display: 'block',
