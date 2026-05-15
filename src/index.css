@@ -77,6 +77,12 @@ button:active {
   transition: transform 0.08s ease, opacity 0.08s ease;
 }
 
+button.nav-menu-item:active {
+  opacity: 1;
+  transform: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
 input::placeholder,
 textarea::placeholder {
   color: #9591B0;

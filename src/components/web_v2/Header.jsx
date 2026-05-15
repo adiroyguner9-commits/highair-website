@@ -338,6 +338,7 @@ function MegaItem({ exp, onClose }) {
 
  return (
  <button
+ className="nav-menu-item"
  onMouseEnter={() => setHovered(true)}
  onMouseLeave={() => setHovered(false)}
  onClick={() => { navigate(`/expedition/${exp.slug}`); onClose(); }}
@@ -371,6 +372,7 @@ function IsraelMegaItem({ trip, onClose }) {
 
  return (
  <button
+ className="nav-menu-item"
  onMouseEnter={() => setHovered(true)}
  onMouseLeave={() => setHovered(false)}
  onClick={() => { navigate(`/israel/${trip.slug}`); onClose(); }}
