@@ -609,6 +609,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  {cont.trips.map(trip => (
  <a
  key={trip.id}
+ className="nav-menu-link"
  href={`/israel/${trip.slug}`}
  onClick={e => { e.preventDefault(); navigate(`/israel/${trip.slug}`); closeMenu(); }}
  style={{
@@ -645,6 +646,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  {exps.map(exp => (
  <a
  key={exp.id}
+ className="nav-menu-link"
  href={`/expedition/${exp.slug}`}
  onClick={e => { e.preventDefault(); navigate(`/expedition/${exp.slug}`); closeMenu(); }}
  style={{

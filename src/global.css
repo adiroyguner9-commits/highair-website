@@ -82,8 +82,19 @@ button.accordion-row:active {
   opacity: 1;
 }
 
+/* Nav mega-menu items should not scale or fade on click */
+button.nav-menu-item:active {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
 a:active {
   opacity: 0.82;
+}
+
+/* Nav menu links (mobile accordion) should not fade on tap */
+a.nav-menu-link:active {
+  opacity: 1;
 }
 
 @keyframes fadeIn {
