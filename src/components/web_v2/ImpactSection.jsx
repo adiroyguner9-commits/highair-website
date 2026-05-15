@@ -16,7 +16,6 @@ const SLIDES = [
   '/images/donation/img-5.webp',
   '/images/donation/img-6.webp',
   '/images/donation/img-7.webp',
-  '/images/donation/img-8.webp',
 ];
 
 export default function ImpactSection() {
