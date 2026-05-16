@@ -2024,7 +2024,7 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
   {
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
     ghlCalendarId: 'wrrh6IYs1eCAe9kuNxnW', tagHe: 'אקונקגואה',
-    elev: '6961m', elevNum: 6962, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6962m', elevNum: 6962, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 9800, priceStr: '$9800', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.webp',
@@ -2041,7 +2041,7 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
 התגמול על המאמץ הוא חוויה של פעם בחיים - עמידה על הנקודה הגבוהה ביותר בעולם מחוץ לרכס ההימלאיה, כשמתחת לרגליכם פרוס רכס האנדים האינסופי והנופים עוצרי הנשימה של דרום אמריקה. המסע כולל גם מפגש עם התרבות הארגנטינאית המרתקת, מהעיר מנדוזה התוססת ועד לבשר המצוין והיינות המפורסמים של האזור.
 
 הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
-    highlights: ['פסגת אקונקגואה 6961מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
+    highlights: ['פסגת אקונקגואה 6962מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
     nameEn: 'Aconcagua',
     descEn: `Aconcagua (6,962m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
 

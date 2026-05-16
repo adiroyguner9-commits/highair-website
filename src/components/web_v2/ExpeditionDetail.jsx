@@ -691,7 +691,7 @@ export default function ExpeditionDetail() {
           exp.heroVideo ? (
             <video
               key={exp.heroVideo}
-              autoPlay muted loop playsInline preload="auto"
+              autoPlay muted loop playsInline preload="none"
               poster={exp.heroVideo.replace('.mp4', '-poster.jpg')}
               style={{
                 position: 'absolute', inset: 0,
@@ -711,7 +711,7 @@ export default function ExpeditionDetail() {
         ) : (
           <video
             key="hero-fallback"
-            autoPlay muted loop playsInline preload="auto"
+            autoPlay muted loop playsInline preload="none"
             style={{
               position: 'absolute', inset: 0,
               width: '100%', height: '100%',
@@ -1595,7 +1595,7 @@ export default function ExpeditionDetail() {
                   >
                     <img
                       src={src}
-                      alt={`${exp.nameHe} ${i + 1}`}
+                      alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} ${i + 1}`}
                       loading="lazy"
                       decoding="async"
                       style={{
@@ -1657,7 +1657,7 @@ export default function ExpeditionDetail() {
                 )}
                 <img
                   src={validGalleryImages[lightboxIdx]}
-                  alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} – תמונה ${lightboxIdx + 1}`}
+                  alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} – ${isRtl ? 'תמונה' : 'photo'} ${lightboxIdx + 1}`}
                   onClick={e => e.stopPropagation()}
                   style={{
                     maxWidth: '100%', maxHeight: '90vh',
