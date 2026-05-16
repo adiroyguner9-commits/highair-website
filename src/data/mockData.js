@@ -2025,7 +2025,7 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
     ghlCalendarId: 'wrrh6IYs1eCAe9kuNxnW', tagHe: 'אקונקגואה',
     elev: '6962m', elevNum: 6962, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'אתגרי', price: 9800, priceStr: '$9800', continent: 'southamerica',
+    diff: 'Hard', diffHe: 'אתגרי', price: 10000, priceStr: '$10,000', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.webp',
     ogImage: '/images/og/aconcagua.jpg',

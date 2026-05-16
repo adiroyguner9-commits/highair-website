@@ -53,7 +53,7 @@ const EXPEDITION_PRICES = {
   'mera-peak':                      [3550, 'USD'],
   'lobuche-peak':                   [3550, 'USD'],
   // ── Central Asia ─────────────────────────────────────────────────────────
-  'aconcagua':                      [6000, 'USD'],
+  'aconcagua':                      [10000, 'USD'],
   'lenin-peak':                     [6200, 'USD'],
   // ── Europe ───────────────────────────────────────────────────────────────
   'olympus':                        [1700, 'EUR'],
