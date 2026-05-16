@@ -95,14 +95,14 @@ export default async function handler(req, res) {
 
   /* ── Shared-secret authentication ── */
   const GHL_SECRET = process.env.GHL_WEBHOOK_SECRET;
-  if (GHL_SECRET) {
-    const incomingSecret = req.headers['x-ghl-secret'] || '';
-    if (!safeEqual(incomingSecret, GHL_SECRET)) {
-      console.warn('[ghl-payment] Unauthorized request — bad or missing x-ghl-secret');
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-  } else {
-    console.warn('[ghl-payment] GHL_WEBHOOK_SECRET not set — running unauthenticated (set it in Vercel env vars)');
+  if (!GHL_SECRET) {
+    console.error('[ghl-payment] GHL_WEBHOOK_SECRET env var not set — rejecting all requests');
+    return res.status(500).json({ error: 'Server configuration error' });
+  }
+  const incomingSecret = req.headers['x-ghl-secret'] || '';
+  if (!safeEqual(incomingSecret, GHL_SECRET)) {
+    console.warn('[ghl-payment] Unauthorized request — bad or missing x-ghl-secret');
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 
   const FB_TOKEN = process.env.FB_CAPI_TOKEN;

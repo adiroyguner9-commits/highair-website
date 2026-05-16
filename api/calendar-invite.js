@@ -10,6 +10,8 @@
  * date/time are strict regex-validated; long values are truncated.
  */
 
+import { setSecurityHeaders } from './_security.js';
+
 /* RFC 5545 §3.3.11 TEXT escaping. Order matters: escape backslash first. */
 function icsEscape(s, max = 200) {
   return String(s ?? '')
@@ -22,6 +24,7 @@ function icsEscape(s, max = 200) {
 }
 
 export default function handler(req, res) {
+  setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).end();
 
   const { date, time, name = '', expedition = '' } = req.query;

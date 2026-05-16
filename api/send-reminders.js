@@ -10,6 +10,8 @@
 
 export const config = { api: { bodyParser: false } };
 
+import { setSecurityHeaders } from './_security.js';
+
 function isAuthorizedCron(req) {
   const expected = process.env.CRON_SECRET;
   if (!expected) {
@@ -28,6 +30,7 @@ function isAuthorizedCron(req) {
 }
 
 export default async function handler(req, res) {
+  setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).end();
   if (!isAuthorizedCron(req)) return res.status(401).json({ error: 'Unauthorized' });
 

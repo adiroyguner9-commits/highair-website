@@ -49,6 +49,12 @@ const DEFAULT_REVIEWS = [
   { name: 'רועי אברהם', date: 'פברואר 2025', rating: 5, text: 'הגעתי בלי ניסיון, חזרתי עם פסגה ועם חברים לחיים. HighAir הם לא רק חברת טיולים - הם משפחה.', initial: 'ר' },
 ];
 
+const DEFAULT_REVIEWS_EN = [
+  { name: 'Yoni Levi', date: 'January 2025', rating: 5, text: 'A once-in-a-lifetime experience. The HighAir team was professional at the highest level, always there for support. I didn\'t believe I could reach the summit, but they believed in me.', initial: 'Y' },
+  { name: 'Michal Sharon', date: 'March 2025', rating: 5, text: 'Everything was perfect from the organisation to the moment we stood on the summit. Our guide was incredible — patient, professional, and great company.', initial: 'M' },
+  { name: 'Roi Abraham', date: 'February 2025', rating: 5, text: 'I arrived with no experience and came back with a summit and lifelong friends. HighAir is more than a travel company — they\'re family.', initial: 'R' },
+];
+
 const DEFAULT_FAQ = [
   { q: 'האם נדרש ניסיון טיפוס קודם?', a: 'לא נדרש ניסיון טיפוס קודם לרוב המסלולים שלנו. כל מה שצריך הוא כושר גופני טוב ורצון להצליח.' },
   { q: 'מה גודל הקבוצה?', a: 'הקבוצות שלנו מוגבלות ל-12 משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.' },
@@ -630,7 +636,7 @@ export default function ExpeditionDetail() {
   }
 
   /* ── Derived data ── */
-  const reviews = exp.reviews?.length ? exp.reviews : DEFAULT_REVIEWS;
+  const reviews = exp.reviews?.length ? exp.reviews : (isRtl ? DEFAULT_REVIEWS : DEFAULT_REVIEWS_EN);
   const faqItems = isRtl
     ? (exp.faq?.length       ? exp.faq       : DEFAULT_FAQ)
     : (exp.faqEn?.length     ? exp.faqEn     : DEFAULT_FAQ_EN);
