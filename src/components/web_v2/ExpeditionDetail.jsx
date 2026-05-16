@@ -346,19 +346,7 @@ export default function ExpeditionDetail() {
     ).then(results => setResolvedGallery(results.filter(Boolean)));
   }, [exp?.slug]);
 
-  /* ── Dynamic SEO ── */
-  useEffect(() => {
-    if (!exp) return;
-    document.title = `${exp.nameHe} | HighAir Expeditions`;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', `${exp.nameHe} ב${exp.countryHe} - ${exp.elev}. הצטרפו למשלחת עם HighAir Expeditions.`);
-    return () => {
-      document.title = 'HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם';
-      if (meta) meta.setAttribute('content', 'HighAir Expeditions - ארגון משלחות טיפוס הרים וטרקים בארץ ובעולם.');
-    };
-  }, [exp?.slug]);
-
-  /* ── Itinerary accordion: array of open indices, first open by default ── */
+/* ── Itinerary accordion: array of open indices, first open by default ── */
   const [openItinerary, setOpenItinerary] = useState([]);
   const [itineraryTab, setItineraryTab] = useState('safari'); // 'trek' | 'safari'
   const [hoveredItinerary, setHoveredItinerary] = useState(null);
