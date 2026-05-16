@@ -280,7 +280,7 @@ export default function ExpeditionDetail() {
       ? (exp.seoDescription   || `${exp.nameHe} ב${exp.countryHe || exp.country} - ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. הצטרפו למשלחת מאורגנת עם מדריכים מקצועיים, תרומה למלחמה בסרטן.`)
       : (exp.seoDescriptionEn || `${exp.nameEn || exp.name} expedition in ${exp.country}. ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. Professional guides, 94% summit success rate. Every expedition supports cancer patients.`),
     canonicalPath: `/expedition/${exp.slug}`,
-    image:         exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
+    image:         exp.ogImage ? `https://www.highair-expeditions.com${exp.ogImage}` : exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
     ogType:        'product',
   } : {
