@@ -336,7 +336,7 @@ export default function ExpeditionDetail() {
     }
   }, [exp?.slug]);
 
-  /* ── Probe gallery images — only keep URLs that actually exist ── */
+  /* ── Probe gallery images — only keep URLs that actually exist, landscape first ── */
   useEffect(() => {
     if (!exp) return;
     setResolvedGallery(null);
@@ -345,11 +345,15 @@ export default function ExpeditionDetail() {
     Promise.all(
       potential.map(url => new Promise(resolve => {
         const img = new Image();
-        img.onload  = () => resolve(url);
+        img.onload  = () => resolve({ url, w: img.naturalWidth, h: img.naturalHeight });
         img.onerror = () => resolve(null);
         img.src = url;
       }))
-    ).then(results => setResolvedGallery(results.filter(Boolean)));
+    ).then(results => {
+      const valid = results.filter(Boolean);
+      valid.sort((a, b) => (a.w >= a.h ? 0 : 1) - (b.w >= b.h ? 0 : 1));
+      setResolvedGallery(valid.map(r => r.url));
+    });
   }, [exp?.slug]);
 
 /* ── Itinerary accordion: array of open indices, first open by default ── */
@@ -450,12 +454,25 @@ export default function ExpeditionDetail() {
           setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
         }
 
-        // Extract gallery URLs from first relevant group record
+        // Extract gallery URLs from first relevant group record, sorted landscape-first
         const galleryRec = relevant.find(rec => rec.fields['Gallery_URLs']);
         if (galleryRec) {
           const urls = galleryRec.fields['Gallery_URLs']
             .split('\n').map(u => u.trim()).filter(Boolean);
-          if (urls.length) setGalleryUrls(urls);
+          if (urls.length) {
+            Promise.all(urls.map(url => new Promise(resolve => {
+              const probeUrl = url.includes('res.cloudinary.com') && url.includes('/upload/')
+                ? url.replace('/upload/', '/upload/w_20,c_limit/')
+                : url;
+              const img = new Image();
+              img.onload  = () => resolve({ url, w: img.naturalWidth, h: img.naturalHeight });
+              img.onerror = () => resolve({ url, w: 1, h: 1 });
+              img.src = probeUrl;
+            }))).then(results => {
+              results.sort((a, b) => (a.w >= a.h ? 0 : 1) - (b.w >= b.h ? 0 : 1));
+              setGalleryUrls(results.map(r => r.url));
+            });
+          }
         }
       }).catch(err => {
         console.error('[dates]', err);
