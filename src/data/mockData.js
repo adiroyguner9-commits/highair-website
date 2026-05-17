@@ -261,24 +261,26 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה - 4,550 מטר. 12 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני, כנסיות חצובות בסלע וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
     seoDescriptionEn: 'Trek Simien Mountains & Danakil Desert in Ethiopia - 12 days. Active lava lake at Erta Ale, colorful Dallol depression, rock-hewn churches of Tigray & Gelada baboons in the Simiens.',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
-    desc: `הצטרפו אלינו למסע יוצא דופן באתיופיה, בין הר געש ארטה אלה, מדבר דנקיל המרהיב ושקע דאלול, עד לפסגות הגבוהות במדינה בטרק הרי סימיאן.
+    desc: `הצטרפו אלינו למסע יוצא דופן באתיופיה - מטרק הרי הסימיאן המרהיב, דרך מדבר דנקיל הפרהיסטורי ושקע דאלול, ועד לכנסיות החצובות בסלע בטיגראי.
 
-הטיול שלנו מתחיל במדבר דנקיל, אחד האזורים המרהיבים על פני כדור הארץ, נבקר בשקע דאלול הצבעוני, נטייל בין אגמי מלח ושדות גופרית ונצעד לתוך לוע של הר געש פעיל בלב לילה תחת שמי מדבר זרועי הכוכבים.
+הטיול מתחיל בשמורת הרי הסימיאן, אחד הנופים הדרמטיים ביותר באפריקה. נצעד בין מצוקים עוצרי נשימה, נטפס לפסגות מעל 4,000 מ׳ ונפגוש מקרוב ג׳לדות, יעלי וואליה ואת הזאב האתיופי הנדיר בסביבתם הטבעית.
 
-משם נעלה לגבהים ונצעד בשבילי שמורת הרי סימיאן, בין מצוקים דרמטיים, פסגות מעל 4000 מ׳ ונופים עוצרי נשימה של טבע פראי מלא בחיות בר.
+משם נרד לדנקיל - אחד האזורים הנמוכים ביותר על פני כדור הארץ. נבקר בשקע דאלול הצבעוני, נטייל בין אגמי מלח ושדות גופרית, ונצעד אל לוע הר הגעש ארטה אלה בלב לילה תחת שמי מדבר זרועי הכוכבים.
 
-זהו מסע שמשלב את הניגוד שבין חום המדבר לרוחות הקרות בפסגות הגבוהות, חוויה בלתי נשכחת של טבע במלוא הדרו!
+נסיים את המסע בטיגראי, שם נטפס אל כנסיות החצובות בסלע - אחד הפלאים הנסתרים של אתיופיה, חצובות ישירות לתוך מצוקי הסלע לפני למעלה מאלף שנה.
 
 הצטרפו אלינו למסע המדהים באתיופיה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['ראס בוהאיט 4430מ׳', 'ג׳לדות ניידות', 'אגם לבה פעיל בארטה אלה', 'נוף הפרהיסטורי של דנקיל'],
     nameEn: 'Simien & Danakil Desert',
-    descEn: `Join us on an extraordinary journey to Ethiopia - from the volcanic Erta Ale, through the surreal Danakil Depression and the colorful Dallol crater, all the way to the high peaks of the Simien Mountains.
+    descEn: `Join us on an extraordinary journey to Ethiopia - from the spectacular Simien Mountains trek, through the prehistoric Danakil Desert and the colorful Dallol Depression, all the way to the ancient rock-hewn churches of Tigray.
 
-Our adventure begins in the Danakil Desert, one of the most spectacular places on Earth. We visit the colorful Dallol Depression, hike between salt lakes and sulfur fields, and trek to the crater of an active volcano in the heart of the night under a sky full of stars.
+Our adventure begins in the Simien Mountains National Park, home to some of Africa's most dramatic landscapes. We trek between breathtaking cliffs, summit peaks over 4,000m, and encounter Gelada baboons, the endemic Walia ibex and the rare Ethiopian wolf in their natural habitat.
 
-From there we ascend to the heights of the Simien Mountains National Park - between dramatic cliffs, peaks over 4,000m, and breathtaking views of wild nature teeming with wildlife.
+From the highlands we descend to the Danakil Desert - one of the lowest places on Earth. We visit the colorful Dallol Depression, hike through salt lakes and sulfur fields, and trek to the crater of Erta Ale - an active volcano - in the heart of the night under a sky blazing with stars.
 
-This journey combines the contrast between desert heat and cold mountain winds - an unforgettable experience of nature in all its glory!`,
+We close the journey in Tigray, climbing up to the rock-hewn churches - one of Ethiopia's best-kept secrets, carved directly into towering cliff faces over a thousand years ago.
+
+Join us on this incredible Ethiopian adventure and make a meaningful contribution to the fight against cancer!`,
     highlightsEn: ['Ras Bwahit 4,430m', 'Gelada baboons', 'Erta Ale active lava lake', 'Prehistoric Danakil landscape'],
     included: [
       'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
