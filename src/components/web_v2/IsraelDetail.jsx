@@ -712,7 +712,7 @@ export default function IsraelDetail() {
                   )}
                   <img
                     src={validGalleryImages[lightboxIdx]}
-                    alt={`${displayName} – תמונה ${lightboxIdx + 1}`}
+                    alt={`${displayName} - תמונה ${lightboxIdx + 1}`}
                     onClick={e => e.stopPropagation()}
                     style={{
                       maxWidth: '100%', maxHeight: '90vh',

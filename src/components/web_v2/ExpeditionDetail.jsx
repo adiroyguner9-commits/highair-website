@@ -1682,7 +1682,7 @@ export default function ExpeditionDetail() {
                 )}
                 <img
                   src={validGalleryImages[lightboxIdx]}
-                  alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} – ${isRtl ? 'תמונה' : 'photo'} ${lightboxIdx + 1}`}
+                  alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} - ${isRtl ? 'תמונה' : 'photo'} ${lightboxIdx + 1}`}
                   onClick={e => e.stopPropagation()}
                   style={{
                     maxWidth: '100%', maxHeight: '90vh',

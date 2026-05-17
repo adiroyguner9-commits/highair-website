@@ -239,7 +239,7 @@ function TripCard({ group, exp, months, isRtl }) {
           textAlign:  'start',
         }}>
           {fmtDate(group.departure, months)}
-          {group.returnDate ? ` – ${fmtDate(group.returnDate, months)}` : ''}
+          {group.returnDate ? ` - ${fmtDate(group.returnDate, months)}` : ''}
         </p>
       </div>
     </div>

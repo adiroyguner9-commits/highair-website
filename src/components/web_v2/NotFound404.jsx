@@ -13,7 +13,7 @@ export default function NotFound404() {
   const dir  = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isEn = dir === 'ltr';
   usePageMeta({
-    title:       isEn ? '404 – Page Not Found | HighAir Expeditions' : '404 – הדף לא נמצא | HighAir Expeditions',
+    title:       isEn ? '404 - Page Not Found | HighAir Expeditions' : '404 - הדף לא נמצא | HighAir Expeditions',
     description: isEn ? 'The page you were looking for does not exist.' : 'הדף שחיפשת לא קיים.',
     noIndex:     true,
   });
