@@ -39,7 +39,7 @@ const EXPEDITION_PRICES = {
   'kilimanjaro-with-safari':        [3700, 'USD'],
   'kilimanjaro-kosher-with-safari': [3900, 'USD'],
   // ── Africa ───────────────────────────────────────────────────────────────
-  'ethiopia':                       [2960, 'USD'],
+  'ethiopia':                       [3000, 'USD'],
   // ── Caucasus ─────────────────────────────────────────────────────────────
   'elbrus':                         [3500, 'USD'],
   'kazbek':                         [2300, 'EUR'],

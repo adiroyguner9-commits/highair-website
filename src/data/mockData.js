@@ -252,7 +252,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     id: 4, slug: 'ethiopia', name: 'Simien & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
     ghlCalendarId: 'LCsG9BWSQnq5x00sUiJS', tagHe: 'סימיאן ודנקיל',
     elev: '4550m', elevNum: 4430, days: '11 ימים', daysEn: '11 days', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 2960, priceStr: '$2960', continent: 'africa',
+    diff: 'Moderate', diffHe: 'בינוני', price: 3000, priceStr: '$3000', continent: 'africa',
     airtableEvents: ['Ethiopia'],
     img: '/images/cards/ethiopia.webp',
     ogImage: '/images/og/ethiopia.jpg',
