@@ -863,7 +863,9 @@ export default function ExpeditionDetail() {
           {[
             { IconComp: MountainIcon, label: t('expedition.elevation'), value: `${exp.elevNum}${'m'}` },
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff || exp.diffHe) },
-            { IconComp: MedalIcon,    label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
+            exp.type === 'Trekking'
+              ? { IconComp: MedalIcon, label: isRtl ? 'ימי הליכה' : 'Trekking Days', value: isRtl ? exp.days : (exp.daysEn || exp.days) }
+              : { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
             { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: exp.priceStr ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '-' },
           ].map((s, i) => (
             <div key={i} style={{
