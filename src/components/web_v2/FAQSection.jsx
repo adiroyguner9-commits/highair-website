@@ -13,13 +13,13 @@ import { useInView } from '../../website/useInView.js';
 const FAQS = [
   {
     q_he: 'כמה עולה משלחת?',
-    a_he: 'העלות תלויה ביעד — קילימנג׳רו מ-$3,500, אלברוס מ-$2,800, אנאפורנה מ-$4,200, אוורסט מ-$12,000. המחיר כולל מדריכים מקצועיים, ציוד שטח, לינה בדרך, ואוכל במהלך הטרק.',
+    a_he: 'העלות תלויה ביעד — קילימנג׳רו מ-$3500, אלברוס מ-$2800, אנאפורנה מ-$4200, אוורסט מ-$12000. המחיר כולל מדריכים מקצועיים, ציוד שטח, לינה בדרך, ואוכל במהלך הטרק.',
     q_en: 'How much does an expedition cost?',
     a_en: 'Costs vary by destination — Kilimanjaro from $3,500, Elbrus from $2,800, Annapurna from $4,200, Everest from $12,000. Price includes professional guides, camping gear, accommodation en route, and meals during the trek.',
   },
   {
     q_he: 'האם נדרש ניסיון קודם?',
-    a_he: 'לרוב היעדים — לא. קילימנג׳רו, אלברוס, וסובב אנאפורנה מתאימים גם למטיילים ללא ניסיון הרים קודם. כל שנדרש הוא כושר גופני סביר ורצון חזק. לאוורסט ולאקונקאגואה נדרש ניסיון בהרים בגובה 5,000+ מטר.',
+    a_he: 'לרוב היעדים — לא. קילימנג׳רו, אלברוס, וסובב אנאפורנה מתאימים גם למטיילים ללא ניסיון הרים קודם. כל שנדרש הוא כושר גופני סביר ורצון חזק. לאוורסט ולאקונקאגואה נדרש ניסיון בהרים בגובה 5000+ מטר.',
     a_en: "For most destinations — no. Kilimanjaro, Elbrus, and Annapurna Circuit are suitable for trekkers without prior high-altitude experience. All that's required is reasonable fitness and strong determination. Everest and Aconcagua require prior experience at 5,000m+.",
     q_en: 'Do I need prior experience?',
   },
