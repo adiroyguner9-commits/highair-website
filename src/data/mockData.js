@@ -531,7 +531,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
   {
     id: 6, slug: 'manaslu', name: 'Manaslu Circuit', nameHe: 'טרק סובב מנסלו', country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
     ghlCalendarId: 'mQaQAUkU2d4HwljMHIzw', tagHe: 'מנסלו',
-    heroVideo: '/videos/hero-nepal.mp4',
+    heroVideo: '/videos/hero-manaslu.mp4',
     elev: '5160m', elevNum: 5106, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2250, priceStr: '$2250', continent: 'asia',
     airtableEvents: ['Manaslu_Circut'],
