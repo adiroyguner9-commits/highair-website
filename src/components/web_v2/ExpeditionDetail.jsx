@@ -657,9 +657,13 @@ export default function ExpeditionDetail() {
   const faqItems = isRtl
     ? (exp.faq?.length       ? exp.faq       : DEFAULT_FAQ)
     : (exp.faqEn?.length     ? exp.faqEn     : DEFAULT_FAQ_EN);
-  const notIncluded = isRtl
+  const notIncludedRaw = isRtl
     ? (exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED)
     : (exp.notIncludedEn?.length ? exp.notIncludedEn : DEFAULT_NOT_INCLUDED_EN);
+  const extrasMarker = isRtl ? 'תוספות (לא חובה):' : 'Optional extras:';
+  const extrasIdx = notIncludedRaw.indexOf(extrasMarker);
+  const notIncluded = extrasIdx === -1 ? notIncludedRaw : notIncludedRaw.slice(0, extrasIdx);
+  const extrasItems = extrasIdx === -1 ? [] : notIncludedRaw.slice(extrasIdx + 1);
   const importantToNote = isRtl
     ? (exp.importantToNote?.length ? exp.importantToNote : DEFAULT_IMPORTANT)
     : (exp.importantToNoteEn?.length ? exp.importantToNoteEn : DEFAULT_IMPORTANT_EN);
@@ -1142,6 +1146,51 @@ export default function ExpeditionDetail() {
               })}
             </div>
           </div>
+
+          {/* ── תוספות אופציונליות - purple card ── */}
+          {extrasItems.length > 0 && (
+            <div style={{
+              marginTop: '20px',
+              background: '#F5F2FF',
+              borderRadius: RADIUS.xl,
+              padding: '28px',
+              border: '1px solid #DDD6FE',
+            }}>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '10px',
+                marginBottom: '20px',
+              }}>
+                <span style={{ fontSize: '18px' }}>✨</span>
+                <span style={{
+                  fontFamily: "'Ploni', sans-serif", fontSize: '18px',
+                  fontWeight: 700, color: '#6D28D9',
+                }}>
+                  {isRtl ? 'תוספות אופציונליות' : 'Optional Extras'}
+                </span>
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr',
+                gap: '12px 32px',
+              }}>
+                {extrasItems.map((item, i) => (
+                  <div key={i} style={{
+                    display: 'flex', gap: '12px', alignItems: 'flex-start',
+                  }}>
+                    <div style={{
+                      width: '22px', height: '22px', borderRadius: '50%',
+                      background: '#7C3AED', flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginTop: '1px',
+                    }}>
+                      <span style={{ color: 'white', fontSize: '11px', fontWeight: 700 }}>+</span>
+                    </div>
+                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* ── C. תכנית הטיפוס (Itinerary Accordion) ── */}
