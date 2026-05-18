@@ -334,6 +334,9 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
       'חיסונים וייעוץ רפואי במרפאת מטיילים',
       'הוצאות אישיות במהלך הטרק',
       'כל מה שלא צוין בחלק הכלול בטרק',
+      'תוספות (לא חובה):',
+      'חדר יחיד במלון בטרק - 50$ לכל תקופת הטרק',
+      'אוהל יחיד בטרק - 100$ לכל תקופת הטרק',
     ],
     notIncludedEn: [
       'International flights (via our travel agent)',
@@ -344,6 +347,9 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
       'Vaccinations and medical consultation at a travel clinic',
       'Personal expenses during the trek',
       'Anything not listed in the included section',
+      'Optional extras:',
+      'Single room at hotel during trek - $50 for entire trek',
+      'Solo tent during trek - $100 for entire trek',
     ],
     importantToNote: [
       'הטרק מתבצע בקבוצה עד 15 משתתפים בלבד!',
