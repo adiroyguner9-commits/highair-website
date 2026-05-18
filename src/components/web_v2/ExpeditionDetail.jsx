@@ -1101,90 +1101,87 @@ export default function ExpeditionDetail() {
               })}
             </div>
 
-            {/* לא כלול - light red card */}
-            <div style={{
-              background: '#FEF2F2',
-              borderRadius: RADIUS.xl,
-              padding: '28px',
-              border: '1px solid #FECACA',
-            }}>
+            {/* לא כלול + תוספות - right column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* לא כלול - light red card */}
               <div style={{
-                fontFamily: "'Ploni', sans-serif", fontSize: '18px',
-                fontWeight: 700, color: '#DC2626', marginBottom: '20px',
+                background: '#FEF2F2',
+                borderRadius: RADIUS.xl,
+                padding: '28px',
+                border: '1px solid #FECACA',
               }}>
-                {isRtl ? 'מה לא כלול בתכנית?' : "What's Not Included?"}
-              </div>
-              {notIncluded.map((item, i) => {
-                const isHeader = item.endsWith(':');
-                return isHeader ? (
-                  <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
-                    <span style={{
-                      display: 'inline-block',
-                      background: '#FEE2E2', color: '#991B1B',
-                      fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
-                      padding: '4px 14px', borderRadius: '999px',
-                    }}>
-                      {item.slice(0, -1)}
-                    </span>
-                  </div>
-                ) : (
-                  <div key={i} style={{
-                    display: 'flex', gap: '12px', alignItems: 'flex-start',
-                    marginBottom: i < notIncluded.length - 1 ? '14px' : 0,
-                  }}>
-                    <div style={{
-                      width: '22px', height: '22px', borderRadius: '50%',
-                      background: '#DC2626', flexShrink: 0,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      marginTop: '1px',
-                    }}>
-                      <span style={{ color: 'white', fontSize: '11px', fontWeight: 700 }}>✕</span>
+                <div style={{
+                  fontFamily: "'Ploni', sans-serif", fontSize: '18px',
+                  fontWeight: 700, color: '#DC2626', marginBottom: '20px',
+                }}>
+                  {isRtl ? 'מה לא כלול בתכנית?' : "What's Not Included?"}
+                </div>
+                {notIncluded.map((item, i) => {
+                  const isHeader = item.endsWith(':');
+                  return isHeader ? (
+                    <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
+                      <span style={{
+                        display: 'inline-block',
+                        background: '#FEE2E2', color: '#991B1B',
+                        fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
+                        padding: '4px 14px', borderRadius: '999px',
+                      }}>
+                        {item.slice(0, -1)}
+                      </span>
                     </div>
-                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
+                  ) : (
+                    <div key={i} style={{
+                      display: 'flex', gap: '12px', alignItems: 'flex-start',
+                      marginBottom: i < notIncluded.length - 1 ? '14px' : 0,
+                    }}>
+                      <div style={{
+                        width: '22px', height: '22px', borderRadius: '50%',
+                        background: '#DC2626', flexShrink: 0,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        marginTop: '1px',
+                      }}>
+                        <span style={{ color: 'white', fontSize: '11px', fontWeight: 700 }}>✕</span>
+                      </div>
+                      <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* תוספות אופציונליות - purple card */}
+              {extrasItems.length > 0 && (
+                <div style={{
+                  background: '#F5F2FF',
+                  borderRadius: RADIUS.xl,
+                  padding: '28px',
+                  border: '1px solid #DDD6FE',
+                }}>
+                  <div style={{
+                    fontFamily: "'Ploni', sans-serif", fontSize: '18px',
+                    fontWeight: 700, color: '#6D28D9', marginBottom: '20px',
+                  }}>
+                    {isRtl ? 'תוספות אופציונליות' : 'Optional Extras'}
                   </div>
-                );
-              })}
+                  {extrasItems.map((item, i) => (
+                    <div key={i} style={{
+                      display: 'flex', gap: '12px', alignItems: 'flex-start',
+                      marginBottom: i < extrasItems.length - 1 ? '14px' : 0,
+                    }}>
+                      <div style={{
+                        width: '22px', height: '22px', borderRadius: '50%',
+                        background: '#7C3AED', flexShrink: 0,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        marginTop: '1px',
+                      }}>
+                        <span style={{ color: 'white', fontSize: '11px', fontWeight: 700, lineHeight: 1, display: 'flex' }}>+</span>
+                      </div>
+                      <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-
-          {/* ── תוספות אופציונליות - purple card ── */}
-          {extrasItems.length > 0 && (
-            <div style={{
-              marginTop: '20px',
-              background: '#F5F2FF',
-              borderRadius: RADIUS.xl,
-              padding: '28px',
-              border: '1px solid #DDD6FE',
-            }}>
-              <div style={{
-                fontFamily: "'Ploni', sans-serif", fontSize: '18px',
-                fontWeight: 700, color: '#6D28D9', marginBottom: '20px',
-              }}>
-                {isRtl ? 'תוספות אופציונליות' : 'Optional Extras'}
-              </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr',
-                gap: '12px 32px',
-              }}>
-                {extrasItems.map((item, i) => (
-                  <div key={i} style={{
-                    display: 'flex', gap: '12px', alignItems: 'flex-start',
-                  }}>
-                    <div style={{
-                      width: '22px', height: '22px', borderRadius: '50%',
-                      background: '#7C3AED', flexShrink: 0,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      marginTop: '1px',
-                    }}>
-                      <span style={{ color: 'white', fontSize: '11px', fontWeight: 700 }}>+</span>
-                    </div>
-                    <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </section>
 
         {/* ── C. תכנית הטיפוס (Itinerary Accordion) ── */}
