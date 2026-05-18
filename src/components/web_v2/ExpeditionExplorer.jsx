@@ -53,22 +53,11 @@ function NavArrow({ direction, disabled, onClick, isRtl }) {
 /* ── Expedition card ── */
 function ExpCard({ exp }) {
   const [hovered,  setHovered]  = useState(false);
-  const [imgReady, setImgReady] = useState(!exp.img);
   const cardRef  = useRef(null);
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
-
-  useEffect(() => {
-    if (!exp.img) return;
-    const el  = cardRef.current;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setImgReady(true); obs.disconnect(); }
-    }, { rootMargin: '200px' });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [exp.img]);
 
   const handleNav = () => navigate(`/expedition/${exp.slug}`);
 
@@ -87,7 +76,7 @@ function ExpCard({ exp }) {
         height:         '100%',
         borderRadius:   RADIUS.xl,
         overflow:       'hidden',
-        background:     exp.grad,
+        background:     'transparent',
         display:        'flex',
         flexDirection:  'column',
         justifyContent: 'space-between',
@@ -101,7 +90,7 @@ function ExpCard({ exp }) {
       }}
     >
       {/* ── Background image (scales on hover) ── */}
-      {exp.img && imgReady && (
+      {exp.img && (
         <div style={{
           position:           'absolute',
           inset:              '-6px',
