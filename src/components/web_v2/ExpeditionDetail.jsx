@@ -1157,16 +1157,10 @@ export default function ExpeditionDetail() {
               border: '1px solid #DDD6FE',
             }}>
               <div style={{
-                display: 'flex', alignItems: 'center', gap: '10px',
-                marginBottom: '20px',
+                fontFamily: "'Ploni', sans-serif", fontSize: '18px',
+                fontWeight: 700, color: '#6D28D9', marginBottom: '20px',
               }}>
-                <span style={{ fontSize: '18px' }}>✨</span>
-                <span style={{
-                  fontFamily: "'Ploni', sans-serif", fontSize: '18px',
-                  fontWeight: 700, color: '#6D28D9',
-                }}>
-                  {isRtl ? 'תוספות אופציונליות' : 'Optional Extras'}
-                </span>
+                {isRtl ? 'תוספות אופציונליות' : 'Optional Extras'}
               </div>
               <div style={{
                 display: 'grid',
