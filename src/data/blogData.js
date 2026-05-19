@@ -33,9 +33,9 @@ export const POSTS = [
       { type: 'text', value: 'ב-18 במאי 2026, בשעה 10:12 בבוקר שעון נפאל, עמד אדם אחד על פסגת האוורסט בפעם ה-32 בחייו. קאמי ריטה שרפה, בן 56, מדריך מקצועי מכפר תאמה שבמחוז סולוקומבו, שבר שוב את שיא העולם שלו, יותר העפלות לפסגה הגבוהה ביותר על פני כדור הארץ מכל אדם אחר בהיסטוריה האנושית.' },
 
       { type: 'section', value: 'מי זה קאמי ריטה שרפה?' },
-      { type: 'text', value: 'קאמי ריטה נולד ב-1970 בכפר תאמה (Thame), הממוקם בעמק הקוחומבו (Khumbu) לרגלי האוורסט. אותו כפר עצמו הוליד גם את טנזינג נורגיי, האיש שיחד עם סר אדמונד הילרי הניו-זילנדי כבש את האוורסט לראשונה בהיסטוריה, ב-29 במאי 1953.' },
+      { type: 'text', value: 'קאמי ריטה נולד ב-1970 בכפר תאמה, הממוקם בעמק הקוחומבו לרגלי האוורסט. אותו כפר עצמו הוליד גם את טנזינג נורגיי, האיש שיחד עם סר אדמונד הילרי הניו-זילנדי כבש את האוורסט לראשונה בהיסטוריה, ב-29 במאי 1953.' },
       { type: 'text', value: 'ההעפלה הראשונה של קאמי ריטה לפסגה התרחשה ב-1994, כשהיה בן 24. מאז, במשך שלושה עשורים, הוא חזר לפסגה כמעט מדי שנה. רק שלוש שנים בודדות נעדר מהרשימה: 2014 (אסון מפל הקרחון של קוחומבו שגבה את חיי 16 שרפה), 2015 (רעידת האדמה ההרסנית בנפאל שהביאה לסגירת ההר), ו-2020 (סגירה גלובלית בשל מגפת הקורונה). בכמה עונות הוא הספיק להעפיל לפסגה פעמיים.' },
-      { type: 'text', value: 'מבחינה מעשית, קאמי ריטה הוא לא תייר. הוא לא מטפס לעצמו. כל אחת מ-32 ההעפלות שלו בוצעה בתפקיד מקצועי, כמדריך, כמוביל משלחת, כאחראי על קביעת חבלים או על הצבת מחנות גבוהים. ההעפלה האחרונה שלו, השבוע, בוצעה במסגרת עבודתו עבור חברת 14 Peaks Expedition.' },
+      { type: 'text', value: 'מבחינה מעשית, קאמי ריטה הוא לא תייר. הוא לא מטפס לעצמו. כל אחת מ-32 ההעפלות שלו בוצעה בתפקיד מקצועי, כמדריך, כמוביל משלחת, כאחראי על קביעת חבלים או על הצבת מחנות גבוהים. ההעפלה האחרונה שלו, השבוע, בוצעה עבור חברתו.' },
       { type: 'text', value: 'במקביל אליו, בעונה הזו ממש, השלימה לאקפה שרפה בת ה-52 את העפלתה ה-11 לפסגה, השיא הנשי העולמי הבלתי-מעורער כיום.' },
 
       { type: 'section', value: 'למה דווקא בני השרפה הם המטפסים הטובים בעולם' },
@@ -67,7 +67,7 @@ export const POSTS = [
       { type: 'section', value: 'Who is Kami Rita Sherpa?' },
       { type: 'text', value: 'Kami Rita was born in 1970 in the village of Thame, in the Khumbu valley at the foot of Everest. That same village produced Tenzing Norgay — the man who, alongside New Zealander Sir Edmund Hillary, became the first to summit Everest in history, on 29 May 1953.' },
       { type: 'text', value: 'Kami Rita\'s first ascent came in 1994, when he was 24. Since then, over three decades, he has returned to the summit almost every year. Only three years are missing from the list: 2014 (the Khumbu Icefall disaster that killed 16 Sherpas), 2015 (the devastating Nepal earthquake that closed the mountain), and 2020 (global closure due to COVID-19). In some seasons, he managed two summits.' },
-      { type: 'text', value: 'Practically speaking, Kami Rita is not a tourist. He is not climbing for himself. Every one of his 32 ascents was made in a professional capacity — as a guide, expedition leader, responsible for fixing ropes or setting up high camps. His most recent ascent, this week, was carried out in his work for 14 Peaks Expedition.' },
+      { type: 'text', value: 'Practically speaking, Kami Rita is not a tourist. He is not climbing for himself. Every one of his 32 ascents was made in a professional capacity — as a guide, expedition leader, responsible for fixing ropes or setting up high camps. His most recent ascent, this week, was carried out for his company.' },
       { type: 'text', value: 'Alongside him, in this very season, Lakpa Sherpa, 52, completed her 11th ascent of the summit — the undisputed women\'s world record today.' },
 
       { type: 'section', value: 'Why Sherpas are the best climbers in the world' },
