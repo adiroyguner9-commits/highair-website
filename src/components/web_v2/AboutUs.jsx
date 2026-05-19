@@ -160,8 +160,8 @@ function TeamCard({ member }) {
     >
       {/* Circular avatar */}
       <div style={{
-        width:          '68px',
-        height:         '68px',
+        width:          '100px',
+        height:         '100px',
         borderRadius:   '50%',
         background:     photo ? `url(${photo}) center/cover no-repeat` : grad,
         display:        'flex',
