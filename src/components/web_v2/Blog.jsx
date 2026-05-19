@@ -51,7 +51,7 @@ function PostCard({ post }) {
       <div style={{
         height:     '200px',
         background: post.img
-          ? `url(${post.img}) center/cover no-repeat`
+          ? `url(${post.img}) ${post.imgPositionCard || post.imgPosition || 'center'}/cover no-repeat`
           : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
         flexShrink: 0,
         position:   'relative',
@@ -131,23 +131,26 @@ export default function Blog() {
     fetch('/api/airtable/Blog')
       .then(r => r.json())
       .then(data => {
+        const staticMap = Object.fromEntries(POSTS.map(p => [p.slug, p]));
         const loaded = (data.records || [])
           .map(r => r.fields)
           .filter(f => f.Active)
           .sort((a, b) => (b.Date_ISO || '').localeCompare(a.Date_ISO || ''))
           .map(f => ({
-            slug:       f.Slug,
-            title:      f.Title,
-            titleEn:    f.Title_En,
-            author:     f.Author || 'HighAir Expeditions',
-            dateIso:    f.Date_ISO,
-            dateHe:     f.Date_He,
-            dateEn:     f.Date_En,
-            category:   f.Category,
-            categoryEn: f.Category_En,
-            img:        f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : null,
-            excerpt:    f.Excerpt,
-            excerptEn:  f.Excerpt_En,
+            slug:            f.Slug,
+            title:           f.Title,
+            titleEn:         f.Title_En,
+            author:          f.Author || 'HighAir Expeditions',
+            dateIso:         f.Date_ISO,
+            dateHe:          f.Date_He,
+            dateEn:          f.Date_En,
+            category:        f.Category,
+            categoryEn:      f.Category_En,
+            img:             f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : null,
+            imgPosition:     staticMap[f.Slug]?.imgPosition,
+            imgPositionCard: staticMap[f.Slug]?.imgPositionCard,
+            excerpt:         f.Excerpt,
+            excerptEn:       f.Excerpt_En,
           }));
         if (loaded.length) {
           const airtableSlugs = new Set(loaded.map(p => p.slug));
