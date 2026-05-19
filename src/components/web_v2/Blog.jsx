@@ -149,7 +149,13 @@ export default function Blog() {
             excerpt:    f.Excerpt,
             excerptEn:  f.Excerpt_En,
           }));
-        if (loaded.length) setPosts(loaded);
+        if (loaded.length) {
+          const airtableSlugs = new Set(loaded.map(p => p.slug));
+          const extras = POSTS.filter(p => !airtableSlugs.has(p.slug));
+          const merged = [...loaded, ...extras]
+            .sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''));
+          setPosts(merged);
+        }
       })
       .catch(() => {}); // silently keep hardcoded fallback
   }, []);
