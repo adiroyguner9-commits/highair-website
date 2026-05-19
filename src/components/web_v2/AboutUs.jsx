@@ -78,7 +78,7 @@ const TEAM_HE = [
     key:      'roei',
     initials: 'רכ',
     name:     'רועי כרמל',
-    role:     'מדריך טיולים (ישראל)',
+    role:     'מדריך טיולים',
     bio:      'המדריך שיוביל אתכם בשבילי הארץ. רועי הוא מדריך מנוסה המלווה את קבוצות ההכנה והטיולים שלנו בישראל, בשטחים מאתגרים ובנופים הכי יפים שיש. הוא מחויב לבטיחותכם ולחוויה המקסימלית של כל מטייל בשטח.',
   },
 ];
@@ -123,7 +123,7 @@ const TEAM_EN = [
     key:      'roei',
     initials: 'RK',
     name:     'Roei Carmel',
-    role:     'Trekking Guide (Israel)',
+    role:     'Trekking Guide',
     bio:      'The guide who will lead you through the trails of the land. Roei is an experienced guide accompanying our preparation groups and Israel treks through challenging terrain and stunning landscapes. He is committed to your safety and to delivering the best possible experience for every trekker in the field.',
   },
 ];
