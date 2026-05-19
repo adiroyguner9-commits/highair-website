@@ -443,7 +443,7 @@ export default function BlogPost() {
             );
 
             if (block.type === 'cta') return (
-              <div key={i} style={{ margin: '28px 0', textAlign: 'center' }}>
+              <div key={i} style={{ margin: '56px 0 32px', textAlign: 'center' }}>
                 <a
                   href={block.href}
                   style={{
@@ -541,7 +541,7 @@ export default function BlogPost() {
           alignItems: 'center',
           justifyContent: 'center',
           gap:        '8px',
-          margin:     '48px 0 40px',
+          margin:     '72px 0 40px',
           overflowX:  'auto',
           flexWrap:   'nowrap',
         }}>
