@@ -55,6 +55,13 @@ export default function HeroSection() {
  return () => window.removeEventListener('scroll', onScroll);
  }, []);
 
+ /* Explicit play() for iOS Safari — autoPlay attr alone is not enough */
+ useEffect(() => {
+ const el = videoRef.current;
+ if (!el) return;
+ el.play().catch(() => {});
+ }, []);
+
  /* Track first video play (fires once per page load) */
  useEffect(() => {
  const el = videoRef.current;
@@ -86,7 +93,7 @@ export default function HeroSection() {
  muted
  loop
  playsInline
- preload="none"
+ preload="auto"
  poster={POSTER_SRC}
  aria-hidden="true"
  style={{
