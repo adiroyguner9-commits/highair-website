@@ -34,29 +34,32 @@ export const POSTS = [
 
       { type: 'section', value: 'מי זה קאמי ריטה שרפה?' },
       { type: 'text', value: 'קאמי ריטה נולד ב-1970 בכפר תאמה, הממוקם בעמק הקוחומבו לרגלי האוורסט. אותו כפר עצמו הוליד גם את טנזינג נורגיי, האיש שיחד עם סר אדמונד הילרי הניו-זילנדי כבש את האוורסט לראשונה בהיסטוריה, ב-29 במאי 1953.' },
-      { type: 'text', value: 'ההעפלה הראשונה של קאמי ריטה לפסגה התרחשה ב-1994, כשהיה בן 24. מאז, במשך שלושה עשורים, הוא חזר לפסגה כמעט מדי שנה. רק שלוש שנים בודדות נעדר מהרשימה: 2014 (אסון מפל הקרחון של קוחומבו שגבה את חיי 16 שרפה), 2015 (רעידת האדמה ההרסנית בנפאל שהביאה לסגירת ההר), ו-2020 (סגירה גלובלית בשל מגפת הקורונה). בכמה עונות הוא הספיק להעפיל לפסגה פעמיים.' },
+      { type: 'text', value: 'ההעפלה הראשונה של קאמי ריטה לפסגה התרחשה ב-1994, כשהיה בן 24. מאז, במשך שלושה עשורים, הוא חזר לפסגה כמעט מדי שנה. רק שלוש שנים בודדות נעדר מהרשימה: 2014 (אסון מפל הקרחון של קוחומבו שגבה את חיי 16 בני השרפה), 2015 (רעידת האדמה ההרסנית בנפאל שהביאה לסגירת ההר), ו-2020 (סגירה גלובלית בשל מגפת הקורונה). בכמה עונות הוא הספיק להעפיל לפסגה פעמיים!' },
       { type: 'text', value: 'מבחינה מעשית, קאמי ריטה הוא לא תייר. הוא לא מטפס לעצמו. כל אחת מ-32 ההעפלות שלו בוצעה בתפקיד מקצועי, כמדריך, כמוביל משלחת, כאחראי על קביעת חבלים או על הצבת מחנות גבוהים. ההעפלה האחרונה שלו, השבוע, בוצעה עבור חברתו.' },
-      { type: 'text', value: 'במקביל אליו, בעונה הזו ממש, השלימה לאקפה שרפה בת ה-52 את העפלתה ה-11 לפסגה, השיא הנשי העולמי הבלתי-מעורער כיום.' },
+      { type: 'text', value: 'במקביל אליו, בעונה הזו ממש, השלימה לאקפה שרפה בת ה-52 את העפלתה ה-11 לפסגה. לאקפה, גם היא ילידת עמק הקוחומבו, מחזיקה בשיא הנשי העולמי הבלתי-מעורער. 11 עליות לאוורסט, כשהיא גם אמא לשלושה ילדים שגידלה בין עונת טיפוס לעונת טיפוס. אם קאמי ריטה הוא הפנים הגבריות של הדומיננטיות השרפאית על האוורסט, לאקפה היא ההוכחה שהיכולת הזו לא מוגבלת למגדר.' },
+      { type: 'text', value: '32 עליות לאוורסט פירושן 32 פעמים שהגוף נחשף לתנאים שהאבולוציה לא תכננה עבורם: חמצן ברמה של כשליש מהרמה בגובה פני הים, טמפרטורות של מינוס 30 עד 40 מעלות, ורוחות שמגיעות ל-150 קמ"ש. מטפסים מערביים שהגיעו לפסגה פעם אחת מתארים את זה כחוויה הפיזית הקשה ביותר בחייהם. קאמי ריטה עשה את זה 32 פעמים, רובן עם תיק עמוס ציוד על הגב ובאחריות מלאה על חיי לקוחות.' },
 
       { type: 'section', value: 'למה דווקא בני השרפה הם המטפסים הטובים בעולם' },
       { type: 'text', value: 'כשמסתכלים על ספר השיאים של האוורסט, התמונה ברורה: 11 מבין 12 המטפסים שעלו לפסגה הכי הרבה פעמים בהיסטוריה הם בני השרפה. השיאן הלא-שרפי הראשון, המדריך הבריטי קנטון קול, נמצא על 19 העפלות בלבד, פער של 13 פסגות מהשיא. אחריו ישנם האמריקנים דייב האן וגארט מדיסון, על 15 העפלות כל אחד.' },
-      { type: 'callout', title: '✦ המספרים מדברים', value: '11 מתוך 12 המטפסים שעלו לאוורסט הכי הרבה פעמים בהיסטוריה הם שרפה. קאמי ריטה, עם 32 העפלות, נמצא בפסגת הרשימה הזו, ומרחיק את מקומו השני ב-13 פסגות.' },
+      { type: 'callout', title: '✦ המספרים מדברים', value: '11 מתוך 12 המטפסים שעלו לאוורסט הכי הרבה פעמים בהיסטוריה הם שרפות. קאמי ריטה, עם 32 העפלות, נמצא בפסגת הרשימה הזו, ומרחיק את מקומו השני ב-13 פסגות.' },
       { type: 'text', value: 'הסיבה לפער הזה היא שילוב של גנטיקה, תרבות ומסורת מקצועית.' },
       { type: 'subheading', value: 'הצד הפיזיולוגי' },
       { type: 'text', value: 'בני השרפה, ילידי גובה רב, מחזיקים בהסתגלויות אבולוציוניות מובהקות לסביבה של דלילות חמצן. מחקרים זיהו אצלם וריאציות בגן EPAS1 שמאפשרות זרימת דם יעילה יותר ויעילות מטבולית גבוהה בתנאי היפוקסיה (חוסר חמצן). הם גם נוטים לייצר פחות המוגלובין יתר על המידה, תופעה שמסכנת מטפסי שטח שמייצרים יותר מדי כדוריות אדומות ומסכנים את עצמם בקרישי דם.' },
       { type: 'subheading', value: 'הצד התרבותי' },
       { type: 'text', value: 'בעמק הסולוקומבו, טיפוס הרים אינו תחביב. הוא מקצוע משפחתי שעובר מאב לבן כבר שלושה דורות, מאז 1953. ילדים גדלים תוך הכרת המסלולים, תרגול ההתנהלות על קרחונים, והבנה אינטואיטיבית של מה הר עושה ומתי הוא מסוכן.' },
       { type: 'subheading', value: 'הצד המעשי' },
-      { type: 'text', value: 'כל מטפס שמגיע לאוורסט היום, מעריץ ספורט עשיר מאירופה, מטפס מקצועי מאסיה, או מדריך ותיק מאמריקה, נשען על תשתית שהשרפה בנו. החבלים הקבועים על המסלול הסטנדרטי? קבעו שרפה. הסולמות שמגשרים על סדקי הקרח במפל הקוחומבו? קבעו שרפה. החמצן במחנים הגבוהים? נשאו שרפה. ארוחות, אוהלים, חימום, השרפה.' },
+      { type: 'text', value: 'כל מטפס שמגיע לאוורסט היום, מעריץ ספורט עשיר מאירופה, מטפס מקצועי מאסיה, או מדריך ותיק מאמריקה, נשען על תשתית שהשרפות בנו. החבלים הקבועים על המסלול הסטנדרטי? הקימו השרפות. הסולמות שמגשרים על סדקי הקרח במפל הקוחומבו? הקימו השרפות. כל הארוחות, האוהלים, חימום, השרפה.' },
       { type: 'image', src: '/images/blog/everest-hardest.webp', alt: 'האוורסט מהצד הדרומי', caption: 'האוורסט מהצד הדרומי, הנוף שקאמי ריטה מכיר טוב מכל אדם אחר על פני האדמה' },
 
       { type: 'section', value: 'עונת אוורסט 2026: אחת המסובכות בשנים האחרונות' },
-      { type: 'text', value: 'השיא של קאמי ריטה לא נפל על עונה שקטה. 2026 היא אחת מהעונות המסובכות שהאוורסט ראה בשנים האחרונות, ועדיין הוא עלה.' },
+      { type: 'text', value: 'השיא של קאמי ריטה לא נפל על עונה שקטה. 2026 הייתה מהעונות הסוערות ביותר שהאוורסט ידע בשנים האחרונות, ועדיין הוא עלה.' },
       { type: 'text', value: 'לפני כשלושה שבועות, בסוף אפריל, גוש קרח עצום קרס וחסם את מפל הקרחון של קוחומבו, הקטע המסוכן ביותר במסלול הצד הדרומי, וצוואר הבקבוק שדרכו חייבים לעבור כל המטפסים. מאות מטפסים תקעו את מהלכם במחנה הבסיס במשך ימים, עד שיחידת אייספול דוקטורס של השרפה הצליחה לקבע מחדש סולמות וחבלים ולפתוח את הנתיב.' },
-      { type: 'text', value: 'מחלקת התיירות הנפאלית הנפיקה השנה 492 היתרי טיפוס לאוורסט, מספר גבוה שמעלה שוב את הוויכוח על "פקקי תנועה" בפסגה. במהלך החודש האחרון נהרגו על האוורסט שלושה מטפסים נפאלים. תזכורת חדה לכך שגם בעידן של חמצן בקבוקים, חבלים קבועים ותחזיות מטאורולוגיות מדויקות, האוורסט נשאר הר שתובע מחיר.' },
+      { type: 'text', value: 'מחלקת התיירות הנפאלית הנפיקה השנה 492 היתרי טיפוס לאוורסט, מספר גבוה שמעלה שוב את הוויכוח על "פקקי תנועה" בפסגה. במהלך החודש האחרון נהרגו על האוורסט שלושה מטפסים נפאלים. תזכורת חדה לכך שגם בעידן של בלוני חמצן, חבלים קבועים ותחזיות מטאורולוגיות מדויקות, האוורסט נשאר הר שתובע מחיר.' },
 
-      { type: 'text', value: 'הנתיב אל האוורסט מתחיל לא בציוד, לא בתקציב, ולא בהיתר מממשלת נפאל. הוא מתחיל בהחלטה לצאת לדרך. למרבית ישראלים שמחפשים את החוויה ההימלאית האמיתית, הדרך הטובה ביותר להגיע קרוב לאוורסט היא טרק EBC, 12-14 ימי הליכה שמסתיימים ממש בנקודת ההזנקה שממנה יצאו טנזינג, הילרי וקאמי ריטה.' },
-      { type: 'cta', text: 'למידע על משלחת אוורסט בייס קמפ של HighAir', textEn: 'Learn about HighAir\'s Everest Base Camp expedition', href: '/expedition/ebc' },
+      { type: 'text', value: 'בגיל 56, קאמי ריטה לא נתן שום סימן שהוא עומד לעצור. עונת 2027 עדיין רחוקה, אבל מי שמכיר את האיש יודע: כשיחזרו המשלחות לאוורסט, הסיכוי הטוב ביותר הוא שהוא יהיה שם שוב. עם 33 על הגב, אולי.' },
+
+      { type: 'text', value: 'הנתיב אל האוורסט מתחיל לא בציוד, לא בתקציב, ולא בהיתר מממשלת נפאל. הוא מתחיל בהחלטה לצאת לדרך. למרבית ישראלים שמחפשים את החוויה הנפאלית האמיתית, הדרך הטובה ביותר להגיע הכי קרוב לאוורסט היא טרק אוורסט בייס קמפ, 12-14 ימי הליכה שמסתיימים ממש בנקודת ההזנקה שממנה יצאו טנזינג, הילרי וקאמי ריטה.' },
+      { type: 'cta', text: 'למידע על משלחת אוורסט בייס קמפ וגוקיו של HighAir', textEn: 'Learn about HighAir\'s Everest Base Camp & Gokyo expedition', href: '/expedition/everest-base-camp' },
     ],
 
     /* ── English content ── */
@@ -66,7 +69,7 @@ export const POSTS = [
 
       { type: 'section', value: 'Who is Kami Rita Sherpa?' },
       { type: 'text', value: 'Kami Rita was born in 1970 in the village of Thame, in the Khumbu valley at the foot of Everest. That same village produced Tenzing Norgay — the man who, alongside New Zealander Sir Edmund Hillary, became the first to summit Everest in history, on 29 May 1953.' },
-      { type: 'text', value: 'Kami Rita\'s first ascent came in 1994, when he was 24. Since then, over three decades, he has returned to the summit almost every year. Only three years are missing from the list: 2014 (the Khumbu Icefall disaster that killed 16 Sherpas), 2015 (the devastating Nepal earthquake that closed the mountain), and 2020 (global closure due to COVID-19). In some seasons, he managed two summits.' },
+      { type: 'text', value: 'Kami Rita\'s first ascent came in 1994, when he was 24. Since then, over three decades, he has returned to the summit almost every year. Only three years are missing from the list: 2014 (the Khumbu Icefall disaster that killed 16 Sherpa), 2015 (the devastating Nepal earthquake that closed the mountain), and 2020 (global closure due to COVID-19). In some seasons, he managed two summits!' },
       { type: 'text', value: 'Practically speaking, Kami Rita is not a tourist. He is not climbing for himself. Every one of his 32 ascents was made in a professional capacity — as a guide, expedition leader, responsible for fixing ropes or setting up high camps. His most recent ascent, this week, was carried out for his company.' },
       { type: 'text', value: 'Alongside him, in this very season, Lakpa Sherpa, 52, completed her 11th ascent of the summit — the undisputed women\'s world record today.' },
 
@@ -88,7 +91,7 @@ export const POSTS = [
       { type: 'text', value: 'Nepal\'s Department of Tourism issued 492 climbing permits for Everest this year — a high number that has reignited the debate about "traffic jams" near the summit. During the past month, three Nepali climbers have died on Everest. A sharp reminder that even in the age of bottled oxygen, fixed ropes, and precise weather forecasts — Everest remains a mountain that exacts a price.' },
 
       { type: 'text', value: 'The path to Everest does not begin with gear, a budget, or a government permit. It begins with a decision to go. For most people looking for an authentic Himalayan experience, the best way to get close to Everest is the EBC trek — 12 to 14 days of walking that ends at the exact launch point where Tenzing, Hillary, and Kami Rita began their ascents.' },
-      { type: 'cta', text: 'למידע על משלחת אוורסט בייס קמפ של HighAir', textEn: 'Learn about HighAir\'s Everest Base Camp expedition', href: '/expedition/ebc' },
+      { type: 'cta', text: 'למידע על משלחת אוורסט בייס קמפ וגוקיו של HighAir', textEn: 'Learn about HighAir\'s Everest Base Camp & Gokyo expedition', href: '/expedition/everest-base-camp' },
     ],
   },
 
