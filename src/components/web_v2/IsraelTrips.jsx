@@ -107,6 +107,8 @@ function IsraelCard({ trip }) {
                 color:      'rgba(255,255,255,0.85)',
                 margin:     0,
                 letterSpacing: '0.02em',
+                direction:  'ltr',
+                textAlign:  isEn ? 'left' : 'right',
               }}>
                 {trip.elevStr}
               </p>

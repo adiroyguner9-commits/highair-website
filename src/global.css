@@ -1,14 +1,22 @@
+
 @font-face {
   font-family: 'Ploni';
-  src: url('/PloniBold.otf') format('opentype');
+  src: url('/Ploni-Bold-AAA.ttf') format('truetype');
   font-weight: 700 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Ploni';
-  src: url('/PloniMedium.otf') format('opentype');
+  src: url('/Ploni-Medium-AAA.ttf') format('truetype');
   font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ploni';
+  src: url('/Ploni-Regular-AAA.ttf') format('truetype');
+  font-weight: 300 400;
   font-style: normal;
   font-display: swap;
 }
@@ -96,6 +104,12 @@ a:active {
 a.nav-menu-link:active {
   opacity: 1;
 }
+
+/* Prevent BiDi algorithm from swallowing punctuation in RTL paragraphs */
+p, li {
+  unicode-bidi: plaintext;
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }

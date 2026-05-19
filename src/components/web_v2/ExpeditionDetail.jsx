@@ -1814,7 +1814,7 @@ export default function ExpeditionDetail() {
                     {/* Summit verified badge */}
                     <div style={{
                       position: 'absolute', top: '10px', right: '10px',
-                      width: '30px', height: '30px',
+                      width: '20px', height: '20px',
                       filter: 'drop-shadow(0 2px 8px rgba(29,155,240,0.6))',
                     }}>
                       <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">

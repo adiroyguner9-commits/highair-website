@@ -229,6 +229,76 @@ function TeamCard({ member }) {
   );
 }
 
+/* ── Real gift photos ── */
+const GIFT_PHOTOS = [
+  { name: 'דובי',  nameEn: 'Dubi',  age: 6,  ageLabel: 'בן',  ageLabelEn: 'age', gift: 'כיסא גיימינג', giftEn: 'Gaming chair', photo: '/images/gifts/dubi-gaming-chair.jpg' },
+  { name: 'חנה',   nameEn: 'Hana',  age: 8,  ageLabel: 'בת',  ageLabelEn: 'age', gift: 'בית בובות',    giftEn: 'Dollhouse',    photo: '/images/gifts/hani-dollhouse.jpg' },
+  { name: 'נעם',   nameEn: 'Noam',  age: 25, ageLabel: 'בן',  ageLabelEn: 'age', gift: 'לגו פרארי',    giftEn: 'Ferrari Lego', photo: '/images/gifts/noam-lego-ferrari.jpg' },
+];
+
+function GiftPhotoGrid({ isEn }) {
+  const { isMobile } = useBreakpoint();
+
+  const card = (g, i) => (
+    <div key={i} style={{
+      borderRadius: '20px',
+      overflow:     'hidden',
+      boxShadow:    '0 4px 20px rgba(109,40,217,0.12)',
+      background:   '#fff',
+      flexShrink:   0,
+      width:        isMobile ? '80vw' : 'auto',
+      scrollSnapAlign: isMobile ? 'center' : undefined,
+    }}>
+      <div style={{
+        width:       '100%',
+        aspectRatio: '4/5',
+        background:  `url(${g.photo}) center/cover no-repeat`,
+      }} />
+      <div style={{ padding: '16px 18px', textAlign: 'center' }}>
+        <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#0A0818' }}>
+          {isEn ? g.nameEn : g.name}
+          <span style={{ fontWeight: 400, color: '#7C3AED', fontSize: '14px', marginRight: '6px', marginLeft: '6px' }}>
+            {isEn ? `${g.ageLabelEn} ${g.age}` : `${g.ageLabel} ${g.age}`}
+          </span>
+        </div>
+        <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', marginTop: '4px' }}>
+          {isEn ? g.giftEn : g.gift}
+        </div>
+      </div>
+    </div>
+  );
+
+  if (isMobile) {
+    return (
+      <div style={{
+        display:                'flex',
+        gap:                    '16px',
+        overflowX:              'auto',
+        scrollSnapType:         'x mandatory',
+        WebkitOverflowScrolling:'touch',
+        paddingBottom:          '12px',
+        margin:                 '0 -5% 36px',
+        paddingLeft:            '5%',
+        paddingRight:           '5%',
+        scrollbarWidth:         'none',
+      }}>
+        {GIFT_PHOTOS.map(card)}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      display:             'grid',
+      gridTemplateColumns: `repeat(${GIFT_PHOTOS.length}, 1fr)`,
+      gap:                 '20px',
+      margin:              '0 0 36px',
+    }}>
+      {GIFT_PHOTOS.map(card)}
+    </div>
+  );
+}
+
 /* ── Birthday gifts data ── */
 const GIFTS_HE = [
   { name: 'נועה',  age: 7,  gift: 'ערכת ציור וצבעים', emoji: '🎨', color: '#F3E8FF' },
@@ -740,7 +810,7 @@ export default function AboutUs() {
                 letterSpacing: '-0.03em',
                 lineHeight:    1.2,
               }}>
-                {isEn ? 'A Birthday Wish for Every Child' : 'מתנת יום הולדת לכל ילד'}
+                {isEn ? 'Because Every Child Deserves to Celebrate' : 'כי כל ילד ראוי לחגוג'}
               </h2>
               <p style={{
                 fontFamily: "'Ploni', sans-serif",
@@ -750,30 +820,17 @@ export default function AboutUs() {
                 margin:     '0 auto',
                 lineHeight: 1.75,
                 maxWidth:   '600px',
+                direction:  isEn ? 'ltr' : 'rtl',
               }}>
                 {isEn
-                  ? 'Every month we receive a list of birthday wishes from children fighting cancer. We make sure every child gets exactly what they dreamed of.'
-                  : 'כל חודש אנחנו מקבלים רשימה של משאלות יום הולדת מילדים הנלחמים בסרטן. אנחנו דואגים שכל ילד יקבל בדיוק את מה שחלם עליו.'}
+                  ? 'A child fighting cancer shouldn\'t have to give up their birthday. Every month we receive wishes directly from the children and make sure every one of them gets exactly what they dreamed of.'
+                  : 'ילד שנלחם בסרטן לא צריך לוותר על יום ההולדת שלו. כל חודש אנחנו מקבלים משאלות ישירות מהילדים ומוודאים שכל אחד מקבל בדיוק את מה שחלם עליו.'}
               </p>
             </div>
 
-            {/* Slider */}
-            <GiftsSlider gifts={isEn ? GIFTS_EN : GIFTS_HE} isEn={isEn} />
+            {/* Real photos */}
+            <GiftPhotoGrid isEn={isEn} />
 
-            {/* Bottom note */}
-            <p style={{
-              fontFamily: "'Ploni', sans-serif",
-              fontSize:   '14px',
-              fontWeight: 400,
-              color:      '#9896B0',
-              textAlign:  'center',
-              margin:     '32px 0 0',
-              lineHeight: 1.6,
-            }}>
-              {isEn
-                ? '💜  Every expedition you book contributes directly to this project'
-                : '💜  כל מסע שאתם מזמינים תורם ישירות לפרויקט הזה'}
-            </p>
 
           </div>
         </div>

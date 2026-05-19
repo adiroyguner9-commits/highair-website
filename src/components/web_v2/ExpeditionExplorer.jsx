@@ -148,7 +148,7 @@ function ExpCard({ exp }) {
               {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
             </h3>
             {exp.elevNum > 0 && (
-              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em' }}>
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em', direction: 'ltr', textAlign: isEn ? 'left' : 'right' }}>
                 {exp.elevNum}m
               </p>
             )}

@@ -181,8 +181,8 @@ const he = {
     copyLink: '🔗 העתק לינק',
     moreArticles: 'מאמרים נוספים',
     readMore: 'קרא עוד ←',
-    ctaTitle: 'מוכנים לצאת למסע?',
-    ctaDesc: 'הצטרפו לאחד מהמסעות שלנו ותחוו הרפתקה אמיתית',
+    ctaTitle: 'הפסגה הבאה שלכם מחכה לכם',
+    ctaDesc: 'גלו את המשלחות שלנו — כל מסע עם HighAir גם תורם לחולי סרטן בישראל',
     ctaBtn: 'לכל המשלחות',
   },
   annualPlan: {
@@ -368,8 +368,8 @@ const en = {
     copyLink: '🔗 Copy link',
     moreArticles: 'More articles',
     readMore: 'Read more →',
-    ctaTitle: 'Ready for an adventure?',
-    ctaDesc: 'Join one of our expeditions and experience a real adventure',
+    ctaTitle: 'Your next summit is waiting',
+    ctaDesc: 'Explore our expeditions — every journey with HighAir also supports cancer patients in Israel',
     ctaBtn: 'All Expeditions',
   },
   annualPlan: {
