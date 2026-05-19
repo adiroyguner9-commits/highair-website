@@ -287,6 +287,22 @@ export default function BlogPost() {
         </div>
       </div>
 
+      {/* ── Photo credit ── */}
+      {post.imgCredit && (
+        <div style={{
+          textAlign:  'right',
+          padding:    '6px 16px',
+          background: '#F5F4FB',
+          borderBottom: '1px solid #ECEAF8',
+          fontFamily: "'Ploni', sans-serif",
+          fontSize:   '11px',
+          color:      '#9591B0',
+          direction:  'ltr',
+        }}>
+          📷 {post.imgCredit}
+        </div>
+      )}
+
       {/* ── Content ── */}
       <div
         id="main-content"

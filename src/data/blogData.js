@@ -22,8 +22,9 @@ export const POSTS = [
     dateEn:   'May 19, 2026',
     category: 'מדריכים',
     categoryEn: 'Guides',
-    img:         '/images/blog/seven-summits-everest.webp',
-    imgPosition: 'center 40%',
+    img:         '/images/blog/kami-rita-sherpa.avif',
+    imgPosition: 'center 15%',
+    imgCredit:   '',
     excerpt:  'ביום ראשון השבוע עלה קאמי ריטה שרפה לפסגת האוורסט בפעם ה-32 בחייו, ושבר שוב את שיאו שלו. מי הוא האדם הזה, ולמה בני השרפה הם המטפסים הטובים בעולם?',
     excerptEn: 'Last Sunday, Kami Rita Sherpa summited Everest for the 32nd time in his life, breaking his own record once again. Who is this man, and why are Sherpas the best climbers in the world?',
 
@@ -32,13 +33,14 @@ export const POSTS = [
       { type: 'text', value: 'ביום ראשון השבוע, בשעה 10:12 בבוקר שעון נפאל, עמד אדם אחד על פסגת האוורסט בפעם ה-32 בחייו. קאמי ריטה שרפה, בן 56, מדריך מקצועי מכפר תאמה שבמחוז סולוקומבו, שבר שוב את שיא העולם שלו - יותר העפלות לפסגה הגבוהה ביותר על פני כדור הארץ מכל אדם אחר בהיסטוריה האנושית.' },
 
       { type: 'section', value: 'מי זה קאמי ריטה שרפה?' },
-      { type: 'text', value: 'קאמי ריטה נולד ב-1970 בכפר תאמה (Thame), שוכן בעמק הקומבו (Khumbu) לרגלי האוורסט. אותו כפר עצמו הוליד גם את טנזינג נורגיי, האיש שיחד עם סר אדמונד הילרי הניו-זילנדי כבש את האוורסט לראשונה בהיסטוריה, ב-29 במאי 1953.' },
+      { type: 'text', value: 'קאמי ריטה נולד ב-1970 בכפר תאמה (Thame), הממוקם בעמק הקומבו (Khumbu) לרגלי האוורסט. אותו כפר עצמו הוליד גם את טנזינג נורגיי — האיש שיחד עם סר אדמונד הילרי הניו-זילנדי כבש את האוורסט לראשונה בהיסטוריה, ב-29 במאי 1953.' },
       { type: 'text', value: 'ההעפלה הראשונה של קאמי ריטה לפסגה התרחשה ב-1994, כשהיה בן 24. מאז, במשך שלושה עשורים, הוא חזר לפסגה כמעט מדי שנה. רק שלוש שנים בודדות נעדר מהרשימה: 2014 (אסון מפל הקרחון של חומבו שגבה את חיי 16 שרפה), 2015 (רעידת האדמה ההרסנית בנפאל שהביאה לסגירת ההר), ו-2020 (סגירה גלובלית בשל מגפת הקורונה). בכמה עונות הוא הספיק להעפיל לפסגה פעמיים.' },
       { type: 'text', value: 'מבחינה מעשית, קאמי ריטה הוא לא תייר. הוא לא מטפס לעצמו. כל אחת מ-32 ההעפלות שלו בוצעה בתפקיד מקצועי - כמדריך, כמוביל משלחת, כאחראי על קביעת חבלים או על הצבת מחנות גבוהים. ההעפלה האחרונה שלו, השבוע, בוצעה במסגרת עבודתו עבור חברת 14 Peaks Expedition.' },
       { type: 'text', value: 'במקביל אליו, בעונה הזו ממש, השלימה לאקפה שרפה בת ה-52 את העפלתה ה-11 לפסגה - השיא הנשי העולמי הבלתי-מעורער כיום.' },
 
       { type: 'section', value: 'למה דווקא בני השרפה הם המטפסים הטובים בעולם' },
       { type: 'text', value: 'כשמסתכלים על ספר השיאים של האוורסט, התמונה ברורה: 11 מבין 12 המטפסים שעלו לפסגה הכי הרבה פעמים בהיסטוריה הם בני השרפה. השיאן הלא-שרפי הראשון, המדריך הבריטי קנטון קול, נמצא על 19 העפלות בלבד - פער של 13 פסגות מהשיא. אחריו ישנם האמריקנים דייב האן וגארט מדיסון, על 15 העפלות כל אחד.' },
+      { type: 'callout', title: '✦ המספרים מדברים', value: '11 מתוך 12 המטפסים שעלו לאוורסט הכי הרבה פעמים בהיסטוריה הם שרפה. קאמי ריטה, עם 32 העפלות, נמצא בפסגת הרשימה הזו — ומרחיק את מקומו השני ב-13 פסגות.' },
       { type: 'text', value: 'הסיבה לפער הזה היא שילוב של גנטיקה, תרבות ומסורת מקצועית.' },
       { type: 'subheading', value: 'הצד הפיזיולוגי' },
       { type: 'text', value: 'בני השרפה, ילידי גובה רב, מחזיקים בהסתגלויות אבולוציוניות מובהקות לסביבה של דלילות חמצן. מחקרים זיהו אצלם וריאציות בגן EPAS1 שמאפשרות זרימת דם יעילה יותר ויעילות מטבולית גבוהה בתנאי היפוקסיה (חוסר חמצן). הם גם נוטים לייצר פחות המוגלובין יתר על המידה - תופעה שמסכנת מטפסי שטח שמייצרים יותר מדי כדוריות אדומות ומסכנים את עצמם בקרישי דם.' },
@@ -46,9 +48,10 @@ export const POSTS = [
       { type: 'text', value: 'בעמק הסולוקומבו, טיפוס הרים אינו תחביב. הוא מקצוע משפחתי שעובר מאב לבן כבר שלושה דורות, מאז 1953. ילדים גדלים תוך הכרת המסלולים, תרגול ההתנהלות על קרחונים, והבנה אינטואיטיבית של מה הר עושה ומתי הוא מסוכן.' },
       { type: 'subheading', value: 'הצד המעשי' },
       { type: 'text', value: 'כל מטפס שמגיע לאוורסט היום - מעריץ ספורט עשיר מאירופה, מטפס מקצועי מאסיה, או מדריך ותיק מאמריקה - נשען על תשתית שהשרפה בנו. החבלים הקבועים על המסלול הסטנדרטי? קבעו שרפה. הסולמות שמגשרים על סדקי הקרח במפל החומבו? קבעו שרפה. החמצן במחנים הגבוהים? נשאו שרפה. ארוחות, אוהלים, חימום - השרפה.' },
+      { type: 'image', src: '/images/blog/everest-hardest.webp', alt: 'האוורסט מהצד הדרומי', caption: 'האוורסט מהצד הדרומי — הנוף שקאמי ריטה מכיר טוב מכל אדם אחר על פני האדמה' },
 
       { type: 'section', value: 'עונת אוורסט 2026: אחת המסובכות בשנים האחרונות' },
-      { type: 'text', value: 'ההישג של קאמי ריטה מתרחש בעיצומה של אחת העונות המסובכות בשנים האחרונות.' },
+      { type: 'text', value: 'השיא של קאמי ריטה לא נפל על עונה שקטה. 2026 היא אחת מהעונות המסובכות שהאוורסט ראה בשנים האחרונות — ועדיין, הוא עלה.' },
       { type: 'text', value: 'לפני כשלושה שבועות, בסוף אפריל, גוש קרח עצום קרס וחסם את מפל הקרחון של חומבו - הקטע המסוכן ביותר במסלול הצד הדרומי, וצוואר הבקבוק שדרכו חייבים לעבור כל המטפסים. מאות מטפסים תקעו את מהלכם במחנה הבסיס במשך ימים, עד שיחידת אייספול דוקטורס של השרפה הצליחה לקבע מחדש סולמות וחבלים ולפתוח את הנתיב.' },
       { type: 'text', value: 'מחלקת התיירות הנפאלית הנפיקה השנה 492 היתרי טיפוס לאוורסט - מספר גבוה שמעלה שוב את הוויכוח על "פקקי תנועה" בפסגה. במהלך החודש האחרון נהרגו על האוורסט שלושה מטפסים נפאלים. תזכורת חדה לכך שגם בעידן של חמצן בקבוקים, חבלים קבועים ותחזיות מטאורולוגיות מדויקות - האוורסט נשאר הר שתובע מחיר.' },
 
@@ -69,6 +72,7 @@ export const POSTS = [
 
       { type: 'section', value: 'Why Sherpas are the best climbers in the world' },
       { type: 'text', value: 'When you look at Everest\'s record books, the picture is clear: 11 of the 12 climbers who have summited Everest the most times in history are Sherpa. The first non-Sherpa record holder, British guide Kenton Cool, sits at 19 ascents — a gap of 13 summits from the record. Behind him are Americans Dave Hahn and Garrett Madison, at 15 ascents each.' },
+      { type: 'callout', title: '✦ The numbers speak', value: '11 of the 12 climbers who have summited Everest the most times in history are Sherpa. Kami Rita, with 32 ascents, leads that list — and sits 13 summits ahead of whoever is in second place.' },
       { type: 'text', value: 'The reason for this gap is a combination of genetics, culture, and professional tradition.' },
       { type: 'subheading', value: 'The physiological side' },
       { type: 'text', value: 'Sherpas, born at altitude, carry distinct evolutionary adaptations to oxygen-thin environments. Research has identified EPAS1 gene variants in Sherpa populations that allow more efficient blood flow and higher metabolic efficiency under hypoxic conditions. They also tend to produce less excess haemoglobin — an issue that risks blood clots in high-altitude climbers who generate too many red blood cells.' },
@@ -76,13 +80,14 @@ export const POSTS = [
       { type: 'text', value: 'In the Solukhumbu valley, mountaineering is not a hobby. It is a family profession passed from father to son for three generations, since 1953. Children grow up knowing the routes, practising glacier travel, and developing an intuitive feel for what a mountain does and when it becomes dangerous.' },
       { type: 'subheading', value: 'The practical side' },
       { type: 'text', value: 'Every climber who arrives at Everest today — a wealthy sports enthusiast from Europe, a professional climber from Asia, or a veteran guide from America — depends on infrastructure the Sherpas built. The fixed ropes on the standard route? Sherpas set them. The ladders bridging the Khumbu Icefall crevasses? Sherpas placed them. The oxygen at high camps? Sherpas carried it. Food, tents, heating — all Sherpas.' },
+      { type: 'image', src: '/images/blog/everest-hardest.webp', alt: 'Everest south face', caption: 'Everest from the south — the view Kami Rita knows better than any other person on Earth' },
 
       { type: 'section', value: 'Everest season 2026: one of the most difficult in recent years' },
-      { type: 'text', value: 'Kami Rita\'s record came in the middle of one of the more complicated seasons in recent years.' },
+      { type: 'text', value: 'Kami Rita\'s record did not fall on a quiet season. 2026 has been one of the most complicated Everest seasons in recent years — and still, he summited.' },
       { type: 'text', value: 'About three weeks ago, at the end of April, a massive ice block collapsed and blocked the Khumbu Icefall — the most dangerous section of the south side route, and the bottleneck through which all climbers must pass. Hundreds of climbers were stranded at base camp for days, until the professional Icefall Doctors Sherpa team managed to reset ladders and ropes and reopen the route.' },
       { type: 'text', value: 'Nepal\'s Department of Tourism issued 492 climbing permits for Everest this year — a high number that has reignited the debate about "traffic jams" near the summit. During the past month, three Nepali climbers have died on Everest. A sharp reminder that even in the age of bottled oxygen, fixed ropes, and precise weather forecasts — Everest remains a mountain that exacts a price.' },
 
-      { type: 'text', value: 'The path to Everest does not begin with gear, a budget, or a government permit. It begins with a decision to go — and with the first mountain you climb. For most people looking for an authentic Himalayan experience, the best way to get close to Everest is the EBC trek — 12 to 14 days of walking that ends at the exact point where Tenzing, Hillary, and Kami Rita began their ascents.' },
+      { type: 'text', value: 'The path to Everest does not begin with gear, a budget, or a government permit. It begins with a decision to go. For most people looking for an authentic Himalayan experience, the best way to get close to Everest is the EBC trek — 12 to 14 days of walking that ends at the exact launch point where Tenzing, Hillary, and Kami Rita began their ascents.' },
       { type: 'cta', text: 'למידע על משלחת אוורסט בייס קמפ של HighAir', textEn: 'Learn about HighAir\'s Everest Base Camp expedition', href: '/expedition/ebc' },
     ],
   },
