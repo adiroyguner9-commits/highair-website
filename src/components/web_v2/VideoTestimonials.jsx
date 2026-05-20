@@ -224,13 +224,12 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
         )}
       </div>
 
-      {/* Horizontal scroll — bleeds to viewport edges on mobile */}
+      {/* Horizontal scroll */}
       <div style={{
         display: 'flex',
         gap: '14px',
         overflowX: 'auto',
-        padding: isMobile ? '4px 5vw 16px' : '4px 0 16px',
-        margin: isMobile ? '0 -5vw' : '0',
+        padding: '4px 0 16px',
         scrollSnapType: 'x mandatory',
         WebkitOverflowScrolling: 'touch',
         scrollbarWidth: 'none',
