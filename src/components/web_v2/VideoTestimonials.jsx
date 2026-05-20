@@ -5,7 +5,8 @@
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { COLOR, RADIUS, EASING, SHADOW } from '../../website/theme.js';
+import { COLOR, RADIUS, EASING } from '../../website/theme.js';
+import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { Analytics } from '../../utils/analytics.js';
 
 export const KILI_TESTIMONIALS = [
@@ -21,15 +22,15 @@ export const KILI_TESTIMONIALS = [
 
 function PlayIcon() {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-      <circle cx="26" cy="26" r="26" fill="rgba(0,0,0,0.52)" />
-      <circle cx="26" cy="26" r="25" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
-      <polygon points="21,17 39,26 21,35" fill="white" />
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.48)" />
+      <circle cx="24" cy="24" r="23" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
+      <polygon points="19,15 37,24 19,33" fill="white" />
     </svg>
   );
 }
 
-function VideoCard({ video, onClick }) {
+function VideoCard({ video, onClick, cardWidth }) {
   const [hov, setHov] = useState(false);
   const thumb = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
 
@@ -40,17 +41,19 @@ function VideoCard({ video, onClick }) {
       onMouseLeave={() => setHov(false)}
       style={{
         flexShrink: 0,
-        width: '175px',
+        width: `${cardWidth}px`,
         borderRadius: RADIUS.xl,
         overflow: 'hidden',
         cursor: 'pointer',
         transform: hov ? 'translateY(-4px) scale(1.02)' : 'none',
-        boxShadow: hov ? SHADOW.lg : SHADOW.sm,
+        boxShadow: hov
+          ? '0 20px 48px rgba(0,0,0,0.22)'
+          : '0 4px 16px rgba(0,0,0,0.10)',
         transition: `all 0.25s ${EASING.out}`,
         scrollSnapAlign: 'start',
       }}
     >
-      <div style={{ position: 'relative', aspectRatio: '9/16', overflow: 'hidden', background: '#1E1B4B' }}>
+      <div style={{ position: 'relative', aspectRatio: '9/16', overflow: 'hidden', background: '#0A0818' }}>
         <img
           src={thumb}
           alt={video.name}
@@ -65,20 +68,20 @@ function VideoCard({ video, onClick }) {
         {/* Gradient overlay */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
+          background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)',
         }} />
         {/* Play button */}
         <div style={{
           position: 'absolute', inset: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          opacity: hov ? 1 : 0.85,
+          opacity: hov ? 1 : 0.82,
           transition: `opacity 0.2s`,
         }}>
           <PlayIcon />
         </div>
-        {/* Name at bottom */}
+        {/* Name + destination */}
         <div style={{
-          position: 'absolute', bottom: '12px', right: '12px', left: '12px',
+          position: 'absolute', bottom: '14px', right: '14px', left: '14px',
           direction: 'rtl',
         }}>
           <p style={{
@@ -92,10 +95,10 @@ function VideoCard({ video, onClick }) {
             {video.name}
           </p>
           <p style={{
-            margin: '2px 0 0',
+            margin: '3px 0 0',
             fontFamily: "'Ploni', sans-serif",
             fontSize: '12px',
-            color: 'rgba(255,255,255,0.7)',
+            color: 'rgba(255,255,255,0.65)',
           }}>
             קילימנג׳רו
           </p>
@@ -158,42 +161,47 @@ function Modal({ video, onClose }) {
 }
 
 /**
- * @param {number}  [limit]         – cap cards shown (home page: 3). undefined = all.
- * @param {string}  [seeAllHref]    – "see all" button link when limit is set
- * @param {boolean} [darkBg]        – true for dark section background
+ * @param {number}  [limit]       – cap cards shown. undefined = all.
+ * @param {string}  [seeAllHref]  – "see all" link when limit is set
+ * @param {boolean} [darkBg]      – true for dark section background
  */
 export default function VideoTestimonials({ limit, seeAllHref, darkBg = false }) {
   const { i18n } = useTranslation();
   const isEn = i18n.language === 'en';
+  const { isMobile } = useBreakpoint();
   const [active, setActive] = useState(null);
 
   const videos = limit ? KILI_TESTIMONIALS.slice(0, limit) : KILI_TESTIMONIALS;
+  const textColor   = darkBg ? '#FFFFFF' : '#0A0818';
+  const accentColor = darkBg ? COLOR.lighter : COLOR.primary;
+  const cardWidth   = isMobile ? 160 : 200;
 
   return (
     <section
       id="testimonials"
       style={{
-        padding: '80px 0 64px',
-        background: darkBg ? 'linear-gradient(160deg,#0A0818,#1E1B4B)' : '#F8F7FF',
+        padding: isMobile ? '48px 0' : '72px 0',
+        background: darkBg ? 'linear-gradient(160deg,#0A0818,#1E1B4B)' : 'transparent',
         direction: 'rtl',
       }}
     >
       {/* Header */}
-      <div style={{ padding: '0 5vw', marginBottom: '32px', position: 'relative' }}>
+      <div style={{ marginBottom: '28px', position: 'relative' }}>
         <span style={{
           fontSize: '11px', fontWeight: 700,
-          color: darkBg ? COLOR.lighter : COLOR.primary,
+          color: accentColor,
           textTransform: 'uppercase', letterSpacing: '2px',
-          display: 'block', marginBottom: '10px',
+          display: 'block', marginBottom: '8px',
         }}>
           {isEn ? 'Testimonials' : 'ממליצים'}
         </span>
         <h2 style={{
-          fontSize: 'clamp(24px, 3.5vw, 38px)',
-          fontWeight: 900,
-          color: darkBg ? '#FFFFFF' : COLOR.text,
+          fontFamily: "'Ploni', sans-serif",
+          fontSize: 'clamp(22px, 3.5vw, 32px)',
+          fontWeight: 700,
+          color: textColor,
+          letterSpacing: '-0.02em',
           margin: 0,
-          letterSpacing: '-1px',
           lineHeight: 1.1,
         }}>
           {isEn ? 'What our Kilimanjaro climbers say' : 'מה אומרים אלה שכבר עלו לקילי'}
@@ -202,11 +210,9 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
           <a
             href={seeAllHref}
             style={{
-              position: 'absolute',
-              bottom: 0,
-              left: '5vw',
+              position: 'absolute', bottom: 0, left: 0,
               fontSize: '14px', fontWeight: 700,
-              color: darkBg ? COLOR.lighter : COLOR.primary,
+              color: accentColor,
               textDecoration: 'none',
               whiteSpace: 'nowrap',
               borderBottom: '1px solid',
@@ -218,19 +224,20 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
         )}
       </div>
 
-      {/* Horizontal scroll */}
+      {/* Horizontal scroll — bleeds to viewport edges on mobile */}
       <div style={{
         display: 'flex',
         gap: '14px',
         overflowX: 'auto',
-        padding: '4px 5vw 16px',
+        padding: isMobile ? '4px 5vw 16px' : '4px 0 16px',
+        margin: isMobile ? '0 -5vw' : '0',
         scrollSnapType: 'x mandatory',
         WebkitOverflowScrolling: 'touch',
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
       }}>
         {videos.map((v) => (
-          <VideoCard key={v.id} video={v} onClick={setActive} />
+          <VideoCard key={v.id} video={v} onClick={setActive} cardWidth={cardWidth} />
         ))}
       </div>
 

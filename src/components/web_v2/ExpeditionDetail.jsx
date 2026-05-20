@@ -1617,6 +1617,13 @@ export default function ExpeditionDetail() {
           )}
         </section>
 
+        {exp?.slug?.includes('kilimanjaro') && (
+          <>
+            <Separator />
+            <VideoTestimonials darkBg={false} />
+          </>
+        )}
+
         <Separator />
 
         {/* ── H. תמונות מהטיפוס ──────────────────── */}
@@ -1852,9 +1859,6 @@ export default function ExpeditionDetail() {
         )}
 
 
-      {exp?.slug?.includes('kilimanjaro') && (
-        <VideoTestimonials darkBg={false} />
-      )}
 
       </main>
 
