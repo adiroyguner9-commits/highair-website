@@ -72,10 +72,12 @@ function BannerCard({ platform, Icon, bg, fadeColor, ctaColor, headline, cta, hr
           fontWeight: 900,
           color: '#FFFFFF',
           margin: 0,
-          lineHeight: 1.3,
+          lineHeight: 1.4,
           letterSpacing: '-0.3px',
         }}>
-          {headline}
+          {headline.split('\n').map((line, i) => (
+            <span key={i}>{i > 0 && <br />}{line}</span>
+          ))}
         </h3>
         <span style={{
           display: 'inline-block',
@@ -165,7 +167,7 @@ export default function CommunitySection() {
           isEn={isEn}
           headline={isEn
             ? 'Want to see what awaits you? Everything is on our channel'
-            : 'רוצים לדעת מה מחכה לכם בשטח? הכל בערוץ שלנו'}
+            : 'רוצים לדעת מה מחכה לכם בשטח?\nהכל בערוץ שלנו'}
           cta={isEn ? 'Watch on YouTube' : 'לצפייה בערוץ היוטיוב'}
           href={YT_HREF}
         />
