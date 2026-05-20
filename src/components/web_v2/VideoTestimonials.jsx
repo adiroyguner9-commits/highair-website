@@ -10,14 +10,14 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { Analytics } from '../../utils/analytics.js';
 
 export const KILI_TESTIMONIALS = [
-  { id: 'k4F_rx8JBWk', name: 'צחי' },
-  { id: 'q3MCC6fmytI', name: 'אהוד' },
-  { id: '0yWZHR7XHkk', name: 'אביטל' },
-  { id: 'xIisavnAoTY', name: 'אבי' },
-  { id: 't0nRH2LODw8', name: 'נתנאל' },
-  { id: '9SsFVN-lTGQ', name: 'טניה' },
-  { id: 'rD-bUmCphjY', name: 'בוריס' },
-  { id: 'j0zIBWzrBto', name: 'מאיה' },
+  { id: 'k4F_rx8JBWk', name: 'צחי',   pos: 'center top' },
+  { id: 'q3MCC6fmytI', name: 'אהוד',  pos: 'center 25%' },
+  { id: '0yWZHR7XHkk', name: 'אביטל', pos: 'center 20%' },
+  { id: 'xIisavnAoTY', name: 'אבי',   pos: 'center top' },
+  { id: 't0nRH2LODw8', name: 'נתנאל', pos: 'center 30%' },
+  { id: '9SsFVN-lTGQ', name: 'טניה',  pos: 'center 15%' },
+  { id: 'rD-bUmCphjY', name: 'בוריס', pos: 'center 55%' },
+  { id: 'j0zIBWzrBto', name: 'מאיה',  pos: 'center 15%' },
 ];
 
 function PlayIcon() {
@@ -61,7 +61,7 @@ function VideoCard({ video, onClick, cardWidth }) {
           style={{
             width: '100%', height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center top',
+            objectPosition: video.pos,
             display: 'block',
           }}
         />
