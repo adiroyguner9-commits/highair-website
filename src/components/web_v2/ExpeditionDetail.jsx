@@ -1637,13 +1637,15 @@ export default function ExpeditionDetail() {
 
           {/* ── Mobile: snap carousel / Desktop: masonry ── */}
           {isMobile ? (
-            <MobilePhotoCarousel
-              images={validGalleryImages}
-              altPrefix={isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)}
-              onImageClick={i => setLightboxIdx(i)}
-              hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
-              isRtl={isRtl}
-            />
+            <div style={{ margin: '0 -5%' }}>
+              <MobilePhotoCarousel
+                images={validGalleryImages}
+                altPrefix={isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)}
+                onImageClick={i => setLightboxIdx(i)}
+                hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+                isRtl={isRtl}
+              />
+            </div>
           ) : (
             /* ── Desktop: masonry columns ── */
             <div style={{ columnCount: 3, columnGap: '10px' }}>
