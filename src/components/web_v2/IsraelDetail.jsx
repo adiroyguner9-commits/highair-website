@@ -620,13 +620,15 @@ export default function IsraelDetail() {
 
               {/* Mobile: snap carousel / Desktop: masonry */}
               {isMobile ? (
-                <MobilePhotoCarousel
-                  images={validGalleryImages}
-                  altPrefix={isRtl ? trip.nameHe || trip.name : trip.name}
-                  onImageClick={i => setLightboxIdx(i)}
-                  hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
-                  isRtl={isRtl}
-                />
+                <div style={{ margin: '0 -5%' }}>
+                  <MobilePhotoCarousel
+                    images={validGalleryImages}
+                    altPrefix={isRtl ? trip.nameHe || trip.name : trip.name}
+                    onImageClick={i => setLightboxIdx(i)}
+                    hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+                    isRtl={isRtl}
+                  />
+                </div>
               ) : (
                 <div style={{ columnCount: 3, columnGap: '10px' }}>
                   {validGalleryImages.map((src, i) => {
