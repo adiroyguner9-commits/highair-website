@@ -15,7 +15,6 @@ import ExpeditionExplorer from './ExpeditionExplorer.jsx';
 
 /* ── Lazy-loaded (below the fold) ── */
 const IsraelTrips         = lazy(() => import('./IsraelTrips.jsx'));
-const VideoTestimonials   = lazy(() => import('./VideoTestimonials.jsx'));
 const CommunitySection  = lazy(() => import('./CommunitySection.jsx'));
 const ImpactSection     = lazy(() => import('./ImpactSection.jsx'));
 const ReviewsSection = lazy(() => import('./ReviewsSection.jsx'));
@@ -166,8 +165,6 @@ export default function HomeV2() {
 
           <Divider />
           <FadeIn><ReviewsSection /></FadeIn>
-
-          <FadeIn><VideoTestimonials limit={3} seeAllHref="/expedition/kilimanjaro#testimonials" /></FadeIn>
 
           <Divider />
           <GallerySection />
