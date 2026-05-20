@@ -20,6 +20,7 @@ import GHLCalendarWidget from './GHLCalendarWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
 import { Analytics, useScrollDepth } from '../../utils/analytics.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
+import VideoTestimonials from './VideoTestimonials.jsx';
 
 /* ─── Translation helpers ───────────────────────────────────────── */
 const HE_TO_EN_MONTHS = {
@@ -1850,6 +1851,10 @@ export default function ExpeditionDetail() {
           </>
         )}
 
+
+      {exp?.slug?.includes('kilimanjaro') && (
+        <VideoTestimonials darkBg={false} />
+      )}
 
       </main>
 
