@@ -4,6 +4,22 @@
  */
 
 export const ISRAEL_TRIPS = [
+  /* ── Training trek — dynamic content loaded from Airtable ── */
+  {
+    id:           'training',
+    slug:         'training',
+    name:         'טרק הכנה',
+    nameEn:       'Preparation Trek',
+    typeHe:       'טרק',
+    free:         true,
+    whatsappUrl:  '',
+    live:         true,
+    grad:         'linear-gradient(135deg, #064e3b, #059669)',
+    desc:         '',
+    descEn:       '',
+    airtableEvents: ['training'],
+    groupCapacity:  20,
+  },
   {
     id:      'il-1',
     slug:    'hermon',

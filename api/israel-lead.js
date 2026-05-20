@@ -61,7 +61,7 @@ export default async function handler(req, res) {
   }
 
   const body = req.body || {};
-  const { name, phone, email, tripName, tripDate, packageId, participants } = body;
+  const { name, phone, email, tripName, tripDate, packageId, participants, free } = body;
   const participantsCount = Math.min(Math.max(parseInt(participants || 1, 10), 1), 10);
 
   /* ── Honeypot ── */
@@ -92,7 +92,7 @@ export default async function handler(req, res) {
     [F.fullName]:      cleanName,
     [F.phone]:         cleanPhone,
     [F.trip]:          cleanTripName,
-    [F.paymentStatus]: 'ממתין לתשלום',
+    [F.paymentStatus]: free ? 'הרשמה חינמית' : 'ממתין לתשלום',
   };
 
   if (cleanEmail)   fields[F.email]        = cleanEmail;

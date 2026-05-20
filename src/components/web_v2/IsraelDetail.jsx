@@ -52,7 +52,7 @@ export default function IsraelDetail() {
   const navigate   = useNavigate();
   const { isMobile, isTablet } = useBreakpoint();
   const isNarrow   = isMobile || isTablet;
-  const trip       = ISRAEL_TRIPS.find(t => t.slug === slug);
+  const [trip, setTrip] = useState(() => ISRAEL_TRIPS.find(t => t.slug === slug));
 
   /* ── חבילות לפי סוג הטיול ── */
   const PACKAGES = {
@@ -64,7 +64,7 @@ export default function IsraelDetail() {
       { id: 'with-stay', labelHe: 'טיפוס כולל לינה ו-3 ארוחות', labelEn: 'Trek + accommodation & 3 meals', price: '₪549' },
     ],
   };
-  const tripPackages = trip?.packages || PACKAGES[trip?.packageType] || [];
+  const tripPackages = trip?.free ? [] : (trip?.packages || PACKAGES[trip?.packageType] || []);
   const { i18n }   = useTranslation();
   const dir        = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl      = dir === 'rtl';
@@ -87,6 +87,30 @@ export default function IsraelDetail() {
   /* ── Airtable distance / elevation (fetched in useEffect below) ── */
   const [airtableDistance, setAirtableDistance] = useState('');
   const [airtableElevGain, setAirtableElevGain] = useState('');
+
+  /* ── Free training trek: load dynamic content from Airtable ── */
+  useEffect(() => {
+    if (!trip?.free) return;
+    fetch('/api/airtable/IsraelGroups')
+      .then(r => r.json())
+      .then(data => {
+        const rec = (data.records || [])
+          .map(r => ({ ...r.fields }))
+          .find(f => f.Slug === slug);
+        if (!rec) return;
+        setTrip(prev => ({
+          ...prev,
+          name:        rec.Name         || prev.name,
+          nameEn:      rec.Name_En      || prev.nameEn,
+          desc:        rec.Desc         || prev.desc,
+          descEn:      rec.Desc_En      || prev.descEn,
+          img:         rec.Image_URL    ? rec.Image_URL.replace(/^https?:\/\/[^/]+/, '') : prev.img,
+          grad:        rec.Gradient     || prev.grad,
+          whatsappUrl: rec.WhatsApp_URL || prev.whatsappUrl,
+        }));
+      })
+      .catch(() => {});
+  }, [trip?.free, slug]);
 
   /* ── Day-trip stats (Airtable takes priority; itinerary is fallback) ── */
   const dayItin         = isEn ? (trip?.itineraryEn?.[0] || trip?.itinerary?.[0]) : trip?.itinerary?.[0];
@@ -162,7 +186,7 @@ export default function IsraelDetail() {
     const payUrl = pkg?.paymentUrl || trip.paymentUrl;
 
     setSubmitting(true);
-    /* ── Save lead to Airtable (fire-and-forget; don't block payment) ── */
+    /* ── Save lead to Airtable ── */
     const fullPhone = formatFullPhone(form.dial, form.phone);
     fetch('/api/israel-lead', {
       method:  'POST',
@@ -172,14 +196,19 @@ export default function IsraelDetail() {
         phone:        fullPhone,
         email:        form.email,
         tripName:     trip.name,
-        tripDate:     form.month,   /* ISO date (YYYY-MM-DD) for live groups */
+        tripDate:     form.month,
         packageId:    form.pricePackage,
         participants: parseInt(form.participants || '1', 10),
+        free:         trip.free || false,
       }),
     }).catch(err => console.error('[israel-lead]', err))
       .finally(() => setSubmitting(false));
 
-    if (payUrl) window.open(payUrl, '_blank', 'noopener,noreferrer');
+    if (trip?.free && trip?.whatsappUrl) {
+      window.location.href = trip.whatsappUrl;
+    } else if (payUrl) {
+      window.open(payUrl, '_blank', 'noopener,noreferrer');
+    }
   }
 
 
@@ -866,11 +895,20 @@ export default function IsraelDetail() {
       {/* ══ CONTACT FORM ══ */}
       <div id="israel-form" style={{ background: 'linear-gradient(135deg, #1e1b4b, #2d1b69)', padding: isMobile ? '48px 5%' : '72px 5%', direction: dir, scrollMarginTop: '96px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
+          {trip?.free && (
+            <div style={{ display: 'inline-block', marginBottom: '16px', padding: '5px 18px', borderRadius: '999px', background: 'rgba(16,185,129,0.18)', border: '1px solid rgba(16,185,129,0.4)' }}>
+              <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700, color: '#6EE7B7', letterSpacing: '0.02em' }}>
+                {isRtl ? '✓ טרק הכנה חינמי' : '✓ Free Preparation Trek'}
+              </span>
+            </div>
+          )}
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(24px,4vw,40px)', fontWeight: 700, color: 'white', letterSpacing: '-0.02em', margin: '0 0 12px' }}>
             {isRtl ? 'הרשמה לטרק' : 'Register for Trek'}
           </h2>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: '0 0 40px' }}>
-            {isRtl ? 'מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי' : "Fill in your details and we'll confirm your registration"}
+            {trip?.free
+              ? (isRtl ? 'מלאו את הפרטים ותועברו ישירות לקבוצת הווצאפ שלנו' : "Fill in your details and you'll be redirected to our WhatsApp group")
+              : (isRtl ? 'מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי' : "Fill in your details and we'll confirm your registration")}
           </p>
           <div style={{ background: 'white', borderRadius: RADIUS.xl, padding: isMobile ? '24px' : '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'start' }}>
             <form onSubmit={handleSubmit} style={{ direction: dir }}>
@@ -1052,7 +1090,9 @@ export default function IsraelDetail() {
                 }}>
                   {submitting
                     ? (isRtl ? 'שולח...' : 'Sending...')
-                    : (isRtl ? 'לתשלום ←' : 'Proceed to Payment →')}
+                    : trip?.free
+                      ? (isRtl ? 'הרשמה לטרק ←' : 'Register →')
+                      : (isRtl ? 'לתשלום ←' : 'Proceed to Payment →')}
                 </button>
 
               </div>
