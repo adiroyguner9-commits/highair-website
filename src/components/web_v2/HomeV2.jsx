@@ -14,8 +14,9 @@ import PartnersSection    from './PartnersSection.jsx';
 import ExpeditionExplorer from './ExpeditionExplorer.jsx';
 
 /* ── Lazy-loaded (below the fold) ── */
-const IsraelTrips    = lazy(() => import('./IsraelTrips.jsx'));
-const ImpactSection  = lazy(() => import('./ImpactSection.jsx'));
+const IsraelTrips       = lazy(() => import('./IsraelTrips.jsx'));
+const CommunitySection  = lazy(() => import('./CommunitySection.jsx'));
+const ImpactSection     = lazy(() => import('./ImpactSection.jsx'));
 const ReviewsSection = lazy(() => import('./ReviewsSection.jsx'));
 const GallerySection = lazy(() => import('./GallerySection.jsx'));
 const PressSection   = lazy(() => import('./PressSection.jsx'));
@@ -169,6 +170,8 @@ export default function HomeV2() {
 
           <Divider />
           <FadeIn><PressSection /></FadeIn>
+
+          <FadeIn><CommunitySection /></FadeIn>
 
           <FadeIn><CTASection /></FadeIn>
           <SiteFooter />
