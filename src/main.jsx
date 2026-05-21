@@ -4,6 +4,7 @@ import './i18n.js';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
+import { Analytics } from '@vercel/analytics/react';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner  from './components/web_v2/CookieBanner.jsx';
@@ -85,5 +86,6 @@ createRoot(document.getElementById('root')).render(
       </Suspense>
     </BrowserRouter>
     </ErrorBoundary>
+    <Analytics />
   </StrictMode>
 );

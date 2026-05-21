@@ -504,19 +504,28 @@ export default function BlogPost() {
 
             if (block.type === 'image') return (
               <figure key={i} style={{ margin: '36px 0' }}>
-                <img
-                  src={block.src}
-                  alt={block.alt || block.caption || ''}
-                  loading="lazy"
-                  style={{
-                    width:          '100%',
-                    borderRadius:   RADIUS.xl,
-                    display:        'block',
-                    objectFit:      'cover',
-                    maxHeight:      '520px',
-                    objectPosition: block.objectPosition || 'center',
-                  }}
-                />
+                {block.src ? (
+                  <img
+                    src={block.src}
+                    alt={block.alt || block.caption || ''}
+                    loading="lazy"
+                    style={{
+                      width:          '100%',
+                      borderRadius:   RADIUS.xl,
+                      display:        'block',
+                      objectFit:      'cover',
+                      maxHeight:      '520px',
+                      objectPosition: block.objectPosition || 'center',
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width:        '100%',
+                    height:       '320px',
+                    borderRadius: RADIUS.xl,
+                    background:   block.grad || 'linear-gradient(135deg, #1a1a3e, #2d4a7a)',
+                  }} />
+                )}
                 {block.caption && (
                   <figcaption style={{
                     fontFamily: "'Ploni', sans-serif",
