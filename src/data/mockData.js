@@ -1161,28 +1161,82 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
     img: '/images/cards/kilimanjaro.webp',
     ogImage: '/images/og/kilimanjaro.jpg',
-    seoTitle:       'HighAir Expeditions | טיפוס לקילימנג׳רו',
+    seoTitle:       'טיפוס לקילימנג׳רו 2026 | HighAir Expeditions',
     seoTitleEn:     'Climbing Kilimanjaro | HighAir Expeditions',
-    seoDescription: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5895 מטר. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
-    seoDescriptionEn: 'Climb Kilimanjaro (5895m) via the Machame Route - 7 days, 5 climate zones, summit at midnight. 94% success rate. Every expedition supports cancer patients.',
+    seoDescription: 'טיפוס לקילימנג׳רו, הפסגה הגבוהה באפריקה, 5895 מטר. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
+    seoDescriptionEn: 'Climb Kilimanjaro (5895m) via the Machame Route: 7 days, 5 climate zones, summit at midnight. 94% success rate. Every expedition supports cancer patients.',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     groupCapacity: 15,
-    tagline: 'הצטרפו לטיפוס אל פסגת הקילימנג׳רו בטנזניה\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
+    tagline: 'גג אפריקה, 5895 מ׳.\n94% מהמטיילים שלנו עומדים על פסגת אוהורו.',
     grad: 'linear-gradient(135deg,#f97316,#ea580c,#7c2d12)',
-    desc: `הצטרפו אלינו למסע טיפוס אל הר קילימנג׳רו המתנשא לגובה של 5895 מ׳ מעל פני הים. הר הקילימנג׳רו הוא הפסגה הגבוהה ביותר באפריקה ואחת משבע הפסגות הגבוהות בעולם בכל יבשת. ההגעה לפסגה מהווה אתגר פיזי ומנטלי אך מתאימה לכל מטפס הרים מתחיל.
+    desc: `בחצות, כשהטמפרטורה יורדת מתחת לאפס, יוצאת הקבוצה מהמחנה האחרון עם פנסים על הראשות. שש שעות לאחר מכן, עומדים על פסגת אוהורו, 5895 מ׳, גג אפריקה.
 
-המסלול הקלאסי לפסגת הקילימנג׳רו הוא דרך מסלול מאצ׳מה, מסלול בן 7 ימים החוצה נופים מגוונים מיערות הגשם דרך אדמת הסוואנה ועד האזורים המושלגים של הפסגה. חמישה ימי טיפוס יובילו אתכם אל הבייס קמפ בגובה 4673 מ׳, תוך לינה במחנות קמפינג חדשים מדי יום.
+קילימנג׳רו הוא ההר הגבוה הנגיש ביותר בעולם. לא נדרש ניסיון טיפוס טכני ולא ציוד מיוחד. מי שיכול ללכת שמונה שעות ביום ועבר הכנה גופנית בסיסית, יכול להגיע לפסגה. 94% מהמטיילים של HighAir עושים את זה.
 
-הטיפוס לפסגה מתחיל בחצות, המאמץ הגדול משתלם עם צפייה בזריחה מרהיבה בדרך לפסגת אוהורו ותצפית פנורמית עוצרת נשימה על כל אפריקה.
+שיעור ההצלחה הזה לא מקרי. אנחנו עובדים עם מסלול מאצ׳מה הציורי, 7 ימי טיפוס המאפשרים התאקלמות הדרגתית. חמישה אזורי אקלים שונים, מיערות הגשם של המדרון התחתון ועד הקרחונים של הפסגה, נמצאים על אותו ההר. הצוות שלנו מכיר כל קילומטר בנתיב.
 
-הצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+חלק מהרווחים מכל משלחת מוקדש לתמיכה בחולי סרטן בישראל, כי ההרים, בעינינו, הם גם דרך לתת.`,
     highlights: ['פסגת אוהורו 5895מ׳', '5 אזורי אקלים ייחודיים', 'ללא טיפוס טכני', 'זריחה מעל העננים'],
     nameEn: 'Kilimanjaro',
-    descEn: `Kilimanjaro is Africa's highest peak and one of the world's most iconic mountains - a dormant stratovolcano rising 5895 meters above the Tanzanian savanna. No technical climbing required, making it the perfect "first big mountain" for adventurous hikers.
+    descEn: `At midnight, as temperatures drop below zero, the group leaves the final camp with headlamps. Six hours later, they stand on Uhuru Peak at 5895 meters, the roof of Africa.
 
-We use the Machame Route - the most scenic path on the mountain - taking 7 days to allow proper acclimatization. You'll pass through five distinct climate zones, from tropical rainforest at the base to Arctic summit conditions at Uhuru Peak.
+Kilimanjaro is the most accessible high-altitude mountain in the world. No technical climbing experience required, no ropes, no crampons. If you can walk 8 hours a day and have done basic physical preparation, you can reach the summit. 94% of HighAir\'s climbers do.
 
-HighAir's Kilimanjaro expeditions have a 94% summit success rate - one of the highest in the industry - thanks to our experienced Israeli guides and careful acclimatization schedule.`,
+That number is not accidental. We use the Machame Route over 7 days, allowing for genuine gradual acclimatization. Five distinct climate zones, from tropical rainforest at the base to glaciers near the summit, all on the same mountain. Our team knows every meter of the route.
+
+Part of the proceeds from every expedition supports cancer patients in Israel, because for us, the mountains are also a way to give back.`,
+    faq: [
+      {
+        q: 'כמה קשה לטפס על קילימנג׳רו?',
+        a: 'קילימנג׳רו הוא ההר הגבוה הנגיש ביותר בעולם. לא נדרש ניסיון טיפוס טכני ולא ציוד מיוחד. האתגר העיקרי הוא הגובה והקור בלילה שלפני הפסגה. מי שיכול ללכת שמונה שעות ביום ועבר הכנה גופנית בסיסית, יכול לטפס.'
+      },
+      {
+        q: 'מה שיעור ההצלחה שלכם?',
+        a: 'שיעור ההצלחה של HighAir עומד על 94%, מהגבוהים בתעשייה. זה תוצאה של שימוש במסלול מאצ׳מה הציורי ב-7 ימים, שמאפשר התאקלמות הדרגתית, ומדריכים מנוסים שמכירים כל קילומטר על ההר.'
+      },
+      {
+        q: 'איך מתכוננים לטיפוס על קילימנג׳רו?',
+        a: 'ההכנה העיקרית היא אירובית: הליכות ארוכות, ריצות או אופניים כשלושה חודשים לפני הטיפוס. אנחנו מארגנים מפגש הכנה על ציוד וטרק הכנה חד יומי בארץ עם חברי הקבוצה לפני הטיסה.'
+      },
+      {
+        q: 'מה גיל המינימום לטיפוס?',
+        a: 'גיל המינימום הוא 10 שנים. אין גיל מקסימום, ועלו למסע שלנו משתתפים בגילאי 60 פלוס. הגורם הקובע הוא הכושר הגופני ומצב הבריאות, לא הגיל.'
+      },
+      {
+        q: 'האם כדאי לצרף ספארי לטיפוס?',
+        a: 'כן, בצורה מובהקת. שלושה ימי ספארי בטרנגירי ובנגורונגורו, שתי שמורות מהמרהיבות בעולם, נוספים למסע תמורת תוספת מחיר סבירה. אחרי שבוע על ההר, הספארי הוא הגמול המושלם.'
+      },
+      {
+        q: 'מתי העונה הטובה לטיפוס על קילימנג׳רו?',
+        a: 'יש שתי עונות מועדפות: ינואר-פברואר ויוני-אוקטובר. בחודשים אלה הגשמים מינימליים והיציבות האווירית גבוהה ביותר. נובמבר ואפריל הם חודשי הגשמים הכבדים, ולא מומלצים לטיפוס.'
+      },
+    ],
+    faqEn: [
+      {
+        q: 'How difficult is it to climb Kilimanjaro?',
+        a: 'Kilimanjaro is the most accessible high-altitude mountain in the world. No technical climbing experience is required, no ropes, no crampons. The main challenge is altitude and the cold on summit night. If you can walk 8 hours a day and have done basic physical preparation, you can reach the summit.'
+      },
+      {
+        q: 'What is your summit success rate?',
+        a: 'HighAir\'s Kilimanjaro expeditions have a 94% summit success rate, one of the highest in the industry. This comes from using the Machame Route over 7 days, which allows for proper gradual acclimatization, combined with an experienced guide team that knows every meter of the mountain.'
+      },
+      {
+        q: 'How should I prepare for Kilimanjaro?',
+        a: 'The main preparation is cardiovascular: long hikes, running, or cycling for about 3 months before the expedition. We organize a gear preparation meeting and a one-day preparatory trek in Israel with the group before departure.'
+      },
+      {
+        q: 'Is there a minimum age for the climb?',
+        a: 'The minimum age is 10 years old. There is no maximum age, and we have taken participants aged 60 and above. The deciding factor is physical fitness and health, not age.'
+      },
+      {
+        q: 'Should I add a safari to the climb?',
+        a: 'Strongly recommended. Three days of safari in Tarangire and Ngorongoro, two of the most spectacular reserves in the world, are added to the trip for a reasonable supplement. After a week on the mountain, the safari is the perfect reward.'
+      },
+      {
+        q: 'When is the best season to climb Kilimanjaro?',
+        a: 'There are two preferred seasons: January through February and June through October. During these months rainfall is minimal and weather stability is highest. November and April are the heavy rainy months and are not recommended for climbing.'
+      },
+    ],
     highlightsEn: ['Uhuru Peak 5895m', "Africa's highest mountain", 'Machame Scenic Route', 'Five climate zones'],
     included: [
       'טיפוס לקילימנג׳רו:',
