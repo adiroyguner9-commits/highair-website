@@ -114,10 +114,11 @@ export default function SiteFooter() {
   const isRtl = dir === 'rtl';
 
   const ISRAEL_TRIPS = ALL_ISRAEL_TRIPS
-    .filter(trip => trip.live !== false)
+    .filter(trip => trip.live !== false && !trip.hidden)
     .map(trip => ({ label: isEn ? (trip.nameEn || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
 
   const INFO_LINKS = [
+    { label: t('footer.shop'),         href: '/shop'          },
     { label: t('footer.blog'),         href: '/blog'          },
     { label: t('footer.cancellation'), href: '/cancellation'  },
     { label: t('footer.terms'),        href: '/terms'         },

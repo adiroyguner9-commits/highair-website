@@ -89,6 +89,7 @@ const RATE_LIMITS = {
   default:      { max: 30, windowMs: 60_000  },   // 30 req/min
   'submit-lead':{ max:  5, windowMs: 300_000 },   // 5 submissions per 5 min
   'book-slot':  { max:  5, windowMs: 300_000 },   // 5 bookings per 5 min
+  'checkout':   { max: 10, windowMs: 60_000  },   // 10 payment sessions/min per IP
 };
 
 function clientIp(req) {

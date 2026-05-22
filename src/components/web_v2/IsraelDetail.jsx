@@ -76,6 +76,7 @@ export default function IsraelDetail() {
   const itinerary      = isEn ? (trip?.itineraryEn   || trip?.itinerary   || []) : (trip?.itinerary   || []);
   const included       = isEn ? (trip?.includedEn    || trip?.included    || []) : (trip?.included    || []);
   const notIncluded    = isEn ? (trip?.notIncludedEn || trip?.notIncluded || []) : (trip?.notIncluded || []);
+  const gear           = isEn ? (trip?.gearEn        || trip?.gear        || []) : (trip?.gear        || []);
   const desc           = isEn ? (trip?.descEn  || trip?.desc)  : trip?.desc;
   const seasons        = isEn ? (trip?.seasonsEn || trip?.seasons || []) : (trip?.seasons || []);
   const diffLabel      = isEn ? (trip?.diffEn  || trip?.diffHe) : trip?.diffHe;
@@ -107,6 +108,11 @@ export default function IsraelDetail() {
           img:         rec.Image_URL    ? rec.Image_URL.replace(/^https?:\/\/[^/]+/, '') : prev.img,
           grad:        rec.Gradient     || prev.grad,
           whatsappUrl: rec.WhatsApp_URL || prev.whatsappUrl,
+          diffHe:      rec.Diff_He      || prev.diffHe,
+          diffEn:      rec.Diff_En      || prev.diffEn,
+          days:        rec.Days_He      || prev.days,
+          daysEn:      rec.Days_En      || prev.daysEn,
+          departure:   rec.Departure    || prev.departure,
         }));
       })
       .catch(() => {});
@@ -120,12 +126,14 @@ export default function IsraelDetail() {
     return s
       .replace(' עלייה', '').replace(' ירידה', '')
       .replace(' gain', '').replace(' descent', '')
-      .replace('מ׳', '').replace(/m$/i, '')
+      .replace(/\s*מ׳$/, '').replace(/\s*m$/i, '')
       .trim();
   }
   const shortItinElev = stripElev(rawElevGain) || '';
-  const tripDistance  = airtableDistance || itinDistance  || '–';
+  const tripDistance  = airtableDistance || trip?.distance || itinDistance  || '–';
   const shortElevGain = (airtableElevGain ? stripElev(airtableElevGain) : shortItinElev) || '–';
+  /* For free trips: show raw value — static elevGain field used before Airtable loads */
+  const freeElevDisplay = (airtableElevGain || trip?.elevGain || shortItinElev || '–');
 
   usePageMeta(trip ? {
     title:         isEn ? (trip.seoTitleEn || `${trip.nameEn || trip.name} Trek | HighAir Expeditions`) : (trip.seoTitle || `${displayName} | HighAir Expeditions`),
@@ -289,14 +297,29 @@ export default function IsraelDetail() {
   useEffect(() => {
     if (!trip?.slug) return;
     setResolvedGallery(null);
-    const potential = Array.from({ length: 10 }, (_, i) => `/images/gallery/${trip.slug}/${i + 1}.webp`);
+    const potential = Array.from({ length: 10 }, (_, i) => [
+      `/images/gallery/${trip.slug}/${i + 1}.webp`,
+      `/images/gallery/${trip.slug}/${i + 1}.jpg`,
+    ]).flat();
     Promise.all(
       potential.map(url =>
         fetch(url, { method: 'HEAD' })
-          .then(r => r.ok ? url : null)
+          .then(r => {
+            const ct = r.headers.get('content-type') || '';
+            return (r.ok && ct.startsWith('image/')) ? url : null;
+          })
           .catch(() => null)
       )
-    ).then(results => setResolvedGallery(results.filter(Boolean)));
+    ).then(results => {
+      const found = new Set();
+      setResolvedGallery(results.filter(url => {
+        if (!url) return false;
+        const base = url.replace(/\.(webp|jpg)$/, '');
+        if (found.has(base)) return false;
+        found.add(base);
+        return true;
+      }));
+    });
   }, [trip?.slug]);
 
   /* ── Date helpers ── */
@@ -428,7 +451,14 @@ export default function IsraelDetail() {
           display: 'grid',
           gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
         }}>
-          {trip.packageType === 'day' ? (
+          {trip?.free ? (
+            <>
+              <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}        value={diffLabel || '–'}  isMobile={isMobile} first />
+              <StatBox label={isRtl ? 'מרחק' : 'Distance'}           value={tripDistance}       isMobile={isMobile} />
+              <StatBox label={isRtl ? 'טיפוס מצטבר' : 'Elev. Gain'} value={freeElevDisplay}    isMobile={isMobile} />
+              <StatBox label={isRtl ? 'תאריך' : 'Date'}              value={trip.departure ? `${trip.departure.slice(8,10)}/${trip.departure.slice(5,7)}/${trip.departure.slice(2,4)}` : '–'} isMobile={isMobile} last />
+            </>
+          ) : trip.packageType === 'day' ? (
             <>
               <StatBox label={isRtl ? 'מרחק' : 'Distance'}         value={tripDistance}  isMobile={isMobile} first />
               <StatBox label={isRtl ? 'טיפוס מצטבר' : 'Elev. Gain'} value={shortElevGain} isMobile={isMobile} />
@@ -455,7 +485,34 @@ export default function IsraelDetail() {
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 5%', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
-            {trip.packageType === 'day' ? (
+            {trip?.free ? (
+              <>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                  <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'קושי' : 'Level'}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{diffLabel || '–'}</span>
+                </div>
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מרחק' : 'Distance'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{tripDistance}</span>
+                  </div>
+                )}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'טיפוס' : 'Gain'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>{freeElevDisplay}</span>
+                  </div>
+                )}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
+                    <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'תאריך' : 'Date'}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif" }}>
+                      {trip.departure ? `${trip.departure.slice(8,10)}/${trip.departure.slice(5,7)}/${trip.departure.slice(2,4)}` : '–'}
+                    </span>
+                  </div>
+                )}
+              </>
+            ) : trip.packageType === 'day' ? (
               <>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: isRtl ? 'flex-end' : 'flex-start' }}>
                   <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'מרחק' : 'Distance'}</span>
@@ -635,7 +692,48 @@ export default function IsraelDetail() {
           </>
         )}
 
-        {/* ── ג2. גלריה ── */}
+        {/* ── ג2. רשימת ציוד ── */}
+        {gear.length > 0 && (
+          <>
+            <Separator />
+            <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+              <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,36px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px' }}>
+                {isRtl ? 'רשימת ציוד' : 'Gear List'}
+              </h2>
+              <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
+                {gear.map((item, i) => {
+                  const isLast     = i === gear.length - 1;
+                  const isHeader   = item.endsWith(':');
+                  const isRequired = item.includes('(חובה!)') || item.includes('(required!)');
+                  const cleanItem  = item.replace(' (חובה!)', '').replace(' (required!)', '');
+                  if (isHeader) {
+                    return (
+                      <div key={i} style={{ padding: '10px 20px', background: '#FAFAFA', borderBottom: '1px solid #ECEAF8', direction: dir }}>
+                        <span style={{ display: 'inline-block', background: COLOR.primary, color: '#fff', fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700, padding: '3px 14px', borderRadius: '999px' }}>
+                          {item.slice(0, -1)}
+                        </span>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', padding: '14px 20px', borderBottom: isLast ? 'none' : '1px solid #ECEAF8', direction: dir }}>
+                      <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.5 }}>
+                        {cleanItem}
+                      </span>
+                      {isRequired && (
+                        <span style={{ background: '#FEF3C7', color: '#92400E', fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '999px', flexShrink: 0 }}>
+                          {isRtl ? 'חובה' : 'Required'}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          </>
+        )}
+
+        {/* ── ג3. גלריה ── */}
         {validGalleryImages.length > 0 && (
           <>
             <Separator />
@@ -777,10 +875,10 @@ export default function IsraelDetail() {
           </>
         )}
 
-        <Separator />
+        {!trip?.free && <Separator />}
 
         {/* ── ד. תאריכי יציאה ── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+        {!trip?.free && <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,32px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px' }}>
             {isRtl ? 'תאריכי יציאה' : 'Departure Dates'}
           </h2>
@@ -888,7 +986,7 @@ export default function IsraelDetail() {
               </button>
             </div>
           )}
-        </section>
+        </section>}
 
       </main>
 
@@ -954,6 +1052,25 @@ export default function IsraelDetail() {
                   </div>
                 )}
 
+                {/* תאריך הטרק — static display for free trips */}
+                {trip?.free && trip?.departure && (
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '12px',
+                    padding: '14px 16px', borderRadius: RADIUS.lg,
+                    background: '#F0FDF4', border: '1.5px solid #BBF7D0',
+                  }}>
+                    <CalendarIcon size={18} color="#059669" />
+                    <div>
+                      <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#059669', fontWeight: 600, marginBottom: '2px' }}>
+                        {isRtl ? 'תאריך הטרק' : 'Trek Date'}
+                      </div>
+                      <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 700, color: '#065F46', direction: 'ltr' }}>
+                        {`${trip.departure.slice(8,10)}/${trip.departure.slice(5,7)}/${trip.departure.slice(2,4)}`}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* טלפון */}
                 <PhoneField
                   label={isRtl ? 'מספר טלפון *' : 'Phone Number *'}
@@ -1009,22 +1126,24 @@ export default function IsraelDetail() {
                   </div>
                 )}
 
-                {/* כמות משתתפים */}
-                <div>
-                  <label style={labelStyle}>{isRtl ? 'כמות משתתפים *' : 'Number of Participants *'}</label>
-                  <select
-                    required
-                    value={form.participants}
-                    onChange={e => setForm(f => ({ ...f, participants: e.target.value }))}
-                    style={{ ...inputStyle, color: '#3D3B5A' }}
-                    onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                    onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
-                  >
-                    {[1,2,3,4,5,6,7,8,9,10].map(n => (
-                      <option key={n} value={String(n)}>{n}</option>
-                    ))}
-                  </select>
-                </div>
+                {/* כמות משתתפים — hidden for free treks (always 1) */}
+                {!trip?.free && (
+                  <div>
+                    <label style={labelStyle}>{isRtl ? 'כמות משתתפים *' : 'Number of Participants *'}</label>
+                    <select
+                      required
+                      value={form.participants}
+                      onChange={e => setForm(f => ({ ...f, participants: e.target.value }))}
+                      style={{ ...inputStyle, color: '#3D3B5A' }}
+                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
+                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                    >
+                      {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                        <option key={n} value={String(n)}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
                 {/* סה"כ לתשלום */}
                 {form.pricePackage && (() => {

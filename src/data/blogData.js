@@ -7,6 +7,148 @@
 export const POSTS = [
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:5  kilimanjaro-difficulty  (DRAFT - removed, see git history)
+   * ═══════════════════════════════════════════════════════════════════ */
+  /* {
+    id:       5,
+    slug:     'kilimanjaro-difficulty',
+
+    title:    'כמה קשה לטפס על קילימנג\'רו: הערכה כנה לפני שמחליטים',
+    titleEn:  'How Hard is it to Climb Kilimanjaro? An Honest Assessment',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-05-22',
+    dateModified: '2026-05-22',
+    dateHe:   '22 במאי 2026',
+    dateEn:   'May 22, 2026',
+    category: 'מדריכים',
+    categoryEn: 'Guides',
+    img:             '/images/blog/kilimanjaro-trekkers.webp',
+    imgPosition:     'center 50%',
+    imgPositionCard: 'center 50%',
+    imgCredit:       '',
+    excerpt:  'קילימנג\'רו אינו דורש ציוד טיפוס טכני, אבל 45 אחוז מהמטפסים אינם מגיעים לפסגה. הסיבה אינה ברגליים. כל מה שצריך לדעת לפני שמחליטים.',
+    excerptEn: 'Kilimanjaro requires no technical climbing, yet 45% of climbers never reach the summit. The reason is not your legs. What to know before deciding.',
+
+    content: [
+      { type: 'text', value: 'בשעה חמש לפנות בוקר, בטמפרטורה של מינוס 12 מעלות, עומדים מרבית מטפסי קילימנג\'רו בנקודה הנקראת "סטלה פוינט", גובה 5,739 מטרים. מאחוריהם שש שעות של עלייה בחושך. לפניהם עוד ארבעים דקות עד פסגת אוהורו, הנקודה הגבוהה ביותר באפריקה. ברגע הזה, כמעט כל אחד שואל את עצמו שאלה אחת: מה בדיוק הוא עשה לעצמו.' },
+      { type: 'text', value: 'קילימנג\'רו, 5,895 מטרים, הוא ההר הגבוה ביותר באפריקה ואחד מ"שבע הפסגות", שבעת ההרים הגבוהים ביותר בכל אחת משבע היבשות. הוא אינו דורש כישורי טיפוס טכניים, אינו דורש חמצן משלים, ואפשר לטפס עליו ברגל, ללא ציוד מיוחד. ובכל זאת, נתוני הצלחה רשמיים מראים שכ-45 אחוז מהמטפסים אינם מגיעים לפסגה. הדיסוננס הזה בין "כל אחד יכול" לבין "לא כולם מצליחים" הוא מה שכדאי להבין לעומק לפני שמחליטים.' },
+
+      { type: 'section', value: 'טיול, טרק או טיפוס?' },
+      { type: 'text', value: 'כשאנשים שואלים כמה קשה קילימנג\'רו, הדבר הראשון שצריך לעשות הוא לשאול בחזרה: בהשוואה למה? בסולם הטכני של עולם הטיפוס, קילימנג\'רו מדורג כ"טרק", לא כ"טיפוס". אין קטעים שדורשים שימוש בידיים לצורך ההתקדמות. אין מסעפות. אין פניות אנכיות על קרח. מהבחינה הטכנית הצרה, זהו מסלול הליכה בעלייה מתמשכת.' },
+      { type: 'text', value: 'אבל ההגדרה הטכנית מפספסת משהו מהותי. "הליכה בעלייה" בגובה 5,800 מטרים נראית אחרת לגמרי ממה שמכיר רוב האנשים. כמות החמצן הזמינה בפסגה היא כמחצית ממה שזמין בגובה פני הים. הגוף עובד קשה יותר על כל צעד. הנשימה כבדה, הרגליים כבדות, המחשבה מתקשה. ואנשים שמגיעים לקילימנג\'רו בכושר מצוין מגלים לפעמים, להפתעתם, שגופם מסרב לשתף פעולה כבר ב-4,500 מטרים. זו לא חולשה. זו ביולוגיה.' },
+
+      { type: 'image', src: '/images/blog/kilimanjaro-trekkers.webp', alt: 'מטפסים בדרך לפסגת קילימנג\'רו', caption: 'בדרך לפסגה: כל צעד בגובה מעל 4,500 מטרים כבד יותר ממה שמצפים' },
+
+      { type: 'section', value: 'הגורם שמכריע הכל: הגובה' },
+      { type: 'text', value: 'מחלת גובה היא הסיבה העיקרית לכך שאנשים אינם מגיעים לפסגת קילימנג\'רו. היא אינה נחלת החלשים, ואינה ניתנת לניבוי על בסיס כושר גופני. אנשים צעירים ומאומנים עלולים לסבול ממחלת גובה קשה, ואנשים שלא עסקו בספורט שנים עולים לפעמים ללא תסמין אחד. יש בכך מרכיב גנטי שאין שליטה עליו.' },
+      { type: 'text', value: 'מחלת גובה חריפה, AMS, מתפתחת כשהגוף מתקשה להסתגל לרמות חמצן נמוכות בקצב הנדרש. התסמינים הנפוצים הם כאבי ראש, בחילה, עייפות עמוקה ושיבושי שינה. הם אינם נעימים, אבל ניתנים לרוב לניהול בעזרת קצב עלייה נכון. הצורות החמורות, בצקת ריאות ובצקת מוחית, נדירות אבל מסכנות חיים, ודורשות ירידה מיידית מן ההר.' },
+      { type: 'text', value: '"פולי פולי" בסווהילי, כלומר "לאט לאט", הוא הביטוי שמדריכים חוזרים עליו לאורך כל מסלול הקילימנג\'רו. לא כסגנון, אלא כהנחיה פיזיולוגית ממשית. גוף שעולה בקצב מתון מפיק יותר תאי דם אדומים, מסתגל לשינוי לחץ האוויר, ומגיע לפסגה. מי שממהר, גם אם הוא חזק, נוטל סיכון מיותר.' },
+
+      { type: 'callout', title: '✦ מה הנתונים אומרים', value: 'מסלול 5 ימים: 27% הצלחה. מסלול 6 ימים: 44%. מסלול 7 ימים: 64%. מסלול 8 ימים: 85%. ההבדל בין 27% ל-85% הוא ימי אקלום, לא כושר גופני.' },
+
+      { type: 'section', value: 'מסלולים: לא כל הדרכים שוות' },
+      { type: 'text', value: 'לקילימנג\'רו שבעה מסלולים מאושרים. ההבדלים ביניהם אינם רק נופיים, הם גם פיזיולוגיים, ומשפיעים ישירות על הסיכויים להגיע לפסגה.' },
+      { type: 'text', value: 'מסלול למושו הוא מהפופולריים ביניהם. הוא מתחיל ביער גשם ועולה דרך ארבעה אזורי אקלים שונים לפסגה. משכו 7 עד 8 ימים, ושיעורי ההצלחה שלו גבוהים יחסית. מסלול מצ\'מה, הידוע בנוף המרהיב שלו, כולל את "חומת ברנקו", קטע סלעי שדורש שימוש מסוים בידיים, ונחשב לאחד מהרגעים המאתגרים ביותר בהר. המסלול הצפוני הגדול הוא הארוך ביותר, 8 עד 9 ימים, ומספק את האקלום הטוב ביותר בזכות כיסוי שטח רחב של ההר.' },
+      { type: 'text', value: 'מסלול מרנגו, לעומתם, הוא הקצר ביותר ומציע לינה בצריפים. הוא נחשב נוח מבחינה לוגיסטית, אבל שיעורי ההצלחה שלו נמוכים, מכיוון שחמישה ימים אינם מספיקים לרוב האנשים לאקלם כראוי. מסלול אומבווה, התלול ביותר, מיועד לאנשים עם ניסיון בטיפוס ואינו מתאים למתחילים.' },
+
+      { type: 'image', src: '/images/blog/kilimanjaro-machame.webp', alt: 'מסלול מצ\'מה, קילימנג\'רו', caption: 'מסלול מצ\'מה, אחד המסלולים המועדפים בקילימנג\'רו. 7 ימים לפחות לתוצאות מיטביות' },
+
+      { type: 'section', value: 'ליל הפסגה: השעות שמכריעות' },
+      { type: 'text', value: 'חוויית הקילימנג\'רו חצויה לשניים: כל הדרך עד המחנה הגבוה, ואז לילה אחד שמכריע הכל. ההעפלה הסופית מתחילה בחצות, כשכולם עדיין עייפים מימי ההליכה שקדמו. חושך, ראש פנס, קור חד, שקט. הטיפוס לוקח בין חמש לשבע שעות עד פסגת אוהורו, ורוב הקבוצות מגיעות לפסגה עם הזריחה.' },
+      { type: 'text', value: 'הסיבה לצאת בחצות ולא בבוקר היא פרקטית. השלג והקרח על החלקים הגבוהים יציבים יותר בשעות הקרות של הלילה. עם עליית השמש הם מתחילים להפשיר. בפסגה, בטמפרטורה של מינוס 10 עד מינוס 15 מעלות, רגע הזריחה הוא, לפי כמעט כל מי שהיה שם, מן הדברים היפים ביותר שראו בחייהם.' },
+      { type: 'text', value: 'כעשרה אחוז מהמטפסים שמגיעים למחנה הגבוה אינם מסיימים את ההעפלה הסופית. חלקם מגיעים עד "סטלה פוינט", 5,739 מטרים, שגם הגעה אליה היא הישג של ממש. השאר מסתובבים קודם, לרוב בגלל מחלת גובה. אין בזה כישלון. ההחלטה לרדת כשהגוף מבקש זאת היא ההחלטה הנבונה.' },
+
+      { type: 'section', value: 'מי יכול לטפס על קילימנג\'רו?' },
+      { type: 'text', value: 'הגיל המינימלי על פי חוק הטנזני הוא 10 שנים. הגיל המקסימלי? אנג\'לה ורובייבה עלתה לפסגה בגיל 89. בין השניים, כמעט כל אדם שבריא ומוכן להשקיע בהכנה מתאימה יכול לנסות.' },
+      { type: 'text', value: 'מחלות לב חמורות ובעיות ריאה קשות מצריכות ייעוץ רפואי לפני קבלת כל החלטה. אסתמה וסוכרת, לעומת זאת, אינן פוסלות את הטיפוס בהכרח, ואנשים עם שתי המחלות הגיעו לפסגה בהצלחה עם ליווי רפואי מתאים.' },
+      { type: 'text', value: 'מבחינת כושר גופני, לא צריך להיות אצן. צריך להיות מסוגל ללכת שש עד שמונה שעות ביום, מספר ימים ברציפות, עם תרמיל גב בינוני. כל מי שמתאמן באופן סדיר, עושה אימוני אירובי שלוש עד ארבע פעמים בשבוע, ומשלב הליכות בשטח בחודשים שלפני הטיפוס, מגיע מוכן דיו.' },
+
+      { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', alt: 'מחנה בקילימנג\'רו', caption: 'לינה בגובה היא חלק בלתי נפרד מתהליך האקלום. כל לילה במחנה מכין את הגוף ליום שאחריו' },
+
+      { type: 'section', value: 'קילימנג\'רו עם HighAir' },
+      { type: 'text', value: 'ב-HighAir אנחנו מוציאים קבוצות לקילימנג\'רו בכל שנה. הבחירה שלנו היא תמיד במסלולים ארוכים, שבעה ימים לפחות, כי הנתונים ברורים: כל יום נוסף של אקלום מגדיל את הסיכויים להגיע לפסגה. הצוות שלנו מתמחה בהדרכה בעברית, בשמירה על קצב נכון, ובזיהוי מוקדם של תסמיני גובה לפני שהם הופכים לבעיה.' },
+      { type: 'text', value: 'חלק מהרווחים מכל משלחת שלנו מוקדש לתמיכה בחולי סרטן בישראל, כי ההרים, בעינינו, הם גם דרך לתת. כשאתם עולים איתנו לקילימנג\'רו, אתם לא רק עושים משהו בשביל עצמכם.' },
+      { type: 'text', value: 'כל מטפס שאתם רואים היום על פסגות העולם התחיל פעם אחת, על הר אחד. קילימנג\'רו הוא אחד ההרים הטובים ביותר להתחיל בו. אם אתם שוקלים, אנחנו כאן.' },
+      { type: 'cta', text: 'למשלחות קילימנג\'רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'כמה קשה לטפס על קילימנג\'רו בהשוואה להרים אחרים?' },
+      { type: 'text', value: 'קילימנג\'רו אינו דורש כישורי טיפוס טכניים ונחשב לנגיש יחסית בקרב הרי "שבע הפסגות". הוא קשה יותר מהר קושיושקו באוסטרליה, אבל קל בהרבה מאקונקגואה, מאלברוס ומהאוורסט. האתגר המרכזי הוא הגובה, לא הטכניקה.' },
+      { type: 'heading', value: 'מהו שיעור ההצלחה בקילימנג\'רו?' },
+      { type: 'text', value: 'שיעור ההצלחה הכולל עומד על כ-45 אחוז, אבל המספר הזה כולל מסלולים קצרים מדי שבהם שיעור ההצלחה יורד עד 27 אחוז. במסלולים של 7 עד 8 ימים שיעור ההצלחה עולה לכ-64 עד 85 אחוז. הבחירה במסלול ארוך מספיק היא הגורם הבודד המשפיע ביותר על הסיכויים.' },
+      { type: 'heading', value: 'האם צריך ניסיון טיפוס קודם לקילימנג\'רו?' },
+      { type: 'text', value: 'לא. קילימנג\'רו אינו דורש ניסיון טיפוס קודם. אין צורך לדעת להשתמש בחבלים, בקרוסים או בציוד טיפוס טכני. מה שנדרש הוא כושר אירובי טוב, נכונות ללכת שעות ביום לאורך מספר ימים, וציוד מתאים לקור ולגשם.' },
+      { type: 'heading', value: 'האם מחלת גובה מהווה סכנה אמיתית בקילימנג\'רו?' },
+      { type: 'text', value: 'כן. מחלת גובה היא הסיבה המרכזית לכישלון ולפינויים בקילימנג\'רו. היא אינה תלויה בכושר גופני ואי אפשר להתכונן אליה על ידי אימון גופני בלבד. קצב עלייה נכון, מסלול ארוך מספיק לאקלום, ומדריך מנוסה שיזהה תסמינים מוקדם הם ההגנה הטובה ביותר.' },
+      { type: 'heading', value: 'כמה ימים לוקח לטפס על קילימנג\'רו?' },
+      { type: 'text', value: 'המשלחות המומלצות הן של 7 עד 8 ימים. קיימים מסלולים קצרים של 5 עד 6 ימים, אבל שיעורי ההצלחה שלהם נמוכים משמעותית. לא מומלץ לקצר את המסלול על מנת לחסוך ימים. כל יום נוסף של אקלום מגדיל מאוד את הסיכויים להגיע לפסגה.' },
+      { type: 'heading', value: 'מה לובשים לטיפוס קילימנג\'רו?' },
+      { type: 'text', value: 'ההר עובר ארבעה אזורי אקלים: יער גשם, ערבות אלפינית, מדבר גבוה ואזור קרחוני. בתחתית יכול להיות חם ולח, ובפסגה בין מינוס 10 למינוס 15 מעלות. שכבות הלבשה חמות, מעיל חורף איכותי, כפות ידיים, כובע גרב ומגפי טרק מתאימים הם חובה. אנחנו מספקים לכל משתתף רשימת ציוד מפורטת לפני היציאה.' },
+      { type: 'heading', value: 'האם אפשר לטפס על קילימנג\'רו ללא מדריך?' },
+      { type: 'text', value: 'לא. חוקי הפארק הלאומי של טנזניה מחייבים כל מטפס לצאת עם מדריך מורשה. לא ניתן לרכוש היתר כניסה לפארק ללא מדריך. הכלל קיים מטעמי בטיחות, ומדריך מנוסה הוא גם מי שיזהה בזמן תסמינים ויפנה לפני שמצב מחמיר.' },
+    ],
+
+    contentEn: [
+      { type: 'text', value: 'At five in the morning, in temperatures of minus 12 degrees Celsius, most Kilimanjaro climbers find themselves standing at a point called Stella Point, at 5,739 metres. Six hours of darkness and silence are behind them. Forty minutes remain to Uhuru Peak, the highest point in Africa. At that moment, almost everyone asks themselves the same question: what exactly have I done to myself.' },
+      { type: 'text', value: 'Kilimanjaro, at 5,895 metres, is the highest mountain in Africa and one of the Seven Summits, the highest peak on each of the seven continents. It requires no technical climbing skills, no supplementary oxygen, and can be ascended on foot without specialist equipment. And yet official success rate data shows that around 45 per cent of climbers never reach the summit. The gap between "anyone can do it" and "not everyone makes it" is precisely what is worth understanding before deciding.' },
+
+      { type: 'section', value: 'A hike, a trek, or a climb?' },
+      { type: 'text', value: 'When people ask how hard Kilimanjaro is, the first thing to clarify is: compared to what? On the technical scale used in mountaineering, Kilimanjaro is rated as a trek, not a climb. There are no sections requiring the use of hands to make progress. No rock faces requiring ropes. No vertical ice. In the strict technical sense, it is a long uphill walking route.' },
+      { type: 'text', value: 'But that definition misses something essential. Walking uphill at 5,800 metres looks entirely different from anything most people have experienced before. The available oxygen at the summit is roughly half of what is available at sea level. The body works harder on every step. Breathing becomes laboured. Legs feel heavy. Thought slows. Climbers who arrive at Kilimanjaro in excellent physical condition sometimes discover, to their considerable surprise, that their body refuses to cooperate as early as 4,500 metres. This is not weakness. It is biology.' },
+
+      { type: 'image', src: '/images/blog/kilimanjaro-trekkers.webp', alt: 'Trekkers approaching the summit of Kilimanjaro', caption: 'On the approach to the summit: every step above 4,500 metres costs more than most climbers expect' },
+
+      { type: 'section', value: 'The factor that decides everything: altitude' },
+      { type: 'text', value: 'Altitude sickness is the primary reason people do not reach the summit of Kilimanjaro. It does not discriminate by fitness level, and it cannot be predicted on the basis of physical ability alone. Young, well-trained athletes can suffer severe altitude sickness, while people who have not exercised regularly for years sometimes ascend without a single symptom. There is a genetic component that lies entirely outside anyone\'s control.' },
+      { type: 'text', value: 'Acute Mountain Sickness, or AMS, develops when the body struggles to adapt to low oxygen levels at the required rate. The most common symptoms are headache, nausea, deep fatigue and disturbed sleep. These are unpleasant, but can usually be managed through a correct ascent pace. The more serious forms, pulmonary oedema and cerebral oedema, are rare but life-threatening and require immediate descent.' },
+      { type: 'text', value: '"Pole pole", in Swahili, meaning slowly slowly, is the phrase guides repeat throughout the entire Kilimanjaro route. Not as a mantra, but as a genuine physiological instruction. A body that ascends at a measured pace produces more red blood cells, adapts to changing air pressure, and reaches the summit. Those who rush, however fit, take an unnecessary risk.' },
+
+      { type: 'callout', title: '✦ What the numbers say', value: '5-day route: 27% success. 6-day route: 44%. 7-day route: 64%. 8-day route: 85%. The difference between 27% and 85% is acclimatisation days, not physical fitness.' },
+
+      { type: 'section', value: 'Routes: not all paths are equal' },
+      { type: 'text', value: 'Kilimanjaro has seven approved routes. The differences between them are not only scenic. They are physiological, and they directly affect the chances of reaching the summit.' },
+      { type: 'text', value: 'The Lemosho route is among the most popular. It begins in rainforest and climbs through four distinct climate zones to the summit. At 7 to 8 days, it provides good acclimatisation and relatively high success rates. The Machame route, known for its spectacular scenery, includes the Barranco Wall, a rocky section requiring some use of hands, considered one of the most challenging passages on the entire mountain. The Northern Circuit is the longest option at 8 to 9 days, and provides the best acclimatisation by covering the widest area of the mountain.' },
+      { type: 'text', value: 'The Marangu route, by contrast, is the shortest option with hut accommodation. It is logistically convenient, but success rates are low because five days is simply not enough for most people to acclimatise properly. The Umbwe route, the steepest of all, is intended for experienced climbers and is not recommended for beginners.' },
+
+      { type: 'image', src: '/images/blog/kilimanjaro-machame.webp', alt: 'The Machame route on Kilimanjaro', caption: 'The Machame route, one of the most rewarding routes on the mountain. At least 7 days is strongly recommended' },
+
+      { type: 'section', value: 'Summit night: the hours that decide' },
+      { type: 'text', value: 'The Kilimanjaro experience divides into two halves: the journey to high camp, and then one night that decides everything. The final ascent begins at midnight, when everyone is already tired from the preceding days of walking. Darkness, a head torch, sharp cold, silence. The climb takes between five and seven hours to reach Uhuru Peak, and most groups arrive at the summit at sunrise.' },
+      { type: 'text', value: 'The reason for setting out at midnight rather than morning is practical. Snow and ice on the upper sections are more stable during the cold night hours. As the sun rises they begin to soften. At the summit, in temperatures between minus 10 and minus 15 degrees Celsius, the moment of sunrise is, according to almost everyone who has been there, among the most beautiful things they have ever witnessed.' },
+      { type: 'text', value: 'Around ten per cent of climbers who reach high camp do not complete the final ascent. Some reach Stella Point at 5,739 metres, which is itself a meaningful achievement. Others turn back earlier, usually because of altitude sickness. There is nothing wrong with that decision. Choosing to descend when the body asks for it is the right decision.' },
+
+      { type: 'section', value: 'Who can climb Kilimanjaro?' },
+      { type: 'text', value: 'The minimum age under Tanzanian law is 10 years. The maximum? Angela Vorobeva reached the summit at 89. Between those two points, almost anyone who is in reasonable health and willing to invest in proper preparation can attempt the climb.' },
+      { type: 'text', value: 'Serious heart conditions and severe lung disease require early medical consultation before any decision is made. Asthma and diabetes, on the other hand, do not necessarily rule out an attempt, and people with both conditions have reached the summit successfully with appropriate medical preparation and support.' },
+      { type: 'text', value: 'In terms of physical fitness, you do not need to be an athlete. You need to be capable of walking six to eight hours per day, for several consecutive days, with a medium-weight backpack. Anyone who trains regularly, does aerobic exercise three to four times a week, and includes hilly walking in the months before the climb will arrive well prepared.' },
+
+      { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', alt: 'A high camp on Kilimanjaro', caption: 'Sleeping at altitude is an essential part of the acclimatisation process. Each night at camp prepares the body for the following day' },
+
+      { type: 'section', value: 'Kilimanjaro with HighAir' },
+      { type: 'text', value: 'At HighAir we take groups to Kilimanjaro every year. We always choose routes of at least seven days, because the data is clear: each additional acclimatisation day meaningfully increases the chances of reaching the summit. Our team specialises in Hebrew-speaking guidance, maintaining the correct pace throughout, and recognising the early signs of altitude sickness before they become a problem.' },
+      { type: 'text', value: 'A portion of the proceeds from every expedition we run is dedicated to supporting cancer patients in Israel, because the mountains, in our view, are also a way of giving back. When you climb Kilimanjaro with us, you are not only doing something for yourself.' },
+      { type: 'text', value: 'Every climber you see today on the summits of the world started once, on one mountain. Kilimanjaro is one of the best places to begin. If you are considering it, we are here.' },
+      { type: 'cta', text: 'למשלחות קילימנג\'רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'How hard is Kilimanjaro compared to other mountains?' },
+      { type: 'text', value: 'Kilimanjaro requires no technical climbing skills and is considered relatively accessible among the Seven Summits. It is harder than Mount Kosciuszko in Australia, but significantly easier than Aconcagua, Elbrus and Everest. The primary challenge is altitude, not technique.' },
+      { type: 'heading', value: 'What is the summit success rate on Kilimanjaro?' },
+      { type: 'text', value: 'The overall success rate is around 45 per cent, but this figure includes short routes where success rates fall as low as 27 per cent. On 7 to 8-day routes, the success rate rises to between 64 and 85 per cent. Choosing a route that is long enough is the single most important factor affecting summit chances.' },
+      { type: 'heading', value: 'Do I need previous climbing experience for Kilimanjaro?' },
+      { type: 'text', value: 'No. Kilimanjaro does not require any previous climbing experience. There is no need to know how to use ropes, crampons, or technical climbing equipment. What is required is good aerobic fitness, the willingness to walk for many hours per day over several days, and appropriate gear for cold and wet conditions.' },
+      { type: 'heading', value: 'Is altitude sickness a real danger on Kilimanjaro?' },
+      { type: 'text', value: 'Yes. Altitude sickness is the main cause of failure and evacuation on Kilimanjaro. It is not dependent on physical fitness and cannot be prevented through physical training alone. A correct ascent pace, a route that is long enough for acclimatisation, and an experienced guide who identifies symptoms early are the best protection.' },
+      { type: 'heading', value: 'How many days does it take to climb Kilimanjaro?' },
+      { type: 'text', value: 'The recommended expeditions are 7 to 8 days. Shorter routes of 5 to 6 days exist, but their success rates are significantly lower. Cutting days to save time is not recommended. Each additional day of acclimatisation substantially increases the probability of reaching the summit.' },
+      { type: 'heading', value: 'What do you wear on Kilimanjaro?' },
+      { type: 'text', value: 'The mountain passes through four climate zones: rainforest, alpine moorland, high-altitude desert and glacier. At the base it can be warm and humid; at the summit, temperatures drop to between minus 10 and minus 15 degrees Celsius. Warm layering, a quality winter jacket, gloves, a beanie and proper trekking boots are essential. We provide every participant with a detailed gear list before departure.' },
+      { type: 'heading', value: 'Can you climb Kilimanjaro without a guide?' },
+      { type: 'text', value: 'No. Tanzanian national park regulations require every climber to be accompanied by a licensed guide. It is not possible to purchase a park permit and enter without one. The regulation exists for safety reasons, and an experienced guide is also the person who will identify symptoms early and initiate evacuation before a situation deteriorates.' },
+    ],
+  }, */
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:4  kristin-harila-everest-triple-crown  (2026-05-21)
    * ═══════════════════════════════════════════════════════════════════ */
   {

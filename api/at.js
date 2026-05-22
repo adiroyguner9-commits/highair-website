@@ -63,6 +63,7 @@ const RESPONSE_FIELDS = {
     'Image_URL', 'Gradient', 'Payment_URL', 'Sort_Order',
     'Gallery_URLs',
     'Free', 'WhatsApp_URL', 'Desc', 'Desc_En',
+    'Distance', 'ElevGain',
   ]),
 };
 

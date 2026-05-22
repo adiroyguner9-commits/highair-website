@@ -139,7 +139,8 @@ export default function IsraelTrips() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
-  const [trips, setTrips] = useState(ISRAEL_TRIPS);
+  const HIDDEN_SLUGS = new Set(ISRAEL_TRIPS.filter(t => t.hidden).map(t => t.slug));
+  const [trips, setTrips] = useState(ISRAEL_TRIPS.filter(t => !t.hidden));
 
   useEffect(() => {
     fetch('/api/airtable/IsraelGroups')
@@ -148,7 +149,7 @@ export default function IsraelTrips() {
         const seen = new Set();
         const loaded = (data.records || [])
           .map(r => ({ id: r.id, ...r.fields }))
-          .filter(f => f.Slug && !f.Hidden)
+          .filter(f => f.Slug && !f.Hidden && !HIDDEN_SLUGS.has(f.Slug))
           .sort((a, b) => (a.Sort_Order || 99) - (b.Sort_Order || 99))
           .filter(f => {
             if (seen.has(f.Slug)) return false;

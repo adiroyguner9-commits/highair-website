@@ -44,14 +44,14 @@ const TEAM_HE = [
     initials: 'חש',
     name:     'חן שקד',
     role:     'מייסד ובעלים',
-    bio:      'מטפס הרים, יזם ואיש חזון. חן הקים את HighAir כחלק משליחות אישית להנצחת אימו, קרול שקד ז״ל. הוא מוביל מסעות המשלבים עוצמה פיזית עם תרומה לקהילה ולחולי סרטן, מתוך אמונה שכל פסגה היא הזדמנות לעשות טוב.',
+    bio:      'המייסד, החזון והנשמה של HighAir. מטפס הרים מקצועי שהפך את התשוקה שלו לשליחות, להנציח את אימו קרול שקד ז״ל ולהוכיח שכל פסגה היא הזדמנות לעשות טוב. חן מוביל משלחות בשטח, בונה קהילה ומעניק השראה לכל מי שמצטרף למסע. עם עשרות טיפוסים לפסגות ברחבי העולם, הוא מוכיח שניתן לשלב הישגים ספורטיביים עם שליחות אנושית.',
   },
   {
     key:      'adir',
     initials: 'אא',
     name:     'אדיר אויגונר',
     role:     'מייסד ובעלים',
-    bio:      'חבר ילדות של חן ושותף מלא לחזון של HighAir. כמנהל המשלחות, אדיר מאמין שכל יציאה למסע היא הזדמנות לשינוי בחיים. מחויב לשליחות שמאחורי כל פסגה ודואג שכל מטפס יפרוץ את הגבולות של עצמו.',
+    bio:      'היזם והמוח העסקי מאחורי HighAir. אדיר אחראי על ניהול כל פעילות החברה: הסכמים עם ספקים בינלאומיים וחברות בעולם, ניהול הצוות המקצועי והאופרציה השוטפת של כל משלחת. חבר ילדות של חן ושותף מלא לחזון, אדיר מאמין שכל יציאה למסע היא הזדמנות לשינוי אמיתי בחיים.',
   },
   {
     key:      'tomer',
@@ -59,6 +59,13 @@ const TEAM_HE = [
     name:     'תומר לן',
     role:     'מנהל מכירות',
     bio:      'הכתובת הראשונה שלכם בדרך להגשמת החלום. תומר אמון על מערך המכירות וליווי המטיילים משלב ההתעניינות ועד ליציאה למסע. במקצועיות ובסבלנות, הוא מוודא שכל אחד ימצא את המסלול והפסגה המתאימים לו ביותר.',
+  },
+  {
+    key:      'tomer-h',
+    initials: 'תה',
+    name:     'תומר הרוש',
+    role:     'נציג מכירות',
+    bio:      'האיש שיעזור לכם להפוך את החלום לקילימנג׳רו למציאות. תומר מלווה את המטיילים שלנו מהרגע הראשון של ההתעניינות ועד ליציאה למסע, עם ידע מעמיק על הטיפוס ותשוקה אמיתית לחוויה.',
   },
   {
     key:      'liad',
@@ -71,8 +78,8 @@ const TEAM_HE = [
     key:      'koral',
     initials: 'קי',
     name:     'קורל יוסף',
-    role:     'סוכנת ביטוח',
-    bio:      'הביטחון שלכם בראש סדר העדיפויות שלה. קורל היא מומחית לביטוחי נסיעות ופעילות הרים אתגרית. היא דואגת שכל מטייל ב-HighAir יהיה מוגן ומבוטח בצורה המיטבית, כדי שתוכלו לטפס בראש שקט.',
+    role:     'סוכנת ביטוח ומתכננת פיננסית',
+    bio:      'הביטחון שלכם בראש סדר העדיפויות שלה. קורל היא מומחית לביטוחי נסיעות ופעילות הרים אתגרית, ומתכננת פיננסית מוסמכת. היא דואגת שכל מטייל ב-HighAir יהיה מוגן ומבוטח בצורה המיטבית, כדי שתוכלו לטפס בראש שקט.',
   },
   {
     key:      'roei',
@@ -80,6 +87,13 @@ const TEAM_HE = [
     name:     'רועי כרמל',
     role:     'מדריך טיולים',
     bio:      'המדריך שיוביל אתכם בשבילי הארץ. רועי הוא מדריך מנוסה המלווה את קבוצות ההכנה והטיולים שלנו בישראל, בשטחים מאתגרים ובנופים הכי יפים שיש. הוא מחויב לבטיחותכם ולחוויה המקסימלית של כל מטייל בשטח.',
+  },
+  {
+    key:      'guy',
+    initials: 'גל',
+    name:     'גיא לינב',
+    role:     'מדריך טיולים',
+    bio:      'מדריך טיולים מוסמך ובעל ניסיון עשיר בהובלת קבוצות בשטח. גיא מצטרף לצוות HighAir ומלווה את המטיילים שלנו עם מקצועיות, אכפתיות ואהבה אמיתית לשטח.',
   },
 ];
 
@@ -89,14 +103,14 @@ const TEAM_EN = [
     initials: 'CS',
     name:     'Chen Shaked',
     role:     'Founder & Owner',
-    bio:      'Mountain climber, entrepreneur and visionary. Chen founded HighAir as part of a personal mission to honour his mother, Carol Shaked. He leads expeditions that combine physical challenge with community contribution and support for cancer patients, driven by the belief that every summit is an opportunity to do good.',
+    bio:      'The founder, visionary and soul of HighAir. A professional mountain climber who turned his passion into a mission: to honour his mother Carol Shaked and prove that every summit is an opportunity to do good. Chen leads expeditions in the field, builds the community, and inspires everyone who joins the journey. With dozens of summits across the world, he proves that athletic achievement and human purpose can go hand in hand.',
   },
   {
     key:      'adir',
     initials: 'AO',
     name:     'Adir Oyguner',
     role:     'Founder & Owner',
-    bio:      'Chen\'s childhood friend and full partner in the HighAir vision. As an expedition leader, Adir believes every journey is an opportunity for life-changing growth. Committed to the mission behind every summit, he ensures every climber pushes beyond their own limits.',
+    bio:      'The entrepreneur and business mind behind HighAir. Adir oversees every aspect of the company: agreements with international suppliers and partners worldwide, managing the professional team, and running the day-to-day operations of every expedition. Chen\'s childhood friend and full partner in the vision, Adir believes every journey is a genuine opportunity to change your life.',
   },
   {
     key:      'tomer',
@@ -104,6 +118,13 @@ const TEAM_EN = [
     name:     'Tomer Lan',
     role:     'Sales Manager',
     bio:      'Your first point of contact on the road to realising your dream. Tomer leads the sales and client journey from the first enquiry through to departure. With professionalism and patience, he ensures every person finds the route and summit best suited to them.',
+  },
+  {
+    key:      'tomer-h',
+    initials: 'TH',
+    name:     'Tomer Harosh',
+    role:     'Sales Representative',
+    bio:      'The person who will help you turn your Kilimanjaro dream into reality. Tomer accompanies our trekkers from the very first enquiry through to departure, with deep knowledge of the climb and a genuine passion for the experience.',
   },
   {
     key:      'liad',
@@ -116,8 +137,8 @@ const TEAM_EN = [
     key:      'koral',
     initials: 'KY',
     name:     'Koral Yosef',
-    role:     'Insurance Agent',
-    bio:      'Your safety is her top priority. Koral is a specialist in travel and adventure mountain activity insurance. She ensures every HighAir trekker is fully and optimally covered, so you can climb with complete peace of mind.',
+    role:     'Insurance Agent & Financial Planner',
+    bio:      'Your safety is her top priority. Koral is a specialist in travel and adventure mountain activity insurance, and a certified financial planner. She ensures every HighAir trekker is fully and optimally covered, so you can climb with complete peace of mind.',
   },
   {
     key:      'roei',
@@ -125,6 +146,13 @@ const TEAM_EN = [
     name:     'Roei Carmel',
     role:     'Trekking Guide',
     bio:      'The guide who will lead you through the trails of the land. Roei is an experienced guide accompanying our preparation groups and Israel treks through challenging terrain and stunning landscapes. He is committed to your safety and to delivering the best possible experience for every trekker in the field.',
+  },
+  {
+    key:      'guy',
+    initials: 'GL',
+    name:     'Guy Linev',
+    role:     'Trekking Guide',
+    bio:      'A certified trekking guide with extensive experience leading groups in the field. Guy joins the HighAir team bringing professionalism, care and a genuine love for the outdoors to every trek he leads.',
   },
 ];
 
@@ -599,7 +627,7 @@ export default function AboutUs() {
   const team        = isEn ? TEAM_EN : TEAM_HE;
   const storyParagraphs = isEn ? STORY_EN : STORY_HE;
   const storySign   = isEn ? STORY_SIGN_EN : STORY_SIGN_HE;
-  const teamCols    = isMobile ? 2 : isTablet ? 3 : 4;
+  const teamCols    = isMobile ? 1 : isTablet ? 3 : 4;
 
   return (
     <>

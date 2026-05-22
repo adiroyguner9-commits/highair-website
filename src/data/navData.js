@@ -173,7 +173,7 @@ export const NAV_EXPS = [
     "nameEn": "Aconcagua",
     "country": "Argentina",
     "countryHe": "ארגנטינה",
-    "elev": "6961m",
+    "elev": "6962m",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -257,8 +257,8 @@ export const CARD_EXPS = [
     "typeHe": "טרק",
     "diff": "Moderate",
     "diffHe": "בינוני",
-    "price": 2960,
-    "priceStr": "$2960",
+    "price": 3000,
+    "priceStr": "$3000",
     "continent": "africa",
     "airtableEvents": [
       "Ethiopia"
@@ -523,8 +523,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Hard",
     "diffHe": "אתגרי",
-    "price": 9800,
-    "priceStr": "$9800",
+    "price": 10000,
+    "priceStr": "$10000",
     "continent": "southamerica",
     "airtableEvents": [
       "Aconcagua"

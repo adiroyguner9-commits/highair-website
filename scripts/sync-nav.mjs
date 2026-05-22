@@ -62,7 +62,7 @@ function pick(obj, fields) {
 
 const navExps    = EXPS.map(e => pick(e, NAV_EXP_FIELDS));
 const cardExps   = EXPS.map(e => pick(e, CARD_EXP_FIELDS));
-const navIsrael  = ISRAEL_TRIPS.map(t => pick(t, NAV_ISRAEL_FIELDS));
+const navIsrael  = ISRAEL_TRIPS.filter(t => !t.hidden).map(t => pick(t, NAV_ISRAEL_FIELDS));
 
 /* ── Write output ───────────────────────────────────────────────────────── */
 const output = `/**

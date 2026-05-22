@@ -869,6 +869,7 @@ export default function Header() {
  { key: 'annualPlan', href: '/annual-plan', isPage: true },
  { key: 'about', href: '/about', isPage: true },
  { key: 'blog', href: '/blog', isPage: true },
+ { key: 'shop', href: '/shop', isPage: true },
  { key: 'contact', href: '/contact', isPage: true },
  ];
  const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));

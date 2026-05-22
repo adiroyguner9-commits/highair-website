@@ -1862,6 +1862,58 @@ export default function ExpeditionDetail() {
 
 
 
+        {/* ══════════════════════════════════
+            FAQ ACCORDION
+        ══════════════════════════════════ */}
+        <Separator />
+        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+          <h2 style={{
+            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
+            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: dir,
+          }}>
+            {isRtl ? 'שאלות נפוצות' : 'Frequently Asked Questions'}
+          </h2>
+          <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
+            {faqItems.map((item, idx) => {
+              const isOpen = openFaq === idx;
+              const isLast = idx === faqItems.length - 1;
+              return (
+                <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
+                  <button
+                    className="accordion-row"
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${idx}`}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '16px',
+                      padding: '18px 20px', cursor: 'pointer',
+                      background: isOpen ? '#FAFAFE' : 'white',
+                      transition: `background 150ms ${EASING.smooth}`, direction: dir,
+                      width: '100%', border: 'none', textAlign: 'start',
+                    }}
+                  >
+                    <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>
+                      {item.q}
+                    </span>
+                    <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>
+                      {isOpen ? '▴' : '▾'}
+                    </span>
+                  </button>
+                  <div id={`faq-panel-${idx}`} style={{ maxHeight: isOpen ? '400px' : '0', overflow: 'hidden', transition: 'max-height 0.35s ease' }}>
+                    <p style={{
+                      padding: '0 20px 18px', margin: 0,
+                      fontFamily: "'Ploni', sans-serif", fontSize: '15px',
+                      color: '#6B6B8A', lineHeight: 1.8, direction: dir,
+                    }}>
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
       </main>
 
       {/* ══════════════════════════════════
