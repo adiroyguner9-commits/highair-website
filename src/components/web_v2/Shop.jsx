@@ -1,30 +1,32 @@
 /**
  * Shop.jsx - /shop
- * Nims Dai-inspired design, adapted to HighAir visual language.
+ * HighAir design system — same language as the rest of the site.
  *
  * Payment flow:
- *   Click card / Quick Buy → ProductModal opens
- *   Click "לרכישה" → window.location.href to Grow.link (same tab, no popup)
- *   Grow redirects back to /shop?paid=1 on success
- *   Success banner shown on return, URL cleaned up
+ *   Click card / "לרכישה" → ProductModal opens
+ *   Click buy button → window.location.href to Grow.link (same tab)
+ *   Grow redirects back to /shop?paid=1 on success → success banner shown
  *
- *   REQUIRED: In your Grow dashboard, set the payment page's
- *   "Success URL" to: https://www.highair-expeditions.com/shop?paid=1
+ *   REQUIRED: In your Grow dashboard set "Success URL" to:
+ *   https://www.highair-expeditions.com/shop?paid=1
  */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
-import { COLOR, RADIUS, EASING, FONT } from '../../website/theme.js';
+import {
+  COLOR, FONT, RADIUS, SHADOW, EASING, LABEL, BTN,
+} from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { PRODUCTS } from '../../data/shopData.js';
-import Header from './Header.jsx';
+import Header     from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
-/* ─── SVG Icons ──────────────────────────────────────────── */
+/* ─── Icons ─────────────────────────────────────────────── */
 const IconTruck = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+    <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/>
+    <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
   </svg>
 );
 const IconLock = () => (
@@ -48,17 +50,17 @@ const IconClose = () => (
   </svg>
 );
 const IconCheck = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="20,6 9,17 4,12"/>
   </svg>
 );
 
 /* ─── Trust bar data ─────────────────────────────────────── */
 const TRUST = [
-  { icon: <IconTruck />,    he: 'משלוח לכל הארץ',        en: 'Nationwide Delivery'      },
-  { icon: <IconLock />,     he: 'תשלום מאובטח',           en: 'Secure Payment'           },
-  { icon: <IconMountain />, he: 'ציוד מוכח בשטח',         en: 'Field-Tested Gear'        },
-  { icon: <IconHeart />,    he: 'תורמים למאבק בסרטן',     en: 'Supporting Cancer Patients'},
+  { icon: <IconTruck />,    he: 'משלוח לכל הארץ',      en: 'Nationwide Delivery'       },
+  { icon: <IconLock />,     he: 'תשלום מאובטח',         en: 'Secure Payment'            },
+  { icon: <IconMountain />, he: 'ציוד מוכח בשטח',       en: 'Field-Tested Gear'         },
+  { icon: <IconHeart />,    he: 'תורמים למאבק בסרטן',   en: 'Supporting Cancer Patients' },
 ];
 
 /* ─── ProductCard ────────────────────────────────────────── */
@@ -72,113 +74,145 @@ function ProductCard({ product, isRtl, onSelect }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => onSelect(product)}
-      style={{ cursor: 'pointer' }}
+      style={{
+        background:    'transparent',
+        cursor:        'pointer',
+        display:       'flex',
+        flexDirection: 'column',
+      }}
     >
-      {/* Image box */}
+      {/* Image area */}
       <div style={{
-        position: 'relative',
-        background: '#F3F4F6',
-        aspectRatio: '1 / 1',
-        overflow: 'hidden',
-        borderRadius: '4px',
+        position:     'relative',
+        background:   '#F0EFF8',
+        aspectRatio:  '1 / 1',
+        borderRadius: RADIUS.xl,
+        overflow:     'visible',
+        transform:    hovered ? 'translateY(-6px)' : 'translateY(0)',
+        transition:   `transform 0.28s ${EASING.out}`,
+        marginBottom: '8px',
       }}>
-        {/* Badge */}
-        {(isComingSoon || product.badge) && (
-          <span style={{
-            position: 'absolute',
-            top: '10px',
-            ...(isRtl ? { right: '10px' } : { left: '10px' }),
-            zIndex: 2,
-            background: isComingSoon ? '#111827' : COLOR.primary,
-            color: '#fff',
-            fontFamily: FONT.primary,
-            fontSize: '10px',
-            fontWeight: 700,
-            padding: '4px 10px',
-            borderRadius: '2px',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }}>
-            {isComingSoon ? (isRtl ? 'בקרוב' : 'Coming Soon') : product.badge}
-          </span>
-        )}
+        {/* Actual image clip */}
+        <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
 
-        {/* Image */}
-        {product.img ? (
-          <img
-            src={product.img}
-            alt={name}
-            onError={e => { e.currentTarget.parentElement.style.background = '#EBEBEB'; e.currentTarget.style.display = 'none'; }}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              transform: hovered ? 'scale(1.07)' : 'scale(1)',
-              transition: `transform 0.5s ${EASING.out}`,
-              display: 'block',
-            }}
-          />
-        ) : (
-          <div style={{
-            width: '100%', height: '100%',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#D1D5DB',
-          }}>
-            <IconMountain />
-          </div>
-        )}
+          {/* Badge */}
+          {(isComingSoon || product.badge) && (
+            <span style={{
+              position:      'absolute',
+              top:           '12px',
+              ...(isRtl ? { right: '12px' } : { left: '12px' }),
+              zIndex:        2,
+              background:    isComingSoon ? COLOR.muted : COLOR.grad.brand,
+              color:         '#fff',
+              fontFamily:    FONT.primary,
+              fontSize:      '11px',
+              fontWeight:    700,
+              padding:       '4px 12px',
+              borderRadius:  RADIUS.full,
+              letterSpacing: '0.04em',
+            }}>
+              {isComingSoon ? (isRtl ? 'בקרוב' : 'Coming Soon') : product.badge}
+            </span>
+          )}
 
-        {/* Quick Buy bar — slides up on hover */}
-        {!isComingSoon && (
-          <div style={{
-            position: 'absolute',
-            bottom: 0, left: 0, right: 0,
-            background: '#111827',
-            color: '#FFFFFF',
-            fontFamily: FONT.primary,
-            fontSize: '12px',
-            fontWeight: 700,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            textAlign: 'center',
-            padding: '13px 0',
-            transform: hovered ? 'translateY(0)' : 'translateY(100%)',
-            transition: `transform 0.28s ${EASING.out}`,
-          }}>
-            {isRtl ? 'רכישה מהירה' : 'Quick Buy'}
-          </div>
-        )}
+          {/* Image */}
+          {product.img ? (
+            <img
+              src={product.img}
+              alt={name}
+              onError={e => { e.currentTarget.style.display = 'none'; }}
+              style={{
+                width:        '100%',
+                height:       '100%',
+                objectFit:    'contain',
+                objectPosition: 'center 85%',
+                display:      'block',
+                padding:      '20px 20px 28px',
+                mixBlendMode: 'multiply',
+                transform:    hovered ? 'scale(1.05)' : 'scale(1)',
+                transition:   `transform 0.45s ${EASING.out}`,
+                boxSizing:    'border-box',
+              }}
+            />
+          ) : (
+            <div style={{
+              width: '100%', height: '100%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: COLOR.border, opacity: 0.5,
+            }}><IconMountain /></div>
+          )}
+
+          {/* "לרכישה" hover bar */}
+          {!isComingSoon && (
+            <div style={{
+              position:   'absolute',
+              bottom:     0, left: 0, right: 0,
+              background: COLOR.grad.brand,
+              color:      '#FFFFFF',
+              fontFamily: FONT.primary,
+              fontSize:   '13px',
+              fontWeight: 700,
+              textAlign:  'center',
+              padding:    '12px 0',
+              letterSpacing: '0.04em',
+              transform:  hovered ? 'translateY(0)' : 'translateY(100%)',
+              transition: `transform 0.26s ${EASING.out}`,
+            }}>
+              {isRtl ? 'לרכישה ←' : 'Buy Now →'}
+            </div>
+          )}
+        </div>
+
+        {/* Floating cast shadow below the product */}
+        <div style={{
+          position:     'absolute',
+          bottom:       '-10px',
+          left:         '15%',
+          right:        '15%',
+          height:       '20px',
+          background:   'rgba(80,40,160,0.22)',
+          filter:       'blur(14px)',
+          borderRadius: '50%',
+          transition:   `opacity 0.28s ${EASING.out}`,
+          opacity:      hovered ? 0.9 : 0.6,
+          zIndex:       -1,
+        }} />
       </div>
 
-      {/* Card text */}
+      {/* Text */}
       <div style={{
-        padding: '12px 2px 0',
+        padding:   '16px 18px 20px',
         direction: isRtl ? 'rtl' : 'ltr',
+        flex:      1,
+        display:   'flex',
+        flexDirection: 'column',
+        gap:       '6px',
       }}>
         <div style={{
-          fontFamily: FONT.primary,
-          fontSize: '14px',
-          fontWeight: 600,
-          color: '#111827',
-          lineHeight: 1.35,
-          marginBottom: '4px',
+          fontFamily:    FONT.primary,
+          fontSize:      '15px',
+          fontWeight:    700,
+          color:         COLOR.text,
+          lineHeight:    1.3,
+          letterSpacing: '-0.01em',
         }}>
           {name}
         </div>
         {product.price != null ? (
           <div style={{
             fontFamily: FONT.primary,
-            fontSize: '14px',
-            fontWeight: 400,
-            color: '#111827',
+            fontSize:   '17px',
+            fontWeight: 800,
+            color:      COLOR.primary,
+            letterSpacing: '-0.02em',
           }}>
             {product.currency}{product.price}
           </div>
         ) : (
           <div style={{
             fontFamily: FONT.primary,
-            fontSize: '12px',
-            color: '#9CA3AF',
+            fontSize:   '12px',
+            color:      COLOR.mutedLight,
           }}>
             {isRtl ? 'מחיר בקרוב' : 'Price soon'}
           </div>
@@ -190,25 +224,23 @@ function ProductCard({ product, isRtl, onSelect }) {
 
 /* ─── ProductModal ───────────────────────────────────────── */
 function ProductModal({ product, isRtl, isMobile, onClose }) {
-  const dir = isRtl ? 'rtl' : 'ltr';
+  const dir        = isRtl ? 'rtl' : 'ltr';
   const isComingSoon = product.price == null;
-  const name = isRtl ? product.name : product.nameEn;
-  const desc = isRtl ? product.description : product.descriptionEn;
+  const name       = isRtl ? product.name       : product.nameEn;
+  const desc       = isRtl ? product.description : product.descriptionEn;
 
-  // Escape key
   useEffect(() => {
     const onKey = e => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  // Lock scroll
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, []);
 
-  function handleBuyClick() {
+  function handleBuy() {
     Analytics.clickBuyProduct(name, product.price);
     window.location.href = product.buyLink;
   }
@@ -217,104 +249,115 @@ function ProductModal({ product, isRtl, isMobile, onClose }) {
     <div
       onClick={onClose}
       style={{
-        position: 'fixed', inset: 0, zIndex: 9000,
-        background: 'rgba(0,0,0,0.5)',
-        display: 'flex',
+        position:  'fixed', inset: 0, zIndex: 9000,
+        background: 'rgba(10,8,24,0.72)',
+        backdropFilter:       'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        display:    'flex',
         alignItems: isMobile ? 'flex-end' : 'center',
         justifyContent: 'center',
-        padding: isMobile ? '0' : '24px',
+        padding:    isMobile ? 0 : '24px',
       }}
     >
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: '#FFFFFF',
-          width: '100%',
-          maxWidth: isMobile ? '100%' : '820px',
-          borderRadius: isMobile ? '16px 16px 0 0' : '8px',
-          overflow: 'hidden',
-          display: 'grid',
+          background:          '#FFFFFF',
+          borderRadius:        isMobile ? `${RADIUS['2xl']} ${RADIUS['2xl']} 0 0` : RADIUS['2xl'],
+          width:               '100%',
+          maxWidth:            isMobile ? '100%' : '820px',
+          overflow:            'hidden',
+          display:             'grid',
           gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          maxHeight: isMobile ? '92vh' : '90vh',
-          overflowY: 'auto',
+          maxHeight:           isMobile ? '92vh' : '88vh',
+          overflowY:           'auto',
+          boxShadow:           SHADOW['2xl'],
         }}
       >
         {/* Image panel */}
         <div style={{
-          background: '#F3F4F6',
-          display: 'flex',
-          alignItems: 'center',
+          background:     '#F0EFF8',
+          display:        'flex',
+          alignItems:     'center',
           justifyContent: 'center',
-          minHeight: isMobile ? '260px' : '480px',
-          padding: '40px',
-          order: isRtl && !isMobile ? 1 : 0,
-          position: 'relative',
+          minHeight:      isMobile ? '260px' : '440px',
+          position:       'relative',
+          overflow:       'hidden',
+          order:          isRtl && !isMobile ? 1 : 0,
         }}>
           {product.img ? (
             <img
               src={product.img}
               alt={name}
-              style={{ maxWidth: '100%', maxHeight: '320px', objectFit: 'contain' }}
+              style={{
+                width:        '75%',
+                height:       '75%',
+                objectFit:    'contain',
+                objectPosition: 'center 85%',
+                mixBlendMode: 'multiply',
+              }}
             />
           ) : (
-            <div style={{ color: '#D1D5DB' }}><IconMountain /></div>
+            <div style={{ color: COLOR.border }}><IconMountain /></div>
           )}
+          {/* Floating shadow */}
+          <div style={{
+            position:     'absolute',
+            bottom:       '12px',
+            left:         '20%',
+            right:        '20%',
+            height:       '24px',
+            background:   'rgba(80,40,160,0.2)',
+            filter:       'blur(16px)',
+            borderRadius: '50%',
+          }} />
         </div>
 
         {/* Content panel */}
         <div style={{
-          padding: isMobile ? '28px 24px 32px' : '48px 44px',
-          direction: dir,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          order: isRtl && !isMobile ? 0 : 1,
-          position: 'relative',
+          padding:        isMobile ? '28px 24px 36px' : '44px 40px',
+          direction:      dir,
+          display:        'flex',
+          flexDirection:  'column',
+          gap:            '18px',
+          order:          isRtl && !isMobile ? 0 : 1,
+          position:       'relative',
         }}>
-          {/* Close button */}
+          {/* Close */}
           <button
             onClick={onClose}
             style={{
-              position: 'absolute',
-              top: '16px',
+              position:   'absolute',
+              top:        '16px',
               ...(isRtl ? { left: '16px' } : { right: '16px' }),
-              width: '32px', height: '32px',
+              width:      '34px', height: '34px',
               borderRadius: '50%',
-              border: '1px solid #E5E7EB',
+              border:     `1px solid ${COLOR.border}`,
               background: '#FFFFFF',
-              cursor: 'pointer',
-              display: 'flex',
+              cursor:     'pointer',
+              display:    'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#374151',
+              color:      COLOR.muted,
             }}
           >
             <IconClose />
           </button>
 
-          {/* Coming soon badge */}
-          {isComingSoon && (
-            <span style={{
-              display: 'inline-block', width: 'fit-content',
-              background: '#F3F4F6', color: '#374151',
-              fontFamily: FONT.primary,
-              fontSize: '11px', fontWeight: 700,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              padding: '5px 12px', borderRadius: '2px',
-            }}>
-              {isRtl ? 'מגיע בקרוב' : 'Coming Soon'}
-            </span>
-          )}
+          {/* Overline label */}
+          <span style={{ ...LABEL, marginBottom: 0 }}>
+            {isRtl ? 'HighAir Expeditions' : 'HighAir Expeditions'}
+          </span>
 
           {/* Name */}
           <h2 style={{
-            fontFamily: FONT.primary,
-            fontSize: isMobile ? '22px' : '26px',
-            fontWeight: 700,
-            color: '#111827',
-            margin: 0,
-            lineHeight: 1.25,
-            letterSpacing: '-0.01em',
+            fontFamily:    FONT.primary,
+            fontSize:      isMobile ? '22px' : '28px',
+            fontWeight:    800,
+            color:         COLOR.text,
+            margin:        0,
+            letterSpacing: '-0.02em',
+            lineHeight:    1.2,
           }}>
             {name}
           </h2>
@@ -322,65 +365,52 @@ function ProductModal({ product, isRtl, isMobile, onClose }) {
           {/* Price */}
           {product.price != null && (
             <div style={{
-              fontFamily: FONT.primary,
-              fontSize: '22px',
-              fontWeight: 500,
-              color: '#111827',
+              fontFamily:    FONT.primary,
+              fontSize:      '26px',
+              fontWeight:    800,
+              color:         COLOR.primary,
+              letterSpacing: '-0.03em',
             }}>
               {product.currency}{product.price}
             </div>
           )}
 
           {/* Divider */}
-          <div style={{ height: '1px', background: '#F3F4F6' }} />
+          <div style={{ height: '1px', background: COLOR.border }} />
 
           {/* Description */}
           <p style={{
             fontFamily: FONT.primary,
-            fontSize: '14px',
-            fontWeight: 400,
-            color: '#4B5563',
-            margin: 0,
+            fontSize:   '15px',
+            fontWeight: 300,
+            color:      COLOR.muted,
+            margin:     0,
             lineHeight: 1.85,
-            flex: 1,
+            flex:       1,
           }}>
             {desc}
           </p>
 
-          {/* Buy CTA */}
-          {!isComingSoon && (
+          {/* CTA */}
+          {!isComingSoon ? (
             <button
-              onClick={handleBuyClick}
-              style={{
-                width: '100%',
-                padding: '15px 24px',
-                background: '#111827',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '4px',
-                fontFamily: FONT.primary,
-                fontSize: '14px',
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-                transition: 'background 0.18s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#1F2937'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#111827'; }}
+              onClick={handleBuy}
+              style={{ ...BTN.primary, width: '100%', justifyContent: 'center' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
             >
               {isRtl ? 'לרכישה' : 'Buy Now'}
             </button>
-          )}
-
-          {isComingSoon && (
+          ) : (
             <p style={{
               fontFamily: FONT.primary,
-              fontSize: '13px',
-              color: '#9CA3AF',
-              margin: 0,
+              fontSize:   '14px',
+              color:      COLOR.mutedLight,
+              margin:     0,
             }}>
-              {isRtl ? 'המוצר יהיה זמין לרכישה בקרוב.' : 'This product will be available for purchase soon.'}
+              {isRtl
+                ? 'המוצר יהיה זמין לרכישה בקרוב.'
+                : 'This product will be available for purchase soon.'}
             </p>
           )}
         </div>
@@ -389,15 +419,15 @@ function ProductModal({ product, isRtl, isMobile, onClose }) {
   );
 }
 
-/* ─── Main Shop page ─────────────────────────────────────── */
+/* ─── Main page ──────────────────────────────────────────── */
 export default function Shop() {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl    = i18n.language !== 'en';
   const { isMobile, isTablet } = useBreakpoint();
   const dir = isRtl ? 'rtl' : 'ltr';
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Detect return from Grow payment with ?paid=1
+  /* Return from Grow payment with ?paid=1 */
   const [paidSuccess, setPaidSuccess] = useState(() => {
     if (typeof window === 'undefined') return false;
     return new URLSearchParams(window.location.search).get('paid') === '1';
@@ -411,15 +441,17 @@ export default function Shop() {
   }, []);
 
   usePageMeta({
-    title:       isRtl ? 'חנות HighAir | ציוד טרקים ומשלחות' : 'HighAir Shop | Trekking & Expedition Gear',
+    title:       isRtl
+      ? 'חנות HighAir | ציוד טרקים ומשלחות'
+      : 'HighAir Shop | Trekking & Expedition Gear',
     description: isRtl
       ? 'ציוד טרקים ומשלחות מוכח בשטח מבית HighAir Expeditions. תיקים, סופטשל, משקפי הרים ועוד. כל רכישה תורמת למאבק בסרטן.'
-      : 'Field-tested trekking and expedition gear from HighAir Expeditions. Duffel bags, softshells, mountain sunglasses and more. Every purchase supports cancer patients.',
+      : 'Field-tested trekking and expedition gear from HighAir Expeditions. Bags, softshells, mountain sunglasses and more. Every purchase supports cancer patients.',
     canonicalPath: '/shop',
   });
 
-  const cols = isMobile ? 2 : isTablet ? 3 : 4;
   const featuredProduct = PRODUCTS.find(p => p.buyLink);
+  const cols = isMobile ? 2 : isTablet ? 3 : 4;
 
   return (
     <>
@@ -435,74 +467,85 @@ export default function Shop() {
         />
       )}
 
-      {/* Payment success banner */}
+      {/* Success banner */}
       {paidSuccess && (
         <div style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 8000,
-          background: '#111827', color: '#FFFFFF',
-          fontFamily: FONT.primary, fontSize: '14px', fontWeight: 600,
-          padding: '14px 24px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-          letterSpacing: '0.02em',
+          position:   'fixed', top: 0, left: 0, right: 0, zIndex: 8000,
+          background: COLOR.grad.brand,
+          color:      '#FFFFFF',
+          fontFamily: FONT.primary,
+          fontSize:   '15px',
+          fontWeight: 600,
+          padding:    '14px 24px',
+          display:    'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap:        '10px',
+          boxShadow:  SHADOW.brand.lg,
         }}>
           <div style={{
-            width: '22px', height: '22px', borderRadius: '50%',
-            background: '#10B981', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0,
+            width: '24px', height: '24px', borderRadius: '50%',
+            background: 'rgba(255,255,255,0.2)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
           }}>
             <IconCheck />
           </div>
-          {isRtl ? 'תודה על הרכישה! אישור יישלח אליך בקרוב.' : 'Thank you for your purchase! A confirmation will be sent shortly.'}
+          {isRtl
+            ? 'תודה על הרכישה! אישור יישלח אליך בקרוב.'
+            : 'Thank you for your purchase! A confirmation will be sent shortly.'}
         </div>
       )}
 
-      <main id="main-content" style={{ background: '#FFFFFF', minHeight: '100vh', direction: dir }}>
+      <main id="main-content" style={{ background: COLOR.bg, minHeight: '100vh', direction: dir }}>
 
-        {/* ══ HERO ══════════════════════════════════════════ */}
+        {/* ══ HERO ════════════════════════════════════════════ */}
         <div style={{
+          background:    COLOR.grad.heroAlt,
           paddingTop:    isMobile ? '110px' : '140px',
-          paddingBottom: isMobile ? '48px' : '64px',
-          paddingLeft:   '5%',
-          paddingRight:  '5%',
+          paddingBottom: isMobile ? '64px'  : '88px',
+          paddingLeft:   '5%', paddingRight: '5%',
           textAlign:     'center',
-          borderBottom:  '1px solid #F3F4F6',
+          position:      'relative',
+          overflow:      'hidden',
         }}>
-          <p style={{
-            fontFamily: FONT.primary,
-            fontSize: '11px',
-            fontWeight: 700,
-            color: '#9CA3AF',
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            margin: '0 0 16px',
-          }}>
-            HighAir Expeditions
-          </p>
-          <h1 style={{
-            fontFamily: FONT.primary,
-            fontSize: isMobile ? '34px' : '52px',
-            fontWeight: 800,
-            color: '#111827',
-            margin: '0 0 14px',
-            letterSpacing: '-0.03em',
-            lineHeight: 1.1,
-          }}>
-            {isRtl ? 'החנות שלנו' : 'Our Store'}
-          </h1>
-          <p style={{
-            fontFamily: FONT.primary,
-            fontSize: isMobile ? '14px' : '16px',
-            fontWeight: 400,
-            color: '#6B7280',
-            margin: 0,
-            lineHeight: 1.65,
-          }}>
-            {isRtl ? 'ציוד מוכח בשטח. לכל טרק ולכל מסע.' : 'Field-tested gear. For every trek and expedition.'}
-          </p>
+          {/* Radial glow */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(109,40,217,0.4) 0%, transparent 70%)',
+            pointerEvents: 'none',
+          }} />
+          <div style={{ position: 'relative', zIndex: 1, maxWidth: '640px', margin: '0 auto' }}>
+            <span style={{ ...LABEL, color: COLOR.lighter, marginBottom: '16px', display: 'block' }}>
+              HighAir Expeditions
+            </span>
+            <h1 style={{
+              fontFamily:    FONT.primary,
+              fontSize:      isMobile ? '36px' : '56px',
+              fontWeight:    900,
+              color:         '#FFFFFF',
+              margin:        '0 0 16px',
+              letterSpacing: '-0.03em',
+              lineHeight:    1.1,
+            }}>
+              {isRtl ? 'החנות שלנו' : 'Our Store'}
+            </h1>
+            <p style={{
+              fontFamily: FONT.primary,
+              fontSize:   isMobile ? '16px' : '18px',
+              fontWeight: 300,
+              color:      'rgba(255,255,255,0.72)',
+              margin:     0,
+              lineHeight: 1.65,
+            }}>
+              {isRtl
+                ? 'ציוד מוכח בשטח. לכל טרק ולכל מסע.'
+                : 'Field-tested gear. For every trek and expedition.'}
+            </p>
+          </div>
         </div>
 
-        {/* ══ TRUST BAR ══════════════════════════════════════ */}
-        <div style={{ borderBottom: '1px solid #F3F4F6', background: '#FAFAFA' }}>
+        {/* ══ TRUST BAR ═══════════════════════════════════════ */}
+        <div style={{ background: '#FFFFFF', borderBottom: `1px solid ${COLOR.border}` }}>
           <div style={{
             maxWidth: '1200px', margin: '0 auto', padding: '0 5%',
             display: 'grid',
@@ -510,21 +553,21 @@ export default function Shop() {
           }}>
             {TRUST.map((item, i) => (
               <div key={i} style={{
-                display: 'flex',
+                display:       'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                gap: '6px',
-                padding: isMobile ? '18px 8px' : '22px 16px',
-                textAlign: 'center',
-                borderRight: (!isMobile && i < 3) ? '1px solid #F3F4F6' : 'none',
-                borderBottom: (isMobile && i < 2) ? '1px solid #F3F4F6' : 'none',
+                alignItems:    'center',
+                gap:           '7px',
+                padding:       isMobile ? '20px 8px' : '24px 16px',
+                textAlign:     'center',
+                borderRight:   (!isMobile && i < 3) ? `1px solid ${COLOR.border}` : 'none',
+                borderBottom:  (isMobile && i < 2)  ? `1px solid ${COLOR.border}` : 'none',
               }}>
-                <div style={{ color: '#374151' }}>{item.icon}</div>
+                <div style={{ color: COLOR.primary }}>{item.icon}</div>
                 <div style={{
-                  fontFamily: FONT.primary,
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  color: '#374151',
+                  fontFamily:    FONT.primary,
+                  fontSize:      '12px',
+                  fontWeight:    700,
+                  color:         COLOR.text,
                   letterSpacing: '0.02em',
                 }}>
                   {isRtl ? item.he : item.en}
@@ -534,103 +577,117 @@ export default function Shop() {
           </div>
         </div>
 
-        {/* ══ FEATURED PRODUCT ═══════════════════════════════ */}
+        {/* ══ FEATURED PRODUCT ════════════════════════════════ */}
         {featuredProduct && (
-          <div style={{ background: '#111827', borderBottom: '1px solid #111827' }}>
+          <div style={{
+            background:   COLOR.grad.heroAlt,
+            borderBottom: `1px solid rgba(109,40,217,0.2)`,
+          }}>
             <div style={{
               maxWidth: '1200px', margin: '0 auto',
-              padding: isMobile ? '48px 5%' : '80px 5%',
-              display: 'grid',
+              padding:  isMobile ? '48px 5%' : '80px 5%',
+              display:  'grid',
               gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: isMobile ? '32px' : '80px',
+              gap:      isMobile ? '32px' : '72px',
               alignItems: 'center',
-              direction: dir,
+              direction:  dir,
             }}>
               {/* Image */}
               <div
                 onClick={() => setSelectedProduct(featuredProduct)}
                 style={{
-                  background: '#1F2937',
-                  borderRadius: '4px',
-                  padding: '48px',
-                  display: 'flex',
+                  position:   'relative',
+                  background: 'rgba(255,255,255,0.06)',
+                  borderRadius: RADIUS['2xl'],
+                  border:     '1px solid rgba(255,255,255,0.1)',
+                  aspectRatio: '1/1',
+                  cursor:     'pointer',
+                  order:      isRtl && !isMobile ? 1 : 0,
+                  transition: `transform 0.28s ${EASING.out}`,
+                  overflow:   'hidden',
+                  display:    'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  aspectRatio: '1/1',
-                  cursor: 'pointer',
-                  order: isRtl && !isMobile ? 1 : 0,
                 }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
               >
                 {featuredProduct.img && (
                   <img
                     src={featuredProduct.img}
                     alt={isRtl ? featuredProduct.name : featuredProduct.nameEn}
-                    style={{ maxWidth: '100%', maxHeight: '260px', objectFit: 'contain' }}
+                    style={{
+                      width:        '78%',
+                      height:       '78%',
+                      objectFit:    'contain',
+                      objectPosition: 'center 85%',
+                      mixBlendMode: 'multiply',
+                    }}
                   />
                 )}
+                {/* Floating shadow */}
+                <div style={{
+                  position:     'absolute',
+                  bottom:       '14px',
+                  left:         '20%',
+                  right:        '20%',
+                  height:       '22px',
+                  background:   'rgba(0,0,0,0.35)',
+                  filter:       'blur(14px)',
+                  borderRadius: '50%',
+                }} />
               </div>
 
               {/* Text */}
               <div style={{ order: isRtl && !isMobile ? 0 : 1 }}>
                 <span style={{
-                  display: 'inline-block',
-                  background: 'rgba(255,255,255,0.1)',
-                  color: '#F9FAFB',
-                  fontFamily: FONT.primary,
-                  fontSize: '10px', fontWeight: 700,
+                  display:       'inline-block',
+                  background:    'rgba(255,255,255,0.12)',
+                  color:         COLOR.lighter,
+                  fontFamily:    FONT.primary,
+                  fontSize:      '11px', fontWeight: 700,
                   letterSpacing: '0.14em', textTransform: 'uppercase',
-                  padding: '5px 12px', borderRadius: '2px',
-                  marginBottom: '20px',
+                  padding:       '5px 14px', borderRadius: RADIUS.full,
+                  marginBottom:  '20px',
                 }}>
                   {isRtl ? 'הנמכר ביותר' : 'Bestseller'}
                 </span>
                 <h2 style={{
-                  fontFamily: FONT.primary,
-                  fontSize: isMobile ? '24px' : '34px',
-                  fontWeight: 800,
-                  color: '#FFFFFF',
-                  margin: '0 0 12px',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.15,
+                  fontFamily:    FONT.primary,
+                  fontSize:      isMobile ? '26px' : '36px',
+                  fontWeight:    900,
+                  color:         '#FFFFFF',
+                  margin:        '0 0 14px',
+                  letterSpacing: '-0.025em',
+                  lineHeight:    1.15,
                 }}>
                   {isRtl ? featuredProduct.name : featuredProduct.nameEn}
                 </h2>
                 <p style={{
                   fontFamily: FONT.primary,
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  color: 'rgba(255,255,255,0.6)',
-                  margin: '0 0 32px',
+                  fontSize:   '15px',
+                  fontWeight: 300,
+                  color:      'rgba(255,255,255,0.65)',
+                  margin:     '0 0 30px',
                   lineHeight: 1.8,
                 }}>
                   {isRtl ? featuredProduct.description : featuredProduct.descriptionEn}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
                   <span style={{
-                    fontFamily: FONT.primary,
-                    fontSize: '28px',
-                    fontWeight: 700,
-                    color: '#FFFFFF',
+                    fontFamily:    FONT.primary,
+                    fontSize:      '30px',
+                    fontWeight:    800,
+                    color:         '#FFFFFF',
+                    letterSpacing: '-0.03em',
                   }}>
                     {featuredProduct.currency}{featuredProduct.price}
                   </span>
                   <button
                     onClick={() => setSelectedProduct(featuredProduct)}
-                    style={{
-                      padding: '13px 30px',
-                      background: '#FFFFFF',
-                      color: '#111827',
-                      border: 'none',
-                      borderRadius: '4px',
-                      fontFamily: FONT.primary,
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      cursor: 'pointer',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#F3F4F6'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = '#FFFFFF'; }}
+                    style={{ ...BTN.white }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 18px 48px rgba(0,0,0,0.3)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = ''; }}
                   >
                     {isRtl ? 'לרכישה' : 'Buy Now'}
                   </button>
@@ -640,34 +697,37 @@ export default function Shop() {
           </div>
         )}
 
-        {/* ══ PRODUCTS GRID ══════════════════════════════════ */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: isMobile ? '40px 5% 80px' : '64px 5% 120px' }}>
-
+        {/* ══ PRODUCTS GRID ═══════════════════════════════════ */}
+        <div style={{
+          maxWidth: '1200px', margin: '0 auto',
+          padding:  isMobile ? '48px 5% 80px' : '72px 5% 120px',
+        }}>
           {/* Section header */}
           <div style={{
-            display: 'flex',
-            alignItems: 'baseline',
+            display:        'flex',
+            alignItems:     'baseline',
             justifyContent: 'space-between',
-            marginBottom: '32px',
-            paddingBottom: '16px',
-            borderBottom: '1px solid #F3F4F6',
-            direction: dir,
+            marginBottom:   '36px',
+            direction:      dir,
           }}>
-            <h2 style={{
-              fontFamily: FONT.primary,
-              fontSize: isMobile ? '18px' : '22px',
-              fontWeight: 700,
-              color: '#111827',
-              margin: 0,
-              letterSpacing: '-0.01em',
-            }}>
-              {isRtl ? 'כל הציוד' : 'All Gear'}
-            </h2>
+            <div>
+              <span style={{ ...LABEL }}>{isRtl ? 'ציוד מוכן לשטח' : 'Ready for the field'}</span>
+              <h2 style={{
+                fontFamily:    FONT.primary,
+                fontSize:      isMobile ? '26px' : '34px',
+                fontWeight:    900,
+                color:         COLOR.text,
+                margin:        0,
+                letterSpacing: '-0.02em',
+                lineHeight:    1.2,
+              }}>
+                {isRtl ? 'כל הציוד' : 'All Gear'}
+              </h2>
+            </div>
             <span style={{
               fontFamily: FONT.primary,
-              fontSize: '13px',
-              color: '#9CA3AF',
-              letterSpacing: '0.02em',
+              fontSize:   '13px',
+              color:      COLOR.mutedLight,
             }}>
               {PRODUCTS.length} {isRtl ? 'מוצרים' : 'items'}
             </span>
@@ -675,9 +735,9 @@ export default function Shop() {
 
           {/* Grid */}
           <div style={{
-            display: 'grid',
+            display:             'grid',
             gridTemplateColumns: `repeat(${cols}, 1fr)`,
-            gap: isMobile ? '24px 16px' : '36px 24px',
+            gap:                 isMobile ? '20px 14px' : '28px 20px',
           }}>
             {PRODUCTS.map(product => (
               <ProductCard
