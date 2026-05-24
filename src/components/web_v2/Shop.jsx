@@ -450,7 +450,6 @@ export default function Shop() {
     canonicalPath: '/shop',
   });
 
-  const featuredProduct = PRODUCTS.find(p => p.buyLink);
   const cols = isMobile ? 2 : isTablet ? 3 : 4;
 
   return (
@@ -576,126 +575,6 @@ export default function Shop() {
             ))}
           </div>
         </div>
-
-        {/* ══ FEATURED PRODUCT ════════════════════════════════ */}
-        {featuredProduct && (
-          <div style={{
-            background:   COLOR.grad.heroAlt,
-            borderBottom: `1px solid rgba(109,40,217,0.2)`,
-          }}>
-            <div style={{
-              maxWidth: '1200px', margin: '0 auto',
-              padding:  isMobile ? '48px 5%' : '80px 5%',
-              display:  'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap:      isMobile ? '32px' : '72px',
-              alignItems: 'center',
-              direction:  dir,
-            }}>
-              {/* Image */}
-              <div
-                onClick={() => setSelectedProduct(featuredProduct)}
-                style={{
-                  position:   'relative',
-                  background: 'rgba(255,255,255,0.06)',
-                  borderRadius: RADIUS['2xl'],
-                  border:     '1px solid rgba(255,255,255,0.1)',
-                  aspectRatio: '1/1',
-                  cursor:     'pointer',
-                  order:      isRtl && !isMobile ? 1 : 0,
-                  transition: `transform 0.28s ${EASING.out}`,
-                  overflow:   'hidden',
-                  display:    'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-              >
-                {featuredProduct.img && (
-                  <img
-                    src={featuredProduct.img}
-                    alt={isRtl ? featuredProduct.name : featuredProduct.nameEn}
-                    style={{
-                      width:        '78%',
-                      height:       '78%',
-                      objectFit:    'contain',
-                      objectPosition: 'center 85%',
-                      mixBlendMode: 'multiply',
-                    }}
-                  />
-                )}
-                {/* Floating shadow */}
-                <div style={{
-                  position:     'absolute',
-                  bottom:       '14px',
-                  left:         '20%',
-                  right:        '20%',
-                  height:       '22px',
-                  background:   'rgba(0,0,0,0.35)',
-                  filter:       'blur(14px)',
-                  borderRadius: '50%',
-                }} />
-              </div>
-
-              {/* Text */}
-              <div style={{ order: isRtl && !isMobile ? 0 : 1 }}>
-                <span style={{
-                  display:       'inline-block',
-                  background:    'rgba(255,255,255,0.12)',
-                  color:         COLOR.lighter,
-                  fontFamily:    FONT.primary,
-                  fontSize:      '11px', fontWeight: 700,
-                  letterSpacing: '0.14em', textTransform: 'uppercase',
-                  padding:       '5px 14px', borderRadius: RADIUS.full,
-                  marginBottom:  '20px',
-                }}>
-                  {isRtl ? 'הנמכר ביותר' : 'Bestseller'}
-                </span>
-                <h2 style={{
-                  fontFamily:    FONT.primary,
-                  fontSize:      isMobile ? '26px' : '36px',
-                  fontWeight:    900,
-                  color:         '#FFFFFF',
-                  margin:        '0 0 14px',
-                  letterSpacing: '-0.025em',
-                  lineHeight:    1.15,
-                }}>
-                  {isRtl ? featuredProduct.name : featuredProduct.nameEn}
-                </h2>
-                <p style={{
-                  fontFamily: FONT.primary,
-                  fontSize:   '15px',
-                  fontWeight: 300,
-                  color:      'rgba(255,255,255,0.65)',
-                  margin:     '0 0 30px',
-                  lineHeight: 1.8,
-                }}>
-                  {isRtl ? featuredProduct.description : featuredProduct.descriptionEn}
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-                  <span style={{
-                    fontFamily:    FONT.primary,
-                    fontSize:      '30px',
-                    fontWeight:    800,
-                    color:         '#FFFFFF',
-                    letterSpacing: '-0.03em',
-                  }}>
-                    {featuredProduct.currency}{featuredProduct.price}
-                  </span>
-                  <button
-                    onClick={() => setSelectedProduct(featuredProduct)}
-                    style={{ ...BTN.white }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 18px 48px rgba(0,0,0,0.3)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = ''; }}
-                  >
-                    {isRtl ? 'לרכישה' : 'Buy Now'}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* ══ PRODUCTS GRID ═══════════════════════════════════ */}
         <div style={{

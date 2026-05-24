@@ -15,6 +15,7 @@ import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './Phon
 import { CalendarIcon }                from '../Icons.jsx';
 import { ISRAEL_TRIPS }                from '../../data/israelData.js';
 import MobilePhotoCarousel            from './MobilePhotoCarousel.jsx';
+import FlagImg                        from './FlagImg.jsx';
 
 /* ─── helpers ─── */
 function scrollToForm() {
@@ -194,11 +195,12 @@ export default function IsraelDetail() {
     const payUrl = pkg?.paymentUrl || trip.paymentUrl;
 
     setSubmitting(true);
-    /* ── Save lead to Airtable ── */
+    /* ── Save lead to Airtable, then navigate ── */
     const fullPhone = formatFullPhone(form.dial, form.phone);
     fetch('/api/israel-lead', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method:    'POST',
+      keepalive: true,          // keep request alive even if page navigates away
+      headers:   { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name:         form.name,
         phone:        fullPhone,
@@ -209,14 +211,16 @@ export default function IsraelDetail() {
         participants: parseInt(form.participants || '1', 10),
         free:         trip.free || false,
       }),
-    }).catch(err => console.error('[israel-lead]', err))
-      .finally(() => setSubmitting(false));
-
-    if (trip?.free && trip?.whatsappUrl) {
-      window.location.href = trip.whatsappUrl;
-    } else if (payUrl) {
-      window.open(payUrl, '_blank', 'noopener,noreferrer');
-    }
+    })
+      .catch(err => console.error('[israel-lead]', err))
+      .finally(() => {
+        setSubmitting(false);
+        if (trip?.free && trip?.whatsappUrl) {
+          window.location.href = trip.whatsappUrl;
+        } else if (payUrl) {
+          window.open(payUrl, '_blank', 'noopener,noreferrer');
+        }
+      });
   }
 
 
@@ -359,7 +363,7 @@ export default function IsraelDetail() {
       <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif" }}>
         <Header />
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
-          <div style={{ fontSize: '64px' }}>🇮🇱</div>
+          <FlagImg emoji="🇮🇱" size={64} />
           <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'הטרק לא נמצא' : 'Trek not found'}</h1>
           <button onClick={() => navigate('/')} style={{ ...BTN.primary, fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'חזרה לדף הבית ←' : '← Back to Home'}</button>
         </div>

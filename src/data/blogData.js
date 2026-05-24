@@ -149,6 +149,160 @@ export const POSTS = [
   }, */
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:6  rustam-nabiev-everest-arms-only  (2026-05-22)
+   *  TODO: replace placeholder images once user provides photos:
+   *    /images/blog/nabiev-everest.webp   ← hero image
+   *    /images/blog/nabiev-climbing.jpg  ← in-article image 1
+   *    /images/blog/nabiev-summit.jpg    ← in-article image 2
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       6,
+    slug:     'rustam-nabiev-everest-arms-only',
+
+    title:    'רוסתם נבייב: האיש שטיפס על האוורסט רק עם הידיים',
+    titleEn:  'Rustam Nabiev: The Man Who Climbed Everest on His Arms Alone',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-05-22',
+    dateModified: '2026-05-22',
+    dateHe:   '22 במאי 2026',
+    dateEn:   'May 22, 2026',
+    category: 'חדשות',
+    categoryEn: 'News',
+    img:             '/images/blog/nabiev-everest.jpg',
+    imgPosition:     'center 40%',
+    imgPositionCard: 'center 40%',
+    imgCredit:       '',
+    excerpt:  'רוסתם נבייב איבד את שתי רגליו, ובמאי 2026 הפך לאדם הראשון בהיסטוריה שמטפס לפסגת האוורסט רק בכוח זרועותיו. הסיפור המלא על נחישות, נפילה ושיבה.',
+    excerptEn: 'Rustam Nabiev lost both legs and in May 2026 became the first person in history to climb Everest on the strength of his arms alone. The full story of determination, loss and return.',
+
+    content: [
+      { type: 'text', value: 'ב-20 במאי 2026, בשעה 8:16 בבוקר שעון נפאל, עמד אדם על פסגת האוורסט והחזיק שלט קטן. על השלט היה כתוב: "למי שחשבו שהחיים נגמרו אחרי הנפילה."' },
+      { type: 'text', value: 'האיש הוא רוסתם נבייב, בן 34, מטפס, בלוגר וספורטאי פראלימפי מהעיר אופה שברוסיה. אין לו רגליים. הוא טיפס את 8,848 המטרים של ההר הגבוה בעולם בכוח זרועותיו בלבד, והפך לאדם הראשון בהיסטוריה האנושית שעושה זאת.' },
+
+      { type: 'video', src: '/videos/nabiev-everest-climb.mp4', poster: '/images/blog/nabiev-video-poster.jpg', caption: 'רוסתם עובר מעל סדקי הקרחון בקרחון חומבו' },
+
+      { type: 'section', value: 'הנפילה' },
+      { type: 'text', value: 'ב-12 ביולי 2015, בזמן ששירת כצנחן בצבא הרוסי, ישן נבייב במבנה מגורים בבסיס אימונים בעיר אומסק שבסיביר. המבנה קרס. הסיבה, על פי הדיווחים, הייתה בנייה לקויה. עשרים ושלושה מחבריו לצבא נהרגו באותו אסון. נבייב שרד, אבל שתי רגליו נקטעו.' },
+      { type: 'text', value: 'השנים שאחרי היו ארוכות. נבייב עבר שורה של ניתוחים ותהליך שיקום ממושך. הוא למד מחדש כיצד הגוף שלו עובד, מה הוא מסוגל לעשות ומה לא. במקביל, הוא התחיל לתעד את הדרך, לכתוב, לצלם, לשתף. הבלוג שלו הפך לחלון שדרכו אנשים ברחבי העולם עקבו אחרי ההתאוששות שלו, ואחר כך אחרי הפסגות.' },
+      { type: 'text', value: 'קל לכתוב משפט כזה ולהמשיך הלאה. קשה יותר לעצור ולהבין מה הוא אומר. אדם צעיר, בן עשרים-ומשהו, מתעורר בוקר אחד אל חיים שאינם דומים בשום צורה לחיים שהכיר. רוב האנשים, אחרי רגע כזה, מקדישים שנים רק לבנות מחדש את הקרקע שמתחת לרגליים, גם כשאין רגליים.' },
+      { type: 'text', value: 'נבייב בחר משהו אחר. הוא בחר בהרים.' },
+
+      { type: 'section', value: 'הדרך אל ההר' },
+      { type: 'text', value: 'ההחלטה לפנות אל ההרים לא הייתה קפיצה אחת דרמטית. היא הייתה דרך. החל משנת 2020, נבייב התחיל לטפס, שיטתית, פסגה אחר פסגה, לא בשביל כותרות אלא כי ההר מחייב. הוא העפיל לשני ראשיו של הר אלברוס, הפסגה הגבוהה באירופה, הר שאפילו מטפסים עם שתי רגליים מוצאים בו אתגר של ממש. אחר כך קזבק שבקווקז, הר אררט, קילימנג\'רו, גג אפריקה, ואקונקגואה, הפסגה הגבוהה ביבשת אמריקה בגובה 6,961 מטרים, שם האוויר כבר מדלל ומה שנראה אפשרי בגובה פני הים מתחיל להרגיש אחרת.' },
+      { type: 'text', value: 'כל פסגה לימדה אותו משהו שהפסגה הבאה דרשה. הגוף הסתגל. הטכניקה השתכללה. הוא פיתח שיטת תנועה עם גרזני קרח שאין לה ספר לימוד, כי ספר כזה לא קיים. נבייב כתב אותו תוך כדי תנועה.' },
+      { type: 'text', value: 'נקודת המפנה הגדולה הגיעה באוקטובר 2021, כשנבייב העפיל להר מנסלו, פסגה בת 8,163 מטרים בהימלאיה, אחת מ-14 הפסגות הגבוהות בעולם מעל 8,000 מ\'. בגובה כזה, כמות החמצן נופלת לכמחצית ממה שיש בגובה פני הים. כאבי לחץ, עייפות קיצונית, קור עצום, כולם מכפילים את עצמם. מטפסים מנוסים קורסים בגובה הזה. נבייב לא רק הגיע לפסגה, הוא הגיע אליה ללא תותבות, בכוח זרועותיו בלבד, והפך למטפס הקטוע-רגליים הראשון בעולם שמגיע לפסגה מעל 8,000 מ\' ללא תותבות. מנסלו היה הניסוי הגדול. הוא הוכיח שזה אפשרי. נותר ההר האחרון.' },
+
+      { type: 'section', value: 'מה זה אומר לטפס על האוורסט בלי רגליים' },
+      { type: 'text', value: 'כדי להבין את גודל ההישג, צריך להבין מה הטיפוס דורש מהגוף. מטפס לאוורסט מבלה שבועות בתנועה: חציית מפל הקרח של חומבו עם סולמות מעל סדקים, טיפוס במדרונות שלג תלולים, התקדמות לאורך חבלים קבועים אל הפסגה. כל זה נעשה בדרך כלל בכוח הרגליים, כשהזרועות מסייעות. נבייב הפך את המשוואה.' },
+      { type: 'text', value: 'עבורו, כל מטר של עלייה הוא משיכה של מלוא משקל הגוף כלפי מעלה, בכוח הידיים, באוויר שבו יש שליש מהחמצן שיש בגובה פני הים. נבייב טיפס עם גרזני קרח, נעזר בחמש שרפות ובשלושה מדריכים. הוא יצא ממחנה הבסיס ב-13 במאי, יום הולדתו ה-34, וחצה את ארבעת המחנות הגבוהים עד שעמד על הפסגה שבוע מאוחר יותר.' },
+      { type: 'image', src: '/images/blog/nabiev-climbing.jpg', alt: 'רוסתם נבייב חוגג יומולדת 34 באוורסט בייס קמפ', caption: 'רוסתם נבייב. חגג את יום הולדתו עם היציאה לטיפוס' },
+      { type: 'callout', title: '✦ המסע במספרים', items: [
+        '13 במאי: יציאה ממחנה הבסיס, ביום הולדתו ה-34',
+        '7 ימים: הזמן שלקח לחצות ארבעה מחנות עד הפסגה',
+        '5 שרפות ו-3 מדריכים שליוו אותו',
+        '8,848 מטרים בכוח הזרועות בלבד',
+        '11 שנים מהתאונה לפסגה',
+      ]},
+
+      { type: 'section', value: 'מה שהופך אותו לייחודי' },
+      { type: 'text', value: 'בכל סיפור גדול ראוי להיות מדויק, וגם כאן. נבייב אינו המטפס הראשון עם מוגבלות שמגיע לפסגת האוורסט, וחשוב לומר זאת, לא כדי להקטין, אלא משום שיש לפניו שורה של גיבורים שראויים גם הם להיזכר.' },
+      { type: 'text', value: 'ב-2006 הפך הניו-זילנדי מארק אינגליס למטפס הראשון עם קטיעה דו-צדדית שמעפיל לפסגה, בעזרת תותבות. ב-2013 עלה הקנדי סודרשן גאוטם, שאין לו זרועות, אל הפסגה. וב-2023 השלים הארי בודהה מאגאר, יוצא יחידת הגורקה הבריטית שאיבד את רגליו באפגניסטן, את הטיפוס בעזרת תותבות.' },
+      { type: 'text', value: 'ההישג הייחודי של נבייב הוא ספציפי: הוא האדם הראשון שמטפס לפסגת האוורסט רק בכוח זרועותיו, ללא רגליים וללא תותבות. הוא נמנה כעת עם רשימה קטנה של מטפסים שמשנים את ההבנה של מה גוף אנושי מסוגל לעשות בהר.' },
+      { type: 'image', src: '/images/blog/nabiev-summit.jpg', alt: 'פסגת האוורסט בעונת 2026', caption: 'פסגת האוורסט, 8,848 מטרים. ב-20 במאי 2026 עמד עליה אדם ללא רגליים' },
+
+      { type: 'section', value: 'כבר מסתכל אל היעד הבא' },
+      { type: 'text', value: 'מה שמייחד אנשים כמו נבייב הוא שהם לא נחים על הפסגה. ימים ספורים אחרי ההעפלה, בריאיון לסוכנות הידיעות הרוסית TASS, כבר דיבר נבייב על המטרה הבאה: הוא מכוון להתחרות במשחקים הפראלימפיים ב-2030, בענף ספורט אישי.' },
+      { type: 'text', value: 'זה לא מפתיע מי שמכיר את נבייב. הוא מעולם לא הגדיר את עצמו רק כמטפס. הוא בלוגר, אתלט, ואדם שמתמודד בפומבי עם מה שגורל שם בדרכו. המשחקים הפראלימפיים הם בדיוק הסוג של אתגר שמתאים לו: זירה חדשה לגמרי, ענף ספורט שבו ההר לא מגדיר את הכללים, ואליו הוא צריך להגיע מאפס. בשביל אנשים כמו נבייב, האפס הוא לא מקום רע להתחיל ממנו.' },
+      { type: 'text', value: 'באותה נשימה הוא גם אמר משהו כן ולא מובן מאליו, שהוא אינו רואה את עצמו עוסק בטיפוס הרים לאורך כל חייו, משום שהעיסוק הזה גובה מחיר גופני כבד. זו אמירה שמזכירה דבר חשוב: גם מי שמבצע את הבלתי-יאמן יודע בדיוק כמה זה עולה. ההישג של נבייב אינו חף ממחיר, הוא פשוט החליט שהמחיר שווה את זה.' },
+
+      { type: 'section', value: 'המסר מהפסגה' },
+      { type: 'text', value: 'השלט שהחזיק בידיו על פסגת האוורסט לא היה מקרי. "למי שחשבו שהחיים נגמרו אחרי הנפילה." הוא לא כתב שם מישהו ספציפי. הוא כתב "מי שחשבו", ברבים, כי הוא יודע שיש יותר מאחד. בכל מקום בעולם יש מישהו שנפל, שאיבד, שמרגיש שהדרך נגמרה. אחרי שעמד על הפסגה, פרסם נבייב הודעה לעוקביו ברחבי העולם. הוא הקדיש את ההעפלה לכל מי שצופה בו, וביקש דבר אחד: כל עוד נותרים בך חיים, להמשיך להיאבק, עד הסוף.' },
+      { type: 'text', value: 'זו אינה אמירה של אדם שהכל היה קל עבורו. זו אמירה של אדם שאיבד את חבריו ואת רגליו בבוקר אחד, ובחר, לאורך אחת-עשרה שנים, לבנות מתוך זה משהו. הפסגה לא הייתה הנקודה. היא הייתה ההוכחה.' },
+
+      { type: 'section', value: 'למה הסיפור הזה מדבר אלינו ב-HighAir' },
+      { type: 'text', value: 'אנחנו ב-HighAir Expeditions מאמינים שההר אינו רק יעד גיאוגרפי. הוא מקום שבו אנשים מגלים גבולות שלא ידעו שיש להם, ואז מגלים שאפשר לחצות אותם. הסיפור של רוסתם נבייב הוא הביטוי הקיצוני של הרעיון הזה, אבל הוא לא שונה במהותו מהדרך של כל מטפס.' },
+      { type: 'text', value: 'זו גם הסיבה שאחוז מכל משלחת שאנחנו מובילים מוקדש לתמיכה בחולי סרטן בישראל, אנשים שמנהלים מאבק משלהם, רחוק מההרים, וזקוקים בדיוק לאותה נחישות. בעינינו, הקשר בין הדברים אינו מקרי. כוח, תקווה, וההחלטה להמשיך גם כשהמסלול נראה בלתי אפשרי, אלה אותם דברים בדיוק, על ההר ומחוצה לו.' },
+      { type: 'text', value: 'לא כל אחד יטפס על האוורסט. אבל לכל אחד יש הר משלו. ואם הסיפור של נבייב מלמד דבר אחד, הוא זה: הנקודה שבה אתה חושב שהדרך נגמרה היא, לעיתים קרובות, רק המקום שבו היא באמת מתחילה.' },
+      { type: 'cta', text: 'לטרקים ומשלחות HighAir', textEn: 'HighAir Treks and Expeditions', href: '/' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'מי הוא רוסתם נבייב?' },
+      { type: 'text', value: 'מטפס הרים, בלוגר וספורטאי פראלימפי רוסי בן 34 מהעיר אופה. איבד את שתי רגליו ב-2015 בקריסת מבנה צבאי, ומאז הפך למטפס הרים מוביל בקרב מטפסים עם מוגבלות.' },
+      { type: 'heading', value: 'מה ההישג שלו ב-2026?' },
+      { type: 'text', value: 'ב-20 במאי 2026 הוא הפך לאדם הראשון בהיסטוריה שמעפיל לפסגת האוורסט רק בכוח זרועותיו, ללא רגליים וללא תותבות.' },
+      { type: 'heading', value: 'האם הוא המטפס הראשון עם קטיעה על האוורסט?' },
+      { type: 'text', value: 'לא. קדמו לו מטפסים כמו מארק אינגליס (2006) והארי בודהה מאגאר (2023), שטיפסו בעזרת תותבות. הייחוד של נבייב הוא הטיפוס בכוח הזרועות בלבד.' },
+      { type: 'heading', value: 'אילו הרים נוספים טיפס נבייב?' },
+      { type: 'text', value: 'בין השאר אלברוס, קזבק, אררט, קילימנג\'רו, אקונקגואה, ובאוקטובר 2021 את מנסלו, פסגה בת 8,163 מטרים, ובכך הפך למטפס הקטוע-רגליים הראשון שמגיע לפסגת הר מעל 8,000 מ\' ללא תותבות.' },
+      { type: 'heading', value: 'כמה זמן לקח לנבייב לטפס על האוורסט?' },
+      { type: 'text', value: 'נבייב יצא ממחנה הבסיס ב-13 במאי 2026, יום הולדתו ה-34, וחצה ארבעה מחנות בגובה הולך וגדל. הוא הגיע לפסגה ב-20 במאי, שבעה ימים מאוחר יותר.' },
+    ],
+
+    contentEn: [
+      { type: 'text', value: 'At 8:16 in the morning on 20 May 2026, Nepal time, a man stood on the summit of Everest holding a small sign. On it were written the words: "For everyone who thought life was over after the fall."' },
+      { type: 'text', value: 'The man is Rustam Nabiev, 34 years old, a climber, blogger and para-athlete from the city of Ufa in Russia. He has no legs. He climbed all 8,848 metres of the highest mountain in the world on the strength of his arms alone, becoming the first person in human history to do so.' },
+
+      { type: 'video', src: '/videos/nabiev-everest-climb.mp4', poster: '/images/blog/nabiev-video-poster.jpg', caption: 'Rustam crossing ladders over crevasses in the Khumbu Icefall' },
+
+      { type: 'section', value: 'The fall' },
+      { type: 'text', value: 'On 12 July 2015, while serving as a paratrooper in the Russian army, Nabiev was sleeping in a residential block at a training base in Omsk, Siberia. The building collapsed. The cause, according to reports, was faulty construction. Twenty-three of his fellow soldiers were killed that day. Nabiev survived, but both his legs were amputated.' },
+      { type: 'text', value: 'The years that followed were long. Nabiev went through a series of surgeries and an extended rehabilitation process. He learned again how his body worked, what it was capable of and what it was not. At the same time, he began documenting the journey: writing, filming, sharing. His blog became a window through which people around the world followed his recovery, and then followed the summits.' },
+      { type: 'text', value: 'It is easy to write a sentence like that and move on. It is harder to stop and absorb what it actually means. A young man in his twenties wakes up one morning into a life that bears no resemblance to the life he knew. Most people, after such a moment, spend years simply rebuilding the ground beneath their feet, even when there are no feet.' },
+      { type: 'text', value: 'Nabiev chose something different. He chose mountains.' },
+
+      { type: 'section', value: 'The road to the mountain' },
+      { type: 'text', value: 'The decision to turn toward the mountains was not a single dramatic leap. It was a path. From 2020, Nabiev began climbing systematically, summit by summit, not for headlines but because the mountain demands. He reached both peaks of Mount Elbrus, the highest point in Europe, a mountain that challenges even climbers with two fully functioning legs. Then Kazbek in the Caucasus, Mount Ararat, Kilimanjaro, the roof of Africa, and Aconcagua, the highest summit in the Americas at 6,961 metres, where the air already thins and what seems possible at sea level begins to feel very different.' },
+      { type: 'text', value: 'Each summit taught him something the next one would demand. The body adapted. The technique refined itself. He developed a method of movement with ice axes that had no textbook, because no such textbook exists. Nabiev wrote it as he moved.' },
+      { type: 'text', value: 'The decisive turning point came in October 2021, when Nabiev summited Manaslu, an 8,163-metre peak in the Himalayas and one of the fourteen highest peaks in the world above 8,000 metres. At that altitude, oxygen levels drop to roughly half of what is available at sea level. The pressure headaches, the exhaustion, the cold all multiply. Experienced climbers break at that height. Nabiev not only reached the summit, he reached it without prosthetics, on the strength of his arms alone, becoming the first double-amputee climber in the world to summit an eight-thousander without prosthetics. Manaslu was the great experiment. It proved that this was possible. One mountain remained.' },
+
+      { type: 'section', value: 'What it means to climb Everest without legs' },
+      { type: 'text', value: 'To understand the scale of the achievement, you need to understand what the climb demands of the body. A climber on Everest spends weeks in motion: crossing the Khumbu Icefall on ladders above crevasses, ascending steep snow slopes, moving along fixed ropes toward the summit. All of this is normally done with the legs carrying the primary load while the arms assist. Nabiev reversed the equation.' },
+      { type: 'text', value: 'For him, every metre of ascent is a pull of his full body weight upward, by the strength of his hands, in air containing one-third of the oxygen available at sea level. Nabiev climbed with ice axes, assisted by five Sherpa and three guides. He left base camp on 13 May, his 34th birthday, crossed all four high camps, and stood on the summit a week later.' },
+      { type: 'image', src: '/images/blog/nabiev-climbing.jpg', alt: 'Rustam Nabiev celebrating his 34th birthday at Everest Base Camp', caption: 'Rustam Nabiev. He celebrated his birthday on the day he set out to climb.' },
+      { type: 'callout', title: '✦ The journey in numbers', items: [
+        '13 May: departure from base camp, on his 34th birthday',
+        '7 days to cross four high camps and reach the summit',
+        '5 Sherpa and 3 guides by his side',
+        '8,848 metres on the strength of his arms alone',
+        '11 years from the accident to the summit',
+      ]},
+
+      { type: 'section', value: 'What makes him unique' },
+      { type: 'text', value: 'Every great story deserves precision, and this one is no different. Nabiev is not the first disabled climber to reach the summit of Everest, and it is important to say so, not to diminish the achievement, but because there is a line of remarkable people before him who deserve to be remembered.' },
+      { type: 'text', value: 'In 2006, New Zealander Mark Inglis became the first double amputee to summit Everest, using prosthetics. In 2013, Canadian Sudharshan Gautam, who has no arms, reached the summit. And in 2023, Harry Bhudha Magar, a former British Gurkha soldier who lost his legs in Afghanistan, completed the climb on prosthetics.' },
+      { type: 'text', value: 'Nabiev\'s unique achievement is specific: he is the first person to climb to the summit of Everest on the strength of his arms alone, without legs and without prosthetics. He now belongs to a small group of climbers who have changed the understanding of what a human body is capable of on a mountain.' },
+      { type: 'image', src: '/images/blog/nabiev-summit.jpg', alt: 'The summit of Everest in the 2026 season', caption: 'The summit of Everest, 8,848 metres. On 20 May 2026, a man without legs stood here' },
+
+      { type: 'section', value: 'Already looking to the next goal' },
+      { type: 'text', value: 'What distinguishes people like Nabiev is that they do not rest on the summit. Just days after the ascent, in an interview with the Russian news agency TASS, Nabiev was already speaking about his next target: he is aiming to compete in the 2030 Paralympic Games in an individual sport.' },
+      { type: 'text', value: 'This is no surprise to anyone who knows him. Nabiev has never defined himself only as a climber. He is a blogger, an athlete, and someone who navigates publicly what fate has placed in his path. The Paralympic Games are exactly the kind of challenge that suits him: an entirely new arena, a sport in which the mountain does not set the rules, and where he needs to start from scratch. For people like Nabiev, starting from scratch is not a bad place to begin.' },
+      { type: 'text', value: 'In the same breath he said something honest and far from obvious: that he does not see himself in high-altitude mountaineering for the rest of his life, because the pursuit takes a severe physical toll. It is a statement that reminds you of something important: even those who achieve the seemingly impossible know exactly what it costs. Nabiev\'s achievement is not without a price. He simply decided the price was worth paying.' },
+
+      { type: 'section', value: 'The message from the summit' },
+      { type: 'text', value: 'The sign he held in his hands on the summit of Everest was not accidental. "For everyone who thought life was over after the fall." He did not write a specific name. He wrote "everyone who thought," in the plural, because he knows there is more than one. Somewhere in the world there is always someone who has fallen, who has lost, who feels as if the road has ended. After standing on the summit, Nabiev published a message to his followers around the world. He dedicated the ascent to everyone watching him, and asked for one thing: as long as life remains in you, keep fighting, to the very end.' },
+      { type: 'text', value: 'That is not the statement of someone for whom everything came easily. It is the statement of a man who lost his friends and his legs in a single morning, and chose, over eleven years, to build something from it. The summit was not the point. It was the proof.' },
+
+      { type: 'section', value: 'Why this story speaks to us at HighAir' },
+      { type: 'text', value: 'At HighAir Expeditions we believe a mountain is not just a geographical destination. It is a place where people discover limits they did not know they had, and then discover that those limits can be crossed. The story of Rustam Nabiev is the most extreme expression of that idea, but it is not fundamentally different from the journey of any climber.' },
+      { type: 'text', value: 'It is also why a portion of every expedition we run is dedicated to supporting cancer patients in Israel, people who are fighting their own battle, far from any mountain, and who need exactly the same kind of determination. In our view, the connection between these things is not accidental. Strength, hope, and the decision to keep going when the path seems impossible are the same things, whether you are on the mountain or off it.' },
+      { type: 'text', value: 'Not everyone will climb Everest. But everyone has their own mountain. And if Nabiev\'s story teaches one thing, it is this: the point at which you think the road has ended is, more often than not, exactly where it truly begins.' },
+      { type: 'cta', text: 'לטרקים ומשלחות HighAir', textEn: 'HighAir Treks and Expeditions', href: '/' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'Who is Rustam Nabiev?' },
+      { type: 'text', value: 'A Russian mountaineer, blogger and para-athlete, aged 34, from the city of Ufa. He lost both his legs in 2015 when a military building collapsed, and has since become one of the leading high-altitude climbers among athletes with disabilities.' },
+      { type: 'heading', value: 'What did he achieve in 2026?' },
+      { type: 'text', value: 'On 20 May 2026 he became the first person in history to summit Everest using only the strength of his arms, without legs and without prosthetics.' },
+      { type: 'heading', value: 'Is he the first disabled person to summit Everest?' },
+      { type: 'text', value: 'No. Before him, climbers including Mark Inglis (2006) and Harry Bhudha Magar (2023) summited using prosthetics. What makes Nabiev unique is completing the climb by arm strength alone, with no prosthetics at all.' },
+      { type: 'heading', value: 'What other mountains has Nabiev climbed?' },
+      { type: 'text', value: 'Among others: Elbrus, Kazbek, Ararat, Kilimanjaro, Aconcagua, and in October 2021 Manaslu, an eight-thousander at 8,163 metres, making him the first legless climber to summit a peak above 8,000 metres without prosthetics.' },
+      { type: 'heading', value: 'How long did it take Nabiev to climb Everest?' },
+      { type: 'text', value: 'Nabiev left base camp on 13 May 2026, his 34th birthday, and crossed four progressively higher camps. He reached the summit on 20 May, seven days later.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:4  kristin-harila-everest-triple-crown  (2026-05-21)
    * ═══════════════════════════════════════════════════════════════════ */
   {
@@ -177,14 +331,14 @@ export const POSTS = [
       { type: 'text', value: 'נופטסה הוא רק ההר הראשון. לפניה עומדים עוד שניים: להוצה, הרביעי בגובהו בעולם, והאוורסט עצמו. שלושתם באותה עונה, שלושתם ללא חמצן משלים. רק ארבעה בני אדם בהיסטוריה השלימו את הרצף הזה, ואף אישה לא הייתה ביניהם. כדי להבין למה ההעפלה הזו חשובה כל כך, לא רק להרילה אלא לכל מי שאוהב הרים, צריך לחזור שלוש שנים אחורה, אל הר אחר, ואל יום אחד באוקטובר.' },
 
       { type: 'section', value: 'מי היא קריסטין הרילה' },
-      { type: 'text', value: 'קריסטין הרילה הפכה לשם מוכר בעולם הטיפוס בקיץ 2023. באותה שנה היא ושותפה לטיפוס, מטפס השרפה הנפאלי טנזין לאמה שרפה, העפילו לכל 14 ההרים בעולם שגובהם מעל 8,000 מטרים, כל 14 השמיניות, בתוך 92 ימים בלבד.' },
+      { type: 'text', value: 'קריסטין הרילה הפכה לשם מוכר בעולם הטיפוס בקיץ 2023. באותה שנה היא ושותפה לטיפוס, מטפס השרפה הנפאלי טנזין לאמה שרפה, העפילו לכל 14 הפסגות הגבוהות בעולם מעל 8,000 מ\' בתוך 92 ימים בלבד.' },
       { type: 'text', value: 'זה היה שיא עולם. הוא חטף את התואר ממטפסים שקדמו לה ומיקם אותה בחזית עולם טיפוס הגובה. חשוב להבין מה השיא הזה כלל ומה לא: הצמד נע במסוקים בין מחנות הבסיס של ההרים השונים, והשתמש בחמצן משלים בהעפלות. זו הייתה משימה לוגיסטית ופיזית יוצאת דופן, מסוג חדש, מהירה, מתוכננת, נתמכת. השיא הביא להרילה תהילה עולמית, ולצידה גם ביקורת ומחלוקת על תרבות מרדף השיאים שהתפתחה סביב ההרים הגבוהים.' },
       { type: 'text', value: 'אבל את הסיפור האמיתי של הרילה אי אפשר לספר דרך המספרים. הוא מתחיל בבן אדם אחד.' },
 
       { type: 'section', value: 'האח שאבד בהר' },
       { type: 'text', value: 'טנזין לאמה שרפה לא היה רק שותף עסקי או מדריך שכיר. הרילה כתבה עליו, אחרי מותו, שהוא היה עבורה אח. שהוא היה עצם ההגדרה של טוב לב אנושי. שעל ההר הוא נע כאילו הוא חלק ממנו, ושהוא הזמין אותה, בנדיבות, להיכנס פנימה אל העולם הזה.' },
-      { type: 'text', value: 'טנזין היה מטפס נפאלי יוצא דופן בכישרונו. הוא היה האדם ה-50 בהיסטוריה שהעפיל לכל 14 השמיניות, והשיא של 92 הימים נשא גם את שמו, לא רק את שמה של הרילה. הוא היה בעל משפחה: אישה ושני בנים.' },
-      { type: 'text', value: 'ב-7 באוקטובר 2023, פחות משלושה חודשים אחרי שהצמד השלים את שיא העולם, יצא טנזין לטפס על שישאפנגמה, אחת מ-14 השמיניות שבטיבט. מפולת שלגים עצומה סחפה את מסלול הטיפוס המרכזי. ארבעה מטפסים נספו באותו יום. גופותיהם של שניים מהם, ובהם טנזין, מעולם לא נמצאו.' },
+      { type: 'text', value: 'טנזין היה מטפס נפאלי יוצא דופן בכישרונו. הוא היה האדם ה-50 בהיסטוריה שהעפיל לכל 14 הפסגות הגבוהות בעולם מעל 8,000 מ\', והשיא של 92 הימים נשא גם את שמו, לא רק את שמה של הרילה. הוא היה בעל משפחה: אישה ושני בנים.' },
+      { type: 'text', value: 'ב-7 באוקטובר 2023, פחות משלושה חודשים אחרי שהצמד השלים את שיא העולם, יצא טנזין לטפס על שישאפנגמה, אחת מ-14 הפסגות הגבוהות בעולם מעל 8,000 מ\', שנמצאת בטיבט. מפולת שלגים עצומה סחפה את מסלול הטיפוס המרכזי. ארבעה מטפסים נספו באותו יום. גופותיהם של שניים מהם, ובהם טנזין, מעולם לא נמצאו.' },
       { type: 'text', value: 'האסון בשישאפנגמה החריף ויכוח שכבר התנהל בעולם הטיפוס: האם המרדף אחר שיאים דוחף מטפסים אל סיכונים שאסור היה לקחת. דווח שחלק מהמטפסים בהר באותו יום המשיכו אל הפסגה גם אחרי מפולת ראשונה. השאלה הזו עדיין פתוחה, וכואבת.' },
       { type: 'text', value: 'עבור הרילה, האובדן לא היה תיאורטי. כשהגיעה הידיעה היא טסה מיד לקטמנדו. בחודשים שאחרי כן היא לא ניסתה להמשיך הלאה כאילו דבר לא קרה. היא ניסתה להחזיר את טנזין הביתה. היא גייסה כספים למימון משימת חילוץ של הגופות, ואף מכרה את השעון שליווה אותה במשלחת השיא. אשתו של טנזין ושני בניו ביקשו דבר אחד: שגופתו תושב, כדי שאפשר יהיה להיפרד.' },
       { type: 'text', value: 'המשימה הזו נחסמה לא בידי ההר אלא בידי הפוליטיקה. הגישה לשישאפנגמה, שנמצאת בצד הטיבטי, תלויה באישורים סיניים, והם לא ניתנו. הרילה נאלצה לדחות את החיפוש שוב ושוב.' },
@@ -205,7 +359,7 @@ export const POSTS = [
       { type: 'text', value: 'השכנה התלולה והטכנית של האוורסט. פסגה שנחשבת קשה גם למטפסים מנוסים.' },
       { type: 'subheading', value: 'להוצה, 8,516 מטרים' },
       { type: 'text', value: 'ההר הרביעי בגובהו בעולם, צמוד לאוורסט וחולק איתו חלק מן המסלול.' },
-      { type: 'subheading', value: 'האוורסט, 8,849 מטרים' },
+      { type: 'subheading', value: 'האוורסט, 8,848 מטרים' },
       { type: 'text', value: 'הגבוה בעולם.' },
       { type: 'text', value: 'הקושי אינו רק בגובה. הוא בהצטברות. שלוש העפלות לגובה קיצוני בתוך חלון זמן אחד, בלי שהגוף מספיק להתאושש באמת בין אחת לשנייה, הן עומס שמעט מאוד בני אדם מסוגלים לשאת. רק ארבעה מטפסים בהיסטוריה השלימו את שלושת הכתרים. אף אישה, עד היום, לא עשתה זאת.' },
       { type: 'text', value: 'נכון לאמצע מאי 2026, הרילה השלימה את השלב הראשון, נופטסה. בהמשך מתוכננת להוצה, ואז מנוחה במחנה הבסיס, ולבסוף ההעפלה אל פסגת האוורסט בשלהי העונה.' },
@@ -216,11 +370,11 @@ export const POSTS = [
       { type: 'text', value: 'בגבהים שמעל 8,000 מטרים, באזור שמטפסים מכנים "אזור המוות", כמות החמצן בכל נשימה צונחת לכשליש מזו שבגובה פני הים. הגוף האנושי באזור הזה דועך, הוא צורך את עצמו מהר יותר משהוא מתאושש. רוב המטפסים שמעפילים ללהוצה ולאוורסט עושים זאת עם מסכת חמצן, וזה אינו פינוק אלא כלי בטיחות שמפחית דרמטית את הסיכון לנזק גופני קבוע.' },
       { type: 'callout', title: '✦ מה זה "אזור המוות"?', value: 'גובה מעל 8,000 מטרים שבו אין מספיק חמצן בסביבה כדי לקיים חיים אנושיים לאורך זמן. הגוף מתחיל לצרוך רקמות שרירים כדי לתפקד. כל שעה שעוברת בגובה הזה גובה מחיר.' },
       { type: 'text', value: 'לטפס את שלושת הכתרים בלי חמצן פירושו להכפיל את הקושי ואת הסיכון כאחד.' },
-      { type: 'text', value: 'ההחלטה הזו גם עוררה ביקורת. מבקרים ציינו שלמרות שיא 14 השמיניות, להרילה ניסיון מועט יחסית בטיפוס בגובה קיצוני בלי חמצן, שכן בשיא ההוא היא כן השתמשה בו. הרילה השיבה שסגנון הטיפוס המהיר שלה הותיר אותה פעמים רבות מטפסת בלי חמצן בפועל, ושכספורטאית היא סקרנית לדעת איך גופה יגיב. בין אם צודקים המבקרים ובין אם לאו, נופטסה כבר מאחוריה, והיא עשתה אותה ללא טיפת חמצן מן הבקבוק.' },
+      { type: 'text', value: 'ההחלטה הזו גם עוררה ביקורת. מבקרים ציינו שלמרות שיא 14 הפסגות מעל 8,000 מ\', להרילה ניסיון מועט יחסית בטיפוס בגובה קיצוני בלי חמצן, שכן בשיא ההוא היא כן השתמשה בו. הרילה השיבה שסגנון הטיפוס המהיר שלה הותיר אותה פעמים רבות מטפסת בלי חמצן בפועל, ושכספורטאית היא סקרנית לדעת איך גופה יגיב. בין אם צודקים המבקרים ובין אם לאו, נופטסה כבר מאחוריה, והיא עשתה אותה ללא טיפת חמצן מן הבקבוק.' },
 
       { type: 'section', value: 'הכל התחיל בהר אחד' },
       { type: 'text', value: 'יש פרט אחד בסיפור של הרילה שקל לפספס, והוא אולי החשוב מכולם למי שקורא את השורות האלה וחושב על ההר הראשון שלו.' },
-      { type: 'text', value: 'ההעפלה הראשונה של הרילה לגובה רב לא הייתה על שמינייה. היא הייתה על לובוצ\'ה, פסגה באזור האוורסט שגובהה כ-6,100 מטרים. זה היה ב-2019. הרילה סיפרה שהיא זוכרת את הטיפוס ההוא כקשה. כמאמץ אמיתי. שש שנים מאוחר יותר, אותה אישה מטפסת על אותו הר בתוך פחות משלוש שעות.' },
+      { type: 'text', value: 'ההעפלה הראשונה של הרילה לגובה רב לא הייתה על פסגה מעל 8,000 מ\'. היא הייתה על לובוצ\'ה, פסגה באזור האוורסט שגובהה כ-6,100 מטרים. זה היה ב-2019. הרילה סיפרה שהיא זוכרת את הטיפוס ההוא כקשה. כמאמץ אמיתי. שש שנים מאוחר יותר, אותה אישה מטפסת על אותו הר בתוך פחות משלוש שעות.' },
       { type: 'text', value: 'זה לא סיפור על כישרון נדיר. זה סיפור על דרך. כל מטפס שאתם רואים היום על פסגות העולם, כולל קריסטין הרילה, התחיל פעם אחת, על הר אחד, כשהוא עוד לא ידע אם הוא מסוגל. לובוצ\'ה היא בדיוק הר כזה: פסגת טרקינג נגישה, שדורשת מעט ציוד טכני ולא שנים של ניסיון, ומהווה צעד ראשון אמיתי אל עולם הטיפוס בגובה.' },
       { type: 'image', src: '/images/blog/lobuche-peak.jpg', caption: 'לובוצ\'ה פיק, 6,119 מטרים, ההר שממנו התחיל המסע של קריסטין הרילה' },
       { type: 'cta', text: 'למידע על משלחת לובוצ\'ה פיק של HighAir', textEn: 'Learn about HighAir\'s Lobuche Peak expedition', href: '/expedition/lobuche-peak' },
@@ -232,7 +386,7 @@ export const POSTS = [
 
       { type: 'section', value: 'שאלות נפוצות' },
       { type: 'heading', value: 'מה הם שלושת הכתרים של האוורסט?' },
-      { type: 'text', value: 'טיפוס בעונה אחת על שלוש הפסגות הגבוהות במסיב האוורסט: נופטסה (7,861 מטרים), להוצה (8,516 מטרים) והאוורסט (8,849 מטרים). רק ארבעה אנשים בהיסטוריה השלימו את הרצף הזה.' },
+      { type: 'text', value: 'טיפוס בעונה אחת על שלוש הפסגות הגבוהות במסיב האוורסט: נופטסה (7,861 מטרים), להוצה (8,516 מטרים) והאוורסט (8,848 מטרים). רק ארבעה אנשים בהיסטוריה השלימו את הרצף הזה.' },
       { type: 'heading', value: 'האם קריסטין הרילה כבר טיפסה על האוורסט בעונת 2026?' },
       { type: 'text', value: 'נכון לאמצע מאי 2026, הרילה השלימה את ההר הראשון מבין השלושה, נופטסה. ההעפלה לפסגת האוורסט מתוכננת לשלב מאוחר יותר בעונה.' },
       { type: 'heading', value: 'מי היה טנזין לאמה שרפה?' },
@@ -278,7 +432,7 @@ export const POSTS = [
       { type: 'text', value: 'The steep and technically demanding neighbour of Everest. A peak considered difficult even for experienced climbers.' },
       { type: 'subheading', value: 'Lhotse, 8,516 metres' },
       { type: 'text', value: 'The fourth highest mountain in the world, adjacent to Everest and sharing part of its route.' },
-      { type: 'subheading', value: 'Everest, 8,849 metres' },
+      { type: 'subheading', value: 'Everest, 8,848 metres' },
       { type: 'text', value: 'The highest point on Earth.' },
       { type: 'text', value: 'The difficulty is not only about altitude. It is cumulative. Three summit pushes to extreme altitude within one weather window, without the body ever truly recovering between them, is a load that very few people can bear. Only four climbers in history have completed the Triple Crown. No woman, until now, has done so.' },
       { type: 'text', value: 'As of mid-May 2026, Harila has completed the first stage, Nuptse. Lhotse is planned next, then a rest at base camp, and finally the push to the Everest summit in the late season.' },
@@ -305,7 +459,7 @@ export const POSTS = [
 
       { type: 'section', value: 'Frequently asked questions' },
       { type: 'heading', value: 'What is the Everest Triple Crown?' },
-      { type: 'text', value: 'Climbing the three highest summits in the Everest massif in a single season: Nuptse (7,861 metres), Lhotse (8,516 metres), and Everest (8,849 metres). Only four people in history have completed this sequence.' },
+      { type: 'text', value: 'Climbing the three highest summits in the Everest massif in a single season: Nuptse (7,861 metres), Lhotse (8,516 metres), and Everest (8,848 metres). Only four people in history have completed this sequence.' },
       { type: 'heading', value: 'Has Kristin Harila already climbed Everest in the 2026 season?' },
       { type: 'text', value: 'As of mid-May 2026, Harila has completed the first of the three mountains, Nuptse. The summit push on Everest is planned for later in the season.' },
       { type: 'heading', value: 'Who was Tenzing Lama Sherpa?' },
@@ -469,7 +623,7 @@ export const POSTS = [
       { type: 'section', value: 'שבע הפסגות: הרשימה המלאה' },
       { type: 'text', value: 'הכלל פשוט: הפסגה הגבוהה ביותר בכל יבשת. שבע יבשות, שבע פסגות. בפועל, הרשימה נראית ככה:' },
       { type: 'list', items: [
-        'אוורסט (אסיה) - 8,849 מ\'',
+        'אוורסט (אסיה) - 8,848 מ\'',
         'אקונקגואה (דרום אמריקה) - 6,962 מ\'',
         'דנאלי (צפון אמריקה) - 6,190 מ\'',
         'קילימנג\'רו (אפריקה) - 5,895 מ\'',
@@ -540,7 +694,7 @@ export const POSTS = [
       { type: 'section', value: 'The Seven Summits: the full list' },
       { type: 'text', value: 'The rule is simple: the highest peak on each continent. Seven continents, seven summits. The list looks like this:' },
       { type: 'list', items: [
-        'Everest (Asia) - 8,849 m',
+        'Everest (Asia) - 8,848 m',
         'Aconcagua (South America) - 6,962 m',
         'Denali (North America) - 6,190 m',
         'Kilimanjaro (Africa) - 5,895 m',

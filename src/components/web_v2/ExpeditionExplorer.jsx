@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { CARD_EXPS as EXPS } from '../../data/navData.js';
+import FlagImg from './FlagImg.jsx';
 
 /* ── Arrow button ── */
 function NavArrow({ direction, disabled, onClick, isRtl }) {
@@ -131,7 +132,7 @@ function ExpCard({ exp }) {
           fontFamily: 'Ploni, sans-serif', fontSize: FS.sm, fontWeight: 600,
           color: 'rgba(255,255,255,0.90)', letterSpacing: '0.02em', direction: 'ltr',
         }}>
-          {exp.flag} {isEn ? exp.country : exp.countryHe}
+          <FlagImg emoji={exp.flag} size={18} />{isEn ? exp.country : exp.countryHe}
         </div>
         {exp.soldOut && (
           <div style={{ padding: '4px 10px', borderRadius: RADIUS.full, background: '#DC2626', fontFamily: 'Ploni, sans-serif', fontSize: '11px', fontWeight: 700, color: '#FFFFFF' }}>

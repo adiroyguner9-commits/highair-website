@@ -89,10 +89,11 @@ export default async function handler(req, res) {
 
   /* ── Build Airtable fields ── */
   const fields = {
-    [F.fullName]:      cleanName,
-    [F.phone]:         cleanPhone,
-    [F.trip]:          cleanTripName,
-    [F.paymentStatus]: free ? 'הרשמה חינמית' : 'ממתין לתשלום',
+    [F.fullName]: cleanName,
+    [F.phone]:    cleanPhone,
+    [F.trip]:     cleanTripName,
+    /* Free registrations have no payment — omit singleSelect to avoid invalid-option error */
+    ...(free ? {} : { [F.paymentStatus]: 'ממתין לתשלום' }),
   };
 
   if (cleanEmail)   fields[F.email]        = cleanEmail;

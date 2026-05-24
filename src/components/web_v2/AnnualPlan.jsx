@@ -15,6 +15,7 @@ import { ISRAEL_TRIPS } from '../../data/israelData.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import FlagImg from './FlagImg.jsx';
 
 /* ── Helpers ── */
 function fmtDate(str, months) {
@@ -112,8 +113,9 @@ function TripCard({ group, exp, months, isRtl }) {
   }, [imgSrc]);
 
   const fallbackGrad = exp?.grad || trip?.grad || 'linear-gradient(135deg,#4338ca,#7c3aed,#1e1b4b)';
+  const imgPos = exp?.imgPosition || trip?.imgPosition || 'center';
   const bg = imgSrc
-    ? (imgReady ? `url(${imgSrc}) center/cover no-repeat` : fallbackGrad)
+    ? (imgReady ? `url(${imgSrc}) ${imgPos}/cover no-repeat` : fallbackGrad)
     : fallbackGrad;
 
   function handleClick() {
@@ -143,7 +145,7 @@ function TripCard({ group, exp, months, isRtl }) {
         display:        'flex',
         flexDirection:  'column',
         justifyContent: 'space-between',
-        minHeight:      isMobile ? '220px' : '280px',
+        minHeight:      isMobile ? '300px' : '280px',
         cursor:         isClickable ? 'pointer' : 'default',
         transform:      hovered && isClickable ? 'translateY(-5px)' : 'translateY(0)',
         boxShadow:      hovered && isClickable
@@ -187,10 +189,11 @@ function TripCard({ group, exp, months, isRtl }) {
           color:                'rgba(255,255,255,0.92)',
           direction:            'ltr',
         }}>
-          {trip
-            ? `🇮🇱 ${isRtl ? 'ישראל' : 'Israel'}`
-            : `${exp?.flag || ''} ${isRtl ? (exp?.countryHe || '-') : (exp?.country || exp?.countryHe || '-')}`
-          }
+          {trip ? (
+            <><FlagImg emoji="🇮🇱" />{isRtl ? 'ישראל' : 'Israel'}</>
+          ) : (
+            <><FlagImg emoji={exp?.flag} />{isRtl ? (exp?.countryHe || '') : (exp?.country || exp?.countryHe || '')}</>
+          )}
         </div>
 
         {/* Spots badge — top left (end in RTL) */}
@@ -341,7 +344,7 @@ export default function AnnualPlan() {
     function dateFilter(g) {
       if (!g.departure) return false;
       const weekFromNow = new Date(today);
-      weekFromNow.setDate(weekFromNow.getDate() + 7);
+      weekFromNow.setDate(weekFromNow.getDate() + 14);
       return new Date(g.departure) >= weekFromNow;
     }
 
@@ -365,12 +368,22 @@ export default function AnnualPlan() {
         .map(rec => normaliseGroup(rec, false, counts))
         .filter(dateFilter)
         .filter(g => { const m = new Date(g.departure).getMonth(); return m !== 3 && m !== 4; })
-        .filter(g => g.eventName !== 'Annapurna_Circut_Kosher');
+        .filter(g => g.eventName !== 'Annapurna_Circut_Kosher')
+        .filter(g => !g.eventName.toLowerCase().includes('safari'));
 
       /* Process Israel groups */
       const israelGroups = (israelData.records || [])
         .map(rec => normaliseGroup(rec, true, counts))
-        .filter(dateFilter);
+        .filter(dateFilter)
+        .filter(g => !(g._slug || g.eventName || '').toLowerCase().includes('safari'))
+        .filter(g => {
+          /* Exclude trips marked hidden:true in israelData.js (e.g. training trek).
+             Try eventName first; fall back to Airtable Slug field if Event is blank. */
+          const trip =
+            findIsraelTrip(g.eventName) ||
+            ISRAEL_TRIPS.find(t => t.slug === (g._slug || ''));
+          return !trip?.hidden;
+        });
 
       /* Combine and sort by departure date */
       const all = [...worldGroups, ...israelGroups]

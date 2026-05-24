@@ -322,7 +322,7 @@ export const CARD_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "flag": "🇳🇵",
-    "img": "/images/cards/EBC.webp",
+    "img": "/images/cards/EBC.jpg",
     "grad": "linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)",
     "elevNum": 5545,
     "type": "Trekking",

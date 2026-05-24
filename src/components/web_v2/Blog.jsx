@@ -12,6 +12,12 @@ import { POSTS, CATEGORIES } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
+function fmtDate(iso) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+
 function PostCard({ post }) {
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
@@ -103,14 +109,30 @@ function PostCard({ post }) {
         <div style={{
           display:    'flex',
           alignItems: 'center',
-          gap:        '6px',
-          color:      COLOR.primary,
-          fontFamily: "'Ploni', sans-serif",
-          fontSize:   '14px',
-          fontWeight: 700,
+          justifyContent: 'space-between',
           marginTop:  '4px',
         }}>
-          {t('blog.readMore')}
+          <div style={{
+            display:    'flex',
+            alignItems: 'center',
+            gap:        '6px',
+            color:      COLOR.primary,
+            fontFamily: "'Ploni', sans-serif",
+            fontSize:   '14px',
+            fontWeight: 700,
+          }}>
+            {t('blog.readMore')}
+          </div>
+          {post.dateIso && (
+            <div style={{
+              fontFamily: "'Ploni', sans-serif",
+              fontSize:   '12px',
+              color:      '#9591B0',
+              direction:  'ltr',
+            }}>
+              {fmtDate(post.dateIso)}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -125,7 +147,9 @@ export default function Blog() {
   /* Use a stable key ('all' or the category string) rather than a
      translated label so the filter survives language switches. */
   const [activeCategory, setActiveCategory] = useState('all');
-  const [posts, setPosts] = useState(POSTS);
+  const [posts, setPosts] = useState(
+    [...POSTS].sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''))
+  );
 
   useEffect(() => {
     fetch('/api/airtable/Blog')

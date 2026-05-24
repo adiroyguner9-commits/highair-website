@@ -118,7 +118,7 @@ export default function SiteFooter() {
     .map(trip => ({ label: isEn ? (trip.nameEn || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
 
   const INFO_LINKS = [
-    { label: t('footer.shop'),         href: '/shop'          },
+    // { label: t('footer.shop'), href: '/shop' }, // hidden until shop is ready
     { label: t('footer.blog'),         href: '/blog'          },
     { label: t('footer.cancellation'), href: '/cancellation'  },
     { label: t('footer.terms'),        href: '/terms'         },

@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
+import FlagImg from './FlagImg.jsx';
 
 
 const WA_NUMBER = '972555636975';
@@ -802,7 +803,7 @@ function SearchModal({ onClose }) {
  onMouseEnter={e => e.currentTarget.style.background = '#F8F6FF'}
  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
  >
- <span style={{ fontSize: '22px', flexShrink: 0 }}>{exp.flag}</span>
+ <FlagImg emoji={exp.flag} size={22} />
  <div style={{ flex: 1 }}>
  <div style={{
  fontSize: '15px', fontWeight: 600,
@@ -869,7 +870,7 @@ export default function Header() {
  { key: 'annualPlan', href: '/annual-plan', isPage: true },
  { key: 'about', href: '/about', isPage: true },
  { key: 'blog', href: '/blog', isPage: true },
- { key: 'shop', href: '/shop', isPage: true },
+ // { key: 'shop', href: '/shop', isPage: true }, // hidden until shop is ready
  { key: 'contact', href: '/contact', isPage: true },
  ];
  const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));

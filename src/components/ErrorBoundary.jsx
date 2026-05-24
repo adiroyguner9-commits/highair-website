@@ -8,6 +8,21 @@ export default class ErrorBoundary extends Component {
   }
 
   static getDerivedStateFromError(error) {
+    // Stale chunk after a new deployment — reload so the browser fetches
+    // the updated index.html and fresh chunk hashes.
+    const msg = error?.message || '';
+    const isChunkError =
+      error?.name === 'ChunkLoadError' ||
+      /loading chunk \d+ failed/i.test(msg) ||
+      /failed to fetch dynamically imported module/i.test(msg) ||
+      /importing a module script failed/i.test(msg) ||
+      /unable to preload css/i.test(msg);
+
+    if (isChunkError) {
+      window.location.reload();
+      return { hasError: false, error: null };
+    }
+
     return { hasError: true, error };
   }
 

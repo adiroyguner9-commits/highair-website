@@ -15,6 +15,12 @@ import SiteFooter from './SiteFooter.jsx';
 
 // ── Helpers ──────────────────────────────────────────────
 
+function fmtDate(iso) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+
 function calcReadingTime(content) {
   const textWords = content
     .filter(b => ['text', 'heading', 'section'].includes(b.type))
@@ -269,6 +275,21 @@ export default function BlogPost() {
               }}>
                 {readingTime} {t('blogPost.readTime')}
               </span>
+              {post.dateIso && (
+                <span style={{
+                  background:     'rgba(255,255,255,0.15)',
+                  backdropFilter: 'blur(6px)',
+                  color:          'rgba(255,255,255,0.9)',
+                  fontFamily:     "'Ploni', sans-serif",
+                  fontSize:       '12px',
+                  fontWeight:     400,
+                  padding:        '4px 12px',
+                  borderRadius:   RADIUS.full,
+                  direction:      'ltr',
+                }}>
+                  {fmtDate(post.dateIso)}
+                </span>
+              )}
             </div>
             <h1 style={{
               fontFamily:    "'Ploni', sans-serif",
@@ -489,35 +510,80 @@ export default function BlogPost() {
                     {block.title}
                   </p>
                 )}
-                <p style={{
-                  fontFamily: "'Ploni', sans-serif",
-                  fontSize:   isMobile ? '15px' : '17px',
-                  fontWeight: 300,
-                  color:      '#3D3B5A',
-                  lineHeight: 1.8,
-                  margin:     0,
-                }}>
-                  {block.value}
-                </p>
+                {block.items ? (
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                    {block.items.map((item, idx) => (
+                      <li key={idx} style={{
+                        fontFamily:  "'Ploni', sans-serif",
+                        fontSize:    isMobile ? '15px' : '17px',
+                        fontWeight:  300,
+                        color:       '#3D3B5A',
+                        lineHeight:  1.8,
+                        display:     'flex',
+                        gap:         '10px',
+                        marginBottom: idx < block.items.length - 1 ? '6px' : 0,
+                      }}>
+                        <span style={{ color: '#7C3AED', fontWeight: 700, flexShrink: 0 }}>✦</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p style={{
+                    fontFamily: "'Ploni', sans-serif",
+                    fontSize:   isMobile ? '15px' : '17px',
+                    fontWeight: 300,
+                    color:      '#3D3B5A',
+                    lineHeight: 1.8,
+                    margin:     0,
+                  }}>
+                    {block.value}
+                  </p>
+                )}
               </div>
             );
 
             if (block.type === 'image') return (
               <figure key={i} style={{ margin: '36px 0' }}>
                 {block.src ? (
-                  <img
-                    src={block.src}
-                    alt={block.alt || block.caption || ''}
-                    loading="lazy"
-                    style={{
-                      width:          '100%',
-                      borderRadius:   RADIUS.xl,
-                      display:        'block',
-                      objectFit:      'cover',
-                      maxHeight:      '520px',
-                      objectPosition: block.objectPosition || 'center',
-                    }}
-                  />
+                  <div style={{
+                    position:     'relative',
+                    width:        '100%',
+                    maxHeight:    '560px',
+                    borderRadius: RADIUS.xl,
+                    overflow:     'hidden',
+                    display:      'flex',
+                    alignItems:   'center',
+                    justifyContent: 'center',
+                    background:   '#000',
+                  }}>
+                    {/* Blurred background fill */}
+                    <div style={{
+                      position:   'absolute',
+                      inset:      0,
+                      backgroundImage:    `url(${block.src})`,
+                      backgroundSize:     'cover',
+                      backgroundPosition: 'center',
+                      filter:     'blur(18px)',
+                      transform:  'scale(1.12)',
+                      opacity:    0.7,
+                    }} />
+                    {/* Actual image — full, unclipped */}
+                    <img
+                      src={block.src}
+                      alt={block.alt || block.caption || ''}
+                      loading="lazy"
+                      style={{
+                        position:  'relative',
+                        zIndex:    1,
+                        maxWidth:  '100%',
+                        maxHeight: '560px',
+                        width:     'auto',
+                        height:    'auto',
+                        display:   'block',
+                      }}
+                    />
+                  </div>
                 ) : (
                   <div style={{
                     width:        '100%',
@@ -526,6 +592,61 @@ export default function BlogPost() {
                     background:   block.grad || 'linear-gradient(135deg, #1a1a3e, #2d4a7a)',
                   }} />
                 )}
+                {block.caption && (
+                  <figcaption style={{
+                    fontFamily: "'Ploni', sans-serif",
+                    fontSize:   '13px',
+                    color:      '#9591B0',
+                    textAlign:  'center',
+                    marginTop:  '10px',
+                  }}>
+                    {block.caption}
+                  </figcaption>
+                )}
+              </figure>
+            );
+
+            if (block.type === 'video') return (
+              <figure key={i} style={{ margin: '36px 0' }}>
+                <div style={{
+                  position:       'relative',
+                  width:          '100%',
+                  borderRadius:   RADIUS.xl,
+                  overflow:       'hidden',
+                  display:        'flex',
+                  alignItems:     'center',
+                  justifyContent: 'center',
+                  background:     '#000',
+                }}>
+                  {/* Blurred poster background — same treatment as images */}
+                  {block.poster && (
+                    <div style={{
+                      position:           'absolute',
+                      inset:              0,
+                      backgroundImage:    `url(${block.poster})`,
+                      backgroundSize:     'cover',
+                      backgroundPosition: 'center',
+                      filter:             'blur(18px)',
+                      transform:          'scale(1.12)',
+                      opacity:            0.6,
+                    }} />
+                  )}
+                  <video
+                    src={block.src}
+                    poster={block.poster}
+                    controls
+                    playsInline
+                    style={{
+                      position:  'relative',
+                      zIndex:    1,
+                      maxWidth:  '100%',
+                      maxHeight: '680px',
+                      width:     'auto',
+                      height:    'auto',
+                      display:   'block',
+                    }}
+                  />
+                </div>
                 {block.caption && (
                   <figcaption style={{
                     fontFamily: "'Ploni', sans-serif",
