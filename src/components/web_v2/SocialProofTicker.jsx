@@ -251,6 +251,12 @@ export default function SocialProofTicker() {
   const fixedExpHe       = expSlug ? (SLUG_EXP_HE[expSlug] ?? null) : null;
   const fixedExpEn       = expSlug ? (SLUG_EXP_EN[expSlug] ?? null) : null;
 
+  /* Max shows per page type — keeps the popup credible, not spammy.
+     3 on homepage (user browses longer), 2 on expedition pages (focused visitor). */
+  const pageKey  = isExpeditionPage ? 'exp' : 'home';
+  const MAX_SHOWS = isExpeditionPage ? 2 : 3;
+  const countKey  = `highair_sp_count_${pageKey}`;
+
   /* Dismissed this session → never show again */
   const [dismissed, setDismissed] = useState(
     () => sessionStorage.getItem(SESSION_KEY) === '1'
@@ -291,10 +297,17 @@ export default function SocialProofTicker() {
   /* Reset image error flag whenever a new item is shown */
   useEffect(() => { setImgError(false); }, [item]);
 
+  /* Count each show — when phase becomes 'visible' the user actually sees it */
+  useEffect(() => {
+    if (phase !== 'visible') return;
+    const n = parseInt(sessionStorage.getItem(countKey) || '0', 10) + 1;
+    sessionStorage.setItem(countKey, String(n));
+  }, [phase, countKey]);
+
   /* Phase state machine
      - Pauses the visible countdown while hovered (desktop only)
      - Exits immediately if a modal opens while visible
-     - Doesn't start new cycles while a modal is open               */
+     - Stops after MAX_SHOWS per page type (3 on homepage, 2 on expedition) */
   useEffect(() => {
     if (modalOpen && phase === 'visible') {
       setPhase('out');
@@ -308,12 +321,17 @@ export default function SocialProofTicker() {
     else if (phase === 'visible' && !hovered) t = setTimeout(() => setPhase('out'),     SHOW_DURATION);
     /* phase === 'visible' && hovered → no timeout, countdown is paused */
     else if (phase === 'out')                 t = setTimeout(() => setPhase('pause'),   ANIM_OUT);
-    else if (phase === 'pause')               t = setTimeout(() => {
-      setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp));
-      setPhase('in');
-    }, PAUSE);
+    else if (phase === 'pause') {
+      /* Stop silently once the per-page limit is reached */
+      const shown = parseInt(sessionStorage.getItem(countKey) || '0', 10);
+      if (shown >= MAX_SHOWS) return;
+      t = setTimeout(() => {
+        setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp));
+        setPhase('in');
+      }, PAUSE);
+    }
     return () => clearTimeout(t);
-  }, [phase, hovered, modalOpen, isEn, fixedExpHe, fixedExpEn]);
+  }, [phase, hovered, modalOpen, isEn, fixedExpHe, fixedExpEn, countKey, MAX_SHOWS]);
 
   function handleDismiss() {
     setDismissed(true);
