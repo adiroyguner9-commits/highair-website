@@ -296,7 +296,7 @@ export default function SocialProofTicker() {
         bottom,
         right:         '24px',
         zIndex:        997,
-        width:         '272px',
+        width:         '300px',
         opacity,
         transform:     `translateY(${translateY})`,
         transition:    `${transition}, bottom 0.35s cubic-bezier(0.22,1,0.36,1)`,
@@ -366,9 +366,6 @@ export default function SocialProofTicker() {
             lineHeight:   1.3,
             direction:    isEn ? 'ltr' : 'rtl',
             textAlign:    'start',
-            overflow:     'hidden',
-            whiteSpace:   'nowrap',
-            textOverflow: 'ellipsis',
           }}>
             {isEn
               ? `${item.name} registered for ${item.exp} · ${item.time}`
