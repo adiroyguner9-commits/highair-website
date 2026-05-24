@@ -277,13 +277,16 @@ export default function SocialProofTicker() {
 
   const isHidden = phase === 'idle' || phase === 'pause';
 
-  const opacity    = isHidden ? 0 : 1;
-  const translateY = (isHidden || phase === 'in') ? '20px' : '0px';
+  /* 'in' phase just arms the transition — values stay at 0 / 20px.
+     'visible' then fires both opacity and transform at once → fade+slide-up.
+     'out' reverses both at once → fade+slide-down. */
+  const opacity    = phase === 'visible' ? 1 : 0;
+  const translateY = phase === 'visible' ? '0px' : '20px';
+  const animDur    = phase === 'out' ? ANIM_OUT : ANIM_IN;
+  const animEase   = phase === 'out' ? 'ease' : 'cubic-bezier(0.22,1,0.36,1)';
   const transition = isHidden
     ? 'none'
-    : phase === 'out'
-      ? `opacity ${ANIM_OUT}ms ease, transform ${ANIM_OUT}ms ease`
-      : `opacity ${ANIM_IN}ms cubic-bezier(0.22,1,0.36,1), transform ${ANIM_IN}ms cubic-bezier(0.22,1,0.36,1)`;
+    : `opacity ${animDur}ms ${animEase}, transform ${animDur}ms ${animEase}`;
 
   return (
     <div
@@ -297,7 +300,7 @@ export default function SocialProofTicker() {
         opacity,
         transform:     `translateY(${translateY})`,
         transition:    `${transition}, bottom 0.35s cubic-bezier(0.22,1,0.36,1)`,
-        pointerEvents: isHidden ? 'none' : 'auto',
+        pointerEvents: phase === 'visible' ? 'auto' : 'none',
         direction:     'ltr',
       }}
     >
