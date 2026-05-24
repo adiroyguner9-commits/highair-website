@@ -334,6 +334,7 @@ export default function ExpeditionExplorer({ type }) {
             paddingTop:              '12px',
             marginTop:               '-12px',
             paddingBottom:           '72px',
+            paddingInlineEnd:        isMobile ? '5%' : 0,
           }}
         >
           {cards.map(exp => (

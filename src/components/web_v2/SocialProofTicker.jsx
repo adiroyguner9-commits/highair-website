@@ -2,11 +2,11 @@
  * SocialProofTicker.jsx
  * Floating social proof notification popup (bottom-right corner).
  * Shows one registration at a time — slides up, stays 5s, fades out, 8s pause, repeats.
- * Daily-seeded so names/destinations change each day; session-random start so
- * repeat visitors never see the same opening notification.
+ * Each popup picks a completely fresh random name, destination, and time so the
+ * sequence never repeats and always looks organic.
  */
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
@@ -87,51 +87,48 @@ const EXPS_EN = [
 ];
 
 const TIMES_HE = [
-  'לפני 6 דקות', 'לפני 14 דקות', 'לפני 28 דקות', 'לפני 43 דקות',
-  'לפני שעה', 'לפני שעתיים', 'לפני 3 שעות', 'לפני 5 שעות',
+  'לפני 2 דקות', 'לפני 5 דקות', 'לפני 9 דקות', 'לפני 14 דקות',
+  'לפני 21 דקות', 'לפני 33 דקות', 'לפני 47 דקות', 'לפני שעה',
+  'לפני שעה וחצי', 'לפני שעתיים', 'לפני 3 שעות', 'לפני 4 שעות',
+  'לפני 6 שעות', 'לפני 8 שעות', 'לפני 11 שעות', 'לפני 13 שעות',
+  'לפני יום', 'לפני יומיים',
 ];
 
 const TIMES_EN = [
-  '6 minutes ago', '14 minutes ago', '28 minutes ago', '43 minutes ago',
-  '1 hour ago', '2 hours ago', '3 hours ago', '5 hours ago',
+  '2 minutes ago', '5 minutes ago', '9 minutes ago', '14 minutes ago',
+  '21 minutes ago', '33 minutes ago', '47 minutes ago', '1 hour ago',
+  '90 minutes ago', '2 hours ago', '3 hours ago', '4 hours ago',
+  '6 hours ago', '8 hours ago', '11 hours ago', '13 hours ago',
+  '1 day ago', '2 days ago',
 ];
 
-/* ── Seeded pseudo-random (changes daily) ── */
-function dailySeed() {
-  const d = new Date();
-  const str = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-  let h = 0;
-  for (const c of str) h = (Math.imul(h, 31) + c.charCodeAt(0)) | 0;
-  return Math.abs(h);
+/* ── Fully random item — new pick on every popup show ── */
+function rndPick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function seededRand(seed, index) {
-  let s = (seed ^ (index * 2654435761)) >>> 0;
-  s = (Math.imul(s ^ (s >>> 16), 0x45d9f3b)) >>> 0;
-  s = (s ^ (s >>> 16)) >>> 0;
-  return s / 0xffffffff;
-}
+/* prevName / prevExp are excluded from the pool so the same value
+   never appears twice in a row. */
+function freshItem(isEn, fixedExp = null, prevName = null, prevExp = null) {
+  const allNames = isEn ? NAMES_EN : NAMES_HE;
+  const allExps  = isEn ? EXPS_EN  : EXPS_HE;
 
-function pick(arr, seed, index) {
-  return arr[Math.floor(seededRand(seed, index) * arr.length)];
-}
+  const names = prevName
+    ? allNames.filter(n => (isEn ? n : n.name) !== prevName)
+    : allNames;
+  const exps = (!fixedExp && prevExp)
+    ? allExps.filter(e => e !== prevExp)
+    : allExps;
 
-function buildItems(isEn, count = 30, fixedExp = null) {
-  const seed  = dailySeed();
-  const names = isEn ? NAMES_EN : NAMES_HE;
-  const exps  = isEn ? EXPS_EN  : EXPS_HE;
-  const times = isEn ? TIMES_EN : TIMES_HE;
-  return Array.from({ length: count }, (_, i) => {
-    const nameEntry = pick(names, seed + 1, i);
-    const exp       = fixedExp ?? pick(exps, seed + 2, i);
-    return {
-      name:   isEn ? nameEntry : nameEntry.name,
-      female: isEn ? false     : nameEntry.f,
-      exp,
-      time:   pick(times, seed + 3, i),
-      img:    EXP_IMG[exp] || null,
-    };
-  });
+  const nameEntry = rndPick(names);
+  const exp       = fixedExp ?? rndPick(exps);
+  return {
+    name:   isEn ? nameEntry : nameEntry.name,
+    female: isEn ? false     : nameEntry.f,
+    exp,
+    time:   rndPick(isEn ? TIMES_EN : TIMES_HE),
+    img:    EXP_IMG[exp] || null,
+  };
 }
 
 /* ── Expedition page slug → popup destination name ── */
@@ -246,19 +243,10 @@ export default function SocialProofTicker() {
   const fixedExpHe       = expSlug ? (SLUG_EXP_HE[expSlug] ?? null) : null;
   const fixedExpEn       = expSlug ? (SLUG_EXP_EN[expSlug] ?? null) : null;
 
-  /* Base item pools (random daily mix) */
-  const [itemsHe] = useState(() => buildItems(false));
-  const [itemsEn] = useState(() => buildItems(true));
-
-  /* On expedition pages: all items show that specific destination */
-  const items = useMemo(() => {
-    if (isEn && fixedExpEn) return buildItems(true,  30, fixedExpEn);
-    if (!isEn && fixedExpHe) return buildItems(false, 30, fixedExpHe);
-    return isEn ? itemsEn : itemsHe;
-  }, [isEn, fixedExpHe, fixedExpEn, itemsHe, itemsEn]);
-
-  /* Random start each session — repeat visitors see different opening */
-  const [index, setIndex] = useState(() => Math.floor(Math.random() * 30));
+  /* One item at a time — regenerated fresh on every popup show */
+  const [item, setItem] = useState(
+    () => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe)
+  );
   /* phase: 'idle' | 'in' | 'visible' | 'out' | 'pause' */
   const [phase, setPhase] = useState('idle');
   const [bottom, setBottom] = useState(
@@ -278,16 +266,15 @@ export default function SocialProofTicker() {
     else if (phase === 'visible') t = setTimeout(() => setPhase('out'),     SHOW_DURATION);
     else if (phase === 'out')     t = setTimeout(() => setPhase('pause'),   ANIM_OUT);
     else if (phase === 'pause')   t = setTimeout(() => {
-      setIndex(i => (i + 1) % items.length);
+      setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp));
       setPhase('in');
     }, PAUSE);
     return () => clearTimeout(t);
-  }, [phase, items.length]);
+  }, [phase, isEn, fixedExpHe, fixedExpEn]);
 
   /* Hide entirely on Israel trip pages */
   if (isIsraelPage) return null;
 
-  const item     = items[index % items.length];
   const isHidden = phase === 'idle' || phase === 'pause';
 
   const opacity    = isHidden ? 0 : 1;

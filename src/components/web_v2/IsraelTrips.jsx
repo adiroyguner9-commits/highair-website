@@ -298,6 +298,7 @@ export default function IsraelTrips() {
               paddingTop:              '12px',
               marginTop:               '-12px',
               paddingBottom:           '72px',
+              paddingInlineEnd:        '5%',
             }}
           >
             {trips.map(trip => (
