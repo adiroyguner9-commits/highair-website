@@ -257,9 +257,10 @@ export default function SocialProofTicker() {
 
   /* Max shows per page type — keeps the popup credible, not spammy.
      3 on homepage (user browses longer), 2 on expedition pages (focused visitor). */
-  const pageKey  = isExpeditionPage ? 'exp' : 'home';
   const MAX_SHOWS = isExpeditionPage ? 2 : 3;
-  const countKey  = `highair_sp_count_${pageKey}`;
+
+  /* Count resets every page visit (React state, not sessionStorage) */
+  const [showCount, setShowCount] = useState(0);
 
   /* Dismissed this page visit → hide for the rest of this visit only */
   const [dismissed, setDismissed] = useState(false);
@@ -304,12 +305,10 @@ export default function SocialProofTicker() {
   /* Count each show and remember the last item for cross-session variety */
   useEffect(() => {
     if (phase !== 'visible') return;
-    // Increment per-page counter
-    const n = parseInt(sessionStorage.getItem(countKey) || '0', 10) + 1;
-    sessionStorage.setItem(countKey, String(n));
-    // Persist last shown name+exp so next session starts with something different
+    setShowCount(prev => prev + 1);
+    // Persist last shown item so next session starts with something different
     localStorage.setItem(LAST_ITEM_KEY, JSON.stringify({ name: item.name, exp: item.exp, time: item.time }));
-  }, [phase, countKey, item]);
+  }, [phase, item]);
 
   /* Phase state machine
      - Pauses the visible countdown while hovered (desktop only)
@@ -329,16 +328,15 @@ export default function SocialProofTicker() {
     /* phase === 'visible' && hovered → no timeout, countdown is paused */
     else if (phase === 'out')                 t = setTimeout(() => setPhase('pause'),   ANIM_OUT);
     else if (phase === 'pause') {
-      /* Stop silently once the per-page limit is reached */
-      const shown = parseInt(sessionStorage.getItem(countKey) || '0', 10);
-      if (shown >= MAX_SHOWS) return;
+      /* Stop silently once the per-visit limit is reached */
+      if (showCount >= MAX_SHOWS) return;
       t = setTimeout(() => {
         setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp, prev.time));
         setPhase('in');
       }, PAUSE);
     }
     return () => clearTimeout(t);
-  }, [phase, hovered, modalOpen, isEn, fixedExpHe, fixedExpEn, countKey, MAX_SHOWS]);
+  }, [phase, hovered, modalOpen, isEn, fixedExpHe, fixedExpEn, MAX_SHOWS, showCount]);
 
   function handleDismiss() {
     setDismissed(true);
