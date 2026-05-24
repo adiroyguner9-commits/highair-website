@@ -287,14 +287,8 @@ export default function ExpeditionExplorer({ type }) {
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* ── Header: title + arrows ── */}
-        <div style={{
-          display:        'flex',
-          alignItems:     'flex-end',
-          justifyContent: 'space-between',
-          marginBottom:   '32px',
-          gap:            '16px',
-        }}>
-          <div>
+        {isMobile ? (
+          <div style={{ marginBottom: '40px' }}>
             <h2 style={{
               fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
               color: '#0A0818', margin: 0, letterSpacing: '-0.02em',
@@ -303,14 +297,26 @@ export default function ExpeditionExplorer({ type }) {
               {heading}
             </h2>
           </div>
-
-          {!isMobile && (
-            <div style={{ display: 'flex', gap: '8px', flexShrink: 0, paddingBottom: '4px' }}>
+        ) : (
+          <div style={{
+            display: 'flex', alignItems: 'flex-start',
+            justifyContent: 'space-between', marginBottom: '40px', gap: '16px',
+          }}>
+            <div>
+              <h2 style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
+                color: '#0A0818', margin: 0, letterSpacing: '-0.02em',
+                lineHeight: 1.1, textAlign: 'start',
+              }}>
+                {heading}
+              </h2>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
               <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
               <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* ── Scroll track ── */}
         <div
@@ -325,13 +331,9 @@ export default function ExpeditionExplorer({ type }) {
             scrollbarWidth:          'none',
             msOverflowStyle:         'none',
             WebkitOverflowScrolling: 'touch',
-            paddingTop:              '12px', // room for card hover translateY(-6px)
-            marginTop:               '-12px', // compensate layout shift
-            paddingBottom:           '72px', // room for box-shadow (offset 20 + blur 48 + buffer)
-            paddingLeft:             '16px', // room for left shadow
-            paddingRight:            '16px', // room for right shadow
-            marginLeft:              '-16px', // compensate layout shift
-            marginRight:             '-16px', // compensate layout shift
+            paddingTop:              '12px',
+            marginTop:               '-12px',
+            paddingBottom:           '72px',
           }}
         >
           {cards.map(exp => (

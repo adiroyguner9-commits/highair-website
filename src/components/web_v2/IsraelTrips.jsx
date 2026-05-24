@@ -6,7 +6,7 @@
  * · Coming-soon cards for destinations not yet live
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
@@ -58,13 +58,15 @@ function IsraelCard({ trip }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
+        width:         '100%',
+        height:        '100%',
         borderRadius:  RADIUS.xl,
         overflow:      'hidden',
         background:    bg,
         display:       'flex',
         flexDirection: 'column',
         justifyContent:'flex-end',
-        minHeight:     isMobile ? '280px' : '380px',
+        minHeight:     isMobile ? '300px' : '380px',
         cursor:        trip.live ? 'pointer' : 'default',
         transform:     hovered && trip.live ? 'translateY(-6px)' : 'translateY(0)',
         boxShadow:     hovered && trip.live
@@ -128,12 +130,43 @@ function IsraelCard({ trip }) {
   );
 }
 
+/* ── Arrow button (same as ExpeditionExplorer) ── */
+function NavArrow({ direction, disabled, onClick, isRtl }) {
+  const [hovered, setHovered] = useState(false);
+  const symbol = direction === 'prev' ? (isRtl ? '→' : '←') : (isRtl ? '←' : '→');
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      onMouseEnter={() => !disabled && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        width: '44px', height: '44px', borderRadius: '50%',
+        border: `2px solid ${disabled ? '#E5E3F0' : hovered ? COLOR.primary : '#C4C0DC'}`,
+        background: disabled ? '#FAFAFA' : hovered ? COLOR.primary : '#FFFFFF',
+        color: disabled ? '#C4C0DC' : hovered ? '#FFFFFF' : '#3D3B5A',
+        cursor: disabled ? 'default' : 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: '18px', lineHeight: 1, flexShrink: 0,
+        transition: 'all 0.18s ease',
+        boxShadow: hovered && !disabled ? '0 4px 12px rgba(109,40,217,0.20)' : 'none',
+      }}
+    >
+      {symbol}
+    </button>
+  );
+}
+
 /* ══════════════════════════════════════════════════════════════
    Main section
 ══════════════════════════════════════════════════════════════ */
 
 export default function IsraelTrips() {
   const [ctaHovered, setCtaHovered] = useState(false);
+  const trackRef = useRef(null);
+  const [cardWidth, setCardWidth] = useState(280);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
@@ -183,12 +216,49 @@ export default function IsraelTrips() {
       .catch(() => {}); // silently keep hardcoded fallback on network error
   }, []);
 
+  /* ── Carousel: card width ── */
+  useEffect(() => {
+    if (!isMobile) return;
+    const el = trackRef.current;
+    if (!el) return;
+    const calc = () => setCardWidth(el.offsetWidth * 0.82);
+    calc();
+    const ro = new ResizeObserver(calc);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [isMobile]);
+
+  /* ── Carousel: arrow states ── */
+  const updateArrows = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const sl  = Math.abs(Math.round(el.scrollLeft));
+    const max = Math.round(el.scrollWidth - el.clientWidth);
+    setCanPrev(sl > 4);
+    setCanNext(sl < max - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el || !isMobile) return;
+    updateArrows();
+    el.addEventListener('scroll', updateArrows, { passive: true });
+    return () => el.removeEventListener('scroll', updateArrows);
+  }, [updateArrows, cardWidth, isMobile]);
+
+  const scrollByCard = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const delta = (cardWidth + 18) * (dir === 'next' ? 1 : -1) * (isRtl ? -1 : 1);
+    el.scrollBy({ left: delta, behavior: 'smooth' });
+  };
+
   if (trips.length === 0) return null;
 
   return (
     <section id="israel" style={{
       background:  '#FFFFFF',
-      padding:     isMobile ? '36px 5%' : '60px 5%',
+      padding:     isMobile ? '36px 5% 0' : '60px 5%',
       boxSizing:   'border-box',
       direction:   dir,
     }}>
@@ -211,20 +281,52 @@ export default function IsraelTrips() {
 
         </div>
 
-        {/* ── Cards grid ── */}
-        <div style={{
-          display:             isMobile ? 'flex' : 'grid',
-          flexDirection:       isMobile ? 'column' : undefined,
-          gridTemplateColumns: isMobile ? undefined : 'repeat(4, 1fr)',
-          gap:                 '18px',
-        }}>
-          {trips.map(trip => (
-            <IsraelCard key={trip.id || trip.slug} trip={trip} />
-          ))}
-        </div>
+        {/* ── Cards: carousel on mobile, grid on desktop ── */}
+        {isMobile ? (
+          <div
+            ref={trackRef}
+            style={{
+              display:                 'flex',
+              gap:                     '18px',
+              direction:               isRtl ? 'rtl' : 'ltr',
+              overflowX:               'auto',
+              scrollSnapType:          'x mandatory',
+              scrollBehavior:          'smooth',
+              scrollbarWidth:          'none',
+              msOverflowStyle:         'none',
+              WebkitOverflowScrolling: 'touch',
+              paddingTop:              '12px',
+              marginTop:               '-12px',
+              paddingBottom:           '72px',
+            }}
+          >
+            {trips.map(trip => (
+              <div
+                key={trip.id || trip.slug}
+                style={{ flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px`, scrollSnapAlign: 'start' }}
+              >
+                <IsraelCard trip={trip} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '18px' }}>
+            {trips.map(trip => (
+              <IsraelCard key={trip.id || trip.slug} trip={trip} />
+            ))}
+          </div>
+        )}
+
+        {/* ── Mobile arrows ── */}
+        {isMobile && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '-48px', paddingBottom: '36px' }}>
+            <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
+            <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
+          </div>
+        )}
 
         {/* ── Bottom CTA - only when more than 1 trip ── */}
-        {trips.length > 1 && (
+        {trips.length > 1 && !isMobile && (
           <div style={{ textAlign: 'center', marginTop: '48px', direction: 'ltr' }}>
             <button
               onMouseEnter={() => setCtaHovered(true)}
