@@ -6,7 +6,7 @@
  * sequence never repeats and always looks organic.
  *
  * Features:
- *  - X button: dismisses for the rest of the session (sessionStorage)
+ *  - X button: dismisses for the current page visit only (resets on navigation)
  *  - Hover pause: countdown stops while the user is hovering
  *  - Modal-aware: hides immediately when a ha:modal event fires (e.g. mobile menu)
  *  - Responsive width: never overflows on small phones
@@ -238,7 +238,6 @@ const PAUSE         = 8000;   // ms gap between popups
 
 const BOTTOM_NORMAL = '28px';
 const BOTTOM_ABOVE  = '200px';
-const SESSION_KEY   = 'highair_sp_dismissed';
 const LAST_ITEM_KEY = 'highair_sp_last'; // persists across sessions
 
 /* ── Component ── */
@@ -262,10 +261,8 @@ export default function SocialProofTicker() {
   const MAX_SHOWS = isExpeditionPage ? 2 : 3;
   const countKey  = `highair_sp_count_${pageKey}`;
 
-  /* Dismissed this session → never show again */
-  const [dismissed, setDismissed] = useState(
-    () => sessionStorage.getItem(SESSION_KEY) === '1'
-  );
+  /* Dismissed this page visit → hide for the rest of this visit only */
+  const [dismissed, setDismissed] = useState(false);
 
   /* One item at a time — first item of each session excludes whatever
      was last shown in the previous session (read from localStorage). */
@@ -345,7 +342,6 @@ export default function SocialProofTicker() {
 
   function handleDismiss() {
     setDismissed(true);
-    sessionStorage.setItem(SESSION_KEY, '1');
   }
 
   /* Hide on Israel trip pages or if dismissed this session */
