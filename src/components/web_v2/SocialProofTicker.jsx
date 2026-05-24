@@ -114,11 +114,12 @@ function rndPick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/* prevName / prevExp are excluded from the pool so the same value
-   never appears twice in a row. */
-function freshItem(isEn, fixedExp = null, prevName = null, prevExp = null) {
+/* prevName / prevExp / prevTime are excluded from their pools so the same
+   value never appears twice in a row, and cross-session starts fresh too. */
+function freshItem(isEn, fixedExp = null, prevName = null, prevExp = null, prevTime = null) {
   const allNames = isEn ? NAMES_EN : NAMES_HE;
   const allExps  = isEn ? EXPS_EN  : EXPS_HE;
+  const allTimes = isEn ? TIMES_EN : TIMES_HE;
 
   const names = prevName
     ? allNames.filter(n => (isEn ? n : n.name) !== prevName)
@@ -126,6 +127,9 @@ function freshItem(isEn, fixedExp = null, prevName = null, prevExp = null) {
   const exps = (!fixedExp && prevExp)
     ? allExps.filter(e => e !== prevExp)
     : allExps;
+  const times = prevTime
+    ? allTimes.filter(t => t !== prevTime)
+    : allTimes;
 
   const nameEntry = rndPick(names);
   const exp       = fixedExp ?? rndPick(exps);
@@ -133,7 +137,7 @@ function freshItem(isEn, fixedExp = null, prevName = null, prevExp = null) {
     name:   isEn ? nameEntry : nameEntry.name,
     female: isEn ? false     : nameEntry.f,
     exp,
-    time:   rndPick(isEn ? TIMES_EN : TIMES_HE),
+    time:   rndPick(times),
     img:    EXP_IMG[exp] || null,
   };
 }
@@ -267,7 +271,7 @@ export default function SocialProofTicker() {
      was last shown in the previous session (read from localStorage). */
   const [item, setItem] = useState(() => {
     const last = JSON.parse(localStorage.getItem(LAST_ITEM_KEY) || 'null');
-    return freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, last?.name, last?.exp);
+    return freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, last?.name, last?.exp, last?.time);
   });
   /* Broken image → fall back to emoji */
   const [imgError, setImgError] = useState(false);
@@ -307,7 +311,7 @@ export default function SocialProofTicker() {
     const n = parseInt(sessionStorage.getItem(countKey) || '0', 10) + 1;
     sessionStorage.setItem(countKey, String(n));
     // Persist last shown name+exp so next session starts with something different
-    localStorage.setItem(LAST_ITEM_KEY, JSON.stringify({ name: item.name, exp: item.exp }));
+    localStorage.setItem(LAST_ITEM_KEY, JSON.stringify({ name: item.name, exp: item.exp, time: item.time }));
   }, [phase, countKey, item]);
 
   /* Phase state machine
@@ -332,7 +336,7 @@ export default function SocialProofTicker() {
       const shown = parseInt(sessionStorage.getItem(countKey) || '0', 10);
       if (shown >= MAX_SHOWS) return;
       t = setTimeout(() => {
-        setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp));
+        setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp, prev.time));
         setPhase('in');
       }, PAUSE);
     }
