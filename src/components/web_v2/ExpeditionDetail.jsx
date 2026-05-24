@@ -17,7 +17,7 @@ import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './Phon
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import GHLCalendarWidget from './GHLCalendarWidget.jsx';
-import { MountainIcon, StarIcon, MedalIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
+import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
 import { Analytics, useScrollDepth } from '../../utils/analytics.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 import VideoTestimonials from './VideoTestimonials.jsx';
@@ -869,7 +869,7 @@ export default function ExpeditionDetail() {
             { IconComp: MountainIcon, label: t('expedition.elevation'), value: `${exp.elevNum}${'m'}` },
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff || exp.diffHe) },
             exp.type === 'Trekking'
-              ? { IconComp: MedalIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? exp.days : (exp.daysEn || exp.days) }
+              ? { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? exp.days : (exp.daysEn || exp.days) }
               : { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
             { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: exp.priceStr ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '–' },
           ].map((s, i) => (
