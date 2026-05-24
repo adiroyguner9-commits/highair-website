@@ -235,6 +235,7 @@ const PAUSE         = 8000;   // ms gap between popups
 const BOTTOM_NORMAL = '28px';
 const BOTTOM_ABOVE  = '200px';
 const SESSION_KEY   = 'highair_sp_dismissed';
+const LAST_ITEM_KEY = 'highair_sp_last'; // persists across sessions
 
 /* ── Component ── */
 export default function SocialProofTicker() {
@@ -262,10 +263,12 @@ export default function SocialProofTicker() {
     () => sessionStorage.getItem(SESSION_KEY) === '1'
   );
 
-  /* One item at a time — regenerated fresh on every popup show */
-  const [item, setItem] = useState(
-    () => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe)
-  );
+  /* One item at a time — first item of each session excludes whatever
+     was last shown in the previous session (read from localStorage). */
+  const [item, setItem] = useState(() => {
+    const last = JSON.parse(localStorage.getItem(LAST_ITEM_KEY) || 'null');
+    return freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, last?.name, last?.exp);
+  });
   /* Broken image → fall back to emoji */
   const [imgError, setImgError] = useState(false);
 
@@ -297,12 +300,15 @@ export default function SocialProofTicker() {
   /* Reset image error flag whenever a new item is shown */
   useEffect(() => { setImgError(false); }, [item]);
 
-  /* Count each show — when phase becomes 'visible' the user actually sees it */
+  /* Count each show and remember the last item for cross-session variety */
   useEffect(() => {
     if (phase !== 'visible') return;
+    // Increment per-page counter
     const n = parseInt(sessionStorage.getItem(countKey) || '0', 10) + 1;
     sessionStorage.setItem(countKey, String(n));
-  }, [phase, countKey]);
+    // Persist last shown name+exp so next session starts with something different
+    localStorage.setItem(LAST_ITEM_KEY, JSON.stringify({ name: item.name, exp: item.exp }));
+  }, [phase, countKey, item]);
 
   /* Phase state machine
      - Pauses the visible countdown while hovered (desktop only)
