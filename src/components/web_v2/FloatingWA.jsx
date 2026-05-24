@@ -52,21 +52,21 @@ export default function FloatingWA() {
         bottom,
         left:           '28px',
         zIndex:         998,
-        width:          '58px',
-        height:         '58px',
+        width:          '46px',
+        height:         '46px',
         borderRadius:   '50%',
         background:     hovered ? '#1aab52' : '#25D366',
         boxShadow:      hovered
-                          ? '0 8px 32px rgba(37,211,102,0.60)'
-                          : '0 4px 20px rgba(37,211,102,0.45)',
+                          ? '0 6px 24px rgba(37,211,102,0.55)'
+                          : '0 3px 16px rgba(37,211,102,0.40)',
         transform:      hovered ? 'scale(1.12)' : 'scale(1)',
         transition:     'bottom 0.35s cubic-bezier(0.22,1,0.36,1), background 0.22s, box-shadow 0.22s, transform 0.22s cubic-bezier(0.22,1,0.36,1)',
         textDecoration: 'none',
       }}
     >
       <svg
-        width="30"
-        height="30"
+        width="24"
+        height="24"
         viewBox="0 0 16 16"
         fill="#FFFFFF"
         style={{

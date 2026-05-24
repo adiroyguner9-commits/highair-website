@@ -7,8 +7,9 @@ import * as Sentry from '@sentry/react';
 import { Analytics } from '@vercel/analytics/react';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
-import CookieBanner  from './components/web_v2/CookieBanner.jsx';
-import FloatingWA    from './components/web_v2/FloatingWA.jsx';
+import CookieBanner        from './components/web_v2/CookieBanner.jsx';
+import FloatingWA          from './components/web_v2/FloatingWA.jsx';
+import SocialProofTicker   from './components/web_v2/SocialProofTicker.jsx';
 /* Scroll depth is now tracked per-page via useScrollDepth() hook in each component */
 
 /* ── Prevent right-click save on images & videos ── */
@@ -66,6 +67,7 @@ createRoot(document.getElementById('root')).render(
       <RouteTracker />
       <CookieBanner />
       <FloatingWA />
+      <SocialProofTicker />
       <Suspense fallback={<div style={{minHeight:'100vh'}}/>}>
         <Routes>
           <Route path="/"                  element={<HomeV2 />} />
