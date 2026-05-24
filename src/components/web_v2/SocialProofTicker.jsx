@@ -4,6 +4,13 @@
  * Shows one registration at a time — slides up, stays 5s, fades out, 8s pause, repeats.
  * Each popup picks a completely fresh random name, destination, and time so the
  * sequence never repeats and always looks organic.
+ *
+ * Features:
+ *  - X button: dismisses for the rest of the session (sessionStorage)
+ *  - Hover pause: countdown stops while the user is hovering
+ *  - Modal-aware: hides immediately when a ha:modal event fires (e.g. mobile menu)
+ *  - Responsive width: never overflows on small phones
+ *  - Image error fallback: broken images fall back to the mountain emoji
  */
 
 import { useState, useEffect } from 'react';
@@ -227,6 +234,7 @@ const PAUSE         = 8000;   // ms gap between popups
 
 const BOTTOM_NORMAL = '28px';
 const BOTTOM_ABOVE  = '200px';
+const SESSION_KEY   = 'highair_sp_dismissed';
 
 /* ── Component ── */
 export default function SocialProofTicker() {
@@ -243,43 +251,83 @@ export default function SocialProofTicker() {
   const fixedExpHe       = expSlug ? (SLUG_EXP_HE[expSlug] ?? null) : null;
   const fixedExpEn       = expSlug ? (SLUG_EXP_EN[expSlug] ?? null) : null;
 
+  /* Dismissed this session → never show again */
+  const [dismissed, setDismissed] = useState(
+    () => sessionStorage.getItem(SESSION_KEY) === '1'
+  );
+
   /* One item at a time — regenerated fresh on every popup show */
   const [item, setItem] = useState(
     () => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe)
   );
+  /* Broken image → fall back to emoji */
+  const [imgError, setImgError] = useState(false);
+
   /* phase: 'idle' | 'in' | 'visible' | 'out' | 'pause' */
-  const [phase, setPhase] = useState('idle');
+  const [phase,     setPhase]     = useState('idle');
+  /* Hover pauses the visible countdown */
+  const [hovered,   setHovered]   = useState(false);
+  /* Modal open (e.g. mobile nav) → exit immediately, don't start new cycle */
+  const [modalOpen, setModalOpen] = useState(false);
+
   const [bottom, setBottom] = useState(
     () => localStorage.getItem('highair_cookie_consent') ? BOTTOM_NORMAL : BOTTOM_ABOVE
   );
 
+  /* Cookie banner offset */
   useEffect(() => {
     function onBanner(e) { setBottom(e.detail ? BOTTOM_ABOVE : BOTTOM_NORMAL); }
     window.addEventListener('ha:cookie-banner', onBanner);
     return () => window.removeEventListener('ha:cookie-banner', onBanner);
   }, []);
 
+  /* Modal detection — Header fires ha:modal when mobile menu opens/closes */
   useEffect(() => {
+    function onModal(e) { setModalOpen(!!e.detail); }
+    window.addEventListener('ha:modal', onModal);
+    return () => window.removeEventListener('ha:modal', onModal);
+  }, []);
+
+  /* Reset image error flag whenever a new item is shown */
+  useEffect(() => { setImgError(false); }, [item]);
+
+  /* Phase state machine
+     - Pauses the visible countdown while hovered (desktop only)
+     - Exits immediately if a modal opens while visible
+     - Doesn't start new cycles while a modal is open               */
+  useEffect(() => {
+    if (modalOpen && phase === 'visible') {
+      setPhase('out');
+      return;
+    }
+    if (modalOpen && (phase === 'idle' || phase === 'pause')) return;
+
     let t;
-    if      (phase === 'idle')    t = setTimeout(() => setPhase('in'),      INIT_DELAY);
-    else if (phase === 'in')      t = setTimeout(() => setPhase('visible'), ANIM_IN);
-    else if (phase === 'visible') t = setTimeout(() => setPhase('out'),     SHOW_DURATION);
-    else if (phase === 'out')     t = setTimeout(() => setPhase('pause'),   ANIM_OUT);
-    else if (phase === 'pause')   t = setTimeout(() => {
+    if      (phase === 'idle')                t = setTimeout(() => setPhase('in'),      INIT_DELAY);
+    else if (phase === 'in')                  t = setTimeout(() => setPhase('visible'), ANIM_IN);
+    else if (phase === 'visible' && !hovered) t = setTimeout(() => setPhase('out'),     SHOW_DURATION);
+    /* phase === 'visible' && hovered → no timeout, countdown is paused */
+    else if (phase === 'out')                 t = setTimeout(() => setPhase('pause'),   ANIM_OUT);
+    else if (phase === 'pause')               t = setTimeout(() => {
       setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp));
       setPhase('in');
     }, PAUSE);
     return () => clearTimeout(t);
-  }, [phase, isEn, fixedExpHe, fixedExpEn]);
+  }, [phase, hovered, modalOpen, isEn, fixedExpHe, fixedExpEn]);
 
-  /* Hide entirely on Israel trip pages */
-  if (isIsraelPage) return null;
+  function handleDismiss() {
+    setDismissed(true);
+    sessionStorage.setItem(SESSION_KEY, '1');
+  }
+
+  /* Hide on Israel trip pages or if dismissed this session */
+  if (isIsraelPage || dismissed) return null;
 
   const isHidden = phase === 'idle' || phase === 'pause';
 
-  /* 'in' phase just arms the transition — values stay at 0 / 20px.
-     'visible' then fires both opacity and transform at once → fade+slide-up.
-     'out' reverses both at once → fade+slide-down. */
+  /* 'in' arms the transition without changing values (stays at 0/20px).
+     'visible' fires both opacity and transform simultaneously → fade+slide-up.
+     'out' reverses both simultaneously → fade+slide-down.               */
   const opacity    = phase === 'visible' ? 1 : 0;
   const translateY = phase === 'visible' ? '0px' : '20px';
   const animDur    = phase === 'out' ? ANIM_OUT : ANIM_IN;
@@ -288,15 +336,20 @@ export default function SocialProofTicker() {
     ? 'none'
     : `opacity ${animDur}ms ${animEase}, transform ${animDur}ms ${animEase}`;
 
+  const showImg = item.img && !imgError;
+
   return (
     <div
       aria-hidden="true"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
         position:      'fixed',
         bottom,
         right:         '24px',
         zIndex:        997,
-        width:         '300px',
+        /* Responsive: never overflows on narrow phones */
+        width:         'min(300px, calc(100vw - 48px))',
         opacity,
         transform:     `translateY(${translateY})`,
         transition:    `${transition}, bottom 0.35s cubic-bezier(0.22,1,0.36,1)`,
@@ -313,13 +366,43 @@ export default function SocialProofTicker() {
         display:      'flex',
         alignItems:   'center',
         gap:          '12px',
+        position:     'relative',
       }}>
 
-        {/* Destination image circle */}
-        {item.img ? (
+        {/* X dismiss button */}
+        <button
+          onClick={handleDismiss}
+          aria-label={isEn ? 'Close' : 'סגור'}
+          style={{
+            position:       'absolute',
+            top:            '7px',
+            right:          '8px',
+            width:          '18px',
+            height:         '18px',
+            border:         'none',
+            background:     'transparent',
+            cursor:         'pointer',
+            color:          '#CBD5E1',
+            fontSize:       '16px',
+            lineHeight:     1,
+            padding:        0,
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            transition:     'color 0.15s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = '#6B7280'}
+          onMouseLeave={e => e.currentTarget.style.color = '#CBD5E1'}
+        >
+          ×
+        </button>
+
+        {/* Destination image circle — falls back to emoji on error */}
+        {showImg ? (
           <img
             src={item.img}
             alt={item.exp}
+            onError={() => setImgError(true)}
             style={{
               width:        '42px',
               height:       '42px',
@@ -344,8 +427,8 @@ export default function SocialProofTicker() {
           }}>🏔️</div>
         )}
 
-        {/* Text */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        {/* Text — right-padded so it doesn't slide under the X button */}
+        <div style={{ flex: 1, minWidth: 0, paddingRight: '14px' }}>
           <div style={{
             fontFamily:   "'Ploni', Arial, sans-serif",
             fontSize:     '13px',
@@ -359,13 +442,13 @@ export default function SocialProofTicker() {
             {isEn ? 'New registration!' : 'הרשמה חדשה!'}
           </div>
           <div style={{
-            fontFamily:   "'Ploni', Arial, sans-serif",
-            fontSize:     '12px',
-            fontWeight:   400,
-            color:        '#6B7280',
-            lineHeight:   1.3,
-            direction:    isEn ? 'ltr' : 'rtl',
-            textAlign:    'start',
+            fontFamily: "'Ploni', Arial, sans-serif",
+            fontSize:   '12px',
+            fontWeight: 400,
+            color:      '#6B7280',
+            lineHeight: 1.3,
+            direction:  isEn ? 'ltr' : 'rtl',
+            textAlign:  'start',
           }}>
             {isEn
               ? `${item.name} registered for ${item.exp} · ${item.time}`

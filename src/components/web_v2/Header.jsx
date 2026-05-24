@@ -877,6 +877,11 @@ export default function Header() {
 
  const closeMenu = () => setMenuOpen(false);
 
+ /* Notify SocialProofTicker so it pauses while the mobile menu is open */
+ useEffect(() => {
+   window.dispatchEvent(new CustomEvent('ha:modal', { detail: menuOpen }));
+ }, [menuOpen]);
+
  function handleNavigation(href) {
  navigate('/');
  setTimeout(() => scrollToSection(href), 100);
