@@ -128,9 +128,9 @@ function ExpCard({ exp }) {
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '6px',
           padding: '5px 12px', borderRadius: RADIUS.full,
-          background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+          background: 'rgba(0,0,0,0.40)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
           fontFamily: 'Ploni, sans-serif', fontSize: FS.sm, fontWeight: 600,
-          color: 'rgba(255,255,255,0.90)', letterSpacing: '0.02em', direction: 'ltr',
+          color: 'rgba(255,255,255,0.95)', letterSpacing: '0.02em', direction: 'ltr',
         }}>
           <FlagImg emoji={exp.flag} size={18} />{isEn ? exp.country : exp.countryHe}
         </div>
