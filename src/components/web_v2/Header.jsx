@@ -73,116 +73,49 @@ const LANGS = [
 function LangSwitcher() {
  const { i18n } = useTranslation();
  const isEn = i18n.language === 'en';
- const [open, setOpen] = useState(false);
- const wrapRef = useRef(null);
 
- /* Close on outside click */
- useEffect(() => {
- if (!open) return;
- const handler = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
- document.addEventListener('mousedown', handler);
- return () => document.removeEventListener('mousedown', handler);
- }, [open]);
-
- function switchLang(lng) {
- i18n.changeLanguage(lng);
- localStorage.setItem('HA_lang', lng);
- setOpen(false);
+ function switchLang() {
+ const next = isEn ? 'he' : 'en';
+ i18n.changeLanguage(next);
+ localStorage.setItem('HA_lang', next);
  /* Subdomain redirect only on the production custom domain */
  const host = window.location.hostname;
  if (host.includes('highair-expeditions.com')) {
- if (lng === 'en' && !host.startsWith('en.')) {
+ if (next === 'en' && !host.startsWith('en.')) {
  window.location.href = window.location.href.replace(host, 'en.' + host.replace('www.', ''));
- return; // new page load handles scroll
- } else if (lng === 'he' && host.startsWith('en.')) {
+ return;
+ } else if (next === 'he' && host.startsWith('en.')) {
  window.location.href = window.location.href.replace('en.', '');
- return; // new page load handles scroll
+ return;
  }
  }
- /* On localhost / dev (no redirect): scroll to top so the user
- always sees the page from the beginning after a language switch */
  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
  }
 
- const current = LANGS.find(l => l.code === (isEn ? 'en' : 'he'));
+ /* Show the flag of the OTHER language — tap to switch to it */
+ const TargetFlag = isEn ? FlagIL : FlagUS;
+ const label = isEn ? 'Switch to Hebrew' : 'Switch to English';
 
  return (
- <div ref={wrapRef} style={{ position: 'relative', userSelect: 'none' }}>
-
- {/* Trigger button - flag only */}
  <button
- onClick={() => setOpen(o => !o)}
+ onClick={switchLang}
+ aria-label={label}
  style={{
  display: 'flex',
  alignItems: 'center',
  justifyContent: 'center',
  background: 'transparent',
  border: 'none',
- borderRadius: '6px',
  padding: '4px',
  cursor: 'pointer',
- opacity: open ? 1 : 0.85,
+ opacity: 0.85,
  transition: 'opacity 0.15s ease',
  }}
  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
- onMouseLeave={e => e.currentTarget.style.opacity = open ? '1' : '0.85'}
+ onMouseLeave={e => e.currentTarget.style.opacity = '0.85'}
  >
- <current.Flag size={24} />
+ <TargetFlag size={24} />
  </button>
-
- {/* Dropdown - aligned to the button edge closest to the screen center */}
- {open && (
- <div style={{
- position: 'absolute',
- top: 'calc(100% + 8px)',
- ...(isEn ? { right: 0 } : { left: 0 }),
- background: '#FFFFFF',
- borderRadius: '14px',
- boxShadow: '0 8px 32px rgba(10,8,24,0.14), 0 2px 8px rgba(10,8,24,0.08)',
- border: '1px solid #F0EEF8',
- overflow: 'hidden',
- minWidth: '158px',
- zIndex: 2000,
- direction: 'ltr',
- }}>
- {LANGS.map((lang, idx) => {
- const isActive = lang.code === (isEn ? 'en' : 'he');
- return (
- <button
- key={lang.code}
- onClick={() => switchLang(lang.code)}
- style={{
- display: 'flex',
- alignItems: 'center',
- gap: '12px',
- width: '100%',
- padding: '11px 16px',
- background: isActive ? '#F5F2FF' : 'transparent',
- border: 'none',
- borderTop: idx > 0 ? '1px solid #F5F3FF' : 'none',
- cursor: 'pointer',
- textAlign: 'left',
- transition: 'background 0.12s ease',
- }}
- >
- <lang.Flag size={26} />
- <span style={{
- fontSize: '14px',
- fontWeight: isActive ? 700 : 400,
- color: isActive ? '#5B21B6' : '#1E1B35',
- fontFamily: "'Ploni', sans-serif",
- }}>
- {lang.label}
- </span>
- {isActive && (
- <span style={{ marginLeft: 'auto', color: '#7C3AED', fontSize: '12px' }}>✓</span>
- )}
- </button>
- );
- })}
- </div>
- )}
- </div>
  );
 }
 
