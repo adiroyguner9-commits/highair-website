@@ -149,8 +149,9 @@ export const POSTS = [
   }, */
 
   /* ═══════════════════════════════════════════════════════════════════
-   *  id:10  machame-route-7-days  (2026-05-25)
+   *  id:10  machame-route-7-days  (REMOVED — see git history)
    * ═══════════════════════════════════════════════════════════════════ */
+  /*
   {
     id:       10,
     slug:     'machame-route-7-days',
@@ -296,7 +297,7 @@ export const POSTS = [
       { type: 'heading', value: 'What is the summit elevation on the Machame route?' },
       { type: 'text', value: 'All Kilimanjaro routes lead to the same summit: Uhuru Peak, at 5,895 metres, the highest point on the African continent.' },
     ],
-  },
+  }, */
 
   /* ═══════════════════════════════════════════════════════════════════
    *  id:9  tanzania-currency-money-guide  (2026-05-25)
