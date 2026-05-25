@@ -226,7 +226,7 @@ export const CARD_EXPS = [
     "country": "Albania",
     "countryHe": "אלבניה",
     "flag": "🇦🇱",
-    "img": "/images/cards/peaks-of-balkan.jpg",
+    "img": "/images/cards/peaks-of-balkan.webp",
     "grad": "linear-gradient(135deg,#16a34a,#15803d,#052e16)",
     "elevNum": 2656,
     "type": "Trekking",

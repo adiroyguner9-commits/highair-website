@@ -149,6 +149,152 @@ export const POSTS = [
   }, */
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:9  tanzania-currency-money-guide  (2026-05-25)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       9,
+    slug:     'tanzania-currency-money-guide',
+
+    title:    'מטבע וכסף בטנזניה: כמה כסף לקחת לטיפוס בקילימנג׳רו',
+    titleEn:  'Money in Tanzania: How Much Cash to Bring for Your Kilimanjaro Climb',
+    seoTitle:   'מטבע וכסף בטנזניה: מדריך למטפס',
+    seoTitleEn: 'Tanzania Money Guide for Kilimanjaro Climbers',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-05-25',
+    dateModified: '2026-05-25',
+    dateHe:   '25 במאי 2026',
+    dateEn:   'May 25, 2026',
+    category: 'קילימנג׳רו',
+    categoryEn: 'Kilimanjaro',
+    img:             '/images/blog/kilimanjaro-trekkers.webp',
+    imgPosition:     'center 50%',
+    imgPositionCard: 'center 50%',
+    imgCredit:       '',
+    excerpt:  'כמה כסף לקחת לטיפוס בקילימנג׳רו, האם דולרים מתקבלים בטנזניה, מזומן מול אשראי, וטיפים על תשר. מדריך הכסף המלא למטייל.',
+    excerptEn: 'How much cash to bring for Kilimanjaro, whether US dollars are accepted in Tanzania, cash versus cards, and tips on tipping the mountain crew.',
+
+    content: [
+      { type: 'text', value: 'אחרי שסגרתם תאריכים לטיפוס בקילימנג׳רו וסידרתם ויזה, נשארת שאלה מעשית אחת שכדאי לסגור לפני הטיסה: כמה כסף לקחת, ובאיזה מטבע. טנזניה עובדת קצת אחרת ממה שרוב הישראלים רגילים אליו, שילוב של מטבע מקומי, דולרים אמריקאים, וכלכלה שעדיין נשענת ברובה על מזומן.' },
+      { type: 'text', value: 'במדריך הזה נסביר הכל: מהו המטבע המקומי, האם אפשר להשתמש בדולרים, כמה מזומן להביא, מתי כרטיס אשראי עובד, ואיך נכון לתת תשר לצוות ההר.' },
+
+      { type: 'section', value: 'מהו המטבע של טנזניה?' },
+      { type: 'text', value: 'המטבע הרשמי של טנזניה הוא השילינג הטנזני (Tanzanian Shilling, מסומן TZS או TSh). נכון לשנת 2026, שער החליפין עומד על כ-2,650 שילינג לדולר אמריקאי אחד. שימו לב ששער החליפין משתנה, וכדאי לבדוק אותו סמוך לנסיעה.' },
+      { type: 'text', value: 'השילינג הוא המטבע לשימוש יומיומי: שווקים, חנויות מקומיות, מסעדות קטנות, תחבורה. אבל לצד המטבע הרשמי, יש בטנזניה "מטבע תיירים" לא רשמי, והוא הדולר האמריקאי.' },
+
+      { type: 'section', value: 'האם אפשר להשתמש בדולרים אמריקאים בטנזניה?' },
+      { type: 'text', value: 'כן, ובהרחבה. הדולר האמריקאי מתקבל באופן נרחב בטנזניה לכל מה שקשור בתיירות: בתי מלון, לודג׳ים, חבילות ספארי, ושירותי תיירות. בתחילת 2025 טנזניה אף הבהירה את מדיניותה בנושא, וקבעה ששירותי תיירות, ובהם טיפוסי קילימנג׳רו, ספארי וחבילות בזנזיבר, יכולים להיות מתומחרים ומשולמים בדולרים.' },
+      { type: 'text', value: 'המשמעות המעשית עבורכם: ההוצאות הגדולות מסודרות בדולרים, ואילו את השילינג המקומי תצטרכו להוצאות הקטנות שעל הקרקע.' },
+      { type: 'callout', title: '✦ שתי נקודות חשובות על שטרות דולר', items: [
+        'השטרות חייבים להיות נקיים, שלמים, ומסדרה חדשה יחסית, סדרת 2009 ואילך. שטרות ישנים, קרועים או מקושקשים נדחים לעיתים קרובות. כשמזמינים דולרים מהבנק בישראל, לבקש שטרות חדשים ותקינים.',
+        'כדאי להביא שטרות קטנים, של 1, 5 ו-10 דולר. בעסקאות קטנות ובשווקים לא תמיד יש עודף לשטרות גדולים. שטרות של 50 ו-100 דולר מתאימים לעסקאות גדולות ולתשר.',
+      ]},
+
+      { type: 'section', value: 'כמה מזומן כדאי לקחת לטיפוס?' },
+      { type: 'text', value: 'זו אחת השאלות החשובות, והתשובה מתחילה בנקודה מרגיעה: אצל מי שמטפס עם HighAir, ההוצאות הגדולות כבר מסודרות מראש. עלות המשלחת ואגרות הכניסה לפארק הלאומי קילימנג׳רו כלולות בחבילה, ואינכם צריכים לשלם בנפרד בשער.' },
+      { type: 'callout', title: 'מה שכן תצטרכו מזומן עבורו', items: [
+        'תשר לצוות ההר, ההוצאה המזומנת המשמעותית ביותר (פירוט בהמשך)',
+        'קניות קטנות, מזכרות, ומשקאות מעבר למה שכלול',
+        'ארוחות ושתייה בימים שלפני ואחרי הטיפוס, אם אינן כלולות',
+        'שילינג מקומי לסכומים קטנים',
+      ]},
+      { type: 'text', value: 'המלצה כללית: הביאו את עיקר הסכום בדולרים במזומן, והמירו חלק קטן לשילינג לצרכים היומיומיים. את הסכום המדויק לתשר ולהוצאות אישיות, צוות HighAir יסקור איתכם לפני הנסיעה כך שתגיעו מוכנים.' },
+
+      { type: 'section', value: 'כרטיסי אשראי וכספומטים: על מה לסמוך ועל מה לא' },
+      { type: 'text', value: 'טנזניה היא עדיין במידה רבה כלכלת מזומן, ובמיוחד מחוץ לערים הגדולות. כספומטים זמינים בערים הגדולות כמו ארושה, אך אינם אמינים באזורים כפריים ומרוחקים. הכלל: אל תסתמכו על מציאת כספומט בדרך. הצטיידו במזומן מראש.' },
+      { type: 'text', value: 'כרטיסי אשראי מתקבלים בחלק מבתי המלון והחנויות הגדולות, אך לרוב בתוספת עמלה. אל תתכננו להסתמך על כרטיס אשראי כאמצעי התשלום העיקרי, ראו בו גיבוי בלבד. מזומן הוא המלך: תכננו להגיע עם המזומן שתצטרכו לכל הטיול, ואל תניחו שתוכלו למשוך בדרך.' },
+
+      { type: 'section', value: 'תשר לצוות ההר: איך עושים את זה נכון' },
+      { type: 'text', value: 'זה אולי החלק שהכי כדאי להבין מראש. צוות ההר בקילימנג׳רו, מדריכים, סבלים וטבחים, הוא הלב של המשלחת. הם נושאים את הציוד, מבשלים, ודואגים לכם לאורך כל הדרך. תשר בסיום הטיפוס הוא חלק מקובל ומצופה מתרבות הטיפוס בהר, והוא חשוב מאוד עבור הצוות.' },
+      { type: 'text', value: 'התשר ניתן במזומן בסוף המשלחת. מכיוון שזו הוצאה מתוכננת ולא מבוטלת בהיקפה, חשוב להגיע אליה מוכנים עם מזומן בשטרות מתאימים. ב-HighAir אנחנו מנחים את הקבוצה לפני הטיפוס לגבי הנהוג והמקובל בתשר, כך שאף אחד לא יופתע ואיש לא יישאר בלי מזומן ברגע הלא נכון.' },
+
+      { type: 'section', value: 'טיפים אחרונים לפני שאורזים את הארנק' },
+      { type: 'callout', title: '✦ תזכורות לדרך', items: [
+        'המירו כסף במקומות הנכונים: בנקים ובתי חלפנות מוסדרים עדיפים על בתי מלון. הימנעו מחלפנים ברחוב.',
+        'שמרו על המזומן מחולק. אל תחזיקו את כל הכסף במקום אחד.',
+        'בדקו את שערי החליפין סמוך לנסיעה.',
+        'שטרות דולר נקיים וחדשים בלבד. זו טעות נפוצה שגורמת לתסכול בשטח.',
+      ]},
+
+      { type: 'section', value: 'לסיכום' },
+      { type: 'text', value: 'הכסף בטנזניה עובד בשני מסלולים מקבילים: דולר אמריקאי להוצאות התיירות הגדולות, ושילינג טנזני לקטנות. עבור מי שמטפס עם HighAir, ההוצאות הגדולות והאגרות כבר כלולות, כך שצריך להתארגן בעיקר על תשר והוצאות אישיות במזומן. הכלל המנחה: הביאו מספיק מזומן מראש, בשטרות תקינים וקטנים, ואל תסתמכו על כספומטים בדרך.' },
+      { type: 'text', value: 'הערה חשובה: שערי החליפין והנהלים המופיעים במאמר נכונים למועד עדכונו (מאי 2026) ועשויים להשתנות. בדקו מידע עדכני סמוך למועד הנסיעה.' },
+      { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'מהו המטבע של טנזניה?' },
+      { type: 'text', value: 'השילינג הטנזני (TZS). נכון ל-2026, שער החליפין הוא כ-2,650 שילינג לדולר אמריקאי.' },
+      { type: 'heading', value: 'האם מתקבלים דולרים אמריקאים בטנזניה?' },
+      { type: 'text', value: 'כן, באופן נרחב, במיוחד בשירותי תיירות, בתי מלון וספארי. חשוב ששטרות הדולר יהיו נקיים, שלמים, ומסדרת 2009 ואילך.' },
+      { type: 'heading', value: 'כמה מזומן צריך לקחת לטיפוס בקילימנג׳רו?' },
+      { type: 'text', value: 'ההוצאות הגדולות ואגרות הפארק כלולות בחבילת HighAir. את המזומן צריך בעיקר לתשר לצוות ההר ולהוצאות אישיות. הצוות יסקור איתכם את הסכום המומלץ לפני הנסיעה.' },
+      { type: 'heading', value: 'אפשר לשלם בכרטיס אשראי בטנזניה?' },
+      { type: 'text', value: 'בחלק מבתי המלון והחנויות הגדולות, לרוב בתוספת עמלה. טנזניה היא כלכלת מזומן ברובה, כדאי לראות באשראי גיבוי בלבד.' },
+      { type: 'heading', value: 'האם יש כספומטים בטנזניה?' },
+      { type: 'text', value: 'כן, בערים הגדולות, אך הם אינם אמינים באזורים כפריים. מומלץ להגיע עם המזומן הדרוש מראש ולא להסתמך על משיכה בדרך.' },
+    ],
+
+    contentEn: [
+      { type: 'text', value: 'Once you have locked in your Kilimanjaro dates and sorted your visa, there is one practical question worth settling before you fly: how much cash to bring and in which currency. Tanzania works a little differently from what most visitors are used to, a combination of local currency, US dollars, and an economy that still runs largely on cash.' },
+      { type: 'text', value: 'This guide covers everything: what the local currency is, whether you can use US dollars, how much cash to bring, when a credit card works, and how to handle tipping the mountain crew.' },
+
+      { type: 'section', value: 'What is the currency of Tanzania?' },
+      { type: 'text', value: 'The official currency of Tanzania is the Tanzanian Shilling (TZS or TSh). As of 2026, the exchange rate is around 2,650 shillings to one US dollar. Exchange rates fluctuate, so check closer to your departure date.' },
+      { type: 'text', value: 'The shilling is the currency for everyday use: markets, local shops, small restaurants, and transport. But alongside the official currency, Tanzania has an unofficial "tourist currency" that is widely used: the US dollar.' },
+
+      { type: 'section', value: 'Can you use US dollars in Tanzania?' },
+      { type: 'text', value: 'Yes, extensively. The US dollar is widely accepted for anything tourism-related: hotels, lodges, safari packages, and travel services. In early 2025, Tanzania clarified its policy on this, confirming that tourism services including Kilimanjaro climbs, safaris, and Zanzibar packages can be priced and paid in US dollars.' },
+      { type: 'text', value: 'The practical takeaway: your major expenses are handled in dollars, while you will need shillings for small day-to-day purchases.' },
+      { type: 'callout', title: '✦ Two important points about dollar bills', items: [
+        'Bills must be clean, undamaged, and from a relatively recent print run, 2009 series or later. Old, torn or marked bills are often rejected by banks and businesses. When ordering dollars from your bank in Israel, ask specifically for clean, new notes.',
+        'Bring small denominations: $1, $5 and $10 bills. Small transactions and markets rarely have change for large notes. $50 and $100 bills are fine for larger payments and tipping.',
+      ]},
+
+      { type: 'section', value: 'How much cash to bring for the climb?' },
+      { type: 'text', value: 'This is one of the most common questions, and the answer starts with a reassuring point: for those climbing with HighAir, the major expenses are already covered. The expedition cost and Kilimanjaro National Park entry fees are included in the package, so you do not need to pay separately at the gate.' },
+      { type: 'callout', title: 'What you will need cash for', items: [
+        'Tips for the mountain crew, the most significant cash expense (details below)',
+        'Small purchases, souvenirs, and drinks beyond what is included',
+        'Meals and drinks on the days before and after the climb, if not included',
+        'Local shillings for small everyday purchases',
+      ]},
+      { type: 'text', value: 'General recommendation: bring the bulk of your cash in US dollars and exchange a small amount to shillings for day-to-day needs. The HighAir team will go through the recommended tipping amounts and personal spending with you before departure, so you arrive fully prepared.' },
+
+      { type: 'section', value: 'Credit cards and ATMs: what to rely on and what not to' },
+      { type: 'text', value: 'Tanzania is still largely a cash economy, especially outside major cities. ATMs are available in larger towns like Arusha, but are unreliable in rural and remote areas. The rule is simple: do not count on finding a working ATM along the way. Arrive with the cash you need.' },
+      { type: 'text', value: 'Credit cards are accepted at some hotels and larger shops, but usually with an added fee. Do not plan to use a card as your main payment method. Treat it as a backup only. Cash is king: plan to arrive with everything you will need for the whole trip.' },
+
+      { type: 'section', value: 'Tipping the mountain crew: how to do it right' },
+      { type: 'text', value: 'This is perhaps the most important section to understand in advance. The mountain crew on Kilimanjaro, guides, porters and cooks, are the heart of the expedition. They carry the gear, prepare the food, and look after you throughout. Tipping at the end of the climb is a standard and expected part of the mountain culture, and it matters greatly to the crew.' },
+      { type: 'text', value: 'Tips are given in cash at the end of the expedition. Since this is a planned and significant expense, it is important to arrive prepared with the right bills in the right denominations. At HighAir we brief every group on the customary tipping amounts before the climb, so no one is caught off guard and no one runs out of cash at the wrong moment.' },
+
+      { type: 'section', value: 'Final tips before you pack your wallet' },
+      { type: 'callout', title: '✦ Reminders for the road', items: [
+        'Exchange money in the right places: regulated banks and exchange bureaus offer better rates than hotels. Avoid street money changers.',
+        'Split your cash. Do not keep everything in one place.',
+        'Check exchange rates closer to your departure date.',
+        'Dollar bills must be clean and new. This bears repeating because it is a common mistake that causes real problems in the field.',
+      ]},
+
+      { type: 'section', value: 'In summary' },
+      { type: 'text', value: 'Money in Tanzania runs on two parallel tracks: US dollars for major tourism expenses, and Tanzanian shillings for small daily purchases. For those climbing with HighAir, the big costs and park fees are already covered, so your cash preparation is mainly about tipping and personal spending. The guiding rule: bring enough cash in advance, in clean small bills, and do not rely on ATMs along the way.' },
+      { type: 'text', value: 'Important note: exchange rates and procedures in this article are correct as of the publication date (May 2026) and may change. Check current information close to your departure date.' },
+      { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'What is the currency of Tanzania?' },
+      { type: 'text', value: 'The Tanzanian Shilling (TZS). As of 2026, the exchange rate is around 2,650 shillings to one US dollar.' },
+      { type: 'heading', value: 'Are US dollars accepted in Tanzania?' },
+      { type: 'text', value: 'Yes, widely, especially for tourism services, hotels and safaris. Dollar bills must be clean, undamaged, and from the 2009 series or later.' },
+      { type: 'heading', value: 'How much cash do I need for a Kilimanjaro climb?' },
+      { type: 'text', value: 'Major expenses and park fees are included in the HighAir package. Cash is mainly needed for tipping the mountain crew and personal spending. The team will review the recommended amounts with you before departure.' },
+      { type: 'heading', value: 'Can I pay by credit card in Tanzania?' },
+      { type: 'text', value: 'At some hotels and larger shops, usually with an added fee. Tanzania is largely a cash economy, so treat your card as a backup only.' },
+      { type: 'heading', value: 'Are there ATMs in Tanzania?' },
+      { type: 'text', value: 'Yes, in major cities, but they are unreliable in rural areas. Arrive with the cash you need and do not count on being able to withdraw money along the way.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:8  tanzania-vaccinations-guide  (2026-05-25)
    * ═══════════════════════════════════════════════════════════════════ */
   {
