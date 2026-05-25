@@ -105,10 +105,11 @@ function BlogCard({ post, isEn, dir }) {
           <time
             dateTime={post.dateIso}
             style={{
-              fontFamily: "'Ploni', 'Mazzard', sans-serif",
-              fontSize:   FS.sm,
-              color:      COLOR.mutedLight,
-              display:    'block',
+              fontFamily:  "'Ploni', 'Mazzard', sans-serif",
+              fontSize:    FS.sm,
+              color:       COLOR.muted,
+              display:     'block',
+              fontWeight:  500,
             }}
           >
             {date}
