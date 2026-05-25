@@ -194,7 +194,7 @@ export const POSTS = [
       { type: 'text', value: 'לכן שאלת הטיפול המונע נעשית משמעותית במיוחד אם אתם מתכננים לשלב ספארי או חופשה בזנזיבר אחרי הטיפוס. גם כאן, ההחלטה אם ליטול טיפול מונע ואיזה היא של הרופא, בהתאם לתוכנית הנסיעה המלאה שלכם.' },
 
       { type: 'heading', value: 'כדורי גובה' },
-      { type: 'text', value: 'קילימנג׳רו מתנשא ל-5,895 מטרים, ומחלת גבהים היא האתגר המרכזי בטיפוס. מסלול מקצועי בנוי כך שהגוף יתאקלם בהדרגה, אך רופא במרפאת המטיילים עשוי לרשום גם תרופה שמסייעת בהתמודדות עם הגובה. ההחלטה על נטילת תרופה כזו היא תמיד אישית ורפואית.' },
+      { type: 'text', value: 'קילימנג׳רו מתנשא ל-5,895 מטרים, ומחלת גבהים היא האתגר המרכזי בטיפוס. מסלול מקצועי בנוי כך שהגוף יתאקלם בהדרגה, אך רופא במרפאת המטיילים עשוי לרשום גם תרופה שמסייעת בהתמודדות עם הגובה. התרופה הנפוצה ביותר לכך היא אצטאזולמיד, המוכרת בישראל בשמות המסחריים אורמוקס ודיאמוקס. ההחלטה על נטילתה היא תמיד אישית ורפואית.' },
 
       { type: 'heading', value: 'ערכת עזרה ראשונה אישית' },
       { type: 'text', value: 'מעבר לחיסונים ולתרופות מרשם, מומלץ להצטייד בערכת עזרה ראשונה בסיסית למסע: תרופות לכאב ראש ולכאב בטן, פלסטרים, משחה אנטיספטית, וכל תרופה אישית קבועה שאתם נוטלים. צוות ההר של משלחת מקצועית נושא ציוד רפואי, אך כדאי שיהיה גם ברשותכם הבסיס.' },
@@ -246,7 +246,7 @@ export const POSTS = [
       { type: 'text', value: 'The question of preventive medication therefore becomes particularly significant if you are planning to combine a safari or a Zanzibar holiday after the climb. As with everything here, the decision whether to take preventive medication and which one belongs to your doctor, based on your full travel plan.' },
 
       { type: 'heading', value: 'Altitude medication' },
-      { type: 'text', value: 'Kilimanjaro reaches 5,895 metres, and altitude sickness is the central challenge of the climb. A professional itinerary is built so the body acclimatises gradually, but a travel clinic doctor may also prescribe medication to help manage altitude. The decision to take such medication is always personal and medical.' },
+      { type: 'text', value: 'Kilimanjaro reaches 5,895 metres, and altitude sickness is the central challenge of the climb. A professional itinerary is built so the body acclimatises gradually, but a travel clinic doctor may also prescribe medication to help manage altitude. The most commonly prescribed drug for this purpose is acetazolamide, known by the brand names Diamox and Ormox. The decision to take it is always personal and medical.' },
 
       { type: 'heading', value: 'Personal first aid kit' },
       { type: 'text', value: 'Beyond vaccinations and prescription medication, it is worth packing a basic personal first aid kit: pain and stomach medication, plasters, antiseptic cream, and any regular medication you take. A professional expedition carries its own medical kit, but it is good to have the basics on you as well.' },
