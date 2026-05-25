@@ -180,7 +180,7 @@ export const POSTS = [
       { type: 'text', value: 'קיימת גם אפשרות של ויזה בשדה התעופה (Visa on Arrival), אך אנחנו ב-HighAir ממליצים בבירור להוציא את הויזה מראש, אונליין. הסיבה פשוטה: ויזה מאושרת ומודפסת שמגיעה איתכם מהבית חוסכת המתנה בתורים אחרי טיסה ארוכה, ומונעת אי-ודאות ברגע הכי פחות נעים לחוות בו אי-ודאות.' },
 
       { type: 'section', value: 'כמה עולה ויזה לטנזניה?' },
-      { type: 'text', value: 'עבור אזרח ישראלי שמגיע לתיירות וטיפוס, סוג הויזה הרלוונטי הוא ויזה רגילה (Ordinary Visa), ויזת כניסה בודדת. עלותה 50 דולר, והיא תקפה לשהייה של עד 90 יום.' },
+      { type: 'text', value: 'עבור אזרח ישראלי שמגיע לתיירות וטיפוס, סוג הויזה הרלוונטי הוא ויזה רגילה (Ordinary Visa), ויזת כניסה בודדת. עלותה 50 דולר, והיא תקפה לשהייה של עד 90 יום. לתשומת לב מי שמגיע עם דרכון אמריקאי: אזרחי ארה"ב משלמים 100 דולר עבור אותה ויזה רגילה.' },
       { type: 'text', value: 'קיימים סוגי ויזה נוספים, ויזת כניסות מרובות (כ-100 דולר) וויזת עסקים, אך עבור הרוב המוחלט של מי שמגיע לטפס על קילימנג׳רו, הויזה הרגילה היא הנכונה. נקודה שכדאי להכיר: ויזה רגילה אחת מאפשרת לבקר גם ביבשת טנזניה וגם בזנזיבר, כך שאם תרצו לשלב חופשת חוף אחרי הטיפוס, אינכם זקוקים לוויזה נוספת.' },
 
       { type: 'section', value: 'כמה זמן לוקח לקבל את הויזה?' },
@@ -220,7 +220,7 @@ export const POSTS = [
 
       { type: 'section', value: 'שאלות נפוצות' },
       { type: 'heading', value: 'כמה עולה ויזה לטנזניה?' },
-      { type: 'text', value: 'ויזה רגילה (כניסה בודדת) למטרת תיירות עולה 50 דולר, ותקפה לשהייה של עד 90 יום.' },
+      { type: 'text', value: 'ויזה רגילה (כניסה בודדת) למטרת תיירות עולה 50 דולר לאזרחי ישראל, ותקפה לשהייה של עד 90 יום. אזרחי ארה"ב משלמים 100 דולר עבור אותה ויזה.' },
       { type: 'heading', value: 'כמה זמן לוקח להוציא ויזה לטנזניה?' },
       { type: 'text', value: 'זמן ההנפקה הרשמי הוא עד 14 ימים מהגשת הבקשה. מומלץ להגיש לפחות 3-4 שבועות לפני הטיסה.' },
       { type: 'heading', value: 'אפשר להוציא ויזה בשדה התעופה?' },
@@ -240,7 +240,7 @@ export const POSTS = [
       { type: 'text', value: 'There is also the option of a Visa on Arrival at the airport, but we at HighAir strongly recommend applying online in advance. The reason is simple: arriving with an approved, printed visa saves you queuing after a long flight, and removes any uncertainty at the moment you can least afford it.' },
 
       { type: 'section', value: 'How much does a Tanzania visa cost?' },
-      { type: 'text', value: 'For an Israeli citizen travelling for tourism and trekking, the relevant visa is an Ordinary Visa, a single-entry visa. It costs 50 US dollars and is valid for a stay of up to 90 days.' },
+      { type: 'text', value: 'For an Israeli citizen travelling for tourism and trekking, the relevant visa is an Ordinary Visa, a single-entry visa. It costs 50 US dollars and is valid for a stay of up to 90 days. Note for anyone travelling on a US passport: American citizens pay 100 US dollars for the same Ordinary Visa.' },
       { type: 'text', value: 'Other visa types exist, including a multiple-entry visa (around 100 dollars) and a business visa, but for the vast majority of people coming to climb Kilimanjaro, the Ordinary Visa is the right choice. One useful point: a single Ordinary Visa allows you to visit both mainland Tanzania and Zanzibar, so if you want to add a beach break after the climb, you do not need a separate visa.' },
 
       { type: 'section', value: 'How long does the visa take?' },
@@ -280,7 +280,7 @@ export const POSTS = [
 
       { type: 'section', value: 'Frequently asked questions' },
       { type: 'heading', value: 'How much does a Tanzania visa cost?' },
-      { type: 'text', value: 'An Ordinary Visa (single entry) for tourism costs 50 US dollars and is valid for a stay of up to 90 days.' },
+      { type: 'text', value: 'An Ordinary Visa (single entry) for tourism costs 50 US dollars for Israeli citizens and is valid for a stay of up to 90 days. US passport holders pay 100 US dollars for the same visa.' },
       { type: 'heading', value: 'How long does the Tanzania visa take?' },
       { type: 'text', value: 'The official processing time is up to 14 days from submission. We recommend applying at least three to four weeks before your flight.' },
       { type: 'heading', value: 'Can I get a visa on arrival at the airport?' },
