@@ -489,6 +489,44 @@ export default function BlogPost() {
               </div>
             );
 
+            if (block.type === 'extlink') return (
+              <a
+                key={i}
+                href={block.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display:        'flex',
+                  alignItems:     'center',
+                  gap:            '12px',
+                  margin:         '0 0 24px',
+                  padding:        '14px 18px',
+                  background:     '#F8F7FF',
+                  border:         '1px solid #E2DCFF',
+                  borderRadius:   '10px',
+                  textDecoration: 'none',
+                  direction:      dir,
+                  transition:     'border-color 0.15s ease, background 0.15s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#A78BFA'; e.currentTarget.style.background = '#F0EBFF'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = '#E2DCFF'; e.currentTarget.style.background = '#F8F7FF'; }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '14px' : '15px', fontWeight: 600, color: '#4C1D95', lineHeight: 1.3 }}>
+                    {isEn ? (block.textEn || block.text) : block.text}
+                  </div>
+                  <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', fontWeight: 300, color: '#9CA3AF', marginTop: '2px', direction: 'ltr', textAlign: isEn ? 'left' : 'right' }}>
+                    {block.href}
+                  </div>
+                </div>
+              </a>
+            );
+
             if (block.type === 'callout') return (
               <div key={i} style={{
                 background:   '#F5F0FF',

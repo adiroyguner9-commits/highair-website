@@ -200,6 +200,7 @@ export const POSTS = [
 
       { type: 'section', value: 'תהליך הגשת הבקשה' },
       { type: 'text', value: 'הבקשה מוגשת דרך האתר הרשמי של רשות ההגירה של טנזניה. התהליך מחולק לשלבים, וזו התמונה הכללית שלו.' },
+      { type: 'extlink', href: 'https://eservices.immigration.go.tz/', text: 'האתר הרשמי להגשת בקשת eVisa לטנזניה', textEn: 'Official Tanzania eVisa Application Portal' },
       { type: 'text', value: 'שלב ההתחלה: נכנסים לאתר הרשמי, בוחרים בהגשת בקשה חדשה, וממלאים פרטי בסיס כמו אימייל, מספר דרכון, ומדינת הנפקה. בסיום מתקבל מספר בקשה (Application ID). שמרו אותו. הוא מאפשר לעקוב אחרי סטטוס הבקשה, ואם תצטרכו לחזור לטופס, הוא המפתח.' },
       { type: 'text', value: 'מילוי הפרטים: הטופס עובר דרך כמה מסכים עם פרטים אישיים, פרטי התקשרות וכתובת, ופרטי הדרכון. חשוב שכל הפרטים יתאימו בדיוק למה שכתוב בדרכון.' },
       { type: 'text', value: 'פרטי הביקור: כאן מציינים שמדובר בוויזה רגילה למטרת תיירות, בוחרים את נמל התעופה של קילימנג׳רו (Kilimanjaro International Airport) כנקודת כניסה ויציאה, ומזינים את תאריך ההגעה ואת משך השהות.' },
@@ -259,6 +260,7 @@ export const POSTS = [
 
       { type: 'section', value: 'The application process: an overview' },
       { type: 'text', value: 'The application is submitted through the official website of the Tanzanian Immigration Authority. The process is divided into stages.' },
+      { type: 'extlink', href: 'https://eservices.immigration.go.tz/', text: 'האתר הרשמי להגשת בקשת eVisa לטנזניה', textEn: 'Official Tanzania eVisa Application Portal' },
       { type: 'text', value: 'Starting out: go to the official website, select a new application, and fill in basic details including your email address, passport number and country of issue. You will receive an Application ID. Keep it. It allows you to track your application status and is the key if you need to return to the form later.' },
       { type: 'text', value: 'Personal details: the form moves through several screens covering personal information, contact details and address, and passport information. Every detail must match your passport exactly.' },
       { type: 'text', value: 'Visit details: here you indicate that you are applying for an Ordinary Visa for tourism purposes, select Kilimanjaro International Airport as your point of entry and exit, and enter your arrival date and intended length of stay.' },
