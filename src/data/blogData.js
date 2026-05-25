@@ -149,6 +149,136 @@ export const POSTS = [
   }, */
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:8  tanzania-vaccinations-guide  (2026-05-25)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       8,
+    slug:     'tanzania-vaccinations-guide',
+
+    title:    'חיסונים לטנזניה: מה צריך לדעת לפני הטיפוס לקילימנג׳רו',
+    titleEn:  'Tanzania Vaccinations: What to Know Before Climbing Kilimanjaro',
+    seoTitle:   'חיסונים לטנזניה: המדריך לפני הטיפוס',
+    seoTitleEn: 'Tanzania Vaccinations Guide for Kilimanjaro Climbers',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-05-25',
+    dateModified: '2026-05-25',
+    dateHe:   '25 במאי 2026',
+    dateEn:   'May 25, 2026',
+    category: 'מדריכים',
+    categoryEn: 'Guides',
+    img:             '/images/blog/kilimanjaro-trekkers.webp',
+    imgPosition:     'center 50%',
+    imgPositionCard: 'center 50%',
+    imgCredit:       '',
+    excerpt:  'מדריך חיסונים לטנזניה לקראת טיפוס לקילימנג׳רו: מתי לפנות למרפאת מטיילים, מה הקשר למלריה ולכדורי גובה, ואיך מתכוננים נכון מבחינה בריאותית.',
+    excerptEn: 'A practical guide to Tanzania vaccinations before your Kilimanjaro climb: when to visit a travel clinic, what to know about malaria and altitude medication, and how to prepare medically.',
+
+    content: [
+      { type: 'text', value: 'ההכנה לטיפוס בקילימנג׳רו כוללת אימונים, ציוד, וסידורים לוגיסטיים, ואחד החלקים החשובים בה, שלעיתים נדחה לרגע האחרון, הוא ההכנה הבריאותית. נסיעה לטנזניה כרוכה בכמה שיקולים רפואיים, מחיסונים ועד טיפול מונע במלריה, וכדאי לטפל בהם מוקדם.' },
+      { type: 'callout', title: '⚕ הערה חשובה לפני שממשיכים', value: 'המאמר הזה הוא מדריך כללי בלבד. הוא אינו מחליף ייעוץ רפואי. ההמלצות הרפואיות האישיות, אילו חיסונים נדרשים ואם ליטול טיפול מונע, ניתנות אך ורק על ידי רופא במרפאת מטיילים, בהתאמה אישית אליכם, ליעד ולמסלול.' },
+
+      { type: 'section', value: 'הצעד הראשון: מרפאת מטיילים' },
+      { type: 'text', value: 'אם תזכרו דבר אחד מהמאמר הזה, שיהיה זה: קבעו תור למרפאת מטיילים מוקדם.' },
+      { type: 'text', value: 'ההמלצה היא לפנות למרפאת מטיילים 4 עד 6 שבועות לפני מועד הטיסה. הסיבה לטווח הזמן הזה היא מעשית: חלק מהחיסונים דורשים זמן כדי להבשיל בגוף, ולעיתים נדרשת יותר ממנה אחת. פנייה מאוחרת מדי עלולה לא להותיר מספיק זמן.' },
+      { type: 'text', value: 'במרפאת המטיילים תעברו ייעוץ רפואי אישי. הרופא יבחן את מצבכם הבריאותי, את היעד, את המסלול ואת מדינות המעבר, וייתן לכם הנחיות עדכניות לגבי חיסונים, טיפול מונע במלריה, ומרשם לכדורי גובה אם יידרשו. כל אדם מקבל המלצה המותאמת אליו, ולכן אין תחליף לביקור הזה.' },
+      { type: 'text', value: 'חשוב לדעת: למרפאות המטיילים נדרש לקבוע תור מראש. אל תניחו שתוכלו להגיע ללא תיאום.' },
+
+      { type: 'section', value: 'נושאים שכדאי להכיר לפני הביקור' },
+      { type: 'text', value: 'כדי שתגיעו לייעוץ מוכנים ועם שאלות נכונות, הנה הנושאים המרכזיים שעולים בהקשר של טיפוס בקילימנג׳רו. אלה נושאים לדיון עם הרופא, לא הנחיות.' },
+
+      { type: 'heading', value: 'חיסונים' },
+      { type: 'text', value: 'הרופא במרפאת המטיילים יבדוק אילו חיסונים רלוונטיים עבורכם, בהתאם ליעד ולמדינות שדרכן אתם עוברים בטיסה. נקודה אחת ששווה להכיר מראש קשורה לקדחת צהובה: הדרישה לחיסון תלויה לעיתים במסלול הטיסה ובמדינות המעבר, ולא רק ביעד הסופי. למשל, חיבור טיסה קצר במדינה מסוימת עשוי שלא לחייב חיסון, בעוד שהות ארוכה יותר כן. זה בדיוק סוג הפרט שהרופא יברר איתכם לפי כרטיס הטיסה הספציפי שלכם.' },
+
+      { type: 'heading', value: 'מלריה' },
+      { type: 'text', value: 'מלריה היא מחלה המועברת על ידי יתושים, והיא רלוונטית באזורים מסוימים בטנזניה. נקודה חשובה ומרגיעה: בגובה רב, במהלך הטיפוס עצמו על ההר, אין יתושים. הקור והגובה אינם מאפשרים להם לשרוד. הסיכון רלוונטי בעיקר באזורים נמוכים וחמים.' },
+      { type: 'text', value: 'לכן שאלת הטיפול המונע נעשית משמעותית במיוחד אם אתם מתכננים לשלב ספארי או חופשה בזנזיבר אחרי הטיפוס. גם כאן, ההחלטה אם ליטול טיפול מונע ואיזה היא של הרופא, בהתאם לתוכנית הנסיעה המלאה שלכם.' },
+
+      { type: 'heading', value: 'כדורי גובה' },
+      { type: 'text', value: 'קילימנג׳רו מתנשא ל-5,895 מטרים, ומחלת גבהים היא האתגר המרכזי בטיפוס. מסלול מקצועי בנוי כך שהגוף יתאקלם בהדרגה, אך רופא במרפאת המטיילים עשוי לרשום גם תרופה שמסייעת בהתמודדות עם הגובה. ההחלטה על נטילת תרופה כזו היא תמיד אישית ורפואית.' },
+
+      { type: 'heading', value: 'ערכת עזרה ראשונה אישית' },
+      { type: 'text', value: 'מעבר לחיסונים ולתרופות מרשם, מומלץ להצטייד בערכת עזרה ראשונה בסיסית למסע: תרופות לכאב ראש ולכאב בטן, פלסטרים, משחה אנטיספטית, וכל תרופה אישית קבועה שאתם נוטלים. צוות ההר של משלחת מקצועית נושא ציוד רפואי, אך כדאי שיהיה גם ברשותכם הבסיס.' },
+
+      { type: 'section', value: 'הסתגלות לגובה: מה שחיסון לא פותר' },
+      { type: 'text', value: 'כדאי להבהיר נקודה שלעיתים מתבלבלים בה: חיסונים ותרופות מגנים מפני מחלות, אך הם אינם פותרים את הגובה. ההתמודדות עם הגובה נשענת על דבר אחר לגמרי: אקלום נכון.' },
+      { type: 'text', value: 'הטיפוס בקילימנג׳רו מתוכנן כך שהגוף יתרגל לגובה בהדרגה, יום אחר יום. לצד התכנון, התפקיד שלכם הוא להקשיב לגוף, לשתות הרבה מים, ולעלות בקצב נוח. שילוב של הכנה רפואית נכונה מראש ואקלום מבוקר על ההר הוא מה שמביא אתכם לפסגה בריאים.' },
+
+      { type: 'section', value: 'הגישה של HighAir' },
+      { type: 'text', value: 'הבריאות והבטיחות שלכם, לפני המסע, במהלכו ואחריו, הן בראש סדר העדיפויות שלנו. לכל לקוח שיוצא איתנו לטיפוס בקילימנג׳רו אנחנו מספקים מדריך הכנה מפורט, כולל כל ההנחיות הבריאותיות, ואנחנו זמינים לכל שאלה לאורך הדרך.' },
+      { type: 'text', value: 'אבל הקו שלנו ברור ועקבי: בכל מה שנוגע לבריאות, אנחנו מפנים אתכם לאיש המקצוע. אנחנו מומחים להוביל אתכם אל הפסגה בבטחה, והרופא במרפאת המטיילים הוא המומחה שיכין את הגוף שלכם למסע.' },
+
+      { type: 'section', value: 'לסיכום' },
+      { type: 'text', value: 'ההכנה הבריאותית לטיפוס בקילימנג׳רו אינה מסובכת, אך היא דורשת התארגנות מוקדמת. הצעד החשוב ביותר: לקבוע תור למרפאת מטיילים, 4 עד 6 שבועות לפני הטיסה. שם תקבלו את כל ההמלצות המותאמות לכם, חיסונים, טיפול מונע במלריה, וכדורי גובה.' },
+      { type: 'text', value: 'הערה חשובה: מאמר זה הוא מידע כללי בלבד ואינו מהווה ייעוץ רפואי. ההמלצות הרפואיות האישיות, לרבות חיסונים וטיפול מונע, ניתנות על ידי רופא במרפאת מטיילים. פרטי מרפאות ונהלים עשויים להשתנות, ודאו מול המרפאה.' },
+      { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'מתי כדאי לפנות למרפאת מטיילים לפני טיול לטנזניה?' },
+      { type: 'text', value: 'ההמלצה היא 4 עד 6 שבועות לפני מועד הטיסה. חלק מהחיסונים דורשים זמן להבשיל בגוף, ולכן פנייה מוקדמת חשובה. יש לקבוע תור מראש.' },
+      { type: 'heading', value: 'האם צריך חיסון קדחת צהובה לטנזניה?' },
+      { type: 'text', value: 'הדרישה תלויה במסלול הטיסה ובמדינות המעבר, לא רק ביעד. הרופא במרפאת המטיילים יבחן את כרטיס הטיסה הספציפי שלכם וייתן הנחיה מתאימה.' },
+      { type: 'heading', value: 'האם יש סכנת מלריה בטיפוס לקילימנג׳רו?' },
+      { type: 'text', value: 'בגובה רב, במהלך הטיפוס על ההר, אין יתושים והסיכון נמוך. שאלת המלריה רלוונטית בעיקר אם משלבים ספארי או זנזיבר. כדאי להתייעץ עם רופא.' },
+      { type: 'heading', value: 'האם חיסון מגן מפני מחלת גבהים?' },
+      { type: 'text', value: 'לא. ההתמודדות עם הגובה נשענת על אקלום הדרגתי לאורך הטיפוס. רופא עשוי לרשום תרופה שמסייעת, אך היא אינה תחליף לאקלום נכון.' },
+      { type: 'heading', value: 'מי קובע אילו חיסונים אני צריך?' },
+      { type: 'text', value: 'רופא במרפאת מטיילים בלבד, בהתאמה אישית למצבכם הבריאותי, ליעד ולמסלול. אין למאמר זה, או לכל מקור כללי אחר, להחליף את הייעוץ הזה.' },
+    ],
+
+    contentEn: [
+      { type: 'text', value: 'Preparing for a Kilimanjaro climb involves training, gear, and logistics, and one of the most important parts, often left until the last moment, is medical preparation. Travelling to Tanzania involves several health considerations, from vaccinations to malaria prevention, and it is worth dealing with them early.' },
+      { type: 'callout', title: '⚕ Important note before you read on', value: 'This article is general information only. It does not replace medical advice. Personal medical recommendations, including which vaccinations you need and whether to take preventive medication, are given only by a doctor at a travel clinic, tailored specifically to you, your destination and your itinerary.' },
+
+      { type: 'section', value: 'The first step: the travel clinic' },
+      { type: 'text', value: 'If you take one thing from this article, let it be this: book your travel clinic appointment early.' },
+      { type: 'text', value: 'The recommendation is to visit a travel clinic four to six weeks before your departure date. The reason for this timeframe is practical: some vaccines take time to build up in the body, and sometimes more than one dose is required. Leaving it too late may not allow enough time.' },
+      { type: 'text', value: 'At the travel clinic you will receive a personal medical consultation. The doctor will review your health history, your destination, your route and any transit countries, and will give you current recommendations on vaccinations, malaria prevention, and altitude medication if relevant. Every person receives a recommendation tailored to them, which is why there is no substitute for this visit.' },
+      { type: 'text', value: 'One practical note: travel clinics require advance appointments. Do not assume you can walk in without one.' },
+
+      { type: 'section', value: 'Topics worth knowing before your appointment' },
+      { type: 'text', value: 'To arrive at your consultation prepared and with the right questions, here are the main topics that come up in the context of a Kilimanjaro climb. These are topics to discuss with your doctor, not guidelines.' },
+
+      { type: 'heading', value: 'Vaccinations' },
+      { type: 'text', value: 'The travel clinic doctor will review which vaccinations are relevant for you based on your destination and any countries you pass through on the way. One point worth knowing in advance concerns yellow fever: the requirement for this vaccination sometimes depends on your flight route and transit countries, not only on the final destination. A brief layover in a certain country may not require vaccination, while a longer stay might. This is exactly the kind of detail your doctor will clarify based on your specific ticket.' },
+
+      { type: 'heading', value: 'Malaria' },
+      { type: 'text', value: 'Malaria is a mosquito-borne disease relevant to certain areas of Tanzania. Here is an important and reassuring point: at high altitude, during the climb itself, there are no mosquitoes. The cold and altitude do not allow them to survive. The risk is mainly relevant at lower, warmer elevations.' },
+      { type: 'text', value: 'The question of preventive medication therefore becomes particularly significant if you are planning to combine a safari or a Zanzibar holiday after the climb. As with everything here, the decision whether to take preventive medication and which one belongs to your doctor, based on your full travel plan.' },
+
+      { type: 'heading', value: 'Altitude medication' },
+      { type: 'text', value: 'Kilimanjaro reaches 5,895 metres, and altitude sickness is the central challenge of the climb. A professional itinerary is built so the body acclimatises gradually, but a travel clinic doctor may also prescribe medication to help manage altitude. The decision to take such medication is always personal and medical.' },
+
+      { type: 'heading', value: 'Personal first aid kit' },
+      { type: 'text', value: 'Beyond vaccinations and prescription medication, it is worth packing a basic personal first aid kit: pain and stomach medication, plasters, antiseptic cream, and any regular medication you take. A professional expedition carries its own medical kit, but it is good to have the basics on you as well.' },
+
+      { type: 'section', value: 'Acclimatisation: what a vaccine cannot solve' },
+      { type: 'text', value: 'There is one point worth clarifying, because it sometimes gets confused: vaccines and medication protect against disease, but they do not solve altitude. Managing altitude rests on something entirely different: proper acclimatisation.' },
+      { type: 'text', value: 'A Kilimanjaro itinerary is designed so the body adjusts to altitude gradually, day by day. Alongside that design, your job is to listen to your body, drink plenty of water, and move at a comfortable pace. The combination of proper medical preparation in advance and controlled acclimatisation on the mountain is what gets you to the summit in good health.' },
+
+      { type: 'section', value: 'The HighAir approach' },
+      { type: 'text', value: 'Your health and safety, before the expedition, during it and after, are our top priority. Every client who joins us on a Kilimanjaro climb receives a detailed preparation guide that includes all health-related guidance, and we are available for any questions along the way.' },
+      { type: 'text', value: 'But our position is clear and consistent: on anything medical, we refer you to the professional. We are experts at guiding you safely to the summit. The travel clinic doctor is the expert who will prepare your body for the journey.' },
+
+      { type: 'section', value: 'In summary' },
+      { type: 'text', value: 'Medical preparation for a Kilimanjaro climb is not complicated, but it does require planning ahead. The most important step: book a travel clinic appointment four to six weeks before your flight. That is where you will receive all the recommendations tailored to you, vaccinations, malaria prevention, and altitude medication.' },
+      { type: 'text', value: 'Important note: this article is general information only and does not constitute medical advice. Personal medical recommendations, including vaccinations and preventive treatment, are given by a travel clinic doctor. Clinic details and procedures may change, so confirm directly with your clinic.' },
+      { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'When should I visit a travel clinic before Tanzania?' },
+      { type: 'text', value: 'The recommendation is four to six weeks before your departure. Some vaccines need time to take effect in the body, so early preparation matters. Appointments must be booked in advance.' },
+      { type: 'heading', value: 'Do I need a yellow fever vaccine for Tanzania?' },
+      { type: 'text', value: 'The requirement depends on your flight route and transit countries, not only your destination. Your travel clinic doctor will review your specific ticket and advise accordingly.' },
+      { type: 'heading', value: 'Is there a malaria risk on a Kilimanjaro climb?' },
+      { type: 'text', value: 'At high altitude during the climb itself, there are no mosquitoes and the risk is low. The malaria question becomes relevant mainly if you are combining a safari or Zanzibar visit. Consult your doctor.' },
+      { type: 'heading', value: 'Does a vaccine protect against altitude sickness?' },
+      { type: 'text', value: 'No. Managing altitude relies on gradual acclimatisation throughout the climb. A doctor may prescribe medication that helps, but it is not a substitute for proper acclimatisation.' },
+      { type: 'heading', value: 'Who decides which vaccines I need?' },
+      { type: 'text', value: 'A travel clinic doctor, based on a personal assessment of your health, destination and route. Neither this article nor any general source should replace that consultation.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:7  tanzania-visa-guide  (2026-05-25)
    * ═══════════════════════════════════════════════════════════════════ */
   {
