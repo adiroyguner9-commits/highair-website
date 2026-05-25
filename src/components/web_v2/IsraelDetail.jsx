@@ -387,7 +387,7 @@ export default function IsraelDetail() {
         background: trip.grad,
       }}>
         {trip.img && (
-          <img src={trip.img} alt={displayName} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <img src={trip.img} alt={displayName} fetchpriority="high" decoding="sync" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         )}
         {/* overlay */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%)', zIndex: 1 }} />
