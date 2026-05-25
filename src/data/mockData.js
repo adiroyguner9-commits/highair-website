@@ -1163,7 +1163,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     diff: 'Moderate', diffHe: 'בינוני', price: 2700, priceStr: '$2700', continent: 'africa',
     img: '/images/cards/kilimanjaro.webp',
     ogImage: '/images/og/kilimanjaro.jpg',
-    seoTitle:       'טיפוס לקילימנג׳רו 2026 | HighAir Expeditions',
+    seoTitle:       'HighAir Expeditions | טיפוס לקילימנג׳רו',
     seoTitleEn:     'Climbing Kilimanjaro | HighAir Expeditions',
     seoDescription: 'טיפוס לקילימנג׳רו, הפסגה הגבוהה באפריקה, 5895 מטר. מסלול מאצ׳מה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
     seoDescriptionEn: 'Climb Kilimanjaro (5895m) via the Machame Route: 7 days, 5 climate zones, summit at midnight. 94% success rate. Every expedition supports cancer patients.',
