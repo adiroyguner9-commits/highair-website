@@ -125,7 +125,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     heroVideo: '/videos/hero-peaks-of-balkan.mp4',
     elev: '2656m', elevNum: 2656, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
-    img: '/images/cards/peaks-of-balkan.jpg',
+    img: '/images/cards/peaks-of-balkan.webp',
     ogImage: '/images/og/peaks-of-balkan.jpg',
     seoTitle:       'HighAir Expeditions | טרק פסגות הבלקן',
     seoTitleEn:     'Peaks of the Balkans Trek | HighAir Expeditions',
