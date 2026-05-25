@@ -149,6 +149,148 @@ export const POSTS = [
   }, */
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:7  tanzania-visa-guide  (2026-05-25)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       7,
+    slug:     'tanzania-visa-guide',
+
+    title:    'ויזה לטנזניה: המדריך המלא להוצאת ויזה לקראת הטיפוס לקילימנג׳רו',
+    titleEn:  'Tanzania Visa Guide: Everything You Need Before Climbing Kilimanjaro',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-05-25',
+    dateModified: '2026-05-25',
+    dateHe:   '25 במאי 2026',
+    dateEn:   'May 25, 2026',
+    category: 'מדריכים',
+    categoryEn: 'Guides',
+    img:             '/images/blog/kilimanjaro-trekkers.webp',
+    imgPosition:     'center 50%',
+    imgPositionCard: 'center 50%',
+    imgCredit:       '',
+    excerpt:  'כל מה שצריך לדעת על הוצאת ויזה לטנזניה לקראת טיפוס לקילימנג׳רו: עלות, זמן הנפקה, סוג הויזה, ומדריך מילוי הבקשה צעד אחר צעד.',
+    excerptEn: 'Everything you need to know about getting a Tanzania visa before your Kilimanjaro climb: cost, processing time, visa type, and a step-by-step application walkthrough.',
+
+    content: [
+      { type: 'text', value: 'תכננתם טיפוס לקילימנג׳רו, סגרתם תאריכים, והתחלתם להתכונן. אחד הדברים הראשונים שצריך לסדר, הרבה לפני שאורזים את התרמיל, הוא הויזה. אזרחי ישראל נדרשים בוויזה כדי להיכנס לטנזניה, והחדשות הטובות הן שהתהליך כולו נעשה אונליין, מהבית, והוא פשוט יחסית, אם יודעים מה לעשות.' },
+      { type: 'text', value: 'במדריך הזה נעבור על כל מה שצריך לדעת: כמה זה עולה, כמה זמן זה לוקח, איזו ויזה להוציא, ומתי להגיש. בסוף תמצאו גם סקירה של תהליך מילוי הבקשה עצמו, שלב אחר שלב.' },
+
+      { type: 'section', value: 'האם אזרח ישראלי צריך ויזה לטנזניה?' },
+      { type: 'text', value: 'כן. אזרחי ישראל נדרשים בוויזה כדי להיכנס לטנזניה, כולל לאזור הר קילימנג׳רו. הויזה מונפקת באופן אלקטרוני (eVisa) דרך אתר רשמי של רשות ההגירה הטנזנית, וכל הבקשה מוגשת ומשולמת אונליין.' },
+      { type: 'text', value: 'קיימת גם אפשרות של ויזה בשדה התעופה (Visa on Arrival), אך אנחנו ב-HighAir ממליצים בבירור להוציא את הויזה מראש, אונליין. הסיבה פשוטה: ויזה מאושרת ומודפסת שמגיעה איתכם מהבית חוסכת המתנה בתורים אחרי טיסה ארוכה, ומונעת אי-ודאות ברגע הכי פחות נעים לחוות בו אי-ודאות.' },
+
+      { type: 'section', value: 'כמה עולה ויזה לטנזניה?' },
+      { type: 'text', value: 'עבור אזרח ישראלי שמגיע לתיירות וטיפוס, סוג הויזה הרלוונטי הוא ויזה רגילה (Ordinary Visa), ויזת כניסה בודדת. עלותה 50 דולר, והיא תקפה לשהייה של עד 90 יום.' },
+      { type: 'text', value: 'קיימים סוגי ויזה נוספים, ויזת כניסות מרובות (כ-100 דולר) וויזת עסקים, אך עבור הרוב המוחלט של מי שמגיע לטפס על קילימנג׳רו, הויזה הרגילה היא הנכונה. נקודה שכדאי להכיר: ויזה רגילה אחת מאפשרת לבקר גם ביבשת טנזניה וגם בזנזיבר, כך שאם תרצו לשלב חופשת חוף אחרי הטיפוס, אינכם זקוקים לוויזה נוספת.' },
+
+      { type: 'section', value: 'כמה זמן לוקח לקבל את הויזה?' },
+      { type: 'text', value: 'זמן ההנפקה הרשמי הוא עד 14 ימים מרגע הגשת הבקשה. בפועל, התשובה מגיעה לעיתים מהר יותר, אך אין להסתמך על כך.' },
+      { type: 'text', value: 'המסקנה המעשית: הגישו את הבקשה מוקדם. אנחנו ממליצים להגיש לפחות 3-4 שבועות לפני מועד הטיסה. הגשה מוקדמת מותירה מרווח נשימה למקרה של עיכוב או של בקשה להשלמת פרטים, ומונעת לחץ מיותר בימים שלפני היציאה, ימים שעדיף להקדיש להכנה ולאריזה.' },
+
+      { type: 'section', value: 'מה צריך להכין לפני שמתחילים' },
+      { type: 'text', value: 'לפני שניגשים למלא את הבקשה, כדאי שיהיו ביד כמה דברים, כדי שהתהליך יזרום ברצף:' },
+      { type: 'callout', title: 'מסמכים נדרשים לבקשה', items: [
+        'דרכון בתוקף, שיהיה תקף לפחות שישה חודשים מעבר למועד הכניסה לטנזניה',
+        'צילום של עמוד הדרכון (קובץ תמונה, עד 300KB)',
+        'תמונת פנים בסטנדרט תמונת דרכון (קובץ תמונה, עד 300KB)',
+        'כרטיס טיסה הלוך ושוב (קובץ PDF, עד 1MB)',
+        'כרטיס אשראי לתשלום בסוף התהליך',
+      ]},
+      { type: 'text', value: 'הקפדה על גודל הקבצים חשובה. האתר הרשמי לא יקבל קבצים גדולים מהמותר.' },
+
+      { type: 'section', value: 'תהליך הגשת הבקשה' },
+      { type: 'text', value: 'הבקשה מוגשת דרך האתר הרשמי של רשות ההגירה של טנזניה. התהליך מחולק לשלבים, וזו התמונה הכללית שלו.' },
+      { type: 'text', value: 'שלב ההתחלה: נכנסים לאתר הרשמי, בוחרים בהגשת בקשה חדשה, וממלאים פרטי בסיס כמו אימייל, מספר דרכון, ומדינת הנפקה. בסיום מתקבל מספר בקשה (Application ID). שמרו אותו. הוא מאפשר לעקוב אחרי סטטוס הבקשה, ואם תצטרכו לחזור לטופס, הוא המפתח.' },
+      { type: 'text', value: 'מילוי הפרטים: הטופס עובר דרך כמה מסכים עם פרטים אישיים, פרטי התקשרות וכתובת, ופרטי הדרכון. חשוב שכל הפרטים יתאימו בדיוק למה שכתוב בדרכון.' },
+      { type: 'text', value: 'פרטי הביקור: כאן מציינים שמדובר בוויזה רגילה למטרת תיירות, בוחרים את נמל התעופה של קילימנג׳רו (Kilimanjaro International Airport) כנקודת כניסה ויציאה, ומזינים את תאריך ההגעה ואת משך השהות.' },
+      { type: 'text', value: 'פרטי לינה: הטופס מבקש את כתובת מקום הלינה בטנזניה. לקוחות HighAir מקבלים מאיתנו את פרטי הלינה המדויקים למילוי השדה הזה, יחד עם המדריך המלא, כך שלא צריך לנחש.' },
+      { type: 'text', value: 'העלאת מסמכים ותשלום: מעלים את הקבצים שהכנתם, עוברים על הצהרה, ומשלמים את אגרת ה-50 דולר. אישור הויזה יישלח לאימייל עד 14 יום.' },
+      { type: 'callout', title: '✦ טיפ מהשטח', value: 'לעיתים כפתור התשלום באתר אינו מגיב כראוי. אם זה קורה, לא נבהלים. קיימת דרך חלופית להשלמת התשלום, והמדריך המלא שאנחנו שולחים ללקוחות מסביר בדיוק כיצד.' },
+
+      { type: 'section', value: 'הליווי של HighAir בתהליך' },
+      { type: 'text', value: 'זה אולי המקום להגיד את הדבר החשוב ביותר במאמר הזה: לקוחות HighAir לא מתמודדים עם התהליך הזה לבד.' },
+      { type: 'text', value: 'כל מי שיוצא איתנו לטיפוס בקילימנג׳רו מקבל מדריך מפורט להוצאת הויזה, צעד אחר צעד, עם צילומי מסך, ועם כל הפרטים המדויקים שצריך למלא. ואם משהו נתקע, אנחנו זמינים. אנחנו גם מבקשים מהלקוחות לשלוח לנו את אישור הויזה לאחר קבלתו, כדי לוודא שכל הקבוצה מסודרת הרבה לפני מועד הטיסה.' },
+      { type: 'text', value: 'הוצאת ויזה היא פרט טכני אחד מתוך הכנה שלמה לטיפוס, ובדיוק בגלל זה אנחנו דואגים שהוא לא יהיה מקור לדאגה.' },
+
+      { type: 'section', value: 'לסיכום' },
+      { type: 'text', value: 'הוצאת ויזה לטנזניה היא תהליך אונליין פשוט יחסית: ויזה רגילה בעלות 50 דולר, זמן הנפקה של עד 14 יום, וכמה מסמכים שצריך להכין מראש. הכלל החשוב ביותר הוא להגיש מוקדם, לפחות 3-4 שבועות לפני הטיסה.' },
+      { type: 'text', value: 'הערה חשובה: המחירים והנהלים המופיעים במאמר נכונים למועד עדכונו (מאי 2026). נהלי ויזה עשויים להשתנות. לפני הגשת הבקשה, ודאו את הפרטים העדכניים מול האתר הרשמי של רשות ההגירה של טנזניה.' },
+      { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'כמה עולה ויזה לטנזניה?' },
+      { type: 'text', value: 'ויזה רגילה (כניסה בודדת) למטרת תיירות עולה 50 דולר, ותקפה לשהייה של עד 90 יום.' },
+      { type: 'heading', value: 'כמה זמן לוקח להוציא ויזה לטנזניה?' },
+      { type: 'text', value: 'זמן ההנפקה הרשמי הוא עד 14 ימים מהגשת הבקשה. מומלץ להגיש לפחות 3-4 שבועות לפני הטיסה.' },
+      { type: 'heading', value: 'אפשר להוציא ויזה בשדה התעופה?' },
+      { type: 'text', value: 'קיימת אפשרות של ויזה בשדה התעופה, אך מומלץ להוציא מראש אונליין כדי לחסוך המתנה בתורים ואי-ודאות לאחר טיסה ארוכה.' },
+      { type: 'heading', value: 'איזו ויזה צריך לטיפוס לקילימנג׳רו?' },
+      { type: 'text', value: 'ויזה רגילה (Ordinary Visa), ויזת כניסה בודדת למטרת תיירות. היא מתאימה לרוב המוחלט של המטפסים, ומאפשרת לבקר גם ביבשת וגם בזנזיבר.' },
+      { type: 'heading', value: 'מה צריך להכין לבקשה?' },
+      { type: 'text', value: 'דרכון בתוקף, צילום עמוד הדרכון, תמונת פנים, כרטיס טיסה הלוך ושוב בפורמט PDF, וכרטיס אשראי לתשלום.' },
+    ],
+
+    contentEn: [
+      { type: 'text', value: 'You have planned your Kilimanjaro climb, locked in the dates, and started getting ready. One of the first things to sort out, long before you pack your bag, is the visa. Israeli citizens need a visa to enter Tanzania, and the good news is that the entire process is done online from home and is relatively straightforward if you know what to do.' },
+      { type: 'text', value: 'This guide covers everything you need to know: how much it costs, how long it takes, which visa to apply for, and when to submit. At the end you will find a walkthrough of the application process itself, step by step.' },
+
+      { type: 'section', value: 'Do Israeli citizens need a visa for Tanzania?' },
+      { type: 'text', value: 'Yes. Israeli citizens require a visa to enter Tanzania, including the Kilimanjaro region. The visa is issued electronically (eVisa) through the official website of the Tanzanian Immigration Authority, and the entire application is submitted and paid for online.' },
+      { type: 'text', value: 'There is also the option of a Visa on Arrival at the airport, but we at HighAir strongly recommend applying online in advance. The reason is simple: arriving with an approved, printed visa saves you queuing after a long flight, and removes any uncertainty at the moment you can least afford it.' },
+
+      { type: 'section', value: 'How much does a Tanzania visa cost?' },
+      { type: 'text', value: 'For an Israeli citizen travelling for tourism and trekking, the relevant visa is an Ordinary Visa, a single-entry visa. It costs 50 US dollars and is valid for a stay of up to 90 days.' },
+      { type: 'text', value: 'Other visa types exist, including a multiple-entry visa (around 100 dollars) and a business visa, but for the vast majority of people coming to climb Kilimanjaro, the Ordinary Visa is the right choice. One useful point: a single Ordinary Visa allows you to visit both mainland Tanzania and Zanzibar, so if you want to add a beach break after the climb, you do not need a separate visa.' },
+
+      { type: 'section', value: 'How long does the visa take?' },
+      { type: 'text', value: 'The official processing time is up to 14 days from the date of submission. In practice, a response sometimes arrives sooner, but you should not count on that.' },
+      { type: 'text', value: 'The practical takeaway: apply early. We recommend submitting at least three to four weeks before your flight. Applying early leaves room to handle any delays or requests for additional documents, and removes unnecessary stress in the days before departure, days better spent preparing and packing.' },
+
+      { type: 'section', value: 'What to prepare before you start' },
+      { type: 'text', value: 'Before you sit down to fill in the application, have a few things ready so the process moves without interruption:' },
+      { type: 'callout', title: 'Documents required for the application', items: [
+        'A valid passport with at least six months of validity beyond your entry date into Tanzania',
+        'A scan of your passport photo page (image file, maximum 300KB)',
+        'A passport-style portrait photo (image file, maximum 300KB)',
+        'A return flight ticket (PDF, maximum 1MB)',
+        'A credit card for payment at the end of the process',
+      ]},
+      { type: 'text', value: 'File size limits matter. The official website will reject files that exceed the allowed size.' },
+
+      { type: 'section', value: 'The application process: an overview' },
+      { type: 'text', value: 'The application is submitted through the official website of the Tanzanian Immigration Authority. The process is divided into stages.' },
+      { type: 'text', value: 'Starting out: go to the official website, select a new application, and fill in basic details including your email address, passport number and country of issue. You will receive an Application ID. Keep it. It allows you to track your application status and is the key if you need to return to the form later.' },
+      { type: 'text', value: 'Personal details: the form moves through several screens covering personal information, contact details and address, and passport information. Every detail must match your passport exactly.' },
+      { type: 'text', value: 'Visit details: here you indicate that you are applying for an Ordinary Visa for tourism purposes, select Kilimanjaro International Airport as your point of entry and exit, and enter your arrival date and intended length of stay.' },
+      { type: 'text', value: 'Accommodation details: the form asks for the address of your accommodation in Tanzania. HighAir clients receive the exact accommodation details from us to fill in this field, along with the full guide, so there is no guesswork involved.' },
+      { type: 'text', value: 'Documents and payment: upload the files you prepared, confirm the declaration, and pay the 50-dollar fee. Your visa approval will be sent to your email within 14 days.' },
+      { type: 'callout', title: '✦ A tip from the field', value: 'Sometimes the payment button on the website does not respond correctly. If this happens there is no need to panic. There is an alternative way to complete the payment, and the full guide we send to clients explains exactly how.' },
+
+      { type: 'section', value: 'How HighAir supports you through the process' },
+      { type: 'text', value: 'This may be the most important thing in this article: HighAir clients do not navigate this process alone.' },
+      { type: 'text', value: 'Everyone who travels with us on a Kilimanjaro expedition receives a detailed step-by-step visa guide with screenshots and all the exact details needed to fill in each field. And if anything gets stuck, we are available. We also ask clients to send us their visa approval once they receive it, so we can confirm that every member of the group is sorted well before the departure date.' },
+      { type: 'text', value: 'Sorting the visa is one technical detail among many in preparing for a climb. That is exactly why we make sure it does not become a source of stress.' },
+
+      { type: 'section', value: 'In summary' },
+      { type: 'text', value: 'Getting a Tanzania visa is a relatively straightforward online process: an Ordinary Visa for 50 US dollars, processing time of up to 14 days, and a handful of documents to prepare in advance. The most important rule is to apply early, at least three to four weeks before your flight.' },
+      { type: 'text', value: 'Important note: the prices and procedures in this article are correct as of the date of publication (May 2026). Visa procedures can change. Before submitting your application, confirm the latest details on the official website of the Tanzanian Immigration Authority.' },
+      { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'How much does a Tanzania visa cost?' },
+      { type: 'text', value: 'An Ordinary Visa (single entry) for tourism costs 50 US dollars and is valid for a stay of up to 90 days.' },
+      { type: 'heading', value: 'How long does the Tanzania visa take?' },
+      { type: 'text', value: 'The official processing time is up to 14 days from submission. We recommend applying at least three to four weeks before your flight.' },
+      { type: 'heading', value: 'Can I get a visa on arrival at the airport?' },
+      { type: 'text', value: 'A Visa on Arrival is available, but applying online in advance is strongly recommended to avoid queuing after a long flight and to remove any uncertainty on arrival.' },
+      { type: 'heading', value: 'Which visa do I need for Kilimanjaro?' },
+      { type: 'text', value: 'An Ordinary Visa, a single-entry tourist visa. It covers the vast majority of climbers and also allows you to visit Zanzibar on the same visa.' },
+      { type: 'heading', value: 'What documents do I need for the application?' },
+      { type: 'text', value: 'A valid passport, a scan of the passport photo page, a passport-style portrait photo, a return flight ticket in PDF format, and a credit card for payment.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:6  rustam-nabiev-everest-arms-only  (2026-05-22)
    *  TODO: replace placeholder images once user provides photos:
    *    /images/blog/nabiev-everest.webp   ← hero image
