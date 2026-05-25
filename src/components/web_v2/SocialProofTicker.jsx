@@ -299,12 +299,14 @@ export default function SocialProofTicker() {
     return () => window.removeEventListener('ha:modal', onModal);
   }, []);
 
-  /* Reset everything on navigation — component stays mounted across routes */
+  /* Reset everything on navigation — component stays mounted across routes.
+     Also refresh the item so expedition pages always show their fixed destination. */
   useEffect(() => {
     setShowCount(0);
     setPhase('idle');
     setDismissed(false);
-  }, [location.pathname]);
+    setItem(prev => freshItem(isEn, isEn ? fixedExpEn : fixedExpHe, prev.name, prev.exp, prev.time));
+  }, [location.pathname, isEn, fixedExpEn, fixedExpHe]);
 
   /* Reset image error flag whenever a new item is shown */
   useEffect(() => { setImgError(false); }, [item]);
