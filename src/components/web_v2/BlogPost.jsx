@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { usePageMeta } from '../../website/usePageMeta.js';
+import { usePageMeta, breadcrumbList } from '../../website/usePageMeta.js';
 import { POSTS } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -113,7 +113,7 @@ export default function BlogPost() {
     articleScript.type = 'application/ld+json';
     articleScript.text = JSON.stringify({
       '@context':       'https://schema.org',
-      '@type':          'Article',
+      '@type':          'BlogPosting',
       headline:         isEnLang ? (post.titleEn || post.title) : post.title,
       description:      isEnLang ? (post.excerptEn || post.excerpt) : post.excerpt,
       image:            post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,
@@ -164,12 +164,24 @@ export default function BlogPost() {
   const postContent  = post ? (isEn ? (post.contentEn  || post.content)  : post.content)  : [];
   const postCategory = post ? (isEn ? (post.categoryEn || post.category) : post.category) : '';
 
+  /* seoTitle — optional shorter version for <title> / og:title (H1 still uses postTitle) */
+  const postSeoTitle = post
+    ? (isEn ? (post.seoTitleEn || post.seoTitle || postTitle) : (post.seoTitle || postTitle))
+    : '';
+
+  const BASE = 'https://www.highair-expeditions.com';
+
   usePageMeta(post ? {
-    title:         `${postTitle} | HighAir Expeditions`,
+    title:         `${postSeoTitle} | HighAir Expeditions`,
     description:   postExcerpt,
     canonicalPath: `/blog/${post.slug}`,
-    image:         post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,
+    image:         post.img ? `${BASE}${post.img}` : undefined,
     ogType:        'article',
+    jsonLd:        breadcrumbList([
+      { name: isEn ? 'Home'  : 'בית',  url: '/' },
+      { name: isEn ? 'Blog'  : 'בלוג', url: '/blog' },
+      { name: postSeoTitle,             url: `/blog/${post.slug}` },
+    ]),
   } : {
     title:         isRtl ? 'מאמר | HighAir Blog' : 'Article | HighAir Blog',
     canonicalPath: `/blog/${slug}`,

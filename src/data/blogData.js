@@ -157,6 +157,8 @@ export const POSTS = [
 
     title:    'ויזה לטנזניה: המדריך המלא להוצאת ויזה לקראת הטיפוס לקילימנג׳רו',
     titleEn:  'Tanzania Visa Guide: Everything You Need Before Climbing Kilimanjaro',
+    seoTitle:   'ויזה לטנזניה: המדריך המלא לפני הטיפוס',
+    seoTitleEn: 'Tanzania Visa Guide for Kilimanjaro Climbers',
     author:   'HighAir Expeditions',
     dateIso:  '2026-05-25',
     dateModified: '2026-05-25',
