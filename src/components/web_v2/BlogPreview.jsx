@@ -205,11 +205,13 @@ export default function BlogPreview() {
 
   const [allPostsHover, setAllPostsHover] = useState(false);
 
-  // First 3 posts = most recent (listed newest-first in blogData)
-  const latestPosts = POSTS.slice(0, 3);
+  // Only news posts, up to 3, most recent first
+  const latestPosts = POSTS.filter(p =>
+    (isEn ? (p.categoryEn || p.category) : p.category) === (isEn ? 'News' : 'חדשות')
+  ).slice(0, 3);
 
   const sectionLabel = isEn ? 'Our Blog' : 'הבלוג שלנו';
-  const heading      = isEn ? 'Guides, Stories & Field Tips' : 'מדריכים, סיפורים ועצות מהשטח';
+  const heading      = isEn ? 'News & Updates' : 'חדשות ועדכונים';
   const allPostsText = isEn ? 'All posts' : 'לכל הפוסטים';
 
   return (
