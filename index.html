@@ -167,6 +167,22 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=293738523242679&ev=PageView&noscript=1"/></noscript>
     <!-- End Facebook Pixel (noscript) -->
+    <!-- Accessibility button placeholder — renders instantly, hidden once UserWay loads -->
+    <div id="a11y-ph" style="position:fixed;bottom:86px;left:28px;width:46px;height:46px;border-radius:50%;background:#6D28D9;display:flex;align-items:center;justify-content:center;z-index:998;cursor:pointer;" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="4.5" r="2"/>
+        <path d="M15.5 9h-7l1 4h5l1 5h2l-1.2-5.4A2 2 0 0 0 15.5 9z"/>
+        <path d="M9.5 13.5l-.5 3H7l1-5"/>
+        <path d="M10 17.5A4.5 4.5 0 1 0 14.5 13" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <script>
+      (function(){var t=setInterval(function(){
+        if(document.getElementById('userwayAccessibilityIcon')||document.querySelector('.userway_buttons_wrapper,[id^="userwayAccessibilityIcon"]')){
+          var p=document.getElementById('a11y-ph');if(p)p.style.display='none';clearInterval(t);
+        }
+      },80);})();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
