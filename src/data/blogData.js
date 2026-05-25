@@ -149,6 +149,156 @@ export const POSTS = [
   }, */
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:10  machame-route-7-days  (2026-05-25)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       10,
+    slug:     'machame-route-7-days',
+
+    title:    'מסלול מאצ׳אמה 7 ימים: המדריך המלא לטיפוס לפסגת קילימנג׳רו',
+    titleEn:  'Machame Route 7 Days: The Complete Guide to Climbing Kilimanjaro',
+    seoTitle:   'מסלול מאצ׳אמה 7 ימים: המדריך המלא',
+    seoTitleEn: 'Machame Route 7 Days: The Complete Guide',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-05-25',
+    dateModified: '2026-05-25',
+    dateHe:   '25 במאי 2026',
+    dateEn:   'May 25, 2026',
+    category: 'קילימנג׳רו',
+    categoryEn: 'Kilimanjaro',
+    img:             '/images/blog/kilimanjaro-trekkers.webp',
+    imgPosition:     'center 50%',
+    imgPositionCard: 'center 50%',
+    imgCredit:       '',
+    excerpt:  'מסלול מאצ׳אמה הוא הדרך הפופולרית לפסגת קילימנג׳רו. פירוט יום-יום של מסלול 7 הימים, רמת הקושי, האקלום, ולמה HighAir בחרה דווקא בו.',
+    excerptEn: 'The Machame route is the most popular path to the summit of Kilimanjaro. A day-by-day breakdown of the 7-day itinerary, difficulty level, acclimatisation, and why HighAir chose it.',
+
+    content: [
+      { type: 'text', value: 'לקילימנג׳רו מובילים כמה מסלולי עלייה, וכל אחד מהם מציע חוויה מעט שונה. אבל יש מסלול אחד שהפך, בצדק, לפופולרי מכולם: מסלול מאצ׳אמה. ב-HighAir אנחנו מובילים את כל משלחות הקילימנג׳רו שלנו במסלול הזה, בגרסת 7 הימים, ולא במקרה.' },
+      { type: 'text', value: 'במדריך הזה נסביר מהו מסלול מאצ׳אמה, נעבור על המסלול יום אחר יום, נדבר על רמת הקושי והאקלום, ונסביר בכנות למה דווקא מאצ׳אמה 7 ימים הוא, לדעתנו, הבחירה הנכונה.' },
+
+      { type: 'section', value: 'מהו מסלול מאצ׳אמה?' },
+      { type: 'text', value: 'מסלול מאצ׳אמה ניגש אל קילימנג׳רו מצד דרום. הוא מתחיל בשער מאצ׳אמה, כ-45 דקות נסיעה מהעיר מושי, ומטפס דרך יער הגשם אל מישור שירה. משם הוא פונה מזרחה וחוצה את הצד הדרומי של ההר, עד להעפלה לפסגה ממחנה בראפו. הירידה מתבצעת במסלול נפרד, מסלול מווקה.' },
+      { type: 'text', value: 'מאצ׳אמה מכונה גם "מסלול הוויסקי", כינוי שנוצר בניגוד למסלול מרנגו, שזכה לכינוי "מסלול הקוקה קולה". מעבר לכינוי, מאצ׳אמה נחשב למסלול היפה והמגוון ביותר על ההר.' },
+
+      { type: 'section', value: 'למה דווקא מאצ׳אמה? הסיבה שבחרנו בו' },
+      { type: 'text', value: 'לאחר שבחנו את היתרונות של כל מסלולי קילימנג׳רו, החלטנו ב-HighAir להוביל את כל המשלחות שלנו במסלול מאצ׳אמה. ההחלטה נשענת על שלושה יתרונות מרכזיים שהמסלול הזה מציע יחד, ושמעטים מהמסלולים האחרים משלבים באותה מידה:' },
+      { type: 'callout', title: '✦ שלושה יתרונות שמייחדים את מאצ׳אמה', items: [
+        'נוף: מאצ׳אמה חוצה את מגוון אזורי האקלים הרחב ביותר, מיער גשם טרופי, דרך אדמות בור ומדבר אלפיני, ועד אזור הקרחונים בפסגה. כל יום נראה אחרת לגמרי.',
+        'אקלום: המסלול בנוי סביב עיקרון "טפס גבוה, ישן נמוך". ביום השלישי, למשל, המסלול מטפס אל מגדל הלבה מעל 4,600 מטרים, ואז יורד לישון נמוך יותר במחנה בראנקו. התנועה הזו מאמנת את הגוף להתמודד עם הגובה.',
+        'שיעור הצלחה: השילוב של מסלול מתוכנן היטב וגרסת 7 ימים נותן למאצ׳אמה שיעור הצלחה גבוה בהגעה לפסגה, גבוה משמעותית מגרסאות קצרות יותר.',
+      ]},
+      { type: 'text', value: 'נקודה שחשוב להבין: ההבדל בין מאצ׳אמה ב-7 ימים למאצ׳אמה ב-6 ימים אינו רק "יום נוסף". בגרסת 6 הימים, הקטע ממחנה בראנקו למחנה בראפו נדחס ליום אחד. גרסת 7 הימים מפצלת אותו לשניים, ומוסיפה יום אקלום קריטי לפני יום הפסגה. היום הזה הוא לעיתים קרובות ההבדל בין מטפס שמגיע לפסגה לבין מטפס שנאלץ לסגת. לכן אנחנו עובדים אך ורק בגרסת 7 הימים.' },
+
+      { type: 'section', value: 'מסלול מאצ׳אמה 7 ימים: יום אחר יום' },
+      { type: 'text', value: 'להלן המבנה של מסלול 7 הימים. הגבהים הם משוערים ומשקפים את המבנה הסטנדרטי של המסלול.' },
+
+      { type: 'heading', value: 'יום 1: שער מאצ׳אמה אל מחנה מאצ׳אמה' },
+      { type: 'text', value: 'מ-1,800 מטרים אל כ-2,850 מטרים. כ-5 עד 7 שעות הליכה. היום מתחיל בנסיעה אל השער, ואז עלייה דרך יער גשם טרופי ולח. השביל עלול להיות בוצי ומקלות הליכה עוזרים.' },
+
+      { type: 'heading', value: 'יום 2: מחנה מאצ׳אמה אל מחנה שירה' },
+      { type: 'text', value: 'אל כ-3,800 מטרים. כ-4 עד 6 שעות. יוצאים מיער הגשם ונכנסים לאזור אדמות הבור, לאורך רכס סלעי. נפתחים נופים אל מישור שירה ואל הר מרו במרחק.' },
+
+      { type: 'heading', value: 'יום 3: שירה אל מגדל הלבה ואל מחנה בראנקו' },
+      { type: 'text', value: 'עלייה אל כ-4,600 מטרים במגדל הלבה, ואז ירידה אל מחנה בראנקו בכ-3,900 מטרים. כ-6 עד 7 שעות. זהו יום האקלום המרכזי: מסיימים את היום באותו גובה שבו התחלתם בערך, אבל הגוף "טעם" את הגובה הרב. יום קריטי להכנת הגוף לקראת הפסגה.' },
+
+      { type: 'heading', value: 'יום 4: מחנה בראנקו אל מחנה קרנגה' },
+      { type: 'text', value: 'דרך "חומת בראנקו" המרשימה. יום קצר יחסית, כ-4 עד 5 שעות. היום מתחיל בטיפוס על חומת בראנקו, קטע שדורש שימוש בידיים אך אינו טכני ואינו מסוכן עם ליווי. משם, מסלול של עליות וירידות עד מחנה קרנגה.' },
+
+      { type: 'heading', value: 'יום 5: מחנה קרנגה אל מחנה בראפו' },
+      { type: 'text', value: 'אל כ-4,600 מטרים. יום קצר, כ-3 עד 4 שעות. עלייה אל מחנה הבסיס לפסגה. מגיעים מוקדם בכוונה, כדי לנוח, לאכול, ולהתכונן להעפלה. ארוחת ערב מוקדמת, ואז שינה קצרה לפני היציאה.' },
+
+      { type: 'heading', value: 'יום 6: יום הפסגה, מחנה בראפו אל אורו פיק וירידה אל מחנה מווקה' },
+      { type: 'text', value: 'זהו היום הגדול והארוך ביותר. יוצאים בלילה ומטפסים בחושך אל סטלה פוינט, ומשם אל פסגת אורו פיק, 5,895 מטרים, הנקודה הגבוהה ביבשת אפריקה. אחרי הפסגה מתחילה ירידה ארוכה אל מחנה מווקה. סך הכל יום של שעות רבות על הרגליים.' },
+
+      { type: 'heading', value: 'יום 7: מחנה מווקה אל שער מווקה' },
+      { type: 'text', value: 'ירידה אחרונה דרך יער הגשם אל שער היציאה, כ-3 עד 4 שעות. כאן מסתיים המסע, ומחכה ההסעה חזרה.' },
+
+      { type: 'section', value: 'כמה קשה מסלול מאצ׳אמה?' },
+      { type: 'text', value: 'מאצ׳אמה נחשב למסלול מאתגר, אך הוא בהישג ידם של מטפסים מתחילים בכושר גופני טוב. חשוב להבין מה האתגר האמיתי: הוא אינו טכני. אין קטעי טיפוס סלע, אין צורך בחבלים או בגרזני קרח. גם חומת בראנקו, שנראית מאיימת, היא טיפוס בעזרת הידיים שאינו מסוכן עם ליווי מקצועי.' },
+      { type: 'text', value: 'האתגר האמיתי הוא הגובה והמאמץ המתמשך. רוב הימים כוללים 5 עד 7 שעות הליכה, ויום הפסגה ארוך בהרבה. בדיוק לשם כך נבנה מסלול האקלום של 7 הימים. מי שמגיע בכושר אירובי טוב, מתאמן מראש, ומטפס בקצב נכון, מציב את עצמו בעמדה טובה להגיע לפסגה.' },
+
+      { type: 'section', value: 'לסיכום' },
+      { type: 'text', value: 'מסלול מאצ׳אמה הוא הדרך הפופולרית, היפה, ובעלת שיעור ההצלחה הגבוה אל פסגת קילימנג׳רו. גרסת 7 הימים, עם יום האקלום הנוסף שלה, היא מה שהופך אותו לבחירה הנכונה, וזו הסיבה ש-HighAir מובילה בה את כל המשלחות.' },
+      { type: 'cta', text: 'למשלחת מאצ׳אמה 7 ימים של HighAir', textEn: 'Machame 7-Day Expedition', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'כמה ימים נמשך מסלול מאצ׳אמה?' },
+      { type: 'text', value: 'HighAir מובילה את מסלול מאצ׳אמה בגרסת 7 ימים על ההר. גרסה זו כוללת יום אקלום נוסף לעומת גרסת 6 הימים, ומעלה משמעותית את סיכויי ההגעה לפסגה.' },
+      { type: 'heading', value: 'למה מאצ׳אמה נקרא "מסלול הוויסקי"?' },
+      { type: 'text', value: 'הכינוי נוצר בניגוד למסלול מרנגו, שכונה "מסלול הקוקה קולה". מעבר לכינוי, מאצ׳אמה ידוע כמסלול היפה והמגוון ביותר על קילימנג׳רו.' },
+      { type: 'heading', value: 'האם מסלול מאצ׳אמה מתאים למתחילים?' },
+      { type: 'text', value: 'כן, למתחילים בכושר גופני טוב. המסלול אינו טכני ואינו דורש ניסיון טיפוס קודם. נדרשת הכנה גופנית מוקדמת.' },
+      { type: 'heading', value: 'מהי חומת בראנקו?' },
+      { type: 'text', value: 'קטע מפורסם במסלול שבו מטפסים קיר סלע בעזרת הידיים. הוא נראה מאתגר אך אינו טכני ואינו מסוכן עם ליווי מקצועי.' },
+      { type: 'heading', value: 'מה גובה פסגת קילימנג׳רו במסלול מאצ׳אמה?' },
+      { type: 'text', value: 'כל מסלולי קילימנג׳רו מובילים לאותה פסגה: אורו פיק, בגובה 5,895 מטרים, הנקודה הגבוהה ביבשת אפריקה.' },
+    ],
+
+    contentEn: [
+      { type: 'text', value: 'Kilimanjaro has several ascent routes, each offering a slightly different experience. But one route has, justifiably, become more popular than all the others: the Machame route. At HighAir, all of our Kilimanjaro expeditions follow this route in its 7-day version, and not by accident.' },
+      { type: 'text', value: 'This guide explains what the Machame route is, walks through it day by day, covers difficulty and acclimatisation, and explains honestly why we believe Machame 7 days is the right choice.' },
+
+      { type: 'section', value: 'What is the Machame route?' },
+      { type: 'text', value: 'The Machame route approaches Kilimanjaro from the south. It begins at Machame Gate, about 45 minutes from the town of Moshi, and climbs through rainforest to the Shira Plateau. From there it turns east and crosses the southern side of the mountain, leading up to the summit push from Barafu Camp. The descent follows a separate path: the Mweka route.' },
+      { type: 'text', value: 'Machame is also known as the "Whiskey Route", a nickname created in contrast to the Marangu route, nicknamed the "Coca-Cola Route". Beyond the nickname, Machame is widely considered the most scenic and varied route on the mountain.' },
+
+      { type: 'section', value: 'Why Machame? The reason we chose it' },
+      { type: 'text', value: 'After reviewing the advantages of all Kilimanjaro routes, HighAir chose to run all our expeditions on Machame. The decision rests on three key advantages this route offers together, which few other routes combine to the same degree:' },
+      { type: 'callout', title: '✦ Three advantages that set Machame apart', items: [
+        'Scenery: Machame passes through the widest variety of climate zones, from tropical rainforest, through moorland and alpine desert, to the glacier zone near the summit. Each day looks completely different.',
+        'Acclimatisation: The route is built around the golden rule of high-altitude trekking: "climb high, sleep low." On day three, for example, the route climbs to Lava Tower at over 4,600 metres, then descends to sleep lower at Barranco Camp. This movement trains the body to handle altitude.',
+        'Summit success rate: The combination of a well-designed route and the 7-day version gives Machame a high summit success rate, significantly higher than shorter versions of the climb.',
+      ]},
+      { type: 'text', value: 'An important point: the difference between Machame in 7 days versus 6 days is not just "one extra day." In the 6-day version, the section from Barranco Camp to Barafu Camp is compressed into a single day. The 7-day version splits it into two, adding a critical acclimatisation day before summit day. That day is often the difference between a climber who reaches the top and one who has to turn back. This is why we work exclusively with the 7-day version.' },
+
+      { type: 'section', value: 'Machame route 7 days: day by day' },
+      { type: 'text', value: 'Below is the structure of the 7-day route. Elevations are approximate and reflect the standard layout of the itinerary.' },
+
+      { type: 'heading', value: 'Day 1: Machame Gate to Machame Camp' },
+      { type: 'text', value: 'From 1,800 metres to approximately 2,850 metres. About 5 to 7 hours of walking. The day begins with a drive to the gate, then a climb through dense, wet rainforest. The trail can be muddy and trekking poles help.' },
+
+      { type: 'heading', value: 'Day 2: Machame Camp to Shira Camp' },
+      { type: 'text', value: 'Up to approximately 3,800 metres. About 4 to 6 hours. You leave the rainforest and enter the moorland zone, walking along a rocky ridge. Views open up across the Shira Plateau and towards Mount Meru in the distance.' },
+
+      { type: 'heading', value: 'Day 3: Shira Camp to Lava Tower and Barranco Camp' },
+      { type: 'text', value: 'Climb to approximately 4,600 metres at Lava Tower, then descend to Barranco Camp at around 3,900 metres. About 6 to 7 hours. This is the key acclimatisation day: you end it at roughly the same altitude where you started, but your body has experienced the higher elevation. A critical day for preparing the body for the summit.' },
+
+      { type: 'heading', value: 'Day 4: Barranco Camp to Karanga Camp' },
+      { type: 'text', value: 'Via the impressive Barranco Wall. A relatively short day, about 4 to 5 hours. The day begins with a scramble up the Barranco Wall, a section that requires use of hands but is not technical and is not dangerous with professional guidance. From there, a trail of ups and downs leads to Karanga Camp.' },
+
+      { type: 'heading', value: 'Day 5: Karanga Camp to Barafu Camp' },
+      { type: 'text', value: 'Up to approximately 4,600 metres. A short day, about 3 to 4 hours. You climb to the base camp for the summit push. The early arrival is intentional: time to rest, eat, and prepare for the ascent. An early dinner, then a short sleep before departure.' },
+
+      { type: 'heading', value: 'Day 6: Summit day, Barafu Camp to Uhuru Peak and descent to Mweka Camp' },
+      { type: 'text', value: 'The biggest and longest day. Departure is in the middle of the night, climbing in darkness to Stella Point and then to Uhuru Peak, 5,895 metres, the highest point on the African continent. After the summit, a long descent begins to Mweka Camp. In total, many hours on your feet.' },
+
+      { type: 'heading', value: 'Day 7: Mweka Camp to Mweka Gate' },
+      { type: 'text', value: 'The final descent through the rainforest to the exit gate, about 3 to 4 hours. This is where the journey ends, and transport awaits for the drive back.' },
+
+      { type: 'section', value: 'How hard is the Machame route?' },
+      { type: 'text', value: 'Machame is considered a challenging route, but it is within reach of first-time climbers in good physical condition. The real challenge is not technical. There are no rock-climbing sections, no ropes or ice axes needed. Even the Barranco Wall, which looks intimidating, is a scramble that is not dangerous with professional guidance.' },
+      { type: 'text', value: 'The real challenge is altitude and sustained effort. Most days involve 5 to 7 hours of walking, and summit day is much longer. This is exactly why the 7-day acclimatisation schedule exists. Climbers who arrive with good aerobic fitness, train in advance, and ascend at the right pace put themselves in the best position to reach the top.' },
+
+      { type: 'section', value: 'In summary' },
+      { type: 'text', value: 'The Machame route is the most popular, most scenic, and highest-success-rate path to the summit of Kilimanjaro. The 7-day version, with its additional acclimatisation day, is what makes it the right choice, and the reason HighAir runs all its expeditions on it.' },
+      { type: 'cta', text: 'למשלחת מאצ׳אמה 7 ימים של HighAir', textEn: 'Machame 7-Day Expedition', href: '/expedition/kilimanjaro' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'How many days is the Machame route?' },
+      { type: 'text', value: 'HighAir runs the Machame route in the 7-day version on the mountain. This version includes an additional acclimatisation day compared to the 6-day version and significantly improves the chances of reaching the summit.' },
+      { type: 'heading', value: 'Why is Machame called the Whiskey Route?' },
+      { type: 'text', value: 'The nickname was created as a contrast to the Marangu route, called the Coca-Cola Route. Beyond the nickname, Machame is known as the most scenic and varied route on Kilimanjaro.' },
+      { type: 'heading', value: 'Is the Machame route suitable for beginners?' },
+      { type: 'text', value: 'Yes, for beginners in good physical condition. The route is not technical and requires no prior climbing experience. Physical preparation in advance is important.' },
+      { type: 'heading', value: 'What is the Barranco Wall?' },
+      { type: 'text', value: 'A famous section of the route where climbers scramble up a rock face using their hands. It looks challenging but is not technical and is not dangerous with professional guidance.' },
+      { type: 'heading', value: 'What is the summit elevation on the Machame route?' },
+      { type: 'text', value: 'All Kilimanjaro routes lead to the same summit: Uhuru Peak, at 5,895 metres, the highest point on the African continent.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:9  tanzania-currency-money-guide  (2026-05-25)
    * ═══════════════════════════════════════════════════════════════════ */
   {
