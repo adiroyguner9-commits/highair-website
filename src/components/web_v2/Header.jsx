@@ -116,13 +116,16 @@ function LangSwitcher() {
  display: 'flex',
  alignItems: 'center',
  justifyContent: 'center',
- background: open ? '#F0EDFB' : '#F8F6FF',
- border: '1px solid #E8E4F5',
- borderRadius:'10px',
- padding: '6px',
+ background: 'transparent',
+ border: 'none',
+ borderRadius: '6px',
+ padding: '4px',
  cursor: 'pointer',
- transition: 'background 0.15s ease',
+ opacity: open ? 1 : 0.85,
+ transition: 'opacity 0.15s ease',
  }}
+ onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+ onMouseLeave={e => e.currentTarget.style.opacity = open ? '1' : '0.85'}
  >
  <current.Flag size={24} />
  </button>
@@ -992,14 +995,14 @@ export default function Header() {
  className="nav-menu-item"
  style={{
  display: 'flex', alignItems: 'center', justifyContent: 'center',
- width: '38px', height: '38px', borderRadius: '10px',
- background: '#F8F6FF',
- border: '1px solid #E8E4F5',
+ width: '36px', height: '36px',
+ background: 'transparent', border: 'none',
  cursor: 'pointer',
- color: '#5B21B6',
+ color: '#3D3D3D',
+ opacity: 0.85,
  }}
  >
- <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
  </svg>
  </button>
@@ -1054,17 +1057,17 @@ export default function Header() {
  aria-label={isEn ? 'Search' : 'חיפוש'}
  style={{
  display: 'flex', alignItems: 'center', justifyContent: 'center',
- width: '40px', height: '40px', borderRadius: '10px',
- background: isTransparent ? 'rgba(255,255,255,0.12)' : '#F8F6FF',
- border: isTransparent ? '1px solid rgba(255,255,255,0.22)' : '1px solid #E8E4F5',
+ width: '32px', height: '32px',
+ background: 'transparent', border: 'none',
  cursor: 'pointer',
- color: isTransparent ? 'rgba(255,255,255,0.85)' : '#5B21B6',
- transition: 'background 0.35s ease, border 0.35s ease, color 0.35s ease',
+ color: '#3D3D3D',
+ opacity: 0.85,
+ transition: 'opacity 0.2s ease, color 0.2s ease',
  }}
- onMouseEnter={e => e.currentTarget.style.background = isTransparent ? 'rgba(255,255,255,0.22)' : '#F0EDFB'}
- onMouseLeave={e => e.currentTarget.style.background = isTransparent ? 'rgba(255,255,255,0.12)' : '#F8F6FF'}
+ onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.color = '#0A0818'; }}
+ onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.color = '#3D3D3D'; }}
  >
- <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
  </svg>
  </button>
