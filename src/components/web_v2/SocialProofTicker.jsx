@@ -299,6 +299,13 @@ export default function SocialProofTicker() {
     return () => window.removeEventListener('ha:modal', onModal);
   }, []);
 
+  /* Reset everything on navigation — component stays mounted across routes */
+  useEffect(() => {
+    setShowCount(0);
+    setPhase('idle');
+    setDismissed(false);
+  }, [location.pathname]);
+
   /* Reset image error flag whenever a new item is shown */
   useEffect(() => { setImgError(false); }, [item]);
 
