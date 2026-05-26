@@ -232,7 +232,7 @@ function ensureStyles() {
 /* ── Timing ── */
 const INIT_DELAY    = 5000;   // ms before first popup
 const ANIM_IN       = 420;    // ms slide-in
-const SHOW_DURATION = 8000;   // ms fully visible
+const SHOW_DURATION = 15000;  // ms fully visible
 const ANIM_OUT      = 500;    // ms fade-out
 const PAUSE         = 8000;   // ms gap between popups
 
