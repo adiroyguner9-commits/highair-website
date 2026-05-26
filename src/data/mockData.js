@@ -130,7 +130,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     seoTitle:       'HighAir Expeditions | טרק פסגות הבלקן',
     seoTitleEn:     'Peaks of the Balkans Trek | HighAir Expeditions',
     seoDescription: 'טרק פסגות הבלקן - 2656 מטר. 10 ימים, 8 ימי הליכה דרך גבולות אלבניה, קוסובו ומונטנגרו עם לינה בגסטהאוסים ביתיים. קבוצה קטנה, נוף בלתי מוכר.',
-    seoDescriptionEn: 'Trek the Peaks of the Balkans (2656m) in Albania - 10 days. 8 hiking days across Albania, Kosovo & Montenegro with stays in local guesthouses. Groups up to 15.',
+    seoDescriptionEn: 'Trek the Peaks of the Balkans (2656m) in Albania - 10 days. 8 hiking days across Albania, Kosovo & Montenegro with stays in local guesthouses. Groups up to 14.',
     grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
     desc: `הצטרפו אלינו לטרק פסגות הבלקן, אחד ממסלולי הטרק המרהיבים והנידחים ביותר באירופה. השביל חוצה את גבולות אלבניה, קוסובו ומונטנגרו, ומוביל אתכם דרך עמקים אלפיניים בתוליים, מעברי הרים דרמטיים וכפרים מסורתיים שנותרו מחוץ למסלול התיירות ההמוני.
 
@@ -202,7 +202,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     seasons: ['יוני-אוקטובר'],
     seasonsEn: ['June-October'],
     successRate: 96,
-    groupCapacity: 15,
+    groupCapacity: 14,
     airtableEvents: ['Peaks_of_Balkan'],
     soldOutGroups: ['2025-06-08'],
     itinerary: [
@@ -218,7 +218,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       { day: 10, title: 'טיסה חזרה הביתה!', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן, אורזים את המזוודות ועושים צ\'ק-אאוט מהמלון. עולים להסעה שתקח אתכם לשדה התעופה בטיראנה, לטיסת החזרה הביתה לישראל. במהלך הטיסה, תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר :)' },
     ],
     importantToNote: [
-      'הטרק מתבצע בקבוצה עד 15 משתתפים בלבד!',
+      'הטרק מתבצע בקבוצה עד 14 משתתפים בלבד!',
       'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
       'על כל מטייל להישמע להוראות הצוות ולשמור על אחריותו וביטחונו האישי לאורך כל המסע!',
       'אישור רפואי והצהרת בריאות נדרשים כתנאי ליציאה למסע, על מנת לוודא התאמה ובריאות המטיילים!',
@@ -235,6 +235,58 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       'Medical clearance and a health declaration are required before departure!',
       'No prior climbing experience needed  -  this is a trekking route without technical climbing, but the cumulative days demand reasonable fitness.',
       'Safety first  -  safety always takes priority.',
+    ],
+    faq: [
+      {
+        q: 'כמה קשה הטרק בפסגות הבלקן?',
+        a: 'הטרק הוא ברמת קושי בינונית. ימי הליכה נעים בין 13 ל-22 ק"מ עם עלייות של עד 1100 מטר. נדרש כושר גופני טוב ויכולת לשאת תיק יום למשך 7-9 שעות. לא נדרש ניסיון טיפוס טכני.'
+      },
+      {
+        q: 'מה גודל הקבוצה?',
+        a: 'הקבוצות שלנו בטרק פסגות הבלקן מוגבלות ל-14 משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.'
+      },
+      {
+        q: 'האם יש אפשרות לחדר יחיד?',
+        a: 'חדר יחיד זמין אך ורק בלילות במלון בשקודרה (לפני ואחרי הטרק). במהלך הטרק עצמו הלינה היא בגסטהאוסים משפחתיים עם חדרים משותפים בלבד, ואין אפשרות לחדר יחיד.'
+      },
+      {
+        q: 'האם נדרש ניסיון טיפוס קודם?',
+        a: 'לא נדרש ניסיון טיפוס טכני. זהו מסלול טרק ללא טיפוס טכני, אך הצטברות הימים מחייבת כושר גופני סביר וניסיון בהליכות ארוכות.'
+      },
+      {
+        q: 'מה קורה אם אני נסוג בדרך?',
+        a: 'בטיחות המשתתפים היא בראש סדר העדיפויות. אם נדרשת נסיגה, המדריך ילווה אותך בבטחה בחזרה.'
+      },
+      {
+        q: 'מה כולל המחיר?',
+        a: 'המחיר כולל את כל מה שמפורט בסעיף "מה כלול". טיסות וביטוח נסיעות אינם כלולים.'
+      },
+    ],
+    faqEn: [
+      {
+        q: 'How difficult is the Peaks of the Balkans trek?',
+        a: 'The trek is rated moderate. Daily distances range from 13 to 22 km with ascents of up to 1100m. Good physical fitness and the ability to carry a daypack for 7-9 hours is required. No technical climbing experience is needed.'
+      },
+      {
+        q: 'What is the group size?',
+        a: 'Our Peaks of the Balkans groups are limited to 14 participants at most, ensuring personal attention and maximum quality throughout the trek.'
+      },
+      {
+        q: 'Is a single room option available?',
+        a: 'A single room is available only for the hotel nights in Shkodra (before and after the trek). During the trek itself, accommodation is in family guesthouses with shared rooms only - single room upgrades are not possible in the guesthouses.'
+      },
+      {
+        q: 'Is prior trekking experience required?',
+        a: 'No technical climbing experience is required. This is a trekking route without technical climbing, but the cumulative days demand solid hiking fitness and experience with long walking days.'
+      },
+      {
+        q: 'What happens if I turn back on the way?',
+        a: 'Participant safety is our top priority. If a descent is required, the guide will safely accompany you back.'
+      },
+      {
+        q: 'What is included in the price?',
+        a: 'The price includes everything listed in the "What\'s Included" section. International flights and travel insurance are not included.'
+      },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Albania!', desc: 'After landing at Tirana International Airport, we head north toward Shkodra  -  one of Albania\'s oldest and most fascinating cities, with a history spanning more than 2500 years. We check in to our hotel and, after a short rest, set out for an evening stroll along the lively main street, buzzing with cafés, restaurants and vibrant local culture. In the evening we enjoy a celebratory opening dinner and get to know the team and fellow group members.', travelTime: 'Approx. 2-hour drive from Tirana airport to Shkodra hotel', accommodation: 'Hotel Tradita in Shkodra or similar' },

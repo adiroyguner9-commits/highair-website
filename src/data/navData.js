@@ -239,7 +239,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Peaks_of_Balkan"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 14
   },
   {
     "id": 4,
