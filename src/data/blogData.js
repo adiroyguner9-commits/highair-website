@@ -939,7 +939,6 @@ export const POSTS = [
       { type: 'text', value: 'הקושי אינו רק בגובה. הוא בהצטברות. שלוש העפלות לגובה קיצוני בתוך חלון זמן אחד, בלי שהגוף מספיק להתאושש באמת בין אחת לשנייה, הן עומס שמעט מאוד בני אדם מסוגלים לשאת. רק ארבעה מטפסים בהיסטוריה השלימו את שלושת הכתרים לפני הרילה, ואף אישה לא הייתה ביניהם.' },
       { type: 'text', value: 'הרילה השלימה את הרצף בתוך כעשרה ימים: נופטסה ב-17 במאי, להוצה ב-21 בו, והאוורסט ב-27 בו. חשוב לדייק: התוכנית המקורית הייתה לטפס את שלוש הפסגות ללא חמצן משלים. נופטסה והאוורסט נעשו ללא חמצן, אך לפי דיווח של אתר The Tourism Times שציטט את מנהל המשלחת, בלהוצה נעזרה הרילה בחמצן. שלושת הכתרים הושלמו, אך ככל הנראה לא בגרסת ה"ללא חמצן" המלאה שאליה כיוונה.' },
       { type: 'image', src: '/images/blog/harila-everest-summit.jpg', alt: 'קריסטין הרילה בפסגת האוורסט עם שלט MT. EVEREST Spring 2026', caption: 'קריסטין הרילה בפסגת האוורסט, 27 במאי 2026. גובה 8,849 מטרים, השלמת שלושת הכתרים' },
-      { type: 'image', src: '/images/blog/everest-hardest.webp', alt: 'שלושת הכתרים של האוורסט: נופטסה להוצה ואוורסט', caption: 'מסיב האוורסט מהצד הדרומי, שם ממוקמות שלוש הפסגות של האתגר' },
 
       { type: 'section', value: 'למה דווקא בלי חמצן' },
       { type: 'text', value: 'ההחלטה המשמעותית ביותר באתגר של הרילה היא לא בחירת ההרים. היא הוויתור על החמצן.' },
@@ -1016,7 +1015,6 @@ export const POSTS = [
       { type: 'text', value: 'The difficulty is not only about altitude. It is cumulative. Three summit pushes to extreme altitude within one weather window, without the body ever truly recovering between them, is a load that very few people can bear. Only four climbers in history have completed the Triple Crown before Harila, and no woman had ever been among them.' },
       { type: 'text', value: 'Harila completed the sequence within roughly ten days: Nuptse on 17 May, Lhotse on 21 May, and Everest on 27 May. One important clarification: the original plan was to climb all three peaks without supplemental oxygen. Nuptse and Everest were done without oxygen, but according to a report by The Tourism Times citing the expedition manager, Harila used oxygen on Lhotse. The Triple Crown was completed, though not in the full no-oxygen version originally planned.' },
       { type: 'image', src: '/images/blog/harila-everest-summit.jpg', alt: 'Kristin Harila at the Everest summit holding a MT. EVEREST Spring 2026 sign', caption: 'Kristin Harila on the summit of Everest, 27 May 2026. 8,849 metres, completing the Triple Crown' },
-      { type: 'image', src: '/images/blog/everest-hardest.webp', alt: 'The three peaks of the Everest Triple Crown: Nuptse, Lhotse and Everest', caption: 'The Everest massif from the south, home to all three peaks of the challenge' },
 
       { type: 'section', value: 'Why without oxygen' },
       { type: 'text', value: 'The most significant decision in Harila\'s challenge is not the choice of mountains. It is the decision to go without oxygen.' },
