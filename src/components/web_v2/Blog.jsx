@@ -83,25 +83,34 @@ function PostCard({ post }) {
       {/* Body */}
       <div style={{ padding: '22px 24px 28px', direction: dir, flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <h2 style={{
-          fontFamily:    "'Ploni', sans-serif",
-          fontSize:      isMobile ? '18px' : '20px',
-          fontWeight:    700,
-          color:         '#0A0818',
-          margin:        0,
-          lineHeight:    1.35,
-          letterSpacing: '-0.01em',
+          fontFamily:         "'Ploni', sans-serif",
+          fontSize:           isMobile ? '18px' : '20px',
+          fontWeight:         700,
+          color:              '#0A0818',
+          margin:             0,
+          lineHeight:         1.35,
+          letterSpacing:      '-0.01em',
+          display:            '-webkit-box',
+          WebkitLineClamp:    2,
+          WebkitBoxOrient:    'vertical',
+          overflow:           'hidden',
+          minHeight:          `calc(1.35em * 2)`,
         }}>
           {title}
         </h2>
 
         <p style={{
-          fontFamily: "'Ploni', sans-serif",
-          fontSize:   '15px',
-          fontWeight: 300,
-          color:      '#6B6B8A',
-          margin:     0,
-          lineHeight: 1.7,
-          flex:       1,
+          fontFamily:         "'Ploni', sans-serif",
+          fontSize:           '15px',
+          fontWeight:         300,
+          color:              '#6B6B8A',
+          margin:             0,
+          lineHeight:         1.7,
+          display:            '-webkit-box',
+          WebkitLineClamp:    4,
+          WebkitBoxOrient:    'vertical',
+          overflow:           'hidden',
+          minHeight:          `calc(1.7em * 4)`,
         }}>
           {excerpt}
         </p>
