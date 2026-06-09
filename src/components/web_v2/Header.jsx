@@ -1005,6 +1005,33 @@ export default function Header() {
  </svg>
  </button>
  <LangSwitcher />
+ {/* Customer login button - desktop */}
+ <a
+ href="https://app.highair-expeditions.com"
+ target="_blank"
+ rel="noopener noreferrer"
+ style={{
+ display: 'inline-flex',
+ alignItems: 'center',
+ gap: '6px',
+ padding: '8px 18px',
+ borderRadius: '50px',
+ border: '1.5px solid #6D28D9',
+ color: '#6D28D9',
+ background: 'transparent',
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: '14px',
+ fontWeight: 600,
+ textDecoration: 'none',
+ whiteSpace: 'nowrap',
+ transition: 'background 0.2s ease, color 0.2s ease',
+ direction: isEn ? 'ltr' : 'rtl',
+ }}
+ onMouseEnter={e => { e.currentTarget.style.background = '#6D28D9'; e.currentTarget.style.color = '#fff'; }}
+ onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#6D28D9'; }}
+ >
+ {isEn ? 'Customer Login' : 'כניסה ללקוחות'}
+ </a>
  </div>
  </>
  )}
