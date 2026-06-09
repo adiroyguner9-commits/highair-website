@@ -119,11 +119,11 @@ function LangSwitcher() {
  );
 }
 
-function scrollToSection(href) {
+function scrollToSection(href, offset = 124) {
  const id = href.replace('#', '');
  const el = document.getElementById(id);
  if (!el) return;
- const top = el.getBoundingClientRect().top + window.scrollY - 80;
+ const top = el.getBoundingClientRect().top + window.scrollY - offset;
  window.scrollTo({ top, behavior: 'smooth' });
 }
 
@@ -154,7 +154,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  onMouseLeave={onClose}
  style={{
  position: 'fixed',
- top: '80px',
+ top: '124px',
  left: 0,
  right: 0,
  zIndex: 998,
@@ -211,7 +211,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  onMouseLeave={onClose}
  style={{
  position: 'fixed',
- top: '80px',
+ top: '124px',
  left: 0,
  right: 0,
  zIndex: 998,
@@ -820,7 +820,7 @@ export default function Header() {
 
  function handleNavigation(href) {
  navigate('/');
- setTimeout(() => scrollToSection(href), 100);
+ setTimeout(() => scrollToSection(href, isMobile ? 80 : 118), 100);
  }
 
  function openMega(type) {
@@ -838,9 +838,57 @@ export default function Header() {
 
  return (
  <>
+ {/* ── Utility top bar (desktop only) ── */}
+ {!isMobile && (
+ <div style={{
+  position: 'fixed',
+  top: 0, left: 0, right: 0,
+  height: '44px',
+  background: '#F5F4FB',
+  borderBottom: '1px solid #E8E5F2',
+  zIndex: 1001,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '0 5%',
+  boxSizing: 'border-box',
+  direction: dir,
+ }}>
+  {/* Google rating (visual right in RTL) */}
+  <div style={{
+   display: 'flex', alignItems: 'center', gap: '6px',
+   fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#4A4770',
+  }}>
+   <span style={{ color: '#FBBC04', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span>
+   <span style={{ fontWeight: 700 }}>5.0</span>
+   <span style={{ color: '#6B6B8A' }}>{isEn ? 'Rated #1 on Google' : 'מדורגים #1 ב-Google'}</span>
+  </div>
+  {/* Search + Language switcher (visual left in RTL) */}
+  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+   <button
+    onClick={() => setSearchOpen(true)}
+    aria-label={isEn ? 'Search' : 'חיפוש'}
+    style={{
+     display: 'flex', alignItems: 'center', justifyContent: 'center',
+     background: 'transparent', border: 'none', padding: '4px',
+     cursor: 'pointer', color: '#5B5788', opacity: 0.85,
+     transition: 'opacity 0.15s ease',
+    }}
+    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
+    onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; }}
+   >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+   </button>
+   <LangSwitcher />
+  </div>
+ </div>
+ )}
+
  <header style={{
  position: 'fixed',
- top: 0,
+ top: isMobile ? 0 : '44px',
  left: 0,
  right: 0,
  zIndex: 1000,
@@ -983,29 +1031,8 @@ export default function Header() {
  />
  ))}
  </nav>
- <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '10px' }}>
- {/* Search icon button */}
- <button
- onClick={() => setSearchOpen(true)}
- aria-label={isEn ? 'Search' : 'חיפוש'}
- style={{
- display: 'flex', alignItems: 'center', justifyContent: 'center',
- width: '32px', height: '32px',
- background: 'transparent', border: 'none',
- cursor: 'pointer',
- color: '#3D3D3D',
- opacity: 0.85,
- transition: 'opacity 0.2s ease, color 0.2s ease',
- }}
- onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.color = '#0A0818'; }}
- onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.color = '#3D3D3D'; }}
- >
- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
- <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
- </svg>
- </button>
- <LangSwitcher />
- {/* Customer login button - desktop */}
+ <div style={{ justifySelf: 'end' }}>
+ {/* Personal area login button */}
  <a
  href="https://app.highair-expeditions.com"
  target="_blank"
@@ -1014,23 +1041,23 @@ export default function Header() {
  display: 'inline-flex',
  alignItems: 'center',
  gap: '6px',
- padding: '8px 18px',
+ padding: '9px 22px',
  borderRadius: '50px',
  border: '1.5px solid #6D28D9',
- color: '#6D28D9',
- background: 'transparent',
+ color: '#FFFFFF',
+ background: '#6D28D9',
  fontFamily: "'Ploni', sans-serif",
  fontSize: '14px',
  fontWeight: 600,
  textDecoration: 'none',
  whiteSpace: 'nowrap',
- transition: 'background 0.2s ease, color 0.2s ease',
+ transition: 'background 0.2s ease, box-shadow 0.2s ease',
  direction: isEn ? 'ltr' : 'rtl',
  }}
- onMouseEnter={e => { e.currentTarget.style.background = '#6D28D9'; e.currentTarget.style.color = '#fff'; }}
- onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#6D28D9'; }}
+ onMouseEnter={e => { e.currentTarget.style.background = '#5B21B6'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(109,40,217,0.35)'; }}
+ onMouseLeave={e => { e.currentTarget.style.background = '#6D28D9'; e.currentTarget.style.boxShadow = 'none'; }}
  >
- {isEn ? 'Customer Login' : 'כניסה ללקוחות'}
+ {isEn ? 'My Account' : 'כניסה לאזור אישי'}
  </a>
  </div>
  </>

@@ -231,7 +231,7 @@ export default function ContactPage() {
  return (
  <>
  <Header />
- <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: '80px', direction: dir }}>
+ <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: isMobile ? '80px' : '124px', direction: dir }}>
 
  <div style={{
  background: 'linear-gradient(135deg, #0f0c29 0%, #1e1b4b 50%, #2d1b69 100%)',

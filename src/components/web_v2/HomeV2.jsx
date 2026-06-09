@@ -7,6 +7,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { useTranslation }  from 'react-i18next';
 import { useInView }      from '../../website/useInView.js';
 import { usePageMeta }    from '../../website/usePageMeta.js';
+import { useBreakpoint }  from '../../website/useBreakpoint.js';
 import Header             from './Header.jsx';
 import HeroSection        from './HeroSection.jsx';
 import StatsSection       from './StatsSection.jsx';
@@ -104,6 +105,7 @@ const ORG_SCHEMA = {
 export default function HomeV2() {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
+  const { isMobile } = useBreakpoint();
 
   /* Inject Organization JSON-LD into <head> */
   useEffect(() => {
@@ -142,7 +144,7 @@ export default function HomeV2() {
       <Header />
 
       {/* ── Page sections ── */}
-      <main id="main-content" style={{ paddingTop: '80px' }}>
+      <main id="main-content" style={{ paddingTop: isMobile ? '80px' : '124px' }}>
 
         {/* Hero + Stats: above the fold, no FadeIn needed */}
         <HeroSection />

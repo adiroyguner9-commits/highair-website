@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "mcp__Claude_Preview__preview_eval",
+      "mcp__Claude_Preview__preview_screenshot",
+      "mcp__Claude_Preview__preview_console_logs",
+      "mcp__Claude_Preview__preview_snapshot",
+      "mcp__Claude_Preview__preview_list",
+      "mcp__Claude_Preview__preview_resize",
+      "mcp__Claude_Preview__preview_logs",
+      "mcp__Claude_Preview__preview_click",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "mcp__Claude_in_Chrome__switch_browser",
+      "mcp__a904dc7a-3f12-45f5-8736-4c3704057fb4__get_runtime_logs",
+      "mcp__a904dc7a-3f12-45f5-8736-4c3704057fb4__list_deployments",
+      "mcp__a904dc7a-3f12-45f5-8736-4c3704057fb4__get_deployment_build_logs",
+      "mcp__cd685f22-e7a1-487d-b5e0-6bdf7d450cb6__list_bases",
+      "mcp__cd685f22-e7a1-487d-b5e0-6bdf7d450cb6__list_tables_for_base",
+      "mcp__cd685f22-e7a1-487d-b5e0-6bdf7d450cb6__list_records_for_table",
+      "mcp__cd685f22-e7a1-487d-b5e0-6bdf7d450cb6__search_records",
+      "Bash(npx vercel --prod --yes *)"
+    ],
+    "deny": []
+  }
+}

@@ -229,7 +229,7 @@ export default function BlogPost() {
       <Header />
 
       {/* ── Reading Progress Bar ── */}
-      <div style={{ position: 'fixed', top: '80px', right: 0, left: 0, height: '3px', background: '#ECEAF8', zIndex: 999 }}>
+      <div style={{ position: 'fixed', top: isMobile ? '80px' : '124px', right: 0, left: 0, height: '3px', background: '#ECEAF8', zIndex: 999 }}>
         <div style={{
           height:     '100%',
           width:      `${scrollPct}%`,

@@ -67,7 +67,7 @@ createRoot(document.getElementById('root')).render(
       <RouteTracker />
       <CookieBanner />
       <FloatingWA />
-      <SocialProofTicker />
+      {/* <SocialProofTicker /> */}
       <Suspense fallback={<div style={{minHeight:'100vh'}}/>}>
         <Routes>
           <Route path="/"                  element={<HomeV2 />} />

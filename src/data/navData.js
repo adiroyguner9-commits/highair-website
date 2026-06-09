@@ -401,8 +401,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Moderate",
     "diffHe": "בינוני",
-    "price": 2700,
-    "priceStr": "$2700",
+    "price": 2900,
+    "priceStr": "$2900",
     "continent": "africa",
     "airtableEvents": [
       "Kilimanjaro",
@@ -426,8 +426,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Moderate",
     "diffHe": "בינוני",
-    "price": 2900,
-    "priceStr": "$2900",
+    "price": 3100,
+    "priceStr": "$3100",
     "continent": "africa",
     "airtableEvents": [
       "Kilimanjaro_Kosher",

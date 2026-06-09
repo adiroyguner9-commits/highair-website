@@ -458,7 +458,7 @@ export default function AnnualPlan() {
       <main id="main-content" style={{
         background: '#FAFAF8',
         minHeight:  '100vh',
-        paddingTop: '80px',
+        paddingTop: isMobile ? '80px' : '124px',
         direction:  dir,
       }}>
 
