@@ -167,7 +167,13 @@ function ExpCard({ exp }) {
    Main section
 ══════════════════════════════════════════════════════════════ */
 
-export default function ExpeditionExplorer({ type }) {
+/* hideHeading: for a page that already carries its own <h1> (e.g. /safari),
+   so the section does not print the same title twice. */
+/* stackOnMobile: on a phone, lay the cards out one under the other instead of a
+   horizontal slider. Used by /safari, where there are only three cards and a
+   stack reads better than a swipe (owner, Jul 30 2026). The home page keeps its
+   slider, which is why this is a prop and not a global change. */
+export default function ExpeditionExplorer({ type, hideHeading = false, stackOnMobile = false }) {
   const trackRef      = useRef(null);
   const [cardWidth,   setCardWidth]   = useState(220);
   const [canPrev,     setCanPrev]     = useState(false);
@@ -176,14 +182,20 @@ export default function ExpeditionExplorer({ type }) {
   const { t, i18n }   = useTranslation();
   const textDir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl   = textDir === 'rtl';
+  const stacked = stackOnMobile && isMobile;
 
   /* Cards sorted low → high */
-  const TREK_IDS  = [4, 3, 2, 6, 7, 8];
-  const CLIMB_IDS = [5, 9, 10, 11, 12, 13, 14, 15, 16];
-  const cards = (type === 'treks' ? TREK_IDS : CLIMB_IDS)
+  const TREK_IDS   = [4, 3, 2, 6, 7, 8, 17];
+  const CLIMB_IDS  = [5, 9, 10, 11, 12, 13, 14, 15, 16];
+  const SAFARI_IDS = [18, 19, 20];   // 3 / 5 / 7 days
+  const cards = (type === 'treks' ? TREK_IDS : type === 'safari' ? SAFARI_IDS : CLIMB_IDS)
     .map(id => EXPS.find(e => e.id === id))
     .filter(Boolean)
-    .sort((a, b) => (a.elevNum || 0) - (b.elevNum || 0));
+    /* Safari sorts by DURATION (3 → 5 → 7); the mountains sort by altitude,
+       which is meaningless for a game drive. */
+    .sort((a, b) => (type === 'safari'
+      ? (parseInt(a.days, 10) || 0) - (parseInt(b.days, 10) || 0)
+      : (a.elevNum || 0) - (b.elevNum || 0)));
 
   /* Recalculate card width when container resizes */
   useEffect(() => {
@@ -269,13 +281,17 @@ export default function ExpeditionExplorer({ type }) {
   }
 
   /* Labels */
-  const sectionId = type === 'climbs' ? 'expeditions' : 'treks';
-  const heading   = type === 'climbs'
-    ? (isRtl ? 'טיפוסי הרים בעולם'  : 'Expeditions')
-    : (isRtl ? 'טרקים בעולם'        : 'Trekking');
-  const subtitle  = type === 'climbs'
-    ? (isRtl ? 'מקילימנג\'רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים' : 'From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives')
-    : (isRtl ? 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס'    : 'From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss');
+  const sectionId = type === 'climbs' ? 'expeditions' : type === 'safari' ? 'safari' : 'treks';
+  const heading   = type === 'safari'
+    ? (isRtl ? 'ספארי בטנזניה' : 'Tanzania Safari')
+    : type === 'climbs'
+      ? (isRtl ? 'טיפוסי הרים בעולם'  : 'Expeditions')
+      : (isRtl ? 'טרקים בעולם'        : 'Trekking');
+  const subtitle  = type === 'safari'
+    ? (isRtl ? 'שלושה אורכים, אותן שמורות מהמרהיבות באפריקה - בחרו כמה ימים בטבע' : 'Three lengths, the same spectacular African reserves - choose how many days in the wild')
+    : type === 'climbs'
+      ? (isRtl ? 'מקילימנג\'רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים' : 'From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives')
+      : (isRtl ? 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס'    : 'From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss');
 
   return (
     <section id={sectionId} style={{
@@ -287,7 +303,7 @@ export default function ExpeditionExplorer({ type }) {
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* ── Header: title + arrows ── */}
-        {isMobile ? (
+        {hideHeading ? null : isMobile ? (
           <div style={{ marginBottom: '40px' }}>
             <h2 style={{
               fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
@@ -321,7 +337,15 @@ export default function ExpeditionExplorer({ type }) {
         {/* ── Scroll track ── */}
         <div
           ref={trackRef}
-          style={{
+          style={stacked ? {
+            display:        'flex',
+            flexDirection:  'column',
+            gap:            '18px',
+            direction:      isRtl ? 'rtl' : 'ltr',
+            paddingTop:     '12px',
+            marginTop:      '-12px',
+            paddingBottom:  '32px',
+          } : {
             display:                 'flex',
             gap:                     '18px',
             direction:               isRtl ? 'rtl' : 'ltr',
@@ -340,7 +364,7 @@ export default function ExpeditionExplorer({ type }) {
           {cards.map(exp => (
             <div
               key={exp.id}
-              style={{
+              style={stacked ? { width: '100%' } : {
                 flex:             `0 0 ${cardWidth}px`,
                 width:            `${cardWidth}px`,
                 scrollSnapAlign:  'start',
@@ -351,8 +375,8 @@ export default function ExpeditionExplorer({ type }) {
           ))}
         </div>
 
-        {/* ── Mobile arrows ── */}
-        {isMobile && (
+        {/* ── Mobile arrows — pointless once the cards are stacked ── */}
+        {isMobile && !stacked && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '-48px', paddingBottom: '36px' }}>
             <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
             <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />

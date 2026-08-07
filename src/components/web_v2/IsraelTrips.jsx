@@ -173,7 +173,8 @@ export default function IsraelTrips() {
   const isRtl = dir === 'rtl';
 
   const HIDDEN_SLUGS = new Set(ISRAEL_TRIPS.filter(t => t.hidden).map(t => t.slug));
-  const [trips, setTrips] = useState(ISRAEL_TRIPS.filter(t => !t.hidden));
+  const [trips, setTrips] = useState(ISRAEL_TRIPS.filter(t =>
+    !t.hidden && (!t.departure || new Date(t.departure) >= new Date(new Date().toDateString()))));
 
   useEffect(() => {
     fetch('/api/airtable/IsraelGroups')
@@ -183,6 +184,8 @@ export default function IsraelTrips() {
         const loaded = (data.records || [])
           .map(r => ({ id: r.id, ...r.fields }))
           .filter(f => f.Slug && !f.Hidden && !HIDDEN_SLUGS.has(f.Slug))
+          /* Date-bound trips (e.g. community trips) drop out the day after departure */
+          .filter(f => !f.Departure || new Date(f.Departure) >= new Date(new Date().toDateString()))
           .sort((a, b) => (a.Sort_Order || 99) - (b.Sort_Order || 99))
           .filter(f => {
             if (seen.has(f.Slug)) return false;
@@ -204,7 +207,7 @@ export default function IsraelTrips() {
             days:          f.Days_He,
             daysEn:        f.Days_En,
             typeHe:        f.Type_He,
-            img:           f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : null,
+            img:           f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : (ISRAEL_TRIPS.find(t => t.slug === f.Slug)?.img || null),
             grad:          f.Gradient || 'linear-gradient(135deg, #1e1b4b, #4338ca)',
             paymentUrl:    f.Payment_URL,
             airtableEvents: [f.Event].filter(Boolean),

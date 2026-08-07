@@ -5,6 +5,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react';
+import { getAttribution } from '../../utils/attribution.js';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
@@ -16,11 +17,17 @@ import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
-import GHLCalendarWidget from './GHLCalendarWidget.jsx';
-import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon } from '../Icons.jsx';
+import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon, TreeIcon, LionIcon } from '../Icons.jsx';
 import { Analytics, useScrollDepth } from '../../utils/analytics.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 import VideoTestimonials from './VideoTestimonials.jsx';
+/* Safari-only blocks. Every one is rendered behind an isSafariExp gate, so a
+   climb page renders exactly what it rendered before. */
+import {
+  SafariSummaryCard, SafariSectionNav, SafariForMe, SafariRouteMap,
+  SafariPacking, SafariPricing, SafariInclusions, SafariVisa, SafariSection,
+  NAV_SENTINEL_ID,
+} from './SafariDetailSections.jsx';
 
 /* ─── Translation helpers ───────────────────────────────────────── */
 const HE_TO_EN_MONTHS = {
@@ -56,17 +63,17 @@ const DEFAULT_REVIEWS_EN = [
   { name: 'Roi Abraham', date: 'February 2025', rating: 5, text: 'I arrived with no experience and came back with a summit and lifelong friends. HighAir is more than a travel company — they\'re family.', initial: 'R' },
 ];
 
-const DEFAULT_FAQ = [
+const makeDefaultFaq = (cap) => [
   { q: 'האם נדרש ניסיון טיפוס קודם?', a: 'לא נדרש ניסיון טיפוס קודם לרוב המסלולים שלנו. כל מה שצריך הוא כושר גופני טוב ורצון להצליח.' },
-  { q: 'מה גודל הקבוצה?', a: 'הקבוצות שלנו מוגבלות ל-12 משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.' },
+  { q: 'מה גודל הקבוצה?', a: `הקבוצות שלנו מוגבלות ל-${cap} משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.` },
   { q: 'האם יש אופציה לחדר יחיד?', a: 'כן, ניתן לבקש חדר יחיד בתוספת תשלום. יש לציין זאת בטופס ההרשמה.' },
   { q: 'מה קורה אם אני נסוג בדרך?', a: 'בטיחות המשתתפים היא בראש סדר העדיפויות. אם נדרשת נסיגה, המדריך ילווה אותך בבטחה בחזרה.' },
   { q: 'מה כולל המחיר?', a: 'המחיר כולל את כל מה שמפורט בסעיף "מה כלול". טיסות וביטוח נסיעות אינם כלולים.' },
 ];
 
-const DEFAULT_FAQ_EN = [
+const makeDefaultFaqEn = (cap) => [
   { q: 'Is prior climbing experience required?', a: 'No prior climbing experience is required for most of our routes. All you need is good physical fitness and the will to succeed.' },
-  { q: 'What is the group size?', a: 'Our groups are limited to 12 participants at most, to ensure personal attention and maximum quality.' },
+  { q: 'What is the group size?', a: `Our groups are limited to ${cap} participants at most, to ensure personal attention and maximum quality.` },
   { q: 'Is a single room option available?', a: 'Yes, a single room can be requested for an additional fee. Please indicate this on the registration form.' },
   { q: 'What happens if I turn back on the way?', a: 'Participant safety is our top priority. If a descent is required, the guide will safely accompany you back.' },
   { q: 'What is included in the price?', a: 'The price includes everything listed in the "What\'s Included" section. Flights and travel insurance are not included.' },
@@ -81,6 +88,36 @@ const DEFAULT_NOT_INCLUDED_EN = [
   'Meals not specified in the itinerary',
   'Personal expenses and tips',
   'Visa fees (if applicable)',
+];
+
+/* A safari has nothing to do with summits, 20 km walking days or physical
+   screening, so the climb list above reads as if it belongs to another product.
+   This is the safari default (owner, Jul 30 2026: "draft it and I'll review").
+   A trip can still override it with its own importantToNote array. */
+const DEFAULT_IMPORTANT_SAFARI = [
+  /* NOTE: index 0 is replaced at render time by the auto capacity sentence
+     whenever groupCapacity is set, so keep a plain group-size line here. */
+  'הספארי מתבצע בג׳יפ עד 6 מקומות בלבד!',
+  'הנסיעה בשמורות מתבצעת בג׳יפי 4X4 פתוחי גג, המאפשרים צפייה וצילום ללא הפרעה!',
+  'צוות מקומי ומנוסה עם נהגים-מדריכים דוברי אנגלית, שמכירים את השמורות ואת הרגלי בעלי החיים לעומק!',
+  'צפייה בבעלי חיים היא חוויה בטבע פתוח - אין התחייבות לראות חיה מסוימת, אך המסלול נבנה כדי למקסם את הסיכוי!',
+  'לאורך כל השהות בשמורה חובה להישמע להוראות הנהג-מדריך ולכללי הבטיחות, ובכלל זה איסור יציאה מהרכב!',
+  'דרכון בתוקף לחצי שנה לפחות וויזה לטנזניה נדרשים לכניסה למדינה!',
+  'מומלץ להתייעץ עם רופא לגבי חיסונים וטיפול מונע למלריה לפני היציאה!',
+  'המסלול היומי עשוי להשתנות בהתאם למזג האוויר, לתנועת בעלי החיים ולשיקול דעת הצוות בשטח!',
+  'הלינה בלודג׳ים ובקמפים בתוך השמורות או בסמוך אליהן, על בסיס פנסיון מלא!',
+]; 
+
+const DEFAULT_IMPORTANT_SAFARI_EN = [
+  'The safari runs in a jeep with up to 6 seats only!',
+  'Game drives are in open-roof 4X4 jeeps, allowing unobstructed viewing and photography!',
+  'An experienced local team of English-speaking driver-guides who know the reserves and the animals\' habits deeply!',
+  'Wildlife viewing happens in open nature - no specific animal can be guaranteed, but the route is built to maximise the chances!',
+  'Throughout the reserve you must follow the driver-guide\'s instructions and the safety rules, including never leaving the vehicle!',
+  'A passport valid for at least six months and a Tanzania visa are required for entry!',
+  'Consult a doctor about vaccinations and malaria prophylaxis before departure!',
+  'The daily route may change according to weather, animal movement and the team\'s judgement in the field!',
+  'Accommodation is in lodges and camps inside or near the reserves, on full board!',
 ];
 
 const DEFAULT_IMPORTANT = [
@@ -108,6 +145,33 @@ const DEFAULT_IMPORTANT_EN = [
 const getWhyCards = (exp, isRtl) => {
   const activity = isRtl ? (exp?.typeHe || 'טיפוס') : (exp?.type || 'Climbing');
   const country  = isRtl ? (exp?.countryHe || '') : (exp?.country || '');
+
+  /* A safari keeps the perks that genuinely apply and drops the ones that only
+     make sense on a mountain (owner, Jul 30 2026): no training plan, no
+     satellite device, no altitude-sickness guide. The gear list stays but points
+     at SAFARI gear, and the store discounts stay because they apply to every
+     HighAir traveller. */
+  if (exp?.type === 'Safari') {
+    return isRtl ? [
+      { icon: '🎒', title: 'רשימת ציוד לספארי', desc: '' },
+      { icon: '✈️', title: 'סגירת טיסה אטרקטיבית', desc: '' },
+      { icon: '🛡️', title: 'סגירת ביטוח אטרקטיבי', desc: '' },
+      { icon: '🏪', title: '20% הנחה על ציוד בחנות ״גרביטי״', desc: '' },
+      { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
+      { icon: '📋', title: `מדריך להוצאת ויזה ל${country}`, desc: '' },
+      { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
+      { icon: '📞', title: 'ליווי 24/7 משלב ההכנה ולאורך כל הספארי', desc: '' },
+    ] : [
+      { icon: '🎒', title: 'Safari gear list', desc: '' },
+      { icon: '✈️', title: 'Attractive flight booking', desc: '' },
+      { icon: '🛡️', title: 'Attractive insurance booking', desc: '' },
+      { icon: '🏪', title: '20% discount on gear at Gravity store', desc: '' },
+      { icon: '🏬', title: '25% discount on gear at Pakal Hagur chain', desc: '' },
+      { icon: '📋', title: `Visa guide for ${country}`, desc: '' },
+      { icon: '🤝', title: 'Participate in our community treks', desc: '' },
+      { icon: '📞', title: '24/7 support from preparation through the whole safari', desc: '' },
+    ];
+  }
   if (!isRtl) {
     return [
       { icon: '🏋️', title: `Training Plan for ${activity}`, desc: '' },
@@ -139,6 +203,22 @@ const getWhyCards = (exp, isRtl) => {
 };
 
 /* ─── Scroll helper ─────────────────────────────────────────────── */
+/* A draft record's unfilled fields hold "[למילוי]". Nothing that still holds
+   that marker may render, so both price displays and the meta description read
+   through here. */
+const filled = v => (v && !/\[למילוי\]/.test(String(v)) ? v : null);
+
+/* The safari page's in-page nav. Ids must match the SafariSection ids below. */
+const SAFARI_NAV = [
+  { id: 'sf-overview',   label: 'מבוא',        labelEn: 'Overview' },
+  { id: 'sf-for-me',     label: 'בשבילי?',      labelEn: 'For me?' },
+  { id: 'sf-itinerary',  label: 'המסלול',       labelEn: 'Itinerary' },
+  { id: 'sf-price',      label: 'מחירים',       labelEn: 'Price' },
+  { id: 'sf-inclusions', label: 'מה כלול',      labelEn: 'Inclusions' },
+  { id: 'sf-packing',    label: 'מה לארוז',     labelEn: 'Packing' },
+  { id: 'sf-visa',       label: 'ויזה ומסמכים', labelEn: 'Visa' },
+];
+
 function scrollToForm() {
   const el = document.getElementById('contact-form');
   if (!el) return;
@@ -261,7 +341,7 @@ export default function ExpeditionDetail() {
   const expJsonLd = exp ? [
     tourSchema({
       name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
-      description:   `${exp.nameHe} ב${exp.countryHe || ''} — ${exp.elev || ''}, ${exp.days || ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions. החל מ-${exp.priceStr || ''}.`,
+      description:   `${exp.nameHe} ב${exp.countryHe || ''} — ${exp.elev || ''}, ${exp.days || ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`,
       image:         exp.img,
       url:           `/expedition/${exp.slug}`,
       country:       exp.countryHe || exp.country,
@@ -276,7 +356,7 @@ export default function ExpeditionDetail() {
       { name: 'משלחות',   url: '/#expeditions' },
       { name: exp.nameHe, url: `/expedition/${exp.slug}` },
     ]),
-    faqPage((isRtl ? (exp.faq?.length ? exp.faq : DEFAULT_FAQ) : (exp.faqEn?.length ? exp.faqEn : DEFAULT_FAQ_EN)).slice(0, 8)),
+    faqPage((isRtl ? (exp.faq?.length ? exp.faq : makeDefaultFaq(exp?.groupCapacity || 15)) : (exp.faqEn?.length ? exp.faqEn : makeDefaultFaqEn(exp?.groupCapacity || 15))).slice(0, 8)),
   ] : null;
 
   usePageMeta(exp ? {
@@ -368,7 +448,6 @@ export default function ExpeditionDetail() {
   }
 
   /* ── FAQ accordion ── */
-  const [openFaq, setOpenFaq] = useState(null);
 
   /* ── Gallery lightbox ── */
   const [lightboxIdx, setLightboxIdx] = useState(null);
@@ -380,6 +459,7 @@ export default function ExpeditionDetail() {
   const [liveGroups, setLiveGroups]         = useState([]);
   const [groupsLoading, setGroupsLoading]   = useState(hasAirtable);
   const [groupsError, setGroupsError]       = useState(null);
+  const [activeYear, setActiveYear]         = useState(null);
   const [activeMonth, setActiveMonth]       = useState(null);
   const [galleryUrls, setGalleryUrls]       = useState([]);
 
@@ -393,11 +473,24 @@ export default function ExpeditionDetail() {
     const cutoff = new Date(today);
     cutoff.setDate(cutoff.getDate() + 14);
 
-    /* Step 1: fetch Groups for this expedition */
-    fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Gallery_URLs`)
-      .then(r => r.json())
-      .then(async groupsData => {
-        if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
+    /* Step 1: fetch ALL Groups pages for this expedition */
+    const fetchAllGroups = async () => {
+      const base = `/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity`;
+      let allRecords = [];
+      let offset = null;
+      do {
+        const url = offset ? `${base}&offset=${encodeURIComponent(offset)}` : base;
+        const data = await fetch(url).then(r => r.json());
+        if (data.error) throw new Error(JSON.stringify(data.error));
+        allRecords = allRecords.concat(data.records || []);
+        offset = data.offset || null;
+      } while (offset);
+      return allRecords;
+    };
+
+    fetchAllGroups()
+      .then(async allRecords => {
+        const groupsData = { records: allRecords };
 
         /* Filter to groups matching this expedition's events */
         const events = new Set((exp.airtableEvents || []).map(e => e.toLowerCase()));
@@ -411,20 +504,21 @@ export default function ExpeditionDetail() {
           .map(rec => rec.fields['Group Name'])
           .filter(Boolean);
 
-        /* Step 2: fetch ONLY customers belonging to these groups
-           using filterByFormula — avoids pagination issues entirely */
+        /* Step 2: fetch ALL customers with pagination, count by group name client-side */
+        const groupNameSet = new Set(groupNames);
         let counts = {};
-        if (groupNames.length > 0) {
-          const formula = groupNames.length === 1
-            ? `{Group Name}='${groupNames[0]}'`
-            : `OR(${groupNames.map(n => `{Group Name}='${n}'`).join(',')})`;
-          const custUrl = `/api/airtable/Customers?fields[]=Group%20Name&filterByFormula=${encodeURIComponent(formula)}`;
+        let custOffset = null;
+        do {
+          const custUrl = custOffset
+            ? `/api/airtable/Customers?fields[]=Group%20Name&offset=${encodeURIComponent(custOffset)}`
+            : `/api/airtable/Customers?fields[]=Group%20Name`;
           const custData = await fetch(custUrl).then(r => r.json());
           (custData.records || []).forEach(rec => {
             const gn = rec.fields['Group Name'] || rec.fields['group name'];
-            if (gn) counts[gn] = (counts[gn] || 0) + 1;
+            if (gn && groupNameSet.has(gn)) counts[gn] = (counts[gn] || 0) + 1;
           });
-        }
+          custOffset = custData.offset || null;
+        } while (custOffset);
 
         /* Build enriched group list */
         const enriched = relevant
@@ -437,7 +531,12 @@ export default function ExpeditionDetail() {
               departure:  rec.fields['Departure'] || null,
               returnDate: rec.fields['Return']    || null,
               count:      counts[groupName] || 0,
-              capacity:   rec.fields['Capacity']  || null,
+              // Airtable {Capacity} wins per group — the owner opens/closes spots
+              // from the base with no deploy (Jul 26 2026: Kili 23/09 showed
+              // "full" from the hardcoded 15 while Airtable already allowed 16).
+              // mockData's groupCapacity stays as the fallback for groups
+              // without the field filled.
+              capacity:   Number(rec.fields['Capacity']) || exp?.groupCapacity || 15,
             };
           })
           .filter(g => g.departure && new Date(g.departure) >= cutoff)
@@ -452,6 +551,7 @@ export default function ExpeditionDetail() {
         setLiveGroups(enriched);
         if (enriched.length > 0) {
           const d = new Date(enriched[0].departure);
+          setActiveYear(d.getFullYear());
           setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
         }
 
@@ -517,17 +617,23 @@ export default function ExpeditionDetail() {
   }
 
   /* unique months from live groups */
-  const months = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
-  const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
-  const capacity = liveGroups.find(g => g.capacity)?.capacity || exp?.groupCapacity || 15;
+  const years = [...new Set(liveGroups.map(g => new Date(g.departure).getFullYear()))].sort();
+  const groupsForYear = activeYear ? liveGroups.filter(g => new Date(g.departure).getFullYear() === activeYear) : liveGroups;
+  const months = [...new Map(groupsForYear.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const allMonths = [...new Map(liveGroups.filter(g => new Date(g.departure) >= today).map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
+  const visibleGroups = groupsForYear.filter(g => monthKey(g.departure) === activeMonth);
+  const capacity = exp?.groupCapacity || 15;
   /* noDates = no live Airtable groups → show only "Flexible" in the form */
-  const noDates = months.length === 0;
+  const noDates = allMonths.length === 0;
   const [heroBtnHovered, setHeroBtnHovered] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   /* ── Form state ── */
   const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', dial: '+972', phone: '', email: '', experience: '', privacy: false });
+
+  /* Origin travels with the lead — see utils/attribution.js. */
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -560,13 +666,18 @@ export default function ExpeditionDetail() {
   }
 
   /* ── Form submit ── */
+  /* A safari enquiry asks fewer questions than a climb: no age gate and no
+     trekking-experience essay (owner, Jul 30 2026). Name / month / people /
+     phone / email / consent is the whole form. */
+  const isSafari = exp?.type === 'Safari';
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!exp) return;
     if (!form.privacy) return;
     if (!validateEmail(form.email)) return;
     if (!validatePhone(form.phone)) return;
-    if (!validateAge(form.age)) return;
+    if (!isSafari && !validateAge(form.age)) return;
     setStatus('loading');
     try {
       const res = await fetch('/api/submit-lead', {
@@ -586,6 +697,7 @@ export default function ExpeditionDetail() {
           },
           calendarId: exp.ghlCalendarId || '',
           expeditionTag: exp.tagHe || exp.name || '',
+          ...getAttribution(),
         }),
       });
       if (!res.ok) {
@@ -593,15 +705,37 @@ export default function ExpeditionDetail() {
         try { const d = await res.json(); msg = d?.error || msg; } catch {}
         throw new Error(msg);
       }
-      setStatus('success');
       /* ── Conversion tracking ── */
       Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'lead', expedition: exp.nameHe, source: isWaitlist ? 'waitlist' : 'expedition_page' });
+
+      /* Expeditions with a Deposit A link continue straight to checkout instead
+         of the consultation calendar. The lead is already saved above, so an
+         abandoned checkout still leaves us the record. Status stays 'loading'
+         so the button keeps its sending state until the browser navigates. */
+      if (exp.paymentUrl && !isWaitlist) {
+        window.location.href = exp.paymentUrl;
+        return;
+      }
+      setStatus('success');
     } catch (err) {
       setErrorMsg(err.message || 'שגיאה. נסו שוב.');
       setStatus('error');
     }
+  }
+
+  /* ── Form abandonment tracking: fires form_start on first focus,
+        then form_field_focus once per field, via GTM dataLayer ── */
+  const trackedFields = useRef(new Set());
+  function trackFieldFocus(field) {
+    if (trackedFields.current.has(field)) return;
+    trackedFields.current.add(field);
+    window.dataLayer = window.dataLayer || [];
+    if (trackedFields.current.size === 1) {
+      window.dataLayer.push({ event: 'form_start', expedition: exp?.nameHe });
+    }
+    window.dataLayer.push({ event: 'form_field_focus', field, expedition: exp?.nameHe });
   }
 
   /* ── Input styles ── */
@@ -655,9 +789,11 @@ export default function ExpeditionDetail() {
 
   /* ── Derived data ── */
   const reviews = exp.reviews?.length ? exp.reviews : (isRtl ? DEFAULT_REVIEWS : DEFAULT_REVIEWS_EN);
-  const faqItems = isRtl
-    ? (exp.faq?.length       ? exp.faq       : DEFAULT_FAQ)
-    : (exp.faqEn?.length     ? exp.faqEn     : DEFAULT_FAQ_EN);
+
+  /* Deposit A checkout replaces the consultation call on expeditions
+     that have a payment link (see exp.paymentUrl in mockData). */
+  const isPayFlow = !!exp?.paymentUrl;
+
   const notIncludedRaw = isRtl
     ? (exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED)
     : (exp.notIncludedEn?.length ? exp.notIncludedEn : DEFAULT_NOT_INCLUDED_EN);
@@ -665,13 +801,18 @@ export default function ExpeditionDetail() {
   const extrasIdx = notIncludedRaw.indexOf(extrasMarker);
   const notIncluded = extrasIdx === -1 ? notIncludedRaw : notIncludedRaw.slice(0, extrasIdx);
   const extrasItems = extrasIdx === -1 ? [] : notIncludedRaw.slice(extrasIdx + 1);
+  const isSafariExp = exp.type === 'Safari';
   const importantToNote = isRtl
-    ? (exp.importantToNote?.length ? exp.importantToNote : DEFAULT_IMPORTANT)
-    : (exp.importantToNoteEn?.length ? exp.importantToNoteEn : DEFAULT_IMPORTANT_EN);
+    ? (exp.importantToNote?.length ? exp.importantToNote : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI : DEFAULT_IMPORTANT))
+    : (exp.importantToNoteEn?.length ? exp.importantToNoteEn : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI_EN : DEFAULT_IMPORTANT_EN));
   const includedItems = isRtl ? (exp.included || []) : (exp.includedEn || exp.included || []);
   const seasons = isRtl ? (exp.seasons || []) : ((exp.seasonsEn || exp.seasons || []).map(s => translateSeason(s, false)));
   const displayDays = isRtl ? exp.days : (exp.daysEn || translateDays(exp.days, false));
-  const itinerary = isRtl ? (exp.itinerary || []) : (exp.itineraryEn || exp.itinerary || []);
+  /* A draft record ships a day skeleton whose titles are still "[למילוי] יום N".
+     Those must never render, so they are dropped here: if nothing survives, the
+     whole itinerary section falls away on its own existing length gate. */
+  const itinerary = (isRtl ? (exp.itinerary || []) : (exp.itineraryEn || exp.itinerary || []))
+    .filter(d => filled(d.title));
   const safariItinerary = isRtl ? (exp.safariItinerary || []) : (exp.safariItineraryEn || exp.safariItinerary || []);
 
   /* ── Active itinerary based on tab ── */
@@ -696,7 +837,7 @@ export default function ExpeditionDetail() {
       <div style={{
         position: 'relative',
         width: '100%',
-        height: isMobile ? '65vh' : '100vh',
+        height: isMobile ? '65dvh' : '100dvh',
         minHeight: isMobile ? '480px' : '600px',
         overflow: 'hidden',
         background: '#0A0818',
@@ -715,7 +856,7 @@ export default function ExpeditionDetail() {
             allow="autoplay; encrypted-media"
             title={exp.nameHe}
           />
-        ) : (exp.heroVideo || exp.img) ? (
+        ) : (exp.heroVideo || exp.heroImg || exp.img) ? (
           exp.heroVideo ? (
             <video
               key={exp.heroVideo}
@@ -732,7 +873,7 @@ export default function ExpeditionDetail() {
           ) : (
             <div style={{
               position: 'absolute', inset: 0,
-              backgroundImage: `url(${exp.img})`,
+              backgroundImage: `url(${exp.heroImg || exp.img})`,
               backgroundSize: 'cover', backgroundPosition: 'center',
             }} />
           )
@@ -833,7 +974,9 @@ export default function ExpeditionDetail() {
               whiteSpace:    'nowrap',
             }}
           >
-            {isRtl ? 'לתיאום שיחה עם מומחה ←' : 'Schedule an Expert Call →'}
+            {isPayFlow
+              ? (isRtl ? 'להרשמה ותשלום מקדמה ←' : 'Register & Pay Deposit →')
+              : (isRtl ? 'לתיאום שיחה עם מומחה ←' : 'Schedule an Expert Call →')}
           </button>
           </div>
         </div>
@@ -865,14 +1008,25 @@ export default function ExpeditionDetail() {
           gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
           gap:                 '0',
         }}>
-          {[
+          {(exp.type === 'Safari'
+            /* A safari is not a climb: altitude, difficulty grade and summit
+               success rate say nothing about it (owner, Jul 30 2026). This row
+               answers what a safari buyer actually asks — how long, which
+               reserves, what wildlife, how much. */
+            ? [
+              { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration',  value: isRtl ? exp.days : (exp.daysEn || exp.days) },
+              { IconComp: TreeIcon,  label: isRtl ? 'שמורות טבע' : 'Reserves',  value: filled(exp.reserves) },
+              { IconComp: LionIcon,  label: isRtl ? 'חיות בר' : 'Wildlife',     value: filled(isRtl ? exp.wildlife : exp.wildlifeEn) },
+              { IconComp: TagIcon,   label: isRtl ? 'עלות' : 'Price',           value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : null },
+            ].filter(x => x.value)
+            : [
             { IconComp: MountainIcon, label: t('expedition.elevation'), value: `${exp.elevNum}${'m'}` },
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff || exp.diffHe) },
             exp.type === 'Trekking'
               ? { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? exp.days : (exp.daysEn || exp.days) }
               : { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
-            { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: exp.priceStr ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '–' },
-          ].map((s, i) => (
+            { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '–' },
+          ]).map((s, i) => (
             <div key={i} style={{
               textAlign:    'center',
               padding:      isMobile ? '14px 8px' : '4px 24px',
@@ -926,17 +1080,23 @@ export default function ExpeditionDetail() {
           justifyContent: 'space-between', gap: '24px',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
+            {/* Sticky bar mirrors the hero stats: a safari shows duration and
+                reserves where a climb shows altitude and grade. */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{t('expedition.elevation')}</span>
+              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'משך התכנית' : 'Duration') : t('expedition.elevation')}</span>
               <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <MountainIcon size={14} color="#0A0818" /> {exp.elevNum}{'m'}
+                {isSafari
+                  ? <><ClockIcon size={14} color="#0A0818" /> {isRtl ? exp.days : (exp.daysEn || exp.days)}</>
+                  : <><MountainIcon size={14} color="#0A0818" /> {exp.elevNum}{'m'}</>}
               </span>
             </div>
             {!isMobile && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'רמה' : 'Level'}</span>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'שמורות טבע' : 'Reserves') : (isRtl ? 'רמה' : 'Level')}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <StarIcon size={14} color="#0A0818" /> {isRtl ? exp.diffHe : (exp.diff || exp.diffHe)}
+                  {isSafari
+                    ? <><TreeIcon size={14} color="#0A0818" /> {exp.reserves || '–'}</>
+                    : <><StarIcon size={14} color="#0A0818" /> {isRtl ? exp.diffHe : (exp.diff || exp.diffHe)}</>}
                 </span>
               </div>
             )}
@@ -948,7 +1108,7 @@ export default function ExpeditionDetail() {
                 </span>
               </div>
             )}
-            {exp.priceStr && (
+            {filled(exp.priceStr) && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עלות' : 'Price'}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>
@@ -971,13 +1131,24 @@ export default function ExpeditionDetail() {
         </div>
       </div>
 
+      {/* Section tabs sit under the floating bar. They only appear past the
+          first section, by which point the bar is guaranteed to be up too. */}
+      {isSafari && <SafariSectionNav sections={SAFARI_NAV} isRtl={isRtl} isMobile={isMobile} />}
+
       {/* ══════════════════════════════════
           CONTENT AREA
       ══════════════════════════════════ */}
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: isMobile ? '0 5%' : '0' }}>
 
+        {isSafariExp && (
+          <SafariSummaryCard exp={exp} isRtl={isRtl} isMobile={isMobile} onEnquire={scrollToForm} />
+        )}
+
+        {/* The section tabs come up when this marker leaves the top of the view. */}
+        {isSafariExp && <div id={NAV_SENTINEL_ID} style={{ height: '1px' }} />}
+
         {/* ── A. מבוא ──────────────────────────── */}
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+        <section id={isSafariExp ? 'sf-overview' : undefined} style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr',
@@ -1025,9 +1196,9 @@ export default function ExpeditionDetail() {
 
             {/* Right column - absolutely positioned inside relative wrapper so it always fills text height */}
             <div style={{ position: 'relative', minHeight: isNarrow ? '260px' : '400px' }}>
-              {exp.img ? (
+              {(exp.introImg || exp.img) ? (
                 <img
-                  src={exp.img}
+                  src={exp.introImg || exp.img}
                   alt={exp.nameHe}
                   fetchpriority="high"
                   decoding="async"
@@ -1042,7 +1213,20 @@ export default function ExpeditionDetail() {
 
         <Separator />
 
-        {/* ── B. מה כלול ומה לא כלול ───────────── */}
+        {isSafariExp && (
+          <SafariSection id="sf-for-me" isMobile={isMobile}
+            title={isRtl ? 'האם המסע הזה בשבילי?' : 'Is this trip for me?'}
+            sub={isRtl
+              ? 'הספארי שלנו הוא פרטי, ולכן כמעט כל דבר בו נקבע לפי מי שנוסע.'
+              : 'Our safaris are private, so almost everything about them is set by who is travelling.'}>
+            <SafariForMe exp={exp} isRtl={isRtl} isMobile={isMobile} />
+          </SafariSection>
+        )}
+
+        {/* ── B. מה כלול ומה לא כלול ─────────────
+             Safari gets its own version further down, built on real content
+             rather than this record's empty included/notIncluded arrays. */}
+        {!isSafariExp && (
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 36px)',
@@ -1119,6 +1303,19 @@ export default function ExpeditionDetail() {
                 </div>
                 {notIncluded.map((item, i) => {
                   const isHeader = item.endsWith(':');
+                  const isFootnote = item.trimStart().startsWith('*');
+                  if (isFootnote) {
+                    return (
+                      <div key={i} style={{ marginTop: '14px', paddingInlineStart: '34px' }}>
+                        <span style={{
+                          fontFamily: "'Ploni', sans-serif", fontSize: '13px',
+                          color: '#9591B0', lineHeight: 1.6, fontStyle: 'italic',
+                        }}>
+                          {item}
+                        </span>
+                      </div>
+                    );
+                  }
                   return isHeader ? (
                     <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
                       <span style={{
@@ -1184,12 +1381,13 @@ export default function ExpeditionDetail() {
             </div>
           </div>
         </section>
+        )}
 
         {/* ── C. תכנית הטיפוס (Itinerary Accordion) ── */}
         {itinerary && itinerary.length > 0 && (
           <>
             <Separator />
-            <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+            <section id={isSafariExp ? 'sf-itinerary' : undefined} style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '16px', marginBottom: '28px' }}>
                 <h2 style={{
                   fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
@@ -1197,6 +1395,25 @@ export default function ExpeditionDetail() {
                 }}>
                   {isRtl ? `תכנית ה${exp.typeHe}` : t('expedition.itinerary')}
                 </h2>
+                {/* Route spec stated once, rather than repeated per day. */}
+                {(isRtl ? exp.itineraryNote : (exp.itineraryNoteEn || exp.itineraryNote)) && (
+                  <div style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    padding: '7px 16px', borderRadius: RADIUS.full,
+                    background: '#F5F2FF', border: '1px solid #DDD6FE',
+                    direction: dir,
+                  }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4C1D95" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4" />
+                    </svg>
+                    <span style={{
+                      fontFamily: "'Ploni', sans-serif", fontSize: '13.5px',
+                      fontWeight: 600, color: '#4C1D95',
+                    }}>
+                      {isRtl ? exp.itineraryNote : (exp.itineraryNoteEn || exp.itineraryNote)}
+                    </span>
+                  </div>
+                )}
                 {hasSafari && (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
@@ -1230,12 +1447,19 @@ export default function ExpeditionDetail() {
                   </div>
                 )}
               </div>
+              {/* The map first, then the days: readers want to see where they go
+                  before they read what happens each day. */}
+              {isSafariExp && (
+                <div style={{ marginBottom: '24px' }}>
+                  <SafariRouteMap exp={exp} isRtl={isRtl} isMobile={isMobile} />
+                </div>
+              )}
               <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
                 {activeItinerary.map((item, idx) => {
                   const isOpen = openItinerary.includes(idx);
                   const isLast = idx === activeItinerary.length - 1;
                   const isSafariDay = hasSafari && itineraryTab === 'safari' && idx >= (exp.itinerary.length - 1);
-                  const hasContent = !!(item.desc || item.distance || item.duration || item.elevationGain || item.elevationLoss || item.accommodation || item.travelTime);
+                  const hasContent = !!(item.desc || item.distance || item.duration || item.elevationGain || item.elevationLoss || item.accommodation || item.travelTime || item.meals);
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
                       <button
@@ -1280,7 +1504,7 @@ export default function ExpeditionDetail() {
                         }}>
                           {item.desc}
                         </p>
-                        {(item.travelTime || item.distance || item.duration || item.accommodation || item.elevationGain || item.elevationLoss || item.elevationStart || item.elevationMax || item.elevationEnd) && (() => {
+                        {(item.travelTime || item.distance || item.duration || item.accommodation || item.meals || item.elevationGain || item.elevationLoss || item.elevationStart || item.elevationMax || item.elevationEnd) && (() => {
                           const bdg = (bg, color, iconPath, text, numericLtr) => (
                             <span key={text} style={{
                               display: 'inline-flex', alignItems: 'center', gap: '5px',
@@ -1302,6 +1526,7 @@ export default function ExpeditionDetail() {
                             arrowDn:  <><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></>,
                             mountain: <><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></>,
                             home:     <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
+                            dining:   <><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6h3M19 22v-7"/></>,
                           };
                           return (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '0 20px 20px' }}>
@@ -1320,10 +1545,11 @@ export default function ExpeditionDetail() {
                                   {item.elevationLoss && bdg('#FEE2E2','#991B1B', ICONS.arrowDn, item.elevationLoss)}
                                 </div>
                               )}
-                              {/* Row 3: accommodation */}
-                              {item.accommodation && (
-                                <div style={{ display: 'flex', direction: dir }}>
-                                  {bdg('#FFF7ED','#C2410C', ICONS.home, item.accommodation)}
+                              {/* Row 3: where you sleep, and what you eat that day */}
+                              {(item.accommodation || item.meals) && (
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', direction: dir }}>
+                                  {item.accommodation && bdg('#FFF7ED','#C2410C', ICONS.home,   item.accommodation)}
+                                  {item.meals         && bdg('#F0F7E4','#4D6B1F', ICONS.dining, item.meals)}
                                 </div>
                               )}
                             </div>
@@ -1335,6 +1561,36 @@ export default function ExpeditionDetail() {
                 })}
               </div>
             </section>
+          </>
+        )}
+
+        {isSafariExp && (
+          <>
+            <SafariSection id="sf-price" isMobile={isMobile}
+              title={isRtl ? 'עונות ומחירים' : 'Seasons and pricing'}
+              sub={isRtl
+                ? 'המחיר לאדם נקבע לפי מספר הנוסעים בג׳יפ ולפי העונה. כך זה נראה.'
+                : 'The per-person price is set by how many share the jeep, and by the season.'}>
+              <SafariPricing exp={exp} isRtl={isRtl} isMobile={isMobile} />
+            </SafariSection>
+
+            <SafariSection id="sf-inclusions" isMobile={isMobile}
+              title={isRtl ? 'מה כלול במסע' : 'What the trip includes'}>
+              <SafariInclusions isRtl={isRtl} isMobile={isMobile} />
+            </SafariSection>
+
+            <SafariSection id="sf-packing" isMobile={isMobile}
+              title={isRtl ? 'מה לארוז לספארי' : 'What to pack for a safari'}
+              sub={isRtl
+                ? 'רשימה קצרה ומעשית. לספארי אורזים אחרת מטיפוס, ושני הדברים שמשנים הכי הרבה הם צבע הבגדים ומשקפת טובה.'
+                : 'A short, practical list. Packing for a safari differs from packing for a climb, and the two things that matter most are the colour of your clothes and a good pair of binoculars.'}>
+              <SafariPacking isRtl={isRtl} isMobile={isMobile} />
+            </SafariSection>
+
+            <SafariSection id="sf-visa" isMobile={isMobile}
+              title={isRtl ? 'ויזה ומסמכים' : 'Visa and documents'}>
+              <SafariVisa isRtl={isRtl} isMobile={isMobile} />
+            </SafariSection>
           </>
         )}
 
@@ -1383,10 +1639,17 @@ export default function ExpeditionDetail() {
                 borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
                 {importantToNote.map((note, i) => {
+                  /* A safari is sold by JEEP, not by group size: the vehicle holds
+                     6 (owner, Jul 30 2026), so the climb wording "a group of up
+                     to N participants" is simply the wrong unit here. */
                   const text = i === 0 && capacity
-                    ? (isRtl
-                        ? `ה${exp.typeHe || 'טיפוס'} מתבצע בקבוצה עד ${capacity} משתתפים בלבד!`
-                        : `The ${exp.type?.toLowerCase() || 'expedition'} runs in groups of up to ${capacity} participants only!`)
+                    ? (isSafariExp
+                        ? (isRtl
+                            ? `הספארי מתבצע בג׳יפ עד ${capacity} מקומות בלבד!`
+                            : `The safari runs in a jeep with up to ${capacity} seats only!`)
+                        : (isRtl
+                            ? `ה${exp.typeHe || 'טיפוס'} מתבצע בקבוצה עד ${capacity} משתתפים בלבד!`
+                            : `The ${exp.type?.toLowerCase() || 'expedition'} runs in groups of up to ${capacity} participants only!`))
                     : note;
                   return (
                     <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
@@ -1448,34 +1711,104 @@ export default function ExpeditionDetail() {
             </div>
           ) : liveGroups.length > 0 ? (
             <>
-              {/* Month tabs - only when more than 2 departure dates */}
-              {liveGroups.length > 2 && (
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  {months.map(([key, label]) => (
-                    <button
-                      key={key}
-                      onClick={() => setActiveMonth(key)}
-                      style={{
-                        padding: '8px 20px',
-                        borderRadius: RADIUS.full,
-                        border: `1.5px solid ${activeMonth === key ? COLOR.primary : '#ECEAF8'}`,
-                        background: activeMonth === key ? COLOR.primary : '#fff',
-                        color: activeMonth === key ? 'white' : '#3D3B5A',
-                        fontFamily: "'Ploni', sans-serif",
-                        fontSize: '14px', fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: `all 0.2s ${EASING.smooth}`,
-                      }}
-                    >
-                      {label}
-                    </button>
-                  ))}
+              {/* Year filter — segmented control */}
+              {(years.length > 1 || years[0] !== new Date().getFullYear()) && (
+                <div style={{ marginBottom: '16px' }}>
+                  <div style={{
+                    display: 'inline-flex',
+                    background: '#ECEAF8',
+                    borderRadius: RADIUS.full,
+                    padding: '4px',
+                    gap: '2px',
+                  }}>
+                    {years.map(yr => (
+                      <button
+                        key={yr}
+                        onClick={() => {
+                          setActiveYear(yr);
+                          const firstOfYear = liveGroups.find(g => new Date(g.departure).getFullYear() === yr);
+                          if (firstOfYear) {
+                            const d = new Date(firstOfYear.departure);
+                            setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
+                          }
+                        }}
+                        style={{
+                          padding: '8px 28px',
+                          borderRadius: RADIUS.full,
+                          border: 'none',
+                          background: activeYear === yr ? '#1E1B3A' : 'transparent',
+                          color: activeYear === yr ? 'white' : '#5B5880',
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '15px', fontWeight: 700,
+                          cursor: 'pointer',
+                          transition: `background 0.2s ${EASING.smooth}, color 0.2s ${EASING.smooth}`,
+                          letterSpacing: '0.02em',
+                        }}
+                      >
+                        {yr}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Month tabs — horizontal scroll, no wrapping */}
+              {groupsForYear.length > 2 && (
+                <div style={{
+                  display: 'flex', gap: '8px',
+                  overflowX: 'auto', flexWrap: 'nowrap',
+                  marginBottom: '24px', paddingBottom: '4px',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                }}>
+                  {months.map(([key, label]) => {
+                    const shortLabel = new Date(key.split('-')[0], key.split('-')[1]).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long' });
+                    const count = groupsForYear.filter(g => monthKey(g.departure) === key).length;
+                    const isActive = activeMonth === key;
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => setActiveMonth(key)}
+                        style={{
+                          flexShrink: 0,
+                          display: 'flex', alignItems: 'center', gap: '6px',
+                          padding: '8px 20px',
+                          borderRadius: RADIUS.full,
+                          border: `1.5px solid ${isActive ? COLOR.primary : '#ECEAF8'}`,
+                          background: isActive ? COLOR.primary : '#fff',
+                          color: isActive ? 'white' : '#3D3B5A',
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize: '14px', fontWeight: 600,
+                          cursor: 'pointer',
+                          whiteSpace: 'nowrap',
+                          transition: `all 0.2s ${EASING.smooth}`,
+                        }}
+                      >
+                        {shortLabel}
+                        <span style={{
+                          fontSize: '11px', fontWeight: 700,
+                          background: isActive ? 'rgba(255,255,255,0.25)' : '#ECEAF8',
+                          color: isActive ? 'white' : '#6B6B8A',
+                          borderRadius: '999px',
+                          padding: '1px 6px',
+                          lineHeight: 1.6,
+                        }}>
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
               {/* Group cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
-                {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
+              {(() => {
+                const displayGroups = groupsForYear.length > 2 ? visibleGroups : groupsForYear;
+                const isKili = exp.slug?.includes('kilimanjaro');
+
+                const renderCard = (g) => {
+                  // Per-group Airtable {Capacity} first (owner opens spots with no
+                  // deploy); mockData's per-expedition number is the fallback.
                   const groupCap        = g.capacity || exp?.groupCapacity || 15;
                   const spotsLeft       = groupCap - g.count;
                   const depYM           = (() => { const d = new Date(g.departure); return `${d.getUTCFullYear()}-${d.getUTCMonth()}`; })();
@@ -1483,98 +1816,136 @@ export default function ExpeditionDetail() {
                     const sd = new Date(m);
                     return `${sd.getUTCFullYear()}-${sd.getUTCMonth()}` === depYM;
                   });
-                  const isFull    = spotsLeft <= 0 || isManualSoldOut;
-                  const isLow     = !isFull && spotsLeft <= 6;
-                  const isOpen    = !isFull && !isLow;
-                  const isSafari      = g.eventName.toLowerCase().includes('safari');
-                  const typeLabel     = eventLabel(g.eventName);
-                  const showTypeLabel = exp.slug?.includes('kilimanjaro');
-
-                  /* Spots badge config */
+                  const isFull = spotsLeft <= 0 || isManualSoldOut;
+                  const isLow  = !isFull && spotsLeft <= 6;
                   const spotsBadge = isFull
                     ? { bg: '#FEE2E2', color: '#991B1B', text: isRtl ? 'קבוצה מלאה' : 'Group Full' }
                     : isLow
-                    ? { bg: '#FEF3C7', color: '#92400E', text: isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left` }
+                    ? { bg: '#FEF3C7', color: '#92400E', text: isRtl ? (spotsLeft === 1 ? 'נשאר מקום אחרון!' : `נשארו ${spotsLeft} מקומות`) : (spotsLeft === 1 ? 'Last spot left!' : `${spotsLeft} spots left`) }
                     : { bg: '#D1FAE5', color: '#065F46', text: isRtl ? 'הרשמה פתוחה' : 'Open' };
                   return (
                     <div key={g.id} style={{
-                      display: 'flex',
-                      flexDirection: 'row',
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr 1fr',
                       alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: '12px',
-                      border: '1px solid #ECEAF8',
+                      border: `1px solid ${isFull ? '#FECACA' : isLow ? '#FDE68A' : '#ECEAF8'}`,
                       borderRadius: RADIUS.lg,
                       padding: isMobile ? '14px 16px' : '12px 20px',
-                      background: '#fff',
+                      background: isFull ? '#FAFAFA' : '#fff',
                       direction: dir,
-                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-                      transition: `box-shadow 0.2s`,
+                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)', transition: `box-shadow 0.2s, border-color 0.2s`,
                     }}
-                    onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
-                    onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'}
+                    onMouseEnter={e => { if (!isFull) e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'; }}
+                    onMouseLeave={e => e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'}
                     >
                       {/* Date */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-                        <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <CalendarIcon size={isMobile ? 16 : 18} color={isFull ? '#9CA3AF' : COLOR.primary} />
                         <span style={{
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: isMobile ? '15px' : '17px',
-                          fontWeight: 800, color: '#0A0818',
+                          fontWeight: 800, color: isFull ? '#9CA3AF' : '#0A0818',
                           lineHeight: 1.1, direction: 'ltr', whiteSpace: 'nowrap',
                         }}>
                           {formatDateRange(g.departure, g.returnDate)}
                         </span>
                       </div>
-
-                      {/* Badges */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-                        {showTypeLabel && (
-                          <span style={{
-                            background: '#EDE9FE',
-                            color:      '#5B21B6',
-                            fontFamily: "'Ploni', sans-serif",
-                            fontSize: '11px', fontWeight: 700,
-                            padding: '3px 10px', borderRadius: '999px',
-                            letterSpacing: '0.02em', whiteSpace: 'nowrap',
-                          }}>
-                            {typeLabel}
-                          </span>
-                        )}
+                      {/* Badge — fixed center cell */}
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <span style={{
                           background: spotsBadge.bg, color: spotsBadge.color,
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: '11px', fontWeight: 700,
                           padding: '3px 10px', borderRadius: '999px',
                           letterSpacing: '0.01em', whiteSpace: 'nowrap',
+                          minWidth: '110px', textAlign: 'center',
                         }}>
                           {spotsBadge.text}
                         </span>
                       </div>
-
-                      {/* Left: CTA */}
-                      <button
-                        onClick={scrollToForm}
-                        disabled={isFull}
-                        style={{
-                          background: isFull ? '#E5E7EB' : COLOR.primary,
-                          color: isFull ? '#9CA3AF' : 'white',
-                          border: 'none', borderRadius: RADIUS.full,
-                          padding: isMobile ? '10px 16px' : '12px 28px',
-                          fontFamily: "'Ploni', sans-serif",
-                          fontSize: '14px', fontWeight: 700,
-                          cursor: isFull ? 'not-allowed' : 'pointer',
-                          whiteSpace: 'nowrap',
-                          flexShrink: 0,
-                          transition: 'background 0.2s',
-                        }}
-                      >
-                        {isFull ? t('expedition.full') : t('expedition.registerBtn')}
-                      </button>
+                      {/* Button — open groups register, full groups join the waitlist;
+                          both pre-fill the month in the form */}
+                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <button
+                          onClick={() => {
+                            setIsWaitlist(isFull);
+                            setForm(f => ({ ...f, month: monthLabel(g.departure) }));
+                            scrollToForm();
+                          }}
+                          style={{
+                            background: isFull ? '#fff' : COLOR.primary,
+                            color: isFull ? COLOR.primary : 'white',
+                            border: isFull ? `1.5px solid ${COLOR.primary}` : 'none',
+                            borderRadius: RADIUS.full,
+                            padding: isMobile ? '10px 14px' : '12px 22px',
+                            fontFamily: "'Ploni', sans-serif",
+                            fontSize: isFull ? '13px' : '14px', fontWeight: 700,
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap', transition: 'background 0.2s',
+                          }}
+                        >
+                          {isFull ? (isRtl ? 'לרשימת המתנה' : 'Join Waitlist') : t('expedition.registerBtn')}
+                        </button>
+                      </div>
                     </div>
                   );
-                })}
-              </div>
+                };
+
+                if (!isKili) {
+                  return (
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
+                      {displayGroups.map(renderCard)}
+                    </div>
+                  );
+                }
+
+                const climbGroups  = displayGroups.filter(g => !g.eventName.toLowerCase().includes('safari'));
+                const safariGroups = displayGroups.filter(g =>  g.eventName.toLowerCase().includes('safari'));
+
+                const sectionHeader = (label, accent) => (
+                  <div style={{ marginBottom: '10px', direction: dir }}>
+                    <span style={{
+                      display: 'inline-block',
+                      fontFamily: "'Ploni', sans-serif",
+                      fontSize: '13px', fontWeight: 700,
+                      color: accent.text,
+                      background: accent.bg,
+                      border: `1.5px solid ${accent.border}`,
+                      borderRadius: RADIUS.lg,
+                      padding: '10px 16px',
+                    }}>
+                      {label}
+                    </span>
+                  </div>
+                );
+
+                return (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    {climbGroups.length > 0 && (
+                      <div>
+                        {sectionHeader(
+                          isRtl ? 'טיפוס בלבד' : 'Climb Only',
+                          { bg: '#EDE9FE', border: '#C4B5FD', text: '#5B21B6' }
+                        )}
+                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
+                          {climbGroups.map(renderCard)}
+                        </div>
+                      </div>
+                    )}
+                    {safariGroups.length > 0 && (
+                      <div>
+                        {sectionHeader(
+                          isRtl ? 'טיפוס + 3 ימי ספארי' : 'Climb + 3-Day Safari',
+                          { bg: '#FEF3C7', border: '#FCD34D', text: '#78350F' }
+                        )}
+                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
+                          {safariGroups.map(renderCard)}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </>
           ) : (
             <div style={{
@@ -1617,9 +1988,17 @@ export default function ExpeditionDetail() {
           )}
         </section>
 
-        {exp?.slug?.includes('kilimanjaro') && (
+        {(exp?.slug?.includes('kilimanjaro') || isSafariExp) && (
           <>
             <Separator />
+            {isSafariExp && (
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14.5px', fontWeight: 300,
+                color: '#6B6B8A', margin: '0 0 4px', textAlign: 'start', direction: dir, lineHeight: 1.6 }}>
+                {isRtl
+                  ? 'המשתתפים שמדברים כאן יצאו איתנו לקילימנג׳רו. הספארי בטנזניה מופעל על ידי אותו צוות ואותם שותפים בשטח.'
+                  : 'The travellers speaking here climbed Kilimanjaro with us. The Tanzania safari is run by the same team and the same partners on the ground.'}
+              </p>
+            )}
             <VideoTestimonials darkBg={false} />
           </>
         )}
@@ -1789,6 +2168,8 @@ export default function ExpeditionDetail() {
                 paddingBottom: '8px',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
+                scrollSnapType: isMobile ? 'x mandatory' : 'none',
+                WebkitOverflowScrolling: 'touch',
               }}>
                 {exp.summitUpdates.map((u, i) => (
                   <div key={i} style={{
@@ -1800,6 +2181,18 @@ export default function ExpeditionDetail() {
                     aspectRatio: '3/4',
                     background: '#1a1a2e',
                     cursor: 'default',
+                    scrollSnapAlign: isMobile ? 'start' : 'none',
+                    transition: 'box-shadow 0.3s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(109,40,217,0.18)';
+                    const img = e.currentTarget.querySelector('img');
+                    if (img) img.style.transform = 'scale(1.06)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = 'none';
+                    const img = e.currentTarget.querySelector('img');
+                    if (img) img.style.transform = 'scale(1)';
                   }}>
                     {/* Photo */}
                     <img
@@ -1811,6 +2204,7 @@ export default function ExpeditionDetail() {
                         position: 'absolute', inset: 0,
                         width: '100%', height: '100%',
                         objectFit: 'cover',
+                        transition: 'transform 0.4s ease',
                       }}
                       onError={e => { e.currentTarget.style.display = 'none'; }}
                     />
@@ -1862,57 +2256,6 @@ export default function ExpeditionDetail() {
 
 
 
-        {/* ══════════════════════════════════
-            FAQ ACCORDION
-        ══════════════════════════════════ */}
-        <Separator />
-        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
-          <h2 style={{
-            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
-            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px', direction: dir,
-          }}>
-            {isRtl ? 'שאלות נפוצות' : 'Frequently Asked Questions'}
-          </h2>
-          <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
-            {faqItems.map((item, idx) => {
-              const isOpen = openFaq === idx;
-              const isLast = idx === faqItems.length - 1;
-              return (
-                <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
-                  <button
-                    className="accordion-row"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${idx}`}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: '16px',
-                      padding: '18px 20px', cursor: 'pointer',
-                      background: isOpen ? '#FAFAFE' : 'white',
-                      transition: `background 150ms ${EASING.smooth}`, direction: dir,
-                      width: '100%', border: 'none', textAlign: 'start',
-                    }}
-                  >
-                    <span style={{ flex: 1, fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#0A0818' }}>
-                      {item.q}
-                    </span>
-                    <span style={{ fontSize: '14px', color: '#6B6B8A', flexShrink: 0 }}>
-                      {isOpen ? '▴' : '▾'}
-                    </span>
-                  </button>
-                  <div id={`faq-panel-${idx}`} style={{ maxHeight: isOpen ? '400px' : '0', overflow: 'hidden', transition: 'max-height 0.35s ease' }}>
-                    <p style={{
-                      padding: '0 20px 18px', margin: 0,
-                      fontFamily: "'Ploni', sans-serif", fontSize: '15px',
-                      color: '#6B6B8A', lineHeight: 1.8, direction: dir,
-                    }}>
-                      {item.a}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
 
       </main>
 
@@ -1937,9 +2280,31 @@ export default function ExpeditionDetail() {
           }}>
             {isRtl ? 'עשו את הצעד הראשון' : 'Take the First Step'}
           </h2>
-          <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: '0 0 40px' }}>
-            {isRtl ? 'השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות' : 'Leave your details for a no-commitment consultation call'}
+          <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: isPayFlow ? '0 0 16px' : '0 0 40px' }}>
+            {isPayFlow
+              ? (isRtl ? 'השאירו פרטים והמשיכו לתשלום מקדמה שלב א׳' : 'Leave your details and continue to the Deposit A payment')
+              : (isRtl ? 'השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות' : 'Leave your details for a no-commitment consultation call')}
           </p>
+
+          {/* Payment policy — shown at the decision point so the split between
+              the deposit now and the balance on arrival is clear before checkout. */}
+          {isPayFlow && (isRtl ? exp.paymentNote : (exp.paymentNoteEn || exp.paymentNote)) && (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              margin: '0 0 32px', padding: '8px 18px',
+              borderRadius: RADIUS.full,
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.18)',
+              direction: dir,
+            }}>
+              <span style={{
+                fontFamily: "'Ploni', sans-serif", fontSize: '14px',
+                fontWeight: 600, color: 'rgba(255,255,255,0.92)',
+              }}>
+                {isRtl ? exp.paymentNote : (exp.paymentNoteEn || exp.paymentNote)}
+              </span>
+            </div>
+          )}
 
           {/* Form card */}
           <div style={{
@@ -1954,28 +2319,15 @@ export default function ExpeditionDetail() {
                 padding: '28px 24px',
                 border: '1px solid rgba(255,255,255,0.1)',
               }}>
-                {exp?.ghlCalendarId ? (
-                  <GHLCalendarWidget
-                    calendarId={exp.ghlCalendarId}
-                    name={form.name}
-                    phone={formatFullPhone(form.dial, form.phone)}
-                    email={form.email}
-                    expedition={exp?.nameHe}
-                    expeditionSlug={exp?.slug}
-                    expeditionValue={exp?.price}
-                    onSkip={() => setShowBooking(false)}
-                  />
-                ) : (
-                  <BookingWidget
-                    name={form.name}
-                    phone={form.phone}
-                    email={form.email}
-                    expedition={exp?.nameHe}
-                    expeditionSlug={exp?.slug}
-                    expeditionValue={exp?.price}
-                    onSkip={() => setShowBooking(false)}
-                  />
-                )}
+                <BookingWidget
+                  name={form.name}
+                  phone={form.phone}
+                  email={form.email}
+                  expedition={exp?.nameHe}
+                  expeditionSlug={exp?.slug}
+                  expeditionValue={exp?.price}
+                  onSkip={() => setShowBooking(false)}
+                />
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ direction: dir }}>
@@ -1987,6 +2339,7 @@ export default function ExpeditionDetail() {
                     <input
                       type="text" required value={form.name}
                       placeholder={isRtl ? 'ישראל ישראלי' : 'John Smith'}
+                      onFocus={() => trackFieldFocus('name')}
                       onChange={e => {
                         // רק אותיות (עברית/לטינית) ורווחים
                         const v = e.target.value.replace(/[^א-תa-zA-Z\s]/g, '');
@@ -2004,6 +2357,7 @@ export default function ExpeditionDetail() {
                     {noDates ? (
                       <select
                         required value={form.month}
+                        onFocus={() => trackFieldFocus('month')}
                         onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
@@ -2015,14 +2369,15 @@ export default function ExpeditionDetail() {
                     ) : (
                       <select
                         required value={form.month}
+                        onFocus={() => trackFieldFocus('month')}
                         onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       >
                         <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
-                        {months.length > 0
-                          ? months.map(([key, label]) => (
+                        {allMonths.length > 0
+                          ? allMonths.map(([key, label]) => (
                               <option key={key} value={label}>{label}</option>
                             ))
                           : (exp.dates || []).map((d, i) => (
@@ -2034,14 +2389,15 @@ export default function ExpeditionDetail() {
                     )}
                   </div>
 
-                  {/* גיל + כמות אנשים */}
-                  <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '16px' }}>
-                    <div>
+                  {/* גיל + כמות אנשים — a safari asks only for the number of people */}
+                  <div style={{ display: 'grid', gridTemplateColumns: (isNarrow || isSafari) ? '1fr' : '1fr 1fr', gap: '16px' }}>
+                    <div style={{ display: isSafari ? 'none' : undefined }}>
                       <label style={labelStyle}>{isRtl ? 'גיל *' : 'Age *'}</label>
                       <input
-                        type="number" required min="16" max="99"
+                        type="number" required={!isSafari} min="16" max="99"
                         placeholder="25"
                         value={form.age}
+                        onFocus={() => trackFieldFocus('age')}
                         onChange={e => {
                           const v = e.target.value.replace(/\D/g, '').slice(0, 2);
                           setForm(f => ({ ...f, age: v }));
@@ -2066,6 +2422,7 @@ export default function ExpeditionDetail() {
                         type="number" required min="1" max="10"
                         placeholder="1"
                         value={form.groupSize}
+                        onFocus={() => trackFieldFocus('group_size')}
                         onChange={e => {
                           const v = Math.min(10, Math.max(1, parseInt(e.target.value) || 1));
                           setForm(f => ({ ...f, groupSize: String(v) }));
@@ -2078,15 +2435,17 @@ export default function ExpeditionDetail() {
                   </div>
 
                   {/* טלפון */}
-                  <PhoneField
-                    label={isRtl ? 'מספר טלפון *' : 'Phone Number *'}
-                    dial={form.dial}
-                    onDialChange={v => setForm(f => ({ ...f, dial: v }))}
-                    local={form.phone}
-                    onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
-                    error={!!phoneError}
-                    errorMsg={phoneError}
-                  />
+                  <div onFocusCapture={() => trackFieldFocus('phone')}>
+                    <PhoneField
+                      label={isRtl ? 'מספר טלפון *' : 'Phone Number *'}
+                      dial={form.dial}
+                      onDialChange={v => setForm(f => ({ ...f, dial: v }))}
+                      local={form.phone}
+                      onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
+                      error={!!phoneError}
+                      errorMsg={phoneError}
+                    />
+                  </div>
 
                   {/* מייל */}
                   <div>
@@ -2095,6 +2454,7 @@ export default function ExpeditionDetail() {
                       type="text" required
                       placeholder="example@walla.com"
                       value={form.email}
+                      onFocus={() => trackFieldFocus('email')}
                       onChange={e => {
                         // רק תווים תקניים למייל
                         const v = e.target.value.replace(/[^a-zA-Z0-9._%+\-@]/g, '');
@@ -2118,11 +2478,12 @@ export default function ExpeditionDetail() {
                     )}
                   </div>
 
-                  {/* ניסיון */}
-                  <div>
+                  {/* ניסיון — not asked on a safari */}
+                  <div style={{ display: isSafari ? 'none' : undefined }}>
                     <label style={labelStyle}>{isRtl ? 'מה הניסיון שלכם בטרקים? *' : 'What is your trekking experience? *'}</label>
                     <textarea
-                      rows={3} required value={form.experience}
+                      rows={3} required={!isSafari} value={form.experience}
+                      onFocus={() => trackFieldFocus('experience')}
                       onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
                       style={{ ...inputStyle, resize: 'vertical' }}
                       placeholder={isRtl ? 'ספרו לנו על הניסיון שלכם בטרקים' : 'Tell us about your trekking experience'}
@@ -2184,7 +2545,11 @@ export default function ExpeditionDetail() {
                       transition: `background 200ms ${EASING.smooth}`,
                     }}
                   >
-                    {status === 'loading' ? (isRtl ? 'שולח...' : 'Sending...') : (isRtl ? 'לתיאום שיחה עם מומחה ←' : 'Schedule a Call with an Expert →')}
+                    {status === 'loading'
+                      ? (isPayFlow ? (isRtl ? 'מעביר לתשלום...' : 'Continuing to payment...') : (isRtl ? 'שולח...' : 'Sending...'))
+                      : isPayFlow
+                        ? (isRtl ? 'להרשמה ותשלום מקדמה ←' : 'Register & Pay Deposit →')
+                        : (isRtl ? 'לתיאום שיחה עם מומחה ←' : 'Schedule a Call with an Expert →')}
                   </button>
                 </div>
               </form>

@@ -4,6 +4,7 @@
  */
 
 import { useState, useRef } from 'react';
+import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -16,6 +17,7 @@ async function submitLead({ name, dial, phone, message }) {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify({
+      ...getAttribution(),
       fields: {
         'Name':      name,
         'Phone':     formatFullPhone(dial, phone),

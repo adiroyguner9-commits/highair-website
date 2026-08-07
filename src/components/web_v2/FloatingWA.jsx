@@ -59,7 +59,8 @@ export default function FloatingWA() {
         boxShadow:      hovered
                           ? '0 6px 24px rgba(37,211,102,0.55)'
                           : '0 3px 16px rgba(37,211,102,0.40)',
-        transform:      hovered ? 'scale(1.12)' : 'scale(1)',
+        transform:      hovered ? 'translateZ(0) scale(1.12)' : 'translateZ(0) scale(1)',
+        willChange:     'transform',
         transition:     'bottom 0.35s cubic-bezier(0.22,1,0.36,1), background 0.22s, box-shadow 0.22s, transform 0.22s cubic-bezier(0.22,1,0.36,1)',
         textDecoration: 'none',
       }}

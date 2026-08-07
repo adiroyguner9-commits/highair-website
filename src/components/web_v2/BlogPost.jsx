@@ -3,12 +3,12 @@
  * Individual blog post page - Hebrew RTL
  */
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { usePageMeta, breadcrumbList } from '../../website/usePageMeta.js';
+import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -87,76 +87,25 @@ export default function BlogPost() {
   const isEn = i18n.language === 'en';
   const post = POSTS.find(p => p.slug === slug);
 
-  const [scrollPct, setScrollPct] = useState(0);
-  const [copied,    setCopied]    = useState(false);
+  const [copied, setCopied] = useState(false);
+  const progressBarRef = useRef(null);
 
-  // Scroll tracking - progress bar
+  // Scroll tracking - progress bar (direct DOM, no React re-render)
   useEffect(() => {
     const onScroll = () => {
-      const el = document.documentElement;
-      const scrolled = el.scrollTop;
+      const el    = document.documentElement;
       const total = el.scrollHeight - el.clientHeight;
-      setScrollPct(total > 0 ? (scrolled / total) * 100 : 0);
+      const pct   = total > 0 ? (el.scrollTop / total) * 100 : 0;
+      if (progressBarRef.current) progressBarRef.current.style.width = `${pct}%`;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // JSON-LD Article + FAQPage schema
-  useEffect(() => {
-    if (!post) return;
-    const isEnLang = i18n.language === 'en';
-    const content  = isEnLang ? (post.contentEn || post.content) : post.content;
-
-    // Article schema
-    const articleScript = document.createElement('script');
-    articleScript.type = 'application/ld+json';
-    articleScript.text = JSON.stringify({
-      '@context':       'https://schema.org',
-      '@type':          'BlogPosting',
-      headline:         isEnLang ? (post.titleEn || post.title) : post.title,
-      description:      isEnLang ? (post.excerptEn || post.excerpt) : post.excerpt,
-      image:            post.img ? `https://www.highair-expeditions.com${post.img}` : undefined,
-      author:           { '@type': 'Organization', name: 'HighAir Expeditions' },
-      publisher: {
-        '@type': 'Organization',
-        name:    'HighAir Expeditions',
-        logo:    { '@type': 'ImageObject', url: 'https://www.highair-expeditions.com/logo.png' },
-      },
-      datePublished:    post.dateIso,
-      dateModified:     post.dateModified || post.dateIso,
-      mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.highair-expeditions.com/blog/${post.slug}` },
-    });
-    document.head.appendChild(articleScript);
-
-    // FAQPage schema — extract Q&A pairs that follow a FAQ section heading
-    const faqKeywords = ['שאלות נפוצות', 'faq', 'frequently asked', 'kilimanjaro faq'];
-    const faqIdx = content.findIndex(b =>
-      b.type === 'section' && faqKeywords.some(k => b.value.toLowerCase().includes(k))
-    );
-    const scripts = [articleScript];
-    if (faqIdx !== -1) {
-      const pairs = [];
-      let question = null;
-      for (const block of content.slice(faqIdx + 1)) {
-        if (block.type === 'section') break; // stop at next major section
-        if (block.type === 'heading') { question = block.value; }
-        else if (block.type === 'text' && question) {
-          pairs.push({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: block.value } });
-          question = null;
-        }
-      }
-      if (pairs.length) {
-        const faqScript = document.createElement('script');
-        faqScript.type = 'application/ld+json';
-        faqScript.text = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: pairs });
-        document.head.appendChild(faqScript);
-        scripts.push(faqScript);
-      }
-    }
-
-    return () => scripts.forEach(s => document.head.removeChild(s));
-  }, [post]);
+  /* NOTE: Article + FAQPage + BreadcrumbList JSON-LD is baked into the static
+     HTML shell by scripts/generate-html-shells.mjs (single source of truth,
+     crawlable without JS). Do NOT inject schema at runtime here — it would
+     duplicate the shell's and trip Google's Rich Results duplicate-schema flags. */
 
   /* Language-aware fields — must be declared before usePageMeta */
   const postTitle    = post ? (isEn ? (post.titleEn    || post.title)    : post.title)    : '';
@@ -177,11 +126,7 @@ export default function BlogPost() {
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img ? `${BASE}${post.img}` : undefined,
     ogType:        'article',
-    jsonLd:        breadcrumbList([
-      { name: isEn ? 'Home'  : 'בית',  url: '/' },
-      { name: isEn ? 'Blog'  : 'בלוג', url: '/blog' },
-      { name: postSeoTitle,             url: `/blog/${post.slug}` },
-    ]),
+    /* jsonLd intentionally omitted — schema lives in the static shell (see note above) */
   } : {
     title:         isRtl ? 'מאמר | HighAir Blog' : 'Article | HighAir Blog',
     canonicalPath: `/blog/${slug}`,
@@ -229,10 +174,10 @@ export default function BlogPost() {
       <Header />
 
       {/* ── Reading Progress Bar ── */}
-      <div style={{ position: 'fixed', top: isMobile ? '80px' : '124px', right: 0, left: 0, height: '3px', background: '#ECEAF8', zIndex: 999 }}>
-        <div style={{
+      <div style={{ position: 'fixed', top: isMobile ? '80px' : '124px', right: 0, left: 0, height: '3px', background: '#ECEAF8', zIndex: 999, willChange: 'transform', transform: 'translateZ(0)' }}>
+        <div ref={progressBarRef} style={{
           height:     '100%',
-          width:      `${scrollPct}%`,
+          width:      '0%',
           background: 'linear-gradient(to left, #7C3AED, #6D28D9)',
           transition: 'width 0.1s linear',
         }} />
@@ -744,7 +689,8 @@ export default function BlogPost() {
 
         {/* ── Related Posts ── */}
         {(() => {
-          const related = POSTS.filter(p => p.slug !== post.slug).slice(0, 3);
+          /* Related = same category only (e.g. News shows News), newest first */
+          const related = POSTS.filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 3);
           if (!related.length) return null;
           return (
             <div style={{ marginBottom: '56px' }}>

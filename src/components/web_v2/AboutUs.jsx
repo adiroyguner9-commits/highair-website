@@ -8,8 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import Header     from './Header.jsx';
-import SiteFooter from './SiteFooter.jsx';
+import Header       from './Header.jsx';
+import SiteFooter   from './SiteFooter.jsx';
+import PressSection from './PressSection.jsx';
 
 /* ── Auto-load team photos from src/assets/team/ ── */
 const _teamGlob = import.meta.glob('../../assets/team/*', { eager: true });
@@ -259,9 +260,11 @@ function TeamCard({ member }) {
 
 /* ── Real gift photos ── */
 const GIFT_PHOTOS = [
-  { name: 'דובי',  nameEn: 'Dubi',  age: 6,  ageLabel: 'בן',  ageLabelEn: 'age', gift: 'כיסא גיימינג', giftEn: 'Gaming chair', photo: '/images/gifts/dubi-gaming-chair.jpg' },
-  { name: 'חנה',   nameEn: 'Hana',  age: 8,  ageLabel: 'בת',  ageLabelEn: 'age', gift: 'בית בובות',    giftEn: 'Dollhouse',    photo: '/images/gifts/hani-dollhouse.jpg' },
-  { name: 'נעם',   nameEn: 'Noam',  age: 25, ageLabel: 'בן',  ageLabelEn: 'age', gift: 'לגו פרארי',    giftEn: 'Ferrari Lego', photo: '/images/gifts/noam-lego-ferrari.jpg' },
+  { name: 'דובי',   nameEn: 'Dubi',    age: 6,  ageLabel: 'בן', ageLabelEn: 'age', gift: 'כיסא גיימינג',  giftEn: 'Gaming chair',   photo: '/images/gifts/dubi-gaming-chair.jpg' },
+  { name: 'חנה',    nameEn: 'Hana',    age: 8,  ageLabel: 'בת', ageLabelEn: 'age', gift: 'בית בובות',     giftEn: 'Dollhouse',      photo: '/images/gifts/hani-dollhouse.jpg' },
+  { name: 'נעם',    nameEn: 'Noam',    age: 25, ageLabel: 'בן', ageLabelEn: 'age', gift: 'לגו פרארי',     giftEn: 'Ferrari Lego',   photo: '/images/gifts/noam-lego-ferrari.jpg' },
+  { name: 'אפרים', nameEn: 'Efraim', age: 9,  ageLabel: 'בן', ageLabelEn: 'age', gift: 'אופני הרים',       giftEn: 'Mountain bike',  photo: '/images/gifts/efraim-mountain-bike.jpg' },
+  { name: 'רועי',  nameEn: 'Roei',   age: 20, ageLabel: 'בן', ageLabelEn: 'age', gift: 'נעלי אייר ג׳ורדן', giftEn: 'Air Jordan shoes', photo: '/images/gifts/roei-air-jordan.jpg' },
 ];
 
 function GiftPhotoGrid({ isEn }) {
@@ -861,6 +864,11 @@ export default function AboutUs() {
 
 
           </div>
+        </div>
+
+        {/* ── Press section ── */}
+        <div style={{ borderTop: '1px solid #ECEAF8' }}>
+          <PressSection />
         </div>
 
       </main>

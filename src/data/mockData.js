@@ -5,7 +5,7 @@ export const EXPS = [
     elev: '2917m', elevNum: 2918, days: '6 ימים', daysEn: '6 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
     airtableEvents: ['Olympus'],
-    groupCapacity: 15,
+    groupCapacity: 10,
     img: '/images/cards/olympus.jpg',
     imgPosition: 'center 45%',
     ogImage: '/images/og/olympus.jpg',
@@ -202,7 +202,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     seasons: ['יוני-אוקטובר'],
     seasonsEn: ['June-October'],
     successRate: 96,
-    groupCapacity: 14,
+    groupCapacity: 15,
     airtableEvents: ['Peaks_of_Balkan'],
     soldOutGroups: ['2025-06-08'],
     itinerary: [
@@ -218,7 +218,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       { day: 10, title: 'טיסה חזרה הביתה!', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן, אורזים את המזוודות ועושים צ\'ק-אאוט מהמלון. עולים להסעה שתקח אתכם לשדה התעופה בטיראנה, לטיסת החזרה הביתה לישראל. במהלך הטיסה, תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר :)' },
     ],
     importantToNote: [
-      'הטרק מתבצע בקבוצה עד 14 משתתפים בלבד!',
+      'הטרק מתבצע בקבוצה עד 15 משתתפים בלבד!',
       'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
       'על כל מטייל להישמע להוראות הצוות ולשמור על אחריותו וביטחונו האישי לאורך כל המסע!',
       'אישור רפואי והצהרת בריאות נדרשים כתנאי ליציאה למסע, על מנת לוודא התאמה ובריאות המטיילים!',
@@ -243,7 +243,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       },
       {
         q: 'מה גודל הקבוצה?',
-        a: 'הקבוצות שלנו בטרק פסגות הבלקן מוגבלות ל-14 משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.'
+        a: 'הקבוצות שלנו בטרק פסגות הבלקן מוגבלות ל-15 משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.'
       },
       {
         q: 'האם יש אפשרות לחדר יחיד?',
@@ -269,7 +269,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       },
       {
         q: 'What is the group size?',
-        a: 'Our Peaks of the Balkans groups are limited to 14 participants at most, ensuring personal attention and maximum quality throughout the trek.'
+        a: 'Our Peaks of the Balkans groups are limited to 15 participants at most, ensuring personal attention and maximum quality throughout the trek.'
       },
       {
         q: 'Is a single room option available?',
@@ -305,14 +305,14 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     id: 4, slug: 'ethiopia', name: 'Simien & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
     ghlCalendarId: 'LCsG9BWSQnq5x00sUiJS', tagHe: 'סימיאן ודנקיל',
     heroVideo: '/videos/hero-ethiopia.mp4',
-    elev: '4550m', elevNum: 4430, days: '12 ימים', daysEn: '12 days', type: 'Trekking', typeHe: 'טרק',
+    elev: '4430m', elevNum: 4430, days: '12 ימים', daysEn: '12 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 3000, priceStr: '$3000', continent: 'africa',
     airtableEvents: ['Ethiopia'],
     img: '/images/cards/ethiopia.webp',
     ogImage: '/images/og/ethiopia.jpg',
     seoTitle:       'HighAir Expeditions | טרק סימיאן ומדבר דנקיל',
     seoTitleEn:     'Simien & Danakil Desert Trek | HighAir Expeditions',
-    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה - 4550 מטר. 12 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני, כנסיות חצובות בסלע וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
+    seoDescription: 'טרק הרי סימיאן ומדבר דנקיל באתיופיה - 4430 מטר. 12 ימים, אגם לבה פעיל בארטה אלה, שקע דאלול הצבעוני, כנסיות חצובות בסלע וג׳לדות בסימיאן. ניגוד קיצוני בין מדבר להרים.',
     seoDescriptionEn: 'Trek Simien Mountains & Danakil Desert in Ethiopia - 12 days. Active lava lake at Erta Ale, colorful Dallol depression, rock-hewn churches of Tigray & Gelada baboons in the Simiens.',
     grad: 'linear-gradient(135deg,#b45309,#d97706,#78350f)',
     desc: `הצטרפו אלינו למסע יוצא דופן באתיופיה - מטרק הרי הסימיאן המרהיב, דרך מדבר דנקיל הפרהיסטורי ושקע דאלול, ועד לכנסיות החצובות בסלע בטיגראי.
@@ -475,7 +475,7 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
     elev: '5054m', elevNum: 5054, days: '8 ימים', daysEn: '8 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 2300, priceStr: '€2300', continent: 'europe',
     airtableEvents: ['Kazbek'],
-    groupCapacity: 15,
+    groupCapacity: 12,
     img: '/images/cards/kazbek.webp',
     ogImage: '/images/og/kazbek.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס לקזבק',
@@ -706,7 +706,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Single room at hotel - $80/night',
       'Single room in teahouses during the trek - $15/night',
     ],
-    groupCapacity: 15,
+    groupCapacity: 10,
     importantToNote: [
       'הטרק מתבצע בקבוצה עד 15 משתתפים בלבד!',
       'צוות מקומי ומנוסה עם מדריכים דוברי אנגלית, ניסיון רב בהובלת קבוצות בהרים, מעניקים ליווי מקצועי וחוויה אותנטית!',
@@ -819,7 +819,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     dates: ['מרץ 20', 'אפריל 1', 'אפריל 15', 'אוקטובר 5', 'אוקטובר 20', 'נובמבר 3'],
     datesEn: ['March 20', 'April 1', 'April 15', 'October 5', 'October 20', 'November 3'],
     videoUrl: null,
-    groupCapacity: 15,
+    groupCapacity: 10,
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     seasonsEn: ['April-May', 'September-October'],
     successRate: 93,
@@ -1020,7 +1020,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     seasonsEn: ['April-May', 'September-October'],
     successRate: 90,
-    groupCapacity: 15,
+    groupCapacity: 10,
     faq: [
       { q: 'מה ההבדל בין טרק אנאפורנה לטרק EBC?', a: 'טרק אנאפורנה מגוון יותר תרבותית ונופית. הוא עובר דרך כפרים בסגנונות שונים, יערות וכפרים מסורתיים. EBC יותר מכוון לאתגר גובה ולתחושת "לב ההימלאיה". אנאפורנה מתאים מצוין למי שרוצה את ההרגשה המלאה של נפאל, ו-EBC למי שגובה הוא המטרה.' },
       { q: 'מה הגובה המקסימלי בסובב אנאפורנה?', a: 'הנקודה הגבוהה ביותר בטרק היא מעבר תורונג לה בגובה 5,416 מטר, אחד ממעברי ההרים הגבוהים בעולם שניתן לחצות ברגל. זו השיא של הטרק, ועליה אליו ב-04:00 בלילה לנוף הזריחה מעל ענני נפאל הוא חוויה שלא נשכחת.' },
@@ -1127,8 +1127,9 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     elev: '5642m', elevNum: 5642, days: '8 ימים', daysEn: '8 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3500, priceStr: '$3500', continent: 'europe',
     airtableEvents: ['Elbrus'],
-    groupCapacity: 15,
+    groupCapacity: 12,
     img: '/images/cards/elbrus.webp',
+    introImg: '/images/cards/elbrus-intro.webp',
     ogImage: '/images/og/elbrus.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס לאלברוס',
     seoTitleEn:     'Climbing Elbrus | HighAir Expeditions',
@@ -1211,8 +1212,8 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
       'פרמיט לטיפוס הר אלברוס - 500$-300$ לאדם',
       'כל מה שלא צוין בחלק הכלול בתכנית',
       'תוספות (לא חובה):',
-      'מזחלת שלג ביום הפסגה לגובה 4800 מ׳ - 250$ לאדם',
-      'ניסיון העפלה נוסף לפסגה - 450$ לקבוצה',
+      'מזחלת שלג לגובה 5100 מ׳ - 350$ לאדם',
+      'ניסיון העפלה נוסף לפסגה - 750$ לאדם',
     ],
     importantToNote: [
       'הטיפוס מתבצע בקבוצה עד 15 משתתפים בלבד!',
@@ -1225,14 +1226,14 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
     ],
     itinerary: [
-      { day: 1, title: 'נחיתה במינרלנייה וודי והעברה לצ׳גט (2100 מ׳)', desc: 'עם ההגעה לשדה התעופה במינרלנייה וודי, נצא בנסיעה קבוצתית של כשלוש שעות אל עבר קרחת צ׳גט השוכנת בגובה 2100 מ׳. לאחר הצ׳ק אין במלון המקומי, נתכנס לארוחת ערב חגיגית של פתיחת המשלחת, נכיר את חברי הקבוצה ונעבור תדרוך מפורט על לוחות הזמנים והמסלול המצפה לנו בימים הקרובים.', travelTime: 'כ-3 שעות נסיעה משדה התעופה לצ׳גט (185 ק"מ)', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
-      { day: 2, title: 'יום התאקלמות לגובה מצ׳גט לתחנת צ׳גט 2 (2750 מ׳)', desc: 'לאחר ארוחת הבוקר במלון, נצא ליום התאקלמות לגובה לעבר תחנת צ׳גט-2, הממוקמת בגובה 2750 מ׳. במהלך הדרך, נתרגל בהדרכת המדריך טכניקות הליכה נכונות ונלמד את יסודות הנשימה בגובה. בשעות הערב, המדריך יעביר שיעור תיאורטי מרתק על יסודות טיפוס ההרים ובטיחות בסביבה אלפינית.', distance: '6 ק"מ', duration: '4–5 שעות', elevationGain: '+650 מ׳ עלייה', elevationLoss: '-650 מ׳ ירידה', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
-      { day: 3, title: 'מעבר לצ׳יפר אזאו והתאקלמות לתחנת גראבשי (3850 מ׳)', desc: 'הבוקר נתקדם אל לב ההר. נעלה ברכבל לתחנת "Stary Krugozor" ונבצע צ׳ק אין בבקתת "Cheeper-Azau" בגובה 3000 מ׳. לאחר ארוחת צהריים בבקתה, נצא לטרק התאקלמות לגובה העובר דרך מפל "Sarykaya-Su" הציורי לעבר תחנת "Mir" (3450 מ׳). בהתאם למזג האוויר, נמשיך עד לתחנת "Gara-Bashi" (3850 מ׳) או נבקר באגם קרחוני מרהיב.', distance: '6 ק"מ', duration: '4–5 שעות', elevationGain: '+850 מ׳ עלייה', elevationLoss: '-850 מ׳ ירידה', accommodation: 'בקתת "Cheeper-Azau"' },
-      { day: 4, title: 'טיפוס התאקלמות לסלעי פסטוחוב ואימון אלפיני (4800 מ׳)', desc: 'היום נעלה ברכבל לתחנת "Gara-Bashi" בגובה 3850 מ׳, שם ממוקמים שתי בקתות ההרים הנוחות ביותר באזור. לאחר בדיקת הציוד, נצא לטיפוס התאקלמות לסלעי פסטוחוב בגובה 4800 מ׳. במיקום זה נעבור הכשרה מעשית קריטית: הליכה עם קרמפונים, שימוש בחבלים, קשירת קשרים וטכניקות בלימה עצמית עם גרזן קרח. המדריך יסקור נהלי בטיחות חיוניים לקראת היציאה לפסגה. בסיום האימון, נרד ללינה בבקתה לצורך התאוששות ומנוחה.', distance: '6 ק"מ', duration: '5–6 שעות', elevationGain: '+950 מ׳ עלייה', elevationLoss: '-950 מ׳ ירידה', accommodation: 'בקתת "Cheeper-Azau"' },
-      { day: 5, title: 'מעבר להיי-קמפ, יום מנוחה ואימון אלפיני מסכם (3910 מ׳)', desc: 'לאחר המאמץ של הימים האחרונים, היום מוקדש למנוחה ואגירת כוחות. נתחיל בארוחת בוקר ונעלה אל עבר ההיי קמפ, בקתת "Leaprus" הממוקמת בגובה 3910 מ׳. במידה ותנאי מזג האוויר יאפשרו זאת, נקיים אימון שלג וקרח מסכם. שאר היום יוקדש למנוחה, משחקי קופסה וזמן איכות עם חברי הקבוצה. לאחר ארוחת הערב נקיים תדרוך אחרון ומפורט לקראת היציאה לפסגה, ונלך לישון מוקדם.', elevationGain: '+910 מ׳ עלייה', accommodation: 'בקתת "Leaprus"' },
-      { day: 6, title: 'העפלה לפסגת הר אלברוס (5642 מ׳)', desc: 'זהו שיאו של המסע, בו נעפיל אל הפסגה הגבוהה באירופה. ניתן לטפס רגלית מהבקתה (יציאה כ-4 שעות מוקדם יותר) או להיעזר במזחלת שלג עד לגובה 4800 מ׳ לחיסכון באנרגיה (בתוספת תשלום). לאחר חציית "מדף קוסאיה" והפסקת תה באוכף (5300 מ׳), נבצע את הפוש האחרון לפסגה בגובה 5642 מ׳, שם, על גג היבשת, תזכו לרגע של התעלות והישג אישי יוצא דופן מול נוף פסגות הקווקז האינסופי. משם נתחיל בירידה מבוקרת חזרה להיי קמפ לארוחת ערב ומנוחה.', distance: '12–15 ק"מ', duration: '10–14 שעות', elevationGain: '+1732 מ׳ עלייה', elevationLoss: '-1732 מ׳ ירידה', accommodation: 'בקתת "Leaprus"' },
-      { day: 7, title: 'יום ספייר למזג אוויר גרוע / ירידה חזרה לצ׳גט (2100 מ׳)', desc: 'יום זה משמש כחלון הזדמנויות נוסף במידה ומזג האוויר עיכב את הטיפוס לפסגה ביום הקודם. במידה וההעפלה לפסגה הושלמה בהצלחה, נרד חזרה אל צ׳גט למנוחה וחגיגות. זה הזמן להתענג על המטבח הקווקזי המשובח. תוכלו לבחור בפעילויות פנאי כמו רכיבה על סוסים, דייג או סאונה רוסית מסורתית. בערב נתכנס לארוחה חגיגית שבשיאה יוענקו תעודות הטיפוס הרשמיות למשתתפי המשלחת.', elevationLoss: '-1810 מ׳ ירידה', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
-      { day: 8, title: 'טיסה חזרה הביתה!', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן, אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה שתקח אתכם לשדה התעופה, לטיסת החזרה הביתה לישראל. במהלך הטיסה, תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר :)' },
+      { day: 1, title: 'נחיתה במינרלנייה וודי והעברה לצ׳גט (2000 מ׳)', desc: 'עם ההגעה לשדה התעופה במינרלנייה וודי (Mineralnye Vody), נצא בנסיעה קבוצתית של כשלוש שעות אל עבר העיירה צ׳גט השוכנת בגובה 2000 מ׳. לאחר הצ׳ק-אין במלון המקומי, נתכנס לארוחת ערב חגיגית של פתיחת המשלחת, נכיר את חברי הקבוצה ונעבור תדרוך מפורט על לוחות הזמנים והמסלול המצפה לנו בימים הקרובים.', travelTime: 'כ-3 שעות נסיעה משדה התעופה לצ׳גט (185 ק"מ)', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
+      { day: 2, title: 'יום התאקלמות לגובה להר צ׳גט (3100 מ׳)', desc: 'לאחר ארוחת הבוקר במלון, נצא ליום התאקלמות לגובה לעבר הר צ׳גט המושלג, הממוקם בגובה 3100 מ׳. במהלך הדרך, נתרגל בהדרכת המדריך טכניקות הליכה נכונות ונלמד את יסודות הנשימה בגובה. בשעות הערב, המדריך יעביר שיעור תיאורטי מרתק על יסודות טיפוס ההרים ובטיחות בסביבה אלפינית.', distance: '6 ק"מ', duration: '4–5 שעות', elevationGain: '+1100 מ׳ עלייה', elevationLoss: '-1100 מ׳ ירידה', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
+      { day: 3, title: 'מעבר לבקתה, התאקלמות ואימון אלפיני (3300 מ׳)', desc: 'הבוקר נתקדם אל לב ההר, נעלה ברכבל ונבצע צ׳ק-אין בבקתת "Cheeper-Azau" בגובה 2900 מ׳. נצא לטרק התאקלמות לגובה עד 3300 מ׳ ונמשיך לאימון אלפיני, נתרגל את כל מה שהקבוצה תצטרך בימים הבאים: הליכה עם קרמפונים, חיבור לחבלים, עבודה עם רתמה וקרבינות, אבטחה עם גרזן קרח. כל מה שצריך לדעת בטיפוס אלפיני.', distance: '6 ק"מ', duration: '4–5 שעות', elevationGain: '+400 מ׳ עלייה', elevationLoss: '-400 מ׳ ירידה', accommodation: 'בקתת "Cheeper-Azau"' },
+      { day: 4, title: 'טיפוס התאקלמות לסלעי פסטוחוב (4650 מ׳)', desc: 'היום נעלה ברכבל לתחנת "Gara-Bashi" בגובה 3850 מ׳, שם ממוקמים שתי בקתות ההרים הנוחות ביותר באזור: "Heart of Elbrus" ו-"Leaprus". לאחר בדיקת הציוד, נצא לטיפוס התאקלמות של 800 מ׳ לסלעי פסטוחוב בגובה 4650 מ׳. היום נצבור גובה משמעותי והמדריך יסקור נהלי בטיחות חיוניים לקראת היציאה לפסגה. בסיום האימון, נרד ללינה בבקתת "Cheeper-Azau" לצורך התאוששות ומנוחה.', distance: '6 ק"מ', duration: '5–6 שעות', elevationGain: '+800 מ׳ עלייה', elevationLoss: '-1750 מ׳ ירידה', accommodation: 'בקתת "Cheeper-Azau"' },
+      { day: 5, title: 'מעבר להיי-קמפ ויום מנוחה לקראת היציאה לפסגה (3900 מ׳)', desc: 'לאחר המאמץ של הימים האחרונים, היום מוקדש למנוחה ואגירת כוחות. נתחיל בארוחת בוקר ונעלה אל עבר ההיי קמפ, בקתת "Leaprus" הממוקמת בגובה 3900 מ׳. במידה ותנאי מזג האוויר יאפשרו זאת, נקיים אימון שלג וקרח מסכם. שאר היום יוקדש למנוחה, משחקי קופסה וזמן איכות עם חברי הקבוצה. לאחר ארוחת הערב נקיים תדרוך אחרון ומפורט לקראת היציאה לפסגה, ונלך לישון מוקדם.', elevationGain: '+900 מ׳ עלייה', accommodation: 'בקתת "Leaprus"' },
+      { day: 6, title: 'העפלה לפסגת הר אלברוס (5642 מ׳)', desc: 'זהו שיאו של המסע, בו נעפיל אל הפסגה הגבוהה באירופה. ניתן לטפס רגלית מהבקתה (יציאה כ-4 שעות מוקדם יותר, מינימום 3 משתתפים בליווי מדריך) או להיעזר במזחלת שלג עד לגובה 5100 מ׳ לחיסכון באנרגיה (בתוספת תשלום). לאחר חציית "מדף קוסאיה" והפסקת תה באוכף (5300 מ׳), נבצע את הפוש האחרון לפסגה בגובה 5642 מ׳, שם, על גג היבשת, תזכו לרגע של התעלות והישג אישי יוצא דופן מול נוף פסגות הקווקז האינסופי. משם נתחיל בירידה מבוקרת חזרה להיי קמפ לארוחת ערב ומנוחה לאחר יום מרגש.', distance: '12–15 ק"מ', duration: '10–14 שעות', elevationGain: '+1742 מ׳ עלייה', elevationLoss: '-1742 מ׳ ירידה', accommodation: 'בקתת "Leaprus"' },
+      { day: 7, title: 'יום ספייר למזג אוויר גרוע / ירידה חזרה לצ׳גט (2000 מ׳)', desc: 'יום זה משמש כחלון הזדמנויות נוסף במידה ומזג האוויר עיכב את הטיפוס לפסגה ביום הקודם. במידה וההעפלה לפסגה הושלמה בהצלחה, נרד חזרה אל צ׳גט ונמצא זמן פנוי לבחירה: ביקור בנקודות צילום מרהיבות בקרבינו-בלקריה, כמו אגם גיז׳גיט, מפלי צ׳גם ומעיינות הגדוקו הטרמיים. זה הזמן גם להתענג על המטבח הקווקזי המשובח. בערב נתכנס לארוחה חגיגית שבשיאה יוענקו תעודות הטיפוס הרשמיות למשתתפי המשלחת.', elevationLoss: '-1900 מ׳ ירידה', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
+      { day: 8, title: 'העברה לשדה התעופה וטיסה חזרה לישראל', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן, אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה שתקח אתכם לשדה התעופה, לטיסת החזרה הביתה לישראל. במהלך הטיסה, תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר :)' },
     ],
     notIncludedEn: [
       'International flights (via our travel agent)',
@@ -1244,8 +1245,8 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
       'Elbrus climbing permit - $300-500 per person',
       'Anything not listed in the included section',
       'Optional extras:',
-      'Snow cat on summit day to 4800m - $250 per person',
-      'Extra summit attempt - $450 per group',
+      'Snow cat to 5100m - $350 per person',
+      'Extra summit attempt - $750 per person',
     ],
     importantToNoteEn: [
       'Elbrus is 5642m  -  higher than any peak in the Alps, Caucasus, and all of Europe. Altitude affects even perfectly healthy individuals in unpredictable ways.',
@@ -1422,7 +1423,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       'טיפים למדריך בספארי - 45$ לאדם',
       'הוצאות אישיות במהלך השהות בספארי',
       'תוספות (לא חובה):',
-      'חדר יחיד במלון במושי - 120$ ללילה',
+      'חדר יחיד במלון במושי - 90$ ללילה',
       'אוהל יחיד בטיפוס - 100$ לכל תקופת הטיפוס',
       'אוהל שלישייה (עמידה) בטיפוס - 150$ לכל תקופת הטיפוס',
       'חדר יחיד בלודג׳ בספארי - 200$ ללילה',
@@ -1442,7 +1443,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       'Tips for safari guide - $45 per person',
       'Personal expenses during the safari',
       'Optional extras:',
-      'Single room at hotel in Moshi - $120/night',
+      'Single room at hotel in Moshi - $90/night',
       'Solo tent during climb - $100 for entire climb',
       'Triple standing tent during climb - $150 for entire climb',
       'Single room at safari lodge - $200/night',
@@ -1500,11 +1501,10 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       { day: 11, title: 'Visit to the Hadza Tribe - Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
-      { name: 'משפחת כספי',       nameEn: 'The Kaspi Family',    date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/1.webp' },
-      { name: 'נחמה ליבר',       nameEn: 'Nehama Liber',        date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/2.webp' },
-      { name: 'יוסי וליאן והבה', nameEn: 'Yossi, Lian & Hava', date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/3.webp' },
-      { name: 'משה ושושי ניר',   nameEn: 'Moshe & Shoshi Nir', date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/4.webp' },
-      { name: 'דיויד רד',        nameEn: 'David Red',           date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/5.webp' },
+      { name: 'דניאל גרגוריאן', nameEn: 'Daniel Gregorian', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/1.webp' },
+      { name: 'הדס אלון',       nameEn: 'Hadas Alon',       date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/2.webp' },
+      { name: 'דויד זבונרוב',   nameEn: 'David Zvunarov',   date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'רועי בכרך ואיציק חכמון', nameEn: 'Roei Bakhrakh & Itzik Hakmon', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/4.jpg' },
     ],
     reviews: [
       { name: 'אורי בן-דוד', date: 'ספטמבר 2025', rating: 5, text: 'עלינו לפסגת קילימנג׳רו בגובה 5895 מ׳ - חוויה שאין לתאר במילים. הצוות של HighAir ליווה אותנו בכל רגע, מהרישום ועד הפסגה.', initial: 'א' },
@@ -1513,7 +1513,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
     ],
   },
   {
-    id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'קילימנג׳רו לשומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿',
+    id: 11, slug: 'kilimanjaro-kosher', name: 'Kilimanjaro Kosher', nameHe: 'קילימנג׳רו לשומרי מסורת', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿', live: true,
     ghlCalendarId: '4BOEM2HY0Tsun4JJOwZU', tagHe: 'קילימנג׳רו כשר',
     heroVideo: '/videos/hero-kilimanjaro.mp4',
     elev: '5895m', elevNum: 5895, days: '10 ימים | ספארי +3', daysEn: '10 days | + 3 safari', type: 'Climbing', typeHe: 'טיפוס',
@@ -1693,11 +1693,10 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
       { day: 12, title: 'Visit to the Hadza Tribe - Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
-      { name: 'משפחת כספי',       nameEn: 'The Kaspi Family',    date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/1.webp' },
-      { name: 'נחמה ליבר',       nameEn: 'Nehama Liber',        date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/2.webp' },
-      { name: 'יוסי וליאן והבה', nameEn: 'Yossi, Lian & Hava', date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/3.webp' },
-      { name: 'משה ושושי ניר',   nameEn: 'Moshe & Shoshi Nir', date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/4.webp' },
-      { name: 'דיויד רד',        nameEn: 'David Red',           date: 'פברואר 2026', dateEn: 'February 2026', img: '/images/summit/kilimanjaro/5.webp' },
+      { name: 'דניאל גרגוריאן', nameEn: 'Daniel Gregorian', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/1.webp' },
+      { name: 'הדס אלון',       nameEn: 'Hadas Alon',       date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/2.webp' },
+      { name: 'דויד זבונרוב',   nameEn: 'David Zvunarov',   date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'רועי בכרך ואיציק חכמון', nameEn: 'Roei Bakhrakh & Itzik Hakmon', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/4.jpg' },
     ],
     reviews: [
       { name: 'משה כץ', date: 'אוגוסט 2025', rating: 5, text: 'קילימנג׳רו עם שמירת מסורת - חוויה ייחודית שלא ציפיתי שאפשרית. HighAir ידעו לשמור על כל הפרטים החשובים לנו.', initial: 'מ' },
@@ -1758,7 +1757,7 @@ This peak is considered one of the best entry points into Himalayan mountaineeri
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     seasonsEn: ['April-May', 'September-October'],
     successRate: 82,
-    groupCapacity: 15,
+    groupCapacity: 12,
     includedEn: [
       'Gift kit - cap, rain cover for backpack and 100L duffel bag!',
       'Transfers from/to Kathmandu airport to hotel',
@@ -1879,7 +1878,7 @@ This peak is considered one of the best entry points into Himalayan mountaineeri
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '6189m', elevNum: 6189, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
-    groupCapacity: 15,
+    groupCapacity: 12,
     airtableEvents: ['Island_Peak'],
     img: '/images/cards/IslandPeak.webp',
     ogImage: '/images/og/island-peak.jpg',
@@ -1928,7 +1927,7 @@ This expedition can be combined with the Everest Base Camp trek, creating the ul
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     seasonsEn: ['April-May', 'September-October'],
     successRate: 84,
-    groupCapacity: 15,
+    groupCapacity: 12,
     includedEn: [
       'Gift kit - cap, rain cover for backpack and 100L duffel bag!',
       'Transfers from/to Kathmandu airport to hotel',
@@ -2097,7 +2096,7 @@ Non-technical but high-altitude, Mera is perfect for fit trekkers who want to ex
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     seasonsEn: ['April-May', 'September-October'],
     successRate: 80,
-    groupCapacity: 15,
+    groupCapacity: 12,
     includedEn: [
       'Gift kit - cap, rain cover for backpack and 100L duffel bag!',
       'Transfers from/to Kathmandu airport to hotel',
@@ -2262,7 +2261,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       'תרומה משמעותית למאבק במחלת הסרטן!',
     ],
     safety: ['ציוד Magnus אישי', 'ערכת רפואה ייעודית', 'שירות תחזית מזג אוויר', 'פרוטוקולי גובה'],
-    groupCapacity: 15,
+    groupCapacity: 12,
     dates: ['ינואר 5', 'ינואר 20', 'פברואר 1', 'פברואר 15', 'דצמבר 20'],
     datesEn: ['January 5', 'January 20', 'February 1', 'February 15', 'December 20'],
     videoUrl: null,
@@ -2441,7 +2440,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
     seasons: ['יולי-אוגוסט'],
     seasonsEn: ['July-August'],
     successRate: 68,
-    groupCapacity: 15,
+    groupCapacity: 12,
     airtableEvents: ['Lenin_Peak'],
     includedEn: [
       'Branded kit gift - cap and dry-fit shirt!',
@@ -2550,6 +2549,354 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
       'Extended medical clearance required  -  ECG, blood tests, doctor\'s approval for 7000m and documented high-altitude experience.',
       'Prior high-altitude summit experience is a strict requirement  -  experience on Kazbek, Elbrus or equivalent is recommended.',
       'Safety before summit  -  7000m is marginal territory. The final decision always rests with the guide.',
+    ],
+  },
+  {
+    id: 17, slug: 'sinai', name: 'Sinai High Mountains', nameHe: 'טרק להר הגבוה בסיני', country: 'Egypt', countryHe: 'מצרים', flag: '🇪🇬',
+    tagHe: 'סיני',
+    elev: '2642m', elevNum: 2642, days: '6 ימים', daysEn: '6 days', type: 'Trekking', typeHe: 'טרק',
+    diff: 'High', diffHe: 'גבוהה', price: 950, priceStr: '$950', continent: 'africa',
+    airtableEvents: ['Sinai'],
+    img: '/images/cards/sinai.webp',
+    heroImg: '/images/hero/sinai.webp',
+    /* Deposit A checkout — presence of this field replaces the consultation
+       calendar with a direct payment redirect after the lead is saved.
+       Deposit is charged in ILS via Grow; the balance is paid in USD on arrival. */
+    paymentUrl: 'https://pay.grow.link/ODI3ODY~e02318e7d61981d0f369fd9d4e024023-MzcwMzI0Ng',
+    paymentNote:   'מדיניות תשלום: מקדמה שלב א׳ $300 בהרשמה · $650 בהגעה ליעד',
+    paymentNoteEn: 'Payment policy: $300 Stage A deposit at registration · $650 on arrival',
+    itineraryNote:   'כל ימי ההליכה כוללים בין 10 ל-15 ק״מ בשטח הררי',
+    itineraryNoteEn: 'Every trekking day covers between 10 and 15 km in mountain terrain',
+    seoTitle:       'HighAir Expeditions | טרק להר הגבוה בסיני',
+    seoTitleEn:     'Sinai High Mountains Trek | HighAir Expeditions',
+    seoDescription: 'טרק להר הגבוה בסיני - 6 ימים בלב הרי סיני. מנזר סנטה קתרינה, הר סיני, גבל קתרינה 2642 מ׳ הגבוה במצרים, הבריכה הכחולה ושנורקלינג בבלו הול בדהב.',
+    seoDescriptionEn: 'Sinai High Mountains Trek - 6 days in the heart of the Sinai range. St. Catherine\'s Monastery, Mount Sinai, Jebel Katherina 2642m (highest in Egypt), the Blue Pool and Blue Hole snorkeling in Dahab.',
+    grad: 'linear-gradient(135deg,#7c2d12,#c2410c,#451a03)',
+    desc: `הצטרפו אלינו למסע מדברי קסום בלב הרי סיני הגבוהים - טרק של 6 ימים בין פסגות, ואדיות צבעוניים ובוסתנים בדואיים, שמסתיים בפינוק על שפת ים סוף בדהב.
+
+המסע נפתח במנזר סנטה קתרינה, אחד המנזרים העתיקים בעולם המאוכלסים ברציפות, ובעלייה אל פסגת הר סיני (2285 מ׳) - ההר שלפי המסורת עליו קיבל משה רבנו את לוחות הברית. משם נמשיך אל גבל קתרינה (2642 מ׳), ההר הגבוה ביותר בסיני ובמצרים כולה, עם תצפית פנורמית על הרי סיני ועד ים סוף בימים בהירים.
+
+בימים הבאים נצעד בין ואדיות עוצרי נשימה - ואדי אל אחמאר האדום, ואדי גיבל, ואדי טאלעה הגדול - נעפיל אל באב אל דוניה, "שער העולם", ונטבול בגאלאת אל אזרק, הבריכה הכחולה, בריכה טבעית עם מים בצבע כחול-טורקיז בלב המדבר. את הלילות נבלה בבוסתנים בדואיים תחת שמיים זרועי כוכבים, עם אוכל מקומי חם וליווי בדואי אותנטי.
+
+את המסע נחתום בדהב שעל שפת ים סוף - לילה במלון מפנק, ערב חופשי, ולמחרת צלילת שנורקלינג בבלו הול המפורסם, אחד מאתרי הצלילה המפורסמים בעולם, לפני החזרה הביתה דרך מעבר הגבול.
+
+הצטרפו אלינו למסע המדהים בסיני וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
+    highlights: ['גבל קתרינה 2642מ׳', 'הר סיני ומנזר סנטה קתרינה', 'הבריכה הכחולה', 'שנורקלינג בבלו הול'],
+    nameEn: 'Sinai High Mountains Trek',
+    descEn: `Join us on a magical desert journey through the high mountains of Sinai - a 6-day trek between peaks, colorful wadis and Bedouin mountain orchards, ending with a treat on the Red Sea shore in Dahab.
+
+The journey opens at St. Catherine's Monastery, one of the oldest continuously inhabited monasteries in the world, and an ascent of Mount Sinai (2285m) - the mountain where, according to tradition, Moses received the Tablets of the Covenant. From there we continue to Jebel Katherina (2642m), the highest mountain in Sinai and in all of Egypt, with panoramic views over the Sinai range and even the Red Sea on clear days.
+
+In the days that follow we trek through breathtaking wadis - the red Wadi al-Ahmar, Wadi Jibal and the great Wadi Talah - climb to Bab al-Dunya, the "Gate of the World", and swim in Galt al-Azraq, the Blue Pool, a natural turquoise pool in the heart of the desert. Nights are spent in Bedouin orchards under star-filled skies, with hot local food and authentic Bedouin escort.
+
+We close the journey in Dahab on the Red Sea - a night at a comfortable hotel, a free evening, and the next morning snorkeling at the world-famous Blue Hole before returning home through the border crossing.
+
+Join us on this incredible Sinai adventure and make a meaningful contribution to the fight against cancer!`,
+    highlightsEn: ['Jebel Katherina 2642m', 'Mount Sinai & St. Catherine\'s Monastery', 'The Blue Pool', 'Blue Hole snorkeling'],
+    included: [
+      'הסעות מגבול טאבה ובחזרה',
+      '4 לילות בבוסתן בהרי סיני על בסיס פנסיון מלא',
+      'לילה במלון בדהב על בסיס פנסיון מלא ולינה בחדר פרטי',
+      'מדריך ישראלי מוסמך לכל אורך המסע - רועי כרמל',
+      'ליווי בדואי מקומי לאורך הטרק',
+      'אישורי כניסה לשמורות הטבע',
+      'טיפים למדריכים לצוות המקומי',
+      'ארוחות מלאות במהלך ימי הטרק (בוקר, צהריים, ערב)',
+      'צלילת שנורקלינג בבלו הול ביום האחרון',
+      'תרומה משמעותית למאבק במחלת הסרטן!',
+    ],
+    includedEn: [
+      'Transfers from the Taba border and back',
+      '4 nights in Bedouin mountain orchards (bustans) on full board',
+      'One night at a hotel in Dahab on full board, in a private room',
+      'Certified Israeli guide throughout the journey - Roei Carmel',
+      'Local Bedouin escort throughout the trek',
+      'Nature reserve entry permits',
+      'Tips for the local team',
+      'Full meals during trek days (breakfast, lunch, dinner)',
+      'Blue Hole snorkeling on the final day',
+      'Meaningful donation to the fight against cancer!',
+    ],
+    safety: ['מדריך ישראלי מוסמך', 'ליווי בדואי מקומי מנוסה', 'ניטור מזג אוויר'],
+    groupCapacity: 12,
+    dates: [],
+    datesEn: [],
+    videoUrl: null,
+    seasons: [],
+    seasonsEn: [],
+    faq: [
+      { q: 'איך מגיעים לטרק בסיני?', a: 'המסע מתחיל ומסתיים במעבר הגבול טאבה. חוצים את הגבול יחד עם המדריך, ומשם ההסעות לסנטה קתרינה ובחזרה כלולות במחיר. שימו לב שאגרות המעבר בצד הישראלי (40$) ובצד המצרי (120$) אינן כלולות במחיר הטיול.' },
+      { q: 'מה רמת הקושי של הטרק?', a: 'הטרק מתאים למטיילים בכושר גופני טוב. מדובר בימי הליכה מלאים בשטח הררי, בין 10 ל-15 ק״מ ביום, כולל עלייה לגבל קתרינה בגובה 2642 מ׳ - ההר הגבוה במצרים. לא נדרש ניסיון טכני בטיפוס, אך נדרשת מוטיבציה ויכולת הליכה של מספר שעות ביום.' },
+      { q: 'איפה ישנים במהלך הטרק?', a: 'ארבעה לילות בלב הרי סיני - בבוסתנים בדואיים ובלינת טבע תחת שמי המדבר זרועי הכוכבים, עם ארוחות חמות על בסיס פנסיון מלא. את הלילה האחרון נעביר במלון מפנק בדהב, בחדר פרטי, על שפת ים סוף.' },
+      { q: 'מה הגובה המקסימלי בטרק?', a: 'הנקודה הגבוהה במסע היא פסגת גבל קתרינה בגובה 2642 מ׳ - ההר הגבוה ביותר בסיני ובמצרים כולה. בנוסף נעלה לפסגת הר סיני (2285 מ׳), ההר שלפי המסורת עליו ניתנו לוחות הברית.' },
+      { q: 'האם צריך ניסיון בצלילה לבלו הול?', a: 'לא. ביום האחרון מתקיימת צלילת שנורקלינג בבלו הול - אין צורך בניסיון קודם או בתעודת צלילה. השנורקלינג מתאים לכל מי שיודע לשחות, והאתר מציע שונית אלמוגים בריאה ודגים צבעוניים כבר מהמטרים הראשונים.' },
+      { q: 'מה חשוב להביא למסע?', a: 'ציוד אישי אינו כלול במחיר - חשוב להצטייד בנעלי הליכה טובות, שק שינה, פנס ראש ובגדים חמים לערבים המדבריים. רשימת ציוד מפורטת נשלחת לכל נרשם לאחר ההרשמה.' },
+    ],
+    faqEn: [
+      { q: 'How do we get to the Sinai trek?', a: 'The journey starts and ends at the Taba border crossing. We cross the border together with the guide, and from there transfers to St. Catherine and back are included in the price. Note that the border fees on the Israeli side ($40) and the Egyptian side ($120) are not included.' },
+      { q: 'How difficult is the trek?', a: 'The trek suits travelers with good physical fitness. These are full hiking days in mountain terrain, between 10 and 15 km per day, including the ascent of Jebel Katherina at 2642m - the highest mountain in Egypt. No technical climbing experience is required, but motivation and the ability to walk several hours a day are.' },
+      { q: 'Where do we sleep during the trek?', a: 'Four nights in the heart of the Sinai mountains - in Bedouin orchards (bustans) and sleeping in nature under star-filled desert skies, with hot meals on full board. The final night is spent at a comfortable hotel in Dahab, in a private room, on the Red Sea shore.' },
+      { q: 'What is the maximum altitude on the trek?', a: 'The highest point of the journey is the summit of Jebel Katherina at 2642m - the highest mountain in Sinai and in all of Egypt. We also summit Mount Sinai (2285m), the mountain where tradition says the Tablets of the Covenant were given.' },
+      { q: 'Do I need diving experience for the Blue Hole?', a: 'No. The final day features snorkeling at the Blue Hole - no prior experience or diving certificate is needed. The snorkeling suits anyone who can swim, and the site offers a healthy coral reef and colorful fish from the very first meters.' },
+      { q: 'What should I bring?', a: 'Personal gear is not included - be sure to bring good hiking shoes, a sleeping bag, a headlamp and warm clothing for the desert evenings. A detailed gear list is sent to every participant after registration.' },
+    ],
+    notIncluded: [
+      'אגרת מעבר בצד הישראלי - 40$*',
+      'אגרת מעבר בצד המצרי - 120$*',
+      'ביטוח נסיעות וביטוח רפואי (דרך סוכני ביטוח שלנו)',
+      'טיפים לצוות הישראלי',
+      'ציוד אישי (נעלי הליכה, שק שינה, פנס ראש וכד׳)',
+      'הוצאות אישיות במהלך המסע',
+      '* אגרות המעבר נקבעות על ידי רשויות הגבול ועשויות להשתנות',
+    ],
+    notIncludedEn: [
+      'Border fee on the Israeli side - $40*',
+      'Border fee on the Egyptian side - $120*',
+      'Travel & medical insurance (via our insurance agent)',
+      'Tips for the Israeli team',
+      'Personal gear (hiking shoes, sleeping bag, headlamp, etc.)',
+      'Personal expenses during the journey',
+      '* Border fees are set by the border authorities and may change',
+    ],
+    importantToNote: [
+      'הטרק מתבצע בקבוצה קטנה עד 12 משתתפים בלבד!',
+      'מדיניות תשלום: מקדמה שלב א׳ בסך $300 בעת ההרשמה, ויתרת התשלום בסך $650 בהגעה ליעד!',
+      'המסע כרוך במעבר גבול בינלאומי - נדרש דרכון בתוקף!',
+      'המסע מלווה במדריך ישראלי מוסמך ובצוות בדואי מקומי המכיר את ההרים לעומק!',
+      'על כל מטייל להישמע להוראות הצוות ולשמור על אחריותו וביטחונו האישי לאורך כל המסע!',
+      'אישור רפואי והצהרת בריאות נדרשים כתנאי ליציאה למסע, על מנת לוודא התאמה ובריאות המטיילים!',
+      'מטייל שלא יעמוד בדרישות הבריאותיות או הפיזיות, לא יורשה להצטרף למסע!',
+      'הטרק כולל בין 10 ל-15 ק״מ הליכה ביום בשטח הררי - נדרש כושר גופני טוב!',
+      'אם אתם מסוגלים ללכת מספר שעות ביום בשטח הררי, אוהבים אתגרים ובעלי מוטיבציה גבוהה - הטרק בהחלט יכול להתאים לכם!',
+      'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
+      'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+    ],
+    importantToNoteEn: [
+      'The trek runs in a small group of up to 12 participants only!',
+      'Payment policy: a Stage A deposit of $300 at registration, and the $650 balance on arrival at the destination!',
+      'The journey involves an international border crossing - a valid passport is required!',
+      'The journey is accompanied by a certified Israeli guide and a local Bedouin team that knows these mountains deeply!',
+      'Every traveler must follow the team\'s instructions and take responsibility for their personal safety throughout the journey!',
+      'A medical certificate and health declaration are required as a condition of joining, to ensure travelers\' fitness and health!',
+      'A traveler who does not meet the health or fitness requirements will not be permitted to join!',
+      'The trek involves between 10 and 15 km of walking per day in mountain terrain - good physical fitness is required!',
+      'If you can walk several hours a day in mountain terrain, love challenges and have high motivation - this trek can definitely suit you!',
+      'The route may change according to weather or at the discretion of the certified guides in the field!',
+      'Safety before summit - in the mountains there is no guarantee of reaching the top, but there is always a commitment to safety above all!',
+    ],
+    itinerary: [
+      { day: 1, title: 'חציית הגבול לסיני, מנזר סנטה קתרינה והר סיני', desc: 'בבוקר נצא מישראל דרך מעבר הגבול לסנטה קתרינה. לאחר סידור פרוצדורות הגבול נמשיך אל מנזר סנטה קתרינה, אחד המנזרים העתיקים בעולם המאוכלסים ברציפות, המקיים פעילות דתית מאז המאה השישית. משם נצא לטיפוס אל פסגת הר סיני (2285 מ׳), ההר שלפי המסורת עליו קיבל משה רבנו את לוחות הברית. הטיפוס נעשה בהדרגה במסלול המדרגות המסורתי, ואת סיום היום נחגוג עם ארוחת ערב בדואית ולינה בבוסתן מקומי תחת השמיים המזרחיים.', accommodation: 'בוסתן בהרי סיני' },
+      { day: 2, title: 'גבל קתרינה, ואדי אל אחמאר', desc: 'היום נעלה לפסגת גבל קתרינה בגובה 2642 מ׳, ההר הגבוה ביותר בסיני ובמצרים כולה. הטיפוס דורש כושר גופני טוב אך התגמול בסופו הוא נוף פנורמי של הרי סיני לכל הכיוונים, כולל תצפית על ים סוף בימים בהירים. בירידה נעבור בואדי אל אחמאר, ה"ואדי האדום", שנקרא כך בשל צבעי הסלעים הייחודיים שלו. את היום נסיים בבוסתן להתאוששות, ארוחה חמה, ולילה שקט תחת שמי המדבר.', accommodation: 'בוסתן בהרי סיני' },
+      { day: 3, title: 'ואדי גיבל, ראס אבו עלדה ובאב אל דוניה', desc: 'היום נצא למסלול שעובר דרך ואדי גיבל, אחד הוואדיות המרשימים באזור, עם תצורות סלע צבעוניות וצמחייה מדברית ייחודית. משם נמשיך אל ראס אבו עלדה, נקודת תצפית מרהיבה על השטחים הפתוחים של סיני. יעד היום הוא באב אל דוניה, "שער העולם", מבנה סלע טבעי דרמטי הפותח חלון אל הנוף המדברי. בסוף היום נגיע לפארש רומנה ללינה בטבע.', accommodation: 'פארש רומנה' },
+      { day: 4, title: 'ואדי טאלעה, הבריכה הכחולה ונאקב אום סילה', desc: 'היום ארוך ועשיר. נתחיל במסלול לאורך ואדי טאלעה הגדול, אחד הוואדיות היפים בסיני. משם נעלה לגאלאת אל אזרק, המוכרת גם כ"בריכה הכחולה", בריכה טבעית עם מים בצבע כחול-טורקיז המהווה נקודת שיא של המסע. לאחר הרחצה נמשיך דרך נאקב אום סילה, מעבר סלעי מאתגר עם תצפיות מרהיבות. את היום נסיים בואדי סגר ולינה נוספת בבוסתן.', accommodation: 'בוסתן בהרי סיני' },
+      { day: 5, title: 'גבל נגעה, ואדי שאג ונסיעה לדהב', desc: 'היום נעלה לפסגת גבל נגעה, אחת הפסגות הפחות מוכרות של סיני עם נופים עוצרי נשימה. משם נרד בואדי שאג הגדול, ונעבור בנאקב אבו סילה עד לסיום המסלול באום בילה. אחרי ימים של מדבר, נסע לדהב שעל שפת ים סוף, לינה במלון מפנק בחדר פרטי וערב חופשי, אם לאכול על החוף, לשבת בבר, או פשוט לנוח לפני יום הצלילה מחר.', accommodation: 'מלון סוויס אין דהב או דומה לו' },
+      { day: 6, title: 'צלילת שנורקלינג בבלו הול וחזרה לישראל', desc: 'לאחר ארוחת בוקר מפנקת במלון, נסיים את המסע בצלילה בבלו הול לאחר נסיעה של 20 דקות מדהב, אחד מאתרי הצלילה המפורסמים בעולם. בלו הול הוא חור כחול טבעי בעומק של כ-130 מטר, המציע חוויית צלילת שנורקלינג ייחודית עם דגים צבעוניים ושונית אלמוגים בריאה. אחרי הצלילה נחזור לארוחת צהריים במלון בדהב ונחזור לישראל דרך מעבר הגבול.' },
+    ],
+    itineraryEn: [
+      { day: 1, title: 'Border Crossing to Sinai, St. Catherine\'s Monastery & Mount Sinai', desc: 'In the morning we leave Israel through the border crossing to St. Catherine. After border procedures we continue to St. Catherine\'s Monastery, one of the oldest continuously inhabited monasteries in the world, active since the 6th century. From there we climb to the summit of Mount Sinai (2285m), the mountain where tradition says Moses received the Tablets of the Covenant. The ascent is gradual along the traditional steps route, and we celebrate the end of the day with a Bedouin dinner and a night at a local mountain orchard under the eastern skies.', accommodation: 'Bustan in the Sinai mountains' },
+      { day: 2, title: 'Jebel Katherina & Wadi al-Ahmar', desc: 'Today we climb to the summit of Jebel Katherina at 2642m, the highest mountain in Sinai and in all of Egypt. The ascent requires good fitness, but the reward at the top is a panoramic view of the Sinai mountains in every direction, including the Red Sea on clear days. On the descent we pass through Wadi al-Ahmar, the "Red Wadi", named for its unique rock colors. We end the day at a bustan for recovery, a hot meal, and a quiet night under desert skies.', accommodation: 'Bustan in the Sinai mountains' },
+      { day: 3, title: 'Wadi Jibal, Ras Abu Alda & Bab al-Dunya', desc: 'Today\'s route passes through Wadi Jibal, one of the most impressive wadis in the area, with colorful rock formations and unique desert vegetation. From there we continue to Ras Abu Alda, a spectacular viewpoint over the open expanses of Sinai. The day\'s destination is Bab al-Dunya, the "Gate of the World", a dramatic natural rock formation opening a window onto the desert landscape. At the end of the day we reach Farash Romana for a night in nature.', accommodation: 'Farash Romana' },
+      { day: 4, title: 'Wadi Talah, the Blue Pool & Naqb Umm Sila', desc: 'A long and rich day. We start along the great Wadi Talah, one of the most beautiful wadis in Sinai. From there we climb to Galt al-Azraq, also known as the "Blue Pool", a natural pool of turquoise-blue water and a highlight of the journey. After a swim we continue through Naqb Umm Sila, a challenging rocky pass with spectacular views. We end the day at Wadi Sagar and another night at a bustan.', accommodation: 'Bustan in the Sinai mountains' },
+      { day: 5, title: 'Jebel Naja, Wadi Shagg & Drive to Dahab', desc: 'Today we climb Jebel Naja, one of Sinai\'s lesser-known peaks with breathtaking views. From there we descend the great Wadi Shagg and pass through Naqb Abu Sila to the end of the trail at Umm Bila. After days of desert, we drive to Dahab on the Red Sea shore for a night at a comfortable hotel in a private room and a free evening, whether dining on the beach, sitting at a bar, or simply resting before tomorrow\'s snorkeling day.', accommodation: 'Swiss Inn Dahab hotel or similar' },
+      { day: 6, title: 'Blue Hole Snorkeling & Return to Israel', desc: 'After a rich breakfast at the hotel, we end the journey with a snorkel at the Blue Hole, a 20-minute drive from Dahab and one of the most famous dive sites in the world. The Blue Hole is a natural blue sinkhole about 130 meters deep, offering a unique snorkeling experience with colorful fish and a healthy coral reef. After the swim we return for lunch at the hotel in Dahab and head back to Israel through the border crossing.' },
+    ],
+  },
+  {
+    /* ── SAFARI 3 DAYS — TEMPLATE, NOT LIVE ──────────────────────────
+       Structure is complete and matches the other expeditions field for field.
+       Every value marked [למילוי] is a placeholder waiting for the owner's real
+       content (prices, itinerary, reserves, photos). live:false keeps it out of
+       the menu, the footer, the sitemap and the pre-rendered HTML shells, but
+       /expedition/safari-3-days still opens directly so we can review it together.
+       TO GO LIVE: fill the placeholders, drop the images at the paths below,
+       flip live to true, and run `npm run build`. */
+    id: 18, slug: 'safari-3-days', name: 'Safari 3 Days', nameHe: 'ספארי 3 ימים', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿', live: false,
+    tagHe: 'ספארי',
+    elev: '—', elevNum: 0, days: '3 ימים', daysEn: '3 days', type: 'Safari', typeHe: 'ספארי',
+    diff: 'Easy', diffHe: 'קלה', price: 0, priceStr: '[למילוי]', continent: 'africa',
+    cardDesc: 'שמורת טרנגירי, מכתש נגורונגורו וביקור אצל שבט ההדזבה. המסלול הקלאסי, והבחירה הטבעית למסיימי הקילימנג׳רו.',
+    cardDescEn: 'Tarangire, the Ngorongoro Crater and a visit to the Hadzabe. The classic route, and the natural choice after a Kilimanjaro climb.',
+    reserves: '2 שמורות + כפר הדזבה',            // e.g. '3 שמורות' — shown in the safari stats row
+    wildlife: 'החמישייה הגדולה', wildlifeEn: 'The Big Five',   // e.g. 'החמישייה הגדולה' / 'The Big Five'
+    airtableEvents: ['Safari'],   // confirm the Airtable Event value per length
+    img: '/images/cards/safari-3-days.webp',        // TODO: image does not exist yet
+    heroImg: '/images/hero/safari-3-days.webp',     // TODO: image does not exist yet
+    paymentNote:   '',
+    paymentNoteEn: '',
+    itineraryNote:   'טרנגירי · נגורונגורו · אגם אייסי',
+    itineraryNoteEn: 'Tarangire · Ngorongoro · Lake Eyasi',
+    seoTitle:       'HighAir Expeditions | ספארי 3 ימים בטנזניה',
+    seoTitleEn:     '3-Day Tanzania Safari | HighAir Expeditions',
+    seoDescription: 'ספארי פרטי של 3 ימים בטנזניה: שמורת טרנגירי, מכתש נגורונגורו וביקור אצל שבט ההדזבה. ג׳יפ פרטי, מדריך מוסמך ותאריך יציאה לפי היומן שלכם.',
+    seoDescriptionEn: 'A private 3-day safari in Tanzania: Tarangire, the Ngorongoro Crater and a visit to the Hadzabe. Private jeep, licensed guide, any departure date.',
+    grad: 'linear-gradient(135deg,#78350f,#b45309,#422006)',
+    desc: `שלושה ימים בצפון טנזניה, ובהם שתי השמורות שהפכו את האזור למה שהוא: שמורת טרנגירי עם עדרי הפילים ועצי הבאובב, ומכתש נגורונגורו, מערכת אקולוגית שלמה וסגורה בתוך לוע של הר געש. היום השלישי מוקדש למפגש עם שבט ההדזבה, אחת מקהילות הלקטים-ציידים האחרונות באפריקה. הספארי פרטי לחלוטין: ג׳יפ משלכם, נהג-מדריך משלכם, והקצב נקבע על ידיכם. זו גם התוכנית שמצטרפת לקבוצות הקילימנג׳רו שלנו, למי שרוצה לסיים את הטיפוס בכמה ימים בשטח.`,
+    highlights: ['שמורת טרנגירי', 'מכתש נגורונגורו', 'שבט ההדזבה באגם אייסי', 'לינה בקראטו'],
+    nameEn: 'Safari 3 Days',
+    descEn: `Three days in northern Tanzania covering the two reserves that made the region what it is: Tarangire, with its elephant herds and baobab trees, and the Ngorongoro Crater, a complete and enclosed ecosystem inside a volcanic caldera. The third day is given to the Hadzabe, one of the last hunter-gatherer communities in Africa. The safari is entirely private: your own jeep, your own driver-guide, and a pace you set. This is also the programme that runs alongside our Kilimanjaro groups, for anyone who wants to finish the climb with a few days in the field.`,
+    highlightsEn: ['Tarangire National Park', 'Ngorongoro Crater', 'The Hadzabe at Lake Eyasi', 'Nights in Karatu'],
+    included: ['ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
+    includedEn: ['A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Transfers to and from Kilimanjaro International Airport'],
+    notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
+    notIncludedEn: ['International flights', 'Tanzania visa', 'Travel insurance', 'Tips for the driver-guide and lodge staff', 'Alcohol and drinks outside of meals', 'Personal expenses', 'Paid extras such as a hot-air balloon flight'],
+    safety: ['בשמורות אסור לצאת מהרכב אלא בנקודות המסומנות לכך, וההנחיה הזאת אינה נתונה לפרשנות.','הנהג-המדריך אחראי על המרחק מהחיות. הוא זה שקובע כמה מתקרבים ומתי ממשיכים.','אין להאכיל חיות ואין להוציא איברים מהרכב בזמן נסיעה.','ביטוח נסיעות הוא תנאי ליציאה, ועליו לכסול פינוי רפואי.','בקמפים שבתוך השמורות התנועה בשטח בשעות החשיכה נעשית בליווי צוות הקמפ בלבד.'],
+    // importantToNote left EMPTY on purpose: the page falls back to the shared
+    // safari list in ExpeditionDetail. Fill these only to override per length.
+    importantToNote: [],
+    importantToNoteEn: [],
+    groupCapacity: 6,     // seats in the safari jeep
+    dates: [],
+    datesEn: [],
+    videoUrl: null,
+    seasons: [],
+    seasonsEn: [],
+    faq: [{ q: 'הספארי הוא פרטי או בקבוצה?', a: 'כל הספארי שלנו פרטיים: ג׳יפ משלכם, נהג-מדריך משלכם ותאריך יציאה לפי היומן שלכם. החריג היחיד הוא ספארי 3 הימים שיוצא בסמוך לקבוצות הקילימנג׳רו שלנו, ושם אפשר להצטרף לקבוצה ולחלוק את עלות הג׳יפ.' }, { q: 'כמה אנשים נכנסים לג׳יפ?', a: 'עד שישה נוסעים, ולכל נוסע מקום ליד חלון. הגג נפתח לצילום בעמידה.' }, { q: 'מה עושים בתוך יום ספארי?', a: 'יוצאים לשטח עם הג׳יפ ומחפשים חיות עם המדריך. אין הליכות ארוכות ואין מאמץ גופני, וכמעט כל היום מתנהל מתוך הרכב. הקצב הוא שלכם: אם משהו מעניין קורה בשטח, נשארים איתו.' }, { q: 'מתי הזמן הטוב ביותר לצאת?', a: 'אפשר לצאת כל השנה. יוני עד אוקטובר הם העונה היבשה, שבה החיות מתרכזות סביב מקורות מים והצפייה קלה יותר, וזו גם התקופה של חציות הנהר בצפון הסרנגטי. ינואר ופברואר הם עונת ההמלטות במרכז הסרנגטי.' }, { q: 'האם זה מתאים לילדים?', a: 'כן. אין מאמץ גופני, ולמשפחות עם ילדים קטנים נתאים מראש את אורך ימי הנסיעה.' }, { q: 'צריך ויזה?', a: 'כן, אזרחי ישראל נדרשים בוויזה לטנזניה, ומגישים אותה מראש באתר הרשמי של רשות ההגירה. נלווה אתכם בתהליך.' }],
+    faqEn: [{ q: 'Is the safari private or in a group?', a: 'All of our safaris are private: your own jeep, your own driver-guide and a departure date to suit your calendar. The one exception is the 3-day safari that departs alongside our Kilimanjaro groups, where you can join the group and share the cost of the jeep.' }, { q: 'How many people fit in the jeep?', a: 'Up to six passengers, with a window seat for everyone. The roof opens for standing photography.' }, { q: 'What does a safari day look like?', a: 'You head out in the jeep and look for animals with your guide. There are no long walks and no physical effort, and almost the whole day happens from the vehicle. The pace is yours: if something interesting is happening, you stay with it.' }, { q: 'When is the best time to go?', a: 'You can travel year round. June to October is the dry season, when animals concentrate around water and viewing is easier, and it is also when the herds cross the river in the northern Serengeti. January and February are calving season in the central Serengeti.' }, { q: 'Is it suitable for children?', a: 'Yes. There is no physical effort, and for families with small children we shorten the driving days in advance.' }, { q: 'Do I need a visa?', a: 'Yes, Israeli citizens require a visa for Tanzania, applied for in advance on the official immigration portal. We walk you through it.' }],
+    itinerary: [
+      { day: 1, title: 'ספארי בשמורת טרנגירי', desc: 'יציאה בבוקר אל שמורת טרנגירי, שמורת עצי הבאובב והפילים. בעונה היבשה מגיעים לנהר טרנגירי עדרי פילים גדולים במיוחד, ולצידם זברות, אנטילופות, ג׳ירפות ולעיתים אריות המסתתרים בצל. יום נסיעה בשמורה עם ארוחת צהריים ארוזה בשטח, ולינה בקראטו.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
+      { day: 2, title: 'ספארי במכתש נגורונגורו', desc: 'ירידה אל מכתש נגורונגורו, מכתש וולקני בקוטר 19 ק״מ ובו מערכת אקולוגית שלמה וסגורה. ריכוז החיות בו מהגבוהים באפריקה, וזה המקום הטוב ביותר בטנזניה לראות קרנף שחור. במהלך היום נחפש את החמישייה הגדולה על רצפת המכתש, ונעלה בחזרה לקראטו לקראת ערב.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
+      { day: 3, title: 'שבט ההדזבה באגם אייסי', desc: 'יציאה מוקדמת אל אגם אייסי, לפגישה עם שבט ההדזבה, אחד מקהילות הלקטים-ציידים האחרונות באפריקה. יוצאים איתם לציד בוקר, לומדים איך הם מדליקים אש ומאתרים מזון, ומבקרים גם אצל שכניהם הדאטוגה, נפחים שעובדים בשיטות מסורתיות. חוויה תרבותית שאין לה תחליף, ואחריה חזרה לארושה או המשך לספארי ארוך יותר.' , meals: 'ארוחת בוקר וארוחת צהריים' },
+    ],
+    itineraryEn: [
+      { day: 1, title: 'Safari in Tarangire', desc: 'A morning departure to Tarangire, the park of baobabs and elephants. In the dry season exceptionally large elephant herds gather at the Tarangire River, alongside zebra, antelope, giraffe and sometimes lions resting in the shade. A full day driving through the reserve with a packed lunch in the field, and a night in Karatu.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
+      { day: 2, title: 'Safari in the Ngorongoro Crater', desc: 'Descending into the Ngorongoro Crater, a 19 km wide volcanic caldera holding a complete, self-contained ecosystem. Its wildlife density is among the highest in Africa, and it is the best place in Tanzania to see a black rhino. We spend the day looking for the Big Five on the crater floor and climb back up to Karatu toward evening.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
+      { day: 3, title: 'The Hadzabe at Lake Eyasi', desc: 'An early start to Lake Eyasi to meet the Hadzabe, one of the last hunter-gatherer communities in Africa. We join them on a morning hunt, learn how they make fire and find food, and also visit their Datoga neighbours, blacksmiths who still work by traditional methods. A cultural experience with no substitute, after which we return to Arusha or continue on a longer safari.' , meals: 'Breakfast and lunch' },
+    ],
+  },
+  {
+    /* ── SAFARI 5 DAYS — TEMPLATE, NOT LIVE ──────────────────────────
+       Structure is complete and matches the other expeditions field for field.
+       Every value marked [למילוי] is a placeholder waiting for the owner's real
+       content (prices, itinerary, reserves, photos). live:false keeps it out of
+       the menu, the footer, the sitemap and the pre-rendered HTML shells, but
+       /expedition/safari-5-days still opens directly so we can review it together.
+       TO GO LIVE: fill the placeholders, drop the images at the paths below,
+       flip live to true, and run `npm run build`. */
+    id: 19, slug: 'safari-5-days', name: 'Safari 5 Days', nameHe: 'ספארי 5 ימים', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿', live: false,
+    tagHe: 'ספארי',
+    elev: '—', elevNum: 0, days: '5 ימים', daysEn: '5 days', type: 'Safari', typeHe: 'ספארי',
+    diff: 'Easy', diffHe: 'קלה', price: 0, priceStr: '[למילוי]', continent: 'africa',
+    cardDesc: 'טרנגירי, מרכז סרנגטי, צפון סרנגטי, מכתש נגורונגורו וביקור אצל שבט ההדזבה. המסלול המלא, עם לילות בתוך השמורות עצמן.',
+    cardDescEn: 'Tarangire, central Serengeti, northern Serengeti, the Ngorongoro Crater and a visit to the Hadzabe. The full route, with nights inside the reserves themselves.',
+    reserves: '3 שמורות + כפר הדזבה',            // e.g. '3 שמורות' — shown in the safari stats row
+    wildlife: 'החמישייה הגדולה והנדידה', wildlifeEn: 'The Big Five and the migration',   // e.g. 'החמישייה הגדולה' / 'The Big Five'
+    airtableEvents: ['Safari'],   // confirm the Airtable Event value per length
+    img: '/images/cards/safari-5-days.webp',        // TODO: image does not exist yet
+    heroImg: '/images/hero/safari-5-days.webp',     // TODO: image does not exist yet
+    paymentNote:   '',
+    paymentNoteEn: '',
+    itineraryNote:   'טרנגירי · מרכז וצפון הסרנגטי · נגורונגורו · אגם אייסי',
+    itineraryNoteEn: 'Tarangire · Central and northern Serengeti · Ngorongoro · Lake Eyasi',
+    seoTitle:       'HighAir Expeditions | ספארי 5 ימים בטנזניה',
+    seoTitleEn:     '5-Day Tanzania Safari | HighAir Expeditions',
+    seoDescription: 'ספארי פרטי של 5 ימים בטנזניה: טרנגירי, מרכז וצפון הסרנגטי, מכתש נגורונגורו ושבט ההדזבה. לינה בתוך השמורות, ג׳יפ ומדריך פרטיים.',
+    seoDescriptionEn: 'A private 5-day safari in Tanzania: Tarangire, the central and northern Serengeti, the Ngorongoro Crater and the Hadzabe. Nights inside the reserves.',
+    grad: 'linear-gradient(135deg,#78350f,#b45309,#422006)',
+    desc: `חמישה ימים שמכסים את כל צפון טנזניה, כולל שני האזורים של הסרנגטי. מתחילים בטרנגירי, ממשיכים למרכז הסרנגטי שבו ריכוז הטורפים הגבוה ביותר לאורך כל השנה, ועולים לצפון הסרנגטי, לאזור שבו העדרים חוצים את נהר המארה. משם יורדים למכתש נגורונגורו, ומסיימים אצל שבט ההדזבה באגם אייסי. הלינה היא בתוך השמורות עצמן, וזה מה שמאפשר להיות בשטח בשעות שבהן באמת קורים דברים. הספארי פרטי לחלוטין ותאריך היציאה נקבע לפי היומן שלכם.`,
+    highlights: ['מרכז וצפון הסרנגטי', 'מכתש נגורונגורו', 'שמורת טרנגירי', 'שבט ההדזבה באגם אייסי'],
+    nameEn: 'Safari 5 Days',
+    descEn: `Five days across the whole of northern Tanzania, including both regions of the Serengeti. It starts in Tarangire, continues to the central Serengeti where predator density is highest year round, and climbs to the northern Serengeti, where the herds cross the Mara River. From there it drops into the Ngorongoro Crater and ends with the Hadzabe at Lake Eyasi. Nights are inside the reserves themselves, which is what makes it possible to be out at the hours when things actually happen. The safari is entirely private and the departure date is set by your calendar.`,
+    highlightsEn: ['Central and northern Serengeti', 'Ngorongoro Crater', 'Tarangire National Park', 'The Hadzabe at Lake Eyasi'],
+    included: ['ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
+    includedEn: ['A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Transfers to and from Kilimanjaro International Airport'],
+    notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
+    notIncludedEn: ['International flights', 'Tanzania visa', 'Travel insurance', 'Tips for the driver-guide and lodge staff', 'Alcohol and drinks outside of meals', 'Personal expenses', 'Paid extras such as a hot-air balloon flight'],
+    safety: ['בשמורות אסור לצאת מהרכב אלא בנקודות המסומנות לכך, וההנחיה הזאת אינה נתונה לפרשנות.','הנהג-המדריך אחראי על המרחק מהחיות. הוא זה שקובע כמה מתקרבים ומתי ממשיכים.','אין להאכיל חיות ואין להוציא איברים מהרכב בזמן נסיעה.','ביטוח נסיעות הוא תנאי ליציאה, ועליו לכסול פינוי רפואי.','בקמפים שבתוך השמורות התנועה בשטח בשעות החשיכה נעשית בליווי צוות הקמפ בלבד.'],
+    // importantToNote left EMPTY on purpose: the page falls back to the shared
+    // safari list in ExpeditionDetail. Fill these only to override per length.
+    importantToNote: [],
+    importantToNoteEn: [],
+    groupCapacity: 6,     // seats in the safari jeep
+    dates: [],
+    datesEn: [],
+    videoUrl: null,
+    seasons: [],
+    seasonsEn: [],
+    faq: [{ q: 'הספארי הוא פרטי או בקבוצה?', a: 'כל הספארי שלנו פרטיים: ג׳יפ משלכם, נהג-מדריך משלכם ותאריך יציאה לפי היומן שלכם. החריג היחיד הוא ספארי 3 הימים שיוצא בסמוך לקבוצות הקילימנג׳רו שלנו, ושם אפשר להצטרף לקבוצה ולחלוק את עלות הג׳יפ.' }, { q: 'כמה אנשים נכנסים לג׳יפ?', a: 'עד שישה נוסעים, ולכל נוסע מקום ליד חלון. הגג נפתח לצילום בעמידה.' }, { q: 'מה עושים בתוך יום ספארי?', a: 'יוצאים לשטח עם הג׳יפ ומחפשים חיות עם המדריך. אין הליכות ארוכות ואין מאמץ גופני, וכמעט כל היום מתנהל מתוך הרכב. הקצב הוא שלכם: אם משהו מעניין קורה בשטח, נשארים איתו.' }, { q: 'מתי הזמן הטוב ביותר לצאת?', a: 'אפשר לצאת כל השנה. יוני עד אוקטובר הם העונה היבשה, שבה החיות מתרכזות סביב מקורות מים והצפייה קלה יותר, וזו גם התקופה של חציות הנהר בצפון הסרנגטי. ינואר ופברואר הם עונת ההמלטות במרכז הסרנגטי.' }, { q: 'האם זה מתאים לילדים?', a: 'כן. אין מאמץ גופני, ולמשפחות עם ילדים קטנים נתאים מראש את אורך ימי הנסיעה.' }, { q: 'צריך ויזה?', a: 'כן, אזרחי ישראל נדרשים בוויזה לטנזניה, ומגישים אותה מראש באתר הרשמי של רשות ההגירה. נלווה אתכם בתהליך.' }],
+    faqEn: [{ q: 'Is the safari private or in a group?', a: 'All of our safaris are private: your own jeep, your own driver-guide and a departure date to suit your calendar. The one exception is the 3-day safari that departs alongside our Kilimanjaro groups, where you can join the group and share the cost of the jeep.' }, { q: 'How many people fit in the jeep?', a: 'Up to six passengers, with a window seat for everyone. The roof opens for standing photography.' }, { q: 'What does a safari day look like?', a: 'You head out in the jeep and look for animals with your guide. There are no long walks and no physical effort, and almost the whole day happens from the vehicle. The pace is yours: if something interesting is happening, you stay with it.' }, { q: 'When is the best time to go?', a: 'You can travel year round. June to October is the dry season, when animals concentrate around water and viewing is easier, and it is also when the herds cross the river in the northern Serengeti. January and February are calving season in the central Serengeti.' }, { q: 'Is it suitable for children?', a: 'Yes. There is no physical effort, and for families with small children we shorten the driving days in advance.' }, { q: 'Do I need a visa?', a: 'Yes, Israeli citizens require a visa for Tanzania, applied for in advance on the official immigration portal. We walk you through it.' }],
+    itinerary: [
+      { day: 1, title: 'ספארי בשמורת טרנגירי', desc: 'יציאה בבוקר אל שמורת טרנגירי, שמורת עצי הבאובב והפילים. בעונה היבשה מגיעים לנהר טרנגירי עדרי פילים גדולים במיוחד, ולצידם זברות, אנטילופות וג׳ירפות. יום נסיעה בשמורה עם ארוחת צהריים ארוזה בשטח, ולינה בקראטו.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
+      { day: 2, title: 'ספארי במרכז הסרנגטי', desc: 'נסיעה אל הסרנגטי, ובמהלכה כניסה לאזור המרכזי שבו ריכוז החיות הגבוה ביותר לאורך כל השנה. זה האזור של הטורפים הגדולים, ובמיוחד אריות ונמרים המשתרעים על ענפי השיטה. אחר הצהריים ממשיכים לצפות עד השקיעה, ולינה בקמפ בלב השמורה.', accommodation: 'Heritage Luxury Tented Camp' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
+      { day: 3, title: 'ספארי בצפון הסרנגטי', desc: 'עולים צפונה אל אזור נהר המארה. בעונת הנדידה זה המקום שבו חוצות העדרים את הנהר, אחד המפגשים הדרמטיים שאפשר לראות בטבע. גם מחוץ לעונה זה אזור פראי ושקט במיוחד, עם פחות רכבים ונופים פתוחים.', accommodation: 'Baobab Mara Luxury Camp' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
+      { day: 4, title: 'ספארי במכתש נגורונגורו', desc: 'ירידה אל מכתש נגורונגורו, מכתש וולקני בקוטר 19 ק״מ ובו מערכת אקולוגית שלמה וסגורה. ריכוז החיות בו מהגבוהים באפריקה, וזה המקום הטוב ביותר בטנזניה לראות קרנף שחור. נחפש את החמישייה הגדולה על רצפת המכתש, ונעלה בחזרה לקראטו לקראת ערב.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
+      { day: 5, title: 'שבט ההדזבה באגם אייסי', desc: 'יציאה מוקדמת אל אגם אייסי, לפגישה עם שבט ההדזבה, אחד מקהילות הלקטים-ציידים האחרונות באפריקה. יוצאים איתם לציד בוקר, לומדים איך הם מדליקים אש ומאתרים מזון, ומבקרים גם אצל שכניהם הדאטוגה, נפחים שעובדים בשיטות מסורתיות. אחרי הביקור חזרה לארושה.' , meals: 'ארוחת בוקר וארוחת צהריים' },
+    ],
+    itineraryEn: [
+      { day: 1, title: 'Safari in Tarangire', desc: 'A morning departure to Tarangire, the park of baobabs and elephants. In the dry season exceptionally large elephant herds gather at the Tarangire River, alongside zebra, antelope and giraffe. A full day driving through the reserve with a packed lunch in the field, and a night in Karatu.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
+      { day: 2, title: 'Safari in the central Serengeti', desc: 'We drive to the Serengeti and enter the central area, which holds the highest year-round wildlife concentration. This is big-cat country, especially lions and the leopards draped along acacia branches. We keep viewing through the afternoon until sunset, and spend the night at a camp in the heart of the reserve.', accommodation: 'Heritage Luxury Tented Camp' , meals: 'Breakfast, packed lunch in the field and dinner' },
+      { day: 3, title: 'Safari in the northern Serengeti', desc: 'We head north to the Mara River area. In migration season this is where the herds cross the river, one of the most dramatic encounters nature offers. Outside the season it is an exceptionally wild and quiet area, with fewer vehicles and open horizons.', accommodation: 'Baobab Mara Luxury Camp' , meals: 'Breakfast, packed lunch in the field and dinner' },
+      { day: 4, title: 'Safari in the Ngorongoro Crater', desc: 'Descending into the Ngorongoro Crater, a 19 km wide volcanic caldera holding a complete, self-contained ecosystem. Its wildlife density is among the highest in Africa, and it is the best place in Tanzania to see a black rhino. We look for the Big Five on the crater floor and climb back to Karatu toward evening.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
+      { day: 5, title: 'The Hadzabe at Lake Eyasi', desc: 'An early start to Lake Eyasi to meet the Hadzabe, one of the last hunter-gatherer communities in Africa. We join them on a morning hunt, learn how they make fire and find food, and also visit their Datoga neighbours, blacksmiths who still work by traditional methods. After the visit we return to Arusha.' , meals: 'Breakfast and lunch' },
+    ],
+  },
+  {
+    /* ── SAFARI 7 DAYS — TEMPLATE, NOT LIVE ──────────────────────────
+       Structure is complete and matches the other expeditions field for field.
+       Every value marked [למילוי] is a placeholder waiting for the owner's real
+       content (prices, itinerary, reserves, photos). live:false keeps it out of
+       the menu, the footer, the sitemap and the pre-rendered HTML shells, but
+       /expedition/safari-7-days still opens directly so we can review it together.
+       TO GO LIVE: fill the placeholders, drop the images at the paths below,
+       flip live to true, and run `npm run build`. */
+    id: 20, slug: 'safari-7-days', name: 'Safari 7 Days', nameHe: 'ספארי 7 ימים', country: 'Tanzania', countryHe: 'טנזניה', flag: '🇹🇿', live: false,
+    tagHe: 'ספארי',
+    elev: '—', elevNum: 0, days: '7 ימים', daysEn: '7 days', type: 'Safari', typeHe: 'ספארי',
+    diff: 'Easy', diffHe: 'קלה', price: 0, priceStr: '[למילוי]', continent: 'africa',
+    cardDesc: 'המסלול הארוך שלנו. יותר ימים בשמורות, פחות שעות נסיעה ביום, וזמן אמיתי לעקוב אחרי החיות במקום למהר לנקודה הבאה.',
+    cardDescEn: 'Our longest route. More days in the reserves, fewer hours on the road each day, and real time to follow the animals instead of rushing to the next stop.',
+    reserves: '[למילוי]',            // e.g. '3 שמורות' — shown in the safari stats row
+    wildlife: '[למילוי]', wildlifeEn: '[TO FILL]',   // e.g. 'החמישייה הגדולה' / 'The Big Five'
+    airtableEvents: ['Safari 7 Days'],   // confirm the Airtable Event value per length
+    img: '/images/cards/safari-7-days.webp',        // TODO: image does not exist yet
+    heroImg: '/images/hero/safari-7-days.webp',     // TODO: image does not exist yet
+    paymentNote:   '',
+    paymentNoteEn: '',
+    itineraryNote:   'צפון טנזניה, שבעה ימים',
+    itineraryNoteEn: 'Northern Tanzania, seven days',
+    seoTitle:       'HighAir Expeditions | ספארי 7 ימים בטנזניה',
+    seoTitleEn:     '7-Day Tanzania Safari | HighAir Expeditions',
+    seoDescription: 'ספארי פרטי של 7 ימים בצפון טנזניה. יותר ימים בשמורות, פחות נסיעות ביום, ג׳יפ ומדריך פרטיים ותאריך יציאה לפי היומן שלכם.',
+    seoDescriptionEn: 'A private 7-day safari in northern Tanzania. More days in the reserves, less driving each day, a private jeep and guide, any departure date.',
+    grad: 'linear-gradient(135deg,#78350f,#b45309,#422006)',
+    desc: `שבעה ימים בצפון טנזניה, המסלול הארוך שלנו. יותר ימים בתוך השמורות, פחות שעות נסיעה ביום, וזמן אמיתי להישאר עם מה שקורה בשטח במקום למהר לנקודה הבאה. הספארי פרטי לחלוטין: ג׳יפ משלכם, נהג-מדריך משלכם, ותאריך יציאה לפי היומן שלכם. המסלול המפורט יום אחר יום יעלה לכאן בקרוב.`,
+    highlights: ['[למילוי] שמורה 1', '[למילוי] שמורה 2', '[למילוי] שיא 3', '[למילוי] שיא 4'],
+    nameEn: 'Safari 7 Days',
+    descEn: `Seven days in northern Tanzania, our longest route. More days inside the reserves, fewer hours on the road each day, and real time to stay with whatever is unfolding in the field instead of rushing to the next stop. The safari is entirely private: your own jeep, your own driver-guide, and a departure date set by your calendar. The detailed day-by-day itinerary will be published here shortly.`,
+    highlightsEn: ['[TO FILL] Reserve 1', '[TO FILL] Reserve 2', '[TO FILL] Highlight 3', '[TO FILL] Highlight 4'],
+    included: ['ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
+    includedEn: ['A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Transfers to and from Kilimanjaro International Airport'],
+    notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
+    notIncludedEn: ['International flights', 'Tanzania visa', 'Travel insurance', 'Tips for the driver-guide and lodge staff', 'Alcohol and drinks outside of meals', 'Personal expenses', 'Paid extras such as a hot-air balloon flight'],
+    safety: ['בשמורות אסור לצאת מהרכב אלא בנקודות המסומנות לכך, וההנחיה הזאת אינה נתונה לפרשנות.','הנהג-המדריך אחראי על המרחק מהחיות. הוא זה שקובע כמה מתקרבים ומתי ממשיכים.','אין להאכיל חיות ואין להוציא איברים מהרכב בזמן נסיעה.','ביטוח נסיעות הוא תנאי ליציאה, ועליו לכסול פינוי רפואי.','בקמפים שבתוך השמורות התנועה בשטח בשעות החשיכה נעשית בליווי צוות הקמפ בלבד.'],
+    // importantToNote left EMPTY on purpose: the page falls back to the shared
+    // safari list in ExpeditionDetail. Fill these only to override per length.
+    importantToNote: [],
+    importantToNoteEn: [],
+    groupCapacity: 6,     // seats in the safari jeep
+    dates: [],
+    datesEn: [],
+    videoUrl: null,
+    seasons: [],
+    seasonsEn: [],
+    faq: [{ q: 'הספארי הוא פרטי או בקבוצה?', a: 'כל הספארי שלנו פרטיים: ג׳יפ משלכם, נהג-מדריך משלכם ותאריך יציאה לפי היומן שלכם. החריג היחיד הוא ספארי 3 הימים שיוצא בסמוך לקבוצות הקילימנג׳רו שלנו, ושם אפשר להצטרף לקבוצה ולחלוק את עלות הג׳יפ.' }, { q: 'כמה אנשים נכנסים לג׳יפ?', a: 'עד שישה נוסעים, ולכל נוסע מקום ליד חלון. הגג נפתח לצילום בעמידה.' }, { q: 'מה עושים בתוך יום ספארי?', a: 'יוצאים לשטח עם הג׳יפ ומחפשים חיות עם המדריך. אין הליכות ארוכות ואין מאמץ גופני, וכמעט כל היום מתנהל מתוך הרכב. הקצב הוא שלכם: אם משהו מעניין קורה בשטח, נשארים איתו.' }, { q: 'מתי הזמן הטוב ביותר לצאת?', a: 'אפשר לצאת כל השנה. יוני עד אוקטובר הם העונה היבשה, שבה החיות מתרכזות סביב מקורות מים והצפייה קלה יותר, וזו גם התקופה של חציות הנהר בצפון הסרנגטי. ינואר ופברואר הם עונת ההמלטות במרכז הסרנגטי.' }, { q: 'האם זה מתאים לילדים?', a: 'כן. אין מאמץ גופני, ולמשפחות עם ילדים קטנים נתאים מראש את אורך ימי הנסיעה.' }, { q: 'צריך ויזה?', a: 'כן, אזרחי ישראל נדרשים בוויזה לטנזניה, ומגישים אותה מראש באתר הרשמי של רשות ההגירה. נלווה אתכם בתהליך.' }],
+    faqEn: [{ q: 'Is the safari private or in a group?', a: 'All of our safaris are private: your own jeep, your own driver-guide and a departure date to suit your calendar. The one exception is the 3-day safari that departs alongside our Kilimanjaro groups, where you can join the group and share the cost of the jeep.' }, { q: 'How many people fit in the jeep?', a: 'Up to six passengers, with a window seat for everyone. The roof opens for standing photography.' }, { q: 'What does a safari day look like?', a: 'You head out in the jeep and look for animals with your guide. There are no long walks and no physical effort, and almost the whole day happens from the vehicle. The pace is yours: if something interesting is happening, you stay with it.' }, { q: 'When is the best time to go?', a: 'You can travel year round. June to October is the dry season, when animals concentrate around water and viewing is easier, and it is also when the herds cross the river in the northern Serengeti. January and February are calving season in the central Serengeti.' }, { q: 'Is it suitable for children?', a: 'Yes. There is no physical effort, and for families with small children we shorten the driving days in advance.' }, { q: 'Do I need a visa?', a: 'Yes, Israeli citizens require a visa for Tanzania, applied for in advance on the official immigration portal. We walk you through it.' }],
+    itinerary: [
+      { day: 1, title: '[למילוי] יום 1', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+      { day: 2, title: '[למילוי] יום 2', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+      { day: 3, title: '[למילוי] יום 3', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+      { day: 4, title: '[למילוי] יום 4', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+      { day: 5, title: '[למילוי] יום 5', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+      { day: 6, title: '[למילוי] יום 6', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+      { day: 7, title: '[למילוי] יום 7', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
+    ],
+    itineraryEn: [
+      { day: 1, title: '[TO FILL] Day 1', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
+      { day: 2, title: '[TO FILL] Day 2', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
+      { day: 3, title: '[TO FILL] Day 3', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
+      { day: 4, title: '[TO FILL] Day 4', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
+      { day: 5, title: '[TO FILL] Day 5', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
+      { day: 6, title: '[TO FILL] Day 6', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
+      { day: 7, title: '[TO FILL] Day 7', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
     ],
   },
 ];

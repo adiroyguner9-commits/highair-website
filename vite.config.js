@@ -33,6 +33,10 @@ export default defineConfig(({ mode }) => {
           target:       'https://highair-website.vercel.app',
           changeOrigin: true,
         },
+        '/api/israel-lead': {
+          target:       'https://highair-website.vercel.app',
+          changeOrigin: true,
+        },
         '/api/book-slot': {
           target:       'https://highair-website.vercel.app',
           changeOrigin: true,

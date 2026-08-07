@@ -53,7 +53,12 @@ export default function IsraelDetail() {
   const navigate   = useNavigate();
   const { isMobile, isTablet } = useBreakpoint();
   const isNarrow   = isMobile || isTablet;
-  const [trip, setTrip] = useState(() => ISRAEL_TRIPS.find(t => t.slug === slug));
+  const [trip, setTrip] = useState(() => ISRAEL_TRIPS.find(t => t.slug === slug) ?? null);
+
+  /* Sync trip when navigating between Israel trip pages (same route, different slug) */
+  useEffect(() => {
+    setTrip(ISRAEL_TRIPS.find(t => t.slug === slug) ?? null);
+  }, [slug]);
 
   /* ── חבילות לפי סוג הטיול ── */
   const PACKAGES = {
@@ -195,32 +200,48 @@ export default function IsraelDetail() {
     const payUrl = pkg?.paymentUrl || trip.paymentUrl;
 
     setSubmitting(true);
-    /* ── Save lead to Airtable, then navigate ── */
+    /* ── Save the lead, and WAIT for the verdict before navigating ──
+       This used to be fire-and-forget: the POST was sent and the page moved
+       on to payment immediately, so when the server rejected the details
+       (400 on a filler phone like 0555555555) the customer still saw the
+       success flow and nobody knew nothing was saved (Aug 2 2026). A 4xx now
+       stops the form and shows why. A network failure or a 5xx still lets
+       the customer through — our backend hiccup must not block a payment. */
     const fullPhone = formatFullPhone(form.dial, form.phone);
-    fetch('/api/israel-lead', {
-      method:    'POST',
-      keepalive: true,          // keep request alive even if page navigates away
-      headers:   { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name:         form.name,
-        phone:        fullPhone,
-        email:        form.email,
-        tripName:     trip.name,
-        tripDate:     form.month,
-        packageId:    form.pricePackage,
-        participants: parseInt(form.participants || '1', 10),
-        free:         trip.free || false,
-      }),
-    })
-      .catch(err => console.error('[israel-lead]', err))
-      .finally(() => {
-        setSubmitting(false);
-        if (trip?.free && trip?.whatsappUrl) {
-          window.location.href = trip.whatsappUrl;
-        } else if (payUrl) {
-          window.open(payUrl, '_blank', 'noopener,noreferrer');
-        }
+    try {
+      const res = await fetch('/api/israel-lead', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:         form.name,
+          phone:        fullPhone,
+          email:        form.email,
+          tripName:     trip.name,
+          tripDate:     form.month,
+          packageId:    form.pricePackage,
+          participants: parseInt(form.participants || '1', 10),
+          free:         trip.free || false,
+        }),
       });
+      if (res.status >= 400 && res.status < 500) {
+        const data = await res.json().catch(() => ({}));
+        setPhoneError(isRtl
+          ? 'מספר הטלפון לא תקין. יש להזין מספר אמיתי'
+          : (data.error || 'Please enter a real phone number'));
+        setSubmitting(false);
+        return;
+      }
+    } catch (err) {
+      console.error('[israel-lead]', err);
+    }
+
+    /* Same-tab navigation — location.href, never window.open, so there is
+       no popup-blocker concern in waiting for the server first. */
+    if (trip?.free && trip?.whatsappUrl) {
+      window.location.href = trip.whatsappUrl;
+    } else if (payUrl) {
+      window.location.href = payUrl;
+    }
   }
 
 
@@ -246,7 +267,7 @@ export default function IsraelDetail() {
     cutoff.setDate(cutoff.getDate() + 3); /* shorter cutoff for local trips */
 
     Promise.all([
-      fetch('/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Slug&fields[]=Gallery_URLs&fields[]=Distance&fields[]=ElevGain').then(r => r.json()),
+      fetch('/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Slug&fields[]=Gallery_URLs&fields[]=Distance&fields[]=ElevGain').then(r => r.json()),
       fetch('/api/airtable/Customers?fields[]=Group%20Name').then(r => r.json()),
     ]).then(([groupsData, custData]) => {
       if (groupsData.error) throw new Error(JSON.stringify(groupsData.error));
@@ -269,7 +290,7 @@ export default function IsraelDetail() {
             departure:  rec.fields['Departure'] || null,
             returnDate: rec.fields['Return'] || null,
             count:      counts[groupName] || 0,
-            capacity:   rec.fields['Capacity'] || null,
+            capacity:   trip?.groupCapacity || 12,
           };
         })
         .filter(g => g.departure && new Date(g.departure) >= cutoff)
@@ -329,15 +350,18 @@ export default function IsraelDetail() {
   /* ── Date helpers ── */
   function formatDateRange(dep, ret) {
     const d = new Date(dep);
-    const r = new Date(ret || dep);
     const dd = String(d.getDate()).padStart(2, '0');
-    const rr = String(r.getDate()).padStart(2, '0');
     const mm = String(d.getMonth() + 1).padStart(2, '0');
-    if (!ret || (d.getMonth() === r.getMonth() && d.getFullYear() === r.getFullYear())) {
-      return `${dd}-${rr}/${mm}`;
+    const yy = String(d.getFullYear()).slice(-2);
+    // Single-day trip: no return date, or return is the same day
+    if (!ret || ret === dep) return `${dd}/${mm}/${yy}`;
+    const r   = new Date(ret);
+    const rr  = String(r.getDate()).padStart(2, '0');
+    if (d.getMonth() === r.getMonth() && d.getFullYear() === r.getFullYear()) {
+      return `${dd}-${rr}/${mm}/${yy}`;
     }
     const mm2 = String(r.getMonth() + 1).padStart(2, '0');
-    return `${dd}/${mm} - ${rr}/${mm2}`;
+    return `${dd}/${mm} - ${rr}/${mm2}/${yy}`;
   }
   function monthKey(dep)   { const d = new Date(dep); return `${d.getFullYear()}-${d.getMonth()}`; }
   function monthLabel(dep) { return new Date(dep).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long', year: 'numeric' }); }
@@ -381,7 +405,7 @@ export default function IsraelDetail() {
       {/* ══ HERO ══ */}
       <div style={{
         position: 'relative', width: '100%',
-        height: isMobile ? '65vh' : '100vh',
+        height: isMobile ? '65dvh' : '100dvh',
         minHeight: isMobile ? '480px' : '600px',
         overflow: 'hidden',
         background: trip.grad,
@@ -405,7 +429,9 @@ export default function IsraelDetail() {
               color: 'white', letterSpacing: '-0.02em', margin: 0, lineHeight: 1.1,
               textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              {isRtl ? (displayName.startsWith('טרק') ? displayName : `טרק ${displayName}`) : `${displayName} Trek`}
+              {isRtl
+                ? ((displayName.startsWith('טרק') || displayName.startsWith('טיול')) ? displayName : `טרק ${displayName}`)
+                : (displayName.includes('Trip') ? displayName : `${displayName} Trek`)}
             </h1>
           </div>
 
@@ -576,7 +602,21 @@ export default function IsraelDetail() {
       {/* ══ CONTENT ══ */}
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: isMobile ? '0 5%' : '0' }}>
 
-        {/* ── א. מבוא — hidden ── */}
+        {/* ── א. מבוא — opt-in per trip via trip.showIntro ── */}
+        {trip.showIntro && desc && (
+          <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+            <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,36px)', fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 24px' }}>
+              {isRtl ? 'מבוא' : 'Introduction'}
+            </h2>
+            <p style={{
+              fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '16px' : '17px',
+              color: '#3D3B5A', lineHeight: 1.9, margin: 0,
+              whiteSpace: 'pre-line', maxWidth: '820px',
+            }}>
+              {desc}
+            </p>
+          </section>
+        )}
 
         {included.length > 0 && (
           <>
@@ -914,7 +954,7 @@ export default function IsraelDetail() {
               {/* Group cards */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
                 {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
-                  const groupCap  = g.capacity || trip?.groupCapacity || 12;
+                  const groupCap  = trip?.groupCapacity || 12;
                   const spotsLeft = groupCap - g.count;
                   const isFull    = spotsLeft <= 0;
                   const isLow     = !isFull && spotsLeft <= 6;

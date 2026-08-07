@@ -19,6 +19,12 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
 import FlagImg from './FlagImg.jsx';
 
+/* Date-bound Israel trips (e.g. community trips) disappear from the nav
+   the day after their departure date; evergreen trips have no departure. */
+const isNavTripCurrent = t =>
+  t.live !== false &&
+  (!t.departure || new Date(t.departure) >= new Date(new Date().toDateString()));
+
 
 const WA_NUMBER = '972555636975';
 const WA_HREF = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
@@ -134,7 +140,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  const dir = isEn ? 'ltr' : 'rtl';
 
  const MEGA_TREKS = [
- { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4] },
+ { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4, 17] },
  { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3] },
  { label: t('explorer.continents.asia'), flag: '🌏', expIds: [6, 7, 8] },
  ];
@@ -145,9 +151,18 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15] },
  ];
 
+ /* Safari: one Tanzania group listing the three lengths, so the header opens
+    straight onto a specific trip (owner, Jul 30 2026). The heading itself still
+    links to /safari — on desktop a CLICK opens the hub page and a HOVER opens
+    this menu, which is why the nav entry carries both isPage and hasMega. */
+ const MEGA_SAFARI = [
+ { label: isEn ? 'Tanzania' : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
+ ];
+
+
  /* Israel trips – same layout as international menus */
  if (type === 'israel') {
- const liveTrips = ISRAEL_TRIPS.filter(t => t.live !== false);
+ const liveTrips = ISRAEL_TRIPS.filter(isNavTripCurrent);
  return (
  <div
  onMouseEnter={onKeepOpen}
@@ -203,7 +218,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  );
  }
 
- const MEGA_CONTINENTS_I18N = type === 'treks' ? MEGA_TREKS : MEGA_CLIMBS;
+ const MEGA_CONTINENTS_I18N = type === 'treks' ? MEGA_TREKS : type === 'safari' ? MEGA_SAFARI : MEGA_CLIMBS;
 
  return (
  <div
@@ -344,6 +359,11 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
 
  function handleClick(e) {
  e.preventDefault();
+ if (hasMega) {
+   // On click, open the mega menu (in addition to hover)
+   onMegaEnter?.();
+   return;
+ }
  if (isPage) {
  navigate(href);
  } else if (location.pathname === '/') {
@@ -411,7 +431,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
 
  const MEGA_BY_TYPE = {
  treks: [
- { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4] },
+ { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4, 17] },
  { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3] },
  { label: t('explorer.continents.asia'), flag: '🌏', expIds: [6, 7, 8] },
  ],
@@ -421,8 +441,11 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  { label: t('explorer.continents.asia'), flag: '🌏', expIds: [12, 13, 14, 16] },
  { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15] },
  ],
+ safari: [
+ { label: isEn ? 'Tanzania' : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
+ ],
  israel: [
- { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(t => t.live !== false) },
+ { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(isNavTripCurrent) },
  ],
  };
 
@@ -503,7 +526,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  </div>
  {cont.trips.map(trip => (
  <a
- key={trip.id}
+ key={trip.slug}
  className="nav-menu-link"
  href={`/israel/${trip.slug}`}
  onClick={e => { e.preventDefault(); navigate(`/israel/${trip.slug}`); closeMenu(); }}
@@ -638,7 +661,7 @@ function SearchModal({ onClose }) {
  return () => window.removeEventListener('keydown', h);
  }, [onClose]);
 
- const israelResults = query.trim().length < 1 ? [] : ISRAEL_TRIPS.filter(t => t.live !== false).filter(trip => {
+ const israelResults = query.trim().length < 1 ? [] : ISRAEL_TRIPS.filter(isNavTripCurrent).filter(trip => {
  const q = query.toLowerCase();
  return (
  trip.name?.includes(query) ||
@@ -803,11 +826,13 @@ export default function Header() {
  { key: 'climbs', href: '#expeditions', hasMega: true, megaType: 'climbs' },
  { key: 'treks', href: '#expeditions', hasMega: true, megaType: 'treks' },
  { key: 'israelTrips', href: '#israel', hasMega: true, megaType: 'israel' },
+ { key: 'safari', href: '/safari', isPage: true, hasMega: true, megaType: 'safari' },
  { key: 'annualPlan', href: '/annual-plan', isPage: true },
  { key: 'about', href: '/about', isPage: true },
- { key: 'blog', href: '/blog', isPage: true },
+ /* Blog and Contact moved to the FOOTER (owner, Jul 30 2026): adding the
+    Safari heading left no room for them in the header. Both still live at
+    /blog and /contact, and the floating WhatsApp button covers urgent contact. */
  // { key: 'shop', href: '/shop', isPage: true }, // hidden until shop is ready
- { key: 'contact', href: '/contact', isPage: true },
  ];
  const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 
@@ -833,7 +858,7 @@ export default function Header() {
  }
 
  function closeMega() {
- megaTimeout.current = setTimeout(() => setMegaType(null), 120);
+ megaTimeout.current = setTimeout(() => setMegaType(null), 300);
  }
 
  return (

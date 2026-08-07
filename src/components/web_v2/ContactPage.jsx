@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Analytics } from '../../utils/analytics.js';
+import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -112,7 +114,7 @@ export default function ContactPage() {
 
  function validatePhoneField(val) {
  const ok = checkPhone(form.dial, val);
- setPhoneError(ok ? '' : (isEn ? 'Please enter a valid phone number' : 'מספר הטלפון אינו תקין'));
+ setPhoneError(ok ? '' : (isEn ? 'Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567' : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567'));
  return ok;
  }
 
@@ -124,7 +126,7 @@ export default function ContactPage() {
  const phoneOk = checkPhone(form.dial, form.phone);
 
  if (!nameOk) setNameError(isEn ? 'Please enter your name' : 'נא להזין שם');
- if (!phoneOk) setPhoneError(isEn ? 'Please enter a valid phone number' : 'מספר הטלפון אינו תקין');
+ if (!phoneOk) setPhoneError(isEn ? 'Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567' : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
  if (!nameOk || !phoneOk) return;
 
  setSubmitting(true);
@@ -133,6 +135,7 @@ export default function ContactPage() {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify({
+ ...getAttribution(),
  fields: {
  Name: form.name.trim(),
  Phone: formatFullPhone(form.dial, form.phone),
@@ -144,6 +147,7 @@ export default function ContactPage() {
  }),
  });
  if (!res.ok) throw new Error(await res.text());
+ Analytics.leadSubmit({ source: 'contact_form' });
  setSent(true);
  } catch (err) {
  console.error('[contact] submit error:', err);

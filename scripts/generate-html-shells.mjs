@@ -45,15 +45,19 @@ function truncate(str, max = 155) {
   return str.length <= max ? str : str.slice(0, max - 1) + '…';
 }
 
-function injectMeta(html, { title, description, canonicalPath, image }) {
+function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta }) {
   const url   = `${BASE_URL}${canonicalPath}`;
   const img   = image
     ? (image.startsWith('http') ? image : `${BASE_URL}${image}`)
     : `${BASE_URL}/og-image.jpg`;
+  // Dedicated landscape share image (1200x630) for social/AI cards when provided
+  const social = ogImage
+    ? (ogImage.startsWith('http') ? ogImage : `${BASE_URL}${ogImage}`)
+    : img;
   const t = esc(title);
   const d = esc(truncate(description));
 
-  return html
+  let out = html
     // <title>
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     // meta description
@@ -62,18 +66,63 @@ function injectMeta(html, { title, description, canonicalPath, image }) {
     .replace(/(<meta property="og:title"\s+content=")[^"]*(")/,       `$1${t}$2`)
     .replace(/(<meta property="og:description"\s+content=")[^"]*(")/,  `$1${d}$2`)
     .replace(/(<meta property="og:url"\s+content=")[^"]*(")/,          `$1${esc(url)}$2`)
-    .replace(/(<meta property="og:image"\s+content=")[^"]*(")/,        `$1${esc(img)}$2`)
+    .replace(/(<meta property="og:image"\s+content=")[^"]*(")/,        `$1${esc(social)}$2`)
     // twitter tags
     .replace(/(<meta name="twitter:title"\s+content=")[^"]*(")/,       `$1${t}$2`)
     .replace(/(<meta name="twitter:description"\s+content=")[^"]*(")/,  `$1${d}$2`)
-    .replace(/(<meta name="twitter:image"\s+content=")[^"]*(")/,        `$1${esc(img)}$2`)
+    .replace(/(<meta name="twitter:image"\s+content=")[^"]*(")/,        `$1${esc(social)}$2`)
     // canonical
     .replace(/(<link rel="canonical"\s+href=")[^"]*(")/,               `$1${esc(url)}$2`);
+
+  // og:type override (blog posts = "article" for news/social/AI)
+  if (ogType) {
+    out = out.replace(/(<meta property="og:type"\s+content=")[^"]*(")/, `$1${esc(ogType)}$2`);
+  }
+
+  // Correct the OG image dimensions to landscape when a dedicated share image is used
+  if (ogImage) {
+    out = out
+      .replace(/(<meta property="og:image:width"\s+content=")[^"]*(")/,  `$11200$2`)
+      .replace(/(<meta property="og:image:height"\s+content=")[^"]*(")/, `$1630$2`);
+  }
+
+  // article: meta tags — injected before </head> so scrapers that skip JS still see them
+  if (articleMeta) {
+    const tags = [];
+    if (articleMeta.publishedTime) tags.push(`<meta property="article:published_time" content="${esc(articleMeta.publishedTime)}" />`);
+    if (articleMeta.modifiedTime)  tags.push(`<meta property="article:modified_time" content="${esc(articleMeta.modifiedTime)}" />`);
+    tags.push(`<meta property="article:author" content="HighAir Expeditions" />`);
+    if (articleMeta.section)       tags.push(`<meta property="article:section" content="${esc(articleMeta.section)}" />`);
+    (articleMeta.tags || []).forEach(tag => tags.push(`<meta property="article:tag" content="${esc(tag)}" />`));
+    out = out.replace('</head>', `  ${tags.join('\n  ')}\n</head>`);
+  }
+
+  return out;
 }
 
 function buildJsonLd(meta) {
   if (!meta.jsonLd) return '';
   return `\n  <script type="application/ld+json">${JSON.stringify(meta.jsonLd, null, 0)}</script>`;
+}
+
+/* Extract Q&A pairs that follow a "שאלות נפוצות" / FAQ section, for FAQPage schema.
+   Mirrors the runtime logic in BlogPost.jsx so the static shell matches. */
+function faqFromContent(content) {
+  if (!Array.isArray(content)) return [];
+  const kw = ['שאלות נפוצות', 'faq', 'frequently asked'];
+  const idx = content.findIndex(b => b.type === 'section' && kw.some(k => (b.value || '').toLowerCase().includes(k)));
+  if (idx === -1) return [];
+  const pairs = [];
+  let q = null;
+  for (const b of content.slice(idx + 1)) {
+    if (b.type === 'section') break;
+    if (b.type === 'heading') q = b.value;
+    else if (b.type === 'text' && q) {
+      pairs.push({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: b.value } });
+      q = null;
+    }
+  }
+  return pairs;
 }
 
 function writeShell(routePath, meta) {
@@ -174,9 +223,10 @@ for (const post of POSTS) {
   if (!post.slug) continue;
   const postUrl = `${BASE_URL}/blog/${post.slug}`;
   const postImg = post.img ? (post.img.startsWith('http') ? post.img : `${BASE_URL}${post.img}`) : `${BASE_URL}/og-image.jpg`;
-  const jsonLd = {
-    '@context':   'https://schema.org',
-    '@type':      'BlogPosting',
+  const isNews  = (post.category || '') === 'חדשות' || (post.categoryEn || '') === 'News';
+
+  const articleNode = {
+    '@type':      isNews ? 'NewsArticle' : 'BlogPosting',
     headline:     post.title || post.titleEn || '',
     description:  post.excerpt || post.excerptEn || '',
     image:        postImg,
@@ -185,13 +235,39 @@ for (const post of POSTS) {
     author:       { '@type': 'Organization', name: 'HighAir Expeditions', url: BASE_URL },
     publisher:    { '@type': 'Organization', name: 'HighAir Expeditions', logo: { '@type': 'ImageObject', url: `${BASE_URL}/Logo.png` } },
     mainEntityOfPage: postUrl,
+    inLanguage:   'he',
+    articleSection: post.category || undefined,
   };
+
+  const graph = [articleNode, {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.title || post.titleEn || '', item: postUrl },
+    ],
+  }];
+
+  // FAQPage schema (extracted from the post's FAQ section) — big for featured snippets + AI answers
+  const faq = faqFromContent(post.content || post.contentEn);
+  if (faq.length) graph.push({ '@type': 'FAQPage', mainEntity: faq });
+
+  const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+
   const postTitle = post.title || post.titleEn || '';
   writeShell(`blog/${post.slug}`, {
     title:         postTitle ? `HighAir Expeditions | ${postTitle}` : 'HighAir Expeditions | בלוג',
     description:   post.excerpt  || post.excerptEn  || '',
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img      || '',
+    ogImage:       post.ogImg    || '',
+    ogType:        'article',
+    articleMeta: {
+      publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
+      modifiedTime:  (post.dateModified || post.dateIso) ? `${post.dateModified || post.dateIso}T12:00:00+03:00` : undefined,
+      section:       post.category || undefined,
+      tags:          post.tags || [],
+    },
     jsonLd,
   });
   blogCount++;

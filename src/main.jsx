@@ -5,12 +5,19 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { Analytics } from '@vercel/analytics/react';
+import { captureAttribution } from './utils/attribution.js';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner        from './components/web_v2/CookieBanner.jsx';
 import FloatingWA          from './components/web_v2/FloatingWA.jsx';
 import SocialProofTicker   from './components/web_v2/SocialProofTicker.jsx';
 /* Scroll depth is now tracked per-page via useScrollDepth() hook in each component */
+
+/* ── Where this visitor came from ──
+   Was a sessionStorage snapshot of utm_* only, which lost the campaign the
+   moment the tab closed and recorded nothing at all for a visitor who arrived
+   without utm params. See src/utils/attribution.js for what that cost. */
+captureAttribution();
 
 /* ── Prevent right-click save on images & videos ── */
 document.addEventListener('contextmenu', e => {
@@ -51,6 +58,8 @@ const BlogPost           = lazy(() => import('./components/web_v2/BlogPost.jsx')
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
 const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
+const SafariPage         = lazy(() => import('./components/web_v2/SafariPage.jsx'));
+const BookCall           = lazy(() => import('./components/web_v2/BookCall.jsx'));
 const NotFound404        = lazy(() => import('./components/web_v2/NotFound404.jsx'));
 
 /* Prevent the browser from restoring a previous scroll position after
@@ -83,6 +92,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/blog/:slug"        element={<BlogPost />} />
           <Route path="/shop"              element={<Shop />} />
           <Route path="/contact"           element={<ContactPage />} />
+          <Route path="/safari"            element={<SafariPage />} />
+          <Route path="/book"              element={<BookCall />} />
+          <Route path="/book/:slug"        element={<BookCall />} />
+          <Route path="/book/:slug/:code"  element={<BookCall />} />
           <Route path="/*"                 element={<NotFound404 />} />
         </Routes>
       </Suspense>

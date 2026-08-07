@@ -34,11 +34,9 @@ function monthLabel(key, months) {
   return `${months[parseInt(month, 10) - 1]} ${year}`;
 }
 
-/* Tag for safari / kosher variants */
+/* Tag for safari variants */
 function eventTag(e, isRtl) {
   const n = (typeof e === 'string' ? e : e?.slug || e?.eventName || '').toLowerCase();
-  if (n.includes('kosher') && n.includes('safari')) return isRtl ? 'שומרי מסורת + ספארי' : 'Kosher + Safari';
-  if (n.includes('kosher')) return isRtl ? 'שומרי מסורת' : 'Kosher';
   if (n.includes('safari')) return isRtl ? '+ ספארי' : '+ Safari';
   return null;
 }
@@ -349,12 +347,10 @@ export default function AnnualPlan() {
     }
 
     Promise.all([
-      fetch(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity`).then(r => r.json()),
-      fetch(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient`).then(r => r.json()),
+      fetchAllRecords(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&pageSize=100`),
+      fetchAllRecords(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient&pageSize=100`),
       fetchAllRecords(`/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`),
-    ]).then(([worldData, israelData, custRecords]) => {
-      if (worldData.error)  throw new Error(JSON.stringify(worldData.error));
-      if (israelData.error) throw new Error(JSON.stringify(israelData.error));
+    ]).then(([worldRecords, israelRecords, custRecords]) => {
 
       /* Build group-name → customer count map */
       const counts = {};
@@ -364,15 +360,14 @@ export default function AnnualPlan() {
       });
 
       /* Process world groups */
-      const worldGroups = (worldData.records || [])
+      const worldGroups = worldRecords
         .map(rec => normaliseGroup(rec, false, counts))
         .filter(dateFilter)
-        .filter(g => { const m = new Date(g.departure).getMonth(); return m !== 3 && m !== 4; })
-        .filter(g => g.eventName !== 'Annapurna_Circut_Kosher')
+        .filter(g => !g.eventName.toLowerCase().includes('kosher'))
         .filter(g => !g.eventName.toLowerCase().includes('safari'));
 
       /* Process Israel groups */
-      const israelGroups = (israelData.records || [])
+      const israelGroups = israelRecords
         .map(rec => normaliseGroup(rec, true, counts))
         .filter(dateFilter)
         .filter(g => !(g._slug || g.eventName || '').toLowerCase().includes('safari'))
@@ -434,6 +429,33 @@ export default function AnnualPlan() {
     if (keys.length > 0) setActiveMonth(keys[0]);
   }, [filter]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  /* ── Scroll sync: update active month tab as user scrolls ── */
+  useEffect(() => {
+    if (loading) return;
+    const monthKeys = [...new Set(filteredGroups.map(g => monthKey(g.departure)))].sort();
+    if (monthKeys.length === 0) return;
+
+    const observers = [];
+    monthKeys.forEach(key => {
+      const el = document.getElementById(`month-${key}`);
+      if (!el) return;
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) setActiveMonth(key);
+      }, { rootMargin: '-160px 0px -50% 0px', threshold: 0 });
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach(obs => obs.disconnect());
+  }, [isMobile, loading, filter, groups]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /* ── Auto-scroll active tab into view in the tabs row ── */
+  useEffect(() => {
+    if (!activeMonth || !tabsRef.current) return;
+    const tab = tabsRef.current.querySelector(`[data-key="${activeMonth}"]`);
+    if (tab) tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, [activeMonth]);
+
   /* ── Group by month ── */
   const byMonth = {};
   filteredGroups.forEach(g => {
@@ -448,7 +470,8 @@ export default function AnnualPlan() {
     setActiveMonth(key);
     const el = document.getElementById(`month-${key}`);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 160;
+    const offset = isMobile ? 160 : 210;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
@@ -536,7 +559,7 @@ export default function AnnualPlan() {
         {!loading && months.length > 0 && (
           <div style={{
             position:     'sticky',
-            top:          '80px',
+            top:          isMobile ? '80px' : '124px',
             zIndex:       100,
             background:   '#FFFFFF',
             borderBottom: '1px solid #ECEAF8',
@@ -565,6 +588,7 @@ export default function AnnualPlan() {
                 return (
                   <button
                     key={key}
+                    data-key={key}
                     onClick={() => scrollToMonth(key)}
                     style={{
                       flexShrink:  0,
@@ -610,7 +634,7 @@ export default function AnnualPlan() {
         {loading && (
           <div style={{
             position:     'sticky',
-            top:          '80px',
+            top:          isMobile ? '80px' : '124px',
             zIndex:       100,
             background:   '#FFFFFF',
             borderBottom: '1px solid #ECEAF8',

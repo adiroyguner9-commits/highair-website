@@ -85,7 +85,7 @@ const NAV_BTN = {
   alignItems:  'center',
 };
 
-export default function BookingWidget({ name, phone, email, expedition, expeditionSlug, expeditionValue, onSkip }) {
+export default function BookingWidget({ name, phone, email, expedition, expeditionSlug, expeditionValue, leadToken, onSkip }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
   const DAY_SHORT = isRtl ? HE_DAY_SHORT : EN_DAY_SHORT;
@@ -169,13 +169,19 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
       const res = await fetch('/api/book-slot', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ date: selDate, time: selSlot, name, phone, email, expedition }),
+        body:    JSON.stringify({ date: selDate, time: selSlot, name, phone, email, expedition, lead: leadToken }),
       });
       const data = await res.json();
       if (!res.ok) {
-        if (data.error === 'slot_taken') {
-          Analytics.bookingSlotTaken();
-          setError(isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time');
+        if (data.error === 'slot_taken' || data.error === 'slot_past') {
+          /* slot_past = the server's lead-time guard: the picked time already
+             passed or is inside the 2h buffer (stale tab). Same recovery as a
+             taken slot — explain + refresh the list so only valid times show. */
+          if (data.error === 'slot_taken') Analytics.bookingSlotTaken();
+          else Analytics.bookingError('slot_past');
+          setError(data.error === 'slot_past'
+            ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : 'This time has passed or is too soon - please pick a later slot')
+            : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time'));
           setSlotsLoad(true);
           fetch(`/api/slots?date=${selDate}`)
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })

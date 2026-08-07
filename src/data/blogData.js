@@ -7,6 +7,210 @@
 export const POSTS = [
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:11  nimsdai-purja-broad-peak-tragedy  (2026-08-01)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       11,
+    slug:     'nimsdai-purja-broad-peak-tragedy',
+
+    /* ── Hebrew ── */
+    title:    'נירמל "נימסדאי" פורג׳ה: האגדה שאבדה בברואד פיק',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-08-01',
+    dateModified: '2026-08-01',
+    dateHe:   '1 באוגוסט 2026',
+    dateEn:   'August 1, 2026',
+    category: 'חדשות',
+    categoryEn: 'News',
+    img:             '/images/blog/chen-shaked-nimsdai-manaslu-2025.webp',
+    ogImg:           '/images/blog/chen-shaked-nimsdai-manaslu-2025-og.webp',
+    imgPosition:     'center 28%',
+    imgPositionCard: 'center 25%',
+    imgCredit:       '',
+    excerpt:  'המטפס האגדי נירמל "נימסדאי" פורג׳ה, גיבור הסרט "14 פסגות" ובעל שיא של 57 עליות לגובה 8,000 מטר, נספה במפולת בברואד פיק יחד עם תשעה מטפסים נוספים.',
+    excerptEn: 'Legendary climber Nirmal "Nimsdai" Purja, hero of the Netflix film 14 Peaks and holder of a record 57 ascents above 8,000 metres, died in a Broad Peak avalanche along with nine other climbers.',
+
+    /* ── Hebrew content ── */
+    content: [
+      { type: 'text', value: 'ב-30 ביולי 2026, סביב השעה תשע בבוקר, מפולת שלגים ענקית נסחפה במורד הגלישה המרכזית של ברואד פיק, ההר השנים-עשר הגבוה בעולם. היא סחפה איתה עשרה מטפסים. בין הנספים היה נירמל פורג׳ה, המוכר בכל העולם בכינוי "נימסדאי", אחד מגדולי המטפסים שידעה ההיסטוריה.' },
+      { type: 'text', value: 'קהילת מטפסי ההרים העולמית איבדה בבת אחת אדם שהפך את המילה "בלתי אפשרי" למשהו שראוי לבדוק שוב. זהו הסיפור של האיש שמאחורי השיאים, ושל היום שבו ההר גבה את המחיר הכבד ביותר.' },
+
+      { type: 'section', value: 'מי היה נירמל "נימסדאי" פורג׳ה' },
+      { type: 'text', value: 'נירמל פורג׳ה נולד בנפאל, ובגיל צעיר עזב את מולדתו כדי להתגייס לצבא הבריטי. הוא שירת ביחידת הגורקאים, ובהמשך היה בין הנפאלים הראשונים שהתקבלו ל-Special Boat Service, יחידת העילית של הצי הבריטי, המקבילה בקווים כלליים לשייטת 13 הישראלית.' },
+      { type: 'text', value: 'שנים של שירות בתנאים קיצוניים, בסביבות עוינות ותחת לחץ מתמיד, בנו אצלו יכולת נדירה לתפקד במקומות שבהם גוף האדם אמור פשוט לכבות. הכישורים האלה יהפכו בהמשך לתשתית של פרויקט חייו.' },
+      { type: 'text', value: 'ב-2019 פרש מהשירות הצבאי, ויצא למסע שיהפוך אותו לאגדה.' },
+      { type: 'image', src: '/images/blog/annapurna-himalaya.webp', alt: 'רכס האנאפורנה בנפאל', caption: 'רכס האנאפורנה בנפאל, פסגת ה-8,000 הראשונה שכבש נימסדאי במסע · צילום: Bijay Chaurasia' },
+
+      { type: 'section', value: 'פרויקט אפשרי: 14 פסגות בשישה חודשים' },
+      { type: 'text', value: 'בעולם טיפוס ההרים ישנן 14 פסגות שגובהן מעל 8,000 מטר. לפני נימסדאי, השלמת כל 14 הפסגות לקחה למטפסים המהירים בעולם שנים, ולעיתים עשור שלם.' },
+      { type: 'text', value: 'נימסדאי הכריז על מטרה שנשמעה הזויה: להעפיל לכל 14 הפסגות בפחות משבעה חודשים. הפרויקט קיבל את השם "פרויקט אפשרי", Project Possible.' },
+      { type: 'text', value: 'ב-23 באפריל 2019 הוא עמד על פסגת אנאפורנה, הראשונה במסע. שישה חודשים ושישה ימים אחר כך, ב-29 באוקטובר 2019, הוא עמד על פסגת שישאפנגמה והשלים את המשימה. שיא שהמומחים העריכו שיישבר רק בעוד עשורים, אם בכלל. עד היום הוא מחזיק מעמד.' },
+
+      { type: 'section', value: 'הסרט שהפך אותו לשם עולמי' },
+      { type: 'text', value: 'ב-2021 הפך סיפורו לסרט תיעודי של נטפליקס בשם ⁦14 Peaks: Nothing Is Impossible⁩, בעברית "14 פסגות". הסרט תיעד את הפרויקט כולו, מהמכשולים הבירוקרטיים והקור הקיצוני ועד רגעים אנושיים כמו חילוץ מטפסים אחרים באמצע המסע.' },
+      { type: 'text', value: 'הסרט הפך להיט מיידי בכל העולם וזכה לשבחים. הוא הפך את נימסדאי מדמות מוכרת בקהילת המטפסים לכוכב תרבותי בינלאומי, ולמקור השראה עבור מיליונים, במיוחד עבור אנשים ממדינות מתפתחות שראו בו הוכחה חיה לכך שאפשר להגשים גם את החלום הגדול ביותר.' },
+
+      { type: 'section', value: 'הפסגה ה-57, תשעה ימים לפני האסון' },
+      { type: 'text', value: 'מאז השלמת "פרויקט אפשרי", נימסדאי לא הפסיק לטפס. הוא המשיך לצבור פסגות של 8,000 מטר, ובכל פעם דחף מעט יותר את גבולות מה שנחשב אפשרי.' },
+      { type: 'text', value: 'ב-21 ביולי 2026, תשעה ימים בלבד לפני האסון, העפיל לפסגת גשרברום השני, בגובה 8,035 מטר. זו הייתה העלייה ה-57 שלו לפסגה מעל 8,000 מטר, והוא ביצע אותה ללא חמצן משלים, בפעם ה-29 שלו בלי חמצן.' },
+      { type: 'callout', title: '✦ שיא כל הזמנים', value: '57 עליות לפסגות מעל 8,000 מטר, יותר מכל מטפס אחר בהיסטוריה. 29 מהן בוצעו ללא חמצן משלים.' },
+      { type: 'text', value: 'עם המספרים האלה הפך נימסדאי למטפס עם הכי הרבה עליות לפסגות של 8,000 מטר אי פעם. ואז הוא החליט להמשיך עוד קצת.' },
+
+      { type: 'section', value: 'המשימה האחרונה שנקטעה' },
+      { type: 'text', value: 'ב-2026 הכריז נימסדאי על פרויקט חדש: לטפס על כל 14 פסגות ה-8,000 מטר שלוש פעמים, ובמקביל להשלים שלוש פעמים גם את אתגר שבע הפסגות, שבע הפסגות הגבוהות בכל יבשת. הכל ללא חמצן משלים.' },
+      { type: 'text', value: 'בפוסט שהעלה לרשת לפני היציאה לברואד פיק, הוא כתב:' },
+      { type: 'text', value: '"זו לא הייתה התוכנית המקורית. במקור התכוונתי לטפס רק על גשרברום השני. אבל ממש לפני היציאה לפקיסטן ספרתי שוב את פסגות ה-8,000 שלי, וזה פגע בי: אם אני מטפס גם על ברואד פיק בזמן שאני כאן, נשאר לי רק צ׳ו אויו כדי להיות האדם הראשון בהיסטוריה שטיפס פעמיים על כל 14 פסגות ה-8,000 מטר. בלי חמצן."' },
+      { type: 'text', value: 'המסע שנועד להשלים את מחצית הפרויקט השאפתני הזה הסתיים בטרגדיה.' },
+
+      { type: 'section', value: 'מה קרה בברואד פיק' },
+      { type: 'text', value: 'ברואד פיק, בגובה 8,047 מטר, הוא הפסגה ה-12 הגבוהה בעולם. הוא ניצב ברכס הקרקורם שבפקיסטן, סמוך להר K2, ונחשב לאחת מפסגות ה-8,000 מטר הפחות מאתגרות טכנית. פחות מאתגר, אבל רחוק מלהיות בטוח.' },
+      { type: 'text', value: 'בשבועות שקדמו לאסון ירדו שלגים כבדים על רכס הקרקורם. משלחות אחרות שהיו במחנה הבסיס בחרו להתפנות ולחזור הביתה בגלל הסיכון. מטפסים שעזבו את ההר תיארו שברואד פיק "שינה את מזג הרוח שלו" באופן דרמטי. הצוות של נימסדאי בחר להישאר.' },
+      { type: 'text', value: 'ב-30 ביולי, בשעות הבוקר, מפולת ענקית נסחפה במורד הגלישה המרכזית של ההר וסחפה את כל עשרת חברי המשלחת שנעו בין המחנה השני לשלישי, בגובה של כ-6,500 מטר. הקשר איתם נותק באחת.' },
+      { type: 'text', value: 'צוותי חילוץ של צבא פקיסטן יצאו לפעולה, אך מזג האוויר הקשה ותוואי השטח הקיצוני עיכבו את המבצע. במהלך הימים הבאים אותרו ופונו בהדרגה גופות הנספים. איש מעשרת חברי המשלחת לא שרד.' },
+      { type: 'image', src: '/images/blog/manaslu-mountain.webp', alt: 'הר מנסלו בנפאל', caption: 'הרי ההימלאיה הגבוהים, עולם שבו הפסגה תמיד גובה מחיר' },
+
+      { type: 'section', value: 'עשרה מטפסים, משפחה עולמית אחת' },
+      { type: 'text', value: 'הצוות שנספה מנה עשרה אנשים, מטפסים ומדריכי שרפה מנפאל, ארצות הברית, עומאן, פקיסטן וסין. אלה שמותיהם:' },
+      { type: 'list', items: [
+        'נירמל "נימסדאי" פורג׳ה (נפאל ובריטניה), ראש המשלחת.',
+        'נדירה אל-חרתי (עומאן), האישה הראשונה מארצה שהעפילה לפסגת האוורסט.',
+        'שרה מלורי גייס (ארצות הברית), מטפסת בת 39 מטקסס, שסגרה את הסטודיו שלה כדי להגשים את חלום ההרים.',
+        'פור בהאדור "יוקטה" גורונג (נפאל), מדריך שרפה ותיק.',
+        'סוהיל סאקי (פקיסטן).',
+        'וואנג ג׳ונג (סין).',
+        'קילי פמבה שרפה (נפאל), מדריך שרפה.',
+        'נימה שרפה (נפאל), מדריך שרפה.',
+        'נאוואנג טינדו שרפה (נפאל), מדריך שרפה.',
+        'גיאלו שרפה (נפאל), מדריך שרפה.',
+      ] },
+      { type: 'text', value: 'כל אחד מהם הביא איתו סיפור, חלום, ומשפחה שחיכתה בבית.' },
+
+      { type: 'section', value: 'המפגש בבייסקמפ של מנסלו' },
+      { type: 'text', value: 'עבור צוות HighAir, האסון הזה נוגע קרוב מהרגיל. בספטמבר 2025, כשחן שקד שהה במחנה הבסיס של הר מנסלו כחלק ממשלחת ישראלית, הוא נפגש עם נימסדאי עצמו.' },
+      { type: 'text', value: 'התמונה של השניים במחנה הבסיס, פחות משנה לפני האסון, הפכה בין רגע מזיכרון של מפגש מקצועי לחלק ממורשת של אגדה שאבדה. חן זוכר אדם שהיה בדיוק כמו שקיווה שיהיה: חם, נוכח, ומלא באנרגיה שהדביקה את כל מי שעמד לידו.' },
+
+      { type: 'section', value: 'הסיכונים האמיתיים של טיפוס בגובה' },
+      { type: 'text', value: 'המפולת בברואד פיק היא תזכורת כואבת לכך שגם המטפסים המנוסים בעולם ניצבים מול סיכונים אמיתיים בהרים הגבוהים. אלה הסיכונים העיקריים שכל מטפס חייב להכיר:' },
+      { type: 'list', items: [
+        'מפולות שלגים: הסכנה הגדולה ביותר בהרים גבוהים. שלג חדש על גבי בסיס לא יציב יוצר תנאים אידיאליים למפולת.',
+        'מחלת גובה: מעל 3,000 מטר הסיכון עולה משמעותית. פסגות של 8,000 מטר נמצאות ב"אזור המוות", גובה שבו הגוף האנושי אינו מסוגל להתאושש.',
+        'שינויי מזג אוויר: בגובה רב סופה יכולה להתפרץ בתוך פחות משעה. חלונות מזג האוויר הטובים קצרים ובלתי צפויים.',
+        'קרחונים וסדקים: קרחוני הגובה מתפצלים ומשתנים כל הזמן, ויוצרים סיכון של נפילה לסדקים עמוקים.',
+        'לחץ מנטלי: בגובה רב קבלת ההחלטות מתקשה, ומטפסים רבים ממשיכים לפסגה למרות סימני האזהרה בגלל ההשקעה הרגשית.',
+      ] },
+      { type: 'text', value: 'זו בדיוק הסיבה שטיפוס בגובה דורש הכנה יסודית, ליווי מקצועי, וכיבוד מוחלט של האזהרות שההר משדר.' },
+      { type: 'image', src: '/images/blog/broad-peak-karakoram.webp', alt: 'ברואד פיק ברכס הקרקורם', caption: 'ברואד פיק עם שחר, מבט ממחנה קונקורדיה בקרקורם · צילום: Anne Dirkse' },
+
+      { type: 'section', value: 'מורשת של השראה' },
+      { type: 'text', value: 'נימסדאי פורג׳ה לא היה רק מטפס. הוא היה סמל של אפשרות. הוכחה חיה לכך שאדם ממוצא צנוע יכול להגיע לגבהים שאיש לא העז לחלום עליהם.' },
+      { type: 'text', value: 'מעבר להישגיו האישיים, הקים נימסדאי את קרן נימסדאי, שמימנה פרויקטים חברתיים בנפאל. אחד הבולטים שבהם היה בית הפורטרים בלובוצ׳ה, מרכז שמעניק מחסה לפורטרים באזור האוורסט, חלק ממאבקו למען זכויות עובדי הגובה הנפאלים.' },
+      { type: 'text', value: 'הוא היה קול חזק וברור על הצורך להכיר בתרומה של השרפים והפורטרים המקומיים, אותם אנשים שנשארים לרוב אנונימיים לצד המטפסים המערביים המפורסמים. גם בזה הוא שינה את המשחק.' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'מי היה נירמל "נימסדאי" פורג׳ה?' },
+      { type: 'text', value: 'מטפס נפאלי-בריטי שנחשב לאחד מגדולי המטפסים בהיסטוריה. הוא היה הראשון בעולם שהעפיל לכל 14 הפסגות מעל 8,000 מטר בפחות מחצי שנה, שיא שעומד בעינו עד היום.' },
+      { type: 'heading', value: 'איך נספה נימסדאי פורג׳ה?' },
+      { type: 'text', value: 'הוא נספה יחד עם תשעה מטפסים נוספים במפולת שלגים על הר ברואד פיק בפקיסטן, ב-30 ביולי 2026. איש מעשרת חברי המשלחת לא שרד.' },
+      { type: 'heading', value: 'מהו הסרט "14 פסגות" של נטפליקס?' },
+      { type: 'text', value: '⁦14 Peaks: Nothing Is Impossible⁩ הוא סרט תיעודי של נטפליקס מ-2021 שמתעד את "פרויקט אפשרי", העלייה של נימסדאי לכל 14 הפסגות של 8,000 מטר בפחות משבעה חודשים.' },
+      { type: 'heading', value: 'איפה נמצא הר ברואד פיק?' },
+      { type: 'text', value: 'ברואד פיק, בגובה 8,047 מטר, נמצא ברכס הקרקורם בגבול פקיסטן וסין, סמוך להר K2. הוא הפסגה ה-12 הגבוהה בעולם.' },
+      { type: 'heading', value: 'כמה מטפסים נספו במפולת בברואד פיק?' },
+      { type: 'text', value: 'במפולת ב-30 ביולי 2026 נספו כל עשרת חברי המשלחת: מטפסים ומדריכי שרפה מנפאל, ארצות הברית, עומאן, פקיסטן וסין.' },
+    ],
+
+    /* ── English content ── */
+    titleEn: 'Nirmal "Nimsdai" Purja: the legend lost on Broad Peak',
+    contentEn: [
+      { type: 'text', value: 'On 30 July 2026, around nine in the morning, a massive avalanche swept down the main gulley of Broad Peak, the twelfth highest mountain in the world. It carried ten climbers with it. Among the dead was Nirmal Purja, known worldwide as "Nimsdai", one of the greatest climbers history has ever seen.' },
+      { type: 'text', value: 'In a single moment, the global mountaineering community lost a man who turned the word "impossible" into something worth checking twice. This is the story of the man behind the records, and of the day the mountain exacted its heaviest price.' },
+
+      { type: 'section', value: 'Who was Nirmal "Nimsdai" Purja' },
+      { type: 'text', value: 'Nirmal Purja was born in Nepal and left his homeland young to join the British Armed Forces. He served in the Gurkhas, and later became one of the first Nepalis accepted into the Special Boat Service, the elite unit of the British Navy.' },
+      { type: 'text', value: 'Years of service in extreme conditions, hostile environments and constant pressure built in him a rare ability to function in places where the human body is simply meant to shut down. Those skills would later become the foundation of his life\'s project.' },
+      { type: 'text', value: 'In 2019 he retired from military service and set out on the journey that would make him a legend.' },
+      { type: 'image', src: '/images/blog/annapurna-himalaya.webp', alt: 'The Annapurna massif in Nepal', caption: 'The Annapurna massif in Nepal, the first 8,000-metre peak Nimsdai summited on his journey · Photo: Bijay Chaurasia' },
+
+      { type: 'section', value: 'Project Possible: 14 peaks in six months' },
+      { type: 'text', value: 'There are 14 peaks in the world above 8,000 metres. Before Nimsdai, climbing all 14 took the fastest mountaineers years, sometimes an entire decade.' },
+      { type: 'text', value: 'Nimsdai declared a goal that sounded absurd: to summit all 14 in less than seven months. The project was named Project Possible.' },
+      { type: 'text', value: 'On 23 April 2019 he stood on the summit of Annapurna, the first of the journey. Six months and six days later, on 29 October 2019, he stood on Shishapangma and completed the mission. A record experts believed would only fall in decades, if ever. It still stands today.' },
+
+      { type: 'section', value: 'The film that made him a global name' },
+      { type: 'text', value: 'In 2021 his story became a Netflix documentary, 14 Peaks: Nothing Is Impossible. The film chronicled the entire project, from bureaucratic obstacles and extreme cold to human moments such as rescuing other climbers mid-expedition.' },
+      { type: 'text', value: 'The film became an instant global hit and drew wide acclaim. It transformed Nimsdai from a figure known within the climbing community into an international cultural star, and a source of inspiration for millions, especially for people from developing nations who saw in him living proof that even the biggest dream can be reached.' },
+
+      { type: 'section', value: 'His 57th summit, nine days before the disaster' },
+      { type: 'text', value: 'Since completing Project Possible, Nimsdai never stopped climbing. He kept collecting 8,000-metre peaks, each time pushing a little further at what was considered possible.' },
+      { type: 'text', value: 'On 21 July 2026, just nine days before the disaster, he summited Gasherbrum II at 8,035 metres. It was his 57th ascent above 8,000 metres, and he did it without supplemental oxygen, his 29th time without oxygen.' },
+      { type: 'callout', title: '✦ An all-time record', value: '57 summits above 8,000 metres, more than any other climber in history. 29 of them without supplemental oxygen.' },
+      { type: 'text', value: 'With those numbers, Nimsdai became the climber with the most eight-thousander summits ever. And then he decided to keep going a little further.' },
+
+      { type: 'section', value: 'The final mission, cut short' },
+      { type: 'text', value: 'In 2026 Nimsdai announced a new project: to climb all 14 eight-thousanders three times over, while also completing the Seven Summits, the highest peak on each continent, three times. All without supplemental oxygen.' },
+      { type: 'text', value: 'In a post he shared before leaving for Broad Peak, he wrote:' },
+      { type: 'text', value: '"This was not the original plan. I only meant to climb Gasherbrum II. But right before leaving for Pakistan I counted my 8,000ers again, and it hit me: if I also climb Broad Peak while I am here, only Cho Oyu remains for me to become the first person in history to climb all 14 eight-thousanders twice. Without oxygen."' },
+      { type: 'text', value: 'The journey meant to complete half of that ambitious project ended in tragedy.' },
+
+      { type: 'section', value: 'What happened on Broad Peak' },
+      { type: 'text', value: 'Broad Peak, at 8,047 metres, is the twelfth highest mountain in the world. It stands in the Karakoram range in Pakistan, near K2, and is considered one of the less technically demanding eight-thousanders. Less demanding, but far from safe.' },
+      { type: 'text', value: 'In the weeks before the disaster, heavy snow fell on the Karakoram. Other expeditions at base camp chose to evacuate and go home because of the risk. Climbers who left the mountain described how Broad Peak had "changed its mood" dramatically. Nimsdai\'s team chose to stay.' },
+      { type: 'text', value: 'On 30 July, in the morning hours, a massive avalanche swept down the main gulley and carried all ten members of the team, who were moving between camps two and three at around 6,500 metres. Contact with them was lost at once.' },
+      { type: 'text', value: 'Pakistani army rescue teams went into action, but harsh weather and extreme terrain slowed the operation. Over the following days the bodies of the victims were gradually located and recovered. None of the ten team members survived.' },
+      { type: 'image', src: '/images/blog/manaslu-mountain.webp', alt: 'Mount Manaslu, Nepal', caption: 'The high Himalaya, a world where the summit always exacts a price' },
+
+      { type: 'section', value: 'Ten climbers, one global family' },
+      { type: 'text', value: 'The team that perished numbered ten, climbers and Sherpa guides from Nepal, the United States, Oman, Pakistan and China. Their names:' },
+      { type: 'list', items: [
+        'Nirmal "Nimsdai" Purja (Nepal and Britain), expedition leader.',
+        'Nadhira Al-Harthy (Oman), the first woman from her country to summit Everest.',
+        'Sarah Mallory Geis (United States), a 39-year-old climber from Texas who closed her studio to chase her mountain dream.',
+        'Pur Bahadur "Yukta" Gurung (Nepal), a veteran high-altitude guide.',
+        'Sohail Sakhi (Pakistan).',
+        'Wang Zhong (China).',
+        'Killi Pemba Sherpa (Nepal), Sherpa guide.',
+        'Nima Sherpa (Nepal), Sherpa guide.',
+        'Nawang Thindu Sherpa (Nepal), Sherpa guide.',
+        'Gyalu Sherpa (Nepal), Sherpa guide.',
+      ] },
+      { type: 'text', value: 'Each of them carried a story, a dream, and a family waiting at home.' },
+
+      { type: 'section', value: 'The meeting at Manaslu Base Camp' },
+      { type: 'text', value: 'For the HighAir team, this disaster feels closer than usual. In September 2025, while Chen Shaked was at Manaslu Base Camp as part of an Israeli expedition, he met Nimsdai himself.' },
+      { type: 'text', value: 'The photo of the two of them at base camp, less than a year before the disaster, turned in an instant from the memory of a professional encounter into part of the legacy of a legend lost. Chen remembers a man who was exactly as he had hoped: warm, present, and full of an energy that touched everyone who stood beside him.' },
+
+      { type: 'section', value: 'The real risks of high-altitude climbing' },
+      { type: 'text', value: 'The Broad Peak avalanche is a painful reminder that even the most experienced climbers in the world face real risks on the high mountains. These are the main dangers every climber must know:' },
+      { type: 'list', items: [
+        'Avalanches: the greatest danger on high mountains. Fresh snow over an unstable base creates ideal conditions for a slide.',
+        'Altitude sickness: above 3,000 metres the risk rises sharply. The 8,000-metre peaks sit in the "death zone", an altitude where the human body cannot recover.',
+        'Weather changes: at great height a storm can break in under an hour. Good weather windows are short and unpredictable.',
+        'Glaciers and crevasses: high-altitude glaciers constantly shift and split, creating the risk of falling into deep crevasses.',
+        'Mental strain: at altitude, decision-making becomes harder, and many climbers push for the summit despite warning signs because of their emotional investment.',
+      ] },
+      { type: 'text', value: 'This is exactly why high-altitude climbing demands thorough preparation, professional guidance, and absolute respect for the warnings the mountain gives.' },
+      { type: 'image', src: '/images/blog/broad-peak-karakoram.webp', alt: 'Broad Peak in the Karakoram range', caption: 'Broad Peak at daybreak, seen from Concordia camp in the Karakoram · Photo: Anne Dirkse' },
+
+      { type: 'section', value: 'A legacy of inspiration' },
+      { type: 'text', value: 'Nirmal Purja was not only a climber. He was a symbol of possibility. Living proof that a person of humble origins can reach heights no one dared to dream of.' },
+      { type: 'text', value: 'Beyond his personal achievements, Nimsdai founded the Nimsdai Foundation, which funded social projects in Nepal. One of the most notable was the porter house in Lobuche, a centre providing shelter for porters in the Everest region, part of his fight for the rights of Nepal\'s high-altitude workers.' },
+      { type: 'text', value: 'He was a strong, clear voice on the need to recognise the contribution of local Sherpas and porters, the people who so often remain anonymous beside the famous Western climbers. In that too, he changed the game.' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'Who was Nirmal "Nimsdai" Purja?' },
+      { type: 'text', value: 'A Nepali-British climber regarded as one of the greatest in history. He was the first person in the world to summit all 14 peaks above 8,000 metres in under six months, a record that still stands today.' },
+      { type: 'heading', value: 'How did Nimsdai Purja die?' },
+      { type: 'text', value: 'He died along with nine other climbers in an avalanche on Broad Peak in Pakistan, on 30 July 2026. None of the ten team members survived.' },
+      { type: 'heading', value: 'What is the Netflix film "14 Peaks"?' },
+      { type: 'text', value: '14 Peaks: Nothing Is Impossible is a 2021 Netflix documentary chronicling Project Possible, Nimsdai\'s ascent of all 14 peaks above 8,000 metres in under seven months.' },
+      { type: 'heading', value: 'Where is Broad Peak?' },
+      { type: 'text', value: 'Broad Peak, at 8,047 metres, sits in the Karakoram range on the Pakistan-China border, near K2. It is the twelfth highest mountain in the world.' },
+      { type: 'heading', value: 'How many climbers died in the Broad Peak avalanche?' },
+      { type: 'text', value: 'In the avalanche on 30 July 2026, all ten members of the team died: climbers and Sherpa guides from Nepal, the United States, Oman, Pakistan and China.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:5  kilimanjaro-difficulty  (DRAFT - removed, see git history)
    * ═══════════════════════════════════════════════════════════════════ */
   /* {

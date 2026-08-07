@@ -46,10 +46,15 @@ export default function HeroSection() {
 
  useEffect(() => {
  const video = videoRef.current;
- if (!video) return;
+ if (!video || window.innerWidth < 768) return;
+ let ticking = false;
  const onScroll = () => {
- const y = window.scrollY;
- video.style.transform = `translateZ(0) translateY(${y * 0.3}px)`;
+   if (ticking) return;
+   ticking = true;
+   requestAnimationFrame(() => {
+     video.style.transform = `translateZ(0) translateY(${window.scrollY * 0.3}px)`;
+     ticking = false;
+   });
  };
  window.addEventListener('scroll', onScroll, { passive: true });
  return () => window.removeEventListener('scroll', onScroll);

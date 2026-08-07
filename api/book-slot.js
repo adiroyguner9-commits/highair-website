@@ -16,6 +16,24 @@ function formatDateHe(dateStr) {
   return `יום ${HE_DAYS[d.getDay()]}, ${d.getDate()} ב${HE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 }
 
+/* Normalise any phone the client typed to a valid international IL number
+   ("972XXXXXXXXX") for the Green API chatId — handles 0…, +972…, "+972 0…",
+   and the missing-leading-0 case (e.g. "509892562" → "972509892562"). */
+function toIntlIL(raw) {
+  let d = String(raw || '').replace(/\D/g, '');
+  if (!d) return '';
+  if (d.startsWith('972') && d[3] === '0') d = '972' + d.slice(4);   // 9720… → 972…
+  else if (d.startsWith('0')) d = '972' + d.slice(1);                // 0… → 972…
+  else if (d.length === 9 && d[0] === '5') d = '972' + d;            // 5XXXXXXXX (dropped leading 0)
+  return d;
+}
+
+/* Stored format comes from the shared normaliser: "+972501234567". This file
+   used to keep its own copy that saved the LOCAL "0XXXXXXXXX" form, so every
+   call booked through the site re-dirtied the base — 11 appointments drifted
+   back in a single day before this was found (Aug 2 2026). */
+const canonPhone = normalizePhone;
+
 /* RFC 5545 §3.3.11 TEXT escaping for all user-supplied ICS values.
    Escapes backslash, semicolon, comma, and CR/LF — without this, attacker
    input in name/expedition can break out of an ICS line and inject new
@@ -75,7 +93,7 @@ function generateICS({ date, time, name, expedition }) {
 }
 
 /* Admin ICS — METHOD:REQUEST → iOS Mail shows Accept/Decline banner automatically */
-function generateAdminICS({ date, time, name, expedition }) {
+function generateAdminICS({ date, time, name, expedition, attendeeEmail, attendeeName }) {
   const { dtStart, dtEnd, uid } = icsDateTimes(date, time);
   const safeName       = icsEscape(name);
   const safeExpedition = icsEscape(expedition);
@@ -92,7 +110,7 @@ function generateAdminICS({ date, time, name, expedition }) {
     `SUMMARY:שיחה עם ${safeName}`,
     `DESCRIPTION:${desc}`,
     'ORGANIZER;CN=HighAir Expeditions:mailto:info@highair-expeditions.com',
-    'ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=HighAir Admin:mailto:info@highair-expeditions.com',
+    `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=${icsEscape(attendeeName || 'HighAir Admin', 60)}:mailto:${icsEscape(attendeeEmail || 'info@highair-expeditions.com', 120)}`,
     `UID:${uid}`,
     'STATUS:CONFIRMED',
     'SEQUENCE:0',
@@ -121,6 +139,24 @@ function googleCalUrl({ date, time, name, expedition }) {
   return `https://calendar.google.com/calendar/render?${params}`;
 }
 
+/* The lead's own agent gets the call in their calendar (owner, July 21 2026 —
+   Eldar asked for it). Opt-in per agent: an agent with no Email on their Agents
+   row simply gets nothing, so adding an address is all it takes to switch on.
+   Returns '' on any problem — a calendar invite must never break a booking. */
+async function lookupAgentEmail(fullName, BASE, TOKEN) {
+  const want = String(fullName || '').trim();
+  if (!want || !BASE || !TOKEN) return '';
+  try {
+    const url = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Agents')}?maxRecords=100`
+      + `&fields[]=${encodeURIComponent('Name')}&fields[]=${encodeURIComponent('Last Name')}&fields[]=${encodeURIComponent('Email')}`;
+    const r = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
+    if (!r.ok) return '';
+    const hit = ((await r.json()).records || []).find(x =>
+      [(x.fields?.Name || '').trim(), (x.fields?.['Last Name'] || '').trim()].filter(Boolean).join(' ') === want);
+    return String(hit?.fields?.Email || '').trim();
+  } catch (e) { console.warn('[book-slot] agent email lookup non-fatal:', e.message); return ''; }
+}
+
 /* ── Send email via Resend ── */
 async function sendEmail(key, { to, subject, html, attachments }) {
   try {
@@ -146,12 +182,16 @@ import {
   sanitiseFields,
   isValidDate,
   isValidTime,
-  isValidPhone,
   isValidEmail,
   isValidName,
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
+import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
+import { destHe } from './_lib/dest.js';
+import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
+import { israelNow } from './_lib/iltime.js';
+import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
 
 /* ════════════════════════════════════════════ */
 export default async function handler(req, res) {
@@ -166,7 +206,47 @@ export default async function handler(req, res) {
   }
 
   const raw = sanitiseFields(req.body || {});
-  const { date, time, name, phone, email, expedition } = raw;
+  let { date, time, name, email, expedition } = raw;
+  let phone = canonPhone(raw.phone);   // store every number in the canonical 0XXXXXXXXX format
+
+  const TOKEN = process.env.AIRTABLE_TOKEN;
+  const BASE  = process.env.AIRTABLE_BASE;
+  if (!TOKEN || !BASE) return res.status(500).json({ error: 'Server config error' });
+
+  /* ── Tokenized booking ──────────────────────────────────────────────────
+     A lead-specific link (/book/<slug>/<code>) carries only a short opaque
+     Book Code — never the client's name/phone in the URL. We already have
+     their details from the form they filled, so look them up server-side and
+     let the client go straight to the slot picker without re-entering. */
+  const tok = String(raw.lead || '').trim();
+  if (tok) {
+    try {
+      const F = 'fields[]=Name&fields[]=Phone&fields[]=Email&fields[]=Expedition';
+      let lf = null;
+      if (/^rec[A-Za-z0-9]{14}$/.test(tok)) {          // legacy record-id token
+        const lr = await fetch(
+          `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}/${tok}?${F}`,
+          { headers: { Authorization: `Bearer ${TOKEN}` } });
+        if (lr.ok) lf = (await lr.json()).fields || null;
+      } else if (/^[a-z0-9]{4,12}$/.test(tok)) {        // short Book Code
+        const f = encodeURIComponent(`{Book Code}="${tok}"`);
+        const lr = await fetch(
+          `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}?filterByFormula=${f}&maxRecords=1&${F}`,
+          { headers: { Authorization: `Bearer ${TOKEN}` } });
+        if (lr.ok) lf = (await lr.json()).records?.[0]?.fields || null;
+      }
+      if (lf) {
+        name       = name       || (lf.Name || '').trim();
+        email      = email      || (lf.Email || '').trim();
+        phone      = phone      || canonPhone(lf.Phone);
+        // The lead's own Expedition (the destination they enquired about) wins
+        // over whatever the link carried — a generic "call"/"שיחת ייעוץ" slug
+        // must never end up in the confirmation. So a Kilimanjaro lead's call
+        // reads "…לגבי טיפוס לקילימנג׳רו", an Annapurna lead's "…טרק סובב אנאפורנה".
+        expedition = (lf.Expedition || '').trim() || expedition;
+      }
+    } catch (e) { console.warn('[book-slot] lead token lookup non-fatal:', e.message); }
+  }
 
   /* ── Input validation ── */
   if (!date || !time || !name || !phone) {
@@ -181,33 +261,56 @@ export default async function handler(req, res) {
   if (!isValidName(name)) {
     return res.status(400).json({ error: 'Invalid name' });
   }
-  if (!isValidPhone(phone)) {
-    return res.status(400).json({ error: 'Invalid phone number' });
+  if (!phoneIsValid(phone)) {
+    return res.status(400).json({ error: phoneError(phone) || 'Invalid phone number' });
   }
   if (email && !isValidEmail(email)) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
 
-  const TOKEN = process.env.AIRTABLE_TOKEN;
-  const BASE  = process.env.AIRTABLE_BASE;
-  if (!TOKEN || !BASE) return res.status(500).json({ error: 'Server config error' });
+  const isStaffBooking = raw.staff === true || raw.staff === 'true';
 
-  // 1. Race-condition guard — double-check slot availability right before writing
-  try {
-    const formula = encodeURIComponent(`AND({Date}="${date}",{Time}="${time}",{Status}="confirmed")`);
-    const chk = await fetch(
-      `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}&fields[]=Time`,
-      { headers: { Authorization: `Bearer ${TOKEN}` } }
-    );
-    if (!chk.ok) throw new Error(`Airtable check failed: ${chk.status}`);
-    const chkData = await chk.json();
-    if ((chkData.records?.length || 0) > 0) {
-      return res.status(409).json({ error: 'slot_taken' });
+  /* ── Lead-time guard (customer self-bookings only) ─────────────────────
+     The slot list alone is not enough: a tab left open serves stale slots,
+     and until July 16, 2026 the list itself was computed in UTC — a customer
+     booked today's 10:30 at 10:35 Israel because the server thought it was
+     07:35. So the SERVER re-checks at the moment of booking, in Israel time:
+     nothing in the past, nothing closer than leadMin (owner's 2h rule).
+     Staff stay unrestricted — the Lead Center's custom-time booking is
+     deliberately allowed to schedule a call minutes ahead. */
+  if (!isStaffBooking) {
+    const il = israelNow();
+    const [sh, sm] = time.split(':').map(Number);
+    const slotMinutes = sh * 60 + sm;
+    let leadMin = 120;
+    try { leadMin = Number((await loadAvailability(TOKEN, BASE)).leadMin) || 120; } catch { /* keep default */ }
+    if (date < il.ymd || (date === il.ymd && slotMinutes < il.minutes + leadMin)) {
+      console.warn(`[book-slot] rejected too-soon slot ${date} ${time} (IL now ${il.ymd} ${Math.floor(il.minutes/60)}:${String(il.minutes%60).padStart(2,'0')}, leadMin ${leadMin})`);
+      return res.status(409).json({ error: 'slot_past' });
     }
-  } catch (e) {
-    console.warn('[book-slot] availability check failed:', e.message);
-    // Do not proceed if we can't verify — prevents overbooking on check failure
-    return res.status(503).json({ error: 'Unable to verify slot availability — please try again' });
+  }
+
+  // 1. Race-condition guard — double-check slot availability right before writing.
+  //    STAFF bookings (Lead Center custom time) skip it — the owner explicitly
+  //    allows double-booking a slot / parallel calls for the team. Customer
+  //    self-bookings still can't take an occupied slot.
+  if (!isStaffBooking) {
+    try {
+      const formula = encodeURIComponent(`AND({Date}="${date}",{Time}="${time}",{Status}="confirmed")`);
+      const chk = await fetch(
+        `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}&fields[]=Time`,
+        { headers: { Authorization: `Bearer ${TOKEN}` } }
+      );
+      if (!chk.ok) throw new Error(`Airtable check failed: ${chk.status}`);
+      const chkData = await chk.json();
+      if ((chkData.records?.length || 0) > 0) {
+        return res.status(409).json({ error: 'slot_taken' });
+      }
+    } catch (e) {
+      console.warn('[book-slot] availability check failed:', e.message);
+      // Do not proceed if we can't verify — prevents overbooking on check failure
+      return res.status(503).json({ error: 'Unable to verify slot availability — please try again' });
+    }
   }
 
   // 2. Write to Airtable
@@ -232,28 +335,130 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Booking failed' });
   }
 
-  // 3. Fire Make webhook (non-blocking) — triggers GHL stage update
-  const MAKE_APPT_WEBHOOK = 'https://hook.eu2.make.com/2xpqelx2obj2y78uzi1nvd8lr2kmjxar';
-  fetch(MAKE_APPT_WEBHOOK, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name:       name       || '',
-      phone:      phone      || '',
-      email:      email      || '',
-      expedition: expedition || '',
-      date:       date       || '',
-      time:       time       || '',
-    }),
-  }).catch(err => console.warn('[book-slot] Make webhook non-fatal:', err.message));
+  // 2b. Advance the matching Website Lead to "Call Scheduled" (by phone, last 9
+  //     digits) — but only if it hasn't progressed past the call step yet. Also
+  //     grab its Assigned Agent so the alert goes only to that agent.
+  let assignedAgent = '';
+  try {
+    const last9 = String(phone).replace(/\D/g, '').slice(-9);
+    if (last9.length === 9) {
+      const formula = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone},"[^0-9]",""),9)="${last9}"`);
+      const find = await fetch(
+        `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}?filterByFormula=${formula}&fields[]=Stage&fields[]=Assigned Agent&fields[]=Activity Log&fields[]=Expedition&maxRecords=1`,
+        { headers: { Authorization: `Bearer ${TOKEN}` } }
+      );
+      if (find.ok) {
+        const rec = (await find.json()).records?.[0];
+        const stage = rec?.fields?.Stage || '';
+        assignedAgent = (rec?.fields?.['Assigned Agent'] || '').trim();
+        /* Booking a call ALWAYS puts the lead in "Call Scheduled" (owner, July 21
+           2026: "לא משנה באיזה סטייג הוא נמצא"). Awaiting-Deposit-A and
+           Not-Relevant used to be skipped; they are not anymore. Re-running it on
+           a lead already at Call Scheduled is intentional too — the stage write is
+           a no-op but the Activity Log entry and the Kilimanjaro re-assignment
+           below still need to happen for a re-booking.
+           ONE exception: "Deposit A Paid". Payroll counts a closing by its STAGE,
+           so demoting a won deal would silently delete the agent's commission
+           (4 closed leads currently have calls; $370 of July pay sits on them).
+           A post-sale call must not cost an agent their money. */
+        if (rec && stage !== 'Deposit A Paid') {
+          // Record the booking in the lead's Activity Log (newest first) so the
+          // team can see who booked when, with full oversight.
+          const stamp = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+          const entry = `[${stamp}] Call scheduled · ${date} at ${time}`;
+          const prevLog = rec.fields?.['Activity Log'] || '';
+          const patch = { Stage: 'Call Scheduled', 'Nudge Sent': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry };
+
+          /* ── Kilimanjaro: ONE global 4:1 split toward Tomer Lan (owner,
+             July 23 2026 — replaces the old booked/non-booked inverse buckets).
+             Wherever a Kilimanjaro lead enters — fresh form lead or straight to
+             a booked call — Lan takes 4 of every 5, Harush the 5th. Booking is
+             no longer a reassignment signal, so this path only fills in a lead
+             that has NO agent yet (created right here, or the lead-notify cron
+             hasn't reached it) and never takes a lead away from anyone.
+             lead-notify.js runs the identical tally — keep the two in step.
+
+             The ratio is held by COUNTING what has been assigned since the rule
+             went live, not by a counter (a serverless instance loses those), so
+             it self-corrects and never tries to repair the older backlog. */
+          const KILI_LAN = 'Tomer Lan', KILI_HARUSH = 'Tomer Harush';
+          const KILI_RATIO_FROM = '2026-08-06T11:58:04.878Z';   // reset on the owner's call (6 Aug 2026) —
+  // the old buckets held INVERSE ratios, so counting their mix against the new
+  // single ratio would misread history. The tally starts genuinely empty here.
+          const isKili = /קילימנ|kilimanjaro/i.test(String(rec.fields?.Expedition || ''));
+          if (isKili && !assignedAgent) {
+            let takeIt = true;   // default to Lan if the tally can't be read
+            try {
+              const f = `AND(OR(FIND("קילימנ",{Expedition}&"")>0,FIND("Kilimanjaro",{Expedition}&"")>0),`
+                /* CREATED_TIME(), not {Assigned At}: Airtable writes it itself so it
+                   can never be blank. A blank {Assigned At} used to hide an
+                   assignment from this tally entirely. Must match pickKiliAgent()
+                   in the webapp exactly. */
+                + `IS_AFTER(CREATED_TIME(),"${KILI_RATIO_FROM}"),`
+                + `OR({Assigned Agent}="${KILI_LAN}",{Assigned Agent}="${KILI_HARUSH}"))`;
+              const u = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}`
+                + `?filterByFormula=${encodeURIComponent(f)}&pageSize=100`
+                + `&sort%5B0%5D%5Bfield%5D=${encodeURIComponent('Created Time')}&sort%5B0%5D%5Bdirection%5D=desc`
+                + `&fields[]=${encodeURIComponent('Assigned Agent')}`;
+              const tr = await fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` } });
+              if (tr.ok) {
+                let lan = 0, har = 0;
+                for (const x of ((await tr.json()).records || [])) {
+                  if (x.fields?.['Assigned Agent'] === KILI_LAN) lan++; else har++;
+                }
+                /* Strict cycle of five: L L L L H, repeating. Must stay
+                   byte-for-byte in step with pickKiliAgent() in the webapp's
+                   api/lead-notify.js — the two share one tally, and if they
+                   disagree on the rule they will fight over the phase. */
+                takeIt = ((lan + har) % 5) !== 4;
+              }
+            } catch (e) { console.warn('[book-slot] kili ratio non-fatal:', e.message); }
+            const winner = takeIt ? KILI_LAN : KILI_HARUSH;
+            patch['Assigned Agent'] = winner;
+            patch['Assigned At']    = new Date().toISOString();
+            assignedAgent = winner;   // so the staff alert + invite go to the right agent
+          }
+
+          await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}/${rec.id}`, {
+            method:  'PATCH',
+            headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+            // Also suppress the "book a call" nudge — they just booked one. (The
+            // nudge cron independently re-checks for an appointment as a backstop
+            // in case this lookup raced a just-created lead and found nothing.)
+            body:    JSON.stringify({ fields: patch }),
+          });
+        }
+      }
+    }
+  } catch (e) { console.warn('[book-slot] lead stage update non-fatal:', e.message); }
+
+  /* The Make.com appointment webhook was removed with GoHighLevel (owner,
+     Jul 30 2026): it existed only to push a GHL stage update. The lead's own
+     stage is already advanced directly above this. */
+
+    // A STAFF booking (from the admin Lead Center) during the global messaging pause
+  // is SILENT: the appointment is created + the lead advanced above (so the call
+  // lands in the calendar), but no client/staff messages go out. A real website
+  // booking (no `staff` flag) always confirms, even while paused.
+  let silent = false;
+  if (raw.staff === true || raw.staff === 'true') {
+    try {
+      const pr = await fetch(`https://api.airtable.com/v0/${BASE}/AppContent?filterByFormula=${encodeURIComponent('{Key}="lead_messaging_paused"')}&fields[]=Value&maxRecords=1`, { headers: { Authorization: `Bearer ${TOKEN}` } });
+      const pv = String((await pr.json()).records?.[0]?.fields?.Value || '').trim().toLowerCase();
+      if (pv === '1' || pv === 'true' || pv === 'yes' || pv === 'on') silent = true;   // match the cron's truthiness
+    } catch (e) { console.warn('[book-slot] pause check non-fatal:', e.message); }
+  }
+
+  // Destination in HEBREW for every customer-facing message (never "Kilimanjaro").
+  const expeditionHe = destHe(expedition);
 
   // 4. WhatsApp confirmation to client via Green API
   const GA_INSTANCE = process.env.GREENAPI_INSTANCE;
   const GA_TOKEN    = process.env.GREENAPI_TOKEN;
-  if (GA_INSTANCE && GA_TOKEN && phone) {
+  if (!silent && GA_INSTANCE && GA_TOKEN && phone) {
     try {
-      const clientNum = phone.replace(/^0/, '972').replace(/-/g, '').replace(/\s/g, '');
-      const waMessage = `היי ${name} 👋🏼\n\nהשיחה שלך לגבי ${expedition || 'HighAir Expeditions'} שוריינה בהצלחה! 🏔️\n\n🗓️ מתי? ${formatDateHe(date)}\n⏰ שעה: ${time}\n\nאנחנו נתקשר אליך בזמן שנקבע. מצפים לשוחח איתך! 😁`;
+      const clientNum = toIntlIL(phone);
+      const waMessage = `היי ${firstName(name)} 👋🏼\n\nהשיחה שלך לגבי ${expeditionHe} שוריינה בהצלחה! 🏔️\n\n🗓️ מתי? ${formatDateHe(date)}\n⏰ שעה: ${time}\n\nאנחנו נתקשר אליך בזמן שנקבע. מצפים לשוחח איתך! 😁`;
       const gaRes = await fetch(
         `https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`,
         {
@@ -269,18 +474,48 @@ export default async function handler(req, res) {
     }
   }
 
+  // 4b. Staff alert — tell the team a call was booked.
+  //     PUSH-FIRST via the webapp's push-hook (owners+admins always, the assigned
+  //     agent / destination coverer when it's theirs; WhatsApp only as a fallback
+  //     for a recipient with no push device yet — handled inside the hook).
+  //     If PUSH_HOOK_SECRET isn't configured, fall back to the legacy Green alert.
+  if (!silent) {
+    const staffMsg =
+      `‏ליד קבע שיחה! 📅\nשם: ${name || '—'}\nטלפון: ${phone || '—'}` +
+      (expedition ? `\nיעד: ${expeditionHe}` : '') +
+      `\nמתי: ${formatDateHe(date)} בשעה ${time}` +
+      (assignedAgent ? `\nמשויך ל: ${assignedAgent}` : '');
+    const HOOK_SECRET = process.env.PUSH_HOOK_SECRET || '';
+    if (HOOK_SECRET) {
+      await fetch(`https://app.highair-expeditions.com/api/push-hook?key=${encodeURIComponent(HOOK_SECRET)}`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          kind: 'call_booked',   // text/icon owner-editable via AppContent "push_templates"
+          name: name || phone || '—', phone: phone || '',
+          destination: expedition || '', date: formatDateHe(date), time: time || '',
+          assignedAgent, waText: staffMsg, tag: `call-${phone}`,
+        }),
+      }).then(r => r.json())
+        .then(d => console.log('[book-slot] push-hook alert', d))
+        .catch(e => console.warn('[book-slot] push-hook non-fatal:', e.message));
+    }
+    // Staff alerts are PUSH-ONLY now (WhatsApp retired at the owner's request);
+    // the legacy Green-API staff-WhatsApp fallback has been removed.
+  }
+
   // 5. Build shared assets
   const RESEND_KEY = process.env.RESEND_API_KEY;
   const dateHe     = formatDateHe(date);
-  const clientNum  = phone.replace(/^0/, '972').replace(/-/g, '');
+  const clientNum  = toIntlIL(phone);
   const waText     = encodeURIComponent(
-    `שלום ${name}!\nהשיחה שלך עם HighAir Expeditions אושרה 🏔️\n📅 ${dateHe}\n🕐 ${time}\nנשמח לדבר איתך בקרוב!`
+    `שלום ${firstName(name)}!\nהשיחה שלך עם HighAir Expeditions אושרה 🏔️\n📅 ${dateHe}\n🕐 ${time}\nנשמח לדבר איתך בקרוב!`
   );
   const waLink  = `https://wa.me/${clientNum}?text=${waText}`;
-  const gcalUrl = googleCalUrl({ date, time, name, expedition });
+  const gcalUrl = googleCalUrl({ date, time, name, expedition: expeditionHe });
 
   // ICS for client — PUBLISH format (regular event)
-  const icsContent = generateICS({ date, time, name, expedition });
+  const icsContent = generateICS({ date, time, name, expedition: expeditionHe });
   const icsBase64  = Buffer.from(icsContent, 'utf-8').toString('base64');
   const icsAttachment = [{
     filename:     'highair-meeting.ics',
@@ -289,7 +524,7 @@ export default async function handler(req, res) {
   }];
 
   // ICS for admin — REQUEST format (iOS shows Accept/Decline banner automatically)
-  const adminIcsContent = generateAdminICS({ date, time, name, expedition });
+  const adminIcsContent = generateAdminICS({ date, time, name, expedition: expeditionHe });
   const adminIcsBase64  = Buffer.from(adminIcsContent, 'utf-8').toString('base64');
   const adminIcsAttachment = [{
     filename:     'highair-meeting.ics',
@@ -298,10 +533,10 @@ export default async function handler(req, res) {
   }];
 
   // Direct ICS link — for iOS/macOS (opens Calendar app directly)
-  const icsParams  = new URLSearchParams({ date, time, name: name || '', expedition: expedition || '' });
+  const icsParams  = new URLSearchParams({ date, time, name: name || '', expedition: expeditionHe || '' });
   const icsLink    = `https://highair-website.vercel.app/api/calendar-invite?${icsParams}`;
 
-  if (RESEND_KEY) {
+  if (!silent && RESEND_KEY) {
 
     // ── Client email ─────────────────────────────────────────────────────
     if (email) {
@@ -330,7 +565,7 @@ export default async function handler(req, res) {
         <div style="background:#F5F0FF;border-radius:12px;padding:20px 32px;margin-bottom:28px;">
           <p style="margin:0 0 6px;font-size:14px;color:#7c3aed;font-weight:700;">${dateHe}</p>
           <p style="margin:0;font-size:36px;color:#1e1b4b;font-weight:800;letter-spacing:-1px;">${time}</p>
-          ${expedition ? `<p style="margin:8px 0 0;font-size:13px;color:#9591B0;">משלחת: ${escapeHtml(expedition)}</p>` : ''}
+          ${expedition ? `<p style="margin:8px 0 0;font-size:13px;color:#9591B0;">משלחת: ${escapeHtml(expeditionHe)}</p>` : ''}
         </div>
 
         <table cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
@@ -375,7 +610,8 @@ export default async function handler(req, res) {
       });
     }
 
-    // ── Admin email ───────────────────────────────────────────────────────
+    // ── Admin email — to info@ only. Employees are alerted via WhatsApp
+    //    (Green API → STAFF_NOTIFY_PHONES) instead. ──────────────────────────
     await sendEmail(RESEND_KEY, {
       to:          'info@highair-expeditions.com',
       subject:     `נקבעה שיחה חדשה - ${name} 📅`,
@@ -437,6 +673,60 @@ export default async function handler(req, res) {
 </table>
 </body></html>`,
     });
+
+    /* ── The lead's own agent gets the same invite, in their calendar ──
+       Opt-in: only agents with an Email on their Agents row. The ICS names THEM
+       as the attendee (not info@), so Accept/Decline is theirs. Best-effort —
+       wrapped so a failed invite can never fail the booking itself. */
+    try {
+      const agentTo = await lookupAgentEmail(assignedAgent, BASE, TOKEN);
+      if (agentTo) {
+        const agentIcs = generateAdminICS({
+          date, time, name, expedition: expeditionHe,
+          attendeeEmail: agentTo, attendeeName: assignedAgent,
+        });
+        await sendEmail(RESEND_KEY, {
+          to:      agentTo,
+          subject: `שיחה חדשה עם ${name} 📅`,
+          attachments: [{
+            filename:     'highair-meeting.ics',
+            content:      Buffer.from(agentIcs, 'utf-8').toString('base64'),
+            content_type: 'text/calendar; charset=utf-8; method=REQUEST',
+          }],
+          html: `
+<!DOCTYPE html><html dir="rtl" lang="he">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
+  <tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
+      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
+        <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">נקבעה לך שיחה</h1>
+        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
+      </td></tr>
+      <tr><td style="padding:32px;">
+        <table width="100%" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;margin-bottom:24px;">
+          ${row('שם',    name)}
+          ${row('טלפון', phone)}
+          ${email      ? row('מייל',   email)      : ''}
+          ${expedition ? row('משלחת', expedition) : ''}
+          ${row2('תאריך', dateHe)}
+          ${row2('שעה',   time)}
+        </table>
+        <p style="text-align:center;margin:0;font-size:12px;color:#9591B0;">
+          הזימון מצורף למייל — אישור יוסיף אותו ליומן שלך
+        </p>
+      </td></tr>
+      <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
+        <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`,
+        });
+      }
+    } catch (e) { console.warn('[book-slot] agent invite non-fatal:', e.message); }
   }
 
   return res.json({ ok: true });

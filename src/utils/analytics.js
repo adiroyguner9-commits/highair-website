@@ -33,6 +33,16 @@ export const Analytics = {
 
   // Lead capture funnel — wired into CTASection.jsx
   leadFormStart:    (source) => trackEvent('lead_form_start',  { source }),
+  /* GA4 only. The Meta side is deliberately NOT touched from here.
+     Events Manager for 9 Jul – 5 Aug 2026 shows Lead already arriving at 182
+     events across 26 ad sets, against roughly 209 website-form leads in
+     Airtable for the same window — so Meta's own automatic form detection is
+     already catching these submits. Pushing an explicit `lead` event as well
+     would fire the GTM Meta tag on top of that and report leads twice, which
+     is worse than the gap it would close. The one real weakness there is that
+     the event carries no parameters ("No event parameters were detected"), and
+     that is fixed by turning automatic detection OFF and firing explicitly —
+     one deliberate change, not a second event layered on the first. */
   leadSubmit:       (params = {}) => trackEvent('generate_lead', { currency: 'ILS', ...params }),
   leadSubmitError:  (reason) => trackEvent('lead_submit_error', { error: reason }),
 

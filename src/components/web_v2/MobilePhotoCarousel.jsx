@@ -141,36 +141,89 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
                   {hintLabel}
                 </div>
               )}
+
+              {/* ── Photo counter chip ── */}
+              {images.length > 1 && (
+                <div style={{
+                  position:       'absolute',
+                  top:            '12px',
+                  [isRtl ? 'left' : 'right']: '12px',
+                  background:     'rgba(0,0,0,0.45)',
+                  backdropFilter: 'blur(6px)',
+                  borderRadius:   '20px',
+                  padding:        '3px 10px',
+                  color:          '#fff',
+                  fontSize:       '11px',
+                  fontWeight:     600,
+                  fontFamily:     "'Ploni', sans-serif",
+                  pointerEvents:  'none',
+                  direction:      'ltr',
+                  zIndex:         2,
+                }}>
+                  {i + 1}/{images.length}
+                </div>
+              )}
             </div>
           );
         })}
       </div>
 
-      {/* ── Dots ── */}
+      {/* ── Dots — windowed (max 5 visible) so 12+ photos stay clean ── */}
       <div style={{
         display:        'flex',
         justifyContent: 'center',
+        alignItems:     'center',
         gap:            '6px',
         marginTop:      '14px',
         direction:      'ltr',
       }}>
-        {images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => scrollToIdx(i)}
-            style={{
-              width:        activeIdx === i ? '20px' : '7px',
-              height:       '7px',
-              borderRadius: '4px',
-              background:   activeIdx === i ? '#6D28D9' : '#D1C9F0',
-              border:       'none',
-              padding:      0,
-              cursor:       'pointer',
-              transition:   'all 0.25s ease',
-            }}
-            aria-label={`תמונה ${i + 1}`}
-          />
-        ))}
+        {(() => {
+          const MAX_DOTS = 5;
+          const total = images.length;
+          if (total <= MAX_DOTS) {
+            return images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToIdx(i)}
+                style={{
+                  width:        activeIdx === i ? '20px' : '7px',
+                  height:       '7px',
+                  borderRadius: '4px',
+                  background:   activeIdx === i ? '#6D28D9' : '#D1C9F0',
+                  border:       'none',
+                  padding:      0,
+                  cursor:       'pointer',
+                  transition:   'all 0.25s ease',
+                }}
+                aria-label={`תמונה ${i + 1}`}
+              />
+            ));
+          }
+          /* sliding window centred on the active dot */
+          let start = Math.max(0, Math.min(activeIdx - Math.floor(MAX_DOTS / 2), total - MAX_DOTS));
+          const visible = Array.from({ length: MAX_DOTS }, (_, k) => start + k);
+          return visible.map(i => {
+            const isActive = activeIdx === i;
+            const isEdge = (i === visible[0] && i > 0) || (i === visible[MAX_DOTS - 1] && i < total - 1);
+            return (
+              <button
+                key={i}
+                onClick={() => scrollToIdx(i)}
+                style={{
+                  width:        isActive ? '20px' : isEdge ? '5px' : '7px',
+                  height:       isActive ? '7px' : isEdge ? '5px' : '7px',
+                  borderRadius: '4px',
+                  background:   isActive ? '#6D28D9' : '#D1C9F0',
+                  border:       'none',
+                  padding:      0,
+                  cursor:       'pointer',
+                  transition:   'all 0.25s ease',
+                }}
+                aria-label={`תמונה ${i + 1}`}
+              />
+            );
+          });
+        })()}
       </div>
 
     </div>

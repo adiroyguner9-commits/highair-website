@@ -69,7 +69,13 @@ for (const route of staticRoutes) {
 }
 
 // /expedition/:slug  — from mockData.js
-const expeditionSlugs = extractSlugs(path.join(ROOT, 'src/data/mockData.js'));
+/* Import the real module instead of regex-scraping the file: extractSlugs
+   matched EVERY `slug:` it found, so an expedition hidden with live:false still
+   got listed and indexed. That already applied to kilimanjaro-kosher while it
+   was off the air, and would have exposed the safari templates. Same
+   `live !== false` rule the nav, footer and HTML shells use. */
+const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
+const expeditionSlugs = EXPS.filter(e => e.live !== false && e.slug).map(e => e.slug);
 for (const slug of expeditionSlugs) {
   urls.push(urlEntry({
     loc: `${BASE_URL}/expedition/${slug}`,

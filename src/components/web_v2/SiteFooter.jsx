@@ -12,8 +12,8 @@ import { NAV_EXPS as EXPS } from '../../data/navData.js';
 import { ISRAEL_TRIPS as ALL_ISRAEL_TRIPS } from '../../data/israelData.js';
 
 /* ── Expeditions ordered by continent: Africa → Europe → Asia → South America ── */
-const TREK_IDS  = [4,  3,  2, 6, 7, 8];
-const CLIMB_IDS = [10, 11, 5, 9, 12, 13, 14, 16, 15];
+const TREK_IDS  = [4, 17, 3,  2, 6, 7, 8];
+const CLIMB_IDS = [10, 5, 9, 12, 13, 14, 16, 15];
 const TREKS  = TREK_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 const CLIMBS = CLIMB_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 
@@ -115,11 +115,14 @@ export default function SiteFooter() {
 
   const ISRAEL_TRIPS = ALL_ISRAEL_TRIPS
     .filter(trip => trip.live !== false && !trip.hidden)
+    /* Date-bound trips (e.g. community trips) drop out the day after departure */
+    .filter(trip => !trip.departure || new Date(trip.departure) >= new Date(new Date().toDateString()))
     .map(trip => ({ label: isEn ? (trip.nameEn || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
 
   const INFO_LINKS = [
     // { label: t('footer.shop'), href: '/shop' }, // hidden until shop is ready
     { label: t('footer.blog'),         href: '/blog'          },
+    { label: t('footer.contact'),      href: '/contact'       },
     { label: t('footer.cancellation'), href: '/cancellation'  },
     { label: t('footer.terms'),        href: '/terms'         },
     { label: t('footer.privacy'),      href: '/privacy'       },

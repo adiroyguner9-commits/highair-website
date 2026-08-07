@@ -41,7 +41,7 @@ export const NAV_EXPS = [
     "nameEn": "Simien & Danakil Desert",
     "country": "Ethiopia",
     "countryHe": "אתיופיה",
-    "elev": "4550m",
+    "elev": "4430m",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -188,6 +188,18 @@ export const NAV_EXPS = [
     "elev": "7134m",
     "type": "Climbing",
     "typeHe": "טיפוס"
+  },
+  {
+    "id": 17,
+    "slug": "sinai",
+    "name": "Sinai High Mountains",
+    "nameHe": "טרק להר הגבוה בסיני",
+    "nameEn": "Sinai High Mountains Trek",
+    "country": "Egypt",
+    "countryHe": "מצרים",
+    "elev": "2642m",
+    "type": "Trekking",
+    "typeHe": "טרק"
   }
 ];
 
@@ -215,7 +227,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Olympus"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 10
   },
   {
     "id": 3,
@@ -239,7 +251,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Peaks_of_Balkan"
     ],
-    "groupCapacity": 14
+    "groupCapacity": 15
   },
   {
     "id": 4,
@@ -287,7 +299,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Kazbek"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
   },
   {
     "id": 6,
@@ -311,7 +323,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Manaslu_Circut"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 10
   },
   {
     "id": 7,
@@ -335,7 +347,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "EBC + Gokyo"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 10
   },
   {
     "id": 8,
@@ -359,7 +371,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Annapurna_Circut"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 10
   },
   {
     "id": 9,
@@ -383,7 +395,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Elbrus"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
   },
   {
     "id": 10,
@@ -457,7 +469,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Lobuche_Peak"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
   },
   {
     "id": 13,
@@ -481,7 +493,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Island_Peak"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
   },
   {
     "id": 14,
@@ -505,7 +517,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Mera_Peak"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
   },
   {
     "id": 15,
@@ -529,7 +541,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Aconcagua"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
   },
   {
     "id": 16,
@@ -553,18 +565,36 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Lenin_Peak"
     ],
-    "groupCapacity": 15
+    "groupCapacity": 12
+  },
+  {
+    "id": 17,
+    "slug": "sinai",
+    "name": "Sinai High Mountains",
+    "nameHe": "טרק להר הגבוה בסיני",
+    "nameEn": "Sinai High Mountains Trek",
+    "country": "Egypt",
+    "countryHe": "מצרים",
+    "flag": "🇪🇬",
+    "img": "/images/cards/sinai.webp",
+    "grad": "linear-gradient(135deg,#7c2d12,#c2410c,#451a03)",
+    "elevNum": 2642,
+    "type": "Trekking",
+    "typeHe": "טרק",
+    "diff": "High",
+    "diffHe": "גבוהה",
+    "price": 950,
+    "priceStr": "$950",
+    "continent": "africa",
+    "airtableEvents": [
+      "Sinai"
+    ],
+    "groupCapacity": 12
   }
 ];
 
 // prettier-ignore
 export const NAV_ISRAEL = [
-  {
-    "slug": "hermon",
-    "name": "טרק לפסגת החרמון",
-    "nameEn": "Mount Hermon Trek",
-    "live": true
-  },
   {
     "slug": "yagur",
     "name": "נחל יגור",
@@ -636,5 +666,12 @@ export const NAV_ISRAEL = [
     "name": "הר מירון",
     "nameEn": "Mount Meron",
     "live": false
+  },
+  {
+    "slug": "elal",
+    "name": "טיול קהילה - נחל אלעל",
+    "nameEn": "Community Trip - Nahal El Al",
+    "live": true,
+    "departure": "2026-08-07"
   }
 ];

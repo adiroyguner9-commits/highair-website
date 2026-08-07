@@ -5,9 +5,13 @@ export function useBreakpoint() {
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
   useEffect(() => {
-    const handler = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
+    let timer;
+    const handler = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => setWidth(window.innerWidth), 100);
+    };
+    window.addEventListener('resize', handler, { passive: true });
+    return () => { window.removeEventListener('resize', handler); clearTimeout(timer); };
   }, []);
   return {
     isMobile:  width < 768,

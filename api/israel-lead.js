@@ -2,7 +2,8 @@
  * POST /api/israel-lead
  * Called by IsraelDetail.jsx when a user submits the registration form.
  * Creates a record in the IsraelCustomers Airtable table with status "ממתין לתשלום".
- * Also fires GHL + Make webhooks and sends an email notification via Resend.
+ * Also fires the Make webhook and sends an email notification via Resend.
+ * (GoHighLevel retired Jul 30 2026 — this file never called it, the mention was stale.)
  *
  * Required env vars:
  *   AIRTABLE_TOKEN    — shared token (same as submit-lead.js)
@@ -12,12 +13,12 @@
 
 import {
   escapeHtml,
-  isValidPhone,
   isValidEmail,
   isValidName,
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
+import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 
 const TABLE_NAME = 'IsraelCustomers';
 
@@ -73,15 +74,19 @@ export default async function handler(req, res) {
   if (!isValidName(String(name || ''))) {
     return res.status(400).json({ error: 'Invalid name' });
   }
-  if (!phone || !isValidPhone(String(phone))) {
-    return res.status(400).json({ error: 'Invalid phone number' });
+  if (!phone || !phoneIsValid(String(phone))) {
+    /* Say what is actually wrong, like every other form does. A generic
+       "Invalid phone number" leaves the customer guessing which digit. */
+    return res.status(400).json({ error: phoneError(phone) || 'Invalid phone number' });
   }
   if (email && !isValidEmail(String(email))) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
 
   const cleanName     = String(name).trim().slice(0, 100);
-  const cleanPhone    = String(phone).trim().slice(0, 25);
+  /* Same company format as every other entry point, or this endpoint quietly
+     re-dirties the base one Israel-trek signup at a time (Aug 2 2026). */
+  const cleanPhone    = normalizePhone(phone) || String(phone).trim().slice(0, 25);
   const cleanEmail    = email ? String(email).trim().slice(0, 255) : '';
   const cleanTripName = String(tripName || '').trim().slice(0, 200);
   const pkg        = packageId ? PACKAGE_MAP[packageId] : null;
@@ -133,23 +138,12 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Network error' });
   }
 
-  /* ── 2. Make webhook (non-blocking) ── */
-  const MAKE_WEBHOOK = 'https://hook.eu2.make.com/qq7w1dck9ovbdk1aqft3hh0j8xk5xlnd';
-  fetch(MAKE_WEBHOOK, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name:       cleanName,
-      phone:      cleanPhone,
-      email:      cleanEmail,
-      expedition: cleanTripName,
-      tripDate:   tripDate || '',
-      package:    pkg?.label || '',
-      source:     'Israel Trek',
-    }),
-  }).catch(err => console.warn('[israel-lead] Make non-fatal:', err.message));
+  /* The Make.com webhook that used to fire here was removed with GoHighLevel
+     (owner, Jul 30 2026) — its only job was to push the lead into the GHL
+     pipeline. Leads live in Airtable; the webapp's api/lead-notify cron owns
+     assignment and alerts. */
 
-  /* ── 4. Email notification via Resend (awaited to ensure delivery on Vercel) ── */
+    /* ── 4. Email notification via Resend (awaited to ensure delivery on Vercel) ── */
   const RESEND_KEY = process.env.RESEND_API_KEY;
   if (RESEND_KEY) {
     const emailHtml = `

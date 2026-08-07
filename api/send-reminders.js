@@ -11,6 +11,21 @@
 export const config = { api: { bodyParser: false } };
 
 import { setSecurityHeaders } from './_security.js';
+import { destHe } from './_lib/dest.js';
+import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
+
+/* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for the
+   Green API chatId — handles 0…, +972…, "+972 0…", and the missing-leading-0
+   case (e.g. "509892562" → "972509892562"). Same helper as book-slot.js so
+   reminders can never silently fail on a badly-formatted number. */
+function toIntlIL(raw) {
+  let d = String(raw || '').replace(/\D/g, '');
+  if (!d) return '';
+  if (d.startsWith('972') && d[3] === '0') d = '972' + d.slice(4);
+  else if (d.startsWith('0')) d = '972' + d.slice(1);
+  else if (d.length === 9 && d[0] === '5') d = '972' + d;
+  return d;
+}
 
 function isAuthorizedCron(req) {
   const expected = process.env.CRON_SECRET;
@@ -96,8 +111,9 @@ export default async function handler(req, res) {
     if (slotMinutes < windowStart || slotMinutes > windowEnd) continue;
 
     // Send WhatsApp reminder
-    const clientNum = Phone.replace(/^0/, '972').replace(/[-\s]/g, '');
-    const message   = `היי ${Name || ''}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${Expedition} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
+    const clientNum = toIntlIL(Phone);
+    if (!clientNum) continue;
+    const message   = `היי ${firstName(Name)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
 
     try {
       const waRes  = await fetch(

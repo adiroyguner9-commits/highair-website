@@ -4,21 +4,28 @@
  */
 
 import { useState } from 'react';
+/* The same module the lead endpoints validate with, so the field can never
+   accept a number the server will refuse (or the other way round). */
+import { phoneIsValid } from '../../../api/_lib/phone.js';
 
-// max:  max characters allowed in local number field (including separators)
+/* max: characters the field accepts, separators included. MUST be at least as
+   long as that country's own placeholder — Israel used to cap at 11 while
+   showing "050-000-0000" (12), so a customer typing the format we asked for had
+   the last digit silently eaten, passed the loose 9-digit check, and became a
+   lead nobody could ever call (Aug 2 2026). */
 // ph:   placeholder example
 // minD: minimum digit count for validation
 // maxD: maximum digit count for validation
 const COUNTRIES = [
-  { code: 'IL', dial: '+972',  label: 'IL +972',  max: 11, ph: '050-000-0000',    minD: 9,  maxD: 10 },
+  { code: 'IL', dial: '+972',  label: 'IL +972',  max: 14, ph: '050-0000000',     minD: 9,  maxD: 10, il: true },
   { code: 'US', dial: '+1',    label: 'US +1',    max: 12, ph: '201-555-0123',    minD: 10, maxD: 10 },
   { code: 'GB', dial: '+44',   label: 'GB +44',   max: 12, ph: '07911 123456',    minD: 10, maxD: 11 },
-  { code: 'DE', dial: '+49',   label: 'DE +49',   max: 12, ph: '0151 23456789',   minD: 10, maxD: 11 },
+  { code: 'DE', dial: '+49',   label: 'DE +49',   max: 15, ph: '0151 23456789',   minD: 10, maxD: 11 },
   { code: 'FR', dial: '+33',   label: 'FR +33',   max: 14, ph: '06 12 34 56 78',  minD: 10, maxD: 10 },
-  { code: 'IT', dial: '+39',   label: 'IT +39',   max: 11, ph: '312 345 6789',    minD: 9,  maxD: 11 },
-  { code: 'ES', dial: '+34',   label: 'ES +34',   max: 9,  ph: '612 345 678',     minD: 9,  maxD: 9  },
+  { code: 'IT', dial: '+39',   label: 'IT +39',   max: 14, ph: '312 345 6789',    minD: 9,  maxD: 11 },
+  { code: 'ES', dial: '+34',   label: 'ES +34',   max: 13, ph: '612 345 678',     minD: 9,  maxD: 9  },
   { code: 'NL', dial: '+31',   label: 'NL +31',   max: 11, ph: '06 12345678',     minD: 9,  maxD: 10 },
-  { code: 'AU', dial: '+61',   label: 'AU +61',   max: 11, ph: '0412 345 678',    minD: 9,  maxD: 10 },
+  { code: 'AU', dial: '+61',   label: 'AU +61',   max: 14, ph: '0412 345 678',    minD: 9,  maxD: 10 },
   { code: 'CA', dial: '+1',    label: 'CA +1',    max: 12, ph: '416-555-0123',    minD: 10, maxD: 10 },
   { code: 'RU', dial: '+7',    label: 'RU +7',    max: 13, ph: '912 345-67-89',   minD: 10, maxD: 11 },
   { code: 'BR', dial: '+55',   label: 'BR +55',   max: 13, ph: '11 91234-5678',   minD: 10, maxD: 11 },
@@ -67,14 +74,40 @@ export function formatFullPhone(dial, local) {
 }
 
 /**
+ * Live mask for the Israeli box: 050-1234567 for a mobile (05X / 07X),
+ * 03-1234567 for a landline. Same shape the customer app now uses, so the
+ * number looks identical wherever someone types it. Other countries keep
+ * whatever separators they are used to.
+ */
+function maskIsraeli(raw) {
+  let d = String(raw ?? '').replace(/\D/g, '');
+  if (!d) return '';
+  if (!d.startsWith('0')) d = '0' + d;          // they skipped the leading zero
+  const split = /^0[57]/.test(d) ? 3 : 2;
+  d = d.slice(0, split + 7);
+  return d.length > split ? `${d.slice(0, split)}-${d.slice(split)}` : d;
+}
+
+/**
  * Validates that the local number has the correct digit count for the dial code.
  * Returns true if valid, false otherwise.
  */
 export function validatePhone(dial, local) {
   if (!local || !local.trim()) return false;
   const country = COUNTRIES.find(c => c.dial === dial) || COUNTRIES[0];
-  const digits = local.replace(/\D/g, '').length;
-  return digits >= country.minD && digits <= country.maxD;
+  const d = local.replace(/\D/g, '');
+  /* Filler like 0555555555 or 1234567890 passes every digit-count rule — 055 is
+     a real prefix and the length is right. One customer test with 555555555
+     became a real lead record, so the shared rule runs here too. */
+  if (!phoneIsValid(dial + d.replace(/^0+/, ''))) return false;
+  /* Israel has two exact shapes, and "between 9 and 10 digits" cannot tell a
+     landline from a mobile missing a digit. 05X/07X carry 10 with the leading
+     zero; geographic 02/03/04/08/09 carry 9. Same rule the server enforces. */
+  if (country.il) {
+    const n = d.replace(/^0+/, '');
+    return /^[57]/.test(n) ? n.length === 9 : n.length === 8;
+  }
+  return d.length >= country.minD && d.length <= country.maxD;
 }
 
 /**
@@ -186,7 +219,7 @@ export default function PhoneField({
             const raw = e.target.value.replace(/[^\d\s\-]/g, '');
             const digitCount = raw.replace(/\D/g, '').length;
             if (digitCount > country.maxD) return;
-            onLocalChange(raw);
+            onLocalChange(country.il ? maskIsraeli(raw) : raw);
           }}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}

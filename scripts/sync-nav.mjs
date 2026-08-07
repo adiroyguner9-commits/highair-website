@@ -50,9 +50,10 @@ const CARD_EXP_FIELDS = [
   'price', 'priceStr', 'continent', 'airtableEvents', 'groupCapacity',
 ];
 
-/** Fields needed for Israel trips in Header sub-menu */
+/** Fields needed for Israel trips in Header sub-menu.
+    `departure` lets nav/footer hide date-bound trips once the date passes. */
 const NAV_ISRAEL_FIELDS = [
-  'slug', 'name', 'nameEn', 'live',
+  'slug', 'name', 'nameEn', 'live', 'departure',
 ];
 
 /* ── Build slim datasets ────────────────────────────────────────────────── */
@@ -60,8 +61,17 @@ function pick(obj, fields) {
   return Object.fromEntries(fields.filter(f => f in obj).map(f => [f, obj[f]]));
 }
 
-const navExps    = EXPS.map(e => pick(e, NAV_EXP_FIELDS));
-const cardExps   = EXPS.map(e => pick(e, CARD_EXP_FIELDS));
+/* Drafts (live:false) are excluded by DEFAULT, so `npm run build` — and every
+   deploy that runs it — can never publish an unfinished page, even by mistake.
+   Set INCLUDE_DRAFTS=1 to pull them in for local review:
+       INCLUDE_DRAFTS=1 npm run sync-nav
+   Nothing in the production pipeline sets that variable. */
+const INCLUDE_DRAFTS = !!process.env.INCLUDE_DRAFTS;
+const isPublic = e => INCLUDE_DRAFTS || e.live !== false;
+if (INCLUDE_DRAFTS) console.log('    [drafts] including live:false expeditions — LOCAL PREVIEW ONLY');
+
+const navExps    = EXPS.filter(isPublic).map(e => pick(e, NAV_EXP_FIELDS));
+const cardExps   = EXPS.filter(isPublic).map(e => pick(e, CARD_EXP_FIELDS));
 const navIsrael  = ISRAEL_TRIPS.filter(t => !t.hidden).map(t => pick(t, NAV_ISRAEL_FIELDS));
 
 /* ── Write output ───────────────────────────────────────────────────────── */
