@@ -84,29 +84,6 @@ function msgNudge2(name, expedition) {
    shared with api/notify-no-answer.js (the Lead Center's instant trigger) so
    both paths send the identical message with identical guards. */
 
-/* ── Post-call nurture touches (owner, Jul 26 2026) ──
-   #4b day 9:  generic community-trek invite (no specific date — deliberately
-               simple; a reply hands the lead to the agents).
-   #4c day 16: soft close naming their destination. Last touch — after this the
-               lead goes quiet and auto-archive (when enabled) retires it. */
-function msgCommunity(name) {
-  // Owner's wording (Jul 29 2026) — invites the lead into the quiet WhatsApp
-  // community group instead of asking for a reply.
-  return `היי ${firstName(name)}! 🙂\n\n`
-    + `חוץ מהמסעות בחו״ל, אנחנו מארגנים טרקים וטיולי הכנה בארץ וזו הזדמנות מעולה להכיר אותנו מקרוב ולפגוש את החבר׳ה מהקבוצות שלנו בעולם.\n\n`
-    + `אנחנו מעדכנים על טיולים, טיפים לציוד ותוכן למטיילים בקבוצת הווצאפ השקטה שלנו.\n\n`
-    + `ניתן להצטרף אלינו כאן 👇\nhttps://chat.whatsapp.com/Lg6zPiIFp5RGSkOARrBmuX`;
-}
-function msgSoftClose(name, expedition) {
-  // Owner-approved wording + spacing (Jul 29 2026) — sent three weeks after the call.
-  const info = destInfo(expedition);
-  const about = info.slug !== 'call' ? `ה${info.he}` : 'המסע';
-  return `היי ${firstName(name)} 🙂\n\n`
-    + `עברו כמה שבועות מאז השיחה שלנו על ${about}, רצינו לבדוק איפה הדברים עומדים אצלך.\n\n`
-    + `הקבוצות לעונה הקרובה נסגרות בימים אלה, ואם המסע עדיין על הפרק נשמח לשריין לך מקום.\n\n`
-    + `יש שאלה או התלבטות? אפשר פשוט להשיב כאן.`;
-}
-
 /* msgFollowUp lives in _lib/followup.js — shared with api/send-followup.js (the
    admin's manual "send now" button) so both send the identical message. */
 /* The deposit-welcome message + FB Purchase now live in _lib/deposit-welcome.js
@@ -199,7 +176,7 @@ export default async function handler(req, res) {
     return (j.records || []).length > 0;
   };
 
-  const result = { nudge: 0, nudgeFailed: 0, nudge2: 0, nudge2Failed: 0, noAnswer: 0, noAnswerFailed: 0, followUp: 0, followUpFailed: 0, followUpNoPhone: 0, callDoneStamped: 0, community: 0, communityFailed: 0, softClose: 0, softCloseFailed: 0, depositA: 0, fbPurchase: 0, errors: [] };
+  const result = { nudge: 0, nudgeFailed: 0, nudge2: 0, nudge2Failed: 0, noAnswer: 0, noAnswerFailed: 0, followUp: 0, followUpFailed: 0, followUpNoPhone: 0, callDoneStamped: 0, depositA: 0, fbPurchase: 0, errors: [] };
 
   /* ── #3 NUDGE ── form lead, no call booked, submitted 10–65 min ago ──────── */
   try {
@@ -346,51 +323,12 @@ export default async function handler(req, res) {
     }
   } catch (e) { result.errors.push('followUp: ' + e.message); }
 
-  /* ── #4b COMMUNITY INVITE ── 10 days after the call, still undecided ──
-     Generic on purpose (no trek date lookup — owner wants SIMPLE). Same shape
-     as every other touch: bounded window so old history can never match,
-     once-only flag claimed BEFORE sending, quiet hours, and the claim write
-     also pins the touch to the card's Activity Log for on-card visibility.
-     Only stages Call Done / Follow-Up Sent qualify — Not Relevant, closings and
-     re-booked leads are out by definition. */
-  try {
-    const hourIL = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
-    if (hourIL >= 9 && hourIL < 21) {
-      const stampNow = () => new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
-      const rows4b = await queryLeads(`AND({Call Done At}!='',{Follow-Up 2 Sent}!=TRUE(),OR({Stage}='Call Done',{Stage}='Follow-Up Sent'),{Phone}!='')`);
-      for (const rec of rows4b) {
-        const f = rec.fields || {};
-        const ageD = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
-        if (!(ageD >= 10 && ageD < 17)) continue;
-        const entry = `[${stampNow()}] Community invite sent (auto)`;
-        const prevLog = f['Activity Log'] || '';
-        const claim = await patchLead(rec.id, { 'Follow-Up 2 Sent': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry });
-        if (!claim.ok) { result.errors.push('community claim failed ' + rec.id); continue; }
-        const sent = await sendWA(f.Phone, msgCommunity(f.Name));
-        if (sent.ok) { result.community++; continue; }
-        await patchLead(rec.id, { 'Follow-Up 2 Sent': false });
-        result.communityFailed++;
-        result.errors.push(`community send failed ${f.Name || rec.id}: ${sent.error}`);
-      }
-
-      /* ── #4c SOFT CLOSE ── 21 days (three weeks) after the call: the LAST touch ── */
-      const rows4c = await queryLeads(`AND({Call Done At}!='',{Follow-Up 3 Sent}!=TRUE(),OR({Stage}='Call Done',{Stage}='Follow-Up Sent'),{Phone}!='')`);
-      for (const rec of rows4c) {
-        const f = rec.fields || {};
-        const ageD = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
-        if (!(ageD >= 21 && ageD < 28)) continue;
-        const entry = `[${stampNow()}] Closing touch sent (auto)`;
-        const prevLog = f['Activity Log'] || '';
-        const claim = await patchLead(rec.id, { 'Follow-Up 3 Sent': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry });
-        if (!claim.ok) { result.errors.push('softClose claim failed ' + rec.id); continue; }
-        const sent = await sendWA(f.Phone, msgSoftClose(f.Name, f.Expedition));
-        if (sent.ok) { result.softClose++; continue; }
-        await patchLead(rec.id, { 'Follow-Up 3 Sent': false });
-        result.softCloseFailed++;
-        result.errors.push(`softClose send failed ${f.Name || rec.id}: ${sent.error}`);
-      }
-    }
-  } catch (e) { result.errors.push('nurture: ' + e.message); }
+  /* #4b COMMUNITY INVITE (10 days) and #4c SOFT CLOSE (21 days) were removed on
+     8 Aug 2026 at the owner's instruction. The nurture now ends at #4, the
+     4-day follow-up. Their Airtable flags — Follow-Up 2 Sent / Follow-Up 3
+     Sent — and msgCommunity / msgSoftClose are gone with them; if either touch
+     ever comes back it should be rebuilt against the stage model of that day,
+     not resurrected from here. */
 
   /* ── #5 DEPOSIT A ── moved to "Deposit A Paid" (closing) ─────────────────── */
   try {
