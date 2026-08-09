@@ -826,7 +826,9 @@ export default function Header() {
  { key: 'climbs', href: '#expeditions', hasMega: true, megaType: 'climbs' },
  { key: 'treks', href: '#expeditions', hasMega: true, megaType: 'treks' },
  { key: 'israelTrips', href: '#israel', hasMega: true, megaType: 'israel' },
- { key: 'safari', href: '/safari', isPage: true, hasMega: true, megaType: 'safari' },
+ /* Tanzania Safari hidden from the menu (owner, 2026-08-08) until told to show it.
+    The /safari page still works by direct link; re-add this line to restore it. */
+ // { key: 'safari', href: '/safari', isPage: true, hasMega: true, megaType: 'safari' },
  { key: 'annualPlan', href: '/annual-plan', isPage: true },
  { key: 'about', href: '/about', isPage: true },
  /* Blog and Contact moved to the FOOTER (owner, Jul 30 2026): adding the

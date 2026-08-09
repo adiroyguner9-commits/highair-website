@@ -623,6 +623,14 @@ export default function ExpeditionDetail() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const allMonths = [...new Map(liveGroups.filter(g => new Date(g.departure) >= today).map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const visibleGroups = groupsForYear.filter(g => monthKey(g.departure) === activeMonth);
+  /* Any month that has a women's-group departure gets its own "(נשים)" option
+     in the form's month picker, so a lead can pick it without clicking the card. */
+  const womenSuffix = isRtl ? ' (נשים)' : ' (Women)';
+  const womenMonths = [...new Set(
+    liveGroups
+      .filter(g => new Date(g.departure) >= today && (g.groupName || '').toLowerCase().includes('women'))
+      .map(g => monthLabel(g.departure))
+  )];
   const capacity = exp?.groupCapacity || 15;
   /* noDates = no live Airtable groups → show only "Flexible" in the form */
   const noDates = allMonths.length === 0;
@@ -640,6 +648,9 @@ export default function ExpeditionDetail() {
   const [phoneError, setPhoneError] = useState('');
   const [showBooking, setShowBooking] = useState(true);
   const [isWaitlist,  setIsWaitlist]  = useState(false);
+  /* Tags a lead as coming from the women's-group card so the team can tell it
+     apart from a regular October lead. Cleared if the month is changed by hand. */
+  const [womenGroup,  setWomenGroup]  = useState(false);
   const [ageError,   setAgeError]   = useState('');
 
 
@@ -693,7 +704,7 @@ export default function ExpeditionDetail() {
             'Age': form.age ? Number(form.age) : undefined,
             'Group Size': form.groupSize ? Number(form.groupSize) : undefined,
             'Experience': form.experience || undefined,
-            'Source': (isWaitlist ? 'Waitlist - ' : 'Expedition Page - ') + exp.nameHe,
+            'Source': (isWaitlist ? 'Waitlist - ' : 'Expedition Page - ') + exp.nameHe + (womenGroup ? ' · קבוצת נשים (עדי טנא)' : ''),
           },
           calendarId: exp.ghlCalendarId || '',
           expeditionTag: exp.tagHe || exp.name || '',
@@ -1818,7 +1829,12 @@ export default function ExpeditionDetail() {
                   });
                   const isFull = spotsLeft <= 0 || isManualSoldOut;
                   const isLow  = !isFull && spotsLeft <= 6;
-                  const spotsBadge = isFull
+                  /* Women's expedition — flagged by a "Women" marker in the Airtable
+                     Group Name; gets a distinct pink border. */
+                  const isWomen = (g.groupName || '').toLowerCase().includes('women');
+                  const spotsBadge = (isWomen && !isFull)
+                    ? { bg: '#FBCFE8', color: '#9D174D', text: isRtl ? 'קבוצת נשים · עדי טנא' : "Women's group · Adi Tana", women: true }
+                    : isFull
                     ? { bg: '#FEE2E2', color: '#991B1B', text: isRtl ? 'קבוצה מלאה' : 'Group Full' }
                     : isLow
                     ? { bg: '#FEF3C7', color: '#92400E', text: isRtl ? (spotsLeft === 1 ? 'נשאר מקום אחרון!' : `נשארו ${spotsLeft} מקומות`) : (spotsLeft === 1 ? 'Last spot left!' : `${spotsLeft} spots left`) }
@@ -1828,10 +1844,12 @@ export default function ExpeditionDetail() {
                       display: 'grid',
                       gridTemplateColumns: '1fr 1fr 1fr',
                       alignItems: 'center',
-                      border: `1px solid ${isFull ? '#FECACA' : isLow ? '#FDE68A' : '#ECEAF8'}`,
+                      border: isWomen
+                        ? '1.5px solid #F472B6'
+                        : `1px solid ${isFull ? '#FECACA' : isLow ? '#FDE68A' : '#ECEAF8'}`,
                       borderRadius: RADIUS.lg,
                       padding: isMobile ? '14px 16px' : '12px 20px',
-                      background: isFull ? '#FAFAFA' : '#fff',
+                      background: isWomen ? '#FCE7F3' : (isFull ? '#FAFAFA' : '#fff'),
                       direction: dir,
                       boxShadow: '0 1px 4px rgba(0,0,0,0.04)', transition: `box-shadow 0.2s, border-color 0.2s`,
                     }}
@@ -1856,8 +1874,11 @@ export default function ExpeditionDetail() {
                           background: spotsBadge.bg, color: spotsBadge.color,
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: '11px', fontWeight: 700,
-                          padding: '3px 10px', borderRadius: '999px',
-                          letterSpacing: '0.01em', whiteSpace: 'nowrap',
+                          padding: spotsBadge.women ? '4px 12px' : '3px 10px',
+                          borderRadius: spotsBadge.women ? '12px' : '999px',
+                          letterSpacing: '0.01em',
+                          whiteSpace: spotsBadge.women ? 'normal' : 'nowrap',
+                          lineHeight: spotsBadge.women ? 1.25 : 'normal',
                           minWidth: '110px', textAlign: 'center',
                         }}>
                           {spotsBadge.text}
@@ -1869,7 +1890,8 @@ export default function ExpeditionDetail() {
                         <button
                           onClick={() => {
                             setIsWaitlist(isFull);
-                            setForm(f => ({ ...f, month: monthLabel(g.departure) }));
+                            setWomenGroup(isWomen);
+                            setForm(f => ({ ...f, month: monthLabel(g.departure) + (isWomen ? womenSuffix : '') }));
                             scrollToForm();
                           }}
                           style={{
@@ -2358,7 +2380,7 @@ export default function ExpeditionDetail() {
                       <select
                         required value={form.month}
                         onFocus={() => trackFieldFocus('month')}
-                        onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
+                        onChange={e => { setWomenGroup(false); setForm(f => ({ ...f, month: e.target.value })); }}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
@@ -2370,16 +2392,19 @@ export default function ExpeditionDetail() {
                       <select
                         required value={form.month}
                         onFocus={() => trackFieldFocus('month')}
-                        onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
+                        onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setForm(f => ({ ...f, month: e.target.value })); }}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       >
                         <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
                         {allMonths.length > 0
-                          ? allMonths.map(([key, label]) => (
-                              <option key={key} value={label}>{label}</option>
-                            ))
+                          ? allMonths.flatMap(([key, label]) => [
+                              <option key={key} value={label}>{label}</option>,
+                              ...(womenMonths.includes(label)
+                                ? [<option key={`w-${key}`} value={`${label}${womenSuffix}`}>{`${label}${womenSuffix}`}</option>]
+                                : []),
+                            ])
                           : (exp.dates || []).map((d, i) => (
                               <option key={i} value={d}>{d}</option>
                             ))
