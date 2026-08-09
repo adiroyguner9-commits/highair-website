@@ -919,7 +919,13 @@ export default function ExpeditionDetail() {
           alignItems: 'center',
           justifyContent: 'space-between',
           textAlign: 'center',
-          padding: isMobile ? '140px 6% 120px' : '160px 8% 130px',
+          /* Clearance under the header, measured rather than guessed: the two
+             breakpoints do not carry the same chrome. Desktop also renders the
+             Google-rating bar above the header, so the same 160px put the title
+             only 36px below it while mobile, with no bar, had a comfortable 60.
+             These values give 72px on both. Tuned as a pair — changing one
+             without re-measuring the other brings the imbalance back. */
+          padding: isMobile ? '152px 6% 120px' : '196px 8% 130px',
         }}>
           {/* Title: name + elevation - pinned to top */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

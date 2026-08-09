@@ -128,8 +128,17 @@ export default function IsraelDetail() {
   const dayItin         = isEn ? (trip?.itineraryEn?.[0] || trip?.itinerary?.[0]) : trip?.itinerary?.[0];
   const itinDistance    = dayItin?.distance || '';
   const rawElevGain     = (isEn ? trip?.itineraryEn?.[0]?.elevationGain : trip?.itinerary?.[0]?.elevationGain) || '';
+  /* The value carries only the number; the word next to it is the LABEL, which
+     the caller already renders. 'טיפוס מצטבר' was missing from this list, so
+     Arbel and the Keziv prep trek were the only two whose value did not match
+     any pattern, passed through untouched, and printed "+400 מ׳ טיפוס מצטבר"
+     directly under a label reading "טיפוס מצטבר". Every other trip says
+     "עלייה" or "ירידה" and came out clean, which is why it went unnoticed.
+     Longest phrase first: 'טיפוס מצטבר' has to be consumed before anything
+     shorter can match inside it. */
   function stripElev(s) {
     return s
+      .replace(' טיפוס מצטבר', '')
       .replace(' עלייה', '').replace(' ירידה', '')
       .replace(' gain', '').replace(' descent', '')
       .replace(/\s*מ׳$/, '').replace(/\s*m$/i, '')
@@ -437,7 +446,11 @@ export default function IsraelDetail() {
           position: 'absolute', inset: 0, zIndex: 2,
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           justifyContent: 'space-between', textAlign: 'center',
-          padding: isMobile ? '140px 6% 120px' : '160px 8% 130px',
+          /* Kept identical to the expedition hero on purpose — the two pages are
+             the same layout and drifting apart is exactly how they stopped
+             matching before. See the note in ExpeditionDetail for why the two
+             breakpoints need different numbers to land on the same 72px. */
+          padding: isMobile ? '152px 6% 120px' : '196px 8% 130px',
         }}>
           {/* Title pinned to top */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
