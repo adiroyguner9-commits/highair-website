@@ -34,6 +34,19 @@ export const NAV_EXPS = [
     "typeHe": "טרק"
   },
   {
+    "id": 21,
+    "slug": "scardus",
+    "name": "Scardus Ridge Trek",
+    "nameHe": "טרק רכס הסקארדוס",
+    "nameEn": "Scardus Ridge Trek",
+    "country": "North Macedonia",
+    "countryHe": "צפון מקדוניה",
+    "elev": "2350m",
+    "type": "Trekking",
+    "typeHe": "טרק",
+    "comingSoon": true
+  },
+  {
     "id": 4,
     "slug": "ethiopia",
     "name": "Simien & Danakil Desert",
@@ -252,6 +265,29 @@ export const CARD_EXPS = [
       "Peaks_of_Balkan"
     ],
     "groupCapacity": 15
+  },
+  {
+    "id": 21,
+    "slug": "scardus",
+    "name": "Scardus Ridge Trek",
+    "nameHe": "טרק רכס הסקארדוס",
+    "nameEn": "Scardus Ridge Trek",
+    "country": "North Macedonia",
+    "countryHe": "צפון מקדוניה",
+    "flag": "🇲🇰",
+    "img": "/images/cards/scardus.webp",
+    "grad": "linear-gradient(135deg,#16a34a,#15803d,#052e16)",
+    "elevNum": 2350,
+    "type": "Trekking",
+    "typeHe": "טרק",
+    "diff": "Moderate",
+    "diffHe": "בינוני",
+    "price": 1850,
+    "priceStr": "€1850",
+    "continent": "europe",
+    "airtableEvents": [],
+    "groupCapacity": 15,
+    "comingSoon": true
   },
   {
     "id": 4,

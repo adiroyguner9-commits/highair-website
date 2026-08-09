@@ -139,6 +139,14 @@ function ExpCard({ exp }) {
             {t('explorer.soldOut')}
           </div>
         )}
+        {/* A trek that is announced but whose material has not arrived yet. Same
+            badge shape as sold-out so the card layout is unchanged; amber rather
+            than red because it invites rather than closes the door. */}
+        {!exp.soldOut && exp.comingSoon && (
+          <div style={{ padding: '4px 10px', borderRadius: RADIUS.full, background: '#D97706', fontFamily: 'Ploni, sans-serif', fontSize: '11px', fontWeight: 700, color: '#FFFFFF' }}>
+            {isEn ? 'Coming soon' : 'בקרוב'}
+          </div>
+        )}
       </div>
 
       {/* Name / elevation / arrow */}
@@ -185,7 +193,10 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
   const stacked = stackOnMobile && isMobile;
 
   /* Cards sorted low → high */
-  const TREK_IDS   = [4, 3, 2, 6, 7, 8, 17];
+  /* 21 = Scardus. The order here is the card order; a trek with no elevation
+     yet sorts to the front on the altitude sort below, so it is listed last and
+     given a nominal sort value in the comparator instead. */
+  const TREK_IDS   = [4, 3, 2, 6, 7, 8, 17, 21];
   const CLIMB_IDS  = [5, 9, 10, 11, 12, 13, 14, 15, 16];
   const SAFARI_IDS = [18, 19, 20];   // 3 / 5 / 7 days
   const cards = (type === 'treks' ? TREK_IDS : type === 'safari' ? SAFARI_IDS : CLIMB_IDS)
@@ -193,9 +204,12 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
     .filter(Boolean)
     /* Safari sorts by DURATION (3 → 5 → 7); the mountains sort by altitude,
        which is meaningless for a game drive. */
+    /* A trek whose altitude is not known yet would sort to the very front on a
+       0, landing an unannounced page ahead of every real one. Sort those to the
+       end instead. */
     .sort((a, b) => (type === 'safari'
       ? (parseInt(a.days, 10) || 0) - (parseInt(b.days, 10) || 0)
-      : (a.elevNum || 0) - (b.elevNum || 0)));
+      : ((a.elevNum || Infinity) - (b.elevNum || Infinity))));
 
   /* Recalculate card width when container resizes */
   useEffect(() => {

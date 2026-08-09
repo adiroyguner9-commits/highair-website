@@ -301,6 +301,252 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       { day: 10, title: 'Flight Back Home!', desc: 'We start the day with breakfast at the hotel, then pack up and check out. Board the transfer to Tirana airport for the flight back home to Israel. During the flight, share memories and experiences from this wonderful journey  -  full of photos and stories to tell :)' },
     ],
   },
+  /* ── טרק רכס הסקארדוס — LIVE, content still coming ─────────────────────
+     comingSoon:true puts a "בקרוב" tag on the card and in the menu and shows a
+     banner on the page. The trek is visible so the form can collect interest
+     while the supplier's material is still on its way.
+
+     Every field we do not yet know is '[למילוי]' or an empty array ON PURPOSE.
+     ExpeditionDetail's filled() guard drops those, so the section simply does
+     not render — far better than publishing the Balkans itinerary, price and
+     FAQ under a different trek's name, which is what a straight clone left
+     behind. Fill them in and the sections come back on their own.
+
+     Card and OG images still point at the Balkans files until real ones exist. */
+  {
+    id: 21, slug: 'scardus', name: 'Scardus Ridge Trek', nameHe: 'טרק רכס הסקארדוס', live: true, comingSoon: true, country: 'North Macedonia', countryHe: 'צפון מקדוניה', flag: '🇲🇰',
+    ghlCalendarId: '', tagHe: 'רכס הסקארדוס',
+    imgPosition: 'center 55%',
+    heroVideo: '',
+    elev: '2350m', elevNum: 2350, days: '10 ימים', daysEn: '10 days', type: 'Trekking', typeHe: 'טרק',
+    diff: 'Moderate', diffHe: 'בינוני', price: 1850, priceStr: '€1850', continent: 'europe',
+    img: '/images/cards/scardus.webp',
+    ogImage: '/images/og/scardus.jpg',
+    seoTitle:       'HighAir Expeditions | טרק רכס הסקארדוס',
+    seoTitleEn:     'Scardus Ridge Trek | HighAir Expeditions',
+    seoDescription: 'טרק רכס הסקארדוס - 10 ימים בין צפון מקדוניה, קוסובו ואלבניה. רכסים פתוחים, אגמים קרחוניים ולינה אצל משפחות מקומיות. קבוצה קטנה במסלול שעוד לא התגלה.',
+    seoDescriptionEn: 'Scardus Ridge Trek - 10 days across North Macedonia, Kosovo and Albania. Open ridgelines, glacial lakes and stays with local families. Small groups on a route still off the map.',
+    grad: 'linear-gradient(135deg,#16a34a,#15803d,#052e16)',
+    desc: `רכס הסקארדוס נמתח לאורך הגבול של צפון מקדוניה, קוסובו ואלבניה, והוא אחד האזורים ההרריים המוכרים פחות באירופה. המסלול שלנו חוצה שלוש מדינות ברצף אחד, בין רכסים פתוחים, אגמים קרחוניים ושטחי מרעה גבוהים שמתנהלים היום כפי שהתנהלו לפני מאה שנה.
+
+לאורך התכנית, בת עשרה ימים, נעבור בין כפרי הרים קטנים ונתארח אצל משפחות מקומיות שמארחות את ההולכים בשביל. הימים נפתחים בעלייה מתונה אל קו הרכס ונחתמים בארוחה ביתית ובשיחה עם אנשי המקום, בקצב שמשאיר מקום להתבונן ולא רק לצעוד.
+
+מה שמייחד את הסקארדוס הוא השקט. אין כאן עומס בשבילים ואין תשתית תיירות רחבה, אלא נוף פתוח שמשתנה ממדינה למדינה ותחושה של מקום שטרם התרגל למבקרים.
+
+הצטרפו אלינו למסע חוצה גבולות ברכס הסקארדוס, וקחו חלק משמעותי במאבק במחלת הסרטן.`,
+    highlights: [],
+    nameEn: 'Scardus Ridge Trek',
+    descEn: `The Scardus Ridge runs along the border of North Macedonia, Kosovo and Albania, through one of the least known mountain regions in Europe. Our route crosses all three countries in a single continuous line, between open ridgelines, glacial lakes and high pastures still worked much as they were a century ago.
+
+Over ten days we pass through small mountain villages and stay with the local families who host walkers along the trail. Days open with a steady climb to the ridge and close with a home cooked meal and conversation with the people who live there, at a pace that leaves room to look around and not only to walk.
+
+What sets Scardus apart is the quiet. There are no crowds on the paths and no wide tourist infrastructure, only open country that changes from one border to the next and the feeling of a place not yet used to visitors.
+
+Join us for a cross border journey along the Scardus Ridge, and take a meaningful part in the fight against cancer.`,
+    highlightsEn: [],
+    included: [
+      'קיט ממותג מתנה - כובע וחולצת דרייפיט!',
+      'העברות משדה התעופה בטירנה ובחזרה',
+      'לינה בבקתת הרים, מלונות וגסטהאוסים לאורך המסלול',
+      '3 ארוחות ביום לכל אורך הטרק',
+      'מדריכים מקומיים מקצועיים דוברי אנגלית',
+      'העברות ציוד לכל אורך הטרק',
+      'אישורי מעברי גבולות בין המדינות',
+      'מכשיר לוויני של מגנוס (אחד לקבוצה)',
+      'מפגש הכנה על ציוד בחנות ציוד טיולים',
+      'טרק הכנה חד יומי בארץ עם חברי הקבוצה',
+      'תרומה משמעותית למאבק במחלת הסרטן!',
+    ],
+    notIncluded: [
+      'כרטיסי טיסה בינלאומיים (דרך סוכן נסיעות שלנו)',
+      'ביטוח נסיעות וביטוח רפואי (דרך סוכן ביטוח שלנו)',
+      'ציוד אישי - לבוש והנעלה',
+      'טיפים למדריכים',
+      'כל מה שלא צוין בחלק הכלול בטרק',
+    ],
+    includedEn: [
+      'Branded kit gift - cap and dry-fit shirt!',
+      'Transfers from and to Tirana airport',
+      'Mountain hut, hotels and guesthouses throughout the route',
+      '3 meals per day throughout the trek',
+      'Professional local English-speaking guides',
+      'Luggage transfers throughout the trek',
+      'Border crossing permits between countries',
+      'Magnus satellite device (one per group)',
+      'Gear preparation meeting at a trekking equipment store',
+      'One-day preparatory trek in Israel with group members',
+      'Meaningful donation to the fight against cancer!',
+    ],
+    notIncludedEn: [
+      'International flights (via our travel agent)',
+      'Travel & medical insurance (via our insurance agent)',
+      'Personal gear - clothing and footwear',
+      'Tips for guides',
+      'Anything not listed in the included section',
+    ],
+    safety: [],
+    dates: [],
+    datesEn: [],
+    videoUrl: null,
+    seasons: ['יוני-אוקטובר'],
+    seasonsEn: ['June-October'],
+    successRate: 0,
+    groupCapacity: 15,
+    airtableEvents: [],
+    soldOutGroups: [],
+    itinerary: [
+      {
+        day: 1,
+        title: 'נחיתה בטירנה - סטארו סלו - בקתת ליובוטן',
+        desc: `ננחת בשדה התעופה הבינלאומי בטירנה ונצא בנסיעה דרך קוסובו אל סטארו סלו שבצפון מקדוניה, נקודת הפתיחה הרשמית של שביל הסקארדוס.
+
+לאחר תדריך קצר נצא לקטע ההליכה הראשון שלנו, דרך יערות אשור אל בקתת ההרים ההיסטורית ליובוטן, השוכנת למרגלות המצוקים המרשימים של הר ליובוטן.`,
+        accommodation: 'בקתת ההרים ליובוטן',
+      },
+      {
+        day: 2,
+        title: 'בקתת ליובוטן - ברזוביצה',
+        desc: `היום נחצה את הגבול הבינלאומי אל קוסובו ונצעד לאורך הרכסים האלפיניים הגבוהים של הרי השאר.
+
+השביל עובר למרגלות הר ליובוטן המרשים ומציע נופי הרים עוצרי נשימה, ולאחר מכן יורד דרך אחו אלפיני אל אתר הנופש ההררי ברזוביצה.`,
+        accommodation: 'מלון בברזוביצה',
+      },
+      {
+        day: 3,
+        title: 'ברזוביצה - פרוואלה',
+        desc: `אחד הקטעים היפים ביותר בשביל הסקארדוס.
+
+המסלול עוקב אחר רכסי הרים גבוהים עם נוף פנורמי אל כל רחבי הרי השאר, ולאחר מכן יורד אל כפר ההרים היפהפה פרוואלה, המוקף ביערות אורן צפופים.`,
+        accommodation: 'גסטהאוס או מלון בפרוואלה',
+      },
+      {
+        day: 4,
+        title: 'פרוואלה - גורניה ליובינייה - פריזרן',
+        desc: `השביל יורד דרך נופי הרים מסורתיים אל גורניה ליובינייה, ומשם ניסע אל העיר ההיסטורית פריזרן.
+
+אחר הצהריים יעמוד לרשותנו לסיור בבירה התרבותית של קוסובו, המפורסמת באדריכלות העות׳מאנית שלה, בעיר העתיקה התוססת ובמטבח המקומי המשובח.`,
+        accommodation: 'מלון בפריזרן',
+      },
+      {
+        day: 5,
+        title: 'פריזרן - הסלע השחור - אגם קרניקולה - בוזובצה',
+        desc: `לאחר נסיעת בוקר אל תחילת השביל מעל פריזרן, נטפס היום לעבר הסלע השחור.
+
+משם נמשיך בשטח אלפיני גבוה אל אגם קרניקולה היפהפה, ולאחר מכן נרד אל כפר ההרים המסורתי בוזובצה שבצפון מקדוניה.`,
+        accommodation: 'גסטהאוס בבוזובצה',
+      },
+      {
+        day: 6,
+        title: 'בוזובצה - ברוד',
+        desc: `המסע ממשיך היום דרך אחד החלקים הפראיים ביותר של הרי השאר.
+
+נחצה עמקים אלפיניים נידחים ושטחי מרעה של רועים, עד שנגיע לכפר הגוראני הציורי ברוד, הידוע במסורות ההרים העשירות שלו ובאירוח החם.`,
+        accommodation: 'גסטהאוס בברוד',
+      },
+      {
+        day: 7,
+        title: 'ברוד - רסטליצה',
+        desc: `קטע מרהיב לרוחב דרום הרי השאר.
+
+נעקוב אחר קווי רכס נידחים ומישורים אלפיניים, ולאחר מכן נרד אל רסטליצה, אחד הכפרים המיושבים הגבוהים ביותר בקוסובו.`,
+        accommodation: 'גסטהאוס ברסטליצה',
+      },
+      {
+        day: 8,
+        title: 'רסטליצה - צ׳איה',
+        desc: `ניפרד מקוסובו והשביל ייכנס לאלבניה.
+
+נחצה את רכסי הגבול המרשימים של רכס הרי הקוראב, ולאחר מכן נרד אל כפר ההרים השקט צ׳איה, המוקף בנוף אלפיני מרהיב.`,
+        accommodation: 'גסטהאוס בצ׳איה',
+      },
+      {
+        day: 9,
+        title: 'צ׳איה - רדומירה',
+        desc: `היום נחקור את לב הרי הקוראב.
+
+נעבור דרך אחו אלפיני, עמקים קרחוניים ורכסים פנורמיים, עד שנגיע לכפר היפהפה רדומירה, השוכן למרגלות הפסגות הגבוהות ביותר באלבניה.`,
+        accommodation: 'גסטהאוס ברדומירה',
+      },
+      {
+        day: 10,
+        title: 'רדומירה - שדה התעופה בטירנה',
+        desc: `לאחר ארוחת הבוקר ניסע דרך צפון מזרח אלבניה אל שדה התעופה הבינלאומי בטירנה, וכאן ייחתם מסע בלתי נשכח בשלוש מדינות, על אחד משבילי ההרים הארוכים והמרהיבים באירופה.`,
+      },
+    ],
+    importantToNote: [],
+    importantToNoteEn: [],
+    faq: [],
+    faqEn: [],
+    itineraryEn: [
+      {
+        day: 1,
+        title: 'Tirana Airport - Staro Selo - Ljuboten Mountain Hut',
+        desc: `Arrival at Tirana International Airport and transfer through Kosovo to Staro Selo, North Macedonia, the official starting point of the High Scardus Trail.
+
+After a short briefing, we begin the first hiking stage through beech forests towards the historic Ljuboten Mountain Hut, located beneath the impressive cliffs of Mt. Ljuboten.`,
+        accommodation: 'Ljuboten Mountain Hut',
+      },
+      {
+        day: 2,
+        title: 'Ljuboten Mountain Hut - Brezovica',
+        desc: `Today's stage crosses the international border into Kosovo, traversing the high alpine ridges of the Šar Mountains.
+
+The trail passes beneath the majestic Mt. Ljuboten, offering spectacular mountain scenery before descending through alpine meadows towards the mountain resort of Brezovica.`,
+        accommodation: 'Hotel in Brezovica',
+      },
+      {
+        day: 3,
+        title: 'Brezovica - Prevalla',
+        desc: `One of the most scenic sections of the High Scardus Trail.
+
+The route follows high mountain ridges with panoramic views across the Šar Mountains before descending to the beautiful mountain village of Prevalla, surrounded by dense pine forests.`,
+        accommodation: 'Guesthouse / Hotel in Prevalla',
+      },
+      {
+        day: 4,
+        title: 'Prevalla - Gornje Ljubinje - Prizren',
+        desc: `The trail descends through traditional mountain landscapes towards Gornje Ljubinje, from where a transfer brings the group to the historic city of Prizren.
+
+The afternoon offers time to explore Kosovo’s cultural capital, famous for its Ottoman architecture, lively old town, and excellent local cuisine.`,
+        accommodation: 'Hotel in Prizren',
+      },
+      {
+        day: 5,
+        title: 'Prizren - Black Rock - Karanikolla Lake - Bozovce',
+        desc: `After a morning transfer to the trailhead above Prizren, today's route climbs towards Black Rock, continuing across high alpine terrain to the beautiful Karanikolla Lake before descending to the traditional mountain village of Bozovce in North Macedonia.`,
+        accommodation: 'Guesthouse in Bozovce',
+      },
+      {
+        day: 6,
+        title: 'Bozovce - Brod',
+        desc: `Today's journey continues through one of the wildest parts of the Šar Mountains, crossing remote alpine valleys and shepherd pastures before reaching the picturesque Gorani village of Brod, renowned for its rich mountain traditions and hospitality.`,
+        accommodation: 'Guesthouse in Brod',
+      },
+      {
+        day: 7,
+        title: 'Brod - Restelica',
+        desc: `A spectacular stage across the southern Šar Mountains, following remote ridgelines and alpine plateaus before descending into Restelica, one of the highest permanently inhabited villages in Kosovo.`,
+        accommodation: 'Guesthouse in Restelica',
+      },
+      {
+        day: 8,
+        title: 'Restelica - Çaja',
+        desc: `Leaving Kosovo behind, the trail enters Albania, crossing the impressive border ridges of the Korab Mountain Range before descending to the peaceful mountain village of Çaja, surrounded by spectacular alpine scenery.`,
+        accommodation: 'Guesthouse in Çaja',
+      },
+      {
+        day: 9,
+        title: 'Çaja - Radomirë',
+        desc: `Today's stage explores the heart of the Korab Mountains, leading through alpine meadows, glacial valleys, and panoramic ridges before arriving in the beautiful village of Radomirë, situated beneath the highest peaks in Albania.`,
+        accommodation: 'Guesthouse in Radomirë',
+      },
+      {
+        day: 10,
+        title: 'Radomirë - Tirana International Airport',
+        desc: `After breakfast, transfer through northeastern Albania to Tirana International Airport, marking the end of an unforgettable journey across three countries on one of Europe’s most spectacular long-distance mountain trails.`,
+      },
+    ],
+  },
   {
     id: 4, slug: 'ethiopia', name: 'Simien & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
     ghlCalendarId: 'LCsG9BWSQnq5x00sUiJS', tagHe: 'סימיאן ודנקיל',

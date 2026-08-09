@@ -341,7 +341,9 @@ export default function ExpeditionDetail() {
   const expJsonLd = exp ? [
     tourSchema({
       name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
-      description:   `${exp.nameHe} ב${exp.countryHe || ''} — ${exp.elev || ''}, ${exp.days || ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`,
+      /* Every value guarded: an unfilled draft would otherwise publish
+         "[למילוי]" into the search result itself. */
+      description:   `${exp.nameHe} ב${exp.countryHe || ''}${[filled(exp.elev), filled(exp.days)].filter(Boolean).length ? ' — ' + [filled(exp.elev), filled(exp.days)].filter(Boolean).join(', ') : ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`,
       image:         exp.img,
       url:           `/expedition/${exp.slug}`,
       country:       exp.countryHe || exp.country,
@@ -957,6 +959,25 @@ export default function ExpeditionDetail() {
               : `Join the ${exp.nameEn || exp.name} in ${exp.country}\nand take part in the fight against cancer!`}
           </p>
 
+          {/* Announced, but the supplier's material has not landed yet. Says so
+              plainly instead of letting a visitor wonder why the page is thin —
+              every unfilled section is hidden by filled(), so without this the
+              page would simply look unfinished. The form below stays live and is
+              the whole point of publishing early. */}
+          {exp.comingSoon && (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              margin: '0 0 18px', padding: '9px 16px', borderRadius: '999px',
+              background: 'rgba(217,119,6,0.92)', color: '#fff',
+              fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 700,
+              direction: dir, textShadow: 'none',
+            }}>
+              {isRtl
+                ? 'המסלול בהכנה · התוכנית המלאה תפורסם בקרוב'
+                : 'Itinerary in preparation · full programme coming soon'}
+            </div>
+          )}
+
           {/* CTA */}
           <button
             onClick={scrollToForm}
@@ -1025,16 +1046,18 @@ export default function ExpeditionDetail() {
                answers what a safari buyer actually asks — how long, which
                reserves, what wildlife, how much. */
             ? [
-              { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration',  value: isRtl ? exp.days : (exp.daysEn || exp.days) },
+              { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration',  value: isRtl ? filled(exp.days) : (filled(exp.daysEn) || filled(exp.days)) },
               { IconComp: TreeIcon,  label: isRtl ? 'שמורות טבע' : 'Reserves',  value: filled(exp.reserves) },
               { IconComp: LionIcon,  label: isRtl ? 'חיות בר' : 'Wildlife',     value: filled(isRtl ? exp.wildlife : exp.wildlifeEn) },
               { IconComp: TagIcon,   label: isRtl ? 'עלות' : 'Price',           value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : null },
             ].filter(x => x.value)
             : [
-            { IconComp: MountainIcon, label: t('expedition.elevation'), value: `${exp.elevNum}${'m'}` },
+            /* A draft with no altitude yet has elevNum 0, and `${0}m` renders
+               "0m" — a wrong fact, not a blank. null hides the row instead. */
+            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null },
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff || exp.diffHe) },
             exp.type === 'Trekking'
-              ? { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? exp.days : (exp.daysEn || exp.days) }
+              ? { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? filled(exp.days) : (filled(exp.daysEn) || filled(exp.days)) }
               : { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
             { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '–' },
           ]).map((s, i) => (
@@ -1098,7 +1121,7 @@ export default function ExpeditionDetail() {
               <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
                 {isSafari
                   ? <><ClockIcon size={14} color="#0A0818" /> {isRtl ? exp.days : (exp.daysEn || exp.days)}</>
-                  : <><MountainIcon size={14} color="#0A0818" /> {exp.elevNum}{'m'}</>}
+                  : (exp.elevNum ? <><MountainIcon size={14} color="#0A0818" /> {exp.elevNum}m</> : null)}
               </span>
             </div>
             {!isMobile && (
@@ -1184,7 +1207,9 @@ export default function ExpeditionDetail() {
                 </p>
               )}
               {(() => {
-                const descText = isRtl ? (exp.desc || '') : (exp.descEn || exp.desc || '');
+                /* filled(): a draft's desc holds the [למילוי] marker, which must
+                   never reach the page. Empty renders no intro at all. */
+                const descText = isRtl ? (filled(exp.desc) || '') : (filled(exp.descEn) || filled(exp.desc) || '');
                 const parts = descText.split('\n\n');
                 const body = parts.slice(0, -1);
                 const cta  = parts[parts.length - 1];
@@ -2025,6 +2050,13 @@ export default function ExpeditionDetail() {
           </>
         )}
 
+        {/* A trek with no photos yet rendered the heading over 223px of nothing,
+            which reads as a broken page rather than as a page still filling up.
+            Every other optional section on this page is already gated the same
+            way. Surfaced by the Scardus launch, but it would have hit any new
+            expedition added before its gallery exists. */}
+        {validGalleryImages.length > 0 && (
+        <>
         <Separator />
 
         {/* ── H. תמונות מהטיפוס ──────────────────── */}
@@ -2166,6 +2198,8 @@ export default function ExpeditionDetail() {
             );
           })()}
         </section>
+        </>
+        )}
 
         {/* ── J. עדכוני פסגה ──────────────────────── */}
         {exp.summitUpdates?.length > 0 && (

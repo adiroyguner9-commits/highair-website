@@ -12,7 +12,7 @@ import { NAV_EXPS as EXPS } from '../../data/navData.js';
 import { ISRAEL_TRIPS as ALL_ISRAEL_TRIPS } from '../../data/israelData.js';
 
 /* ── Expeditions ordered by continent: Africa → Europe → Asia → South America ── */
-const TREK_IDS  = [4, 17, 3,  2, 6, 7, 8];
+const TREK_IDS  = [4, 17, 3, 21, 2, 6, 7, 8];
 const CLIMB_IDS = [10, 5, 9, 12, 13, 14, 16, 15];
 const TREKS  = TREK_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 const CLIMBS = CLIMB_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
@@ -20,9 +20,10 @@ const CLIMBS = CLIMB_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
 const WA_HREF = 'https://api.whatsapp.com/send?phone=972555636975';
 
 /* ── Single link ── */
-function FooterLink({ label, href, isExternal }) {
+function FooterLink({ label, href, isExternal, comingSoon }) {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
 
   function handleClick(e) {
     if (isExternal) return;
@@ -54,6 +55,22 @@ function FooterLink({ label, href, isExternal }) {
       }}
     >
       {label}
+      {/* A trek still in preparation says so in the footer too. Without it the
+          menu and the footer would disagree about the same page. */}
+      {comingSoon && (
+        <span style={{
+          display:      'inline-block',
+          margin:       '0 8px',
+          padding:      '1px 7px',
+          borderRadius: '999px',
+          background:   '#FEF3C7',
+          fontSize:     '10px',
+          fontWeight:   700,
+          color:        '#92400E',
+        }}>
+          {i18n.language === 'en' ? 'Coming soon' : 'בקרוב'}
+        </span>
+      )}
     </a>
   );
 }
@@ -155,7 +172,7 @@ export default function SiteFooter() {
           }}>
             <div>
               <ColHeading>{t('footer.worldTreks')}</ColHeading>
-              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
+              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} />)}
             </div>
             <div>
               <ColHeading>{t('footer.worldClimbs')}</ColHeading>
@@ -220,7 +237,7 @@ export default function SiteFooter() {
 
           <div>
             <ColHeading>{t('footer.worldTreks')}</ColHeading>
-            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
+            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} />)}
           </div>
 
           <div>

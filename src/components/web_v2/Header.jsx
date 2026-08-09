@@ -141,7 +141,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
 
  const MEGA_TREKS = [
  { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4, 17] },
- { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3] },
+ { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3, 21] },
  { label: t('explorer.continents.asia'), flag: '🌏', expIds: [6, 7, 8] },
  ];
  const MEGA_CLIMBS = [
@@ -313,7 +313,31 @@ function MegaItem({ exp, onClose }) {
  }}
  >
  {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
+ {exp.comingSoon && <ComingSoonTag />}
  </button>
+ );
+}
+
+/* The same amber pill the homepage card carries, sized down for a menu row. A
+   trek that is still being built has to say so wherever it is offered, or the
+   menu promises a page the visitor cannot book from yet. */
+function ComingSoonTag() {
+ const { i18n } = useTranslation();
+ return (
+ <span style={{
+ display: 'inline-block',
+ margin: i18n.language === 'en' ? '0 0 0 8px' : '0 8px 0 0',
+ padding: '1px 7px',
+ borderRadius: '999px',
+ background: '#FEF3C7',
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: '10px',
+ fontWeight: 700,
+ color: '#92400E',
+ verticalAlign: '2px',
+ }}>
+ {i18n.language === 'en' ? 'Coming soon' : 'בקרוב'}
+ </span>
  );
 }
 
@@ -432,7 +456,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  const MEGA_BY_TYPE = {
  treks: [
  { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4, 17] },
- { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3] },
+ { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3, 21] },
  { label: t('explorer.continents.asia'), flag: '🌏', expIds: [6, 7, 8] },
  ],
  climbs: [
@@ -579,6 +603,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  }}
  >
  {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
+ {exp.comingSoon && <ComingSoonTag />}
  </a>
  ))}
  </div>
