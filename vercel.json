@@ -32,6 +32,7 @@
     }
   ],
   "redirects": [
+    { "source": "/israel/elal",        "destination": "/israel/arbel",                  "permanent": false },
     { "source": "/kilimanjaro",        "destination": "/expedition/kilimanjaro",        "permanent": true },
     { "source": "/kilimanjaro-kosher", "destination": "/expedition/kilimanjaro-kosher", "permanent": true },
     { "source": "/elbrus",             "destination": "/expedition/elbrus",             "permanent": true },
