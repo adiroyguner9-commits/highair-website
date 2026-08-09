@@ -366,8 +366,25 @@ export default function IsraelDetail() {
   function monthKey(dep)   { const d = new Date(dep); return `${d.getFullYear()}-${d.getMonth()}`; }
   function monthLabel(dep) { return new Date(dep).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long', year: 'numeric' }); }
 
-  const months       = [...new Map(liveGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
-  const visibleGroups = liveGroups.filter(g => monthKey(g.departure) === activeMonth);
+  /* Airtable owns departures, because it is also where the live headcount lives.
+     But a one-off community day is set in code the moment the owner picks a
+     date, usually before any group record exists, and until then this section
+     said "dates coming soon" directly underneath a summary strip that was
+     already printing that same date. Two answers to one question on one page.
+     So: Airtable when it has something, the code-level departure otherwise.
+     `count: null` deliberately, and the spots pill is skipped for it — with no
+     group record there is no headcount, and inventing "open" or a number would
+     be worse than showing nothing. Same 3-day cutoff as the Airtable path, so a
+     date that has passed stops advertising itself. */
+  const today0 = new Date(); today0.setHours(0, 0, 0, 0);
+  const localCutoff = new Date(today0); localCutoff.setDate(localCutoff.getDate() + 3);
+  const dateGroups = liveGroups.length ? liveGroups
+    : (!groupsLoading && trip?.departure && new Date(trip.departure) >= localCutoff
+        ? [{ id: 'code-departure', departure: trip.departure, returnDate: null, count: null }]
+        : []);
+
+  const months       = [...new Map(dateGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
+  const visibleGroups = dateGroups.filter(g => monthKey(g.departure) === activeMonth);
   const capacity     = trip?.groupCapacity || 12;
 
   const inputStyle = {
@@ -932,10 +949,10 @@ export default function IsraelDetail() {
               {isRtl ? 'טוען תאריכים...' : 'Loading dates...'}
             </div>
 
-          ) : liveGroups.length > 0 ? (
+          ) : dateGroups.length > 0 ? (
             <>
               {/* Month tabs - only when more than 2 groups */}
-              {liveGroups.length > 2 && (
+              {dateGroups.length > 2 && (
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
                   {months.map(([key, label]) => (
                     <button key={key} onClick={() => setActiveMonth(key)} style={{
@@ -953,11 +970,16 @@ export default function IsraelDetail() {
 
               {/* Group cards */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
-                {(liveGroups.length > 2 ? visibleGroups : liveGroups).map(g => {
+                {(dateGroups.length > 2 ? visibleGroups : dateGroups).map(g => {
                   const groupCap  = trip?.groupCapacity || 12;
+                  /* count === null is the code-level departure with no group
+                     record behind it. Without it, groupCap - null is groupCap,
+                     which would confidently advertise a full 20 free places
+                     nobody counted. */
+                  const hasCount  = g.count != null;
                   const spotsLeft = groupCap - g.count;
-                  const isFull    = spotsLeft <= 0;
-                  const isLow     = !isFull && spotsLeft <= 6;
+                  const isFull    = hasCount && spotsLeft <= 0;
+                  const isLow     = hasCount && !isFull && spotsLeft <= 6;
                   const spotsColor = isFull ? '#DC2626' : isLow ? '#D97706' : '#059669';
                   return (
                     <div key={g.id}
@@ -984,8 +1006,10 @@ export default function IsraelDetail() {
                         </span>
                       </div>
 
-                      {/* Center: spots */}
+                      {/* Center: spots. The empty span keeps the three-column
+                          grid intact when there is no headcount to show. */}
                       <span style={{ display: 'flex', justifyContent: 'center' }}>
+                        {hasCount && (
                         <span style={{
                           background: isFull ? '#FEE2E2' : isLow ? '#FEF3C7' : '#D1FAE5',
                           color: spotsColor,
@@ -998,6 +1022,7 @@ export default function IsraelDetail() {
                               ? (isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left`)
                               : (isRtl ? 'הרשמה פתוחה' : 'Open')}
                         </span>
+                        )}
                       </span>
 
                       {/* Left: CTA */}

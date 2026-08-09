@@ -704,10 +704,10 @@ export const NAV_ISRAEL = [
     "live": false
   },
   {
-    "slug": "elal",
-    "name": "טיול קהילה - נחל אלעל",
-    "nameEn": "Community Trip - Nahal El Al",
+    "slug": "arbel",
+    "name": "טיול קהילה - הר ארבל",
+    "nameEn": "Community Trip - Mount Arbel",
     "live": true,
-    "departure": "2026-08-07"
+    "departure": "2026-09-04"
   }
 ];
