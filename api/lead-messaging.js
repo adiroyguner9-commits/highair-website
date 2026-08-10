@@ -298,7 +298,11 @@ export default async function handler(req, res) {
     // we skip only leads where a "how are you?" would be wrong or embarrassing:
     // already closed (Deposit A Paid), lost (Not Relevant), an existing customer,
     // or already asked to pay (Awaiting Deposit A — owner's call, Jul 2026).
-    const due = await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
+    // 'Cancelled' joins them (Aug 10 2026): someone who closed and then cancelled
+    // is the last person who should be asked "how did the call go, still keen?".
+    // Keep in step with FOLLOW_UP_SKIP_STAGES in the webapp's src/data/leads.js —
+    // that tracker promises what this query actually sends.
+    const due = await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
     for (const rec of due) {
       const f = rec.fields || {};
       const ageDays = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
