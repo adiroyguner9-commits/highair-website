@@ -187,6 +187,7 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
+import { fetchActiveLead } from './_lib/active-lead.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
@@ -340,15 +341,15 @@ export default async function handler(req, res) {
   //     grab its Assigned Agent so the alert goes only to that agent.
   let assignedAgent = '';
   try {
-    const last9 = String(phone).replace(/\D/g, '').slice(-9);
-    if (last9.length === 9) {
-      const formula = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone},"[^0-9]",""),9)="${last9}"`);
-      const find = await fetch(
-        `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}?filterByFormula=${formula}&fields[]=Stage&fields[]=Assigned Agent&fields[]=Activity Log&fields[]=Expedition&maxRecords=1`,
-        { headers: { Authorization: `Bearer ${TOKEN}` } }
-      );
-      if (find.ok) {
-        const rec = (await find.json()).records?.[0];
+    {
+      /* The ACTIVE card. Matching on phone alone took whichever row came back
+         first, so a returning customer's closed trip won and the booking landed
+         on the wrong lead — or on none (Aug 13 2026). */
+      const rec = await fetchActiveLead({
+        base: BASE, token: TOKEN, phone,
+        fields: ['Assigned Agent', 'Activity Log', 'Expedition'],
+      });
+      {
         const stage = rec?.fields?.Stage || '';
         assignedAgent = (rec?.fields?.['Assigned Agent'] || '').trim();
         /* Booking a call ALWAYS puts the lead in "Call Scheduled" (owner, July 21

@@ -14,6 +14,7 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
+import { fetchActiveLead } from './_lib/active-lead.js';
 import { destKey } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 
@@ -199,11 +200,14 @@ export default async function handler(req, res) {
 
   if (last9.length === 9) {
     try {
-      const ff = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone},"[^0-9]",""),9)="${last9}"`);
-      const fr = await fetch(`${LEADS_URL}?filterByFormula=${ff}&maxRecords=1&fields[]=Experience`, { headers: { Authorization: `Bearer ${TOKEN}` } });
-      if (fr.ok) {
-        const rec = (await fr.json()).records?.[0];
-        if (rec) {
+      /* The ACTIVE card. A follow-up enquiry used to be appended to whichever
+         row came back first, so a new Aconcagua enquiry could be filed on a
+         returning customer's closed Kazbek card (Aug 13 2026). */
+      const rec = await fetchActiveLead({
+        base: BASE, token: TOKEN, phone: sanitised['Phone'], fields: ['Experience'],
+      });
+      if (rec) {
+        {
           const note = `\n---\n[פנייה נוספת ${israelTime.slice(0, 10)}] ${sanitised['Expedition'] || sanitised['Source'] || ''}${sanitised['Experience'] ? ': ' + sanitised['Experience'] : ''}`;
           await fetch(`${LEADS_URL}/${rec.id}`, {
             method: 'PATCH', headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
