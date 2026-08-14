@@ -29,6 +29,7 @@ import { destInfo } from './_lib/dest.js';   // single source of truth for desti
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
 import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
+import { israelWeekendHold } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, nobody is here to answer
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
 function toIntlIL(raw) {
@@ -228,11 +229,19 @@ export default async function handler(req, res) {
      match), once-only via {Nudge 2 Sent} claimed BEFORE sending, WhatsApp/GHL
      sources excluded, and the independent appointment check that heals the
      stage instead of nagging someone who already booked. Held to 09:00-21:00
-     Israel — the window is wide enough to just wait for morning. */
+     Israel, and off for the weekend (Fri 15:00 → Sun 09:00) — the window is
+     wide enough to just wait, once it was widened to 96h to survive the hold. */
   try {
     const hourIL = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
-    if (hourIL >= 9 && hourIL < 21) {
-      const lower48 = new Date(nowMs - 48 * 60 * 60 * 1000).toISOString();
+    if (hourIL >= 9 && hourIL < 21 && !israelWeekendHold()) {
+      /* The upper bound is 96h, not 48h, and the weekend hold is exactly why.
+         The hold lasts up to 42 hours, so a lead whose 24h mark fell on Friday
+         evening would be 60-odd hours old by Sunday morning and would have
+         dropped out of a 48h window without ever being written to — held and
+         then silently lost, which is worse than sending. 96h clears the widest
+         possible weekend with room to spare, and the once-only {Nudge 2 Sent}
+         claim plus the >=24h check below still decide who actually gets it. */
+      const lower96 = new Date(nowMs - 96 * 60 * 60 * 1000).toISOString();
       const formula2 = `AND(`
         + `{Nudge Sent}=TRUE(),`                         // got nudge 1 → a real form lead
         + `{Nudge 2 Sent}!=TRUE(),`
@@ -240,7 +249,7 @@ export default async function handler(req, res) {
         + `NOT(FIND('WhatsApp',{Source}&'')),`
         + `NOT(FIND('GHL import',{Source}&'')),`
         + `{Phone}!='',`
-        + `IS_AFTER({Created Time},DATETIME_PARSE('${lower48}'))`
+        + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
         + `)`;
       const rows2 = await queryLeads(formula2);
       for (const rec of rows2) {
@@ -288,6 +297,9 @@ export default async function handler(req, res) {
   /* ── #4 FOLLOW-UP ── 4 days after the call was marked done ────────────────── */
   try {
     // (a) stamp Call Done At the first time we see a Call Done lead (starts the timer)
+    //     This runs through the weekend on purpose: it starts a clock, it does not
+    //     message anyone, and skipping it would push every Friday call's follow-up
+    //     two days late for good.
     const toStamp = await queryLeads(`AND({Stage}='Call Done',{Call Done At}='')`);
     for (const rec of toStamp) {
       await patchLead(rec.id, { 'Call Done At': new Date(nowMs).toISOString() });
@@ -302,7 +314,16 @@ export default async function handler(req, res) {
     // is the last person who should be asked "how did the call go, still keen?".
     // Keep in step with FOLLOW_UP_SKIP_STAGES in the webapp's src/data/leads.js —
     // that tracker promises what this query actually sends.
-    const due = await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
+    /* The weekend hold (owner, Aug 14 2026: "זה סופש ואנחנו לא עובדים").
+       This is the message he named, and the safest one to hold: the query has NO
+       upper bound on age, so a follow-up that falls due on Friday evening simply
+       goes out at 09:00 on Sunday. Nothing is skipped, only delayed.
+       It sits AFTER the Call Done At stamping above on purpose — that starts a
+       clock rather than messaging anyone, and pausing it would push every Friday
+       call's follow-up two days late permanently. */
+    const weekend = israelWeekendHold();
+    if (weekend) result.followUpHeldForWeekend = true;
+    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
     for (const rec of due) {
       const f = rec.fields || {};
       const ageDays = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;

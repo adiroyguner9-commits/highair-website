@@ -10,6 +10,7 @@ import { destInfo } from './dest.js';
 import { firstName } from './name.js';
 import { sendWhatsAppVerified } from './followup.js';
 import { normalizePhone } from './phone.js';
+import { israelWeekendHold } from './iltime.js';
 
 const AGENT_FIRST_HE = { Tomer: 'תומר', Eldar: 'אלדר', Adir: 'אדיר', Ohad: 'אוהד', Chen: 'חן' };
 /* The agent's number as a CUSTOMER should read and dial it: the local Israeli
@@ -38,8 +39,9 @@ export function msgNoAnswer(name, expedition, agentHe, agentPhone) {
 /* Send the notice for one Website Leads record (raw Airtable rec).
    Guards INSIDE so every caller is equally safe:
    - Stage must be 'No Answer', flag unset, phone + assigned agent present.
-   - Quiet hours 09:00-21:00 Israel: returns { deferred: true } WITHOUT claiming
-     the flag — the 5-min cron (48h window) sends it next morning instead.
+   - Quiet hours 09:00-21:00 Israel, and the Fri 15:00 → Sun 09:00 weekend:
+     returns { deferred: true } WITHOUT claiming the flag — the 5-min cron (48h
+     window) sends it next working morning instead.
    - Claims {No Answer Notified} + Activity Log entry BEFORE sending; releases
      the flag if Green did not actually accept the message.
    Returns { sent, skipped?, deferred?, error? }. */
@@ -57,6 +59,11 @@ export async function sendNoAnswerNotice(rec) {
 
   const hourIL = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
   if (hourIL < 9 || hourIL >= 21)       return { sent: false, deferred: true };
+  /* Weekend too (owner, Aug 14 2026). Safe to defer: the cron's window on this
+     one is 48h from {Stage Changed At} and the hold is at most 42h, so a card
+     moved to No Answer at any point inside the weekend is still eligible when
+     Sunday 09:00 comes round. Nothing is lost, only delayed. */
+  if (israelWeekendHold())              return { sent: false, deferred: true };
 
   // Agent directory: full name ("Tomer Lan") → Hebrew first name + phone.
   const ar = await fetch(`https://api.airtable.com/v0/${BASE}/Agents?pageSize=50`, { headers: { Authorization: `Bearer ${TOKEN}` } });
