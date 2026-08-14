@@ -626,13 +626,16 @@ export default function ExpeditionDetail() {
   const allMonths = [...new Map(liveGroups.filter(g => new Date(g.departure) >= today).map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const visibleGroups = groupsForYear.filter(g => monthKey(g.departure) === activeMonth);
   /* Any month that has a women's-group departure gets its own "(נשים)" option
-     in the form's month picker, so a lead can pick it without clicking the card. */
+     in the form's month picker, so a lead can pick it without clicking the card.
+     A month with ONLY a women's departure offers that option ALONE: December
+     2026 is Kili_25_12_Women and nothing else, so a plain "דצמבר 2026" was a
+     month we do not run (owner, Aug 14 2026). Both lists are by label, and the
+     picker below emits an option only for the ones that actually exist. */
   const womenSuffix = isRtl ? ' (נשים)' : ' (Women)';
-  const womenMonths = [...new Set(
-    liveGroups
-      .filter(g => new Date(g.departure) >= today && (g.groupName || '').toLowerCase().includes('women'))
-      .map(g => monthLabel(g.departure))
-  )];
+  const futureGroups = liveGroups.filter(g => new Date(g.departure) >= today);
+  const isWomensGroup = g => (g.groupName || '').toLowerCase().includes('women');
+  const womenMonths   = [...new Set(futureGroups.filter(isWomensGroup).map(g => monthLabel(g.departure)))];
+  const regularMonths = [...new Set(futureGroups.filter(g => !isWomensGroup(g)).map(g => monthLabel(g.departure)))];
   const capacity = exp?.groupCapacity || 15;
   /* noDates = no live Airtable groups → show only "Flexible" in the form */
   const noDates = allMonths.length === 0;
@@ -2440,7 +2443,12 @@ export default function ExpeditionDetail() {
                         <option value="">{isRtl ? 'בחרו חודש' : 'Select month'}</option>
                         {allMonths.length > 0
                           ? allMonths.flatMap(([key, label]) => [
-                              <option key={key} value={label}>{label}</option>,
+                              /* The plain option only when a NON-women's group
+                                 departs that month, so a women-only month is
+                                 offered as "(נשים)" and nothing else. */
+                              ...(regularMonths.includes(label)
+                                ? [<option key={key} value={label}>{label}</option>]
+                                : []),
                               ...(womenMonths.includes(label)
                                 ? [<option key={`w-${key}`} value={`${label}${womenSuffix}`}>{`${label}${womenSuffix}`}</option>]
                                 : []),
