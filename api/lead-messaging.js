@@ -43,6 +43,21 @@ function toIntlIL(raw) {
 
 const SITE          = 'https://highair-expeditions.com';
 
+/* How many of ONE automated message may leave in a single cron run.
+ *
+ * The cron ticks every 5 minutes, so a leftover is not dropped, it just goes on
+ * the next tick — 3 per run is roughly 36 an hour per message type.
+ *
+ * Measured on the live base (Aug 14 2026, at the owner's "תשלח אותם בנגלות"):
+ * the weekend hold releases 14-17 follow-ups AND 9-17 nudge-2s at 09:00 on
+ * Sunday, so about 30 near-identical texts would have left one WhatsApp number
+ * inside one tick. The weekend is not even the worst case: 85 calls were marked
+ * done on 10 Jul 2026, which four days later was 85 follow-ups in a single run.
+ * That shape is what gets a sending number flagged, so the cap is always on, not
+ * only after a weekend. 30 held messages now drain in about 50 minutes.
+ */
+const MAX_SENDS_PER_RUN = 3;
+
 /* Canonical lead Expedition (English) → Hebrew name + its own /book/<slug> link,
    so every destination gets its own booking widget + unique link. */
 /* destInfo() now lives in ./_lib/dest.js — the single source of truth shared with
@@ -252,14 +267,19 @@ export default async function handler(req, res) {
         + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
         + `)`;
       const rows2 = await queryLeads(formula2);
+      let n2ThisRun = 0;
       for (const rec of rows2) {
         const f = rec.fields || {};
         const ageH = (nowMs - new Date(f['Created Time']).getTime()) / 3600000;
         if (!(ageH >= 24)) continue;                     // wait the full day
         if (await hasAppointment(f.Phone)) {
           await patchLead(rec.id, { 'Nudge 2 Sent': true, 'Stage': 'Call Scheduled' });
-          continue;
+          continue;                                      // healing a stage costs nobody a message
         }
+        /* Same drip as the follow-up: the Sunday release is 9-17 of these on
+           top of the follow-ups, out of one WhatsApp number. */
+        if (n2ThisRun >= MAX_SENDS_PER_RUN) { result.nudge2Queued = (result.nudge2Queued || 0) + 1; continue; }
+        n2ThisRun++;
         const claim = await patchLead(rec.id, { 'Nudge 2 Sent': true });   // claim FIRST
         if (!claim.ok) { result.errors.push('nudge2 claim failed ' + rec.id); continue; }
         const sent = await sendWA(f.Phone, msgNudge2(f.Name, f.Expedition));
@@ -324,11 +344,16 @@ export default async function handler(req, res) {
     const weekend = israelWeekendHold();
     if (weekend) result.followUpHeldForWeekend = true;
     const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
+    let fuThisRun = 0;
     for (const rec of due) {
       const f = rec.fields || {};
       const ageDays = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
       if (!(ageDays >= 4)) continue;
       if (!f.Phone) { result.followUpNoPhone++; continue; }   // nothing to send to — never tick "Sent"
+      /* Drip, do not dump. The flag is unclaimed, so whoever is left here is
+         simply first in line on the next tick five minutes from now. */
+      if (fuThisRun >= MAX_SENDS_PER_RUN) { result.followUpQueued = (result.followUpQueued || 0) + 1; continue; }
+      fuThisRun++;
       // Claim FIRST so two overlapping cron runs can't double-send, then UNDO the
       // claim if the send didn't actually happen. Ticking "Sent" up front and
       // never checking the result is what marked leads as messaged when Green had
