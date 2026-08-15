@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { Analytics } from '@vercel/analytics/react';
 import { captureAttribution } from './utils/attribution.js';
+import { installWaIntentListener } from './utils/waIntent.js';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner        from './components/web_v2/CookieBanner.jsx';
@@ -18,6 +19,11 @@ import SocialProofTicker   from './components/web_v2/SocialProofTicker.jsx';
    moment the tab closed and recorded nothing at all for a visitor who arrived
    without utm params. See src/utils/attribution.js for what that cost. */
 captureAttribution();
+/* Beside it on purpose: one records where a visitor came from, the other hands
+   that record to the server the moment they leave for WhatsApp — the last point
+   at which the visit and the message they are about to send are still the same
+   story. */
+installWaIntentListener();
 
 /* ── Prevent right-click save on images & videos ── */
 document.addEventListener('contextmenu', e => {

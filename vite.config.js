@@ -29,6 +29,12 @@ export default defineConfig(({ mode }) => {
           target:       'https://highair-website.vercel.app',
           changeOrigin: true,
         },
+        /* The WhatsApp-button intent. Same deal as the rest: dev has no local
+           serverless runtime, so it rides the production function. */
+        '/api/wa-intent': {
+          target:       'https://highair-website.vercel.app',
+          changeOrigin: true,
+        },
         '/api/slots': {
           target:       'https://highair-website.vercel.app',
           changeOrigin: true,
