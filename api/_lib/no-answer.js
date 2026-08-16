@@ -10,7 +10,6 @@ import { destInfo } from './dest.js';
 import { firstName } from './name.js';
 import { sendWhatsAppVerified } from './followup.js';
 import { normalizePhone } from './phone.js';
-import { israelWeekendHold } from './iltime.js';
 
 const AGENT_FIRST_HE = { Tomer: 'תומר', Eldar: 'אלדר', Adir: 'אדיר', Ohad: 'אוהד', Chen: 'חן' };
 /* The agent's number as a CUSTOMER should read and dial it: the local Israeli
@@ -57,13 +56,16 @@ export async function sendNoAnswerNotice(rec) {
   const agentFull = String(f['Assigned Agent'] || '').trim();
   if (!agentFull)                       return { sent: false, skipped: 'no assigned agent' };
 
-  const hourIL = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
-  if (hourIL < 9 || hourIL >= 21)       return { sent: false, deferred: true };
-  /* Weekend too (owner, Aug 14 2026). Safe to defer: the cron's window on this
-     one is 48h from {Stage Changed At} and the hold is at most 42h, so a card
-     moved to No Answer at any point inside the weekend is still eligible when
-     Sunday 09:00 comes round. Nothing is lost, only delayed. */
-  if (israelWeekendHold())              return { sent: false, deferred: true };
+  /* NO QUIET HOURS AND NO WEEKEND HOLD ON THIS ONE (owner, Aug 15 2026).
+     Every other automated message is something WE decided to send: a nudge, a
+     follow-up, an offer. This one is a reply. An agent has just tried to call
+     and got no answer, and the message says so and leaves a number to call
+     back — so the moment to send it is the moment it happened, whatever the
+     clock says. Holding it until 09:00 meant Tomer rang a customer at 08:00,
+     the customer saw a missed call and nothing else, and the agent had no way
+     to know the message was sitting in a queue.
+     The quiet hours and the weekend hold still apply to the nudges and the
+     follow-ups in lead-messaging.js, which is where they belong. */
 
   // Agent directory: full name ("Tomer Lan") → Hebrew first name + phone.
   const ar = await fetch(`https://api.airtable.com/v0/${BASE}/Agents?pageSize=50`, { headers: { Authorization: `Bearer ${TOKEN}` } });

@@ -293,10 +293,12 @@ export default async function handler(req, res) {
 
   /* ── #3c NO-ANSWER NOTICE ── safety net for the instant trigger
      (api/notify-no-answer.js, fired by the Lead Center on a confirmed move).
-     Catches: night-time moves deferred by quiet hours, instant calls that
-     failed, and manual Airtable stage edits. Bounded 48h window on
-     {Stage Changed At} so the backlog can never match; all other guards
-     (flag claim, quiet hours, agent lookup) live in sendNoAnswerNotice. */
+     Catches instant calls that failed and manual Airtable stage edits. It no
+     longer catches deferred sends, because this message has no quiet hours and
+     no weekend hold any more (owner, Aug 15 2026) — it is a reply to a call the
+     agent just made, so it goes out when the call happened. Bounded 48h window
+     on {Stage Changed At} so the backlog can never match; the remaining guards
+     (flag claim, agent lookup) live in sendNoAnswerNotice. */
   try {
     const lowerNA = new Date(nowMs - 48 * 60 * 60 * 1000).toISOString();
     const rowsNA = await queryLeads(`AND(`
