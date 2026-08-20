@@ -499,8 +499,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Hard",
     "diffHe": "אתגרי",
-    "price": 3450,
-    "priceStr": "$3450",
+    "price": 3550,
+    "priceStr": "$3550",
     "continent": "asia",
     "airtableEvents": [
       "Lobuche_Peak"

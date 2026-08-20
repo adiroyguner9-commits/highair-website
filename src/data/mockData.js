@@ -1955,7 +1955,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     ghlCalendarId: 'Ala9X5mln6i45N30Xhpm', tagHe: 'לובוצ׳ה פיק',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '6119m', elevNum: 6119, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Hard', diffHe: 'אתגרי', price: 3450, priceStr: '$3450', continent: 'asia',
+    diff: 'Hard', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
     img: '/images/cards/lobuchePeak.webp',
     ogImage: '/images/og/lobuche-peak.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס ללובוצ׳ה פיק',
