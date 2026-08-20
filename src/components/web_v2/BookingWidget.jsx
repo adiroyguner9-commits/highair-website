@@ -103,6 +103,14 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
   const [booked,     setBooked]     = useState(null);
   const [error,      setError]      = useState('');
 
+  /* The destination decides which agent would take the call, and a time is
+     closed only when every agent who covers it is already busy — so two
+     customers can hold 09:00 for two destinations that belong to two different
+     people (owner, Aug 20 2026). Sent on both slot loads; without it the server
+     falls back to closing a taken time for everyone. */
+  const slotsUrl = date => `/api/slots?date=${date}`
+    + (expedition ? `&expedition=${encodeURIComponent(expedition)}` : '');
+
   /* Load slots whenever a date is selected */
   useEffect(() => {
     if (!selDate) return;
@@ -110,7 +118,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
     setSlots([]);
     setSelSlot(null);
     setError('');
-    fetch(`/api/slots?date=${selDate}`)
+    fetch(slotsUrl(selDate))
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => { setSlots(d.slots || []); setSlotsLoad(false); })
       .catch(() => { setSlots([]); setSlotsLoad(false); });
@@ -183,7 +191,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : 'This time has passed or is too soon - please pick a later slot')
             : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time'));
           setSlotsLoad(true);
-          fetch(`/api/slots?date=${selDate}`)
+          fetch(slotsUrl(selDate))
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(d => { setSlots(d.slots || []); setSelSlot(null); setSlotsLoad(false); })
             .catch(() => { setSlotsLoad(false); });

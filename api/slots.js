@@ -1,6 +1,11 @@
 /**
- * GET /api/slots?date=YYYY-MM-DD
+ * GET /api/slots?date=YYYY-MM-DD[&expedition=...]
  * Returns available call slots for a given date.
+ *
+ * A slot is closed only when every agent who covers `expedition` is already on
+ * a call then, so two customers can hold the same time for two destinations
+ * that belong to two different people (owner, Aug 20 2026). Without an
+ * expedition the old rule applies: any booking closes the slot for everyone.
  *
  * Availability (open days, hours, slot length, lead time, blackout dates) is
  * read from the Airtable AppContent `booking_availability` key — admin-editable
@@ -11,6 +16,7 @@
 
 import { checkRateLimit, setSecurityHeaders } from './_security.js';
 import { israelNow } from './_lib/iltime.js';
+import { fetchCallAgents, busyByTime, someoneFreeAt } from './_lib/callAgents.js';
 
 const DEFAULT_AVAILABILITY = {
   days:     [0, 1, 2, 3, 4, 5], // Sun–Fri open, Sat closed
@@ -104,11 +110,13 @@ export default async function handler(req, res) {
     });
   }
 
-  // Query Airtable for already-booked slots on this date and subtract them
+  // Subtract the slots this customer's agent is already busy on.
+  const expedition = String(req.query.expedition || '').trim();
   try {
     const formula = encodeURIComponent(`AND({Date}="${date}",{Status}="confirmed")`);
     const atRes = await fetch(
-      `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}&fields[]=Time`,
+      `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}`
+        + `&fields[]=Time&fields[]=Agent&fields[]=${encodeURIComponent('Expedition')}`,
       { headers: { Authorization: `Bearer ${TOKEN}` } }
     );
     if (!atRes.ok) {
@@ -116,8 +124,30 @@ export default async function handler(req, res) {
       return res.json({ slots: futureSlots });
     }
     const atData = await atRes.json();
-    const booked = new Set((atData.records || []).map(r => r.fields.Time));
-    return res.json({ slots: futureSlots.filter(s => !booked.has(s)) });
+    const records = atData.records || [];
+
+    /* No expedition on the request (an old client, or a generic booking page):
+       keep the original rule rather than guessing whose call it is. */
+    if (!expedition) {
+      const booked = new Set(records.map(r => r.fields.Time));
+      return res.json({ slots: futureSlots.filter(s => !booked.has(s)) });
+    }
+
+    let agents = [];
+    try {
+      agents = await fetchCallAgents(BASE, TOKEN);
+    } catch (e) {
+      /* Cannot tell the agents apart → fall back to blocking any taken slot.
+         Erring towards a free-looking calendar would double-book a person. */
+      console.warn('[slots] agent lookup failed, blocking globally:', e.message);
+      const booked = new Set(records.map(r => r.fields.Time));
+      return res.json({ slots: futureSlots.filter(s => !booked.has(s)) });
+    }
+
+    const busy = busyByTime(records, agents);
+    return res.json({
+      slots: futureSlots.filter(time => someoneFreeAt({ time, expedition, agents, busy })),
+    });
   } catch (err) {
     console.error('[slots] error:', err.message);
     return res.json({ slots: futureSlots }); // fallback
