@@ -4,23 +4,47 @@
  * A booked slot used to block that time for EVERY customer. But a 09:00
  * Aconcagua call belongs to Chen, and a 09:00 Kilimanjaro call belongs to one
  * of the Tomers — two different people, two different phones, no clash. The
- * owner asked for exactly that (Aug 20 2026: "אין לי בעיה שתהיה חפיפה על יעדים
- * שונים, אם יש סוכן שונה שלוקח את השיחה").
+ * owner asked for exactly that (Aug 20 2026: "אין לי בעיה שיהיו שיחות במקביל,
+ * רק עם סוכנים אחרים").
  *
- * So a time is closed for a destination only when every agent who covers that
- * destination is already busy at it. Today twelve of the sixteen destinations
- * have exactly one possible agent, which is why "a different destination"
- * nearly always does mean "a different person".
+ * ── THE RULE, in full ──────────────────────────────────────────────────────
+ * For a time t and a destination D:
+ *   1. Nothing booked at t                    → open.
+ *   2. Every booking at t has a known owner:
+ *        the Agent stamped on it, or, for a row older than that field, every
+ *        agent who covers ITS destination.
+ *      If any booking's owner cannot be named  → CLOSED. Somebody is on that
+ *      call and we cannot prove it is not the person D would go to.
+ *   3. Nobody covers D                        → CLOSED, for the same reason
+ *      from the other side.
+ *   4. Otherwise open when at least one agent who covers D is not among the
+ *      owners.
  *
- * Mirrors the webapp's api/_lib/assign.js on purpose: the same Agents table,
- * the same Destinations field, the same backup rule. Keep the two in step.
+ * The webapp's Lead Center runs this same rule in src/data/leads.js
+ * (`bookedTimesForDest`), so the agent's picker and the customer's show the
+ * same times. THEY MUST STAY IDENTICAL — a differential test over every real
+ * appointment caught them disagreeing on 385 of 16,074 cases the first time,
+ * all of them step 2: this file counted an unknown owner as blocking nobody.
  */
 import { destKey } from './dest.js';
 
 const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
 
-/** Sales agents with the destinations they cover. Backups are excluded: they
- *  exist for destinations nobody active covers, not to absorb overflow. */
+/* Destinations with a single owner regardless of the Destinations column.
+   Mirrors EXCLUSIVE_DEST_AGENT / EXCLUSIVE_DEST_PREFIX in the webapp's
+   api/_lib/assign.js, which is the source of truth for who gets a lead. */
+const EXCLUSIVE_DEST = { sinai: 'Adir Oyguner' };
+const EXCLUSIVE_PREFIX = [['safari', 'Adir Oyguner']];
+
+function exclusiveFor(dest) {
+  const d = norm(dest);
+  if (EXCLUSIVE_DEST[d]) return EXCLUSIVE_DEST[d];
+  for (const [p, who] of EXCLUSIVE_PREFIX) if (d.startsWith(p)) return who;
+  return '';
+}
+
+/** Sales agents with the destinations they cover. Backups are a fallback for
+ *  destinations nobody active covers, not overflow capacity. */
 export async function fetchCallAgents(base, token) {
   const url = `https://api.airtable.com/v0/${base}/${encodeURIComponent('Agents')}`
     + `?filterByFormula=${encodeURIComponent('{Type}="Sales"')}&pageSize=50`;
@@ -41,57 +65,47 @@ export async function fetchCallAgents(base, token) {
 
 /** The agents who could take a call about this expedition, by name. */
 export function coversFor(agents, expedition) {
-  const dest = destKey(expedition);
+  const dest = destKey(expedition) || String(expedition || '').trim();
   if (!dest) return [];
-  const active = agents.filter(a => !a.backup);
-  const hit = active.filter(a => (a.destinations || []).some(d => norm(d) === norm(dest)));
-  if (hit.length) return hit.map(a => a.name);
-  /* Nobody active covers it — the backups do, and if there are none either we
-     know nothing about who would take it. */
-  const backups = agents.filter(a => a.backup
-    && (a.destinations || []).some(d => norm(d) === norm(dest)));
-  return backups.map(a => a.name);
+  const only = exclusiveFor(dest);
+  if (only) return [only];
+  const hit = d => (agents || []).filter(a => !!a.backup === d
+    && (a.destinations || []).some(x => norm(x) === norm(dest))).map(a => a.name);
+  const active = hit(false);
+  return active.length ? active : hit(true);
 }
 
-/**
- * time → the set of agent names already on a call then.
- *
- * `Agent` is written onto every appointment from now on. A row without one is
- * older than this feature, so its agent is inferred from its destination: with
- * a single coverer that is exact, and with two it counts BOTH as busy. That
- * over-blocks a Kilimanjaro pair for a few weeks rather than risk booking two
- * customers onto one person, and it is still no worse than the old behaviour,
- * which blocked everybody.
- */
+/** time → { owners:Set<string>, unknown:boolean } for the bookings at that time. */
 export function busyByTime(appointments, agents) {
   const map = new Map();
   for (const rec of appointments) {
     const f = rec.fields || {};
     const time = f.Time;
     if (!time) continue;
+    if (!map.has(time)) map.set(time, { owners: new Set(), unknown: false });
+    const slot = map.get(time);
     const named = String(f.Agent || '').trim();
     const who = named ? [named] : coversFor(agents, f.Expedition);
-    if (!map.has(time)) map.set(time, new Set());
-    const set = map.get(time);
-    for (const n of who) set.add(norm(n));
+    if (!who.length) { slot.unknown = true; continue; }
+    for (const n of who) slot.owners.add(norm(n));
   }
   return map;
 }
 
-/** Is anyone who covers `expedition` free at `time`? */
+/** Is anyone who covers `expedition` free at `time`? See THE RULE above. */
 export function someoneFreeAt({ time, expedition, agents, busy }) {
+  const slot = busy.get(time);
+  if (!slot) return true;                                   // 1. nothing booked
+  if (slot.unknown) return false;                           // 2. an owner we cannot name
   const candidates = coversFor(agents, expedition);
-  /* An expedition we cannot place — an unmapped value, or a destination no
-     agent covers — keeps the old rule: any booking at that time closes it.
-     Better to send the customer to another slot than to a person who is not
-     there. */
-  if (!candidates.length) return !(busy.get(time)?.size > 0);
-  const taken = busy.get(time) || new Set();
-  return candidates.some(n => !taken.has(norm(n)));
+  if (!candidates.length) return false;                     // 3. nobody covers it
+  return candidates.some(n => !slot.owners.has(norm(n)));   // 4.
 }
 
 /** Of the agents who could take this call, the ones actually free at `time`. */
 export function freeCoversAt({ time, expedition, agents, busy }) {
-  const taken = busy.get(time) || new Set();
+  const slot = busy.get(time);
+  const taken = slot ? slot.owners : new Set();
+  if (slot?.unknown) return [];
   return coversFor(agents, expedition).filter(n => !taken.has(norm(n)));
 }
