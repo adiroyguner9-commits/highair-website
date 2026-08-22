@@ -188,7 +188,7 @@ import {
   setSecurityHeaders,
 } from './_security.js';
 import { fetchActiveLead } from './_lib/active-lead.js';
-import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt } from './_lib/callAgents.js';
+import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, agentKey } from './_lib/callAgents.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
@@ -293,46 +293,51 @@ export default async function handler(req, res) {
   }
 
   // 1. Race-condition guard — double-check slot availability right before writing.
-  //    STAFF bookings (Lead Center custom time) skip it — the owner explicitly
-  //    allows double-booking a slot / parallel calls for the team. Customer
-  //    self-bookings still can't take an occupied slot.
   /* The same rule /api/slots shows the customer, re-checked here against the
      table: the slot is taken only if every agent who covers this destination is
      already on a call at it. A 09:00 Aconcagua booking is Chen's; it does not
-     stop a 09:00 Kilimanjaro call, which is one of the Tomers'. */
+     stop a 09:00 Kilimanjaro call, which is one of the Tomers'.
+
+     Who is on what at this time is read for STAFF bookings too, even though a
+     staff booking may still take an occupied slot (the Lead Center's "any
+     hour"). It is not used to refuse them — it is used further down to make
+     sure the call lands on somebody who is actually free. Reading it only for
+     customers is what let one agent hold two 17:30 calls. */
   let callAgents = [];
   let busyNow = new Map();
-  if (!isStaffBooking) {
-    try {
-      const formula = encodeURIComponent(`AND({Date}="${date}",{Time}="${time}",{Status}="confirmed")`);
-      const chk = await fetch(
-        `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}`
-          + `&fields[]=Time&fields[]=Agent&fields[]=${encodeURIComponent('Expedition')}`,
-        { headers: { Authorization: `Bearer ${TOKEN}` } }
-      );
-      if (!chk.ok) throw new Error(`Airtable check failed: ${chk.status}`);
-      const chkData = await chk.json();
-      const taken = chkData.records || [];
-      if (taken.length > 0) {
-        /* Something is booked at this time. Whether it matters depends on who
-           it belongs to — and if we cannot find that out, we refuse rather than
-           risk putting two customers on one person. */
-        try {
-          callAgents = await fetchCallAgents(BASE, TOKEN);
-        } catch (e) {
-          console.warn('[book-slot] agent lookup failed:', e.message);
-          return res.status(409).json({ error: 'slot_taken' });
-        }
-        busyNow = busyByTime(taken, callAgents);
-        if (!someoneFreeAt({ time, expedition, agents: callAgents, busy: busyNow })) {
-          return res.status(409).json({ error: 'slot_taken' });
-        }
+  try {
+    const formula = encodeURIComponent(`AND({Date}="${date}",{Time}="${time}",{Status}="confirmed")`);
+    const chk = await fetch(
+      `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}`
+        + `&fields[]=Time&fields[]=Agent&fields[]=${encodeURIComponent('Expedition')}`,
+      { headers: { Authorization: `Bearer ${TOKEN}` } }
+    );
+    if (!chk.ok) throw new Error(`Airtable check failed: ${chk.status}`);
+    const chkData = await chk.json();
+    const taken = chkData.records || [];
+    if (taken.length > 0) {
+      /* Something is booked at this time. Whether it matters depends on who
+         it belongs to — and if we cannot find that out, we refuse rather than
+         risk putting two customers on one person. */
+      try {
+        callAgents = await fetchCallAgents(BASE, TOKEN);
+      } catch (e) {
+        console.warn('[book-slot] agent lookup failed:', e.message);
+        if (!isStaffBooking) return res.status(409).json({ error: 'slot_taken' });
+        throw e;                                   // staff: book on, with no map
       }
-    } catch (e) {
-      console.warn('[book-slot] availability check failed:', e.message);
-      // Do not proceed if we can't verify — prevents overbooking on check failure
-      return res.status(503).json({ error: 'Unable to verify slot availability — please try again' });
+      busyNow = busyByTime(taken, callAgents);
+      if (!isStaffBooking && !someoneFreeAt({ time, expedition, agents: callAgents, busy: busyNow })) {
+        return res.status(409).json({ error: 'slot_taken' });
+      }
     }
+  } catch (e) {
+    console.warn('[book-slot] availability check failed:', e.message);
+    // Do not proceed if we can't verify — prevents overbooking on check failure.
+    // A staff booking is deliberate and goes through; it simply loses the
+    // free-agent routing below and keeps the lead's own agent.
+    if (!isStaffBooking) return res.status(503).json({ error: 'Unable to verify slot availability — please try again' });
+    callAgents = []; busyNow = new Map();
   }
 
   // 2. Write to Airtable
@@ -438,23 +443,51 @@ export default async function handler(req, res) {
                 takeIt = ((lan + har) % 5) !== 4;
               }
             } catch (e) { console.warn('[book-slot] kili ratio non-fatal:', e.message); }
-            let winner = takeIt ? KILI_LAN : KILI_HARUSH;
-            /* Kilimanjaro is the one destination two people share, so the ratio
-               can land on somebody who is already on a call at this exact time —
-               which is the double-booking the whole change exists to prevent.
-               The free one takes it and the ratio catches up on the next lead;
-               a rota is a tie-breaker, not a reason to book two customers onto
-               one phone. */
-            if (!isStaffBooking) {
-              const free = freeCoversAt({ time, expedition: rec.fields?.Expedition, agents: callAgents, busy: busyNow });
-              if (free.length && !free.includes(winner)) {
-                console.log(`[book-slot] kili ratio picked ${winner}, busy at ${time} — ${free[0]} takes it`);
-                winner = free[0];
-              }
-            }
+            const winner = takeIt ? KILI_LAN : KILI_HARUSH;
             patch['Assigned Agent'] = winner;
             patch['Assigned At']    = new Date().toISOString();
             assignedAgent = winner;   // so the staff alert + invite go to the right agent
+          }
+
+          /* ── ONE AGENT, ONE CALL ─────────────────────────────────────────
+             The slot list opens a time as soon as ANY agent who covers the
+             destination is free — so the free one is not necessarily the agent
+             this lead already belongs to. Tomer Lan ended up holding both
+             17:30 calls on Sunday 23 Aug 2026 for exactly that reason: the
+             swap above only ever ran for a lead with NO agent yet, and by the
+             time a customer books, the assignment cron has already stamped one
+             (3 to 30 seconds after the lead is created). So a lead already on
+             Lan kept Lan, and Lan was booked twice.
+
+             Whoever is free takes the call, and the lead moves with it —
+             the person who makes the call is the person who works the deal, so
+             splitting them would credit one agent for another's conversation.
+             The Kilimanjaro rota is a tie-breaker, not a reason to put two
+             customers on one phone; it catches up on the next lead.
+             (Owner, Aug 22 2026: "אסור שדבר כזה יקרה אף פעם ואם יש לתומר שיחה
+             בשעה הזו תעביר אותה לסוכן קילימנג׳רו הבא".)
+
+             Two deliberate limits. Only a POSITIVE clash moves anything: an
+             owner we could not name leaves the assignment alone, because
+             guessing would reassign leads over nothing. And a lead that has
+             already paid keeps its agent no matter what — a won deal carries a
+             commission, and no scheduling rule is worth taking that away (this
+             branch never runs for "Deposit A Paid" anyway, which is where that
+             is enforced). */
+          const ownersAt = busyNow.get(time)?.owners;
+          if (assignedAgent && ownersAt?.has(agentKey(assignedAgent))) {
+            const free = freeCoversAt({
+              time, expedition: rec.fields?.Expedition || expedition,
+              agents: callAgents, busy: busyNow,
+            });
+            if (free.length) {
+              console.log(`[book-slot] ${assignedAgent} is already on a call at ${date} ${time} — ${free[0]} takes this one`);
+              patch['Assigned Agent'] = free[0];
+              patch['Assigned At']    = new Date().toISOString();
+              assignedAgent           = free[0];
+            } else {
+              console.warn(`[book-slot] DOUBLE BOOKED: ${assignedAgent} at ${date} ${time} and nobody else covers ${rec.fields?.Expedition || expedition}`);
+            }
           }
 
           await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}/${rec.id}`, {

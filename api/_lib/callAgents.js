@@ -28,7 +28,12 @@
  */
 import { destKey } from './dest.js';
 
-const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+/* One spelling of an agent's name, so "Tomer Lan" and "tomer  lan" are the
+   same person everywhere the owners of a slot are compared. Exported because
+   book-slot has to ask "is THIS agent one of the owners" before it decides
+   whether the call has to move to somebody free. */
+export const agentKey = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+const norm = agentKey;
 
 /* Destinations with a single owner regardless of the Destinations column.
    Mirrors EXCLUSIVE_DEST_AGENT / EXCLUSIVE_DEST_PREFIX in the webapp's
