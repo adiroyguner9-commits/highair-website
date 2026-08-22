@@ -188,7 +188,7 @@ import {
   setSecurityHeaders,
 } from './_security.js';
 import { fetchActiveLead } from './_lib/active-lead.js';
-import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, agentKey } from './_lib/callAgents.js';
+import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey } from './_lib/callAgents.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
@@ -327,8 +327,21 @@ export default async function handler(req, res) {
         throw e;                                   // staff: book on, with no map
       }
       busyNow = busyByTime(taken, callAgents);
-      if (!isStaffBooking && !someoneFreeAt({ time, expedition, agents: callAgents, busy: busyNow })) {
+      const anyoneFree = someoneFreeAt({ time, expedition, agents: callAgents, busy: busyNow });
+      if (!isStaffBooking && !anyoneFree) {
         return res.status(409).json({ error: 'slot_taken' });
+      }
+      /* A STAFF booking may take an occupied slot — that is what the Lead
+         Center's "any hour" is for, and two calls at one time are fine when
+         they belong to two different people. What it may NOT do is put one
+         person on two calls, and if every agent who covers this destination is
+         already busy, that is the only thing left for it to do.
+         Refused only when we can PROVE the clash: a destination nobody covers
+         (an unusual expedition string, a lead with none) tells us nothing about
+         who is free, so it goes through exactly as before. */
+      if (isStaffBooking && !anyoneFree && coversFor(callAgents, expedition).length) {
+        console.warn(`[book-slot] staff booking refused: every agent covering ${expedition} is on a call at ${date} ${time}`);
+        return res.status(409).json({ error: 'agents_all_busy' });
       }
     }
   } catch (e) {
