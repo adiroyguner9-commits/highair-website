@@ -553,7 +553,12 @@ The afternoon offers time to explore Kosovo’s cultural capital, famous for its
     heroVideo: '/videos/hero-ethiopia.mp4',
     elev: '4430m', elevNum: 4430, days: '12 ימים', daysEn: '12 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 3000, priceStr: '$3000', continent: 'africa',
-    airtableEvents: ['Ethiopia'],
+    /* Both lengths of the same product, the way Kilimanjaro carries its safari
+       variant. Without the second name the "trek + tribes" departure matched no
+       expedition at all and the annual plan printed its raw Airtable id,
+       "Ethiopia_with_Tribes", on a customer-facing card with no name, no flag
+       and no photo (owner, Aug 23 2026). */
+    airtableEvents: ['Ethiopia', 'Ethiopia_with_Tribes'],
     img: '/images/cards/ethiopia.webp',
     ogImage: '/images/og/ethiopia.jpg',
     seoTitle:       'HighAir Expeditions | טרק סימיאן ומדבר דנקיל',
@@ -1199,7 +1204,8 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '5416m', elevNum: 5416, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2150, priceStr: '$2150', continent: 'asia',
-    airtableEvents: ['Annapurna_Circut'],
+    /* Same reason as Ethiopia above: the kosher departure had no entry. */
+    airtableEvents: ['Annapurna_Circut', 'Annapurna_Circut_Kosher'],
     img: '/images/cards/annapurna.webp',
     ogImage: '/images/og/annapurna.jpg',
     imgPosition: 'center 40%',

@@ -38,6 +38,11 @@ function monthLabel(key, months) {
 function eventTag(e, isRtl) {
   const n = (typeof e === 'string' ? e : e?.slug || e?.eventName || '').toLowerCase();
   if (n.includes('safari')) return isRtl ? '+ ספארי' : '+ Safari';
+  /* Ethiopia is sold in two lengths like Kilimanjaro — the trek, and the trek
+     plus five days through the tribes of the south. Both are the same
+     expedition page, so without a tag the two departures come out as one card
+     printed twice, differing only in an end date nobody reads. */
+  if (n.includes('tribes')) return isRtl ? '+ שבטים' : '+ Tribes';
   return null;
 }
 
@@ -228,6 +233,19 @@ function TripCard({ group, exp, months, isRtl }) {
             ? (isRtl ? trip.name : (trip.nameEn || trip.name))
             : (isRtl ? (exp?.nameHe || group.eventName) : (exp?.nameEn || exp?.name || exp?.nameHe || group.eventName))
           }
+          {/* Which LENGTH of the product this is. The tag was computed here and
+              never rendered, which was survivable while the two lengths were
+              merged into one card — now that they are two cards under the same
+              name, it is the only thing telling them apart besides an end date
+              nobody compares (owner, Aug 23 2026). */}
+          {tag && (
+            <span style={{
+              fontFamily: "'Ploni', sans-serif", fontSize: '12px', fontWeight: 600,
+              marginInlineStart: '8px', padding: '2px 9px', borderRadius: '999px',
+              background: 'rgba(255,255,255,0.22)', color: '#fff',
+              verticalAlign: 'middle', whiteSpace: 'nowrap',
+            }}>{tag}</span>
+          )}
         </h3>
 
         {/* Date range */}
@@ -338,6 +356,15 @@ export default function AnnualPlan() {
       };
     }
 
+    /* A group whose Event matches no expedition has no name, no flag and no
+       photo to show — the card came out as the raw Airtable id on a
+       customer-facing page (owner, Aug 23 2026: "תראה מה עשית באתר זה לא תקין").
+       Better to show nothing than to show the id. Israel trips are exempt: they
+       carry their own name and image on the record itself. */
+    function isRenderable(g) {
+      return g._isIsrael || !!findExp(g.eventName);
+    }
+
     /* Common date filters (same rules for both tables) */
     function dateFilter(g) {
       if (!g.departure) return false;
@@ -364,7 +391,8 @@ export default function AnnualPlan() {
         .map(rec => normaliseGroup(rec, false, counts))
         .filter(dateFilter)
         .filter(g => !g.eventName.toLowerCase().includes('kosher'))
-        .filter(g => !g.eventName.toLowerCase().includes('safari'));
+        .filter(g => !g.eventName.toLowerCase().includes('safari'))
+        .filter(isRenderable);
 
       /* Process Israel groups */
       const israelGroups = israelRecords
@@ -384,13 +412,23 @@ export default function AnnualPlan() {
       const all = [...worldGroups, ...israelGroups]
         .sort((a, b) => new Date(a.departure) - new Date(b.departure));
 
-      /* Merge duplicate rows (same expedition slug + same departure date) */
+      /* Merge duplicate rows — same expedition, same departure date, AND SAME
+         EVENT.
+         The event belongs in the key because a departure can be sold in two
+         lengths: Kilimanjaro and Kilimanjaro + safari, Ethiopia and Ethiopia +
+         tribes. Merging on slug and date alone folded the two into one card
+         that showed the longer trip's end date, so the shorter option was
+         invisible on the annual plan (owner, Aug 23 2026: "אבל כן שיהיה
+         בנפרד").
+         What still merges, and must: the SAME product on the same date split
+         into two guided groups — Kili_23_09_A and Kili_23_09_B are one
+         departure to a customer, and their seats are added together. */
       const mergedMap = new Map();
       all.forEach(g => {
         const slug = g._isIsrael
           ? (g._slug || g.eventName)
           : (findExp(g.eventName)?.slug || g.eventName);
-        const key = `${slug}|${(g.departure || '').slice(0, 10)}`;
+        const key = `${slug}|${(g.departure || '').slice(0, 10)}|${g.eventName}`;
         if (mergedMap.has(key)) {
           const ex = mergedMap.get(key);
           ex.count    += g.count;

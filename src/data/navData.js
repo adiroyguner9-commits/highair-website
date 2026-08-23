@@ -309,7 +309,8 @@ export const CARD_EXPS = [
     "priceStr": "$3000",
     "continent": "africa",
     "airtableEvents": [
-      "Ethiopia"
+      "Ethiopia",
+      "Ethiopia_with_Tribes"
     ],
     "groupCapacity": 15
   },
@@ -405,7 +406,8 @@ export const CARD_EXPS = [
     "priceStr": "$2150",
     "continent": "asia",
     "airtableEvents": [
-      "Annapurna_Circut"
+      "Annapurna_Circut",
+      "Annapurna_Circut_Kosher"
     ],
     "groupCapacity": 10
   },
