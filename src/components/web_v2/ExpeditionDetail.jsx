@@ -829,10 +829,17 @@ export default function ExpeditionDetail() {
      whole itinerary section falls away on its own existing length gate. */
   const itinerary = (isRtl ? (exp.itinerary || []) : (exp.itineraryEn || exp.itinerary || []))
     .filter(d => filled(d.title));
-  const safariItinerary = isRtl ? (exp.safariItinerary || []) : (exp.safariItineraryEn || exp.safariItinerary || []);
+  /* The longer version of the same expedition. Kilimanjaro's is a safari,
+     Ethiopia's is five days through the tribes of the south — same mechanism,
+     different words, so the labels come from the expedition and fall back to
+     the safari wording that was hardcoded here. */
+  const safariItinerary = isRtl
+    ? (exp.safariItinerary   || exp.extensionItinerary   || [])
+    : (exp.safariItineraryEn || exp.extensionItineraryEn || exp.safariItinerary || exp.extensionItinerary || []);
 
   /* ── Active itinerary based on tab ── */
-  const hasSafari = (exp?.safariItinerary?.length > 0) || (exp?.safariItineraryEn?.length > 0);
+  const hasSafari = (exp?.safariItinerary?.length > 0) || (exp?.safariItineraryEn?.length > 0)
+                 || (exp?.extensionItinerary?.length > 0) || (exp?.extensionItineraryEn?.length > 0);
   const activeItinerary = itineraryTab === 'safari' && hasSafari
     ? [...itinerary.slice(0, -1), ...safariItinerary]
     : itinerary;
@@ -1463,11 +1470,11 @@ export default function ExpeditionDetail() {
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
                       { key: 'safari', label: isRtl
-                          ? `טיפוס + ספארי (${(itinerary.length - 1) + (safariItinerary?.length || 0)} ימים)`
-                          : `Climbing + Safari (${(itinerary.length - 1) + (safariItinerary?.length || 0)} days)` },
+                          ? `${exp.extensionLabelHe || 'טיפוס + ספארי'} (${(itinerary.length - 1) + (safariItinerary?.length || 0)} ימים)`
+                          : `${exp.extensionLabelEn || 'Climbing + Safari'} (${(itinerary.length - 1) + (safariItinerary?.length || 0)} days)` },
                       { key: 'trek',   label: isRtl
-                          ? `טיפוס בלבד (${itinerary.length} ימים)`
-                          : `Climbing only (${itinerary.length} days)` },
+                          ? `${exp.extensionBaseLabelHe || 'טיפוס בלבד'} (${itinerary.length} ימים)`
+                          : `${exp.extensionBaseLabelEn || 'Climbing only'} (${itinerary.length} days)` },
                     ].map(tab => (
                       <button
                         key={tab.key}

@@ -35,14 +35,18 @@ function monthLabel(key, months) {
 }
 
 /* Tag for safari variants */
-function eventTag(e, isRtl) {
+function eventTag(e, isRtl, exp) {
   const n = (typeof e === 'string' ? e : e?.slug || e?.eventName || '').toLowerCase();
   if (n.includes('safari')) return isRtl ? '+ ספארי' : '+ Safari';
+  if (n.includes('tribes')) return isRtl ? (exp?.extensionLabelHe || 'טרק ושבטים')
+                                         : (exp?.extensionLabelEn || 'Trek + Tribes');
+  /* The short one, named only where the long one sits beside it. */
+  if (exp?.extensionItinerary?.length) return isRtl ? (exp.extensionBaseLabelHe || 'טרק בלבד')
+                                                    : (exp.extensionBaseLabelEn || 'Trek only');
   /* Ethiopia is sold in two lengths like Kilimanjaro — the trek, and the trek
      plus five days through the tribes of the south. Both are the same
      expedition page, so without a tag the two departures come out as one card
      printed twice, differing only in an end date nobody reads. */
-  if (n.includes('tribes')) return isRtl ? '+ שבטים' : '+ Tribes';
   return null;
 }
 
@@ -102,7 +106,7 @@ function TripCard({ group, exp, months, isRtl }) {
     : isLow
     ? { bg: 'rgba(217,119,6,0.85)',  color: '#fff', text: isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left` }
     : { bg: 'rgba(5,150,105,0.85)',  color: '#fff', text: isRtl ? 'הרשמה פתוחה' : 'Open' };
-  const tag = eventTag(group.eventName, isRtl);
+  const tag = group._showLengthTag ? eventTag(group.eventName, isRtl, exp) : null;
 
   /* Lazy-load image */
   useEffect(() => {
@@ -441,6 +445,21 @@ export default function AnnualPlan() {
         }
       });
       const merged = Array.from(mergedMap.values());
+
+      /* When two LENGTHS of the same expedition leave on the same day, both
+         cards carry the same name and the same start date, and only the end
+         date tells them apart — which nobody compares (owner, Aug 23 2026:
+         "מצוינים בתאריכים 2 התאריכים אבל לא כתוב של מה"). So each one says
+         which it is. A departure with only one length says nothing extra: a
+         lone "trek only" on every other card would be noise. */
+      const lengthPeers = new Map();
+      merged.forEach(g => {
+        const slug = g._isIsrael ? (g._slug || g.eventName) : (findExp(g.eventName)?.slug || g.eventName);
+        const k = `${slug}|${(g.departure || '').slice(0, 10)}`;
+        lengthPeers.set(k, (lengthPeers.get(k) || 0) + 1);
+        g._peerKey = k;
+      });
+      merged.forEach(g => { g._showLengthTag = (lengthPeers.get(g._peerKey) || 0) > 1; });
 
       setGroups(merged);
       if (merged.length > 0) setActiveMonth(monthKey(merged[0].departure));
