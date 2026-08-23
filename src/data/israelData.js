@@ -1281,6 +1281,120 @@ export const ISRAEL_TRIPS = [
     ],
   },
 
+  /* ── Preparation trek — Nahal Galim & Ein Kedem ──
+     Same shape as Keziv and Har Barkan: free, hidden, live. Hidden keeps it out
+     of the homepage carousel and the footer; live still builds the SEO shell and
+     the sitemap entry and still lists it under "טרקים בארץ" in the header, which
+     is how a direct WhatsApp link lands somewhere real. */
+  {
+    id:           'galim-training',
+    slug:         'galim',
+    name:         'טרק הכנה - נחל גלים ועין קדם',
+    nameEn:       'Preparation Trek - Nahal Galim & Ein Kedem',
+    typeHe:       'טרק',
+    free:         true,
+    /* The free-trip form redirects HERE and nowhere else — the copy in Airtable
+       is not what the signup reads. Har Barkan proves it: its link is in
+       Airtable and blank in code, so everyone who signed up for it landed
+       nowhere after their lead was saved. */
+    whatsappUrl:  'https://chat.whatsapp.com/JS2k3PUlZGsIB2zJIcvNj7',
+    live:         true,
+    hidden:       true,
+    img:          '/images/cards/GalimTraining.webp',
+    /* Still set: the gradient is what the card shows while the photo loads and
+       if it ever 404s. */
+    grad:         'linear-gradient(135deg, #0b3d2e, #12705a, #061f18)',
+    diffHe:       'מיטיבי לכת',
+    diffEn:       'Experienced Hikers',
+    days:         'יום אחד',
+    daysEn:       '1 day',
+    departure:    '2026-09-18',
+    distance:     '11 ק"מ',
+    elevGain:     '+400 מ׳',
+    tagline:      'טרק הכנה לקבוצות HighAir בנחל גלים ועין קדם',
+    taglineEn:    'HighAir preparation trek at Nahal Galim and Ein Kedem',
+    seoTitle:       'HighAir Expeditions | טרק הכנה - נחל גלים ועין קדם',
+    seoTitleEn:     'HighAir Expeditions | Preparation Trek - Nahal Galim & Ein Kedem',
+    seoDescription: 'טרק הכנה לקבוצות HighAir בנחל גלים ועין קדם שבכרמל - יום שישי 18/09, 11 ק"מ, +400 מ׳ טיפוס מצטבר. מסלול הכנה חינמי עם מדריך מוסמך וארוחת צהריים מפנקת.',
+    seoDescriptionEn: 'HighAir preparation trek at Nahal Galim and Ein Kedem in the Carmel - Friday 18/09, 11 km, +400m elevation gain. Free preparation trail with a certified guide and a delicious lunch.',
+    desc:         '',
+    descEn:       '',
+    airtableEvents: ['GalimTraining'],
+    groupCapacity:  20,
+    gear: [
+      'תרמיל גב (חובה!)',
+      'חולצת ומכנס טיולים (חובה!)',
+      'נעלי טרקים (חובה!)',
+      'מקלות הליכה (חובה!)',
+      '3-4 ליטר מים לאדם (חובה!)',
+      'כובע (חובה!)',
+      'קרם הגנה',
+      'משקפי שמש',
+      'כוס רב פעמית',
+      'אוכל ונשנושים למהלך הטיול',
+      'בגדים להחלפה',
+    ],
+    gearEn: [
+      'Backpack (required!)',
+      'Hiking shirt and pants (required!)',
+      'Hiking boots (required!)',
+      'Trekking poles (required!)',
+      '3–4 liters of water per person (required!)',
+      'Hat (required!)',
+      'Sunscreen',
+      'Sunglasses',
+      'Reusable cup',
+      'Food and snacks for the trek',
+      'Change of clothes',
+    ],
+    /* The lunch is never optional — it is on every Israel route, in the included
+       list and again in the schedule (owner, Jul 23 2026). */
+    included: [
+      'טרק הכנה יומי בארץ',
+      'מדריך ישראלי מקצועי מוסמך',
+      'מלווה ישראלי מטעם HighAir',
+      'ארוחת צהריים מפנקת בסוף המסלול',
+      'תיאומים ותכנון מוקדם דרך קבוצת הווצאפ',
+    ],
+    includedEn: [
+      'Full-day preparation trek in Israel',
+      'Professional certified Israeli guide',
+      'Israeli escort from HighAir',
+      'A delicious lunch at the end of the trail',
+      'Pre-trip coordination and planning via WhatsApp group',
+    ],
+    notIncluded: [
+      'הגעה עצמאית לנקודת מפגש',
+      'ציוד אישי  -  לבוש, הנעלה וציוד הליכה',
+      'אוכל ושתייה במהלך הטרק',
+    ],
+    notIncludedEn: [
+      'Independent transport to meeting point',
+      'Personal gear  -  clothing, footwear and hiking equipment',
+      'Food and drinks during the trek',
+    ],
+    itinerary: [
+      {
+        day:           'יום שישי - 18/09/26',
+        title:         '',
+        desc:          '06:30 - נפגשים בנקודת מפגש\n07:00 - תחילת המסלול\n13:00 - סיום וארוחת צהריים מפנקת\n13:30 - סיום משוער ושבת שלום!',
+        distance:      '11 ק"מ',
+        duration:      '6–7 שעות',
+        elevationGain: '+400 מ׳',
+      },
+    ],
+    itineraryEn: [
+      {
+        day:           'Friday - 18/09/26',
+        title:         '',
+        desc:          '06:30  -  Meeting at the meeting point\n07:00  -  Trail begins\n13:00  -  End of trail & delicious lunch\n13:30  -  Estimated finish',
+        distance:      '11 km',
+        duration:      '6–7 hours',
+        elevationGain: '+400m gain',
+      },
+    ],
+  },
+
   /* ── Community trip — Nahal El Al ── */
   /* ── Community trip — Mount Arbel ── */
   {
