@@ -1858,6 +1858,11 @@ export default function ExpeditionDetail() {
                 const displayGroups = groupsForYear.length > 2 ? visibleGroups : groupsForYear;
                 const isKili = exp.slug?.includes('kilimanjaro');
 
+                /* The longer of the two lengths, however the Airtable event spells
+                   it: "…_with_Safari" for Kilimanjaro, "…_with_Tribes" here. */
+                const isExtensionGroup = (g) =>
+                  /safari|tribes/i.test(String(g.eventName || ''));
+
                 const renderCard = (g) => {
                   // Per-group Airtable {Capacity} first (owner opens spots with no
                   // deploy); mockData's per-expedition number is the fallback.
@@ -1897,7 +1902,8 @@ export default function ExpeditionDetail() {
                     onMouseEnter={e => { if (!isFull) e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'; }}
                     onMouseLeave={e => e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'}
                     >
-                      {/* Date */}
+                      {/* Date, and under it WHICH LENGTH this date is */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <CalendarIcon size={isMobile ? 16 : 18} color={isFull ? '#9CA3AF' : COLOR.primary} />
                         <span style={{
@@ -1908,6 +1914,26 @@ export default function ExpeditionDetail() {
                         }}>
                           {formatDateRange(g.departure, g.returnDate)}
                         </span>
+                      </div>
+                      {/* An expedition sold in two lengths listed both dates here
+                          with nothing but an end date to tell them apart, so two
+                          rows read as one departure printed twice (owner, Aug 23
+                          2026: "הם צריכים לדעת שהראשון זה טרק בלבד והשני זה טרק
+                          ושבטים"). Only where a second length exists; anywhere
+                          else the row is unambiguous and a label is noise. */}
+                      {hasSafari && (
+                        <span style={{
+                          fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
+                          padding: '2px 9px', borderRadius: '999px', whiteSpace: 'nowrap',
+                          marginInlineStart: isMobile ? '24px' : '26px',
+                          background: isFull ? '#F3F4F6' : '#EDE9FE',
+                          color: isFull ? '#9CA3AF' : '#5B21B6',
+                        }}>
+                          {isExtensionGroup(g)
+                            ? (isRtl ? (exp.extensionLabelHe     || 'טיפוס + ספארי') : (exp.extensionLabelEn     || 'Climbing + Safari'))
+                            : (isRtl ? (exp.extensionBaseLabelHe || 'טיפוס בלבד')    : (exp.extensionBaseLabelEn || 'Climbing only'))}
+                        </span>
+                      )}
                       </div>
                       {/* Badge — fixed center cell */}
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
