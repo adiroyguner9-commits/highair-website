@@ -14,7 +14,7 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
-import { fetchActiveLead } from './_lib/active-lead.js';
+import { fetchActiveLead, tripKey } from './_lib/active-lead.js';
 import { destKey } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 
@@ -204,19 +204,39 @@ export default async function handler(req, res) {
          row came back first, so a new Aconcagua enquiry could be filed on a
          returning customer's closed Kazbek card (Aug 13 2026). */
       const rec = await fetchActiveLead({
-        base: BASE, token: TOKEN, phone: sanitised['Phone'], fields: ['Experience'],
+        base: BASE, token: TOKEN, phone: sanitised['Phone'], fields: ['Experience', 'Expedition'],
       });
-      if (rec) {
+      /* Append ONLY when it is the same trip. A returning climber asking about
+         somewhere new is a new deal and needs its own card: Michael Schechter
+         walked Peaks of Balkan in June and asked about Ethiopia on 28 Aug 2026,
+         and the enquiry became a line of text on his closed Balkan card. No
+         card, no agent, no alert, no funnel entry. 24 enquiries were lost that
+         way between 10 Jul and 28 Aug, nine of them onto cards marked "Not
+         Relevant" that nobody opens — including Eli Itzhak twice, the very
+         customer the returning-lead rule was written for.
+
+         The webapp already handles this correctly (api/_lib/returning.js opens
+         a second card and gives it to the agent who knows them), but it never
+         got the chance: the enquiry died here, one layer earlier. So this stops
+         at "is it the same trip" and lets the card be created; the webapp then
+         does the rest.
+
+         When in doubt, CREATE. A duplicate card is visible and an agent can
+         merge it in a second; a swallowed lead is invisible for ever. */
+      const sameTrip = rec && tripKey(rec.fields?.Expedition) === tripKey(sanitised['Expedition'])
+                           && !!tripKey(sanitised['Expedition']);
+      if (rec && sameTrip) {
         {
           const note = `\n---\n[פנייה נוספת ${israelTime.slice(0, 10)}] ${sanitised['Expedition'] || sanitised['Source'] || ''}${sanitised['Experience'] ? ': ' + sanitised['Experience'] : ''}`;
           await fetch(`${LEADS_URL}/${rec.id}`, {
             method: 'PATCH', headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ fields: { Experience: ((rec.fields?.Experience || '') + note).slice(0, 100000) } }),
           });
-          console.log('[submit-lead] returning contact → linked to existing lead', rec.id);
+          console.log('[submit-lead] returning contact, same trip → linked to existing lead', rec.id);
           return res.status(200).json({ ok: true, linked: true });
         }
       }
+      if (rec) console.log(`[submit-lead] returning contact, DIFFERENT trip (${rec.fields?.Expedition || '—'} → ${sanitised['Expedition'] || '—'}) → new card`);
     } catch (e) { console.warn('[submit-lead] dedupe check non-fatal:', e.message); }
   }
 

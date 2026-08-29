@@ -69,3 +69,38 @@ export async function fetchActiveLead({ base, token, phone, fields = [] }) {
     return pickActive((await r.json()).records || []);
   } catch { return null; }
 }
+
+/* Is this the same trip? Compares the Expedition as written on a lead card,
+   ignoring case, spacing, punctuation and the Hebrew/English spelling of the
+   same destination. Deliberately treats "Kilimanjaro" and "Kilimanjaro
+   (Religious)" as DIFFERENT: they are different departures with different
+   agents, and merging an enquiry across them loses the one that came second.
+
+   Returns '' for a blank or unrecognised value, and callers must treat '' as
+   "not the same trip" — an enquiry we cannot classify is one to keep, not one
+   to fold into whatever card came back. */
+export function tripKey(expedition) {
+  const raw = String(expedition || '').trim();
+  if (!raw) return '';
+  const HE = [
+    [/סימיאן|דנקיל|אתיופיה/, 'ethiopia'],
+    [/קילימנג/,              'kilimanjaro'],
+    [/סיני/,                 'sinai'],
+    [/בלקן/,                 'peaksofbalkan'],
+    [/אלברוס/,               'elbrus'],
+    [/קזבק/,                 'kazbek'],
+    [/אולימפוס/,             'olympus'],
+    [/אקונקגואה/,            'aconcagua'],
+    [/אנאפורנה|אנפורנה/,     'annapurna'],
+    [/מנסלו|מנאסלו/,         'manaslu'],
+    [/אוורסט|גוקיו/,         'ebc'],
+    [/מרא פיק|מרה פיק/,      'merapeak'],
+    [/איילנד/,               'islandpeak'],
+    [/לנין/,                 'leninpeak'],
+    [/לובוצ/,                'lobuchepeak'],
+  ];
+  /* A religious departure keeps its own identity, whichever language named it. */
+  const kosher = /religious|kosher|דתי|שומרי מסורת|חרדי/i.test(raw) ? 'religious' : '';
+  for (const [re, key] of HE) if (re.test(raw)) return key + kosher;
+  return raw.toLowerCase().replace(/[^a-z0-9]/g, '') ;
+}
