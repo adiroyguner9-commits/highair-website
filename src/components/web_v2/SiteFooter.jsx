@@ -8,19 +8,19 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { NAV_EXPS as EXPS } from '../../data/navData.js';
 import { ISRAEL_TRIPS as ALL_ISRAEL_TRIPS } from '../../data/israelData.js';
+import { FOOTER_CLIMBS, FOOTER_TREKS } from '../../data/expeditionGroups.js';
 
-/* ── Expeditions ordered by continent: Africa → Europe → Asia → South America ── */
-const TREK_IDS  = [4, 17, 3, 21, 2, 6, 7, 8];
-const CLIMB_IDS = [10, 5, 9, 12, 13, 14, 16, 15];
-const TREKS  = TREK_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
-const CLIMBS = CLIMB_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
+/* Expeditions derived automatically (expeditionGroups.js), continent-ordered:
+   Africa → Europe → Asia → South America. Add a destination to mockData and it
+   shows up here on its own. */
+const TREKS  = FOOTER_TREKS;
+const CLIMBS = FOOTER_CLIMBS;
 
 const WA_HREF = 'https://api.whatsapp.com/send?phone=972555636975';
 
 /* ── Single link ── */
-function FooterLink({ label, href, isExternal, comingSoon }) {
+function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
   const { i18n } = useTranslation();
@@ -36,13 +36,14 @@ function FooterLink({ label, href, isExternal, comingSoon }) {
 
   return (
     <a
-      href={href}
-      onClick={handleClick}
+      href={teaser ? undefined : href}
+      onClick={teaser ? (e => e.preventDefault()) : handleClick}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => !teaser && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
+        cursor:         teaser ? 'default' : 'pointer',
         fontFamily:     "'Ploni', sans-serif",
         fontSize:       FS.sm,
         fontWeight:     400,
@@ -172,11 +173,11 @@ export default function SiteFooter() {
           }}>
             <div>
               <ColHeading>{t('footer.worldTreks')}</ColHeading>
-              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} />)}
+              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
             </div>
             <div>
               <ColHeading>{t('footer.worldClimbs')}</ColHeading>
-              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
+              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
             </div>
             <div>
               <ColHeading>{t('footer.israelTrips')}</ColHeading>
@@ -232,12 +233,12 @@ export default function SiteFooter() {
 
           <div>
             <ColHeading>{t('footer.worldClimbs')}</ColHeading>
-            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} />)}
+            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
           </div>
 
           <div>
             <ColHeading>{t('footer.worldTreks')}</ColHeading>
-            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} />)}
+            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
           </div>
 
           <div>

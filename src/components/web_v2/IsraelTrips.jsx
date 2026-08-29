@@ -12,6 +12,19 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
+import { CalendarIcon } from '../Icons.jsx';
+
+/* Display date for a trip: a single departure (DD/MM, parsed from the ISO parts
+   to avoid timezone drift) or the first entry of `dates`. Returns null if the
+   trip has no set date. */
+function tripDate(trip) {
+  if (trip.departure) {
+    const [, m, d] = String(trip.departure).split('-');
+    return d && m ? `${d}/${m}` : null;
+  }
+  if (Array.isArray(trip.dates) && trip.dates.length) return trip.dates[0];
+  return null;
+}
 
 /* ══════════════════════════════════════════════════════════════
    Card
@@ -84,6 +97,32 @@ function IsraelCard({ trip }) {
           background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%)',
           zIndex: 0,
         }} />
+      )}
+
+      {/* ── Date chip (top) ── */}
+      {tripDate(trip) && (
+        <div style={{
+          position:             'absolute',
+          top:                  '16px',
+          insetInlineStart:     '16px',
+          zIndex:               2,
+          display:              'inline-flex',
+          alignItems:           'center',
+          gap:                  '6px',
+          padding:              '5px 12px',
+          borderRadius:         RADIUS.full,
+          background:           'rgba(0,0,0,0.42)',
+          backdropFilter:       'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          fontFamily:           "'Ploni', sans-serif",
+          fontSize:             FS.sm,
+          fontWeight:           600,
+          color:                'rgba(255,255,255,0.95)',
+          letterSpacing:        '0.02em',
+        }}>
+          <CalendarIcon size={14} color="rgba(255,255,255,0.95)" />
+          <span style={{ direction: 'ltr' }}>{tripDate(trip)}</span>
+        </div>
       )}
 
       {/* ── Bottom: name / elev / arrow ── */}
@@ -212,6 +251,8 @@ export default function IsraelTrips() {
             paymentUrl:    f.Payment_URL,
             airtableEvents: [f.Event].filter(Boolean),
             groupCapacity: f.Capacity || 12,
+            departure:     f.Departure,   // feeds the date chip (DD/MM)
+            dates:         ISRAEL_TRIPS.find(t => t.slug === f.Slug)?.dates,
             live:          true,
           }));
         if (data.records) setTrips(loaded); // always apply if fetch succeeded (even empty = hidden)
@@ -260,7 +301,7 @@ export default function IsraelTrips() {
 
   return (
     <section id="israel" style={{
-      background:  '#FFFFFF',
+      background:  'transparent',
       padding:     isMobile ? '36px 5% 0' : '60px 5%',
       boxSizing:   'border-box',
       direction:   dir,

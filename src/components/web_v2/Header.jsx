@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
+import { MENU_CLIMBS, MENU_TREKS } from '../../data/expeditionGroups.js';
 import FlagImg from './FlagImg.jsx';
 
 /* Date-bound Israel trips (e.g. community trips) disappear from the nav
@@ -139,17 +140,10 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  const isEn = i18n.language === 'en';
  const dir = isEn ? 'ltr' : 'rtl';
 
- const MEGA_TREKS = [
- { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4, 17] },
- { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3, 21] },
- { label: t('explorer.continents.asia'), flag: '🌏', expIds: [6, 7, 8] },
- ];
- const MEGA_CLIMBS = [
- { label: t('explorer.continents.africa'), flag: '🌍', expIds: [10, 11] },
- { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [5, 9] },
- { label: t('explorer.continents.asia'), flag: '🌏', expIds: [12, 13, 14, 16] },
- { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15] },
- ];
+ /* Derived automatically from the expedition data (expeditionGroups.js): add a
+    destination to mockData and it appears here on its own, no list to update. */
+ const MEGA_TREKS  = MENU_TREKS.map(g => ({ label: t('explorer.continents.' + g.i18n), flag: g.flag, exps: g.exps }));
+ const MEGA_CLIMBS = MENU_CLIMBS.map(g => ({ label: t('explorer.continents.' + g.i18n), flag: g.flag, exps: g.exps }));
 
  /* Safari: one Tanzania group listing the three lengths, so the header opens
     straight onto a specific trip (owner, Jul 30 2026). The heading itself still
@@ -245,7 +239,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  gap: '0',
  }}>
  {MEGA_CONTINENTS_I18N.map((cont, ci) => {
- const exps = cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
+ const exps = cont.exps || cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
  return (
  <div key={cont.label} style={{
  padding: '0 24px',
@@ -287,21 +281,22 @@ function MegaItem({ exp, onClose }) {
  const navigate = useNavigate();
  const { i18n } = useTranslation();
  const isEn = i18n.language === 'en';
+ const isTeaser = !!exp.teaser;   // "בקרוב" item with no page — not clickable
 
  return (
  <button
  className="nav-menu-item"
- onMouseEnter={() => setHovered(true)}
+ onMouseEnter={() => !isTeaser && setHovered(true)}
  onMouseLeave={() => setHovered(false)}
  onMouseDown={e => e.preventDefault()}
- onClick={() => { navigate(`/expedition/${exp.slug}`); onClose(); }}
+ onClick={isTeaser ? undefined : () => { navigate(`/expedition/${exp.slug}`); onClose(); }}
  style={{
  display: 'block',
  padding: '8px 10px',
  borderRadius: '8px',
  border: 'none',
  background: hovered ? '#F5F3FF' : 'transparent',
- cursor: 'pointer',
+ cursor: isTeaser ? 'default' : 'pointer',
  textAlign: isEn ? 'left' : 'right',
  direction: isEn ? 'ltr' : 'rtl',
  width: '100%',
@@ -454,17 +449,8 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  const isEn = i18n.language === 'en';
 
  const MEGA_BY_TYPE = {
- treks: [
- { label: t('explorer.continents.africa'), flag: '🌍', expIds: [4, 17] },
- { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [2, 3, 21] },
- { label: t('explorer.continents.asia'), flag: '🌏', expIds: [6, 7, 8] },
- ],
- climbs: [
- { label: t('explorer.continents.africa'), flag: '🌍', expIds: [10, 11] },
- { label: t('explorer.continents.europe'), flag: '🏔️', expIds: [5, 9] },
- { label: t('explorer.continents.asia'), flag: '🌏', expIds: [12, 13, 14, 16] },
- { label: t('explorer.continents.southAmerica'), flag: '🌎', expIds: [15] },
- ],
+ treks:  MENU_TREKS.map(g  => ({ label: t('explorer.continents.' + g.i18n), flag: g.flag, exps: g.exps })),
+ climbs: MENU_CLIMBS.map(g => ({ label: t('explorer.continents.' + g.i18n), flag: g.flag, exps: g.exps })),
  safari: [
  { label: isEn ? 'Tanzania' : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
  ],
@@ -571,7 +557,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  </div>
  );
  }
- const exps = cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
+ const exps = cont.exps || cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
  return (
  <div key={cont.label} style={{ marginTop: '12px' }}>
  <div style={{
@@ -585,13 +571,8 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  }}>
  {cont.label}
  </div>
- {exps.map(exp => (
- <a
- key={exp.id}
- className="nav-menu-link"
- href={`/expedition/${exp.slug}`}
- onClick={e => { e.preventDefault(); navigate(`/expedition/${exp.slug}`); closeMenu(); }}
- style={{
+ {exps.map(exp => {
+ const linkStyle = {
  display: 'block',
  padding: '8px 10px',
  fontFamily: "'Ploni', sans-serif",
@@ -600,12 +581,25 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  color: '#3D3B5A',
  textDecoration: 'none',
  borderRadius: '8px',
- }}
+ };
+ const label = (<>{isEn ? (exp.nameEn || exp.name) : exp.nameHe}{exp.comingSoon && <ComingSoonTag />}</>);
+ /* teaser = "בקרוב" with no page — render a non-clickable row */
+ return exp.teaser ? (
+ <div key={exp.id} className="nav-menu-link" style={{ ...linkStyle, cursor: 'default' }}>
+ {label}
+ </div>
+ ) : (
+ <a
+ key={exp.id}
+ className="nav-menu-link"
+ href={`/expedition/${exp.slug}`}
+ onClick={e => { e.preventDefault(); navigate(`/expedition/${exp.slug}`); closeMenu(); }}
+ style={linkStyle}
  >
- {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
- {exp.comingSoon && <ComingSoonTag />}
+ {label}
  </a>
- ))}
+ );
+ })}
  </div>
  );
  })}

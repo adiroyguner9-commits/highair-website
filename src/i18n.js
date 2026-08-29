@@ -41,7 +41,7 @@ const he = {
   stats: {
     successRate: 'אחוזי הצלחה',
     donated: 'נתרמו לחולי סרטן',
-    climbers: 'מטיילים שכבשו פסגות',
+    climbers: 'מטיילים שהעפילו לפסגות',
     destinations: 'יעדים ברחבי העולם',
   },
   explorer: {

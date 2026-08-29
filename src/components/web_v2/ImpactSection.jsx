@@ -40,7 +40,7 @@ export default function ImpactSection() {
     <section
       id="impact"
       style={{
-        background: '#FFFFFF',
+        background: 'transparent',
         padding:    isMobile ? '36px 5%' : '60px 5%',
         boxSizing:  'border-box',
         direction:  dir,

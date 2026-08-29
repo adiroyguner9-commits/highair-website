@@ -8,6 +8,12 @@ import { useTranslation } from 'react-i18next';
 import { FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useInView } from '../../website/useInView.js';
+import { CARD_EXPS } from '../../data/navData.js';
+
+/* Destinations stat = number of expeditions and treks actually shown on the
+   site (climbs + treks; safaris are live:false and excluded from CARD_EXPS),
+   so the number tracks the cards automatically as trips are added or removed. */
+const DEST_COUNT = CARD_EXPS.filter(e => !String(e.slug || '').startsWith('safari')).length;
 
 /* ── Count-up hook ─────────────────────────────────────────────
    Counts from 0 → `to` over `duration`ms using easeOutCubic.
@@ -96,7 +102,7 @@ export default function StatsSection() {
   const isRtl = dir === 'rtl';
 
   const STATS = [
-    { value: '15',    label: t('stats.destinations') },
+    { value: String(DEST_COUNT), label: t('stats.destinations') },
     { value: '750+',  label: t('stats.climbers')     },
     { value: isRtl ? '₪210K+' : '$70K+', label: t('stats.donated') },
     { value: '94%',   label: t('stats.successRate')  },

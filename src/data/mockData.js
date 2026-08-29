@@ -1,6 +1,6 @@
 export const EXPS = [
   {
-    id: 2, slug: 'olympus', name: 'Olympus', nameHe: 'טרק לפסגת האולימפוס', nameEn: 'Olympus', country: 'Greece', countryHe: 'יוון', flag: '🇬🇷',
+    id: 2, slug: 'olympus', name: 'Olympus', nameHe: 'טרק לאולימפוס', nameEn: 'Olympus', country: 'Greece', countryHe: 'יוון', flag: '🇬🇷',
     ghlCalendarId: 'Wr9he2kPJt1zRGZWBaGR', tagHe: 'אולימפוס',
     elev: '2917m', elevNum: 2918, days: '6 ימים', daysEn: '6 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 1750, priceStr: '€1750', continent: 'europe',
@@ -9,7 +9,7 @@ export const EXPS = [
     img: '/images/cards/olympus.jpg',
     imgPosition: 'center 45%',
     ogImage: '/images/og/olympus.jpg',
-    seoTitle:       'HighAir Expeditions | טרק לפסגת האולימפוס',
+    seoTitle:       'HighAir Expeditions | טרק לאולימפוס',
     seoTitleEn:     'Mount Olympus Trek | HighAir Expeditions',
     seoDescription: 'טרק הר האולימפוס - הר האלים של יוון, 2918 מטר. 6 ימים, מסלול דרך יערות פריוניה, פסגת מיטיקאס ויום קניונינג בנהר האורליאס. קבוצה קטנה.',
     seoDescriptionEn: 'Trek to the summit of Mount Olympus (2918m) in Greece - 6 days. Through Prionia forests, summit Mytikas peak & canyoning on the Orlias River. Groups up to 15.',
@@ -314,7 +314,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
 
      Card and OG images still point at the Balkans files until real ones exist. */
   {
-    id: 21, slug: 'scardus', name: 'Scardus Ridge Trek', nameHe: 'טרק רכס הסקארדוס', live: true, comingSoon: true, country: 'North Macedonia', countryHe: 'צפון מקדוניה', flag: '🇲🇰',
+    id: 21, slug: 'scardus', name: 'Scardus Ridge Trek', nameHe: 'טרק רכס הסקארדוס', live: true, comingSoon: true, teaser: true, country: 'North Macedonia', countryHe: 'צפון מקדוניה', flag: '🇲🇰',
     ghlCalendarId: '', tagHe: 'רכס הסקארדוס',
     imgPosition: 'center 55%',
     heroVideo: '',
@@ -1049,7 +1049,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     elev: '5364m', elevNum: 5545, days: '19 ימים', daysEn: '19 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Hard', diffHe: 'קשה', price: 3300, priceStr: '$3300', continent: 'asia',
     airtableEvents: ['EBC + Gokyo'],
-    img: '/images/cards/EBC.jpg',
+    img: '/images/cards/EBC.webp',
     imgPosition: 'center 60%',
     ogImage: '/images/og/everest-base-camp.jpg',
     seoTitle:       'HighAir Expeditions | טרק אוורסט בייס קמפ',
@@ -2674,7 +2674,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     ghlCalendarId: '6Foewe8NxIjTlxWC3sRK', tagHe: 'לנין פיק',
     elev: '7134m', elevNum: 7134, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Hard', diffHe: 'אתגרי', price: 6200, priceStr: '$6200', continent: 'asia',
-    img: '/images/cards/leninPeak.avif',
+    img: '/images/cards/leninPeak.webp',
     ogImage: '/images/og/lenin-peak.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס ללנין פיק',
     seoTitleEn:     'Climbing Lenin Peak | HighAir Expeditions',
@@ -3178,6 +3178,39 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
       { day: 6, title: '[TO FILL] Day 6', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
       { day: 7, title: '[TO FILL] Day 7', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
     ],
+  },
+
+  /* ── Coming-soon teasers (id 22-24) ──────────────────────────────────
+     teaser:true = a "בקרוב" card that is NOT clickable and has NO detail
+     page. It shows on the homepage cards, the header menu and the footer,
+     but is excluded from routing, the HTML shells and the sitemap. Remove
+     `teaser` (and fill in the full fields) to turn one into a real page. */
+  {
+    id: 22, slug: 'manaslu-climb', teaser: true, comingSoon: true,
+    name: 'Manaslu', nameHe: 'טיפוס למנסלו', nameEn: 'Manaslu',
+    country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    elev: '8163m', elevNum: 8163, type: 'Climbing', typeHe: 'טיפוס',
+    diff: 'Extreme', diffHe: 'קיצוני', continent: 'asia',
+    img: '/images/cards/manaslu-climb.webp',
+    grad: 'linear-gradient(135deg,#4C1D95,#5B21B6,#1e1b4b)',
+  },
+  {
+    id: 23, slug: 'ama-dablam', teaser: true, comingSoon: true,
+    name: 'Ama Dablam', nameHe: 'טיפוס לאמא דאבלם', nameEn: 'Ama Dablam',
+    country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    elev: '6812m', elevNum: 6812, type: 'Climbing', typeHe: 'טיפוס',
+    diff: 'Extreme', diffHe: 'קיצוני', continent: 'asia',
+    img: '/images/cards/ama-dablam.webp',
+    grad: 'linear-gradient(135deg,#1e3a8a,#3730a3,#0f172a)',
+  },
+  {
+    id: 24, slug: 'himlung-himal', teaser: true, comingSoon: true,
+    name: 'Himlung Himal', nameHe: 'טיפוס להימלונג הימאל', nameEn: 'Himlung Himal',
+    country: 'Nepal', countryHe: 'נפאל', flag: '🇳🇵',
+    elev: '7126m', elevNum: 7126, type: 'Climbing', typeHe: 'טיפוס',
+    diff: 'Extreme', diffHe: 'קיצוני', continent: 'asia',
+    img: '/images/cards/himlung-himal.webp',
+    grad: 'linear-gradient(135deg,#0e7490,#155e75,#0c1a2b)',
   },
 ];
 

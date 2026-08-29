@@ -134,7 +134,7 @@ export default function CommunitySection() {
       id="community"
       style={{
         padding: '48px 5vw',
-        background: '#FFFFFF',
+        background: 'transparent',
         direction: isEn ? 'ltr' : 'rtl',
       }}
     >

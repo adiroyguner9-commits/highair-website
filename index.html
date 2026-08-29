@@ -101,6 +101,16 @@
         overflow: visible !important;
         padding: 0 !important;
         margin: 0 !important;
+        transition: bottom 0.35s cubic-bezier(0.22,1,0.36,1) !important;
+      }
+      /* When the cookie banner covers this corner (narrow screens), lift the
+         accessibility button above it. The banner sets --ha-cookie-clear on
+         <html> and toggles .ha-cookie-open on <body>; WhatsApp sits at the var,
+         and this button stacks ~58px above it. */
+      body.ha-cookie-open #userwayAccessibilityIcon,
+      body.ha-cookie-open .userway_buttons_wrapper,
+      body.ha-cookie-open [id^="userwayAccessibilityIcon"] {
+        bottom: calc(var(--ha-cookie-clear, 86px) + 58px) !important;
       }
       /* The clickable button element UserWay renders */
       #userwayAccessibilityIcon button,

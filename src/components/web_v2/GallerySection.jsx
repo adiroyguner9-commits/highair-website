@@ -164,7 +164,7 @@ export default function GallerySection() {
  return (
  <>
  <section style={{
- background: '#FFFFFF',
+ background: 'transparent',
  padding: isMobile ? '36px 5% 36px' : '60px 0',
  boxSizing: 'border-box',
  direction: dir,

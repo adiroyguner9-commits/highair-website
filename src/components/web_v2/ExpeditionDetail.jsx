@@ -330,7 +330,7 @@ export default function ExpeditionDetail() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
-  const exp = EXPS.find(e => e.slug === slug);
+  const exp = EXPS.find(e => e.slug === slug && !e.teaser);   // teaser = coming-soon card, no page → 404
 
   /* Schema.org JSON-LD: Tour + Breadcrumbs + FAQ — built once per expedition.
      This is what unlocks rich-result eligibility on Google for tour queries

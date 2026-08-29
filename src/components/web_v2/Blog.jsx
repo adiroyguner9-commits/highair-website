@@ -11,6 +11,7 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, CATEGORIES } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import MountainBackdrop from './MountainBackdrop.jsx';
 
 function fmtDate(iso) {
   if (!iso) return '';
@@ -219,8 +220,9 @@ export default function Blog() {
 
   return (
     <>
+      <MountainBackdrop />
       <Header />
-      <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: isMobile ? '80px' : '124px', direction: dir }}>
+      <main id="main-content" style={{ background: 'transparent', minHeight: '100vh', paddingTop: isMobile ? '80px' : '124px', direction: dir }}>
 
         {/* ── Page header ── */}
         <div style={{

@@ -3,7 +3,7 @@
  * Bilingual HE/EN · matches site design
  * Saves preference to localStorage and enables GA on accept
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 
@@ -15,20 +15,37 @@ export default function CookieBanner() {
   const isEn  = i18n.language === 'en';
   const dir   = isEn ? 'ltr' : 'rtl';
 
+  const bannerRef = useRef(null);
+
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) {
-      setVisible(true);
-      window.dispatchEvent(new CustomEvent('ha:cookie-banner', { detail: true }));
-    }
+    if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
   }, []);
+
+  /* While the banner is visible, if it reaches the bottom-left corner where the
+     floating WhatsApp + accessibility buttons live, lift both of them above it
+     via a CSS var (--ha-cookie-clear) + a body class the buttons read. On a wide
+     screen the banner is a centered card that never reaches the corner, so
+     nothing moves. */
+  useEffect(() => {
+    if (!visible) return;
+    const el = bannerRef.current;
+    if (!el) return;
+    if (el.getBoundingClientRect().left < 100) {
+      const clearance = 24 + el.offsetHeight + 14; // banner bottom + height + gap
+      document.body.classList.add('ha-cookie-open');
+      document.documentElement.style.setProperty('--ha-cookie-clear', clearance + 'px');
+    }
+    return () => {
+      document.body.classList.remove('ha-cookie-open');
+      document.documentElement.style.removeProperty('--ha-cookie-clear');
+    };
+  }, [visible]);
 
   function accept() {
     localStorage.setItem(STORAGE_KEY, 'accepted');
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'granted' });
     }
-    window.dispatchEvent(new CustomEvent('ha:cookie-banner', { detail: false }));
     setVisible(false);
   }
 
@@ -37,7 +54,6 @@ export default function CookieBanner() {
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'denied' });
     }
-    window.dispatchEvent(new CustomEvent('ha:cookie-banner', { detail: false }));
     setVisible(false);
   }
 
@@ -45,6 +61,7 @@ export default function CookieBanner() {
 
   return (
     <div
+      ref={bannerRef}
       role="dialog"
       aria-label={isEn ? 'Cookie consent' : 'הסכמה לעוגיות'}
       style={{

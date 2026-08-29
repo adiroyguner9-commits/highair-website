@@ -85,7 +85,7 @@ export default function PartnersSection() {
 
   return (
     <div style={{
-      background: '#FAFAF8',
+      background: 'transparent',
       padding:    isMobile ? '28px 0' : '40px 0',
       borderTop:  '1px solid #ECEAF8',
       borderBottom: '1px solid #ECEAF8',

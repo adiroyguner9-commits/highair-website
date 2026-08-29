@@ -75,7 +75,7 @@ for (const route of staticRoutes) {
    was off the air, and would have exposed the safari templates. Same
    `live !== false` rule the nav, footer and HTML shells use. */
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
-const expeditionSlugs = EXPS.filter(e => e.live !== false && e.slug).map(e => e.slug);
+const expeditionSlugs = EXPS.filter(e => e.live !== false && e.slug && !e.teaser).map(e => e.slug);
 for (const slug of expeditionSlugs) {
   urls.push(urlEntry({
     loc: `${BASE_URL}/expedition/${slug}`,

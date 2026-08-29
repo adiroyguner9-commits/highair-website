@@ -219,7 +219,7 @@ export default function BlogPreview() {
     <section
       ref={sectionRef}
       style={{
-        background:  COLOR.bg,
+        background:  'transparent',
         padding:     isMobile ? '60px 5vw' : '80px 5vw',
         boxSizing:   'border-box',
         direction:   dir,

@@ -23,7 +23,7 @@ const TEAM_PHOTOS = Object.fromEntries(
 
 /* ── Story text ── */
 const STORY_HE = [
-  'נעים להכיר, אני חן שקד בן 29 מתל אביב. את עולם הטרקים וטיפוסי ההרים פגשתי לראשונה רק אחרי הצבא בנפאל, שם התאהבתי בנופים ובניתוק שרק ההרים יכולים לספק. מאז טיפסתי על הקזבק בגאורגיה, הקילימנג\'רו בטנזניה, גראן פרדיסו באיטליה, אמא דאבלם, לובוצ׳ה פיק ואיילנד פיק בהימלאיה, ובספטמבר 2025 כבשתי את פסגת המנסלו, ההר השמיני בגובהו בעולם!',
+  'נעים להכיר, אני חן שקד בן 29 מתל אביב. את עולם הטרקים וטיפוסי ההרים פגשתי לראשונה רק אחרי הצבא בנפאל, שם התאהבתי בנופים ובניתוק שרק ההרים יכולים לספק. מאז טיפסתי על הקזבק בגאורגיה, הקילימנג\'רו בטנזניה, גראן פרדיסו באיטליה, אמא דאבלם, לובוצ׳ה פיק ואיילנד פיק בהימלאיה, ובספטמבר 2025 העפלתי אל פסגת המנסלו, ההר השמיני בגובהו בעולם!',
   'אבל המסע האמיתי שלי התחיל בבית. לפני חמש שנים אימי היקרה, קרול שקד ז״ל, נפטרה לאחר מאבק ממושך בסרטן ומאותו הרגע החלטתי להקדיש את חיי להנצחתה. בכל פסגה אני מניף את דגלה, ככל שאני עולה גבוה יותר, אני מרגיש קרוב אליה יותר. היא מלווה אותי והכוח שלי ברגעים הכי קשים!',
   'יחד עם אדיר אויגונר, חבר ילדותי, הקמנו את היי אייר. אנחנו עוזרים לאנשים לפרוץ גבולות ולכבוש פסגות אישיות, אבל עבורנו זו שליחות. בהשראת הנתינה של אמא, אנחנו תורמים לחולי סרטן ולקהילה בכל מסע מחדש.',
   'כשאתם מצטרפים אלינו, אתם לא רק יוצאים למסע, אתם הופכים לחלק ממשהו גדול יותר.',
@@ -31,7 +31,7 @@ const STORY_HE = [
 const STORY_SIGN_HE = 'מצפים לראות אתכם בקרוב,\nחן ואדיר, צוות HighAir';
 
 const STORY_EN = [
-  'Nice to meet you, I\'m Chen Shaked. I truly discovered open spaces and silence only after the army in Nepal, where I fell in love with the disconnection that only high mountains can provide. Since then I\'ve climbed Kazbek, Kilimanjaro, Ama Dablam, and in September 2025 I conquered the summit of Manaslu, the eighth highest mountain in the world.',
+  'Nice to meet you, I\'m Chen Shaked. I truly discovered open spaces and silence only after the army in Nepal, where I fell in love with the disconnection that only high mountains can provide. Since then I\'ve climbed Kazbek, Kilimanjaro, Ama Dablam, and in September 2025 I reached the summit of Manaslu, the eighth highest mountain in the world.',
   'But my real journey started at home. Five years ago my dear mother, Carol Shaked, passed away after a long battle with cancer. From that moment I decided to dedicate my life to honouring her memory. At every summit I raise her flag, the higher I climb, the closer I feel to her. She is my strength in the hardest moments.',
   'Together with Adir Oyguner, my childhood friend, we founded HighAir. We help people break boundaries and conquer personal summits, but for us it\'s a mission. Inspired by my mother\'s spirit of giving, we contribute to cancer patients and the community with every expedition.',
   'When you join us, you\'re not just going into nature. You\'re becoming part of something much bigger.',

@@ -13,11 +13,13 @@ import HeroSection        from './HeroSection.jsx';
 import StatsSection       from './StatsSection.jsx';
 import PartnersSection    from './PartnersSection.jsx';
 import ExpeditionExplorer from './ExpeditionExplorer.jsx';
+import MountainBackdrop   from './MountainBackdrop.jsx';
 
 /* ── Lazy-loaded (below the fold) ── */
 const IsraelTrips         = lazy(() => import('./IsraelTrips.jsx'));
 const CommunitySection  = lazy(() => import('./CommunitySection.jsx'));
 const ImpactSection     = lazy(() => import('./ImpactSection.jsx'));
+const FounderSection    = lazy(() => import('./FounderSection.jsx'));
 const ReviewsSection = lazy(() => import('./ReviewsSection.jsx'));
 const GallerySection = lazy(() => import('./GallerySection.jsx'));
 const PressSection   = lazy(() => import('./PressSection.jsx'));
@@ -138,7 +140,10 @@ export default function HomeV2() {
   });
 
   return (
-    <div style={{ position: 'relative', background: '#FFFFFF' }}>
+    <div style={{ position: 'relative', background: 'transparent' }}>
+
+      {/* ── Subtle black-and-white mountain backdrop (fixed, behind everything) ── */}
+      <MountainBackdrop />
 
       {/* ── Scroll progress bar ── */}
       <ScrollProgress />
@@ -155,6 +160,8 @@ export default function HomeV2() {
         <PartnersSection />
 
         <Suspense fallback={null}>
+
+          <FadeIn><FounderSection /></FadeIn>
 
           <Divider />
           <FadeIn><ExpeditionExplorer type="climbs" /></FadeIn>

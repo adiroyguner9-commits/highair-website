@@ -7,6 +7,121 @@
 export const POSTS = [
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:12  nepal-flood-2026-trekking-season  (2026-08-27)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       12,
+    slug:     'nepal-flood-2026-trekking-season',
+
+    /* ── Hebrew ── */
+    title:    'מה קרה בנפאל, ואיך זה משפיע על עונת הטרקים',
+    author:   'HighAir Expeditions',
+    dateIso:  '2026-08-27',
+    dateModified: '2026-08-27',
+    dateHe:   '27 באוגוסט 2026',
+    dateEn:   'August 27, 2026',
+    category: 'חדשות',
+    categoryEn: 'News',
+    img:             '/images/blog/everest-hardest.webp',
+    imgPosition:     'center 42%',
+    imgPositionCard: 'center 42%',
+    imgCredit:       '',
+    excerpt:  'שיטפון פתאומי הרסני פגע במחוז רסואה בצפון נפאל. מה בדיוק קרה, מדוע זה לא שיטפון מונסון רגיל, והאם הטרקים לאוורסט ולאנאפורנה מושפעים.',
+    excerptEn: 'A catastrophic flash flood struck Rasuwa in northern Nepal. What happened, why it was not an ordinary monsoon flood, and whether the Everest and Annapurna treks are affected.',
+
+    /* ── Hebrew content ── */
+    content: [
+      { type: 'text', value: 'אתמול בבוקר, 26 באוגוסט 2026, סביב השעה תשע, קיר של מים, בוץ וסלעים ירד במורד עמק הנהר במחוז רסואה שבצפון נפאל, סמוך לגבול עם טיבט. תוך דקות ספורות נסחפו כבישים, גשרים וכפרים שלמים לאורך הנהר. נכון לבוקר זה מדובר במאות הרוגים ובאלפי נעדרים.' },
+      { type: 'text', value: 'הלב שלנו עם המשפחות ועם כל מי שנפגע. מה שקרה שם הוא לא שיטפון מונסון רגיל, ולכן חשוב להבין אותו נכון. בכתבה הזו נסביר מה בדיוק אירע, ונענה על השאלה שקיבלנו הכי הרבה בימים האחרונים: האם זה משפיע על הטרקים שלנו לאזורי האוורסט ואנאפורנה.' },
+
+      { type: 'section', value: 'מה בדיוק קרה' },
+      { type: 'text', value: 'באזור עצמו לא ירד גשם באותו יום, וזו נקודת המפתח להבנת האסון. לפי המומחים בשטח, מפולת עצומה של קרח וסלע ניתקה גבוה בהרים וחסמה נהר קטן בשם לנדה. המים נאגרו מאחורי החסימה כמו מאחורי סכר מאולתר, וכשהיא קרסה כל אותה כמות שוחררה בבת אחת ופרצה במורד הזרם אל מערכת הנהרות בהוטה קושי וטרישולי.' },
+      { type: 'text', value: 'עוצמת הפריצה הייתה קיצונית. במורד הזרם, באזור גלצ׳י, מפלס הנהר עלה בכתשעה מטרים בתוך חצי שעה בלבד. זרם בעוצמה כזו נושא איתו לא רק מים אלא גם סחף, בולדרים וכל מה שנקרה בדרכו, וזו הסיבה לנזק העצום לתשתיות.' },
+      { type: 'text', value: 'לגבי הגורם הראשוני יש עדיין חוסר ודאות. הערכה מוקדמת אחת מייחסת את המפולת לרעידת אדמה קלה בצד הטיבטי של הגבול. חוקרים אחרים סבורים שמדובר בקריסת קרחון עצמאית, וכי האות הסיסמי שנרשם הוא למעשה המפולת עצמה ולא רעידת אדמה נפרדת. את המכנה המשותף לכל ההערכות מציבים המומחים על אותו רקע רחב: ההימלאיה מתחממת, והסיכון מקריסות קרח כאלה הולך וגדל.' },
+
+      { type: 'image', src: '/images/blog/nepal-langtang-lirung.webp', alt: 'פסגת לנגטנג לירונג בנפאל', caption: 'פסגת לנגטנג לירונג, שמצפון לה קרס הקרחון שהצית את זרם הבוץ · צילום: Stefanos Nikologianis, CC BY 2.0' },
+
+      { type: 'section', value: 'היקף הפגיעה' },
+      { type: 'text', value: 'נכון לבוקר 27 באוגוסט, הרשויות בנפאל דיווחו על יותר מ-360 הרוגים ועל למעלה מ-1,400 נעדרים, בהם מאות תיירים זרים ממדינות רבות. המספרים זמניים ומתעדכנים כל הזמן, ופעולות החילוץ מתקשות בשל קריסת התשתיות, החשמל והתקשורת באזור.' },
+      { type: 'text', value: 'הנזק לתשתיות כבד במיוחד. מעבר הגבול גיירונג ורסואגאדהי, נקודת המעבר המרכזית בין נפאל לטיבט, נמחק כמעט כליל. עשרות גשרים ניזוקו, קטעי כביש ארוכים נסחפו, ומספר תחנות כוח הידרו-אלקטריות לאורך הנהר נפגעו.' },
+      { type: 'text', value: 'מבחינה ישראלית, לפי משרד החוץ והתקשורת בארץ, דווח על ישראלי אחד שאיבד קשר עם קבוצתו באזור. משרד החוץ מסר כי אין חשש לפגיעה בישראלים, וכי הנושא נבדק מול הגורמים בשטח.' },
+
+      { type: 'image', src: '/images/blog/nepal-rasuwa-valley.webp', alt: 'מפגש נהרות הבהוטה קושי והלנדה קולה במחוז רסואה', caption: 'מפגש נהרות הבהוטה קושי והלנדה קולה במחוז רסואה, האזור שבו פרץ השיטפון · צילום: Krish Dulal, CC BY-SA 3.0' },
+
+      { type: 'section', value: 'האם זה משפיע על הטרקים לאוורסט ולאנאפורנה' },
+      { type: 'text', value: 'זו השאלה שהכי הרבה מכם שאלו אותנו, והתשובה הישירה היא לא.' },
+      { type: 'text', value: 'רסואה נמצאת באזור לנגטנג, צפונית לקטמנדו. אזור האוורסט נמצא במזרח נפאל, ואזור אנאפורנה במערב, ליד העיר פוקרה. אלה שלושה אזורים נפרדים לחלוטין, עם מערכות נהרות שונות ומרחק של מאות קילומטרים ביניהם. הטרקים שלנו לאוורסט בייס קמפ ולאנאפורנה אינם עוברים באזור שנפגע, ואינם מושפעים ממנו.' },
+      { type: 'image', src: '/images/blog/annapurna-himalaya.webp', alt: 'רכס האנאפורנה בנפאל', caption: 'רכס האנאפורנה במערב נפאל, מאות קילומטרים מהאזור שנפגע · צילום: Bijay Chaurasia' },
+
+      { type: 'section', value: 'מי כן צריך לשים לב' },
+      { type: 'text', value: 'מי שכן צריך לשים לב הוא כל מי שתכנן טרק באזור לנגטנג עצמו, או מסע יבשתי להר קיילאש שבטיבט דרך מעבר הגבול שנפגע. שם התשתיות נפגעו קשה, המצב עדיין לא יציב, והאזור צפוי להישאר סגור לתנועה עד להערכת מצב מסודרת של הרשויות.' },
+
+      { type: 'section', value: 'מה HighAir עושה עכשיו' },
+      { type: 'text', value: 'אנחנו עוקבים אחרי המצב בנפאל מקרוב, בקשר רציף עם הצוותים והשותפים המקומיים שלנו בשטח. הבטיחות של המטיילים שלנו היא השיקול הראשון בכל החלטה, ואם וכאשר יהיה שינוי שנוגע למסלול כלשהו שלנו, נעדכן אתכם באופן ישיר ומיידי. בינתיים, המחשבות שלנו עם נפאל, עם תושבי רסואה ועם כל המשפחות שממתינות לחדשות.' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'מה גרם לשיטפון בנפאל?' },
+      { type: 'text', value: 'לפי ההערכות בשטח, מפולת של קרח וסלע חסמה נהר קטן בשם לנדה גבוה בהרים. המים נאגרו מאחורי החסימה, וכשהיא קרסה הם שוחררו בבת אחת ופרצו במורד הזרם. לא היה מדובר בשיטפון מונסון, ובאזור עצמו לא ירד גשם באותו יום.' },
+      { type: 'heading', value: 'כמה נפגעים יש?' },
+      { type: 'text', value: 'נכון לבוקר 27 באוגוסט 2026 דווח על יותר מ-360 הרוגים ועל למעלה מ-1,400 נעדרים, בהם מאות תיירים זרים. המספרים זמניים ומתעדכנים כל הזמן ככל שמתקדמות פעולות החילוץ.' },
+      { type: 'heading', value: 'האם הטרקים לאוורסט בייס קמפ ולאנאפורנה מושפעים?' },
+      { type: 'text', value: 'לא. השיטפון פגע באזור לנגטנג שבמחוז רסואה, צפונית לקטמנדו. אזור האוורסט במזרח נפאל ואזור אנאפורנה במערב הם אזורים נפרדים לחלוטין, במרחק מאות קילומטרים, והטרקים אליהם אינם עוברים באזור שנפגע.' },
+      { type: 'heading', value: 'איפה נמצא מחוז רסואה?' },
+      { type: 'text', value: 'מחוז רסואה נמצא באזור לנגטנג בצפון נפאל, צפונית לקטמנדו וסמוך לגבול עם טיבט. זהו אזור טרקים בפני עצמו, נפרד מאזורי האוורסט והאנאפורנה.' },
+      { type: 'heading', value: 'האם בטוח לטייל בנפאל עכשיו?' },
+      { type: 'text', value: 'את האזור שנפגע, לנגטנג ומעבר הגבול לטיבט, יש להימנע ממנו כרגע, והוא צפוי להישאר סגור. אזורי הטרקים המרכזיים, האוורסט והאנאפורנה, פועלים כרגיל ולא נפגעו. מומלץ תמיד לצאת עם מארגן שנמצא בקשר עם הגורמים המקומיים ולעקוב אחרי הנחיות הרשויות.' },
+      { type: 'heading', value: 'האם ישראלים נפגעו?' },
+      { type: 'text', value: 'לפי משרד החוץ, דווח על ישראלי אחד שאיבד קשר עם קבוצתו באזור, ואין חשש לפגיעה בישראלים. הנושא נבדק מול הגורמים בשטח.' },
+    ],
+
+    /* ── English content ── */
+    titleEn: 'The Nepal floods: what happened, and what it means for trekking season',
+    contentEn: [
+      { type: 'text', value: 'Yesterday morning, 26 August 2026, around nine o\'clock, a wall of water, mud and rock came down the river valley in the Rasuwa district of northern Nepal, near the border with Tibet. Within minutes it swept away roads, bridges and entire villages along the river. As of this morning, the toll stands at hundreds dead and thousands missing.' },
+      { type: 'text', value: 'Our hearts are with the families and with everyone affected. What happened there was not an ordinary monsoon flood, and it matters to understand it correctly. In this piece we explain what actually took place, and answer the question we have been asked most in recent days: does this affect our treks to the Everest and Annapurna regions.' },
+
+      { type: 'section', value: 'What exactly happened' },
+      { type: 'text', value: 'No rain fell in the area itself that day, and that is the key to understanding the disaster. According to experts on the ground, a huge avalanche of ice and rock broke loose high in the mountains and blocked a small river called the Lende. Water built up behind the blockage like behind a makeshift dam, and when it collapsed the entire volume was released at once, bursting downstream into the Bhote Koshi and Trishuli river systems.' },
+      { type: 'text', value: 'The force of the surge was extreme. Downstream, around Galchhi, the river rose by roughly nine metres in just half an hour. A flow of that power carries not only water but sediment, boulders and everything in its path, which is why the damage to infrastructure was so severe.' },
+      { type: 'text', value: 'The initial trigger is still uncertain. One early assessment attributes the avalanche to a light earthquake on the Tibetan side of the border. Other researchers believe it was an independent glacier collapse, and that the seismic signal recorded was in fact the avalanche itself rather than a separate quake. What all the assessments share is the same wider backdrop: the Himalayas are warming, and the risk of such ice collapses is growing.' },
+
+      { type: 'image', src: '/images/blog/nepal-langtang-lirung.webp', alt: 'Langtang Lirung in Nepal', caption: 'Langtang Lirung; the glacier collapsed on the slopes to its north · Photo: Stefanos Nikologianis, CC BY 2.0' },
+
+      { type: 'section', value: 'The scale of the damage' },
+      { type: 'text', value: 'As of the morning of 27 August, authorities in Nepal reported more than 360 dead and over 1,400 missing, including hundreds of foreign tourists from many countries. The figures are provisional and updated constantly, and rescue operations are hampered by the collapse of infrastructure, power and communications in the area.' },
+      { type: 'text', value: 'The damage to infrastructure is especially heavy. The Gyirong and Rasuwagadhi border crossing, the main gateway between Nepal and Tibet, was almost entirely destroyed. Dozens of bridges were damaged, long stretches of road were washed away, and several hydropower stations along the river were hit.' },
+      { type: 'text', value: 'On the Israeli side, according to the foreign ministry and local media, one Israeli was reported to have lost contact with his group in the area. The foreign ministry stated that there is no concern of Israeli casualties, and that the matter is being checked with the parties on the ground.' },
+
+      { type: 'image', src: '/images/blog/nepal-rasuwa-valley.webp', alt: 'The confluence of the Bhote Koshi and Lhende Khola rivers in Rasuwa', caption: 'The confluence of the Bhote Koshi and Lhende Khola rivers in Rasuwa, where the flood broke through · Photo: Krish Dulal, CC BY-SA 3.0' },
+
+      { type: 'section', value: 'Does this affect the Everest and Annapurna treks' },
+      { type: 'text', value: 'This is the question most of you asked us, and the direct answer is no.' },
+      { type: 'text', value: 'Rasuwa is in the Langtang region, north of Kathmandu. The Everest region is in eastern Nepal, and the Annapurna region is in the west, near the city of Pokhara. These are three completely separate regions, with different river systems and hundreds of kilometres between them. Our treks to Everest Base Camp and Annapurna do not pass through the affected area and are not impacted by it.' },
+      { type: 'image', src: '/images/blog/annapurna-himalaya.webp', alt: 'The Annapurna massif in Nepal', caption: 'The Annapurna massif in western Nepal, hundreds of kilometres from the affected area · Photo: Bijay Chaurasia' },
+
+      { type: 'section', value: 'Who should pay attention' },
+      { type: 'text', value: 'Those who should pay attention are anyone who planned a trek in the Langtang region itself, or an overland journey to Mount Kailash in Tibet through the border crossing that was hit. There the infrastructure was badly damaged, the situation is still unstable, and the area is expected to remain closed to travel until the authorities carry out a proper assessment.' },
+
+      { type: 'section', value: 'What HighAir is doing now' },
+      { type: 'text', value: 'We are following the situation in Nepal closely, in continuous contact with our local teams and partners on the ground. The safety of our travellers is the first consideration in every decision, and if and when there is any change affecting one of our routes, we will update you directly and immediately. In the meantime, our thoughts are with Nepal, with the people of Rasuwa and with every family waiting for news.' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'What caused the flood in Nepal?' },
+      { type: 'text', value: 'According to assessments on the ground, an avalanche of ice and rock blocked a small river called the Lende high in the mountains. Water built up behind the blockage, and when it collapsed it was released all at once and burst downstream. This was not a monsoon flood, and no rain fell in the area itself that day.' },
+      { type: 'heading', value: 'How many casualties are there?' },
+      { type: 'text', value: 'As of the morning of 27 August 2026, more than 360 people were reported dead and over 1,400 missing, including hundreds of foreign tourists. The figures are provisional and updated constantly as rescue operations continue.' },
+      { type: 'heading', value: 'Are the Everest Base Camp and Annapurna treks affected?' },
+      { type: 'text', value: 'No. The flood hit the Langtang region in Rasuwa district, north of Kathmandu. The Everest region in eastern Nepal and the Annapurna region in the west are entirely separate areas, hundreds of kilometres away, and the treks to them do not pass through the affected zone.' },
+      { type: 'heading', value: 'Where is Rasuwa district?' },
+      { type: 'text', value: 'Rasuwa district is in the Langtang region of northern Nepal, north of Kathmandu and near the border with Tibet. It is a trekking area in its own right, separate from the Everest and Annapurna regions.' },
+      { type: 'heading', value: 'Is it safe to travel in Nepal now?' },
+      { type: 'text', value: 'The affected area, Langtang and the border crossing to Tibet, should be avoided for now and is expected to remain closed. The main trekking regions, Everest and Annapurna, are operating normally and were not affected. It is always best to travel with an operator in contact with local partners and to follow the guidance of the authorities.' },
+      { type: 'heading', value: 'Were any Israelis affected?' },
+      { type: 'text', value: 'According to the foreign ministry, one Israeli was reported to have lost contact with his group in the area, and there is no concern of Israeli casualties. The matter is being checked with the parties on the ground.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:11  nimsdai-purja-broad-peak-tragedy  (2026-08-01)
    * ═══════════════════════════════════════════════════════════════════ */
   {

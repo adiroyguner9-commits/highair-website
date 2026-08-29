@@ -12,6 +12,7 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import MountainBackdrop from './MountainBackdrop.jsx';
 
 // ── Helpers ──────────────────────────────────────────────
 
@@ -170,7 +171,8 @@ export default function BlogPost() {
   };
 
   return (
-    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
+    <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: 'transparent', minHeight: '100vh' }}>
+      <MountainBackdrop />
       <Header />
 
       {/* ── Reading Progress Bar ── */}

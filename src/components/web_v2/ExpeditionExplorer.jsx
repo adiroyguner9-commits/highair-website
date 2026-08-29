@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { CARD_EXPS as EXPS } from '../../data/navData.js';
+import { HOME_CLIMBS, HOME_TREKS } from '../../data/expeditionGroups.js';
 import FlagImg from './FlagImg.jsx';
 
 /* ── Arrow button ── */
@@ -51,6 +52,33 @@ function NavArrow({ direction, disabled, onClick, isRtl }) {
   );
 }
 
+/* ── Altitude filter chip (climbs section) ── */
+function TierChip({ label, active, onClick }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        padding:      '7px 16px',
+        borderRadius: RADIUS.full,
+        border:       `1.5px solid ${active ? COLOR.primary : '#E5E3F0'}`,
+        background:   active ? COLOR.primary : (hov ? '#F5F3FF' : 'transparent'),
+        color:        active ? '#FFFFFF' : '#3D3B5A',
+        fontFamily:   "'Ploni', sans-serif",
+        fontSize:     FS.sm,
+        fontWeight:   600,
+        cursor:       'pointer',
+        transition:   'all 0.18s ease',
+        whiteSpace:   'nowrap',
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
 /* ── Expedition card ── */
 function ExpCard({ exp }) {
   const [hovered,  setHovered]  = useState(false);
@@ -59,18 +87,19 @@ function ExpCard({ exp }) {
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
+  const isTeaser = !!exp.teaser;   // a "בקרוב" card with no page — not clickable
 
   const handleNav = () => navigate(`/expedition/${exp.slug}`);
 
   return (
     <div
       ref={cardRef}
-      role="button"
-      tabIndex={0}
+      role={isTeaser ? undefined : 'button'}
+      tabIndex={isTeaser ? undefined : 0}
       aria-label={isEn ? exp.name : exp.nameHe}
-      onClick={handleNav}
-      onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handleNav()}
-      onMouseEnter={() => setHovered(true)}
+      onClick={isTeaser ? undefined : handleNav}
+      onKeyDown={isTeaser ? undefined : e => (e.key === 'Enter' || e.key === ' ') && handleNav()}
+      onMouseEnter={() => !isTeaser && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         width:          '100%',
@@ -82,7 +111,7 @@ function ExpCard({ exp }) {
         flexDirection:  'column',
         justifyContent: 'space-between',
         minHeight:      isMobile ? '300px' : '380px',
-        cursor:         'pointer',
+        cursor:         isTeaser ? 'default' : 'pointer',
         transform:      hovered ? 'translateY(-6px)' : 'translateY(0)',
         boxShadow:      hovered ? '0 20px 48px rgba(0,0,0,0.28)' : '0 6px 20px rgba(0,0,0,0.12)',
         transition:     `transform 0.35s ${EASING.out}, box-shadow 0.35s ${EASING.out}`,
@@ -91,7 +120,7 @@ function ExpCard({ exp }) {
       }}
     >
       {/* ── Background image (scales on hover) ── */}
-      {exp.img && (
+      {exp.img ? (
         <div style={{
           position:           'absolute',
           inset:              '-6px',
@@ -102,7 +131,10 @@ function ExpCard({ exp }) {
           transition:         `transform 0.55s ${EASING.out}`,
           zIndex:             0,
         }} />
-      )}
+      ) : exp.grad ? (
+        /* Teaser cards with no photo yet fall back to a gradient. */
+        <div style={{ position: 'absolute', inset: '-6px', background: exp.grad, zIndex: 0 }} />
+      ) : null}
 
       {/* ── Dark gradient overlay ── */}
       <div style={{
@@ -162,9 +194,11 @@ function ExpCard({ exp }) {
               </p>
             )}
           </div>
-          <div style={{ fontSize: '20px', color: hovered ? '#FFFFFF' : 'rgba(255,255,255,0.25)', transition: `color 0.25s ${EASING.out}`, lineHeight: 1, flexShrink: 0, paddingBottom: '2px' }}>
-            {isEn ? '→' : '←'}
-          </div>
+          {!isTeaser && (
+            <div style={{ fontSize: '20px', color: hovered ? '#FFFFFF' : 'rgba(255,255,255,0.25)', transition: `color 0.25s ${EASING.out}`, lineHeight: 1, flexShrink: 0, paddingBottom: '2px' }}>
+              {isEn ? '→' : '←'}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -186,30 +220,35 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
   const [cardWidth,   setCardWidth]   = useState(220);
   const [canPrev,     setCanPrev]     = useState(false);
   const [canNext,     setCanNext]     = useState(true);
+  const [tier,        setTier]        = useState(null);   // climbs altitude filter (null = all)
   const { isMobile }  = useBreakpoint();
   const { t, i18n }   = useTranslation();
   const textDir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl   = textDir === 'rtl';
   const stacked = stackOnMobile && isMobile;
 
-  /* Cards sorted low → high */
-  /* 21 = Scardus. The order here is the card order; a trek with no elevation
-     yet sorts to the front on the altitude sort below, so it is listed last and
-     given a nominal sort value in the comparator instead. */
-  const TREK_IDS   = [4, 3, 2, 6, 7, 8, 17, 21];
-  const CLIMB_IDS  = [5, 9, 10, 11, 12, 13, 14, 15, 16];
-  const SAFARI_IDS = [18, 19, 20];   // 3 / 5 / 7 days
-  const cards = (type === 'treks' ? TREK_IDS : type === 'safari' ? SAFARI_IDS : CLIMB_IDS)
-    .map(id => EXPS.find(e => e.id === id))
-    .filter(Boolean)
-    /* Safari sorts by DURATION (3 → 5 → 7); the mountains sort by altitude,
-       which is meaningless for a game drive. */
-    /* A trek whose altitude is not known yet would sort to the very front on a
-       0, landing an unannounced page ahead of every real one. Sort those to the
-       end instead. */
-    .sort((a, b) => (type === 'safari'
-      ? (parseInt(a.days, 10) || 0) - (parseInt(b.days, 10) || 0)
-      : ((a.elevNum || Infinity) - (b.elevNum || Infinity))));
+  /* Climbs and treks are derived automatically from the data and already sorted
+     low → high by altitude (expeditionGroups.js). Safari is a special case: its
+     groups are live:false (shown only on /safari), so it keeps an explicit id
+     list and sorts by DURATION (3 → 5 → 7), which is what a game drive cares
+     about, not altitude. */
+  const SAFARI_IDS = [18, 19, 20];
+  const baseCards = type === 'safari'
+    ? SAFARI_IDS.map(id => EXPS.find(e => e.id === id)).filter(Boolean)
+        .sort((a, b) => (parseInt(a.days, 10) || 0) - (parseInt(b.days, 10) || 0))
+    : type === 'treks' ? HOME_TREKS : HOME_CLIMBS;
+
+  /* Altitude tiers derived from whatever is on the shelf (climbs: 5,000-8,000m;
+     treks: 2,000-5,000m), for the filter chips. A trip belongs to the tier of
+     its thousands band. Safari has no altitude, so it gets no filter. */
+  const tierOf     = e => Math.floor((e.elevNum || 0) / 1000) * 1000;
+  const filterable = type === 'climbs' || type === 'treks';
+  const TIERS      = filterable
+    ? [...new Set(baseCards.map(tierOf))].filter(m => m > 0).sort((a, b) => a - b)
+    : [];
+  const cards      = (filterable && tier)
+    ? baseCards.filter(e => tierOf(e) === tier)
+    : baseCards;
 
   /* Recalculate card width when container resizes */
   useEffect(() => {
@@ -278,7 +317,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
       if (raf2)  cancelAnimationFrame(raf2);
       if (timer) clearTimeout(timer);
     };
-  }, [type, isRtl, updateArrows]);
+  }, [type, isRtl, tier, updateArrows]);
 
   /* Arrow click — scroll by one card */
   function scrollByCard(direction) {
@@ -309,12 +348,21 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
 
   return (
     <section id={sectionId} style={{
-      background: '#FFFFFF',
+      background: 'transparent',
       padding:    isMobile ? '36px 5% 0' : '60px 5% 0',
       boxSizing:  'border-box',
       direction:  textDir,
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <style>{`
+          @keyframes tierFadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            [style*="tierFadeUp"] { animation: none !important; }
+          }
+        `}</style>
 
         {/* ── Header: title + arrows ── */}
         {hideHeading ? null : isMobile ? (
@@ -348,6 +396,21 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
           </div>
         )}
 
+        {/* ── Altitude filter (climbs + treks) ── */}
+        {!hideHeading && filterable && TIERS.length > 1 && (
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '-16px', marginBottom: '30px', direction: textDir }}>
+            <TierChip label={isRtl ? 'הכל' : 'All'} active={!tier} onClick={() => setTier(null)} />
+            {TIERS.map(m => (
+              <TierChip
+                key={m}
+                label={`${m}${isRtl ? ' מ׳' : ' m'}`}
+                active={tier === m}
+                onClick={() => setTier(m)}
+              />
+            ))}
+          </div>
+        )}
+
         {/* ── Scroll track ── */}
         <div
           ref={trackRef}
@@ -375,13 +438,21 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
             paddingInlineEnd:        isMobile ? '5%' : 0,
           }}
         >
-          {cards.map(exp => (
+          {cards.map((exp, i) => (
             <div
-              key={exp.id}
-              style={stacked ? { width: '100%' } : {
+              /* key includes the active tier so switching filter remounts the
+                 cards and replays the fade-up (staggered, capped delay). */
+              key={`${tier}-${exp.id}`}
+              style={stacked ? {
+                width:          '100%',
+                animation:      'tierFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both',
+                animationDelay: `${Math.min(i, 8) * 40}ms`,
+              } : {
                 flex:             `0 0 ${cardWidth}px`,
                 width:            `${cardWidth}px`,
                 scrollSnapAlign:  'start',
+                animation:        'tierFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both',
+                animationDelay:   `${Math.min(i, 8) * 40}ms`,
               }}
             >
               <ExpCard exp={exp} />

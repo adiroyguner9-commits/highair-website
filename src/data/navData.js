@@ -13,11 +13,13 @@ export const NAV_EXPS = [
     "id": 2,
     "slug": "olympus",
     "name": "Olympus",
-    "nameHe": "טרק לפסגת האולימפוס",
+    "nameHe": "טרק לאולימפוס",
     "nameEn": "Olympus",
     "country": "Greece",
     "countryHe": "יוון",
     "elev": "2917m",
+    "elevNum": 2918,
+    "continent": "europe",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -30,6 +32,8 @@ export const NAV_EXPS = [
     "country": "Albania",
     "countryHe": "אלבניה",
     "elev": "2656m",
+    "elevNum": 2656,
+    "continent": "europe",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -42,9 +46,12 @@ export const NAV_EXPS = [
     "country": "North Macedonia",
     "countryHe": "צפון מקדוניה",
     "elev": "2350m",
+    "elevNum": 2350,
+    "continent": "europe",
     "type": "Trekking",
     "typeHe": "טרק",
-    "comingSoon": true
+    "comingSoon": true,
+    "teaser": true
   },
   {
     "id": 4,
@@ -55,6 +62,8 @@ export const NAV_EXPS = [
     "country": "Ethiopia",
     "countryHe": "אתיופיה",
     "elev": "4430m",
+    "elevNum": 4430,
+    "continent": "africa",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -67,6 +76,8 @@ export const NAV_EXPS = [
     "country": "Georgia",
     "countryHe": "גאורגיה",
     "elev": "5054m",
+    "elevNum": 5054,
+    "continent": "europe",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -79,6 +90,8 @@ export const NAV_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "elev": "5160m",
+    "elevNum": 5106,
+    "continent": "asia",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -91,6 +104,8 @@ export const NAV_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "elev": "5364m",
+    "elevNum": 5545,
+    "continent": "asia",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -103,6 +118,8 @@ export const NAV_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "elev": "5416m",
+    "elevNum": 5416,
+    "continent": "asia",
     "type": "Trekking",
     "typeHe": "טרק"
   },
@@ -115,6 +132,8 @@ export const NAV_EXPS = [
     "country": "Russia",
     "countryHe": "רוסיה",
     "elev": "5642m",
+    "elevNum": 5642,
+    "continent": "europe",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -127,6 +146,8 @@ export const NAV_EXPS = [
     "country": "Tanzania",
     "countryHe": "טנזניה",
     "elev": "5895m",
+    "elevNum": 5895,
+    "continent": "africa",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -139,6 +160,8 @@ export const NAV_EXPS = [
     "country": "Tanzania",
     "countryHe": "טנזניה",
     "elev": "5895m",
+    "elevNum": 5895,
+    "continent": "africa",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -151,6 +174,8 @@ export const NAV_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "elev": "6119m",
+    "elevNum": 6119,
+    "continent": "asia",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -163,6 +188,8 @@ export const NAV_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "elev": "6189m",
+    "elevNum": 6189,
+    "continent": "asia",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -175,6 +202,8 @@ export const NAV_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "elev": "6476m",
+    "elevNum": 6476,
+    "continent": "asia",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -187,6 +216,8 @@ export const NAV_EXPS = [
     "country": "Argentina",
     "countryHe": "ארגנטינה",
     "elev": "6962m",
+    "elevNum": 6962,
+    "continent": "southamerica",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -199,6 +230,8 @@ export const NAV_EXPS = [
     "country": "Kyrgyzstan",
     "countryHe": "קירגיזסטן",
     "elev": "7134m",
+    "elevNum": 7134,
+    "continent": "asia",
     "type": "Climbing",
     "typeHe": "טיפוס"
   },
@@ -211,8 +244,58 @@ export const NAV_EXPS = [
     "country": "Egypt",
     "countryHe": "מצרים",
     "elev": "2642m",
+    "elevNum": 2642,
+    "continent": "africa",
     "type": "Trekking",
     "typeHe": "טרק"
+  },
+  {
+    "id": 22,
+    "slug": "manaslu-climb",
+    "name": "Manaslu",
+    "nameHe": "טיפוס למנסלו",
+    "nameEn": "Manaslu",
+    "country": "Nepal",
+    "countryHe": "נפאל",
+    "elev": "8163m",
+    "elevNum": 8163,
+    "continent": "asia",
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "comingSoon": true,
+    "teaser": true
+  },
+  {
+    "id": 23,
+    "slug": "ama-dablam",
+    "name": "Ama Dablam",
+    "nameHe": "טיפוס לאמא דאבלם",
+    "nameEn": "Ama Dablam",
+    "country": "Nepal",
+    "countryHe": "נפאל",
+    "elev": "6812m",
+    "elevNum": 6812,
+    "continent": "asia",
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "comingSoon": true,
+    "teaser": true
+  },
+  {
+    "id": 24,
+    "slug": "himlung-himal",
+    "name": "Himlung Himal",
+    "nameHe": "טיפוס להימלונג הימאל",
+    "nameEn": "Himlung Himal",
+    "country": "Nepal",
+    "countryHe": "נפאל",
+    "elev": "7126m",
+    "elevNum": 7126,
+    "continent": "asia",
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "comingSoon": true,
+    "teaser": true
   }
 ];
 
@@ -222,7 +305,7 @@ export const CARD_EXPS = [
     "id": 2,
     "slug": "olympus",
     "name": "Olympus",
-    "nameHe": "טרק לפסגת האולימפוס",
+    "nameHe": "טרק לאולימפוס",
     "nameEn": "Olympus",
     "country": "Greece",
     "countryHe": "יוון",
@@ -287,7 +370,8 @@ export const CARD_EXPS = [
     "continent": "europe",
     "airtableEvents": [],
     "groupCapacity": 15,
-    "comingSoon": true
+    "comingSoon": true,
+    "teaser": true
   },
   {
     "id": 4,
@@ -371,7 +455,7 @@ export const CARD_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "flag": "🇳🇵",
-    "img": "/images/cards/EBC.jpg",
+    "img": "/images/cards/EBC.webp",
     "grad": "linear-gradient(135deg,#dc2626,#b91c1c,#450a0a)",
     "elevNum": 5545,
     "type": "Trekking",
@@ -590,7 +674,7 @@ export const CARD_EXPS = [
     "country": "Kyrgyzstan",
     "countryHe": "קירגיזסטן",
     "flag": "🇰🇬",
-    "img": "/images/cards/leninPeak.avif",
+    "img": "/images/cards/leninPeak.webp",
     "grad": "linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)",
     "elevNum": 7134,
     "type": "Climbing",
@@ -628,6 +712,66 @@ export const CARD_EXPS = [
       "Sinai"
     ],
     "groupCapacity": 12
+  },
+  {
+    "id": 22,
+    "slug": "manaslu-climb",
+    "name": "Manaslu",
+    "nameHe": "טיפוס למנסלו",
+    "nameEn": "Manaslu",
+    "country": "Nepal",
+    "countryHe": "נפאל",
+    "flag": "🇳🇵",
+    "img": "/images/cards/manaslu-climb.webp",
+    "grad": "linear-gradient(135deg,#4C1D95,#5B21B6,#1e1b4b)",
+    "elevNum": 8163,
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "diff": "Extreme",
+    "diffHe": "קיצוני",
+    "continent": "asia",
+    "comingSoon": true,
+    "teaser": true
+  },
+  {
+    "id": 23,
+    "slug": "ama-dablam",
+    "name": "Ama Dablam",
+    "nameHe": "טיפוס לאמא דאבלם",
+    "nameEn": "Ama Dablam",
+    "country": "Nepal",
+    "countryHe": "נפאל",
+    "flag": "🇳🇵",
+    "img": "/images/cards/ama-dablam.webp",
+    "grad": "linear-gradient(135deg,#1e3a8a,#3730a3,#0f172a)",
+    "elevNum": 6812,
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "diff": "Extreme",
+    "diffHe": "קיצוני",
+    "continent": "asia",
+    "comingSoon": true,
+    "teaser": true
+  },
+  {
+    "id": 24,
+    "slug": "himlung-himal",
+    "name": "Himlung Himal",
+    "nameHe": "טיפוס להימלונג הימאל",
+    "nameEn": "Himlung Himal",
+    "country": "Nepal",
+    "countryHe": "נפאל",
+    "flag": "🇳🇵",
+    "img": "/images/cards/himlung-himal.webp",
+    "grad": "linear-gradient(135deg,#0e7490,#155e75,#0c1a2b)",
+    "elevNum": 7126,
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "diff": "Extreme",
+    "diffHe": "קיצוני",
+    "continent": "asia",
+    "comingSoon": true,
+    "teaser": true
   }
 ];
 

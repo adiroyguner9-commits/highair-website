@@ -141,7 +141,7 @@ function writeShell(routePath, meta) {
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
 let expCount = 0;
 for (const exp of EXPS) {
-  if (!exp.slug) continue;
+  if (!exp.slug || exp.teaser) continue;   // teaser cards have no detail page
 
   const expUrl   = `${BASE_URL}/expedition/${exp.slug}`;
   const expImage = exp.img ? (exp.img.startsWith('http') ? exp.img : `${BASE_URL}${exp.img}`) : `${BASE_URL}/og-image.jpg`;

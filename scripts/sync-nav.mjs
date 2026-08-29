@@ -39,7 +39,7 @@ const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'))
 /** Fields needed by Header mega-menu and search bar */
 const NAV_EXP_FIELDS = [
   'id', 'slug', 'name', 'nameHe', 'nameEn',
-  'country', 'countryHe', 'elev', 'type', 'typeHe', 'comingSoon',
+  'country', 'countryHe', 'elev', 'elevNum', 'continent', 'type', 'typeHe', 'comingSoon', 'teaser',
 ];
 
 /** Fields needed by ExpeditionExplorer cards on the homepage */
@@ -47,7 +47,7 @@ const CARD_EXP_FIELDS = [
   'id', 'slug', 'name', 'nameHe', 'nameEn',
   'country', 'countryHe', 'flag', 'img', 'grad',
   'soldOut', 'elevNum', 'type', 'typeHe', 'diff', 'diffHe',
-  'price', 'priceStr', 'continent', 'airtableEvents', 'groupCapacity', 'comingSoon',
+  'price', 'priceStr', 'continent', 'airtableEvents', 'groupCapacity', 'comingSoon', 'teaser',
 ];
 
 /** Fields needed for Israel trips in Header sub-menu.
