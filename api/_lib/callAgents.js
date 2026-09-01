@@ -38,7 +38,21 @@ const norm = agentKey;
 /* Destinations with a single owner regardless of the Destinations column.
    Mirrors EXCLUSIVE_DEST_AGENT / EXCLUSIVE_DEST_PREFIX in the webapp's
    api/_lib/assign.js, which is the source of truth for who gets a lead. */
-const EXCLUSIVE_DEST = { sinai: 'Adir Oyguner' };
+/* Every peak above 6,000m belongs to Chen Shaked and to nobody else (owner,
+   1 Sep 2026: "כל ההרים מעל 6000 מ׳ משויכים רק לחן שקד"). The webapp's
+   assign.js carries the identical list; the two must never disagree about who
+   owns a destination, or a lead and its call land with different people. */
+const EXCLUSIVE_DEST = {
+  sinai:           'Adir Oyguner',
+  'manaslu climb': 'Chen Shaked',   // 8,163m
+  'lenin peak':    'Chen Shaked',   // 7,134m
+  himlung:         'Chen Shaked',   // 7,126m
+  aconcagua:       'Chen Shaked',   // 6,961m
+  'ama dablam':    'Chen Shaked',   // 6,812m
+  'mera peak':     'Chen Shaked',   // 6,476m
+  'island peak':   'Chen Shaked',   // 6,189m
+  'lobuche peak':  'Chen Shaked',   // 6,119m
+};
 const EXCLUSIVE_PREFIX = [['safari', 'Adir Oyguner']];
 
 function exclusiveFor(dest) {
@@ -81,7 +95,6 @@ export async function fetchCallAgents(base, token) {
    destination owning its own agent. */
 const COVER_ALIAS = {
   'Kilimanjaro Kosher': 'Kilimanjaro',
-  'Manaslu Climb':      'Manaslu',
 };
 const coverKey = expedition => {
   const k = destKey(expedition);
