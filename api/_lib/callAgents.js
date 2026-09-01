@@ -68,9 +68,29 @@ export async function fetchCallAgents(base, token) {
   }).filter(a => a.name);
 }
 
+/* Variants an agent is never listed against separately: whoever covers the base
+   trip covers these too ("מי שמיועד לקילימנג׳רו רגיל מיועד גם לקילימנג׳רו שומרי
+   מסורת", owner 1 Sep 2026).
+
+   Today production's destKey already folds the kosher Kilimanjaro into
+   Kilimanjaro through its keyword pass, so this changes nothing yet. It is here
+   because the destination map is being extended with variants that DO carry
+   their own key, and the moment one of those ships, coversFor would find no
+   agent for it — and under THE RULE above, no agent means every call slot reads
+   as closed. A destination owning its own page is a different question from a
+   destination owning its own agent. */
+const COVER_ALIAS = {
+  'Kilimanjaro Kosher': 'Kilimanjaro',
+  'Manaslu Climb':      'Manaslu',
+};
+const coverKey = expedition => {
+  const k = destKey(expedition);
+  return COVER_ALIAS[k] || k;
+};
+
 /** The agents who could take a call about this expedition, by name. */
 export function coversFor(agents, expedition) {
-  const dest = destKey(expedition) || String(expedition || '').trim();
+  const dest = coverKey(expedition) || String(expedition || '').trim();
   if (!dest) return [];
   const only = exclusiveFor(dest);
   if (only) return [only];
