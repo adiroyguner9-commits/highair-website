@@ -43,7 +43,10 @@ const norm = agentKey;
    assign.js carries the identical list; the two must never disagree about who
    owns a destination, or a lead and its call land with different people. */
 const EXCLUSIVE_DEST = {
-  sinai:           'Adir Oyguner',
+  /* One name or a list. A list keeps the destination off the general rota but
+     shares it between the people who actually sell it: Sinai is Adir and Chen
+     (owner, 3 Sep 2026). The webapp's assign.js carries the identical entry. */
+  sinai:           ['Adir Oyguner', 'Chen Shaked'],
   'manaslu climb': 'Chen Shaked',   // 8,163m
   'lenin peak':    'Chen Shaked',   // 7,134m
   himlung:         'Chen Shaked',   // 7,126m
@@ -55,11 +58,12 @@ const EXCLUSIVE_DEST = {
 };
 const EXCLUSIVE_PREFIX = [['safari', 'Adir Oyguner']];
 
+/** Everyone who owns this destination — [] when the general rota decides. */
 function exclusiveFor(dest) {
   const d = norm(dest);
-  if (EXCLUSIVE_DEST[d]) return EXCLUSIVE_DEST[d];
-  for (const [p, who] of EXCLUSIVE_PREFIX) if (d.startsWith(p)) return who;
-  return '';
+  const hit = EXCLUSIVE_DEST[d] || (EXCLUSIVE_PREFIX.find(([p]) => d.startsWith(p)) || [])[1] || '';
+  if (!hit) return [];
+  return Array.isArray(hit) ? hit : [hit];
 }
 
 /** Sales agents with the destinations they cover. Backups are a fallback for
@@ -105,8 +109,8 @@ const coverKey = expedition => {
 export function coversFor(agents, expedition) {
   const dest = coverKey(expedition) || String(expedition || '').trim();
   if (!dest) return [];
-  const only = exclusiveFor(dest);
-  if (only) return [only];
+  const owners = exclusiveFor(dest);
+  if (owners.length) return owners;
   const hit = d => (agents || []).filter(a => !!a.backup === d
     && (a.destinations || []).some(x => norm(x) === norm(dest))).map(a => a.name);
   const active = hit(false);
