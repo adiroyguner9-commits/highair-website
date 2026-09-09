@@ -81,9 +81,9 @@ const YOM_TOV = {
   'Sivan-6':   'Shavuot',
 };
 let _hebrewFmt = null;
-/** The festival falling on this date, or '' — the name is what a closed picker
-    shows, so a blank day explains itself instead of looking broken. */
-export function yomTovName(dateStr) {
+/** 'Tishri-10' for a civil date, or '' when the runtime cannot say. One reader
+    for every Hebrew-calendar rule below, so they cannot disagree. */
+function hebrewKey(dateStr) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(dateStr || ''))) return '';
   try {
     _hebrewFmt = _hebrewFmt || new Intl.DateTimeFormat('en-u-ca-hebrew', {
@@ -91,8 +91,37 @@ export function yomTovName(dateStr) {
     });
     const p = _hebrewFmt.formatToParts(new Date(`${dateStr}T12:00:00Z`))
       .reduce((o, x) => (o[x.type] = x.value, o), {});
-    if (!p.month || !p.day) return '';
-    return YOM_TOV[`${p.month}-${Number(p.day)}`] || '';
+    return (p.month && p.day) ? `${p.month}-${Number(p.day)}` : '';
   } catch { return ''; }
 }
+/** The festival falling on this date, or '' — the name is what a closed picker
+    shows, so a blank day explains itself instead of looking broken. */
+export function yomTovName(dateStr) {
+  return YOM_TOV[hebrewKey(dateStr)] || '';
+}
 export const isYomTov = dateStr => !!yomTovName(dateStr);
+
+
+/* ── Half days: the two eves we close early ─────────────────────────────────
+ * Erev Rosh Hashana (29 Elul) and erev Yom Kippur (9 Tishrei) are working days
+ * that end at 14:00 (owner, 10 Sep 2026: "ערב יום כיפור וראש השנה אנחנו עובדים
+ * חצי יום עד שעה 14:00"). The day stays OPEN and bookable — only the last slot
+ * moves, so 13:30 is the last call and it ends at 14:00, exactly how the Friday
+ * close already works.
+ *
+ * Only these two. The other eves — Sukkot, Pesach, Shavuot — are still full
+ * days here, which is what the owner asked for; they can join by adding their
+ * Hebrew date below.
+ *
+ * MIRRORED, like isYomTov above and for the same reason.
+ */
+export const HALF_DAY_END = '14:00';
+const HALF_DAYS = {
+  'Elul-29':   'Erev Rosh Hashana',
+  'Tishri-9':  'Erev Yom Kippur',
+};
+/** The half day falling on this date, or '' — the name is what the picker
+    shows, so a short day explains itself rather than looking under-booked. */
+export function halfDayName(dateStr) {
+  return HALF_DAYS[hebrewKey(dateStr)] || '';
+}

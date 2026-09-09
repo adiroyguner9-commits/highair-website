@@ -15,7 +15,7 @@
  */
 
 import { checkRateLimit, setSecurityHeaders } from './_security.js';
-import { israelNow, isYomTov } from './_lib/iltime.js';
+import { israelNow, isYomTov, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt } from './_lib/callAgents.js';
 
 const DEFAULT_AVAILABILITY = {
@@ -119,7 +119,13 @@ export default async function handler(req, res) {
 
   // Generate slots for the day
   const startMin = hhmmToMin(avail.start, 540);
-  const endMin   = (dow === 5) ? hhmmToMin(avail.friEnd, 780) : hhmmToMin(avail.end, 1080);
+  /* Erev Rosh Hashana and erev Yom Kippur close at 14:00 like a Friday — never
+     LATER than the day would have closed anyway, so this can only shorten.
+     Mirrored in the webapp's computeAvailableSlots. */
+  const endMin   = Math.min(
+    (dow === 5) ? hhmmToMin(avail.friEnd, 780) : hhmmToMin(avail.end, 1080),
+    halfDayName(date) ? hhmmToMin(HALF_DAY_END, 840) : Infinity,
+  );
   const step     = Number(avail.slotMin) > 0 ? Number(avail.slotMin) : 30;
   const leadMin  = Number.isFinite(Number(avail.leadMin)) ? Number(avail.leadMin) : 120;
 

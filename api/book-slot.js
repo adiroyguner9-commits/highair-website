@@ -192,7 +192,7 @@ import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, ag
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
-import { israelNow, yomTovName } from './_lib/iltime.js';
+import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
 
 /* ════════════════════════════════════════════ */
@@ -290,6 +290,17 @@ export default async function handler(req, res) {
     if (chag) {
       console.warn(`[book-slot] rejected ${date} ${time} — ${chag}`);
       return res.status(409).json({ error: 'slot_closed', reason: chag });
+    }
+    /* Same guard for the half days: the day is open, but an afternoon on it is
+       not, and a stale tab still holds the times from before we closed early. */
+    const halfDay = halfDayName(date);
+    if (halfDay) {
+      const [hh, mm] = String(time).split(':').map(Number);
+      const [ch, cm] = HALF_DAY_END.split(':').map(Number);
+      if (hh * 60 + mm >= ch * 60 + cm) {
+        console.warn(`[book-slot] rejected ${date} ${time} — ${halfDay}, we close at ${HALF_DAY_END}`);
+        return res.status(409).json({ error: 'slot_closed', reason: `${halfDay} (until ${HALF_DAY_END})` });
+      }
     }
     const il = israelNow();
     const [sh, sm] = time.split(':').map(Number);
