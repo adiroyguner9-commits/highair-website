@@ -102,6 +102,10 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
   const [submitting, setSubmitting] = useState(false);
   const [booked,     setBooked]     = useState(null);
   const [error,      setError]      = useState('');
+  /* The dates in the month on view that we are shut on — closed weekdays, the
+     admin's blackout list and the Jewish festivals. Comes from the server so
+     the calendar cannot drift from what /api/slots would actually answer. */
+  const [closedDates, setClosedDates] = useState([]);
 
   /* The destination decides which agent would take the call, and a time is
      closed only when every agent who covers it is already busy — so two
@@ -124,6 +128,19 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
       .catch(() => { setSlots([]); setSlotsLoad(false); });
   }, [selDate]);
 
+  /* Which days of the month on view are shut. Re-asked on every month change;
+     a failed request simply leaves them all enabled, which is the behaviour
+     before this existed — the day then opens and shows "no available times". */
+  useEffect(() => {
+    let live = true;
+    const ym = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}`;
+    fetch(`/api/slots?month=${ym}`)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(d => { if (live) setClosedDates(Array.isArray(d.closed) ? d.closed : []); })
+      .catch(() => { if (live) setClosedDates([]); });
+    return () => { live = false; };
+  }, [viewYear, viewMonth]);
+
   /* Calendar grid helpers */
   const firstDow    = new Date(viewYear, viewMonth, 1).getDay();
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
@@ -133,7 +150,11 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
 
   const isSat      = d => new Date(viewYear, viewMonth, d).getDay() === 6;
   const isPast     = d => new Date(viewYear, viewMonth, d) < today;
-  const isDisabled = d => !d || isSat(d) || isPast(d);
+  /* Saturday stays hardcoded so the grid is right on the very first paint,
+     before the month's closed list has landed; everything else — Friday, a
+     festival, a one-off blackout — comes from the server. */
+  const isClosed   = d => d && closedDates.includes(toDateStr(new Date(viewYear, viewMonth, d)));
+  const isDisabled = d => !d || isSat(d) || isPast(d) || isClosed(d);
   const isSelected = d => d && selDate === toDateStr(new Date(viewYear, viewMonth, d));
 
   function selectDate(d) {

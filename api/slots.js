@@ -63,6 +63,34 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests' });
   }
 
+  /* ?month=YYYY-MM → the dates in that month on which we are shut, so the
+     calendar can grey them out instead of letting someone pick a day and
+     discover it is empty (owner, 10 Sep 2026: "שהחג יופיע מאופרר ולא לחיץ, גם
+     ביום שישי ושבת"). Answered from the same three rules the per-date branch
+     below uses, rather than a second copy in the widget: the closed weekdays
+     from the admin's own config, the admin's manual blackout list, and the
+     festivals. Change the open days in Settings and the customer's calendar
+     follows on its own. */
+  const month = String(req.query.month || '').trim();
+  if (month) {
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) {
+      return res.status(400).json({ error: 'Invalid month. Use YYYY-MM' });
+    }
+    const TOKEN_M = process.env.AIRTABLE_TOKEN;
+    const BASE_M  = process.env.AIRTABLE_BASE;
+    if (!TOKEN_M || !BASE_M) return res.status(500).json({ error: 'Server config error' });
+    const avail = await loadAvailability(TOKEN_M, BASE_M);
+    const [y, m] = month.split('-').map(Number);
+    const closed = [];
+    const last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    for (let d = 1; d <= last; d++) {
+      const ds = `${month}-${String(d).padStart(2, '0')}`;
+      const dow = new Date(`${ds}T00:00:00`).getDay();
+      if (!avail.days.includes(dow) || avail.blackout.includes(ds) || isYomTov(ds)) closed.push(ds);
+    }
+    return res.json({ closed });
+  }
+
   const { date } = req.query;
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return res.status(400).json({ error: 'Invalid date. Use YYYY-MM-DD' });
