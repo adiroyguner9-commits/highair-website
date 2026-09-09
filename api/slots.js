@@ -15,7 +15,7 @@
  */
 
 import { checkRateLimit, setSecurityHeaders } from './_security.js';
-import { israelNow } from './_lib/iltime.js';
+import { israelNow, isYomTov } from './_lib/iltime.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt } from './_lib/callAgents.js';
 
 const DEFAULT_AVAILABILITY = {
@@ -81,8 +81,11 @@ export default async function handler(req, res) {
   const avail = await loadAvailability(TOKEN, BASE);
   const dow = reqDate.getDay(); // 0=Sun … 6=Sat
 
-  // Closed weekday or blackout date → no slots
-  if (!avail.days.includes(dow) || avail.blackout.includes(date)) {
+  // Closed weekday, blackout date, or a Jewish festival → no slots. The
+  // festival is derived from the date rather than typed into the blackout list
+  // (see isYomTov), and the webapp's computeAvailableSlots runs the same rule,
+  // so the team's picker and the customer's cannot disagree about a day.
+  if (!avail.days.includes(dow) || avail.blackout.includes(date) || isYomTov(date)) {
     return res.json({ slots: [] });
   }
 

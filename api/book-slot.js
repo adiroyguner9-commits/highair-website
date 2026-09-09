@@ -192,7 +192,7 @@ import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, ag
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
-import { israelNow } from './_lib/iltime.js';
+import { israelNow, yomTovName } from './_lib/iltime.js';
 import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
 
 /* ════════════════════════════════════════════ */
@@ -281,6 +281,16 @@ export default async function handler(req, res) {
      Staff stay unrestricted — the Lead Center's custom-time booking is
      deliberately allowed to schedule a call minutes ahead. */
   if (!isStaffBooking) {
+    /* A festival day is closed, and /api/slots already returns nothing for it —
+       but that is exactly the tab-left-open case this block exists for, so the
+       day is re-checked at the moment of booking too. Staff are not stopped:
+       the Lead Center's custom-time booking is deliberately allowed to put a
+       call anywhere, festival included, if that is what an agent means to do. */
+    const chag = yomTovName(date);
+    if (chag) {
+      console.warn(`[book-slot] rejected ${date} ${time} — ${chag}`);
+      return res.status(409).json({ error: 'slot_closed', reason: chag });
+    }
     const il = israelNow();
     const [sh, sm] = time.split(':').map(Number);
     const slotMinutes = sh * 60 + sm;

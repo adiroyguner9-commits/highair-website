@@ -181,15 +181,20 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
       });
       const data = await res.json();
       if (!res.ok) {
-        if (data.error === 'slot_taken' || data.error === 'slot_past') {
+        if (data.error === 'slot_taken' || data.error === 'slot_past' || data.error === 'slot_closed') {
           /* slot_past = the server's lead-time guard: the picked time already
              passed or is inside the 2h buffer (stale tab). Same recovery as a
              taken slot — explain + refresh the list so only valid times show. */
           if (data.error === 'slot_taken') Analytics.bookingSlotTaken();
-          else Analytics.bookingError('slot_past');
-          setError(data.error === 'slot_past'
-            ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : 'This time has passed or is too soon - please pick a later slot')
-            : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time'));
+          else Analytics.bookingError(data.error);
+          /* slot_closed = a festival day. Same recovery, different sentence:
+             "try again" would be wrong advice for a day that is simply shut. */
+          setError(
+            data.error === 'slot_closed'
+              ? (isRtl ? 'אנחנו סגורים בתאריך הזה - נשמח לקבוע ליום אחר' : 'We are closed on this date - please choose another day')
+            : data.error === 'slot_past'
+              ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : 'This time has passed or is too soon - please pick a later slot')
+              : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time'));
           setSlotsLoad(true);
           fetch(slotsUrl(selDate))
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
