@@ -713,24 +713,31 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
 
        Like the safari extension, this REPLACES the last day of the trek — the
        flight home moves to the end of the tribes — so the array opens with its
-       own day 12 and the page joins them as itinerary.slice(0, -1) + this. */
+       own day 12 and the page joins them as itinerary.slice(0, -1) + this.
+
+       Day 12 is a night in Addis Ababa and the tribes run 13 to 17 (owner, 10
+       Sep 2026: "28 זה הגעה לאדיס, 29 מתחילה התכנית לארבה מינץ ... התכנית
+       מסתיימת ב02/02"). Moves together with withTribeDays in the webapp's
+       src/data/itineraries.js and the Return on the Airtable group row. */
     extensionLabelHe:     'טרק ושבטים',
     extensionLabelEn:     'Trek + Tribes',
     extensionBaseLabelHe: 'טרק בלבד',
     extensionBaseLabelEn: 'Trek only',
     extensionItinerary: [
-      { day: 12, title: 'טיסה לארבה מינץ, כפרי הדורזה ואגם צ׳אמו', desc: 'בבוקר נמריא בטיסת פנים דרומה לארבה מינץ. נבקר בכפרי שבט הדורזה, הידועים ברחבי אתיופיה בבתי הבמבוק הגבוהים שלהם ובמלאכת האריגה המסורתית, ונראה מקרוב כיצד נבנה בית שנראה כמו כוורת ענקית. אחר הצהריים נצא לשיט באגם צ׳אמו ונצפה בתנינים ובהיפופוטמים מהמים.', accommodation: 'מלון בארבה מינץ' },
-      { day: 13, title: 'ארבה מינץ - קונסו - ארבורה - טורמי', desc: 'ניסע דרומה דרך מדרגות החקלאות של הקונסו, אתר מורשת עולמית של אונסקו, ונמשיך אל שבט הארבורה. משם נרד אל עמק האומו ונגיע לטורמי, ליבו של אזור השבטים.', accommodation: 'מלון בטורמי' },
-      { day: 14, title: 'שבטי הקארו והניאנגטום', desc: 'יום שלם על שתי גדות נהר האומו. בבוקר נפגוש את שבט הקארו, היושב על המצוקים שמעל הנהר וידוע בציורי הגוף שלו. אחר הצהריים נחצה את המים אל שבט הניאנגטום, ובערב נחזור לטורמי.', accommodation: 'מלון בטורמי' },
-      { day: 15, title: 'דסנץ׳ - שוק קיי אפר - בנה - ג׳ינקה', desc: 'את הבוקר נעביר עם שבט הדסנץ׳ בדלתת האומו. משם נמשיך לשוק קיי אפר, שאליו מגיעים בני כל השבטים שבסביבה לסחור, ונפגוש את שבט הבנה. בסוף היום נגיע לג׳ינקה.', accommodation: 'מלון בג׳ינקה' },
-      { day: 16, title: 'שבט המורסי - אדיס אבבה - תל אביב', desc: 'ניכנס לאזור מאגו לפגישה עם שבט המורסי, המוכר בצלחות השפה של נשותיו ובמסורות הלוחמים שלו. לאחר מכן נמריא לאדיס אבבה ומשם נתחבר לטיסה הביתה לישראל, בסיומו של מסע שחצה את אתיופיה מצפון לדרום.' },
+      { day: 12, title: 'האוזן - מקלה - אדיס אבבה', desc: 'נצא מהאוזן לנסיעה קצרה חזרה למקלה, ומשם נמריא בטיסת פנים לאדיס אבבה. עם ההגעה נקדיש זמן לטיול קצר בעיר הבירה: ביקור בשוק מרקאטו הגדול, טקס קפה אתיופי מסורתי (בונה), וארוחת צהריים חגיגית. את הלילה נעביר במלון באדיס אבבה, לקראת הטיסה דרומה בבוקר.', accommodation: 'מלון באדיס אבבה' },
+      { day: 13, title: 'טיסה לארבה מינץ, כפרי הדורזה ואגם צ׳אמו', desc: 'בבוקר נמריא בטיסת פנים דרומה לארבה מינץ. נבקר בכפרי שבט הדורזה, הידועים ברחבי אתיופיה בבתי הבמבוק הגבוהים שלהם ובמלאכת האריגה המסורתית, ונראה מקרוב כיצד נבנה בית שנראה כמו כוורת ענקית. אחר הצהריים נצא לשיט באגם צ׳אמו ונצפה בתנינים ובהיפופוטמים מהמים.', accommodation: 'מלון בארבה מינץ' },
+      { day: 14, title: 'ארבה מינץ - קונסו - ארבורה - טורמי', desc: 'ניסע דרומה דרך מדרגות החקלאות של הקונסו, אתר מורשת עולמית של אונסקו, ונמשיך אל שבט הארבורה. משם נרד אל עמק האומו ונגיע לטורמי, ליבו של אזור השבטים.', accommodation: 'מלון בטורמי' },
+      { day: 15, title: 'שבטי הקארו והניאנגטום', desc: 'יום שלם על שתי גדות נהר האומו. בבוקר נפגוש את שבט הקארו, היושב על המצוקים שמעל הנהר וידוע בציורי הגוף שלו. אחר הצהריים נחצה את המים אל שבט הניאנגטום, ובערב נחזור לטורמי.', accommodation: 'מלון בטורמי' },
+      { day: 16, title: 'דסנץ׳ - שוק קיי אפר - בנה - ג׳ינקה', desc: 'את הבוקר נעביר עם שבט הדסנץ׳ בדלתת האומו. משם נמשיך לשוק קיי אפר, שאליו מגיעים בני כל השבטים שבסביבה לסחור, ונפגוש את שבט הבנה. בסוף היום נגיע לג׳ינקה.', accommodation: 'מלון בג׳ינקה' },
+      { day: 17, title: 'שבט המורסי - אדיס אבבה - תל אביב', desc: 'ניכנס לאזור מאגו לפגישה עם שבט המורסי, המוכר בצלחות השפה של נשותיו ובמסורות הלוחמים שלו. לאחר מכן נמריא לאדיס אבבה ומשם נתחבר לטיסה הביתה לישראל, בסיומו של מסע שחצה את אתיופיה מצפון לדרום.' },
     ],
     extensionItineraryEn: [
-      { day: 12, title: 'Flight to Arba Minch, the Dorze and Lake Chamo', desc: 'A morning flight south to Arba Minch. We visit the Dorze, known across Ethiopia for their tall woven bamboo houses and their weaving, and see how a house shaped like a giant beehive is built. In the afternoon we take a boat onto Lake Chamo to watch the crocodiles and hippos from the water.', accommodation: 'Hotel in Arba Minch' },
-      { day: 13, title: 'Arba Minch - Konso - Arbore - Turmi', desc: 'South through the terraced hillsides of the Konso, a UNESCO World Heritage site, and on to the Arbore. From there we drop into the Omo valley and reach Turmi, the heart of the tribal region.', accommodation: 'Hotel in Turmi' },
-      { day: 14, title: 'The Karo and the Nyangatom', desc: 'A full day on both sides of the Omo river. In the morning the Karo, who live on the bluffs above the water and are known for their body painting. In the afternoon we cross to the Nyangatom, returning to Turmi for the night.', accommodation: 'Hotel in Turmi' },
-      { day: 15, title: 'Dassanech - Key Afar market - Bena - Jinka', desc: 'The morning with the Dassanech in the delta, then the market at Key Afar where all the surrounding peoples come to trade, and the Bena. We reach Jinka at the end of the day.', accommodation: 'Hotel in Jinka' },
-      { day: 16, title: 'The Mursi - Addis Ababa - Tel Aviv', desc: 'Into the Mago area to meet the Mursi, known for the lip plates of their women and for their warrior traditions. Then the flight to Addis Ababa and the connection home to Israel, at the end of a journey that crossed Ethiopia from north to south.' },
+      { day: 12, title: 'Hawzen - Mekele - Addis Ababa', desc: 'We drive from Hawzen back to Mekele and take a domestic flight to Addis Ababa. On arrival we take in a taste of the capital: a visit to Merkato, the largest open-air market in Africa, a traditional Ethiopian coffee ceremony (buna), and a celebratory lunch. We spend the night in Addis Ababa, ready for the flight south in the morning.', accommodation: 'Hotel in Addis Ababa' },
+      { day: 13, title: 'Flight to Arba Minch, the Dorze and Lake Chamo', desc: 'A morning flight south to Arba Minch. We visit the Dorze, known across Ethiopia for their tall woven bamboo houses and their weaving, and see how a house shaped like a giant beehive is built. In the afternoon we take a boat onto Lake Chamo to watch the crocodiles and hippos from the water.', accommodation: 'Hotel in Arba Minch' },
+      { day: 14, title: 'Arba Minch - Konso - Arbore - Turmi', desc: 'South through the terraced hillsides of the Konso, a UNESCO World Heritage site, and on to the Arbore. From there we drop into the Omo valley and reach Turmi, the heart of the tribal region.', accommodation: 'Hotel in Turmi' },
+      { day: 15, title: 'The Karo and the Nyangatom', desc: 'A full day on both sides of the Omo river. In the morning the Karo, who live on the bluffs above the water and are known for their body painting. In the afternoon we cross to the Nyangatom, returning to Turmi for the night.', accommodation: 'Hotel in Turmi' },
+      { day: 16, title: 'Dassanech - Key Afar market - Bena - Jinka', desc: 'The morning with the Dassanech in the delta, then the market at Key Afar where all the surrounding peoples come to trade, and the Bena. We reach Jinka at the end of the day.', accommodation: 'Hotel in Jinka' },
+      { day: 17, title: 'The Mursi - Addis Ababa - Tel Aviv', desc: 'Into the Mago area to meet the Mursi, known for the lip plates of their women and for their warrior traditions. Then the flight to Addis Ababa and the connection home to Israel, at the end of a journey that crossed Ethiopia from north to south.' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Tel Aviv - Addis Ababa', desc: 'We fly from Tel Aviv to Addis Ababa. After landing we check into the hotel, rest and get organised. In the evening we gather for a celebratory opening dinner, meet the team and the group, and receive a briefing for the adventure ahead.', accommodation: 'Hotel in Addis Ababa' },
