@@ -26,6 +26,7 @@ export const config = { api: { bodyParser: false } };
 import { setSecurityHeaders } from './_security.js';
 import { sendDepositWelcome } from './_lib/deposit-welcome.js';
 import { destInfo } from './_lib/dest.js';   // single source of truth for destination → Hebrew name + slug
+import { tripKey } from './_lib/active-lead.js';   // same-trip test — a call booked for a DIFFERENT destination must not suppress this enquiry's link
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
 import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
@@ -182,14 +183,22 @@ export default async function handler(req, res) {
     const j = await r.json().catch(() => ({}));
     return j.records || [];
   };
-  // Has this phone already booked a call? (last-9-digit match on Appointments)
-  const hasAppointment = async (phone) => {
+  // Has this phone already booked a call FOR THIS TRIP? (last-9-digit match on
+  // Appointments, then a same-trip check on the Expedition). Destination-aware on
+  // purpose: a returning customer who booked a call for a DIFFERENT destination
+  // still needs their own fresh booking link for the new enquiry. Matching on
+  // phone alone suppressed the link AND filed the new lead as 'Call Scheduled'
+  // with no real call — a Kilimanjaro customer enquiring about EBC was left with
+  // his old trip's booking and no way to book the new one.
+  const hasAppointment = async (phone, expedition) => {
     const last9 = String(phone || '').replace(/\D/g, '').slice(-9);
     if (last9.length !== 9) return false;
+    const want = tripKey(expedition);
+    if (!want) return false;   // an enquiry we cannot classify never suppresses its own link
     const f = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone},"[^0-9]",""),9)="${last9}"`);
-    const r = await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Appointments')}?filterByFormula=${f}&maxRecords=1&fields[]=Date`, { headers: authHeaders });
+    const r = await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Appointments')}?filterByFormula=${f}&maxRecords=10&fields[]=${encodeURIComponent('Expedition')}`, { headers: authHeaders });
     const j = await r.json().catch(() => ({}));
-    return (j.records || []).length > 0;
+    return (j.records || []).some(a => tripKey(a.fields?.Expedition) === want);
   };
 
   const result = { nudge: 0, nudgeFailed: 0, nudge2: 0, nudge2Failed: 0, noAnswer: 0, noAnswerFailed: 0, followUp: 0, followUpFailed: 0, followUpNoPhone: 0, callDoneStamped: 0, depositA: 0, fbPurchase: 0, errors: [] };
@@ -214,7 +223,7 @@ export default async function handler(req, res) {
       // stage on booking, but a call booked seconds after the lead was created
       // can miss that record (Airtable read-lag) and leave it "New Lead" — so
       // check for a real appointment independently, then heal the stage + suppress.
-      if (await hasAppointment(f.Phone)) {
+      if (await hasAppointment(f.Phone, f.Expedition)) {
         await patchLead(rec.id, { 'Nudge Sent': true, 'Stage': 'Call Scheduled' });
         continue;
       }
@@ -272,7 +281,7 @@ export default async function handler(req, res) {
         const f = rec.fields || {};
         const ageH = (nowMs - new Date(f['Created Time']).getTime()) / 3600000;
         if (!(ageH >= 24)) continue;                     // wait the full day
-        if (await hasAppointment(f.Phone)) {
+        if (await hasAppointment(f.Phone, f.Expedition)) {
           await patchLead(rec.id, { 'Nudge 2 Sent': true, 'Stage': 'Call Scheduled' });
           continue;                                      // healing a stage costs nobody a message
         }

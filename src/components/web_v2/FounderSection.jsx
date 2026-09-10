@@ -13,13 +13,14 @@ import { Analytics } from '../../utils/analytics.js';
 const MANASLU_IMG = '/images/about-story.avif';
 
 const STORY_HE = [
-  'נעים להכיר, אני חן שקד, מטפס הרים מקצועי ומייסד HighAir. את עולם הטרקים וטיפוסי ההרים פגשתי לראשונה אחרי הצבא בנפאל, שם התאהבתי בנופים ובניתוק שרק ההרים יכולים לספק. מאז טיפסתי על הקזבק, הקילימנג׳רו, גראן פרדיסו, אמא דאבלם, לובוצ׳ה פיק ואיילנד פיק, ובספטמבר 2025 העפלתי אל פסגת המנסלו, ההר השמיני בגובהו בעולם.',
+  'נעים להכיר, אני חן שקד, מטפס הרים מקצועי ומייסד HighAir ביחד עם חבר ילדותי, אדיר אויגונר. את עולם הטרקים וטיפוסי ההרים פגשתי לראשונה אחרי הצבא בנפאל, שם התאהבתי בנופים ובניתוק שרק ההרים יכולים לספק. מאז טיפסתי על הקזבק, הקילימנג׳רו, גראן פרדיסו, אמא דאבלם, לובוצ׳ה פיק ואיילנד פיק, ובספטמבר 2025 העפלתי אל פסגת המנסלו, ההר השמיני בגובהו בעולם.',
   'אבל המסע האמיתי שלי התחיל בבית. לפני חמש שנים אימי היקרה, קרול שקד ז״ל, נפטרה לאחר מאבק ממושך בסרטן, ומאותו הרגע החלטתי להקדיש את חיי להנצחתה. בכל פסגה אני מניף את דגלה, וככל שאני עולה גבוה יותר, אני מרגיש קרוב אליה יותר.',
   'בהשראת הנתינה של אמא, חלק מכל מסע שאנחנו מוציאים מוקדש לתמיכה בחולי סרטן בישראל ולהגשמת חלומות של ילדים שמתמודדים עם המחלה. ככה כל פסגה שאתם מטפסים הופכת גם לדרך לתת.',
 ];
 const STORY_EN = [
-  'Nice to meet you, I am Chen Shaked, a professional mountain climber and the founder of HighAir. I discovered trekking and mountaineering after the army, in Nepal, where I fell in love with the disconnection that only high mountains can provide. Since then I have climbed Kazbek, Kilimanjaro, Gran Paradiso, Ama Dablam, Lobuche Peak and Island Peak, and in September 2025 I reached the summit of Manaslu, the eighth highest mountain in the world.',
+  'Nice to meet you, I am Chen Shaked, a professional mountain climber and the founder of HighAir together with my childhood friend, Adir Oyguner. I discovered trekking and mountaineering after the army, in Nepal, where I fell in love with the disconnection that only high mountains can provide. Since then I have climbed Kazbek, Kilimanjaro, Gran Paradiso, Ama Dablam, Lobuche Peak and Island Peak, and in September 2025 I reached the summit of Manaslu, the eighth highest mountain in the world.',
   'But my real journey started at home. Five years ago my dear mother, Carol Shaked, passed away after a long battle with cancer, and from that moment I decided to dedicate my life to honouring her memory. At every summit I raise her flag, and the higher I climb, the closer I feel to her.',
+  'Inspired by my mother\'s spirit of giving, part of every trip we run is dedicated to supporting cancer patients in Israel and to making the dreams of children facing the illness come true. That way, every summit you climb also becomes a way to give.',
 ];
 
 export default function FounderSection() {

@@ -22,20 +22,43 @@ export default function CookieBanner() {
   }, []);
 
   /* While the banner is visible, if it reaches the bottom-left corner where the
-     floating WhatsApp + accessibility buttons live, lift both of them above it
-     via a CSS var (--ha-cookie-clear) + a body class the buttons read. On a wide
-     screen the banner is a centered card that never reaches the corner, so
-     nothing moves. */
+     floating WhatsApp + accessibility buttons live, lift both of them to sit just
+     above its TOP edge via a CSS var (--ha-cookie-clear) + a body class the buttons
+     read. On a wide screen the banner is a centered card that never reaches the
+     corner, so nothing moves.
+
+     Measured LIVE (not once): a single read on mount caught a taller pre-font
+     layout and stranded the buttons far above the banner, so re-measure whenever
+     the banner reflows, the window resizes, or fonts finish loading. */
   useEffect(() => {
     if (!visible) return;
     const el = bannerRef.current;
     if (!el) return;
-    if (el.getBoundingClientRect().left < 100) {
-      const clearance = 24 + el.offsetHeight + 14; // banner bottom + height + gap
-      document.body.classList.add('ha-cookie-open');
-      document.documentElement.style.setProperty('--ha-cookie-clear', clearance + 'px');
-    }
+
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      if (r.left < 100) {
+        // sit the buttons a touch (12px) above the banner's real top edge
+        const clearance = Math.round(window.innerHeight - r.top + 12);
+        document.body.classList.add('ha-cookie-open');
+        document.documentElement.style.setProperty('--ha-cookie-clear', clearance + 'px');
+      } else {
+        document.body.classList.remove('ha-cookie-open');
+        document.documentElement.style.removeProperty('--ha-cookie-clear');
+      }
+    };
+
+    measure();
+    const raf = requestAnimationFrame(measure);
+    const ro  = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize', measure);
+    if (document.fonts?.ready) document.fonts.ready.then(measure).catch(() => {});
+
     return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
       document.body.classList.remove('ha-cookie-open');
       document.documentElement.style.removeProperty('--ha-cookie-clear');
     };

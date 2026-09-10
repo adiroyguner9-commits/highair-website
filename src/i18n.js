@@ -72,7 +72,7 @@ const he = {
   reviews: {
     heading: 'מה אומרים עלינו?',
     subtitle: 'מטיילים שחזרו מהמסע בדיוק כפי שסיפרו לגוגל',
-    basedOn: 'מבוסס על 229 ביקורות',
+    basedOn: 'מבוסס על 257 ביקורות',
     allReviews: 'לכל הביקורות בגוגל',
   },
   gallery: {
@@ -263,7 +263,7 @@ const en = {
   reviews: {
     heading: 'What our travelers say',
     subtitle: 'Hikers who came back from the journey - exactly as they told Google',
-    basedOn: 'Based on 229 reviews',
+    basedOn: 'Based on 257 reviews',
     allReviews: 'All Google Reviews',
   },
   gallery: {

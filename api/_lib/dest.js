@@ -8,18 +8,25 @@
  */
 export const DEST = {
   'Kilimanjaro':       { he: 'טיפוס לקילימנג׳רו',            slug: 'kilimanjaro' },
+  'Kilimanjaro Kosher':{ he: 'קילימנג׳רו לשומרי מסורת',      slug: 'kilimanjaro-kosher' },
   'Elbrus':            { he: 'טיפוס לאלברוס',                slug: 'elbrus' },
   'Aconcagua':         { he: 'טיפוס לאקונקגואה',             slug: 'aconcagua' },
   'Kazbek':            { he: 'טיפוס לקזבק',                  slug: 'kazbek' },
-  'Olympus':           { he: 'טרק לפסגת האולימפוס',          slug: 'olympus' },
+  'Olympus':           { he: 'טרק לאולימפוס',                slug: 'olympus' },
   'Peaks of Balkan':   { he: 'טרק פסגות הבלקן',              slug: 'peaks-of-balkan' },
+  'Scardus':           { he: 'טרק רכס הסקארדוס',             slug: 'scardus' },
   'Annapurna':         { he: 'טרק סובב אנאפורנה',            slug: 'annapurna' },
-  'Manaslu':           { he: 'טרק סובב מנסלו',               slug: 'manaslu' },
+  'Manaslu':           { he: 'טרק סובב מנסלו',               slug: 'manaslu-circuit' },
+  'Manaslu Climb':     { he: 'טיפוס למנסלו',                 slug: 'manaslu' },
   'Everest Base Camp': { he: 'טרק אוורסט בייס קמפ וגוקיו',   slug: 'everest-base-camp' },
   'Lobuche Peak':      { he: 'טיפוס ללובוצ׳ה פיק',           slug: 'lobuche-peak' },
   'Island Peak':       { he: 'טיפוס לאיילנד פיק',            slug: 'island-peak' },
   'Mera Peak':         { he: 'טיפוס למרה פיק',               slug: 'mera-peak' },
   'Lenin Peak':        { he: 'טיפוס ללנין פיק',              slug: 'lenin-peak' },
+  'Ama Dablam':        { he: 'טיפוס לאמא דאבלם',             slug: 'ama-dablam' },
+  'Himlung':           { he: 'טיפוס להימלונג הימאל',         slug: 'himlung-himal' },
+  'Mount Kenya':       { he: 'טיפוס להר קניה',               slug: 'mount-kenya' },
+  'Rwenzori':          { he: 'טיפוס להרי הרוונזורי',         slug: 'rwenzori' },
   'Ethiopia':          { he: 'טרק הרי סימיאן ומדבר דנקיל',   slug: 'ethiopia' },
   // Canonical destinations without a classic expedition page — mapped so the
   // customer messages + staff pushes always show Hebrew, never "Sinai"/"Israel".
@@ -28,7 +35,9 @@ export const DEST = {
   'Sinai':             { he: 'טרק להר הגבוה בסיני',          slug: 'sinai' },
   'Israel':            { he: 'טיולים בישראל',                slug: 'israel' },
   'Safari':            { he: 'ספארי בטנזניה',                slug: 'safari' },
-  'Safari 7 Days':     { he: 'ספארי 7 ימים בטנזניה',         slug: 'safari-7-days' },
+  'Safari 3 Days':     { he: 'ספארי 3 ימים',                 slug: 'safari-3-days' },
+  'Safari 5 Days':     { he: 'ספארי 5 ימים',                 slug: 'safari-5-days' },
+  'Safari 7 Days':     { he: 'ספארי 7 ימים',                 slug: 'safari-7-days' },
 };
 
 // Keyword fallback shared by destKey/destInfo (e.g. "Climb to Kilimanjaro", "קילימנג׳רו קיץ").

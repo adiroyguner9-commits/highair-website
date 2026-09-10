@@ -103,8 +103,8 @@ export default function StatsSection() {
 
   const STATS = [
     { value: String(DEST_COUNT), label: t('stats.destinations') },
-    { value: '750+',  label: t('stats.climbers')     },
-    { value: isRtl ? '₪210K+' : '$70K+', label: t('stats.donated') },
+    { value: '1000+',  label: t('stats.climbers')     },
+    { value: isRtl ? '₪240K+' : '$70K+', label: t('stats.donated') },
     { value: '94%',   label: t('stats.successRate')  },
   ];
 

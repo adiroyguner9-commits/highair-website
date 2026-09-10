@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q_he: 'האם נדרש ניסיון קודם?',
-    a_he: 'לרוב היעדים — לא. קילימנג׳רו, אלברוס, וסובב אנאפורנה מתאימים גם למטיילים ללא ניסיון הרים קודם. כל שנדרש הוא כושר גופני סביר ורצון חזק. לאוורסט ולאקונקאגואה נדרש ניסיון בהרים בגובה 5000+ מטר.',
+    a_he: 'לרוב היעדים — לא. קילימנג׳רו, אלברוס, וסובב אנאפורנה מתאימים גם למטיילים ללא ניסיון הרים קודם. כל שנדרש הוא כושר גופני סביר ורצון חזק. לאוורסט ולאקונקאגואה נדרש ניסיון בהרים בגובה 5000+ מ׳.',
     a_en: "For most destinations — no. Kilimanjaro, Elbrus, and Annapurna Circuit are suitable for trekkers without prior high-altitude experience. All that's required is reasonable fitness and strong determination. Everest and Aconcagua require prior experience at 5,000m+.",
     q_en: 'Do I need prior experience?',
   },

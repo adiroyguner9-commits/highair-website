@@ -72,6 +72,7 @@ function TierChip({ label, active, onClick }) {
         cursor:       'pointer',
         transition:   'all 0.18s ease',
         whiteSpace:   'nowrap',
+        flexShrink:   0,
       }}
     >
       {label}
@@ -362,6 +363,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
           @media (prefers-reduced-motion: reduce) {
             [style*="tierFadeUp"] { animation: none !important; }
           }
+          .tier-scroll::-webkit-scrollbar { display: none; }
         `}</style>
 
         {/* ── Header: title + arrows ── */}
@@ -398,7 +400,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
 
         {/* ── Altitude filter (climbs + treks) ── */}
         {!hideHeading && filterable && TIERS.length > 1 && (
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '-16px', marginBottom: '30px', direction: textDir }}>
+          <div className="tier-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: '-16px', marginBottom: '30px', paddingBottom: '2px', direction: textDir }}>
             <TierChip label={isRtl ? 'הכל' : 'All'} active={!tier} onClick={() => setTier(null)} />
             {TIERS.map(m => (
               <TierChip

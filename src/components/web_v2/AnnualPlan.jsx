@@ -401,7 +401,10 @@ export default function AnnualPlan() {
       /* Process Israel groups */
       const israelGroups = israelRecords
         .map(rec => normaliseGroup(rec, true, counts))
-        .filter(dateFilter)
+        /* Israel day-treks can be joined right up to the trip itself — no
+           flights or visas to arrange — so they show until their own day,
+           not the 14-day advance cutoff the worldwide expeditions use. */
+        .filter(g => { const end = g.returnDate || g.departure; return end && new Date(end) >= today; })
         .filter(g => !(g._slug || g.eventName || '').toLowerCase().includes('safari'))
         .filter(g => {
           /* Exclude trips marked hidden:true in israelData.js (e.g. training trek).

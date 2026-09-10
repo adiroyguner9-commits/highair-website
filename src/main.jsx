@@ -43,6 +43,25 @@ if (import.meta.env.VITE_SENTRY_DSN) {
     integrations: [
       Sentry.browserTracingIntegration(),
     ],
+    // Noise from in-app browsers (Facebook / Instagram / etc. WebViews) and browser
+    // extensions. The host app injects a script that talks to a native bridge; when
+    // the WebView is torn down or navigates away the bridge call throws. None of this
+    // is our code (verified: we never touch these APIs), so drop it before it leaves
+    // the client.
+    ignoreErrors: [
+      // Android WebView JS bridge
+      'Error invoking postMessage',
+      'Java object is gone',
+      'Java exception was raised during method invocation',
+      // iOS / WKWebView JS bridge (window.webkit.messageHandlers)
+      'window.webkit.messageHandlers',
+      // Instagram in-app browser search bridge
+      'instantSearchSDKJSBridgeClearHighlight',
+      // Injected-script regex that older WebView engines reject (not in our source)
+      'invalid group specifier name',
+      // Failed <link>/extension resource thrown as an error object
+      '[object HTMLLinkElement]',
+    ],
     // Don't send errors in development
     beforeSend(event) {
       if (import.meta.env.DEV) return null;

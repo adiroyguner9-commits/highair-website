@@ -6,7 +6,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
@@ -330,7 +330,13 @@ export default function ExpeditionDetail() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
-  const exp = EXPS.find(e => e.slug === slug && !e.teaser);   // teaser = coming-soon card, no page → 404
+  /* A teaser ("בקרוב") has no public page — its slug 404s, and it's kept out of the
+     sitemap, the HTML shells and every on-site link. ?preview=1 renders the draft so
+     we can build and review it privately; preview pages are noindex, so the public can
+     neither reach nor discover it until the teaser flag is removed at launch. */
+  const [searchParams] = useSearchParams();
+  const isPreview = searchParams.get('preview') === '1';
+  const exp = EXPS.find(e => e.slug === slug && (isPreview || !e.teaser));
 
   /* Schema.org JSON-LD: Tour + Breadcrumbs + FAQ — built once per expedition.
      This is what unlocks rich-result eligibility on Google for tour queries
@@ -372,10 +378,12 @@ export default function ExpeditionDetail() {
     image:         exp.ogImage ? `https://www.highair-expeditions.com${exp.ogImage}` : exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
     ogType:        'product',
+    noIndex:       !!exp.teaser,      // a draft shown via ?preview=1 must never be indexed
   } : {
     title:       'HighAir Expeditions | משלחות הרים',
     description: 'משלחות טיפוס הרים וטרקים בעולם.',
     canonicalPath: '/expedition/' + slug,
+    noIndex:     true,
   });
 
   /* ── Floating bar state ── */
@@ -637,6 +645,10 @@ export default function ExpeditionDetail() {
   const womenMonths   = [...new Set(futureGroups.filter(isWomensGroup).map(g => monthLabel(g.departure)))];
   const regularMonths = [...new Set(futureGroups.filter(g => !isWomensGroup(g)).map(g => monthLabel(g.departure)))];
   const capacity = exp?.groupCapacity || 15;
+  /* Nepal climbs above 6000m run at a 1:1 guiding ratio (a personal Sherpa per
+     climber), NOT a group of up to N — so the "important to know" line about group
+     size is the wrong unit for them (owner, Aug 30 2026). */
+  const oneToOne = exp?.type === 'Climbing' && exp?.country === 'Nepal' && (exp?.elevNum || 0) > 6000;
   /* noDates = no live Airtable groups → show only "Flexible" in the form */
   const noDates = allMonths.length === 0;
   const [heroBtnHovered, setHeroBtnHovered] = useState(false);
@@ -1072,9 +1084,11 @@ export default function ExpeditionDetail() {
                "0m" — a wrong fact, not a blank. null hides the row instead. */
             { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null },
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff || exp.diffHe) },
-            exp.type === 'Trekking'
-              ? { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? filled(exp.days) : (filled(exp.daysEn) || filled(exp.days)) }
-              : { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' },
+            /* Every trip shows its duration, except Kilimanjaro — its 94% summit
+               success rate is a signature selling point we keep front and centre. */
+            (exp.slug === 'kilimanjaro' || exp.slug === 'kilimanjaro-kosher')
+              ? { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : 'Success Rate', value: exp.successRate ? `${exp.successRate}%` : '-' }
+              : { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : 'Duration', value: isRtl ? filled(exp.days) : (filled(exp.daysEn) || filled(exp.days)) },
             { IconComp: TagIcon,      label: isRtl ? 'עלות' : 'Price',  value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`) : '–' },
           ]).map((s, i) => (
             <div key={i} style={{
@@ -1218,8 +1232,8 @@ export default function ExpeditionDetail() {
               {seasons.length > 0 && (
                 <p style={{ fontSize: '14px', color: '#6B6B8A', margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
                   {isRtl
-                    ? `עונות מומלצות ל${exp.typeHe}: ${seasons.join(' | ')}`
-                    : `Recommended Seasons for ${exp.type || exp.typeHe}: ${seasons.join(' | ')}`}
+                    ? `${seasons.length === 1 ? 'עונה מומלצת' : 'עונות מומלצות'} ל${exp.typeHe}: ${seasons.join(' | ')}`
+                    : `Recommended Season${seasons.length === 1 ? '' : 's'} for ${exp.type || exp.typeHe}: ${seasons.join(' | ')}`}
                 </p>
               )}
               {(() => {
@@ -1694,7 +1708,11 @@ export default function ExpeditionDetail() {
                   /* A safari is sold by JEEP, not by group size: the vehicle holds
                      6 (owner, Jul 30 2026), so the climb wording "a group of up
                      to N participants" is simply the wrong unit here. */
-                  const text = i === 0 && capacity
+                  const text = i === 0 && oneToOne
+                    ? (isRtl
+                        ? 'הטיפוס מתבצע ביחס הדרכה של 1:1, מדריך שרפה אישי לכל מטפס!'
+                        : 'The climb runs at a 1:1 guiding ratio, a personal Sherpa guide for each climber!')
+                    : i === 0 && capacity
                     ? (isSafariExp
                         ? (isRtl
                             ? `הספארי מתבצע בג׳יפ עד ${capacity} מקומות בלבד!`
@@ -1919,9 +1937,10 @@ export default function ExpeditionDetail() {
                           with nothing but an end date to tell them apart, so two
                           rows read as one departure printed twice (owner, Aug 23
                           2026: "הם צריכים לדעת שהראשון זה טרק בלבד והשני זה טרק
-                          ושבטים"). Only where a second length exists; anywhere
-                          else the row is unambiguous and a label is noise. */}
-                      {hasSafari && (
+                          ושבטים"). Kili groups its dates under section headers
+                          instead (owner prefers that), so the chip is only for the
+                          other two-length trips (Ethiopia trek/tribes). */}
+                      {hasSafari && !isKili && (
                         <span style={{
                           fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
                           padding: '2px 9px', borderRadius: '999px', whiteSpace: 'nowrap',
@@ -1951,30 +1970,50 @@ export default function ExpeditionDetail() {
                           {spotsBadge.text}
                         </span>
                       </div>
-                      {/* Button — open groups register, full groups join the waitlist;
-                          both pre-fill the month in the form */}
+                      {/* Button — open groups get a live CTA; a full group keeps a
+                          disabled "מלא" button so the row isn't left half-empty.
+                          No waitlist is offered. */}
                       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <button
-                          onClick={() => {
-                            setIsWaitlist(isFull);
-                            setWomenGroup(isWomen);
-                            setForm(f => ({ ...f, month: monthLabel(g.departure) + (isWomen ? womenSuffix : '') }));
-                            scrollToForm();
-                          }}
-                          style={{
-                            background: isFull ? '#fff' : COLOR.primary,
-                            color: isFull ? COLOR.primary : 'white',
-                            border: isFull ? `1.5px solid ${COLOR.primary}` : 'none',
-                            borderRadius: RADIUS.full,
-                            padding: isMobile ? '10px 14px' : '12px 22px',
-                            fontFamily: "'Ploni', sans-serif",
-                            fontSize: isFull ? '13px' : '14px', fontWeight: 700,
-                            cursor: 'pointer',
-                            whiteSpace: 'nowrap', transition: 'background 0.2s',
-                          }}
-                        >
-                          {isFull ? (isRtl ? 'לרשימת המתנה' : 'Join Waitlist') : t('expedition.registerBtn')}
-                        </button>
+                        {isFull ? (
+                          <button
+                            disabled
+                            style={{
+                              background: '#F3F4F6',
+                              color: '#9CA3AF',
+                              border: '1.5px solid #E5E7EB',
+                              borderRadius: RADIUS.full,
+                              padding: isMobile ? '10px 14px' : '12px 22px',
+                              fontFamily: "'Ploni', sans-serif",
+                              fontSize: '14px', fontWeight: 700,
+                              cursor: 'default',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {isRtl ? 'מלא' : 'Full'}
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              setIsWaitlist(false);
+                              setWomenGroup(isWomen);
+                              setForm(f => ({ ...f, month: monthLabel(g.departure) + (isWomen ? womenSuffix : '') }));
+                              scrollToForm();
+                            }}
+                            style={{
+                              background: COLOR.primary,
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: RADIUS.full,
+                              padding: isMobile ? '10px 14px' : '12px 22px',
+                              fontFamily: "'Ploni', sans-serif",
+                              fontSize: '14px', fontWeight: 700,
+                              cursor: 'pointer',
+                              whiteSpace: 'nowrap', transition: 'background 0.2s',
+                            }}
+                          >
+                            {isRtl ? 'לפרטים ←' : 'Details →'}
+                          </button>
+                        )}
                       </div>
                     </div>
                   );
@@ -2380,7 +2419,7 @@ export default function ExpeditionDetail() {
           </h2>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: isPayFlow ? '0 0 16px' : '0 0 40px' }}>
             {isPayFlow
-              ? (isRtl ? 'השאירו פרטים והמשיכו לתשלום מקדמה שלב א׳' : 'Leave your details and continue to the Deposit A payment')
+              ? (isRtl ? 'השאירו פרטים והמשיכו לתשלום מקדמה' : 'Leave your details and continue to the deposit payment')
               : (isRtl ? 'השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות' : 'Leave your details for a no-commitment consultation call')}
           </p>
 
