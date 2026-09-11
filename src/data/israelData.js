@@ -135,7 +135,7 @@ export const ISRAEL_TRIPS = [
     grad:    'linear-gradient(135deg, #1a4a2e, #2d7a4f, #0d2b1a)',
     img:     '/images/cards/Hermon.avif',
     live:            true,
-    hidden:          true,
+    hidden:          false,
     airtableEvents:  ['Hermon'],
     groupCapacity:   12,
     paymentUrl:      'https://pay.grow.link/db6fa9095ee92d6941a0e55656d0355e-MzE5MDMyNw',
@@ -203,7 +203,7 @@ export const ISRAEL_TRIPS = [
         elevationGain: '+1,040m gain',
       },
     ],
-    dates:       ['08-09/05'],
+    dates:       [],
   },
 
   // ─── DAY TRIPS ──────────────────────────────────────────────────────────────

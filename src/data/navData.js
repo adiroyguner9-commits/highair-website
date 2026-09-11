@@ -914,6 +914,12 @@ export const CARD_EXPS = [
 // prettier-ignore
 export const NAV_ISRAEL = [
   {
+    "slug": "hermon",
+    "name": "טרק לפסגת החרמון",
+    "nameEn": "Mount Hermon Trek",
+    "live": true
+  },
+  {
     "slug": "yagur",
     "name": "נחל יגור",
     "nameEn": "Nahal Yagur",
