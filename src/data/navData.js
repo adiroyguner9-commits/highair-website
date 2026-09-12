@@ -971,19 +971,19 @@ export const NAV_ISRAEL = [
     "slug": "masada",
     "name": "סובב מצדה",
     "nameEn": "Masada Circuit",
-    "live": false
+    "live": true
   },
   {
     "slug": "avnat",
     "name": "מצוקי אבנת",
     "nameEn": "Avnat Cliffs",
-    "live": false
+    "live": true
   },
   {
     "slug": "great-fin",
     "name": "הסנפיר הגדול",
     "nameEn": "The Great Fin",
-    "live": false
+    "live": true
   },
   {
     "slug": "gilabon-ein-tina",
@@ -1007,19 +1007,19 @@ export const NAV_ISRAEL = [
     "slug": "arugot",
     "name": "נחל ערוגות",
     "nameEn": "Nahal Arugot",
-    "live": false
+    "live": true
   },
   {
     "slug": "sodom",
     "name": "הר סדום ונחל פרצים",
     "nameEn": "Mount Sodom & Nahal Partzim",
-    "live": false
+    "live": true
   },
   {
     "slug": "tzeelim-mishmar",
     "name": "מעלה צאלים ונחל משמר",
     "nameEn": "Maale Tze'elim & Nahal Mishmar",
-    "live": false
+    "live": true
   },
   {
     "slug": "meron",

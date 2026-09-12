@@ -20,7 +20,15 @@ import { CalendarIcon } from '../Icons.jsx';
 function tripDate(trip) {
   if (trip.departure) {
     const [, m, d] = String(trip.departure).split('-');
-    return d && m ? `${d}/${m}` : null;
+    if (!d || !m) return null;
+    /* Multi-day treks show a range: "23-24/04" (same month) or "30/04-01/05". */
+    if (trip.returnDate) {
+      const [, rm, rd] = String(trip.returnDate).split('-');
+      if (rd && rm && (rd !== d || rm !== m)) {
+        return rm === m ? `${d}-${rd}/${m}` : `${d}/${m}-${rd}/${rm}`;
+      }
+    }
+    return `${d}/${m}`;
   }
   if (Array.isArray(trip.dates) && trip.dates.length) return trip.dates[0];
   return null;
@@ -140,20 +148,6 @@ function IsraelCard({ trip }) {
             }}>
               {isEn ? (trip.nameEn || trip.name) : trip.name}
             </h3>
-            {trip.elevStr && (
-              <p style={{
-                fontFamily: "'Ploni', sans-serif",
-                fontSize:   FS.sm,
-                fontWeight: 400,
-                color:      'rgba(255,255,255,0.85)',
-                margin:     0,
-                letterSpacing: '0.02em',
-                direction:  'ltr',
-                textAlign:  isEn ? 'left' : 'right',
-              }}>
-                {trip.elevStr}
-              </p>
-            )}
           </div>
           <div style={{
             fontSize:      '20px',
@@ -219,17 +213,19 @@ export default function IsraelTrips() {
     fetch('/api/airtable/IsraelGroups')
       .then(r => r.json())
       .then(data => {
-        const seen = new Set();
         const loaded = (data.records || [])
           .map(r => ({ id: r.id, ...r.fields }))
           .filter(f => f.Slug && !f.Hidden && !HIDDEN_SLUGS.has(f.Slug))
           /* Date-bound trips (e.g. community trips) drop out the day after departure */
           .filter(f => !f.Departure || new Date(f.Departure) >= new Date(new Date().toDateString()))
-          .sort((a, b) => (a.Sort_Order || 99) - (b.Sort_Order || 99))
-          .filter(f => {
-            if (seen.has(f.Slug)) return false;
-            seen.add(f.Slug);
-            return true;
+          /* Chronological: soonest departure first, latest last; any trip without
+             a date falls to the end (owner, Q4 Israel series). ISO YYYY-MM-DD
+             strings compare correctly, so no Date() parsing needed. */
+          .sort((a, b) => {
+            if (a.Departure && b.Departure) return a.Departure < b.Departure ? -1 : a.Departure > b.Departure ? 1 : 0;
+            if (a.Departure) return -1;
+            if (b.Departure) return 1;
+            return (a.Sort_Order || 99) - (b.Sort_Order || 99);
           })
           .map(f => ({
             id:            f.id,
@@ -252,6 +248,7 @@ export default function IsraelTrips() {
             airtableEvents: [f.Event].filter(Boolean),
             groupCapacity: f.Capacity || 12,
             departure:     f.Departure,   // feeds the date chip (DD/MM)
+            returnDate:    f.Return,      // multi-day treks show a DD-DD/MM range
             dates:         ISRAEL_TRIPS.find(t => t.slug === f.Slug)?.dates,
             live:          true,
           }));
