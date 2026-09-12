@@ -35,6 +35,40 @@ function tripDate(trip) {
   return null;
 }
 
+/* ── Month filter (mirrors the world-climbs altitude chips) ── */
+const HE_MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
+const EN_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const tripMonthKey = dep => (dep ? String(dep).slice(0, 7) : null);   // "YYYY-MM"
+/* Month name + 2-digit year, since the schedule spans two years (Oct-Dec 26, Apr-May 27). */
+const monthLabel = (key, isEn) => `${(isEn ? EN_MONTHS : HE_MONTHS)[parseInt(key.slice(5, 7), 10) - 1]} ${key.slice(2, 4)}`;
+
+function MonthChip({ label, active, onClick }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        padding:      '7px 16px',
+        borderRadius: RADIUS.full,
+        border:       `1.5px solid ${active ? COLOR.primary : '#E5E3F0'}`,
+        background:   active ? COLOR.primary : (hov ? '#F5F3FF' : 'transparent'),
+        color:        active ? '#FFFFFF' : '#3D3B5A',
+        fontFamily:   "'Ploni', sans-serif",
+        fontSize:     FS.sm,
+        fontWeight:   600,
+        cursor:       'pointer',
+        transition:   'all 0.18s ease',
+        whiteSpace:   'nowrap',
+        flexShrink:   0,
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
 /* ══════════════════════════════════════════════════════════════
    Card
 ══════════════════════════════════════════════════════════════ */
@@ -201,6 +235,7 @@ export default function IsraelTrips() {
   const [cardWidth, setCardWidth] = useState(280);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
+  const [month,   setMonth]   = useState(null);   // month filter (null = all)
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
@@ -297,6 +332,12 @@ export default function IsraelTrips() {
 
   if (trips.length === 0) return null;
 
+  /* Month chips, chronological, from whatever dated trips are on the shelf. */
+  const monthChips = [...new Set(trips.map(t => tripMonthKey(t.departure)).filter(Boolean))].sort();
+  const visibleTrips = (month && monthChips.includes(month))
+    ? trips.filter(t => tripMonthKey(t.departure) === month)
+    : trips;
+
   return (
     <section id="israel" style={{
       background:  'transparent',
@@ -323,6 +364,17 @@ export default function IsraelTrips() {
 
         </div>
 
+        {/* ── Month filter (same primitive as the world-climbs altitude chips) ── */}
+        {monthChips.length > 0 && (
+          <div className="month-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: '-20px', marginBottom: '30px', paddingBottom: '2px', direction: dir }}>
+            <style>{'.month-scroll::-webkit-scrollbar{display:none;}'}</style>
+            <MonthChip label={isRtl ? 'הכל' : 'All'} active={!month} onClick={() => setMonth(null)} />
+            {monthChips.map(key => (
+              <MonthChip key={key} label={monthLabel(key, !isRtl)} active={month === key} onClick={() => setMonth(key)} />
+            ))}
+          </div>
+        )}
+
         {/* ── Cards: carousel on mobile, grid on desktop ── */}
         {isMobile ? (
           <div
@@ -343,7 +395,7 @@ export default function IsraelTrips() {
               paddingInlineEnd:        '5%',
             }}
           >
-            {trips.map(trip => (
+            {visibleTrips.map(trip => (
               <div
                 key={trip.id || trip.slug}
                 style={{ flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px`, scrollSnapAlign: 'start' }}
@@ -354,7 +406,7 @@ export default function IsraelTrips() {
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '18px' }}>
-            {trips.map(trip => (
+            {visibleTrips.map(trip => (
               <IsraelCard key={trip.id || trip.slug} trip={trip} />
             ))}
           </div>
