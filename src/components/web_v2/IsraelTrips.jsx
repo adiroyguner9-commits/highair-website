@@ -19,16 +19,17 @@ import { CalendarIcon } from '../Icons.jsx';
    trip has no set date. */
 function tripDate(trip) {
   if (trip.departure) {
-    const [, m, d] = String(trip.departure).split('-');
+    const [y, m, d] = String(trip.departure).split('-');
     if (!d || !m) return null;
-    /* Multi-day treks show a range: "23-24/04" (same month) or "30/04-01/05". */
+    const yy = String(y).slice(-2);   // 2-digit year, matches the detail-page format
+    /* Multi-day treks show a range: "23-24/04/27" (same month) or "30/04-01/05/27". */
     if (trip.returnDate) {
       const [, rm, rd] = String(trip.returnDate).split('-');
       if (rd && rm && (rd !== d || rm !== m)) {
-        return rm === m ? `${d}-${rd}/${m}` : `${d}/${m}-${rd}/${rm}`;
+        return rm === m ? `${d}-${rd}/${m}/${yy}` : `${d}/${m}-${rd}/${rm}/${yy}`;
       }
     }
-    return `${d}/${m}`;
+    return `${d}/${m}/${yy}`;
   }
   if (Array.isArray(trip.dates) && trip.dates.length) return trip.dates[0];
   return null;
