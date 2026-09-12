@@ -26,6 +26,15 @@ const isNavTripCurrent = t =>
   t.live !== false &&
   (!t.departure || new Date(t.departure) >= new Date(new Date().toDateString()));
 
+/* Chronological order for the Israel menu/footer - soonest departure first,
+   evergreen trips (no departure) keep their order at the end. Mirrors the
+   homepage carousel and the annual plan. */
+const byDeparture = (a, b) => {
+  const ta = a.departure ? new Date(a.departure).getTime() : Infinity;
+  const tb = b.departure ? new Date(b.departure).getTime() : Infinity;
+  return ta - tb;
+};
+
 
 const WA_NUMBER = '972555636975';
 const WA_HREF = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
@@ -156,7 +165,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
 
  /* Israel trips – same layout as international menus */
  if (type === 'israel') {
- const liveTrips = ISRAEL_TRIPS.filter(isNavTripCurrent);
+ const liveTrips = ISRAEL_TRIPS.filter(isNavTripCurrent).sort(byDeparture);
  return (
  <div
  onMouseEnter={onKeepOpen}
@@ -455,7 +464,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  { label: isEn ? 'Tanzania' : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
  ],
  israel: [
- { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(isNavTripCurrent) },
+ { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(isNavTripCurrent).sort(byDeparture) },
  ],
  };
 

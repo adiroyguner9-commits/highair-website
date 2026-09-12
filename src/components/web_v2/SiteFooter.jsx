@@ -135,6 +135,10 @@ export default function SiteFooter() {
     .filter(trip => trip.live !== false && !trip.hidden)
     /* Date-bound trips (e.g. community trips) drop out the day after departure */
     .filter(trip => !trip.departure || new Date(trip.departure) >= new Date(new Date().toDateString()))
+    /* Chronological: soonest departure first, evergreen trips last (mirrors the homepage carousel) */
+    .sort((a, b) =>
+      (a.departure ? new Date(a.departure).getTime() : Infinity) -
+      (b.departure ? new Date(b.departure).getTime() : Infinity))
     .map(trip => ({ label: isEn ? (trip.nameEn || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
 
   const INFO_LINKS = [

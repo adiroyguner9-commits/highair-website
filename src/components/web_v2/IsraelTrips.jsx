@@ -293,12 +293,15 @@ export default function IsraelTrips() {
       .catch(() => {}); // silently keep hardcoded fallback on network error
   }, []);
 
-  /* ── Carousel: card width ── */
+  /* ── Carousel: card width (mobile 1 card, desktop 4 - same single-row slider as the world section) ── */
   useEffect(() => {
-    if (!isMobile) return;
     const el = trackRef.current;
     if (!el) return;
-    const calc = () => setCardWidth(el.offsetWidth * 0.82);
+    const GAP = 18;
+    const visible = isMobile ? 1 : 4;
+    const calc = () => setCardWidth(isMobile
+      ? el.offsetWidth * 0.82
+      : (el.offsetWidth - (visible - 1) * GAP) / visible);
     calc();
     const ro = new ResizeObserver(calc);
     ro.observe(el);
@@ -317,11 +320,11 @@ export default function IsraelTrips() {
 
   useEffect(() => {
     const el = trackRef.current;
-    if (!el || !isMobile) return;
+    if (!el) return;
     updateArrows();
     el.addEventListener('scroll', updateArrows, { passive: true });
     return () => el.removeEventListener('scroll', updateArrows);
-  }, [updateArrows, cardWidth, isMobile]);
+  }, [updateArrows, cardWidth]);
 
   const scrollByCard = (dir) => {
     const el = trackRef.current;
@@ -347,14 +350,14 @@ export default function IsraelTrips() {
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-        {/* ── Section header ── */}
-        <div style={{ marginBottom: '40px' }}>
+        {/* ── Section header (desktop arrows sit at the top-end, like the world-climbs section) ── */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '16px', marginBottom: '40px' }}>
           <h2 style={{
             fontFamily:    "'Ploni', sans-serif",
             fontSize:      FS.h2,
             fontWeight:    700,
             color:         '#0A0818',
-            margin:        '0 0 12px',
+            margin:        0,
             letterSpacing: '-0.02em',
             lineHeight:    1.1,
             textAlign:     'start',
@@ -362,6 +365,12 @@ export default function IsraelTrips() {
             {t('israelTrips.heading')}
           </h2>
 
+          {!isMobile && trips.length > 1 && (
+            <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+              <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
+              <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
+            </div>
+          )}
         </div>
 
         {/* ── Month filter (same primitive as the world-climbs altitude chips) ── */}
@@ -375,42 +384,34 @@ export default function IsraelTrips() {
           </div>
         )}
 
-        {/* ── Cards: carousel on mobile, grid on desktop ── */}
-        {isMobile ? (
-          <div
-            ref={trackRef}
-            style={{
-              display:                 'flex',
-              gap:                     '18px',
-              direction:               isRtl ? 'rtl' : 'ltr',
-              overflowX:               'auto',
-              scrollSnapType:          'x mandatory',
-              scrollBehavior:          'smooth',
-              scrollbarWidth:          'none',
-              msOverflowStyle:         'none',
-              WebkitOverflowScrolling: 'touch',
-              paddingTop:              '12px',
-              marginTop:               '-12px',
-              paddingBottom:           '72px',
-              paddingInlineEnd:        '5%',
-            }}
-          >
-            {visibleTrips.map(trip => (
-              <div
-                key={trip.id || trip.slug}
-                style={{ flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px`, scrollSnapAlign: 'start' }}
-              >
-                <IsraelCard trip={trip} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '18px' }}>
-            {visibleTrips.map(trip => (
-              <IsraelCard key={trip.id || trip.slug} trip={trip} />
-            ))}
-          </div>
-        )}
+        {/* ── Cards: single-row slider on both mobile and desktop (like the world-climbs section) ── */}
+        <div
+          ref={trackRef}
+          style={{
+            display:                 'flex',
+            gap:                     '18px',
+            direction:               isRtl ? 'rtl' : 'ltr',
+            overflowX:               'auto',
+            scrollSnapType:          'x mandatory',
+            scrollBehavior:          'smooth',
+            scrollbarWidth:          'none',
+            msOverflowStyle:         'none',
+            WebkitOverflowScrolling: 'touch',
+            paddingTop:              '12px',
+            marginTop:               '-12px',
+            paddingBottom:           isMobile ? '72px' : '32px',
+            paddingInlineEnd:        isMobile ? '5%' : 0,
+          }}
+        >
+          {visibleTrips.map(trip => (
+            <div
+              key={trip.id || trip.slug}
+              style={{ flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px`, scrollSnapAlign: 'start' }}
+            >
+              <IsraelCard trip={trip} />
+            </div>
+          ))}
+        </div>
 
         {/* ── Mobile arrows ── */}
         {isMobile && (

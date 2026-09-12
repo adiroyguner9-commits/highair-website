@@ -971,19 +971,22 @@ export const NAV_ISRAEL = [
     "slug": "masada",
     "name": "סובב מצדה",
     "nameEn": "Masada Circuit",
-    "live": true
+    "live": true,
+    "departure": "2026-10-09"
   },
   {
     "slug": "avnat",
     "name": "מצוקי אבנת",
     "nameEn": "Avnat Cliffs",
-    "live": true
+    "live": true,
+    "departure": "2026-12-04"
   },
   {
     "slug": "great-fin",
     "name": "הסנפיר הגדול",
     "nameEn": "The Great Fin",
-    "live": true
+    "live": true,
+    "departure": "2026-12-18"
   },
   {
     "slug": "gilabon-ein-tina",
@@ -1007,19 +1010,22 @@ export const NAV_ISRAEL = [
     "slug": "arugot",
     "name": "נחל ערוגות",
     "nameEn": "Nahal Arugot",
-    "live": true
+    "live": true,
+    "departure": "2026-10-23"
   },
   {
     "slug": "sodom",
     "name": "הר סדום ונחל פרצים",
     "nameEn": "Mount Sodom & Nahal Partzim",
-    "live": true
+    "live": true,
+    "departure": "2026-11-06"
   },
   {
     "slug": "tzeelim-mishmar",
     "name": "מעלה צאלים ונחל משמר",
     "nameEn": "Maale Tze'elim & Nahal Mishmar",
-    "live": true
+    "live": true,
+    "departure": "2026-11-20"
   },
   {
     "slug": "meron",
@@ -1033,5 +1039,12 @@ export const NAV_ISRAEL = [
     "nameEn": "Community Trip - Mount Arbel",
     "live": true,
     "departure": "2026-09-04"
+  },
+  {
+    "slug": "tzeelim-harduf",
+    "name": "נחל צאלים וגבי הרדוף",
+    "nameEn": "Nahal Tze'elim & Gvei Harduf",
+    "live": true,
+    "departure": "2026-12-11"
   }
 ];
