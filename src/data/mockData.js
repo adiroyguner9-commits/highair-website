@@ -790,8 +790,8 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     dates: ['יוני 10', 'יולי 1', 'יולי 22', 'אוגוסט 12'],
     datesEn: ['June 10', 'July 1', 'July 22', 'August 12'],
     videoUrl: null,
-    seasons: ['יולי-ספטמבר'],
-    seasonsEn: ['July-September'],
+    seasons: ['יוני-ספטמבר'],
+    seasonsEn: ['June-September'],
     successRate: 88,
     notIncluded: [
       'כרטיסי טיסה בינלאומיים (דרך סוכן נסיעות שלנו)',
