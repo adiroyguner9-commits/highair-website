@@ -352,6 +352,22 @@ export const NAV_EXPS = [
     "typeHe": "טרק",
     "comingSoon": true,
     "teaser": true
+  },
+  {
+    "id": 29,
+    "slug": "toubkal",
+    "name": "Mount Toubkal",
+    "nameHe": "טיפוס לטובקאל",
+    "nameEn": "Mount Toubkal",
+    "country": "Morocco",
+    "countryHe": "מרוקו",
+    "elev": "4167m",
+    "elevNum": 4167,
+    "continent": "africa",
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "comingSoon": true,
+    "teaser": true
   }
 ];
 
@@ -906,6 +922,26 @@ export const CARD_EXPS = [
     "diff": "Moderate",
     "diffHe": "בינוני",
     "continent": "europe",
+    "comingSoon": true,
+    "teaser": true
+  },
+  {
+    "id": 29,
+    "slug": "toubkal",
+    "name": "Mount Toubkal",
+    "nameHe": "טיפוס לטובקאל",
+    "nameEn": "Mount Toubkal",
+    "country": "Morocco",
+    "countryHe": "מרוקו",
+    "flag": "🇲🇦",
+    "img": "/images/cards/toubkal.webp",
+    "grad": "linear-gradient(135deg,#b45309,#92400e,#451a03)",
+    "elevNum": 4167,
+    "type": "Climbing",
+    "typeHe": "טיפוס",
+    "diff": "Moderate",
+    "diffHe": "בינוני",
+    "continent": "africa",
     "comingSoon": true,
     "teaser": true
   }

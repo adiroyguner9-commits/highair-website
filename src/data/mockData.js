@@ -3785,6 +3785,17 @@ Join us on a journey to Point Lenana and take a meaningful part in the fight aga
     img: '/images/cards/mestia-ushguli.webp',
     grad: 'linear-gradient(135deg,#166534,#15803d,#052e16)',
   },
+  {
+    id: 29, slug: 'toubkal', teaser: true, comingSoon: true,
+    name: 'Mount Toubkal', nameHe: 'טיפוס לטובקאל', nameEn: 'Mount Toubkal',
+    country: 'Morocco', countryHe: 'מרוקו', flag: '🇲🇦',
+    elev: '4167m', elevNum: 4167, type: 'Climbing', typeHe: 'טיפוס',
+    diff: 'Moderate', diffHe: 'בינוני', continent: 'africa',
+    /* Two windows like Nepal (owner) — stored for the full page when it goes live. */
+    seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'], seasonsEn: ['April-May', 'September-October'],
+    img: '/images/cards/toubkal.webp',
+    grad: 'linear-gradient(135deg,#b45309,#92400e,#451a03)',
+  },
 ];
 
 export const USER = {
