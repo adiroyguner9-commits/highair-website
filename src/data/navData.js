@@ -972,21 +972,21 @@ export const NAV_ISRAEL = [
     "name": "סובב מצדה",
     "nameEn": "Masada Circuit",
     "live": true,
-    "departure": "2026-10-09"
+    "departure": "2026-11-06"
   },
   {
     "slug": "avnat",
     "name": "מצוקי אבנת",
     "nameEn": "Avnat Cliffs",
     "live": true,
-    "departure": "2026-12-04"
+    "departure": "2027-01-08"
   },
   {
     "slug": "great-fin",
     "name": "הסנפיר הגדול",
     "nameEn": "The Great Fin",
     "live": true,
-    "departure": "2026-12-18"
+    "departure": "2027-01-29"
   },
   {
     "slug": "gilabon-ein-tina",
@@ -1011,21 +1011,21 @@ export const NAV_ISRAEL = [
     "name": "נחל ערוגות",
     "nameEn": "Nahal Arugot",
     "live": true,
-    "departure": "2026-10-23"
+    "departure": "2026-11-20"
   },
   {
     "slug": "sodom",
     "name": "הר סדום ונחל פרצים",
     "nameEn": "Mount Sodom & Nahal Partzim",
     "live": true,
-    "departure": "2026-11-06"
+    "departure": "2026-12-04"
   },
   {
     "slug": "tzeelim-mishmar",
     "name": "מעלה צאלים ונחל משמר",
     "nameEn": "Maale Tze'elim & Nahal Mishmar",
     "live": true,
-    "departure": "2026-11-20"
+    "departure": "2026-12-18"
   },
   {
     "slug": "meron",
@@ -1045,6 +1045,6 @@ export const NAV_ISRAEL = [
     "name": "נחל צאלים וגבי הרדוף",
     "nameEn": "Nahal Tze'elim & Gvei Harduf",
     "live": true,
-    "departure": "2026-12-11"
+    "departure": "2027-01-15"
   }
 ];
