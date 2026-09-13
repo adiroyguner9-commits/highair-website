@@ -1035,8 +1035,8 @@ export const NAV_ISRAEL = [
   },
   {
     "slug": "arbel",
-    "name": "טיול קהילה - הר ארבל",
-    "nameEn": "Community Trip - Mount Arbel",
+    "name": "הר ארבל",
+    "nameEn": "Mount Arbel",
     "live": true,
     "departure": "2026-09-04"
   },
