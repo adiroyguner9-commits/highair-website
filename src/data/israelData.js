@@ -98,7 +98,7 @@ export const ISRAEL_TRIPS = [
     notIncludedEn: ISRAEL_DAY_NOT_INCLUDED_EN,
     itinerary: [
       {
-        day:           'יום שישי - 14/08/26',
+        day:           'יום הטיול',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE,
         distance:      '12 ק"מ',
@@ -108,7 +108,7 @@ export const ISRAEL_TRIPS = [
     ],
     itineraryEn: [
       {
-        day:           'Friday - 14/08/26',
+        day:           'Hike Day',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE_EN,
         distance:      '12 km',
@@ -984,7 +984,7 @@ export const ISRAEL_TRIPS = [
     notIncludedEn: ISRAEL_DAY_NOT_INCLUDED_EN,
     itinerary: [
       {
-        day:           'יום שישי - 10/07/26',
+        day:           'יום הטיול',
         title:         'מתלול אבינדב ונחל הקיבוצים',
         desc: ISRAEL_DAY_SCHEDULE,
         distance:      '8 ק"מ (6 ק"מ הליכה + 2 ק"מ במים)',
@@ -994,7 +994,7 @@ export const ISRAEL_TRIPS = [
     ],
     itineraryEn: [
       {
-        day:           'Friday - 10/07/26',
+        day:           'Hike Day',
         title:         'Avindav Cliff & Nahal HaKibbutzim',
         desc: ISRAEL_DAY_SCHEDULE_EN,
         distance:      '8 km (6 km trail + 2 km in water)',
@@ -1067,7 +1067,7 @@ export const ISRAEL_TRIPS = [
     notIncludedEn: ISRAEL_DAY_NOT_INCLUDED_EN,
     itinerary: [
       {
-        day:           'יום שישי - 17/07/26',
+        day:           'יום הטיול',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE,
         distance:      '',
@@ -1077,7 +1077,7 @@ export const ISRAEL_TRIPS = [
     ],
     itineraryEn: [
       {
-        day:           'Friday - 17/07/26',
+        day:           'Hike Day',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE_EN,
         distance:      '',
@@ -1161,7 +1161,7 @@ export const ISRAEL_TRIPS = [
     notIncludedEn: ISRAEL_DAY_NOT_INCLUDED_EN,
     itinerary: [
       {
-        day:           'יום שישי - 18/09/26',
+        day:           'יום הטיול',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE,
         distance:      '11 ק"מ',
@@ -1171,7 +1171,7 @@ export const ISRAEL_TRIPS = [
     ],
     itineraryEn: [
       {
-        day:           'Friday - 18/09/26',
+        day:           'Hike Day',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE_EN,
         distance:      '11 km',
@@ -1247,7 +1247,7 @@ export const ISRAEL_TRIPS = [
     notIncludedEn: ISRAEL_DAY_NOT_INCLUDED_EN,
     itinerary: [
       {
-        day:           'יום שישי - 04/09/26',
+        day:           'יום הטיול',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE,
         distance:      '12 ק"מ',
@@ -1257,7 +1257,7 @@ export const ISRAEL_TRIPS = [
     ],
     itineraryEn: [
       {
-        day:           'Friday - 04/09/26',
+        day:           'Hike Day',
         title:         '',
         desc: ISRAEL_DAY_SCHEDULE_EN,
         distance:      '12 km',

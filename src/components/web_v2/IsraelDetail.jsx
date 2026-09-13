@@ -519,7 +519,7 @@ export default function IsraelDetail() {
               <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}        value={diffLabel || '–'}  isMobile={isMobile} first />
               <StatBox label={isRtl ? 'מרחק' : 'Distance'}           value={tripDistance}       isMobile={isMobile} />
               <StatBox label={isRtl ? 'טיפוס מצטבר' : 'Elev. Gain'} value={freeElevDisplay}    isMobile={isMobile} />
-              <StatBox label={isRtl ? 'תאריך' : 'Date'}              value={trip.departure ? `${trip.departure.slice(8,10)}/${trip.departure.slice(5,7)}/${trip.departure.slice(2,4)}` : '–'} isMobile={isMobile} last />
+              <StatBox label={isRtl ? 'תאריך' : 'Date'}              value={(trip.departure && new Date(trip.departure) >= today0) ? `${trip.departure.slice(8,10)}/${trip.departure.slice(5,7)}/${trip.departure.slice(2,4)}` : '–'} isMobile={isMobile} last />
             </>
           ) : trip.packageType === 'day' ? (
             <>
@@ -1137,8 +1137,8 @@ export default function IsraelDetail() {
                   </div>
                 )}
 
-                {/* תאריך הטרק — static display for free trips */}
-                {trip?.free && trip?.departure && (
+                {/* תאריך הטרק — static display for free trips (upcoming only; a passed date is auto-hidden) */}
+                {trip?.free && trip?.departure && new Date(trip.departure) >= today0 && (
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '12px',
                     padding: '14px 16px', borderRadius: RADIUS.lg,
