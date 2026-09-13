@@ -476,9 +476,9 @@ export default function IsraelDetail() {
               lineHeight: 1.6, textShadow: '0 1px 6px rgba(0,0,0,0.4)',
               whiteSpace: 'pre-line',
             }}>
-              {displayTagline || (isEn
+              {isEn
                 ? `Join us for the ${displayName}\nand take part in the fight against cancer!`
-                : `הצטרפו אלינו ל${trip.name}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`)}
+                : `הצטרפו אלינו ל${trip.name}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`}
             </p>
             <button
               onClick={scrollToForm}
