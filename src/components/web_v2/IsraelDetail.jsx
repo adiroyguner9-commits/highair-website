@@ -61,9 +61,12 @@ export default function IsraelDetail() {
   }, [slug]);
 
   /* ── חבילות לפי סוג הטיול ── */
+  /* Day-trek price comes from the trek's own price (₪299 desert/Dead Sea,
+     ₪249 Galilee), never a hardcoded number. */
+  const dayPrice = `₪${String(trip?.priceHe || trip?.price || '').replace(/[^\d]/g, '') || '249'}`;
   const PACKAGES = {
     day: [
-      { id: 'day', labelHe: `טרק ${trip?.name || 'יומי בארץ'}`, labelEn: `${trip?.nameEn || trip?.name || 'Day Trek'}`, price: '₪249' },
+      { id: 'day', labelHe: `טרק ${trip?.name || 'יומי בארץ'}`, labelEn: `${trip?.nameEn || trip?.name || 'Day Trek'}`, price: dayPrice },
     ],
     overnight: [
       { id: 'no-stay',   labelHe: 'טיפוס בלבד ללא לינה',        labelEn: 'Trek only, no accommodation',  price: '₪349' },
@@ -88,7 +91,7 @@ export default function IsraelDetail() {
   const diffLabel      = isEn ? (trip?.diffEn  || trip?.diffHe) : trip?.diffHe;
   const daysLabel      = isEn ? (trip?.daysEn  || trip?.days)   : trip?.days;
   const priceLabel     = trip?.packageType === 'day'
-    ? '₪249'
+    ? dayPrice
     : isEn ? (trip?.price || '') : (trip?.priceHe || trip?.price || '');
 
   /* ── Airtable distance / elevation (fetched in useEffect below) ── */
