@@ -372,6 +372,13 @@ export default function AnnualPlan() {
     /* Common date filters (same rules for both tables) */
     function dateFilter(g) {
       if (!g.departure) return false;
+      /* Sinai is a short close-to-home trip (Egypt) - joinable right up to its
+         own day like an Israel trek, so it skips the 14-day advance cutoff the
+         international expeditions use. */
+      if ((g.eventName || '').toLowerCase() === 'sinai') {
+        const end = g.returnDate || g.departure;
+        return end && new Date(end) >= today;
+      }
       const weekFromNow = new Date(today);
       weekFromNow.setDate(weekFromNow.getDate() + 14);
       return new Date(g.departure) >= weekFromNow;

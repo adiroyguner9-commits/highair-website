@@ -503,7 +503,10 @@ export default function ExpeditionDetail() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const cutoff = new Date(today);
-    cutoff.setDate(cutoff.getDate() + 14);
+    /* Sinai is a short close-to-home trip (Egypt) - joinable right up to the
+       departure day like an Israel trek, so it skips the 14-day advance cutoff
+       that the international expeditions need for flights and visas. */
+    if (exp?.slug !== 'sinai') cutoff.setDate(cutoff.getDate() + 14);
 
     /* Step 1: fetch ALL Groups pages for this expedition */
     const fetchAllGroups = async () => {
