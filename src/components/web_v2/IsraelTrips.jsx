@@ -378,7 +378,7 @@ export default function IsraelTrips({ fullPage = false }) {
 
         {/* ── Month filter (same primitive as the world-climbs altitude chips) ── */}
         {monthChips.length > 0 && (
-          <div className="month-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: '-20px', marginBottom: '30px', paddingBottom: '2px', direction: dir }}>
+          <div className="month-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: fullPage && isMobile ? '8px' : '-20px', marginBottom: '30px', paddingBottom: '2px', direction: dir }}>
             <style>{'.month-scroll::-webkit-scrollbar{display:none;}'}</style>
             <MonthChip label={isRtl ? 'הכל' : 'All'} active={!month} onClick={() => setMonth(null)} />
             {monthChips.map(key => (
