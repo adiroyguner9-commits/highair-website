@@ -189,6 +189,7 @@ import {
 } from './_security.js';
 import { fetchActiveLead } from './_lib/active-lead.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey } from './_lib/callAgents.js';
+import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
@@ -433,53 +434,29 @@ export default async function handler(req, res) {
           const prevLog = rec.fields?.['Activity Log'] || '';
           const patch = { Stage: 'Call Scheduled', 'Nudge Sent': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry };
 
-          /* ── Kilimanjaro: ONE global 4:1 split toward Tomer Lan (owner,
-             July 23 2026 — replaces the old booked/non-booked inverse buckets).
-             Wherever a Kilimanjaro lead enters — fresh form lead or straight to
-             a booked call — Lan takes 4 of every 5, Harush the 5th. Booking is
-             no longer a reassignment signal, so this path only fills in a lead
-             that has NO agent yet (created right here, or the lead-notify cron
-             hasn't reached it) and never takes a lead away from anyone.
-             lead-notify.js runs the identical tally — keep the two in step.
+          /* ── Kilimanjaro: the CALLS queue (owner, 14 Sep 2026) ─────────────────
+             A Kilimanjaro lead who books a call while nobody has them yet goes
+             into the calls queue: Tomer Lan 4, Tomer Harush 1, in that order. If
+             the one whose turn it is already has a call at this hour, the other
+             takes it and the next call repays the turn. The queue and its tally
+             live in ./_lib/kiliRota.js, byte for byte the same file as the
+             webapp's api/_lib/kiliRota.js.
 
-             The ratio is held by COUNTING what has been assigned since the rule
-             went live, not by a counter (a serverless instance loses those), so
-             it self-corrects and never tries to repair the older backlog. */
-          const KILI_LAN = 'Tomer Lan', KILI_HARUSH = 'Tomer Harush';
-          const KILI_RATIO_FROM = '2026-08-06T11:58:04.878Z';   // reset on the owner's call (6 Aug 2026) —
-  // the old buckets held INVERSE ratios, so counting their mix against the new
-  // single ratio would misread history. The tally starts genuinely empty here.
+             The webapp's lead-notify leaves a Kilimanjaro lead without an agent
+             for its first 15 minutes to see whether they book, so a customer who
+             books straight after the form lands here. One who books later already
+             has an agent and keeps them; ONE AGENT, ONE CALL below still moves the
+             call when that agent is busy. */
           const isKili = /קילימנ|kilimanjaro/i.test(String(rec.fields?.Expedition || ''));
           if (isKili && !assignedAgent) {
-            let takeIt = true;   // default to Lan if the tally can't be read
-            try {
-              const f = `AND(OR(FIND("קילימנ",{Expedition}&"")>0,FIND("Kilimanjaro",{Expedition}&"")>0),`
-                /* CREATED_TIME(), not {Assigned At}: Airtable writes it itself so it
-                   can never be blank. A blank {Assigned At} used to hide an
-                   assignment from this tally entirely. Must match pickKiliAgent()
-                   in the webapp exactly. */
-                + `IS_AFTER(CREATED_TIME(),"${KILI_RATIO_FROM}"),`
-                + `OR({Assigned Agent}="${KILI_LAN}",{Assigned Agent}="${KILI_HARUSH}"))`;
-              const u = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}`
-                + `?filterByFormula=${encodeURIComponent(f)}&pageSize=100`
-                + `&sort%5B0%5D%5Bfield%5D=${encodeURIComponent('Created Time')}&sort%5B0%5D%5Bdirection%5D=desc`
-                + `&fields[]=${encodeURIComponent('Assigned Agent')}`;
-              const tr = await fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` } });
-              if (tr.ok) {
-                let lan = 0, har = 0;
-                for (const x of ((await tr.json()).records || [])) {
-                  if (x.fields?.['Assigned Agent'] === KILI_LAN) lan++; else har++;
-                }
-                /* Strict cycle of five: L L L L H, repeating. Must stay
-                   byte-for-byte in step with pickKiliAgent() in the webapp's
-                   api/lead-notify.js — the two share one tally, and if they
-                   disagree on the rule they will fight over the phase. */
-                takeIt = ((lan + har) % 5) !== 4;
-              }
-            } catch (e) { console.warn('[book-slot] kili ratio non-fatal:', e.message); }
-            const winner = takeIt ? KILI_LAN : KILI_HARUSH;
+            const now = new Date();
+            const turn = await nextKiliAgent(BASE, TOKEN, 'calls', now);
+            const ownersNow = busyNow.get(time)?.owners;
+            const winner = callsAgentFor(turn, n => !!ownersNow?.has(agentKey(n)));
+            if (winner !== turn) console.log(`[book-slot] kili calls queue: ${turn} is on a call at ${date} ${time}, ${winner} takes it`);
             patch['Assigned Agent'] = winner;
-            patch['Assigned At']    = new Date().toISOString();
+            patch['Assigned At']    = now.toISOString();
+            patch[KILI_ROTA_FIELD]  = kiliRotaStamp('calls', winner, now);
             assignedAgent = winner;   // so the staff alert + invite go to the right agent
           }
 
