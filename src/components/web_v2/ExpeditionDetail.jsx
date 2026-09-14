@@ -155,20 +155,28 @@ const getWhyCards = (exp, isRtl) => {
      HighAir traveller. */
   if (exp?.type === 'Safari') {
     return isRtl ? [
+      { icon: '📱', title: 'אזור אישי לכל מטייל באפליקציה שלנו - כל המסע במקום אחד', desc: '' },
       { icon: '🎒', title: 'רשימת ציוד לספארי', desc: '' },
       { icon: '✈️', title: 'סגירת טיסה אטרקטיבית', desc: '' },
       { icon: '🛡️', title: 'סגירת ביטוח אטרקטיבי', desc: '' },
+      { icon: '🏬', title: '10% הנחה על ציוד בחנות ״לפידות״', desc: '' },
       { icon: '🏪', title: '20% הנחה על ציוד בחנות ״גרביטי״', desc: '' },
+      { icon: '🏪', title: '20% הנחה על ציוד ברשת ״אלפין סטייל״', desc: '' },
       { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
+      { icon: '🥤', title: '25% הנחה על תוספי מזון בפרו ראנר', desc: '' },
       { icon: '📋', title: `מדריך להוצאת ויזה ל${country}`, desc: '' },
       { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
       { icon: '📞', title: 'ליווי 24/7 משלב ההכנה ולאורך כל הספארי', desc: '' },
     ] : [
+      { icon: '📱', title: 'A personal area for every traveler in our app - the whole journey in one place', desc: '' },
       { icon: '🎒', title: 'Safari gear list', desc: '' },
       { icon: '✈️', title: 'Attractive flight booking', desc: '' },
       { icon: '🛡️', title: 'Attractive insurance booking', desc: '' },
+      { icon: '🏬', title: '10% discount on gear at Lapidot store', desc: '' },
       { icon: '🏪', title: '20% discount on gear at Gravity store', desc: '' },
+      { icon: '🏪', title: '20% discount on gear at Alpine Style chain', desc: '' },
       { icon: '🏬', title: '25% discount on gear at Pakal Hagur chain', desc: '' },
+      { icon: '🥤', title: '25% discount on nutrition supplements at Pro Runner', desc: '' },
       { icon: '📋', title: `Visa guide for ${country}`, desc: '' },
       { icon: '🤝', title: 'Participate in our community treks', desc: '' },
       { icon: '📞', title: '24/7 support from preparation through the whole safari', desc: '' },
@@ -176,13 +184,17 @@ const getWhyCards = (exp, isRtl) => {
   }
   if (!isRtl) {
     return [
+      { icon: '📱', title: 'A personal area for every climber in our app - the whole journey in one place', desc: '' },
       { icon: '🏋️', title: `Training Plan for ${activity}`, desc: '' },
       { icon: '🎒', title: `Gear List for ${activity}`, desc: '' },
       { icon: '✈️', title: 'Attractive flight booking', desc: '' },
       { icon: '🛡️', title: 'Attractive insurance booking', desc: '' },
       { icon: '📡', title: '10% discount on satellite device - Magnus', desc: '' },
+      { icon: '🏬', title: '10% discount on gear at Lapidot store', desc: '' },
       { icon: '🏪', title: '20% discount on gear at Gravity store', desc: '' },
+      { icon: '🏪', title: '20% discount on gear at Alpine Style chain', desc: '' },
       { icon: '🏬', title: '25% discount on gear at Pakal Hagur chain', desc: '' },
+      { icon: '🥤', title: '25% discount on nutrition supplements at Pro Runner', desc: '' },
       { icon: '🏔️', title: 'Info guide on altitude sickness and coping', desc: '' },
       ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `Visa guide for ${country}`, desc: '' }] : []),
       { icon: '🤝', title: 'Participate in our community treks', desc: '' },
@@ -190,13 +202,17 @@ const getWhyCards = (exp, isRtl) => {
     ];
   }
   return [
+    { icon: '📱', title: 'אזור אישי לכל מטפס באפליקציה שלנו - כל המסע במקום אחד', desc: '' },
     { icon: '🏋️', title: `תכנית אימונים כהכנה ל${activity}`, desc: '' },
     { icon: '🎒', title: `רשימת ציוד ל${activity}`, desc: '' },
     { icon: '✈️', title: 'סגירת טיסה אטרקטיבית', desc: '' },
     { icon: '🛡️', title: 'סגירת ביטוח אטרקטיבי', desc: '' },
     { icon: '📡', title: '10% הנחה על מכשיר לווייני - מגנוס', desc: '' },
+    { icon: '🏬', title: '10% הנחה על ציוד בחנות ״לפידות״', desc: '' },
     { icon: '🏪', title: '20% הנחה על ציוד בחנות ״גרביטי״', desc: '' },
+    { icon: '🏪', title: '20% הנחה על ציוד ברשת ״אלפין סטייל״', desc: '' },
     { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
+    { icon: '🥤', title: '25% הנחה על תוספי מזון בפרו ראנר', desc: '' },
     { icon: '🏔️', title: 'דף מידע לגבי מחלת גבהים והתמודדות איתה', desc: '' },
     ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `מדריך להוצאה ויזה ל${country}`, desc: '' }] : []),
     { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
