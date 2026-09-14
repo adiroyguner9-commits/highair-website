@@ -216,7 +216,7 @@ function ExpCard({ exp }) {
    horizontal slider. Used by /safari, where there are only three cards and a
    stack reads better than a swipe (owner, Jul 30 2026). The home page keeps its
    slider, which is why this is a prop and not a global change. */
-export default function ExpeditionExplorer({ type, hideHeading = false, stackOnMobile = false }) {
+export default function ExpeditionExplorer({ type, hideHeading = false, stackOnMobile = false, fullPage = false }) {
   const trackRef      = useRef(null);
   const [cardWidth,   setCardWidth]   = useState(220);
   const [canPrev,     setCanPrev]     = useState(false);
@@ -350,7 +350,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
   return (
     <section id={sectionId} style={{
       background: 'transparent',
-      padding:    isMobile ? '36px 5% 0' : '60px 5% 0',
+      padding:    fullPage ? (isMobile ? '28px 5% 72px' : '52px 5% 110px') : (isMobile ? '36px 5% 0' : '60px 5% 0'),
       boxSizing:  'border-box',
       direction:  textDir,
     }}>
@@ -366,8 +366,8 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
           .tier-scroll::-webkit-scrollbar { display: none; }
         `}</style>
 
-        {/* ── Header: title + arrows ── */}
-        {hideHeading ? null : isMobile ? (
+        {/* ── Header: title + arrows (hidden on a dedicated page, which has its own hero) ── */}
+        {(hideHeading || fullPage) ? null : isMobile ? (
           <div style={{ marginBottom: '40px' }}>
             <h2 style={{
               fontFamily: "'Ploni', sans-serif", fontSize: FS.h2, fontWeight: 700,
@@ -399,8 +399,8 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
         )}
 
         {/* ── Altitude filter (climbs + treks) ── */}
-        {!hideHeading && filterable && TIERS.length > 1 && (
-          <div className="tier-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: '-16px', marginBottom: '30px', paddingBottom: '2px', direction: textDir }}>
+        {(fullPage || !hideHeading) && filterable && TIERS.length > 1 && (
+          <div className="tier-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: fullPage && isMobile ? '8px' : '-16px', marginBottom: '30px', paddingBottom: '2px', direction: textDir }}>
             <TierChip label={isRtl ? 'הכל' : 'All'} active={!tier} onClick={() => setTier(null)} />
             {TIERS.map(m => (
               <TierChip
@@ -413,7 +413,22 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
           </div>
         )}
 
-        {/* ── Scroll track ── */}
+        {/* ── Cards: responsive grid on a dedicated page, slider/stack in the homepage section ── */}
+        {fullPage ? (
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(300px, 1fr))', gap: '18px', paddingTop: '4px' }}>
+            {cards.map((exp, i) => (
+              <div
+                key={`${tier}-${exp.id}`}
+                style={{
+                  animation:      'tierFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both',
+                  animationDelay: `${Math.min(i, 8) * 40}ms`,
+                }}
+              >
+                <ExpCard exp={exp} />
+              </div>
+            ))}
+          </div>
+        ) : (
         <div
           ref={trackRef}
           style={stacked ? {
@@ -461,9 +476,10 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
             </div>
           ))}
         </div>
+        )}
 
-        {/* ── Mobile arrows — pointless once the cards are stacked ── */}
-        {isMobile && !stacked && (
+        {/* ── Mobile arrows — pointless once the cards are stacked or on a full-page grid ── */}
+        {isMobile && !stacked && !fullPage && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '-48px', paddingBottom: '36px' }}>
             <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
             <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />

@@ -533,11 +533,11 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  {/* Accordion content */}
  {isOpen && (
  <div style={{ paddingBottom: '8px', paddingRight: isEn ? 0 : '8px', paddingLeft: isEn ? '8px' : 0 }}>
- {/* Israel: a shortcut to the dedicated landing page, above the trek list */}
- {link.megaType === 'israel' && (
+ {/* Page-backed section: a shortcut to the dedicated landing page, above the list */}
+ {link.isPage && link.href && (
  <a
- href="/israel"
- onClick={e => { e.preventDefault(); navigate('/israel'); closeMenu(); }}
+ href={link.href}
+ onClick={e => { e.preventDefault(); navigate(link.href); closeMenu(); }}
  style={{
  display: 'block',
  padding: '10px 10px',
@@ -549,7 +549,11 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  borderRadius: '8px',
  }}
  >
- {isEn ? 'View all treks in Israel' : 'צפו בכל הטרקים בארץ'}
+ {link.megaType === 'israel'
+   ? (isEn ? 'View all treks in Israel' : 'צפו בכל הטרקים בארץ')
+   : link.megaType === 'climbs'
+     ? (isEn ? 'View all expeditions' : 'צפו בכל המשלחות')
+     : (isEn ? 'View all world treks' : 'צפו בכל הטרקים בעולם')}
  </a>
  )}
  {continents.map(cont => {
@@ -875,8 +879,8 @@ export default function Header() {
  /* Build translated links array (israelTrips mega only in Hebrew) */
  const LINK_DEFS = [
  { key: 'home', href: '#hero' },
- { key: 'climbs', href: '#expeditions', hasMega: true, megaType: 'climbs' },
- { key: 'treks', href: '#expeditions', hasMega: true, megaType: 'treks' },
+ { key: 'climbs', href: '/climbs', isPage: true, hasMega: true, megaType: 'climbs' },
+ { key: 'treks', href: '/treks', isPage: true, hasMega: true, megaType: 'treks' },
  { key: 'israelTrips', href: '/israel', isPage: true, hasMega: true, megaType: 'israel' },
  /* Tanzania Safari hidden from the menu (owner, 2026-08-08) until told to show it.
     The /safari page still works by direct link; re-add this line to restore it. */

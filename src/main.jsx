@@ -79,6 +79,7 @@ const PrivacyPolicy      = lazy(() => import('./components/web_v2/PrivacyPolicy.
 const Accessibility      = lazy(() => import('./components/web_v2/Accessibility.jsx'));
 const IsraelDetail       = lazy(() => import('./components/web_v2/IsraelDetail.jsx'));
 const IsraelTreksPage    = lazy(() => import('./components/web_v2/IsraelTreksPage.jsx'));
+const WorldExpeditionsPage = lazy(() => import('./components/web_v2/WorldExpeditionsPage.jsx'));
 const Blog               = lazy(() => import('./components/web_v2/Blog.jsx'));
 const BlogPost           = lazy(() => import('./components/web_v2/BlogPost.jsx'));
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
@@ -114,6 +115,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/accessibility"     element={<Accessibility />} />
           <Route path="/israel"            element={<IsraelTreksPage />} />
           <Route path="/israel/:slug"      element={<IsraelDetail />} />
+          <Route path="/treks"             element={<WorldExpeditionsPage type="treks" />} />
+          <Route path="/climbs"            element={<WorldExpeditionsPage type="climbs" />} />
           <Route path="/about"             element={<AboutUs />} />
           <Route path="/blog"              element={<Blog />} />
           <Route path="/blog/:slug"        element={<BlogPost />} />
