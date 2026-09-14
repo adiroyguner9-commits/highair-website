@@ -28,6 +28,31 @@ function Separator() {
   return <div style={{ borderTop: '1px solid #ECEAF8', margin: 0 }} />;
 }
 
+/* "Why HighAir" member perks for Israel day treks - the value beyond the trek
+   itself: the store discounts (kept in ascending %) plus community treks. NO app
+   personal area here - that belongs to the multi-day expeditions, not local day
+   treks - and none of the mountain-only items (climb training, satellite device,
+   flights, insurance, altitude guide, visa). */
+function getIsraelPerks(isRtl) {
+  return isRtl ? [
+    '10% הנחה על ציוד בחנות ״לפידות״',
+    '15% הנחה על משקפי ספורט בחנות ״Swift Optics״',
+    '20% הנחה על ציוד בחנות ״גרביטי״',
+    '20% הנחה על ציוד ברשת ״אלפין סטייל״',
+    '25% הנחה על ציוד ברשת ״פקל חגור״',
+    '25% הנחה על תוספי מזון בחנות ״פרו ראנר״',
+    'השתתפות בטיולי הקהילה שלנו',
+  ] : [
+    '10% discount on gear at Lapidot store',
+    '15% discount on sport glasses at Swift Optics store',
+    '20% discount on gear at Gravity store',
+    '20% discount on gear at Alpine Style chain',
+    '25% discount on gear at Pakal Hagur chain',
+    '25% discount on nutrition supplements at Pro Runner store',
+    'Participate in our community treks',
+  ];
+}
+
 /* ─── Stat chip ─── */
 function StatBox({ label, value, isMobile, first, last }) {
   return (
@@ -697,6 +722,28 @@ export default function IsraelDetail() {
             </section>
           </>
         )}
+
+        {/* ── למה לטייל עם HighAir ── */}
+        <Separator />
+        <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
+          <h2 style={{
+            fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px,3.5vw,36px)',
+            fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 32px', direction: dir,
+          }}>
+            {isRtl ? 'למה לטייל עם HighAir?' : 'Why Trek with HighAir?'}
+          </h2>
+          <div style={{
+            background: '#F5F3FF', border: '1px solid #DDD6FE',
+            borderRadius: RADIUS.xl, padding: isMobile ? '24px 20px' : '28px 32px', direction: dir,
+          }}>
+            {getIsraelPerks(isRtl).map((title, i, arr) => (
+              <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < arr.length - 1 ? '14px' : 0 }}>
+                <span style={{ color: COLOR.primary, fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
+                <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#4C1D95', lineHeight: 1.6 }}>{title}</span>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {itinerary.length > 0 && (
           <>
