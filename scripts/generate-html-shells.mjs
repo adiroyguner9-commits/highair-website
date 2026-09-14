@@ -316,6 +316,11 @@ const staticPages = [
     title: 'HighAir Expeditions | תכנית שנתית',
     desc:  'כל תאריכי המשלחות של HighAir Expeditions - קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד.',
   },
+  {
+    path:  'israel',
+    title: 'HighAir Expeditions | הטרקים שלנו בארץ',
+    desc:  'כל הטרקים של HighAir בארץ - מסלולים במדבר יהודה, ים המלח והנגב. יום אחד, מדריך מוסמך וארוחת צהריים כלולה, עם תרומה למאבק במחלת הסרטן. בחרו את הטרק הקרוב שלכם.',
+  },
 ];
 
 for (const page of staticPages) {

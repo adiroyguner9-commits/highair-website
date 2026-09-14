@@ -78,6 +78,7 @@ const TermsOfService     = lazy(() => import('./components/web_v2/TermsOfService
 const PrivacyPolicy      = lazy(() => import('./components/web_v2/PrivacyPolicy.jsx'));
 const Accessibility      = lazy(() => import('./components/web_v2/Accessibility.jsx'));
 const IsraelDetail       = lazy(() => import('./components/web_v2/IsraelDetail.jsx'));
+const IsraelTreksPage    = lazy(() => import('./components/web_v2/IsraelTreksPage.jsx'));
 const Blog               = lazy(() => import('./components/web_v2/Blog.jsx'));
 const BlogPost           = lazy(() => import('./components/web_v2/BlogPost.jsx'));
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
@@ -111,6 +112,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/terms"             element={<TermsOfService />} />
           <Route path="/privacy"           element={<PrivacyPolicy />} />
           <Route path="/accessibility"     element={<Accessibility />} />
+          <Route path="/israel"            element={<IsraelTreksPage />} />
           <Route path="/israel/:slug"      element={<IsraelDetail />} />
           <Route path="/about"             element={<AboutUs />} />
           <Route path="/blog"              element={<Blog />} />

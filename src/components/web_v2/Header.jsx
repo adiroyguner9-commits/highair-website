@@ -387,14 +387,19 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
 
  function handleClick(e) {
  e.preventDefault();
+ if (isPage) {
+   // A page-backed heading (may also carry a mega): a CLICK opens the page,
+   // while HOVER still opens the mega menu via onMouseEnter.
+   navigate(href);
+   onClick?.();
+   return;
+ }
  if (hasMega) {
    // On click, open the mega menu (in addition to hover)
    onMegaEnter?.();
    return;
  }
- if (isPage) {
- navigate(href);
- } else if (location.pathname === '/') {
+ if (location.pathname === '/') {
  scrollToSection(href);
  } else {
  onNavigate?.(href);
@@ -528,6 +533,25 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  {/* Accordion content */}
  {isOpen && (
  <div style={{ paddingBottom: '8px', paddingRight: isEn ? 0 : '8px', paddingLeft: isEn ? '8px' : 0 }}>
+ {/* Israel: a shortcut to the dedicated landing page, above the trek list */}
+ {link.megaType === 'israel' && (
+ <a
+ href="/israel"
+ onClick={e => { e.preventDefault(); navigate('/israel'); closeMenu(); }}
+ style={{
+ display: 'block',
+ padding: '10px 10px',
+ fontFamily: "'Ploni', sans-serif",
+ fontSize: '14px',
+ fontWeight: 700,
+ color: '#6D28D9',
+ textDecoration: 'none',
+ borderRadius: '8px',
+ }}
+ >
+ {isEn ? 'View all treks in Israel' : 'צפו בכל הטרקים בארץ'}
+ </a>
+ )}
  {continents.map(cont => {
  if (cont.isIsrael) {
  return (
@@ -853,7 +877,7 @@ export default function Header() {
  { key: 'home', href: '#hero' },
  { key: 'climbs', href: '#expeditions', hasMega: true, megaType: 'climbs' },
  { key: 'treks', href: '#expeditions', hasMega: true, megaType: 'treks' },
- { key: 'israelTrips', href: '#israel', hasMega: true, megaType: 'israel' },
+ { key: 'israelTrips', href: '/israel', isPage: true, hasMega: true, megaType: 'israel' },
  /* Tanzania Safari hidden from the menu (owner, 2026-08-08) until told to show it.
     The /safari page still works by direct link; re-add this line to restore it. */
  // { key: 'safari', href: '/safari', isPage: true, hasMega: true, megaType: 'safari' },

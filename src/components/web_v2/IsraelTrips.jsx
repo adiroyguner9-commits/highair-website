@@ -229,7 +229,8 @@ function NavArrow({ direction, disabled, onClick, isRtl }) {
    Main section
 ══════════════════════════════════════════════════════════════ */
 
-export default function IsraelTrips() {
+export default function IsraelTrips({ fullPage = false }) {
+  const navigate = useNavigate();
   const [ctaHovered, setCtaHovered] = useState(false);
   const trackRef = useRef(null);
   const [cardWidth, setCardWidth] = useState(280);
@@ -344,13 +345,14 @@ export default function IsraelTrips() {
   return (
     <section id="israel" style={{
       background:  'transparent',
-      padding:     isMobile ? '36px 5% 0' : '60px 5%',
+      padding:     fullPage ? (isMobile ? '28px 5% 72px' : '52px 5% 110px') : (isMobile ? '36px 5% 0' : '60px 5%'),
       boxSizing:   'border-box',
       direction:   dir,
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-        {/* ── Section header (desktop arrows sit at the top-end, like the world-climbs section) ── */}
+        {/* ── Section header (hidden on the dedicated /israel page, which has its own hero) ── */}
+        {!fullPage && (
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '16px', marginBottom: '40px' }}>
           <h2 style={{
             fontFamily:    "'Ploni', sans-serif",
@@ -372,6 +374,7 @@ export default function IsraelTrips() {
             </div>
           )}
         </div>
+        )}
 
         {/* ── Month filter (same primitive as the world-climbs altitude chips) ── */}
         {monthChips.length > 0 && (
@@ -384,7 +387,14 @@ export default function IsraelTrips() {
           </div>
         )}
 
-        {/* ── Cards: single-row slider on both mobile and desktop (like the world-climbs section) ── */}
+        {/* ── Cards: responsive grid on the dedicated /israel page, single-row slider in the homepage section ── */}
+        {fullPage ? (
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(300px, 1fr))', gap: '18px', paddingTop: '4px' }}>
+            {visibleTrips.map(trip => (
+              <IsraelCard key={trip.id || trip.slug} trip={trip} />
+            ))}
+          </div>
+        ) : (
         <div
           ref={trackRef}
           style={{
@@ -412,19 +422,21 @@ export default function IsraelTrips() {
             </div>
           ))}
         </div>
+        )}
 
-        {/* ── Mobile arrows ── */}
-        {isMobile && (
+        {/* ── Mobile arrows (slider only) ── */}
+        {!fullPage && isMobile && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '-48px', paddingBottom: '36px' }}>
             <NavArrow direction="prev" disabled={!canPrev} onClick={() => scrollByCard('prev')} isRtl={isRtl} />
             <NavArrow direction="next" disabled={!canNext} onClick={() => scrollByCard('next')} isRtl={isRtl} />
           </div>
         )}
 
-        {/* ── Bottom CTA - only when more than 1 trip ── */}
-        {trips.length > 1 && !isMobile && (
+        {/* ── Bottom CTA - links to the dedicated /israel page (homepage section only) ── */}
+        {!fullPage && trips.length > 1 && !isMobile && (
           <div style={{ textAlign: 'center', marginTop: '48px', direction: 'ltr' }}>
             <button
+              onClick={() => { navigate('/israel'); window.scrollTo(0, 0); }}
               onMouseEnter={() => setCtaHovered(true)}
               onMouseLeave={() => setCtaHovered(false)}
               style={{
