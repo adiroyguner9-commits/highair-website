@@ -129,6 +129,7 @@ const DEFAULT_IMPORTANT = [
   'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
   'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
   'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+  'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
 ];
 
 const DEFAULT_IMPORTANT_EN = [
@@ -140,6 +141,7 @@ const DEFAULT_IMPORTANT_EN = [
   'If you have no prior experience but can walk ~20 km a day, love challenges, and have high motivation - this expedition can absolutely be for you!',
   'The route may change according to weather conditions or at the discretion of the certified guides in the field!',
   'Safety before summit - in the mountains there is no guarantee of reaching the summit, but there is always a commitment to safety above all!',
+  'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
 ];
 
 const getWhyCards = (exp, isRtl) => {

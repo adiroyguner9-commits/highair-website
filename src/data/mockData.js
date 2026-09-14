@@ -91,6 +91,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Olympus runs in groups of up to 15  -  no more, that\'s part of the experience!',
@@ -100,6 +101,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
       'Medical clearance and a health declaration are required before departure!',
       'No prior climbing experience needed  -  if you can walk 15-20 km/day with elevation gain, you can reach the summit.',
       'Safety before summit  -  no guarantee of reaching the top, but safety is always the absolute priority.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1, title: 'ברוכים הבאים ליוון!', desc: 'לפני הנחיתה בסלוניקי, נהנים מתצפית יפהפיה על איי יוון מהמטוס. לאחר הנחיתה, עולים להסעה למלון Bayiri Petit Pension בליטוחורו, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים, תוכלו לנוח ולהתכונן לקראת יום המחר. מקבלים תדרוך לגבי הטיפוס מטעם צוות המדריכים שילווה אתכם במהלך המסע. הלילה תזכו למנוחה טובה לפני היציאה להר.', travelTime: 'כשעה וחצי נסיעה משדה התעופה בסלוניקי למלון בליטוחורו', accommodation: 'מלון Bayiri Petit Pension בליטוחורו או דומה לו' },
@@ -226,6 +228,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       'אם אין לכם ניסיון קודם בטרק, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'The Balkans trek crosses 3 countries  -  you need a valid passport and must have no entry restrictions for Albania, Kosovo or Montenegro.',
@@ -235,6 +238,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       'Medical clearance and a health declaration are required before departure!',
       'No prior climbing experience needed  -  this is a trekking route without technical climbing, but the cumulative days demand reasonable fitness.',
       'Safety first  -  safety always takes priority.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     faq: [
       {
@@ -680,6 +684,7 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
       'אם אין לכם ניסיון קודם בטרקים, אם אתם מסוגלים ללכת כ-10-15 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Yellow Fever vaccination is mandatory for entry to Ethiopia  -  you must present a vaccination certificate at the airport. Also recommended: malaria, typhoid, Hepatitis A and polio.',
@@ -689,6 +694,7 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
       'Medical clearance required  -  including fitness for extreme heat and ascent to 4430m.',
       'Any participant who does not meet health requirements will not be permitted to join.',
       'Safety first  -  no guarantee of reaching every point, but always committed to safety.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1,  title: 'תל אביב - אדיס אבבה', desc: 'נצא בטיסה מתל אביב לאדיס אבבה. לאחר הנחיתה נגיע למלון בעיר הבירה, נבצע צ׳ק אין וניקח זמן למנוחה והתארגנות. בערב ניפגש לארוחת ערב חגיגית לפתיחת הטיול, היכרות עם הצוות והקבוצה, ותדרוך קצר לקראת ההרפתקה שממתינה לנו.', accommodation: 'מלון באדיס אבבה' },
@@ -828,6 +834,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Kazbek requires crampons and ice axe work  -  equipment is included. Practical training is provided during acclimatization days before summit day.',
@@ -837,6 +844,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
       'Medical clearance required  -  including fitness for 5000m altitude and alpine work.',
       'No prior climbing experience needed  -  but high fitness and mental stability at altitude are non-negotiable.',
       'Safety before summit  -  the decision to summit is always the guide\'s call.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
@@ -1005,6 +1013,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'אם אין לכם ניסיון קודם בטרקים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'The Manaslu Circuit passes through a Restricted Area  -  a special permit is included in the package. Access without official authorisation is not permitted.',
@@ -1014,6 +1023,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Medical clearance required  -  including fitness for 5000m altitude and 16 consecutive trekking days.',
       'Trek runs in groups of up to 15 with experienced guides.',
       'Safety before summit  -  always committed to safety above everything.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1,  title: 'תל אביב - דובאי - קטמנדו', desc: 'לפני הנחיתה בקטמנדו, נהנים מתצפית על הרי ההימלאיה מהמטוס. לאחר הנחיתה, עולים להסעה למלון Barahi בקטמנדו, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים, תוכלו לנוח ולהתכונן לקראת יום המחר.', accommodation: 'מלון Barahi, קטמנדו', travelTime: 'כ-12 שעות טיסה' },
@@ -1185,6 +1195,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'אם אין לכם ניסיון קודם בטרקים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Lukla flight (2860m) is one of the most challenging in the world  -  delays and cancellations due to weather are common. A buffer day is built into the plan.',
@@ -1194,6 +1205,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Trek runs in groups of up to 15 with experienced Sherpa guides.',
       'Medical clearance required  -  including fitness for 5364m altitude.',
       'Safety before summit  -  reaching Base Camp is not guaranteed but safety always comes first.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1,  title: 'תל אביב - דובאי - קטמנדו', desc: 'לפני הנחיתה בקטמנדו, נהנים מתצפית על הרי ההימלאיה מהמטוס. לאחר הנחיתה, עולים להסעה למלון Barahi בקטמנדו, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים, תוכלו לנוח ולהתכונן לקראת יום המחר.', travelTime: 'טיסה + העברה', accommodation: 'מלון Barahi קטמנדו' },
@@ -1367,6 +1379,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
       'Medical clearance required  -  including fitness for 5416m altitude and 16 trekking days.',
       'Trek runs in groups of up to 15 participants.',
       'Safety before summit  -  weather conditions at Thorong La may delay the crossing. Guides make all decisions.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1,  title: 'תל אביב - דובאי - קטמנדו', desc: 'לפני הנחיתה בקטמנדו, נהנים מתצפית על הרי ההימלאיה מהמטוס. לאחר הנחיתה, עולים להסעה למלון Barahi בקטמנדו, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים, תוכלו לנוח ולהתכונן לקראת יום המחר.', accommodation: 'מלון Barahi, קטמנדו', travelTime: 'כ-12 שעות טיסה' },
@@ -1395,6 +1408,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
       'אם אין לכם ניסיון קודם בטרק, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     itineraryEn: [
       { day: 1,  title: 'Tel Aviv - Dubai - Kathmandu', desc: 'Before landing in Kathmandu, enjoy breathtaking views of the Himalayas from the plane. After landing, we transfer to Hotel Barahi in Kathmandu, passing through scenic rural and mountain landscapes along the way. Once checked in, rest and prepare for the adventure ahead.', accommodation: 'Hotel Barahi, Kathmandu', travelTime: '~12 hours flying' },
@@ -1518,6 +1532,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     itinerary: [
       { day: 1, title: 'נחיתה במינרלנייה וודי והעברה לצ׳גט (2000 מ׳)', desc: 'עם ההגעה לשדה התעופה במינרלנייה וודי (Mineralnye Vody), נצא בנסיעה קבוצתית של כשלוש שעות אל עבר העיירה צ׳גט השוכנת בגובה 2000 מ׳. לאחר הצ׳ק-אין במלון המקומי, נתכנס לארוחת ערב חגיגית של פתיחת המשלחת, נכיר את חברי הקבוצה ונעבור תדרוך מפורט על לוחות הזמנים והמסלול המצפה לנו בימים הקרובים.', travelTime: 'כ-3 שעות נסיעה משדה התעופה לצ׳גט (185 ק"מ)', accommodation: 'מלון "Snezhny Bars" בצ׳גט או דומה לו' },
@@ -1550,6 +1565,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
       'Medical clearance required  -  including fitness for climbing to 5642m.',
       'No prior climbing experience required  -  but high fitness and mental stability at altitude are non-negotiable.',
       'Safety before summit  -  the summit decision is always the guide\'s call.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itineraryEn: [
       { day: 1, title: 'Arrival at Mineralnye Vody, transfer to Cheget (2100m)', desc: 'Upon arriving at Mineralnye Vody airport, we set off on a group drive of about three hours toward the Cheget glacier valley, situated at 2100m. After checking in at the local hotel, we gather for a celebratory expedition opening dinner, get to know our group members, and receive a detailed briefing on the schedule and route that awaits us in the coming days.', travelTime: 'Approx. 3-hour drive from airport to Cheget (185 km)', accommodation: '"Snezhny Bars" hotel in Cheget or similar' },
@@ -1753,6 +1769,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
 
     ],
     importantToNoteEn: [
@@ -1763,6 +1780,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       'Medical clearance required  -  including fitness for 5895m altitude.',
       'No prior climbing experience needed  -  anyone who can walk 8-10 hours per day can reach the summit.',
       'Safety before summit  -  the guide decides whether to continue based on each participant\'s condition.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1, title: 'ברוכים הבאים לטנזניה!', desc: 'לפני הנחיתה בטנזניה, נהנים מתצפית יפהפיה על הר הקילימנג׳רו מהמטוס. בשדה ימתינו נציגים שיובילו אתכם להסעה למלון במושי, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים, מבצעים בדיקות ציוד לקראת היציאה למסע ומקבלים תדרוך לגבי הטיפוס מטעם צוות המדריכים שילווה אתכם. הלילה תזכו למנוחה טובה לפני היציאה למחרת בבוקר לטיפוס.', travelTime: 'כשעה נסיעה משדה התעופה קילימנג׳רו למלון במושי', accommodation: 'מלון Panama Garden Hotel במושי או דומה לו' },
@@ -1946,6 +1964,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Tanzania visa costs $50 per person  -  we recommend applying online in advance (eVisa). Valid for 90 days.',
@@ -1955,6 +1974,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
       'Medical clearance required  -  including fitness for 5895m altitude.',
       'No prior climbing experience needed  -  anyone who can walk 8-10 hours per day can reach the summit.',
       'Safety before summit  -  the guide decides whether to continue based on each participant\'s condition.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1,  title: 'ברוכים הבאים לטנזניה!', desc: 'לפני הנחיתה בטנזניה, נהנים מתצפית יפהפיה על הר הקילימנג׳רו מהמטוס. לאחר הנחיתה, עולים להסעה למלון Palace Hotel בארושה, בדרך עוברים בין נופים כפריים והרריים ייחודיים. לאחר ההגעה למלון וקבלת החדרים, ארוחת שבת בבית חב״ד ארושה.', travelTime: 'כשעתיים נסיעה משדה התעופה קילימנג׳רו לארושה', accommodation: 'מלון Palace Hotel בארושה או דומה לו' },
@@ -2163,6 +2183,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Lobuche Peak (6119m) requires technical climbing  -  fixed ropes, jumar ascenders, crampons and ice axe. Full training provided before summit day.',
@@ -2172,6 +2193,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Medical clearance required  -  including fitness for 6000m altitude.',
       'Prior high-altitude trekking experience recommended  -  the technical climbing is teachable, but 6000m demands prior exposure.',
       'Safety before summit  -  the guide always makes the continuation decision.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
   },
   {
@@ -2337,6 +2359,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Island Peak (6189m) requires technical climbing on the upper section  -  jumaring on fixed ropes, crampons and ice axe. Training is provided before summit day.',
@@ -2346,6 +2369,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Medical clearance required  -  including fitness for 6000m altitude.',
       'Prior high-altitude trekking experience recommended  -  ideally experience on routes above 4500m.',
       'Safety before summit  -  the guide always makes the continuation decision.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
   },
   {
@@ -2509,6 +2533,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Mera Peak (6476m) is the highest trekking peak in Nepal  -  taller than any peak in the Alps, but without complex technical climbing.',
@@ -2518,6 +2543,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Medical clearance required  -  including fitness for 6476m altitude.',
       'Prior high-altitude trekking experience recommended  -  ideally experience on routes above 4500m.',
       'Safety before summit  -  the guide always makes the continuation decision.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
   },
   {
@@ -2647,6 +2673,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'Aconcagua (6962m) is the highest peak outside Asia  -  a minimum of 3 weeks on the mountain with acclimatization rotations to altitude is required.',
@@ -2656,6 +2683,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       'Extended medical clearance required  -  ECG, blood tests and doctor\'s approval for climbing to 7000m.',
       'Prior experience at altitude (minimum 5000m) is required  -  Aconcagua is not suitable for beginners.',
       'Safety before summit  -  Aconcagua requires long-term preparation. Many don\'t summit due to weather, not fitness.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1,  title: 'נחיתה במנדוזה והתארגנות (760 מ׳)',                                    desc: '' },
@@ -2852,6 +2880,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
       'אם אין לכם ניסיון קודם בטיפוסים, אם אתם מסוגלים ללכת כ-20 ק"מ ביום, אוהבים אתגרים ובעלי מוטיבציה גבוהה, הטיפוס בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
 
     ],
     importantToNoteEn: [
@@ -2862,6 +2891,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
       'Extended medical clearance required  -  ECG, blood tests, doctor\'s approval for 7000m and documented high-altitude experience.',
       'Prior high-altitude summit experience is a strict requirement  -  experience on Kazbek, Elbrus or equivalent is recommended.',
       'Safety before summit  -  7000m is marginal territory. The final decision always rests with the guide.',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
   },
   {
@@ -2991,6 +3021,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
       'אם אתם מסוגלים ללכת מספר שעות ביום בשטח הררי, אוהבים אתגרים ובעלי מוטיבציה גבוהה - הטרק בהחלט יכול להתאים לכם!',
       'המסלול עשוי להשתנות בהתאם למזג האוויר או לפי שיקול דעת המדריכים המוסמכים בשטח!',
       'בטיחות לפני פסגה - בהרים אין הבטחה להגעה לפסגה, אך תמיד יש התחייבות לבטיחות מעל לכל!',
+      'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
       'The trek runs in a small group of up to 12 participants only!',
@@ -3004,6 +3035,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
       'If you can walk several hours a day in mountain terrain, love challenges and have high motivation - this trek can definitely suit you!',
       'The route may change according to weather or at the discretion of the certified guides in the field!',
       'Safety before summit - in the mountains there is no guarantee of reaching the top, but there is always a commitment to safety above all!',
+      'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
     itinerary: [
       { day: 1, title: 'חציית הגבול לסיני, מנזר סנטה קתרינה וג׳בל מוסא', desc: 'נפתח את המסע בחציית גבול טאבה בנסיעה אל כפר קתרין, נעצור לארוחת צהריים ונפגוש את הצוות הבדואי. משם נצא לביקור במנזר סנטה קתרינה העתיק השוכן למרגלות ההרים. בתום הסיור נתחיל בעלייה הדרגתית בשבילי אבן עתיקים אל פסגת ג׳בל מוסא (הר סיני). נהנה מתצפית פנורמית מרהיבה ומחוויית שקיעה, ולאחריה נרד ללינה בבוסתן אל ארבעין הקסום בלב המדבר.', accommodation: 'בוסתן אל ארבעין' },
