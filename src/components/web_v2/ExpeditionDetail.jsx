@@ -628,6 +628,41 @@ export default function ExpeditionDetail() {
       }).finally(() => setGroupsLoading(false));
   }, [exp?.airtableEvents?.join(',')]);
 
+  /* Event JSON-LD for each upcoming departure (from the live Airtable groups),
+     so Google and AI engines can answer "when is the next <expedition>". Kept in
+     its own <script id="events-jsonld"> so it never collides with the page-jsonld
+     that usePageMeta owns. Rebuilt whenever the live groups change. */
+  useEffect(() => {
+    const prev = document.getElementById('events-jsonld');
+    if (prev) prev.remove();
+    if (!exp || exp.teaser || !liveGroups.length) return;
+
+    const currency = exp?.priceStr?.startsWith('€') ? 'EUR' : 'USD';
+    const absUrl   = `https://www.highair-expeditions.com/expedition/${exp.slug}`;
+    const todayIso = new Date().toISOString().slice(0, 10);
+    const events = liveGroups.slice(0, 20).map(g => ({
+      '@type':             'Event',
+      name:                `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
+      startDate:           g.departure,
+      endDate:             g.returnDate || g.departure,
+      eventStatus:         'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      image:               exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
+      url:                 absUrl,
+      location:            { '@type': 'Place', name: exp.countryHe || exp.country || 'HighAir Expeditions' },
+      organizer:           { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: 'https://www.highair-expeditions.com' },
+      ...(exp.price > 0 ? { offers: { '@type': 'Offer', price: exp.price, priceCurrency: currency, availability: 'https://schema.org/InStock', url: absUrl, validFrom: todayIso } } : {}),
+    }));
+
+    const script = document.createElement('script');
+    script.id   = 'events-jsonld';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': events });
+    document.head.appendChild(script);
+
+    return () => { const el = document.getElementById('events-jsonld'); if (el) el.remove(); };
+  }, [exp?.slug, liveGroups]);
+
   /* helpers */
   function formatDateRange(dep, ret) {
     const d = new Date(dep);

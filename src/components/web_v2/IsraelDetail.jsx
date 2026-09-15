@@ -183,6 +183,11 @@ export default function IsraelDetail() {
      day treks carry no reviews, so none is fabricated. */
   const israelPriceNum = parseInt(String(trip?.priceHe || trip?.price || '').replace(/[^\d]/g, ''), 10) || undefined;
   const israelDays     = /יומיים|two\s*day|2\s*day/i.test(String(trip?.days || trip?.daysEn || '')) ? 2 : 1;
+  const israelTodayIso = new Date().toISOString().slice(0, 10);
+  const israelEndIso   = trip?.departure
+    ? (() => { const d = new Date(trip.departure + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + (israelDays - 1)); return d.toISOString().slice(0, 10); })()
+    : null;
+  const israelUrlAbs   = `https://www.highair-expeditions.com/israel/${trip?.slug}`;
   const israelJsonLd = trip ? [
     tourSchema({
       name:          isEn ? `${trip.nameEn || trip.name} · Israel` : `${trip.name} · ישראל`,
@@ -200,6 +205,20 @@ export default function IsraelDetail() {
       { name: isEn ? 'Treks in Israel' : 'טרקים בארץ', url: '/israel' },
       { name: displayName,                         url: `/israel/${trip.slug}` },
     ]),
+    // The scheduled departure as an Event (only while it is still upcoming).
+    ...(trip.departure && trip.departure >= israelTodayIso ? [{
+      '@type':             'Event',
+      name:                displayName,
+      startDate:           trip.departure,
+      endDate:             israelEndIso,
+      eventStatus:         'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      image:               trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
+      url:                 israelUrlAbs,
+      location:            { '@type': 'Place', name: isEn ? 'Israel' : 'ישראל', address: { '@type': 'PostalAddress', addressCountry: 'IL' } },
+      organizer:           { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: 'https://www.highair-expeditions.com' },
+      ...(israelPriceNum ? { offers: { '@type': 'Offer', price: israelPriceNum, priceCurrency: 'ILS', availability: 'https://schema.org/InStock', url: israelUrlAbs } } : {}),
+    }] : []),
   ] : null;
 
   usePageMeta(trip ? {

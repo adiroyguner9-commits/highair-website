@@ -24,6 +24,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const DIST      = path.join(ROOT, 'dist');
 const BASE_URL  = 'https://www.highair-expeditions.com';
+const TODAY_ISO = new Date().toISOString().slice(0, 10);
+
+/* Add n days to a YYYY-MM-DD string, returning YYYY-MM-DD (for Event endDate).
+   Done entirely in UTC so a non-UTC build machine can't shift the date by a day. */
+function addDays(iso, n) {
+  const d = new Date(iso + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
 
 // ── Read the built SPA shell ─────────────────────────────────────────────────
 
@@ -331,6 +340,20 @@ for (const trip of ISRAEL_TRIPS) {
           { '@type': 'ListItem', position: 3, name: trip.nameHe,  item: tripUrl },
         ],
       },
+      // The scheduled departure as an Event (only when it is still upcoming).
+      ...(trip.departure && trip.departure >= TODAY_ISO ? [{
+        '@type':               'Event',
+        name:                  trip.nameHe,
+        startDate:             trip.departure,
+        endDate:               addDays(trip.departure, tripDays - 1),
+        eventStatus:           'https://schema.org/EventScheduled',
+        eventAttendanceMode:   'https://schema.org/OfflineEventAttendanceMode',
+        image:                 tripImg,
+        url:                   tripUrl,
+        location:              { '@type': 'Place', name: 'ישראל', address: { '@type': 'PostalAddress', addressCountry: 'IL' } },
+        organizer:             { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: BASE_URL },
+        ...(tripPrice > 0 ? { offers: { '@type': 'Offer', price: tripPrice, priceCurrency: 'ILS', availability: 'https://schema.org/InStock', url: tripUrl, validFrom: TODAY_ISO } } : {}),
+      }] : []),
     ],
   };
 
@@ -358,6 +381,8 @@ const ORG_NODE = {
   priceRange: '$$$',
   address:    { '@type': 'PostalAddress', addressLocality: 'Tel Aviv', addressCountry: 'IL' },
   areaServed: 'IL',
+  // Real Google Business Profile rating (5.0, 263 reviews as of Sep 2026).
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '263', bestRating: '5', worstRating: '1' },
   contactPoint: { '@type': 'ContactPoint', telephone: '+972-55-563-6975', contactType: 'customer service', availableLanguage: ['Hebrew', 'English'] },
   sameAs: [
     'https://www.facebook.com/highair.expeditions',
