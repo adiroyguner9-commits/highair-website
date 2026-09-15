@@ -6,7 +6,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate }      from 'react-router-dom';
 import { useTranslation }              from 'react-i18next';
-import { usePageMeta, tourSchema, breadcrumbList } from '../../website/usePageMeta.js';
+import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
+import FaqAccordion from './FaqAccordion.jsx';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import Header                          from './Header.jsx';
@@ -188,6 +189,25 @@ export default function IsraelDetail() {
     ? (() => { const d = new Date(trip.departure + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + (israelDays - 1)); return d.toISOString().slice(0, 10); })()
     : null;
   const israelUrlAbs   = `https://www.highair-expeditions.com/israel/${trip?.slug}`;
+
+  /* FAQ - a single source for the visible accordion and the FAQPage schema, so
+     the structured data is backed by on-page content and AI engines can cite it. */
+  const israelFaqItems = trip ? (isEn ? [
+    { q: "What's included in the price?", a: 'Every trek includes a certified professional guide and lunch. Personal gear and insurance are not included.' },
+    { q: 'Is prior experience required?', a: 'Our treks suit fit hikers in good physical condition. No technical experience is needed, though some routes are challenging.' },
+    { q: 'Where and when do we meet?', a: 'The exact meeting point and time are sent to all registrants a few days before the trek.' },
+    { q: 'What should I bring?', a: 'Hiking shoes, at least 2-3 liters of water, a hat, sunscreen, personal snacks and weather-appropriate clothing.' },
+    { q: 'Is the trek suitable for families?', a: "It depends on the route's difficulty. We're happy to advise on suitability - contact us before registering." },
+    { q: 'Where does part of the payment go?', a: 'Part of every trek is donated to the fight against cancer - the reason HighAir was founded.' },
+  ] : [
+    { q: 'מה כלול במחיר?', a: 'כל טרק כולל מדריך מקצועי מוסמך וארוחת צהריים. ציוד אישי וביטוח אינם כלולים.' },
+    { q: 'האם נדרש ניסיון קודם?', a: 'הטרקים מתאימים למיטיבי לכת עם כושר גופני טוב. לא נדרש ניסיון טכני, אך חלק מהמסלולים מאתגרים.' },
+    { q: 'מאיפה יוצאים ומתי?', a: 'נקודת המפגש והשעה המדויקת נמסרות לכל הנרשמים כמה ימים לפני מועד הטרק.' },
+    { q: 'מה כדאי להביא?', a: 'נעלי הליכה, לפחות 2-3 ליטר מים, כובע, קרם הגנה, חטיפים אישיים ובגדים מתאימים למזג האוויר.' },
+    { q: 'האם הטרק מתאים למשפחות?', a: 'ההתאמה תלויה ברמת הקושי של המסלול. נשמח לייעץ לגבי התאמה אישית - פנו אלינו לפני ההרשמה.' },
+    { q: 'לאן הולך חלק מהתשלום?', a: 'חלק מכל טרק נתרם למאבק במחלת הסרטן - זו הסיבה שבגללה HighAir הוקמה.' },
+  ]) : [];
+
   const israelJsonLd = trip ? [
     tourSchema({
       name:          isEn ? `${trip.nameEn || trip.name} · Israel` : `${trip.name} · ישראל`,
@@ -205,6 +225,7 @@ export default function IsraelDetail() {
       { name: isEn ? 'Treks in Israel' : 'טרקים בארץ', url: '/israel' },
       { name: displayName,                         url: `/israel/${trip.slug}` },
     ]),
+    ...(israelFaqItems.length ? [faqPage(israelFaqItems)] : []),
     // The scheduled departure as an Event (only while it is still upcoming).
     ...(trip.departure && trip.departure >= israelTodayIso ? [{
       '@type':             'Event',
@@ -1163,6 +1184,9 @@ export default function IsraelDetail() {
             </div>
           )}
         </section>}
+
+        {/* ── ה. שאלות נפוצות (FAQ) ── */}
+        <FaqAccordion items={israelFaqItems} isRtl={isRtl} isMobile={isMobile} />
 
       </main>
 

@@ -10,6 +10,7 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
+import FaqAccordion from './FaqAccordion.jsx';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
@@ -377,6 +378,14 @@ export default function ExpeditionDetail() {
       }
     : null;
 
+  /* FAQ items - a single source shared by the FAQPage schema and the visible
+     accordion below, so the structured data is always backed by on-page content. */
+  const expFaqItems = exp
+    ? (isRtl
+        ? (exp.faq?.length   ? exp.faq   : makeDefaultFaq(exp?.groupCapacity || 15))
+        : (exp.faqEn?.length ? exp.faqEn : makeDefaultFaqEn(exp?.groupCapacity || 15)))
+    : [];
+
   const expJsonLd = exp ? [
     tourSchema({
       name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
@@ -398,7 +407,7 @@ export default function ExpeditionDetail() {
       { name: 'משלחות',   url: '/#expeditions' },
       { name: exp.nameHe, url: `/expedition/${exp.slug}` },
     ]),
-    faqPage((isRtl ? (exp.faq?.length ? exp.faq : makeDefaultFaq(exp?.groupCapacity || 15)) : (exp.faqEn?.length ? exp.faqEn : makeDefaultFaqEn(exp?.groupCapacity || 15))).slice(0, 8)),
+    faqPage(expFaqItems.slice(0, 8)),
   ] : null;
 
   usePageMeta(exp ? {
@@ -2200,6 +2209,14 @@ export default function ExpeditionDetail() {
               </p>
             )}
             <VideoTestimonials darkBg={false} />
+          </>
+        )}
+
+        {/* ── G. שאלות נפוצות (FAQ) ── */}
+        {expFaqItems.length > 0 && (
+          <>
+            <Separator />
+            <FaqAccordion items={expFaqItems} isRtl={isRtl} isMobile={isMobile} />
           </>
         )}
 
