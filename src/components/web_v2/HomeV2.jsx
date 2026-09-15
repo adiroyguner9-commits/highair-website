@@ -86,17 +86,22 @@ function FadeIn({ children, delay = 0 }) {
 }
 
 /* ── Organization JSON-LD schema ── */
+/* Matches the static Organization node the shell generator writes into the
+   homepage index.html (same @id so Google merges them - no duplicate entity).
+   The static copy covers non-JS crawlers; this runtime copy covers a homepage
+   reached by client-side navigation, where the static index.html is not re-read. */
 const ORG_SCHEMA = {
   '@context': 'https://schema.org',
-  '@type':    'Organization',
+  '@type':    ['Organization', 'TravelAgency'],
+  '@id':      'https://www.highair-expeditions.com/#organization',
   name:       'HighAir Expeditions',
   url:        'https://www.highair-expeditions.com',
-  logo:       'https://www.highair-expeditions.com/logo.png',
+  logo:       'https://www.highair-expeditions.com/Logo.png',
   contactPoint: {
     '@type':             'ContactPoint',
     telephone:           '+972-55-563-6975',
     contactType:         'customer service',
-    availableLanguage:   'Hebrew',
+    availableLanguage:   ['Hebrew', 'English'],
   },
   sameAs: [
     'https://www.facebook.com/highair.expeditions',

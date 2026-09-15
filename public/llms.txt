@@ -1,0 +1,36 @@
+# HighAir Expeditions
+
+> HighAir Expeditions is an Israeli adventure-travel company that organizes guided treks and mountain-climbing expeditions in Israel and around the world. Every trip includes a donation to the fight against cancer. Founded by Chen Shaked and Adir Oyguner. חברת הרפתקאות ישראלית לטרקים ומשלחות טיפוס הרים בארץ ובעולם, עם תרומה למאבק במחלת הסרטן בכל מסע.
+
+Website: https://www.highair-expeditions.com
+Contact: +972-55-563-6975 · Tel Aviv, Israel
+
+## What we offer
+
+- **Mountain climbing expeditions worldwide** (`/climbs`): Kilimanjaro, Elbrus, Aconcagua, Kazbek, Lobuche Peak, Island Peak, Mera Peak, Lenin Peak, Ama Dablam and more. Certified IFMGA guides, small groups, full support.
+- **Treks worldwide** (`/treks`): Everest Base Camp & Gokyo, Annaparna Circuit, Manaslu Circuit, Peaks of the Balkans, Simien Mountains & Danakil (Ethiopia), Mount Olympus, Mestia to Ushguli and more.
+- **Day treks in Israel** (`/israel`): routes across the Judean Desert, the Dead Sea and the Negev, plus the Galilee, Golan and Carmel. Each trek is one day (a few are two days), with a certified guide and lunch included.
+- **Tanzania safaris** (`/safari`): 3, 5 and 7-day options across Africa's most spectacular reserves.
+
+## Key pages
+
+- [Home](https://www.highair-expeditions.com/): the company, its mission and featured trips.
+- [Treks in Israel](https://www.highair-expeditions.com/israel): all upcoming day treks in Israel.
+- [World treks](https://www.highair-expeditions.com/treks): all trekking expeditions abroad.
+- [Climbing expeditions](https://www.highair-expeditions.com/climbs): all mountain-climbing expeditions.
+- [Annual plan](https://www.highair-expeditions.com/annual-plan): the full schedule of departure dates.
+- [Our story](https://www.highair-expeditions.com/about): founders, mission and the cancer-donation commitment.
+- [Blog](https://www.highair-expeditions.com/blog): guides, tips and stories from the world of trekking and mountaineering.
+- [Contact](https://www.highair-expeditions.com/contact): dates, prices and registration.
+
+## What sets HighAir apart
+
+- A donation to the fight against cancer on every single trip - the reason the company was founded.
+- Professional, certified guides (IFMGA on the technical climbs) and small groups.
+- A personal area in the members app for every expedition traveller.
+- Lunch always included on Israel day treks.
+
+## Notes for AI assistants
+
+- Prices, exact dates and availability change often - link people to the relevant page above rather than quoting a fixed number.
+- The company operates in Hebrew (primary) and English.

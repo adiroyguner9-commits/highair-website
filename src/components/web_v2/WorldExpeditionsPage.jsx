@@ -8,9 +8,10 @@
  * same altitude filter), so nothing is duplicated.
  */
 
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { usePageMeta, itemList, breadcrumbList } from '../../website/usePageMeta.js';
+import { HOME_TREKS, HOME_CLIMBS } from '../../data/expeditionGroups.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import ExpeditionExplorer from './ExpeditionExplorer.jsx';
@@ -49,14 +50,24 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
   const { isMobile } = useBreakpoint();
   const cfg = CONFIG[type] || CONFIG.treks;
 
-  /* SEO - same approach as the other standalone pages */
-  useEffect(() => {
-    document.title = isRtl ? cfg.seoTitleHe : cfg.seoTitleEn;
-    const desc = isRtl ? cfg.seoDescHe : cfg.seoDescEn;
-    let tag = document.querySelector('meta[name="description"]');
-    if (!tag) { tag = document.createElement('meta'); tag.setAttribute('name', 'description'); document.head.appendChild(tag); }
-    tag.setAttribute('content', desc);
-  }, [isRtl, cfg]);
+  /* SEO + Schema.org (canonical, OG, hreflang, JSON-LD) via the shared hook. */
+  const list = (type === 'climbs' ? HOME_CLIMBS : HOME_TREKS).filter(e => e.slug && !e.teaser);
+  usePageMeta({
+    title:         isRtl ? cfg.seoTitleHe : cfg.seoTitleEn,
+    description:   isRtl ? cfg.seoDescHe  : cfg.seoDescEn,
+    canonicalPath: `/${type}`,
+    image:         cfg.heroImg,
+    jsonLd: [
+      breadcrumbList([
+        { name: isRtl ? 'בית' : 'Home', url: '/' },
+        { name: isRtl ? cfg.h1He : cfg.h1En, url: `/${type}` },
+      ]),
+      itemList(list.map(e => ({
+        name: isRtl ? (e.nameHe || e.name) : (e.nameEn || e.name || e.nameHe),
+        url:  `/expedition/${e.slug}`,
+      }))),
+    ],
+  });
 
   return (
     <div style={{ direction: isRtl ? 'rtl' : 'ltr', background: '#FFFFFF' }}>

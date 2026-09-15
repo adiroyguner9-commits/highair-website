@@ -94,6 +94,21 @@ export function breadcrumbList(items) {
   };
 }
 
+/* ItemList — for listing/landing pages (e.g. /israel, /treks, /climbs). Tells
+   Google and AI engines exactly which trips the page collects, with URLs. */
+export function itemList(items) {
+  return {
+    '@context': 'https://schema.org',
+    '@type':    'ItemList',
+    itemListElement: items.map((it, i) => ({
+      '@type':   'ListItem',
+      position:  i + 1,
+      name:      it.name,
+      url:       it.url.startsWith('http') ? it.url : (BASE_URL + it.url),
+    })),
+  };
+}
+
 export function faqPage(qa) {
   return {
     '@context': 'https://schema.org',
@@ -108,7 +123,7 @@ export function faqPage(qa) {
 
 export function tourSchema({
   name, description, image, url, country, priceFrom, priceCurrency = 'USD',
-  durationDays, ratingValue, reviewCount,
+  durationDays, ratingValue, reviewCount, reviews,
 }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -166,6 +181,15 @@ export function tourSchema({
       bestRating:    5,
       worstRating:   1,
     };
+  }
+  // Individual Review nodes back the aggregate rating (real testimonials only)
+  if (Array.isArray(reviews) && reviews.length) {
+    schema.review = reviews.slice(0, 10).map(r => ({
+      '@type':       'Review',
+      author:        { '@type': 'Person', name: r.name },
+      reviewRating:  { '@type': 'Rating', ratingValue: r.rating || 5, bestRating: 5, worstRating: 1 },
+      reviewBody:    r.text,
+    }));
   }
   return schema;
 }

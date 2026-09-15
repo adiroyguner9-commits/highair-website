@@ -6,7 +6,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate }      from 'react-router-dom';
 import { useTranslation }              from 'react-i18next';
-import { usePageMeta }                 from '../../website/usePageMeta.js';
+import { usePageMeta, tourSchema, breadcrumbList } from '../../website/usePageMeta.js';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import Header                          from './Header.jsx';
@@ -178,6 +178,30 @@ export default function IsraelDetail() {
   /* For free trips: show raw value — static elevGain field used before Airtable loads */
   const freeElevDisplay = (airtableElevGain || trip?.elevGain || shortItinElev || '–');
 
+  /* Schema.org: TouristTrip + Breadcrumbs so Israel treks are rich-result and
+     AI-answer eligible, like the world expeditions. No aggregateRating - these
+     day treks carry no reviews, so none is fabricated. */
+  const israelPriceNum = parseInt(String(trip?.priceHe || trip?.price || '').replace(/[^\d]/g, ''), 10) || undefined;
+  const israelDays     = /יומיים|two\s*day|2\s*day/i.test(String(trip?.days || trip?.daysEn || '')) ? 2 : 1;
+  const israelJsonLd = trip ? [
+    tourSchema({
+      name:          isEn ? `${trip.nameEn || trip.name} · Israel` : `${trip.name} · ישראל`,
+      description:   (isEn ? trip.seoDescriptionEn : trip.seoDescription)
+                       || (isEn ? `A ${daysLabel} trek in Israel with HighAir Expeditions.` : `טרק ${daysLabel} בישראל עם HighAir Expeditions.`),
+      image:         trip.img,
+      url:           `/israel/${trip.slug}`,
+      country:       isEn ? 'Israel' : 'ישראל',
+      durationDays:  israelDays,
+      priceFrom:     israelPriceNum,
+      priceCurrency: 'ILS',
+    }),
+    breadcrumbList([
+      { name: isEn ? 'Home' : 'בית',              url: '/' },
+      { name: isEn ? 'Treks in Israel' : 'טרקים בארץ', url: '/israel' },
+      { name: displayName,                         url: `/israel/${trip.slug}` },
+    ]),
+  ] : null;
+
   usePageMeta(trip ? {
     title:         isEn ? (trip.seoTitleEn || `${trip.nameEn || trip.name} Trek | HighAir Expeditions`) : (trip.seoTitle || `${displayName} | HighAir Expeditions`),
     description:   isEn
@@ -186,6 +210,7 @@ export default function IsraelDetail() {
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img ? `https://www.highair-expeditions.com${trip.img}` : undefined,
     ogType:        'product',
+    jsonLd:        israelJsonLd,
   } : {
     title:       isEn ? 'HighAir Expeditions | Treks in Israel' : 'HighAir Expeditions | טרקים בישראל',
     description: isEn ? 'Treks in Israel with HighAir Expeditions.' : 'טרקים בישראל עם HighAir Expeditions.',

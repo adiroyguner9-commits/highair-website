@@ -146,6 +146,13 @@ for (const exp of EXPS) {
   const expUrl   = `${BASE_URL}/expedition/${exp.slug}`;
   const expImage = exp.img ? (exp.img.startsWith('http') ? exp.img : `${BASE_URL}${exp.img}`) : `${BASE_URL}/og-image.jpg`;
 
+  // aggregateRating must reflect REAL reviews shown on the page (Google policy) -
+  // compute honestly from exp.reviews, emit nothing when there are none.
+  const expReviews = exp.reviews || [];
+  const expAvgRating = expReviews.length
+    ? Number((expReviews.reduce((s, r) => s + (r.rating || 0), 0) / expReviews.length).toFixed(1))
+    : null;
+
   // Build rich JSON-LD for GEO / AI discoverability
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -177,14 +184,20 @@ for (const exp of EXPS) {
             url:            expUrl,
           },
         } : {}),
-        ...(exp.successRate ? {
+        ...(expAvgRating ? {
           aggregateRating: {
             '@type':      'AggregateRating',
-            ratingValue:  '4.9',
-            reviewCount:  '47',
+            ratingValue:  String(expAvgRating),
+            reviewCount:  String(expReviews.length),
             bestRating:   '5',
             worstRating:  '1',
           },
+          review: expReviews.slice(0, 10).map(r => ({
+            '@type':      'Review',
+            author:       { '@type': 'Person', name: r.name },
+            reviewRating: { '@type': 'Rating', ratingValue: r.rating || 5, bestRating: '5', worstRating: '1' },
+            reviewBody:   r.text,
+          })),
         } : {}),
         ...(exp.highlights || exp.highlightsEn ? {
           amenityFeature: (exp.highlightsEn || exp.highlights || []).map(h => ({
@@ -279,14 +292,121 @@ const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'))
 let israelCount = 0;
 for (const trip of ISRAEL_TRIPS) {
   if (!trip.slug || !trip.live) continue;
+
+  const tripUrl   = `${BASE_URL}/israel/${trip.slug}`;
+  const tripImg   = trip.img ? (trip.img.startsWith('http') ? trip.img : `${BASE_URL}${trip.img}`) : `${BASE_URL}/og-image.jpg`;
+  const tripPrice = parseInt(String(trip.priceHe || trip.price || '').replace(/[^\d]/g, ''), 10) || 0;
+  const tripDays  = /יומיים/.test(String(trip.days || '')) ? 2 : 1;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type':      ['TouristTrip', 'Product'],
+        '@id':        tripUrl,
+        name:         `${trip.nameHe} · ישראל`,
+        description:  trip.seoDescription || trip.excerpt || '',
+        url:          tripUrl,
+        image:        tripImg,
+        duration:     `P${tripDays}D`,
+        touristType:  'ישראל',
+        itinerary:    { '@type': 'Place', name: 'ישראל' },
+        provider: {
+          '@type':    'TravelAgency',
+          name:       'HighAir Expeditions',
+          url:        BASE_URL,
+          telephone:  '+972555636975',
+          image:      `${BASE_URL}/Logo.png`,
+          address: { '@type': 'PostalAddress', addressLocality: 'Tel Aviv', addressCountry: 'IL' },
+        },
+        ...(tripPrice > 0 ? {
+          offers: { '@type': 'Offer', price: tripPrice, priceCurrency: 'ILS', availability: 'https://schema.org/InStock', url: tripUrl },
+        } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'בית',        item: BASE_URL },
+          { '@type': 'ListItem', position: 2, name: 'טרקים בארץ', item: `${BASE_URL}/israel` },
+          { '@type': 'ListItem', position: 3, name: trip.nameHe,  item: tripUrl },
+        ],
+      },
+    ],
+  };
+
   writeShell(`israel/${trip.slug}`, {
     title:         trip.seoTitle       || trip.nameHe  || '',
     description:   trip.seoDescription || trip.excerpt || '',
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img            || '',
+    jsonLd,
   });
   israelCount++;
 }
+
+// ── Shared entity nodes (Organization + WebSite) for the homepage / about ────
+
+const ORG_NODE = {
+  '@type':    ['Organization', 'TravelAgency'],
+  '@id':      `${BASE_URL}/#organization`,
+  name:       'HighAir Expeditions',
+  url:        BASE_URL,
+  logo:       { '@type': 'ImageObject', url: `${BASE_URL}/Logo.png`, width: 2000, height: 2000 },
+  image:      `${BASE_URL}/og-image.jpg`,
+  description: 'HighAir Expeditions מארגנת טרקים ומשלחות טיפוס הרים בארץ ובעולם, עם תרומה למאבק במחלת הסרטן בכל מסע.',
+  telephone:  '+972-55-563-6975',
+  priceRange: '$$$',
+  address:    { '@type': 'PostalAddress', addressLocality: 'Tel Aviv', addressCountry: 'IL' },
+  areaServed: 'IL',
+  contactPoint: { '@type': 'ContactPoint', telephone: '+972-55-563-6975', contactType: 'customer service', availableLanguage: ['Hebrew', 'English'] },
+  sameAs: [
+    'https://www.facebook.com/highair.expeditions',
+    'https://www.instagram.com/highair_expeditions/',
+    'https://www.youtube.com/@HighAirExpeditions',
+    'https://www.tiktok.com/@highair_expeditions',
+  ],
+};
+
+const WEBSITE_NODE = {
+  '@type':     'WebSite',
+  '@id':       `${BASE_URL}/#website`,
+  name:        'HighAir Expeditions',
+  url:         BASE_URL,
+  inLanguage:  'he',
+  publisher:   { '@id': `${BASE_URL}/#organization` },
+};
+
+// Listing-page ItemList graphs (derived from live data)
+const liveExps  = EXPS.filter(e => e.live !== false && e.slug && !e.teaser);
+const trekExps  = liveExps.filter(e => /trek/i.test(e.type  || ''));
+const climbExps = liveExps.filter(e => /climb/i.test(e.type || ''));
+const liveIsrael = ISRAEL_TRIPS.filter(t => t.live && t.slug);
+
+function listingGraph({ name, path, crumb, items }) {
+  const url = `${BASE_URL}${path}`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'CollectionPage', '@id': url, name, url, isPartOf: { '@id': `${BASE_URL}/#website` }, about: { '@id': `${BASE_URL}/#organization` } },
+      { '@type': 'ItemList', itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, url: it.url })) },
+      { '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'בית', item: BASE_URL },
+        { '@type': 'ListItem', position: 2, name: crumb, item: url },
+      ] },
+    ],
+  };
+}
+
+const ISRAEL_LISTING_JSONLD = listingGraph({ name: 'הטרקים שלנו בארץ', path: '/israel', crumb: 'טרקים בארץ',
+  items: liveIsrael.map(t => ({ name: t.nameHe, url: `${BASE_URL}/israel/${t.slug}` })) });
+const TREKS_JSONLD = listingGraph({ name: 'טרקים בעולם', path: '/treks', crumb: 'טרקים בעולם',
+  items: trekExps.map(e => ({ name: e.nameHe, url: `${BASE_URL}/expedition/${e.slug}` })) });
+const CLIMBS_JSONLD = listingGraph({ name: 'משלחות טיפוס הרים', path: '/climbs', crumb: 'טיפוסי הרים בעולם',
+  items: climbExps.map(e => ({ name: e.nameHe, url: `${BASE_URL}/expedition/${e.slug}` })) });
+const ABOUT_JSONLD = { '@context': 'https://schema.org', '@graph': [
+  { '@type': 'AboutPage', '@id': `${BASE_URL}/about`, name: 'הסיפור של HighAir Expeditions', url: `${BASE_URL}/about`, isPartOf: { '@id': `${BASE_URL}/#website` }, about: { '@id': `${BASE_URL}/#organization` } },
+  ORG_NODE,
+] };
 
 // ── Static pages ─────────────────────────────────────────────────────────────
 
@@ -295,6 +415,7 @@ const staticPages = [
     path:  'about',
     title: 'HighAir Expeditions | הסיפור שלנו',
     desc:  'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק - ותורמים מדי חודש לילדים חולי סרטן.',
+    jsonLd: ABOUT_JSONLD,
   },
   {
     path:  'blog',
@@ -320,16 +441,19 @@ const staticPages = [
     path:  'israel',
     title: 'HighAir Expeditions | הטרקים שלנו בארץ',
     desc:  'כל הטרקים של HighAir בארץ - מסלולים במדבר יהודה, ים המלח והנגב. יום אחד, מדריך מוסמך וארוחת צהריים כלולה, עם תרומה למאבק במחלת הסרטן. בחרו את הטרק הקרוב שלכם.',
+    jsonLd: ISRAEL_LISTING_JSONLD,
   },
   {
     path:  'treks',
     title: 'HighAir Expeditions | טרקים בעולם',
     desc:  'כל הטרקים של HighAir בעולם - מהבלקן ואתיופיה ועד ההימלאיה בנפאל. מדריכים מקצועיים, קבוצות קטנות ותרומה למאבק במחלת הסרטן. בחרו את הטרק הבא שלכם.',
+    jsonLd: TREKS_JSONLD,
   },
   {
     path:  'climbs',
     title: 'HighAir Expeditions | משלחות טיפוס הרים',
     desc:  'כל משלחות טיפוס ההרים של HighAir - קילימנג׳רו, אלברוס, אקונקגואה, אמה דבלאם ועוד. מדריכים מוסמכים, ליווי מלא ותרומה למאבק במחלת הסרטן.',
+    jsonLd: CLIMBS_JSONLD,
   },
 ];
 
@@ -339,7 +463,22 @@ for (const page of staticPages) {
     description:   page.desc,
     canonicalPath: `/${page.path}`,
     image:         '',
+    jsonLd:        page.jsonLd,
   });
+}
+
+// ── Homepage: inject Organization + WebSite JSON-LD into the root index.html ──
+// The homepage (/) serves dist/index.html directly, so non-JS crawlers and AI
+// engines get the entity graph without executing React.
+{
+  const homeGraph = { '@context': 'https://schema.org', '@graph': [ORG_NODE, WEBSITE_NODE] };
+  const homePath  = path.join(DIST, 'index.html');
+  let homeHtml    = fs.readFileSync(homePath, 'utf8');
+  if (!homeHtml.includes('id="home-jsonld"')) {
+    const tag = `\n  <script id="home-jsonld" type="application/ld+json">${JSON.stringify(homeGraph)}</script>`;
+    homeHtml = homeHtml.replace('</head>', `${tag}\n</head>`);
+    fs.writeFileSync(homePath, homeHtml, 'utf8');
+  }
 }
 
 // ── Summary ──────────────────────────────────────────────────────────────────

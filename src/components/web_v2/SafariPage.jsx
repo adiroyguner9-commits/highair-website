@@ -18,6 +18,7 @@ import { Analytics } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { usePageMeta, itemList, breadcrumbList } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import { EXPS } from '../../data/mockData.js';
@@ -682,15 +683,27 @@ export default function SafariPage() {
   const dir = isRtl ? 'rtl' : 'ltr';
   const { isMobile } = useBreakpoint();
 
-  useEffect(() => {
-    document.title = isRtl
+  const safariExps = [18, 19, 20].map(id => EXPS.find(e => e.id === id)).filter(e => e && e.slug);
+  usePageMeta({
+    title: isRtl
       ? 'ספארי בטנזניה | HighAir Expeditions'
-      : 'Tanzania Safari | HighAir Expeditions';
-    const desc = isRtl
+      : 'Tanzania Safari | HighAir Expeditions',
+    description: isRtl
       ? 'ספארי בטנזניה עם HighAir - שלושה אורכים לבחירה, 3, 5 ו-7 ימים, בשמורות המרהיבות של אפריקה.'
-      : "Tanzania safari with HighAir - three lengths to choose from: 3, 5 and 7 days across Africa's most spectacular reserves.";
-    document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
-  }, [isRtl]);
+      : "Tanzania safari with HighAir - three lengths to choose from: 3, 5 and 7 days across Africa's most spectacular reserves.",
+    canonicalPath: '/safari',
+    image: '/images/hero/safari-5-days.webp',
+    jsonLd: [
+      breadcrumbList([
+        { name: isRtl ? 'בית' : 'Home', url: '/' },
+        { name: isRtl ? 'ספארי בטנזניה' : 'Tanzania Safari', url: '/safari' },
+      ]),
+      itemList(safariExps.map(e => ({
+        name: isRtl ? (e.nameHe || e.name) : (e.nameEn || e.name || e.nameHe),
+        url:  `/expedition/${e.slug}`,
+      }))),
+    ],
+  });
 
   return (
     <>

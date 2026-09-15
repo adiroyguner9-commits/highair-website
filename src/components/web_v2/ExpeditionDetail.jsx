@@ -366,6 +366,17 @@ export default function ExpeditionDetail() {
   /* Determine price currency from the priceStr field (€ = EUR, else USD) */
   const expPriceCurrency = exp?.priceStr?.startsWith('€') ? 'EUR' : 'USD';
 
+  /* aggregateRating must reflect REAL reviews shown on the page (Google policy).
+     Compute the average + count from exp.reviews; emit nothing when there are
+     none - never a fabricated rating. */
+  const expReviews = exp?.reviews || [];
+  const expRating = expReviews.length
+    ? {
+        ratingValue: Number((expReviews.reduce((s, r) => s + (r.rating || 0), 0) / expReviews.length).toFixed(1)),
+        reviewCount: expReviews.length,
+      }
+    : null;
+
   const expJsonLd = exp ? [
     tourSchema({
       name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
@@ -378,8 +389,9 @@ export default function ExpeditionDetail() {
       durationDays:  typeof exp.days === 'number' ? exp.days : (parseInt(exp.days) || undefined),
       priceFrom:     exp.price || undefined,
       priceCurrency: expPriceCurrency,
-      ratingValue:   4.9,
-      reviewCount:   exp.reviews?.length || 229,
+      ratingValue:   expRating?.ratingValue,
+      reviewCount:   expRating?.reviewCount,
+      reviews:       expReviews,
     }),
     breadcrumbList([
       { name: 'בית',       url: '/' },

@@ -7,9 +7,10 @@
  * fetch, same month filter), so nothing is duplicated.
  */
 
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { usePageMeta, itemList, breadcrumbList } from '../../website/usePageMeta.js';
+import { ISRAEL_TRIPS } from '../../data/israelData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import IsraelTrips from './IsraelTrips.jsx';
@@ -19,18 +20,28 @@ export default function IsraelTreksPage() {
   const isRtl = i18n.language !== 'en';
   const { isMobile } = useBreakpoint();
 
-  /* SEO - same approach as the other standalone pages (SafariPage sets these too) */
-  useEffect(() => {
-    document.title = isRtl
+  /* SEO + Schema.org (canonical, OG, hreflang, JSON-LD) via the shared hook. */
+  const liveTreks = ISRAEL_TRIPS.filter(t => t.live && t.slug);
+  usePageMeta({
+    title: isRtl
       ? 'הטרקים שלנו בארץ | HighAir Expeditions'
-      : 'Our Treks in Israel | HighAir Expeditions';
-    const desc = isRtl
+      : 'Our Treks in Israel | HighAir Expeditions',
+    description: isRtl
       ? 'כל הטרקים של HighAir בארץ - מסלולים במדבר יהודה, ים המלח והנגב. יום אחד, מדריך מוסמך, וארוחת צהריים כלולה, עם תרומה למאבק במחלת הסרטן. בחרו את הטרק הקרוב שלכם.'
-      : "All of HighAir's day treks in Israel - routes across the Judean Desert, Dead Sea and Negev. A certified guide and lunch included, supporting the fight against cancer. Pick your next trek.";
-    let tag = document.querySelector('meta[name="description"]');
-    if (!tag) { tag = document.createElement('meta'); tag.setAttribute('name', 'description'); document.head.appendChild(tag); }
-    tag.setAttribute('content', desc);
-  }, [isRtl]);
+      : "All of HighAir's day treks in Israel - routes across the Judean Desert, Dead Sea and Negev. A certified guide and lunch included, supporting the fight against cancer. Pick your next trek.",
+    canonicalPath: '/israel',
+    image: '/images/gallery/masada/1.webp',
+    jsonLd: [
+      breadcrumbList([
+        { name: isRtl ? 'בית' : 'Home', url: '/' },
+        { name: isRtl ? 'טרקים בארץ' : 'Treks in Israel', url: '/israel' },
+      ]),
+      itemList(liveTreks.map(t => ({
+        name: isRtl ? (t.nameHe || t.name) : (t.nameEn || t.nameHe || t.name),
+        url:  `/israel/${t.slug}`,
+      }))),
+    ],
+  });
 
   return (
     <div style={{ direction: isRtl ? 'rtl' : 'ltr', background: '#FFFFFF' }}>
