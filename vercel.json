@@ -18,6 +18,13 @@
     },
     {
       "source": "/(.*)",
+      "has": [{ "type": "host", "value": "en.highair-expeditions.com" }],
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, follow" }
+      ]
+    },
+    {
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",

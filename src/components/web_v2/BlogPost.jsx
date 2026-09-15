@@ -129,8 +129,10 @@ export default function BlogPost() {
     ogType:        'article',
     /* jsonLd intentionally omitted — schema lives in the static shell (see note above) */
   } : {
-    title:         isRtl ? 'מאמר | HighAir Blog' : 'Article | HighAir Blog',
+    title:         isRtl ? 'מאמר לא נמצא | HighAir Blog' : 'Article Not Found | HighAir Blog',
+    description:   isRtl ? 'המאמר המבוקש לא נמצא. חזרו לבלוג של HighAir Expeditions למאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים.' : 'The requested article was not found. Return to the HighAir Expeditions blog for articles, tips and stories from the world of trekking and mountaineering.',
     canonicalPath: `/blog/${slug}`,
+    noIndex:       true,
   });
 
   if (!post) {

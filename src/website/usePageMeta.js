@@ -9,7 +9,6 @@
 import { useEffect } from 'react';
 
 const BASE_URL    = 'https://www.highair-expeditions.com';
-const BASE_URL_EN = 'https://en.highair-expeditions.com';
 const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
 export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG, jsonLd, ogType = 'website', noIndex = false }) {
@@ -21,17 +20,6 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
       if (el) el.setAttribute(attr, value);
     }
 
-    function setHreflang(lang, href) {
-      let el = document.querySelector(`link[rel="alternate"][hreflang="${lang}"]`);
-      if (!el) {
-        el = document.createElement('link');
-        el.setAttribute('rel', 'alternate');
-        el.setAttribute('hreflang', lang);
-        document.head.appendChild(el);
-      }
-      el.setAttribute('href', href);
-    }
-
     setMeta('meta[name="description"]',        'content', description);
     setMeta('meta[property="og:title"]',       'content', title);
     setMeta('meta[property="og:description"]', 'content', description);
@@ -40,19 +28,22 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
     setMeta('meta[property="og:type"]',        'content', ogType);
     setMeta('link[rel="canonical"]',           'href',    BASE_URL + canonicalPath);
 
-    // noIndex — for pages like 404 that should not be indexed
+    /* Robots. The Hebrew www site is the single indexed version. The English
+       en. subdomain serves the same pages (canonical already points to www), so
+       we noindex,follow it to consolidate to Hebrew and avoid duplicate-content
+       dilution. 404 / teaser pages pass noIndex explicitly (noindex,nofollow).
+       Any stale hreflang alternates from a previous build are removed - with one
+       indexed language there is no alternate to declare. */
+    const isEnHost = typeof window !== 'undefined' && window.location.hostname.startsWith('en.');
     let robotsMeta = document.querySelector('meta[name="robots"]');
     if (!robotsMeta) {
       robotsMeta = document.createElement('meta');
       robotsMeta.setAttribute('name', 'robots');
       document.head.appendChild(robotsMeta);
     }
-    robotsMeta.setAttribute('content', noIndex ? 'noindex, nofollow' : 'index, follow');
+    robotsMeta.setAttribute('content', noIndex ? 'noindex, nofollow' : (isEnHost ? 'noindex, follow' : 'index, follow'));
 
-    // hreflang — tells Google about the HE ↔ EN language variants
-    setHreflang('he',        BASE_URL    + canonicalPath);
-    setHreflang('en',        BASE_URL_EN + canonicalPath);
-    setHreflang('x-default', BASE_URL    + canonicalPath);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
 
     /* ── JSON-LD: replace any existing page-level schema script ──
        Each page gets a single <script id="page-jsonld"> that we own. The

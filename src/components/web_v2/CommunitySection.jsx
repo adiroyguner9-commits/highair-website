@@ -67,7 +67,7 @@ function BannerCard({ platform, Icon, bg, fadeColor, ctaColor, headline, cta, hr
         position: 'relative',
         zIndex: 2,
       }}>
-        <h3 style={{
+        <h2 style={{
           fontSize: 'clamp(16px, 2vw, 21px)',
           fontWeight: 900,
           color: '#FFFFFF',
@@ -78,7 +78,7 @@ function BannerCard({ platform, Icon, bg, fadeColor, ctaColor, headline, cta, hr
           {headline.split('\n').map((line, i) => (
             <span key={i}>{i > 0 && <br />}{line}</span>
           ))}
-        </h3>
+        </h2>
         <span style={{
           display: 'inline-block',
           padding: '9px 22px',
