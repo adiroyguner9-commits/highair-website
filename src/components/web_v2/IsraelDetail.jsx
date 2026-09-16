@@ -230,6 +230,7 @@ export default function IsraelDetail() {
     ...(trip.departure && trip.departure >= israelTodayIso ? [{
       '@type':             'Event',
       name:                displayName,
+      description:         (isEn ? trip.seoDescriptionEn : trip.seoDescription) || (isEn ? `A scheduled departure of ${displayName} with HighAir Expeditions.` : `יציאה מתוזמנת לטרק ${displayName} עם HighAir Expeditions.`),
       startDate:           trip.departure,
       endDate:             israelEndIso,
       eventStatus:         'https://schema.org/EventScheduled',
@@ -238,7 +239,8 @@ export default function IsraelDetail() {
       url:                 israelUrlAbs,
       location:            { '@type': 'Place', name: isEn ? 'Israel' : 'ישראל', address: { '@type': 'PostalAddress', addressCountry: 'IL' } },
       organizer:           { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: 'https://www.highair-expeditions.com' },
-      ...(israelPriceNum ? { offers: { '@type': 'Offer', price: israelPriceNum, priceCurrency: 'ILS', availability: 'https://schema.org/InStock', url: israelUrlAbs } } : {}),
+      performer:           { '@type': 'Organization', name: 'HighAir Expeditions' },
+      ...(israelPriceNum ? { offers: { '@type': 'Offer', price: israelPriceNum, priceCurrency: 'ILS', availability: 'https://schema.org/InStock', url: israelUrlAbs, validFrom: israelTodayIso } } : {}),
     }] : []),
   ] : null;
 

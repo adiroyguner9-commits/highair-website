@@ -313,7 +313,7 @@ for (const trip of ISRAEL_TRIPS) {
       {
         '@type':      ['TouristTrip', 'Product'],
         '@id':        tripUrl,
-        name:         `${trip.nameHe} · ישראל`,
+        name:         `${trip.name} · ישראל`,
         description:  trip.seoDescription || trip.excerpt || '',
         url:          tripUrl,
         image:        tripImg,
@@ -337,13 +337,14 @@ for (const trip of ISRAEL_TRIPS) {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'בית',        item: BASE_URL },
           { '@type': 'ListItem', position: 2, name: 'טרקים בארץ', item: `${BASE_URL}/israel` },
-          { '@type': 'ListItem', position: 3, name: trip.nameHe,  item: tripUrl },
+          { '@type': 'ListItem', position: 3, name: trip.name,  item: tripUrl },
         ],
       },
       // The scheduled departure as an Event (only when it is still upcoming).
       ...(trip.departure && trip.departure >= TODAY_ISO ? [{
         '@type':               'Event',
-        name:                  trip.nameHe,
+        name:                  trip.name,
+        description:           trip.seoDescription || trip.excerpt || `יציאה מתוזמנת לטרק ${trip.name} עם HighAir Expeditions.`,
         startDate:             trip.departure,
         endDate:               addDays(trip.departure, tripDays - 1),
         eventStatus:           'https://schema.org/EventScheduled',
@@ -352,13 +353,14 @@ for (const trip of ISRAEL_TRIPS) {
         url:                   tripUrl,
         location:              { '@type': 'Place', name: 'ישראל', address: { '@type': 'PostalAddress', addressCountry: 'IL' } },
         organizer:             { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: BASE_URL },
+        performer:             { '@type': 'Organization', name: 'HighAir Expeditions' },
         ...(tripPrice > 0 ? { offers: { '@type': 'Offer', price: tripPrice, priceCurrency: 'ILS', availability: 'https://schema.org/InStock', url: tripUrl, validFrom: TODAY_ISO } } : {}),
       }] : []),
     ],
   };
 
   writeShell(`israel/${trip.slug}`, {
-    title:         trip.seoTitle       || trip.nameHe  || '',
+    title:         trip.seoTitle       || trip.name  || '',
     description:   trip.seoDescription || trip.excerpt || '',
     canonicalPath: `/israel/${trip.slug}`,
     image:         trip.img            || '',
@@ -423,7 +425,7 @@ function listingGraph({ name, path, crumb, items }) {
 }
 
 const ISRAEL_LISTING_JSONLD = listingGraph({ name: 'הטרקים שלנו בארץ', path: '/israel', crumb: 'טרקים בארץ',
-  items: liveIsrael.map(t => ({ name: t.nameHe, url: `${BASE_URL}/israel/${t.slug}` })) });
+  items: liveIsrael.map(t => ({ name: t.name, url: `${BASE_URL}/israel/${t.slug}` })) });
 const TREKS_JSONLD = listingGraph({ name: 'טרקים בעולם', path: '/treks', crumb: 'טרקים בעולם',
   items: trekExps.map(e => ({ name: e.nameHe, url: `${BASE_URL}/expedition/${e.slug}` })) });
 const CLIMBS_JSONLD = listingGraph({ name: 'משלחות טיפוס הרים', path: '/climbs', crumb: 'טיפוסי הרים בעולם',

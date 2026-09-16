@@ -649,17 +649,20 @@ export default function ExpeditionDetail() {
     const currency = exp?.priceStr?.startsWith('€') ? 'EUR' : 'USD';
     const absUrl   = `https://www.highair-expeditions.com/expedition/${exp.slug}`;
     const todayIso = new Date().toISOString().slice(0, 10);
+    const eventDesc = exp.seoDescription || `יציאה מתוזמנת ל${exp.nameHe} עם HighAir Expeditions.`;
     const events = liveGroups.slice(0, 20).map(g => ({
       '@type':             'Event',
       name:                `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
+      description:         eventDesc,
       startDate:           g.departure,
       endDate:             g.returnDate || g.departure,
       eventStatus:         'https://schema.org/EventScheduled',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       image:               exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
       url:                 absUrl,
-      location:            { '@type': 'Place', name: exp.countryHe || exp.country || 'HighAir Expeditions' },
+      location:            { '@type': 'Place', name: exp.countryHe || exp.country || 'HighAir Expeditions', address: { '@type': 'PostalAddress', addressCountry: exp.country || exp.countryHe || 'IL' } },
       organizer:           { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: 'https://www.highair-expeditions.com' },
+      performer:           { '@type': 'Organization', name: 'HighAir Expeditions' },
       ...(exp.price > 0 ? { offers: { '@type': 'Offer', price: exp.price, priceCurrency: currency, availability: 'https://schema.org/InStock', url: absUrl, validFrom: todayIso } } : {}),
     }));
 
