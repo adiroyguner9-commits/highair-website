@@ -97,14 +97,10 @@ const ORG_SCHEMA = {
   name:       'HighAir Expeditions',
   url:        'https://www.highair-expeditions.com',
   logo:       'https://www.highair-expeditions.com/Logo.png',
-  // Real Google Business Profile rating (5.0, 263 reviews as of Sep 2026).
-  aggregateRating: {
-    '@type':      'AggregateRating',
-    ratingValue:  '5.0',
-    reviewCount:  '263',
-    bestRating:   '5',
-    worstRating:  '1',
-  },
+  /* aggregateRating is intentionally NOT here. The Organization's rating lives
+     only in the static homepage shell (home-jsonld). This runtime copy shares the
+     same @id, so if it ALSO carried a rating Google would merge the two nodes and
+     report "multiple aggregate ratings". Keep the rating single-sourced. */
   contactPoint: {
     '@type':             'ContactPoint',
     telephone:           '+972-55-563-6975',
