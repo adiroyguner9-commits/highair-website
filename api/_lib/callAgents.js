@@ -55,6 +55,12 @@ const EXCLUSIVE_DEST = {
   'mera peak':     'Chen Shaked',   // 6,476m
   'island peak':   'Chen Shaked',   // 6,189m
   'lobuche peak':  'Chen Shaked',   // 6,119m
+  /* Every destination added in Sep 2026 is Chen's as well (owner, 17 Sep 2026:
+     "בכל היעדים החדשים מטפל חן שקד"). Same entries in the webapp's assign.js
+     and in its Lead Center (src/data/leads.js). */
+  'mount kenya':   'Chen Shaked',   // 4,985m
+  rwenzori:        'Chen Shaked',   // 5,109m
+  scardus:         'Chen Shaked',   // trek
 };
 const EXCLUSIVE_PREFIX = [['safari', 'Adir Oyguner']];
 
