@@ -119,6 +119,9 @@ export function tourSchema({
   const schema = {
     '@context': 'https://schema.org',
     '@type':    ['TouristTrip', 'Product'],
+    // Same @id the static shell uses for this trip, so Google MERGES the shell
+    // and runtime TouristTrip into one entity instead of seeing two.
+    '@id':      url.startsWith('http') ? url : BASE_URL + url,
     name,
     description,
     url:        url.startsWith('http') ? url : BASE_URL + url,
