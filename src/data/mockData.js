@@ -240,58 +240,6 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
       'Safety first  -  safety always takes priority.',
       'In the event of an early descent from the mountain, for any reason, all additional costs involved are the traveler\'s responsibility, such as extra hotel nights, meals, and any required flight changes.',
     ],
-    faq: [
-      {
-        q: 'כמה קשה הטרק בפסגות הבלקן?',
-        a: 'הטרק הוא ברמת קושי בינונית. ימי הליכה נעים בין 13 ל-22 ק"מ עם עלייות של עד 1100 מ׳. נדרש כושר גופני טוב ויכולת לשאת תיק יום למשך 7-9 שעות. לא נדרש ניסיון טיפוס טכני.'
-      },
-      {
-        q: 'מה גודל הקבוצה?',
-        a: 'הקבוצות שלנו בטרק פסגות הבלקן מוגבלות ל-15 משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.'
-      },
-      {
-        q: 'האם יש אפשרות לחדר יחיד?',
-        a: 'חדר יחיד זמין אך ורק בלילות במלון בשקודרה (לפני ואחרי הטרק). במהלך הטרק עצמו הלינה היא בגסטהאוסים משפחתיים עם חדרים משותפים בלבד, ואין אפשרות לחדר יחיד.'
-      },
-      {
-        q: 'האם נדרש ניסיון טיפוס קודם?',
-        a: 'לא נדרש ניסיון טיפוס טכני. זהו מסלול טרק ללא טיפוס טכני, אך הצטברות הימים מחייבת כושר גופני סביר וניסיון בהליכות ארוכות.'
-      },
-      {
-        q: 'מה קורה אם אני נסוג בדרך?',
-        a: 'בטיחות המשתתפים היא בראש סדר העדיפויות. אם נדרשת נסיגה, המדריך ילווה אותך בבטחה בחזרה.'
-      },
-      {
-        q: 'מה כולל המחיר?',
-        a: 'המחיר כולל את כל מה שמפורט בסעיף "מה כלול". טיסות וביטוח נסיעות אינם כלולים.'
-      },
-    ],
-    faqEn: [
-      {
-        q: 'How difficult is the Peaks of the Balkans trek?',
-        a: 'The trek is rated moderate. Daily distances range from 13 to 22 km with ascents of up to 1100m. Good physical fitness and the ability to carry a daypack for 7-9 hours is required. No technical climbing experience is needed.'
-      },
-      {
-        q: 'What is the group size?',
-        a: 'Our Peaks of the Balkans groups are limited to 15 participants at most, ensuring personal attention and maximum quality throughout the trek.'
-      },
-      {
-        q: 'Is a single room option available?',
-        a: 'A single room is available only for the hotel nights in Shkodra (before and after the trek). During the trek itself, accommodation is in family guesthouses with shared rooms only - single room upgrades are not possible in the guesthouses.'
-      },
-      {
-        q: 'Is prior trekking experience required?',
-        a: 'No technical climbing experience is required. This is a trekking route without technical climbing, but the cumulative days demand solid hiking fitness and experience with long walking days.'
-      },
-      {
-        q: 'What happens if I turn back on the way?',
-        a: 'Participant safety is our top priority. If a descent is required, the guide will safely accompany you back.'
-      },
-      {
-        q: 'What is included in the price?',
-        a: 'The price includes everything listed in the "What\'s Included" section. International flights and travel insurance are not included.'
-      },
-    ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Albania!', desc: 'After landing at Tirana International Airport, we head north toward Shkodra  -  one of Albania\'s oldest and most fascinating cities, with a history spanning more than 2500 years. We check in to our hotel and, after a short rest, set out for an evening stroll along the lively main street, buzzing with cafés, restaurants and vibrant local culture. In the evening we enjoy a celebratory opening dinner and get to know the team and fellow group members.', travelTime: 'Approx. 2-hour drive from Tirana airport to Shkodra hotel', accommodation: 'Hotel Tradita in Shkodra or similar' },
       { day: 2,  title: 'Shkodra - Komani Lake Ferry - Valbona (927m)', desc: 'Our journey begins with a drive from Shkodra to Lake Komani, the departure point for one of Europe\'s most beautiful ferry crossings. We glide across turquoise waters flanked by dramatic gorges, sheer cliffs and untouched wilderness.\n\nAfter disembarking, we continue by vehicle to a local town for a traditional lunch at a restaurant. We then drive on to the village of Dragobia  -  the starting point of today\'s hike. From here we follow the crystal-clear Valbona River through pristine nature and breathtaking mountain scenery, all the way to the village of Valbona, the heart of the national park.', distance: '7 km', duration: '3–4 hours', elevationGain: '+280m gain', accommodation: 'Guesthouse in Valbona' },
@@ -479,77 +427,6 @@ Join us for a cross border journey along the Scardus Ridge, and take a meaningfu
     ],
     importantToNote: [],
     importantToNoteEn: [],
-    faq: [],
-    faqEn: [],
-    itineraryEn: [
-      {
-        day: 1,
-        title: 'Tirana Airport - Staro Selo - Ljuboten Mountain Hut',
-        desc: `Arrival at Tirana International Airport and transfer through Kosovo to Staro Selo, North Macedonia, the official starting point of the High Scardus Trail.
-
-After a short briefing, we begin the first hiking stage through beech forests towards the historic Ljuboten Mountain Hut, located beneath the impressive cliffs of Mt. Ljuboten.`,
-        accommodation: 'Ljuboten Mountain Hut',
-      },
-      {
-        day: 2,
-        title: 'Ljuboten Mountain Hut - Brezovica',
-        desc: `Today's stage crosses the international border into Kosovo, traversing the high alpine ridges of the Šar Mountains.
-
-The trail passes beneath the majestic Mt. Ljuboten, offering spectacular mountain scenery before descending through alpine meadows towards the mountain resort of Brezovica.`,
-        accommodation: 'Hotel in Brezovica',
-      },
-      {
-        day: 3,
-        title: 'Brezovica - Prevalla',
-        desc: `One of the most scenic sections of the High Scardus Trail.
-
-The route follows high mountain ridges with panoramic views across the Šar Mountains before descending to the beautiful mountain village of Prevalla, surrounded by dense pine forests.`,
-        accommodation: 'Guesthouse / Hotel in Prevalla',
-      },
-      {
-        day: 4,
-        title: 'Prevalla - Gornje Ljubinje - Prizren',
-        desc: `The trail descends through traditional mountain landscapes towards Gornje Ljubinje, from where a transfer brings the group to the historic city of Prizren.
-
-The afternoon offers time to explore Kosovo’s cultural capital, famous for its Ottoman architecture, lively old town, and excellent local cuisine.`,
-        accommodation: 'Hotel in Prizren',
-      },
-      {
-        day: 5,
-        title: 'Prizren - Black Rock - Karanikolla Lake - Bozovce',
-        desc: `After a morning transfer to the trailhead above Prizren, today's route climbs towards Black Rock, continuing across high alpine terrain to the beautiful Karanikolla Lake before descending to the traditional mountain village of Bozovce in North Macedonia.`,
-        accommodation: 'Guesthouse in Bozovce',
-      },
-      {
-        day: 6,
-        title: 'Bozovce - Brod',
-        desc: `Today's journey continues through one of the wildest parts of the Šar Mountains, crossing remote alpine valleys and shepherd pastures before reaching the picturesque Gorani village of Brod, renowned for its rich mountain traditions and hospitality.`,
-        accommodation: 'Guesthouse in Brod',
-      },
-      {
-        day: 7,
-        title: 'Brod - Restelica',
-        desc: `A spectacular stage across the southern Šar Mountains, following remote ridgelines and alpine plateaus before descending into Restelica, one of the highest permanently inhabited villages in Kosovo.`,
-        accommodation: 'Guesthouse in Restelica',
-      },
-      {
-        day: 8,
-        title: 'Restelica - Çaja',
-        desc: `Leaving Kosovo behind, the trail enters Albania, crossing the impressive border ridges of the Korab Mountain Range before descending to the peaceful mountain village of Çaja, surrounded by spectacular alpine scenery.`,
-        accommodation: 'Guesthouse in Çaja',
-      },
-      {
-        day: 9,
-        title: 'Çaja - Radomirë',
-        desc: `Today's stage explores the heart of the Korab Mountains, leading through alpine meadows, glacial valleys, and panoramic ridges before arriving in the beautiful village of Radomirë, situated beneath the highest peaks in Albania.`,
-        accommodation: 'Guesthouse in Radomirë',
-      },
-      {
-        day: 10,
-        title: 'Radomirë - Tirana International Airport',
-        desc: `After breakfast, transfer through northeastern Albania to Tirana International Airport, marking the end of an unforgettable journey across three countries on one of Europe’s most spectacular long-distance mountain trails.`,
-      },
-    ],
   },
   {
     id: 4, slug: 'ethiopia', name: 'Simien & Danakil Desert', nameHe: 'טרק הרי סימיאן ומדבר דנקיל', country: 'Ethiopia', countryHe: 'אתיופיה', flag: '🇪🇹',
@@ -633,22 +510,6 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
     seasons: ['נובמבר-פברואר'],
     seasonsEn: ['November-February'],
     successRate: 92,
-    faq: [
-      { q: 'האם אתיופיה בטוחה לתיירים?', a: 'אתיופיה היא מדינה בטוחה לתיירים כל עוד נשארים לאזורי הטיול המוגדרים. הצוות שלנו מכיר את הארץ לעומק ומלווה את הקבוצה לכל אורך המסע. האזורים שאנחנו מבקרים בהם, כולל הרי הסימיאן ודנקיל, מתקבלים אלפי תיירים מדי שנה.' },
-      { q: 'כמה מסוכן להתקרב לאגם הלבה של ארטה אלה?', a: 'הגישה לאגם הלבה נעשית עם מדריכים מקומיים מנוסים ובליווי צבאי. ניצבים על שפת הלוע ממרחק בטוח של כ-10 מ׳. זו אחת החוויות הנדירות בעולם, והרמה הגבוהה של הבטיחות הופכת אותה לנגישה.' },
-      { q: 'מה הגובה המקסימלי בטיול?', a: 'הגובה המקסימלי בטיול הוא פסגת ראס בוהאיט בהרי הסימיאן, בגובה 4430 מ׳. ארטה אלה, הר הגעש הפעיל, ממוקם למעשה מתחת לפני הים, בגובה 613 מ׳. הקטע הגבוה בסימיאן עלול לגרום לסימני גובה קלים, ולכן בנינו את הלו"ז עם התאקלמות הדרגתית.' },
-      { q: 'האם נדרשים חיסונים לנסיעה לאתיופיה?', a: 'כן, נדרשים חיסונים. הכרחיים: חיסון לקדחת צהובה (חובה בכניסה) וטיפוס הבטן. מומלצים: עוד כמה חיסונים שנפרט במסמך הרפואי שנשלח לאחר ההרשמה. יש לפנות למרפאת מטיילים לפחות 6 שבועות לפני הטיסה.' },
-      { q: 'מה עונת הטיולים המומלצת לאתיופיה?', a: 'העונה הטובה ביותר היא נובמבר עד פברואר, עונת החורף היבשה. בתקופה זו הרי הסימיאן ירוקים ויפים, ומזג האוויר בדנקיל נסבל יחסית (35-40 מעלות במקום 50 בקיץ). אנחנו מקיימים את המסעות בדיוק בחלון הזה.' },
-      { q: 'מה ההבדל בין אתיופיה לטרקים אחרים שלכם?', a: 'אתיופיה היא לא טיול טיפוס רגיל. היא שילוב של טרק, הרפתקה גיאוגרפית ואנתרופולוגית. בלילה אחד תוכלו לעמוד על שפת אגם לבה פעיל, ויומיים אחר כך לטפס בהרים ולראות קופי ג׳לדות. אין מסע אחר כזה בעולם.' },
-    ],
-    faqEn: [
-      { q: 'Is Ethiopia safe for tourists?', a: 'Ethiopia is safe for tourists as long as you stay within designated travel areas. Our team knows the country well and accompanies the group throughout the journey. The areas we visit, including the Simien Mountains and Danakil, receive thousands of tourists every year.' },
-      { q: 'How dangerous is it to approach the Erta Ale lava lake?', a: 'Access to the lava lake is done with experienced local guides and military escort. Visitors stand at the crater edge at a safe distance of about 10 meters. It is one of the rarest experiences in the world, and the high level of safety makes it accessible to most travelers.' },
-      { q: 'What is the maximum altitude on the trip?', a: 'The maximum altitude on the trip is the summit of Ras Bwahit in the Simien Mountains at 4430 meters. Erta Ale, the active volcano, is actually below sea level at 613 meters. The high section in the Simiens may cause mild altitude symptoms, so we have built a schedule with gradual acclimatization.' },
-      { q: 'Are vaccinations required for travel to Ethiopia?', a: 'Yes, vaccinations are required. Mandatory: yellow fever vaccine (required at entry) and typhoid. Recommended: several others which we detail in the medical document sent after registration. Consult a travel clinic at least 6 weeks before departure.' },
-      { q: 'What is the recommended travel season for Ethiopia?', a: 'The best season is November through February, the dry winter season. During this period the Simien Mountains are green and beautiful, and the weather in Danakil is relatively bearable (35-40 degrees instead of 50 in summer). We run our expeditions exactly in this window.' },
-      { q: 'How is Ethiopia different from your other treks?', a: 'Ethiopia is not a regular trekking expedition. It is a combination of trekking, geographic and anthropological adventure. One night you can stand at the edge of an active lava lake, and two days later trek in the highlands and see Gelada baboons. There is no other journey like it in the world.' },
-    ],
     notIncluded: [
       'כרטיסי טיסה בינלאומיים (דרך סוכן נסיעות שלנו)',
       'ביטוח נסיעות וביטוח רפואי (דרך סוכן ביטוח שלנו)',
@@ -1123,22 +984,6 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     seasons: ['אפריל-מאי', 'ספטמבר-אוקטובר'],
     seasonsEn: ['April-May', 'September-October'],
     successRate: 93,
-    faq: [
-      { q: 'כמה גבוה מגיעים בטרק אוורסט בייס קמפ?', a: 'הגובה המקסימלי בטרק הוא קאלה פטאר, 5545 מ׳, שממנו נשקפת פנורמה מרהיבה של פסגת אוורסט. בייס קמפ עצמו ממוקם בגובה 5364 מ׳. אלו הגבהים שמאתגרים הכי הרבה מבחינת התאקלמות, ולכן הלו"ז שלנו בנוי בקפידה עם ימי מנוחה.' },
-      { q: 'האם מחלת גובה מהווה סיכון אמיתי?', a: 'מחלת גובה היא הסיכון העיקרי בטרק EBC. כ-30% מהמטיילים חווים תסמינים קלים כמו כאב ראש ועייפות. לכן אנחנו מקצים 16 ימים לטרק, עם ימי הסתגלות בנאמצ\'ה בזאר ובדינגבוצ\'ה. שתיית מים מרובה, עלייה הדרגתית ותשומת לב לתסמינים הם המפתח להצלחה.' },
-      { q: 'מה רמת הכושר הנדרשת לטרק EBC?', a: 'הטרק דורש כושר גופני טוב אבל לא ספורטאי מקצועי. צריך להיות מסוגל ללכת 5-7 שעות ביום עם תרמיל גב, יום אחר יום, במשך שבועיים. ההכנה המומלצת: הליכות ארוכות עם תיק בחודשים שלפני. הקושי הוא מצטבר, לא טכני.' },
-      { q: 'האם ניתן לראות את פסגת אוורסט מבייס קמפ?', a: 'מעניין אבל לא, לא ניתן לראות את פסגת אוורסט ישירות מהבייס קמפ עצמו כי הגלאציר חוסם את הנוף. הנקודה הכי טובה לצפות בפסגה היא קאלה פטאר, 5545 מ׳, שם הנוף לאוורסט, לוטסה ונופצה הוא מהמרהיבים בעולם.' },
-      { q: 'מתי העונה הטובה לטרק נפאל?', a: 'יש שתי עונות מעולות: אפריל-מאי שלפני המונסון, ואוקטובר-נובמבר שאחריו. בשתיהן השמיים בהירים, הנופים עוצרי נשימה ומזג האוויר נוח יחסית. אנחנו מכוונים לעונות אלו בדיוק. יש להימנע מיוני-ספטמבר שהם חודשי המונסון.' },
-      { q: 'האם הטרק ל-EBC מתאים למתחילים?', a: 'כן, אם מגיעים מוכנים. EBC הוא טרק, לא טיפוס טכני. אין חבלים, קרמפונים או נשק קרח. מה שנדרש הוא סיבולת לב-ריאה, הכנה נפשית לגובה, וציוד מתאים. עשרות ישראלים בלא ניסיון קודם עשו אותו בהצלחה עם HighAir.' },
-    ],
-    faqEn: [
-      { q: 'How high do you go on the Everest Base Camp trek?', a: 'The maximum altitude on the trek is Kala Patthar at 5545 meters, which offers a stunning panoramic view of Everest summit. Base Camp itself is at 5364 meters. These are the most challenging altitudes for acclimatization, which is why our schedule is carefully built with rest days.' },
-      { q: 'Is altitude sickness a real risk?', a: 'Altitude sickness is the main risk on the EBC trek. About 30% of trekkers experience mild symptoms like headaches and fatigue. That is why we allocate 16 days for the trek, with acclimatization days in Namche Bazaar and Dingboche. Drinking plenty of water, gradual ascent and attention to symptoms are the keys to success.' },
-      { q: 'What fitness level is required for the EBC trek?', a: 'The trek requires good physical fitness but not a professional athlete. You need to be able to walk 5-7 hours per day with a daypack, day after day, for two weeks. Recommended preparation: long walks with a backpack in the months beforehand. The difficulty is cumulative, not technical.' },
-      { q: 'Can you see the summit of Everest from Base Camp?', a: 'Interestingly, you cannot see the Everest summit directly from Base Camp because the glacier blocks the view. The best vantage point is Kala Patthar at 5545m, where the view of Everest, Lhotse and Nuptse is among the most spectacular in the world.' },
-      { q: 'When is the best season for Nepal trekking?', a: 'There are two excellent seasons: April-May before the monsoon, and October-November after it. In both the skies are clear, the views are breathtaking and the weather is relatively pleasant. We target exactly these seasons. Avoid June-September which are the monsoon months.' },
-      { q: 'Is the EBC trek suitable for beginners?', a: 'Yes, if you arrive prepared. EBC is a trek, not a technical climb. No ropes, crampons or ice axes. What is required is cardiovascular endurance, mental preparation for altitude, and proper gear. Dozens of Israelis with no prior experience have done it successfully with HighAir.' },
-    ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
       'Transfers from/to Kathmandu airport to hotel',
@@ -1327,20 +1172,6 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     seasonsEn: ['April-May', 'September-October'],
     successRate: 90,
     groupCapacity: 10,
-    faq: [
-      { q: 'מה ההבדל בין טרק אנאפורנה לטרק EBC?', a: 'טרק אנאפורנה מגוון יותר תרבותית ונופית. הוא עובר דרך כפרים בסגנונות שונים, יערות וכפרים מסורתיים. EBC יותר מכוון לאתגר גובה ולתחושת "לב ההימלאיה". אנאפורנה מתאים מצוין למי שרוצה את ההרגשה המלאה של נפאל, ו-EBC למי שגובה הוא המטרה.' },
-      { q: 'מה הגובה המקסימלי בסובב אנאפורנה?', a: 'הנקודה הגבוהה ביותר בטרק היא מעבר תורונג לה בגובה 5416 מ׳, אחד ממעברי ההרים הגבוהים בעולם שניתן לחצות ברגל. זו השיא של הטרק, ועליה אליו ב-04:00 בלילה לנוף הזריחה מעל ענני נפאל הוא חוויה שלא נשכחת.' },
-      { q: 'האם הטרק בכיוון השעון או נגדו?', a: 'אנחנו עושים את הסובב בכיוון השעון, מנסיכה עד ג\'ומסום. כך העלייה למעבר תורונג לה היא הדרגתית ומאפשרת התאקלמות טובה יותר. בנוסף, אנחנו מסיימים בצד של פויארה שמחובר בכביש לפוקרה, מה שחוסך ימי הליכה.' },
-      { q: 'האם נדרש ניסיון לטרק סובב אנאפורנה?', a: 'לא נדרש ניסיון טיפוס. מי שיכול ללכת 6-8 שעות ביום ומגיע עם כושר גופני סביר, יכול לסיים את הטרק. הקושי העיקרי הוא מעבר תורונג לה שדורש יציאה בחשיכה ועלייה ממושכת. המדריכים שלנו מכינים אתכם לזה לאורך הטרק.' },
-      { q: 'מה נכלל בטרק ומה לא?', a: 'כלול: העברות, לינה בלודג\'ים, 3 ארוחות ביום, מדריך, היתרי כניסה לאזור. לא כלול: טיסות בינלאומיות, ביטוח נסיעות, ויזה לנפאל (25-30 דולר) וציוד אישי. רשימת ציוד מפורטת נשלחת לאחר ההרשמה.' },
-    ],
-    faqEn: [
-      { q: 'What is the difference between the Annapurna and EBC treks?', a: 'The Annapurna Circuit is more culturally and scenically diverse. It passes through villages in different styles, forests and traditional settlements. EBC is more focused on altitude challenge and the feeling of being at the heart of the Himalayas. Annapurna is ideal for those who want the full Nepal experience, EBC for those whose goal is altitude.' },
-      { q: 'What is the maximum altitude on the Annapurna Circuit?', a: 'The highest point on the trek is Thorong La Pass at 5416 meters, one of the highest mountain passes in the world that can be crossed on foot. This is the highlight of the trek, and climbing it at 04:00am to catch the sunrise above the clouds of Nepal is an unforgettable experience.' },
-      { q: 'Is prior experience required for the Annapurna Circuit?', a: 'No climbing experience required. Anyone who can walk 6-8 hours a day and arrives in reasonable physical shape can complete the trek. The main challenge is Thorong La Pass which requires an early morning departure and a long ascent. Our guides prepare you for this throughout the trek.' },
-      { q: 'What is included in the trek and what is not?', a: 'Included: transfers, lodging in teahouses, 3 meals per day, guide, area entry permits. Not included: international flights, travel insurance, Nepal visa ($25-30), and personal gear. A detailed gear list is sent after registration.' },
-      { q: 'When is the best season for the Annapurna Circuit?', a: 'The two best seasons are April-May and October-November. During these months skies are clear and the views of Annapurna, Dhaulagiri and Manaslu are stunning. The monsoon season (June-September) brings heavy rain and reduced visibility, making the high pass dangerous.' },
-    ],
     notIncluded: [
       'כרטיסי טיסה בינלאומיים (דרך סוכן נסיעות שלנו)',
       'ביטוח נסיעות וביטוח רפואי (דרך סוכן ביטוח שלנו)',
@@ -1481,20 +1312,6 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     seasons: ['יוני-ספטמבר'],
     seasonsEn: ['June-September'],
     successRate: 85,
-    faq: [
-      { q: 'האם אלברוס קשה יותר מקילימנג\'רו?', a: 'אלברוס טכנית קשה יותר. הוא דורש שימוש בקרמפונים, מקל קרח ויחס טוב לשלג. הגובה דומה, 5642 מ׳, אבל הקור חריף יותר ויש סיכון לסופות פתאומיות. שיעור ההצלחה שלנו עומד על 85%, לעומת 94% בקילימנג\'רו. ההמלצה: אם זו ההרים הגבוהים הראשונה שלך, התחל בקילימנג\'רו.' },
-      { q: 'האם נדרש ניסיון לטיפוס על אלברוס?', a: 'נדרש ניסיון בסיסי בהליכה בשלג ובשימוש בקרמפונים, אך לא ניסיון טיפוס טכני. ביום הראשון בבייס קמפ אנחנו עושים הדרכת קרמפונים ואימון על שיפועי השלג. מי שהגיע לגובה קודם, כגון קילימנג\'רו, מגיע עם יתרון מנטלי וגופני.' },
-      { q: 'כמה קר בפסגת אלברוס?', a: 'בלילה לפני הטיפוס הטמפרטורה יורדת בדרך כלל לבין 15- ל-25- מעלות, ועם קירור הרוח זה יכול להרגיש כמו 35- מעלות. בגד קרמפונים, שכבות חימום, ומגנ"ם ורדיד טוב הם חובה. הציוד הנדרש מפורט ברשימת הציוד שנשלחת לאחר ההרשמה.' },
-      { q: 'מה מצב הכניסה לרוסיה לישראלים?', a: 'נכון לכתיבת שורות אלו, ישראלים נדרשים לאשרת כניסה לרוסיה. אנחנו מסייעים בהגשת הויזה ומספקים את כל המסמכים הדרושים. יש לפנות אלינו לעדכון המדויק לגבי המצב כיום.' },
-      { q: 'מה כוללת הספרייה הטכנית?', a: 'אנחנו מציידים את כל המשתתפים בקרמפונים, מקל קרח ורתמה להשאלה ללא עלות נוספת. אין צורך לרכוש ציוד טיפוס יקר. כל שצריך להביא הוא ציוד בסיס חם, נעלי הרים עם סוליה נוקשה וציוד שינה לגובה.' },
-    ],
-    faqEn: [
-      { q: 'Is Elbrus harder than Kilimanjaro?', a: 'Elbrus is technically more demanding. It requires crampons, ice axe and comfort on snow. The altitude is similar at 5642m, but the cold is more intense and there is a risk of sudden storms. Our success rate is 85% vs 94% on Kilimanjaro. Recommendation: if this is your first high mountain, start with Kilimanjaro.' },
-      { q: 'Is prior experience required to climb Elbrus?', a: 'Basic experience walking on snow and using crampons is needed, but not technical climbing experience. On the first day at base camp we run a crampon training session and practice on snow slopes. Anyone who has previously been to altitude, such as Kilimanjaro, arrives with a mental and physical advantage.' },
-      { q: 'How cold is it on the Elbrus summit?', a: 'On the night before the summit attempt temperatures typically drop to between -15 and -25 degrees Celsius, and with wind chill it can feel like -35. Thermal layers, a high-quality down jacket and good gloves are mandatory. The full gear list is sent after registration.' },
-      { q: 'What is the current situation for Israelis entering Russia?', a: 'As of this writing, Israelis require a visa to enter Russia. We assist with the visa application and provide all necessary documents. Please contact us for the most current update on the situation.' },
-      { q: 'Is technical climbing gear provided?', a: 'We provide all participants with crampons, ice axe and harness on loan at no extra cost. There is no need to purchase expensive climbing gear. All you need to bring is warm base layers, mountaineering boots with a stiff sole and cold-weather sleeping gear.' },
-    ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
       'Transfers from/to airport to Cheget hotel + internal transfers',
@@ -1610,58 +1427,6 @@ Kilimanjaro is the most accessible high-altitude mountain in the world. No techn
 That number is not accidental. We use the Machame Route over 7 days, allowing for genuine gradual acclimatization. Five distinct climate zones, from tropical rainforest at the base to glaciers near the summit, all on the same mountain. Our team knows every meter of the route.
 
 Part of the proceeds from every expedition supports cancer patients in Israel, because for us, the mountains are also a way to give back.`,
-    faq: [
-      {
-        q: 'כמה קשה לטפס על קילימנג׳רו?',
-        a: 'קילימנג׳רו הוא ההר הגבוה הנגיש ביותר בעולם. לא נדרש ניסיון טיפוס טכני ולא ציוד מיוחד. האתגר העיקרי הוא הגובה והקור בלילה שלפני הפסגה. מי שיכול ללכת שמונה שעות ביום ועבר הכנה גופנית בסיסית, יכול לטפס.'
-      },
-      {
-        q: 'מה שיעור ההצלחה שלכם?',
-        a: 'שיעור ההצלחה של HighAir עומד על 94%, מהגבוהים בתעשייה. זה תוצאה של שימוש במסלול מאצ׳מה הציורי ב-7 ימים, שמאפשר התאקלמות הדרגתית, ומדריכים מנוסים שמכירים כל קילומטר על ההר.'
-      },
-      {
-        q: 'איך מתכוננים לטיפוס על קילימנג׳רו?',
-        a: 'ההכנה העיקרית היא אירובית: הליכות ארוכות, ריצות או אופניים כשלושה חודשים לפני הטיפוס. אנחנו מארגנים מפגש הכנה על ציוד וטרק הכנה חד יומי בארץ עם חברי הקבוצה לפני הטיסה.'
-      },
-      {
-        q: 'מה גיל המינימום לטיפוס?',
-        a: 'גיל המינימום הוא 10 שנים. אין גיל מקסימום, ועלו למסע שלנו משתתפים בגילאי 60 פלוס. הגורם הקובע הוא הכושר הגופני ומצב הבריאות, לא הגיל.'
-      },
-      {
-        q: 'האם כדאי לצרף ספארי לטיפוס?',
-        a: 'כן, בצורה מובהקת. שלושה ימי ספארי בטרנגירי ובנגורונגורו, שתי שמורות מהמרהיבות בעולם, נוספים למסע תמורת תוספת מחיר סבירה. אחרי שבוע על ההר, הספארי הוא הגמול המושלם.'
-      },
-      {
-        q: 'מתי העונה הטובה לטיפוס על קילימנג׳רו?',
-        a: 'יש שתי עונות מועדפות: ינואר-פברואר ויוני-אוקטובר. בחודשים אלה הגשמים מינימליים והיציבות האווירית גבוהה ביותר. נובמבר ואפריל הם חודשי הגשמים הכבדים, ולא מומלצים לטיפוס.'
-      },
-    ],
-    faqEn: [
-      {
-        q: 'How difficult is it to climb Kilimanjaro?',
-        a: 'Kilimanjaro is the most accessible high-altitude mountain in the world. No technical climbing experience is required, no ropes, no crampons. The main challenge is altitude and the cold on summit night. If you can walk 8 hours a day and have done basic physical preparation, you can reach the summit.'
-      },
-      {
-        q: 'What is your summit success rate?',
-        a: 'HighAir\'s Kilimanjaro expeditions have a 94% summit success rate, one of the highest in the industry. This comes from using the Machame Route over 7 days, which allows for proper gradual acclimatization, combined with an experienced guide team that knows every meter of the mountain.'
-      },
-      {
-        q: 'How should I prepare for Kilimanjaro?',
-        a: 'The main preparation is cardiovascular: long hikes, running, or cycling for about 3 months before the expedition. We organize a gear preparation meeting and a one-day preparatory trek in Israel with the group before departure.'
-      },
-      {
-        q: 'Is there a minimum age for the climb?',
-        a: 'The minimum age is 10 years old. There is no maximum age, and we have taken participants aged 60 and above. The deciding factor is physical fitness and health, not age.'
-      },
-      {
-        q: 'Should I add a safari to the climb?',
-        a: 'Strongly recommended. Three days of safari in Tarangire and Ngorongoro, two of the most spectacular reserves in the world, are added to the trip for a reasonable supplement. After a week on the mountain, the safari is the perfect reward.'
-      },
-      {
-        q: 'When is the best season to climb Kilimanjaro?',
-        a: 'There are two preferred seasons: January through February and June through October. During these months rainfall is minimal and weather stability is highest. November and April are the heavy rainy months and are not recommended for climbing.'
-      },
-    ],
     highlightsEn: ['Uhuru Peak 5895m', "Africa's highest mountain", 'Machame Scenic Route', 'Five climate zones'],
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
@@ -2605,20 +2370,6 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     seasons: ['דצמבר-פברואר'],
     seasonsEn: ['December-February'],
     successRate: 75,
-    faq: [
-      { q: 'כמה קשה אקונקגואה לעומת קילימנג\'רו?', a: 'אקונקגואה קשה משמעותית יותר. זו הפסגה הגבוהה ביותר מחוץ לאסיה, 6961 מ׳, והטיפוס אורך 20 ימים. הגובה גדול יותר, הקור חריף יותר, וצריך לשאת ציוד כבד עד מחנה 2. ניסיון בגובה, כגון קילימנג\'רו או EBC, ממש מומלץ לפני.' },
-      { q: 'מה עלות ההיתר לאקונקגואה?', a: 'היתר הכניסה לפארק לאומי אקונקגואה עולה בין 800 ל-1,000 דולר, בהתאם לתקופת השנה. זה לא כלול במחיר הבסיס ומשולם ישירות לרשות הפארק. אנחנו מסייעים ברכישה ובכל הניירת הנדרשת.' },
-      { q: 'האם נדרש ניסיון תיפוס טכני?', a: 'לא. מסלול הנורמל, שבו אנחנו עולים, הוא מסלול הליכה ולא טיפוס טכני. לא נדרשים קרמפונים (אלא אם כן יש שלג), חבלים או ציוד טכני. עם זאת, הגובה ותנאי הקור הקיצוניים דורשים ניסיון קודם בגובה וציוד חום איכותי.' },
-      { q: 'מה עונת הטיפוס על אקונקגואה?', a: 'עונת הטיפוס היא דצמבר עד פברואר, קיץ הדרום-אמריקאי. בתקופה זו ניתן לטפס על הפסגה בתנאים הבטוחים ביותר. מחוץ לחלון הזה ההר נסגר רשמית. אנחנו מקיימים מסע אחד בשנה, בינואר, כדי לנצל את לב העונה.' },
-      { q: 'מה שיעור ההצלחה באקונקגואה?', a: 'שיעור ההצלחה הכללי על אקונקגואה עומד על כ-40% בלבד. שיעור ההצלחה של HighAir עומד על 75%, הרבה מעל הממוצע. הסוד הוא לו"ז התאקלמות מושקע, מדריך מנוסה שמכיר את ההר לעומק ובחירה נכונה של מועמדים לפסגה.' },
-    ],
-    faqEn: [
-      { q: 'How hard is Aconcagua compared to Kilimanjaro?', a: 'Aconcagua is significantly harder. It is the highest peak outside Asia at 6961m, and the climb takes 20 days. The altitude is greater, the cold more extreme, and you need to carry heavy gear up to Camp 2. Prior high-altitude experience such as Kilimanjaro or EBC is strongly recommended beforehand.' },
-      { q: 'What does the Aconcagua permit cost?', a: 'The entry permit for Aconcagua National Park costs between $800 and $1,000 depending on the time of year. This is not included in the base price and is paid directly to the park authority. We assist with purchasing it and all required paperwork.' },
-      { q: 'Is technical climbing experience required?', a: 'No. The Normal Route, which we use, is a walking route not a technical climb. Crampons, ropes and technical gear are not required (unless there is snow). However, the altitude and extreme cold demand prior high-altitude experience and quality cold-weather gear.' },
-      { q: 'What is the climbing season for Aconcagua?', a: 'The climbing season is December through February, the South American summer. During this period the mountain can be climbed in the safest conditions. Outside this window the mountain is officially closed. We run one expedition per year in January, to make the most of the heart of the season.' },
-      { q: 'What is the summit success rate on Aconcagua?', a: 'The overall success rate on Aconcagua is only around 40%. HighAir\'s success rate is 75%, well above average. The secret is a carefully planned acclimatization schedule, an experienced guide who knows the mountain well, and careful selection of summit candidates.' },
-    ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
       'Dedicated Israeli escort (Chen Shaked - professional mountaineer)',
@@ -2975,22 +2726,6 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     videoUrl: null,
     seasons: [],
     seasonsEn: [],
-    faq: [
-      { q: 'איך מגיעים לטרק בסיני?', a: 'המסע מתחיל ומסתיים במעבר הגבול טאבה. חוצים את הגבול יחד עם המדריך, ומשם ההסעות לסנטה קתרינה ובחזרה כלולות במחיר. שימו לב שאגרות המעבר בצד הישראלי (120₪) ובצד המצרי (120$) אינן כלולות במחיר הטיול.' },
-      { q: 'מה רמת הקושי של הטרק?', a: 'הטרק מתאים למטיילים בכושר גופני טוב. מדובר בימי הליכה מלאים בשטח הררי, בין 10 ל-15 ק״מ ביום, כולל עלייה לג׳בל קתרינה בגובה 2642 מ׳ - ההר הגבוה במצרים. לא נדרש ניסיון טכני בטיפוס, אך נדרשת מוטיבציה ויכולת הליכה של מספר שעות ביום.' },
-      { q: 'איפה ישנים במהלך הטרק?', a: 'ארבעה לילות בלב הרי סיני - בבוסתנים בדואיים ובלינת טבע תחת שמי המדבר זרועי הכוכבים, עם ארוחות חמות על בסיס פנסיון מלא. את הלילה האחרון נעביר במלון מפנק בדהב, בחדר פרטי, על שפת ים סוף.' },
-      { q: 'מה הגובה המקסימלי בטרק?', a: 'הנקודה הגבוהה במסע היא פסגת ג׳בל קתרינה בגובה 2642 מ׳ - ההר הגבוה ביותר בסיני ובמצרים כולה. בנוסף נעלה לפסגת הר סיני (2285 מ׳), ההר שלפי המסורת עליו ניתנו לוחות הברית.' },
-      { q: 'האם צריך ניסיון בצלילה לבלו הול?', a: 'לא. ביום האחרון מתקיימת צלילת שנורקלינג בבלו הול - אין צורך בניסיון קודם או בתעודת צלילה. השנורקלינג מתאים לכל מי שיודע לשחות, והאתר מציע שונית אלמוגים בריאה ודגים צבעוניים כבר מהמטרים הראשונים.' },
-      { q: 'מה חשוב להביא למסע?', a: 'ציוד אישי אינו כלול במחיר - חשוב להצטייד בנעלי הליכה טובות, שק שינה, פנס ראש ובגדים חמים לערבים המדבריים. רשימת ציוד מפורטת נשלחת לכל נרשם לאחר ההרשמה.' },
-    ],
-    faqEn: [
-      { q: 'How do we get to the Sinai trek?', a: 'The journey starts and ends at the Taba border crossing. We cross the border together with the guide, and from there transfers to St. Catherine and back are included in the price. Note that the border fees on the Israeli side (₪120) and the Egyptian side ($120) are not included.' },
-      { q: 'How difficult is the trek?', a: 'The trek suits travelers with good physical fitness. These are full hiking days in mountain terrain, between 10 and 15 km per day, including the ascent of Jebel Katherina at 2642m - the highest mountain in Egypt. No technical climbing experience is required, but motivation and the ability to walk several hours a day are.' },
-      { q: 'Where do we sleep during the trek?', a: 'Four nights in the heart of the Sinai mountains - in Bedouin orchards (bustans) and sleeping in nature under star-filled desert skies, with hot meals on full board. The final night is spent at a comfortable hotel in Dahab, in a private room, on the Red Sea shore.' },
-      { q: 'What is the maximum altitude on the trek?', a: 'The highest point of the journey is the summit of Jebel Katherina at 2642m - the highest mountain in Sinai and in all of Egypt. We also summit Mount Sinai (2285m), the mountain where tradition says the Tablets of the Covenant were given.' },
-      { q: 'Do I need diving experience for the Blue Hole?', a: 'No. The final day features snorkeling at the Blue Hole - no prior experience or diving certificate is needed. The snorkeling suits anyone who can swim, and the site offers a healthy coral reef and colorful fish from the very first meters.' },
-      { q: 'What should I bring?', a: 'Personal gear is not included - be sure to bring good hiking shoes, a sleeping bag, a headlamp and warm clothing for the desert evenings. A detailed gear list is sent to every participant after registration.' },
-    ],
     notIncluded: [
       'אגרת מעבר בצד הישראלי - 120₪ לאדם*',
       'אגרת מעבר בצד המצרי - 120$ לאדם*',
@@ -3103,13 +2838,6 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     videoUrl: null,
     seasons: [],
     seasonsEn: [],
-    faq: [{ q: 'הספארי הוא פרטי או בקבוצה?', a: 'כל הספארי שלנו פרטיים: ג׳יפ משלכם, נהג-מדריך משלכם ותאריך יציאה לפי היומן שלכם. החריג היחיד הוא ספארי 3 הימים שיוצא בסמוך לקבוצות הקילימנג׳רו שלנו, ושם אפשר להצטרף לקבוצה ולחלוק את עלות הג׳יפ.' }, { q: 'כמה אנשים נכנסים לג׳יפ?', a: 'עד שישה נוסעים, ולכל נוסע מקום ליד חלון. הגג נפתח לצילום בעמידה.' }, { q: 'מה עושים בתוך יום ספארי?', a: 'יוצאים לשטח עם הג׳יפ ומחפשים חיות עם המדריך. אין הליכות ארוכות ואין מאמץ גופני, וכמעט כל היום מתנהל מתוך הרכב. הקצב הוא שלכם: אם משהו מעניין קורה בשטח, נשארים איתו.' }, { q: 'מתי הזמן הטוב ביותר לצאת?', a: 'אפשר לצאת כל השנה. יוני עד אוקטובר הם העונה היבשה, שבה החיות מתרכזות סביב מקורות מים והצפייה קלה יותר, וזו גם התקופה של חציות הנהר בצפון הסרנגטי. ינואר ופברואר הם עונת ההמלטות במרכז הסרנגטי.' }, { q: 'האם זה מתאים לילדים?', a: 'כן. אין מאמץ גופני, ולמשפחות עם ילדים קטנים נתאים מראש את אורך ימי הנסיעה.' }, { q: 'צריך ויזה?', a: 'כן, אזרחי ישראל נדרשים בוויזה לטנזניה, ומגישים אותה מראש באתר הרשמי של רשות ההגירה. נלווה אתכם בתהליך.' }],
-    faqEn: [{ q: 'Is the safari private or in a group?', a: 'All of our safaris are private: your own jeep, your own driver-guide and a departure date to suit your calendar. The one exception is the 3-day safari that departs alongside our Kilimanjaro groups, where you can join the group and share the cost of the jeep.' }, { q: 'How many people fit in the jeep?', a: 'Up to six passengers, with a window seat for everyone. The roof opens for standing photography.' }, { q: 'What does a safari day look like?', a: 'You head out in the jeep and look for animals with your guide. There are no long walks and no physical effort, and almost the whole day happens from the vehicle. The pace is yours: if something interesting is happening, you stay with it.' }, { q: 'When is the best time to go?', a: 'You can travel year round. June to October is the dry season, when animals concentrate around water and viewing is easier, and it is also when the herds cross the river in the northern Serengeti. January and February are calving season in the central Serengeti.' }, { q: 'Is it suitable for children?', a: 'Yes. There is no physical effort, and for families with small children we shorten the driving days in advance.' }, { q: 'Do I need a visa?', a: 'Yes, Israeli citizens require a visa for Tanzania, applied for in advance on the official immigration portal. We walk you through it.' }],
-    itinerary: [
-      { day: 1, title: 'ספארי בשמורת טרנגירי', desc: 'יציאה בבוקר אל שמורת טרנגירי, שמורת עצי הבאובב והפילים. בעונה היבשה מגיעים לנהר טרנגירי עדרי פילים גדולים במיוחד, ולצידם זברות, אנטילופות, ג׳ירפות ולעיתים אריות המסתתרים בצל. יום נסיעה בשמורה עם ארוחת צהריים ארוזה בשטח, ולינה בקראטו.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
-      { day: 2, title: 'ספארי במכתש נגורונגורו', desc: 'ירידה אל מכתש נגורונגורו, מכתש וולקני בקוטר 19 ק״מ ובו מערכת אקולוגית שלמה וסגורה. ריכוז החיות בו מהגבוהים באפריקה, וזה המקום הטוב ביותר בטנזניה לראות קרנף שחור. במהלך היום נחפש את החמישייה הגדולה על רצפת המכתש, ונעלה בחזרה לקראטו לקראת ערב.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
-      { day: 3, title: 'שבט ההדזבה באגם אייסי', desc: 'יציאה מוקדמת אל אגם אייסי, לפגישה עם שבט ההדזבה, אחד מקהילות הלקטים-ציידים האחרונות באפריקה. יוצאים איתם לציד בוקר, לומדים איך הם מדליקים אש ומאתרים מזון, ומבקרים גם אצל שכניהם הדאטוגה, נפחים שעובדים בשיטות מסורתיות. חוויה תרבותית שאין לה תחליף, ואחריה חזרה לארושה או המשך לספארי ארוך יותר.' , meals: 'ארוחת בוקר וארוחת צהריים' },
-    ],
     itineraryEn: [
       { day: 1, title: 'Safari in Tarangire', desc: 'A morning departure to Tarangire, the park of baobabs and elephants. In the dry season exceptionally large elephant herds gather at the Tarangire River, alongside zebra, antelope, giraffe and sometimes lions resting in the shade. A full day driving through the reserve with a packed lunch in the field, and a night in Karatu.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
       { day: 2, title: 'Safari in the Ngorongoro Crater', desc: 'Descending into the Ngorongoro Crater, a 19 km wide volcanic caldera holding a complete, self-contained ecosystem. Its wildlife density is among the highest in Africa, and it is the best place in Tanzania to see a black rhino. We spend the day looking for the Big Five on the crater floor and climb back up to Karatu toward evening.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
@@ -3165,15 +2893,6 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     videoUrl: null,
     seasons: [],
     seasonsEn: [],
-    faq: [{ q: 'הספארי הוא פרטי או בקבוצה?', a: 'כל הספארי שלנו פרטיים: ג׳יפ משלכם, נהג-מדריך משלכם ותאריך יציאה לפי היומן שלכם. החריג היחיד הוא ספארי 3 הימים שיוצא בסמוך לקבוצות הקילימנג׳רו שלנו, ושם אפשר להצטרף לקבוצה ולחלוק את עלות הג׳יפ.' }, { q: 'כמה אנשים נכנסים לג׳יפ?', a: 'עד שישה נוסעים, ולכל נוסע מקום ליד חלון. הגג נפתח לצילום בעמידה.' }, { q: 'מה עושים בתוך יום ספארי?', a: 'יוצאים לשטח עם הג׳יפ ומחפשים חיות עם המדריך. אין הליכות ארוכות ואין מאמץ גופני, וכמעט כל היום מתנהל מתוך הרכב. הקצב הוא שלכם: אם משהו מעניין קורה בשטח, נשארים איתו.' }, { q: 'מתי הזמן הטוב ביותר לצאת?', a: 'אפשר לצאת כל השנה. יוני עד אוקטובר הם העונה היבשה, שבה החיות מתרכזות סביב מקורות מים והצפייה קלה יותר, וזו גם התקופה של חציות הנהר בצפון הסרנגטי. ינואר ופברואר הם עונת ההמלטות במרכז הסרנגטי.' }, { q: 'האם זה מתאים לילדים?', a: 'כן. אין מאמץ גופני, ולמשפחות עם ילדים קטנים נתאים מראש את אורך ימי הנסיעה.' }, { q: 'צריך ויזה?', a: 'כן, אזרחי ישראל נדרשים בוויזה לטנזניה, ומגישים אותה מראש באתר הרשמי של רשות ההגירה. נלווה אתכם בתהליך.' }],
-    faqEn: [{ q: 'Is the safari private or in a group?', a: 'All of our safaris are private: your own jeep, your own driver-guide and a departure date to suit your calendar. The one exception is the 3-day safari that departs alongside our Kilimanjaro groups, where you can join the group and share the cost of the jeep.' }, { q: 'How many people fit in the jeep?', a: 'Up to six passengers, with a window seat for everyone. The roof opens for standing photography.' }, { q: 'What does a safari day look like?', a: 'You head out in the jeep and look for animals with your guide. There are no long walks and no physical effort, and almost the whole day happens from the vehicle. The pace is yours: if something interesting is happening, you stay with it.' }, { q: 'When is the best time to go?', a: 'You can travel year round. June to October is the dry season, when animals concentrate around water and viewing is easier, and it is also when the herds cross the river in the northern Serengeti. January and February are calving season in the central Serengeti.' }, { q: 'Is it suitable for children?', a: 'Yes. There is no physical effort, and for families with small children we shorten the driving days in advance.' }, { q: 'Do I need a visa?', a: 'Yes, Israeli citizens require a visa for Tanzania, applied for in advance on the official immigration portal. We walk you through it.' }],
-    itinerary: [
-      { day: 1, title: 'ספארי בשמורת טרנגירי', desc: 'יציאה בבוקר אל שמורת טרנגירי, שמורת עצי הבאובב והפילים. בעונה היבשה מגיעים לנהר טרנגירי עדרי פילים גדולים במיוחד, ולצידם זברות, אנטילופות וג׳ירפות. יום נסיעה בשמורה עם ארוחת צהריים ארוזה בשטח, ולינה בקראטו.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
-      { day: 2, title: 'ספארי במרכז הסרנגטי', desc: 'נסיעה אל הסרנגטי, ובמהלכה כניסה לאזור המרכזי שבו ריכוז החיות הגבוה ביותר לאורך כל השנה. זה האזור של הטורפים הגדולים, ובמיוחד אריות ונמרים המשתרעים על ענפי השיטה. אחר הצהריים ממשיכים לצפות עד השקיעה, ולינה בקמפ בלב השמורה.', accommodation: 'Heritage Luxury Tented Camp' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
-      { day: 3, title: 'ספארי בצפון הסרנגטי', desc: 'עולים צפונה אל אזור נהר המארה. בעונת הנדידה זה המקום שבו חוצות העדרים את הנהר, אחד המפגשים הדרמטיים שאפשר לראות בטבע. גם מחוץ לעונה זה אזור פראי ושקט במיוחד, עם פחות רכבים ונופים פתוחים.', accommodation: 'Baobab Mara Luxury Camp' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
-      { day: 4, title: 'ספארי במכתש נגורונגורו', desc: 'ירידה אל מכתש נגורונגורו, מכתש וולקני בקוטר 19 ק״מ ובו מערכת אקולוגית שלמה וסגורה. ריכוז החיות בו מהגבוהים באפריקה, וזה המקום הטוב ביותר בטנזניה לראות קרנף שחור. נחפש את החמישייה הגדולה על רצפת המכתש, ונעלה בחזרה לקראטו לקראת ערב.', accommodation: 'Kudu Lodge Karatu' , meals: 'ארוחת בוקר, צהריים ארוזות בשטח וארוחת ערב' },
-      { day: 5, title: 'שבט ההדזבה באגם אייסי', desc: 'יציאה מוקדמת אל אגם אייסי, לפגישה עם שבט ההדזבה, אחד מקהילות הלקטים-ציידים האחרונות באפריקה. יוצאים איתם לציד בוקר, לומדים איך הם מדליקים אש ומאתרים מזון, ומבקרים גם אצל שכניהם הדאטוגה, נפחים שעובדים בשיטות מסורתיות. אחרי הביקור חזרה לארושה.' , meals: 'ארוחת בוקר וארוחת צהריים' },
-    ],
     itineraryEn: [
       { day: 1, title: 'Safari in Tarangire', desc: 'A morning departure to Tarangire, the park of baobabs and elephants. In the dry season exceptionally large elephant herds gather at the Tarangire River, alongside zebra, antelope and giraffe. A full day driving through the reserve with a packed lunch in the field, and a night in Karatu.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
       { day: 2, title: 'Safari in the central Serengeti', desc: 'We drive to the Serengeti and enter the central area, which holds the highest year-round wildlife concentration. This is big-cat country, especially lions and the leopards draped along acacia branches. We keep viewing through the afternoon until sunset, and spend the night at a camp in the heart of the reserve.', accommodation: 'Heritage Luxury Tented Camp' , meals: 'Breakfast, packed lunch in the field and dinner' },
@@ -3231,17 +2950,6 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     videoUrl: null,
     seasons: [],
     seasonsEn: [],
-    faq: [{ q: 'הספארי הוא פרטי או בקבוצה?', a: 'כל הספארי שלנו פרטיים: ג׳יפ משלכם, נהג-מדריך משלכם ותאריך יציאה לפי היומן שלכם. החריג היחיד הוא ספארי 3 הימים שיוצא בסמוך לקבוצות הקילימנג׳רו שלנו, ושם אפשר להצטרף לקבוצה ולחלוק את עלות הג׳יפ.' }, { q: 'כמה אנשים נכנסים לג׳יפ?', a: 'עד שישה נוסעים, ולכל נוסע מקום ליד חלון. הגג נפתח לצילום בעמידה.' }, { q: 'מה עושים בתוך יום ספארי?', a: 'יוצאים לשטח עם הג׳יפ ומחפשים חיות עם המדריך. אין הליכות ארוכות ואין מאמץ גופני, וכמעט כל היום מתנהל מתוך הרכב. הקצב הוא שלכם: אם משהו מעניין קורה בשטח, נשארים איתו.' }, { q: 'מתי הזמן הטוב ביותר לצאת?', a: 'אפשר לצאת כל השנה. יוני עד אוקטובר הם העונה היבשה, שבה החיות מתרכזות סביב מקורות מים והצפייה קלה יותר, וזו גם התקופה של חציות הנהר בצפון הסרנגטי. ינואר ופברואר הם עונת ההמלטות במרכז הסרנגטי.' }, { q: 'האם זה מתאים לילדים?', a: 'כן. אין מאמץ גופני, ולמשפחות עם ילדים קטנים נתאים מראש את אורך ימי הנסיעה.' }, { q: 'צריך ויזה?', a: 'כן, אזרחי ישראל נדרשים בוויזה לטנזניה, ומגישים אותה מראש באתר הרשמי של רשות ההגירה. נלווה אתכם בתהליך.' }],
-    faqEn: [{ q: 'Is the safari private or in a group?', a: 'All of our safaris are private: your own jeep, your own driver-guide and a departure date to suit your calendar. The one exception is the 3-day safari that departs alongside our Kilimanjaro groups, where you can join the group and share the cost of the jeep.' }, { q: 'How many people fit in the jeep?', a: 'Up to six passengers, with a window seat for everyone. The roof opens for standing photography.' }, { q: 'What does a safari day look like?', a: 'You head out in the jeep and look for animals with your guide. There are no long walks and no physical effort, and almost the whole day happens from the vehicle. The pace is yours: if something interesting is happening, you stay with it.' }, { q: 'When is the best time to go?', a: 'You can travel year round. June to October is the dry season, when animals concentrate around water and viewing is easier, and it is also when the herds cross the river in the northern Serengeti. January and February are calving season in the central Serengeti.' }, { q: 'Is it suitable for children?', a: 'Yes. There is no physical effort, and for families with small children we shorten the driving days in advance.' }, { q: 'Do I need a visa?', a: 'Yes, Israeli citizens require a visa for Tanzania, applied for in advance on the official immigration portal. We walk you through it.' }],
-    itinerary: [
-      { day: 1, title: '[למילוי] יום 1', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-      { day: 2, title: '[למילוי] יום 2', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-      { day: 3, title: '[למילוי] יום 3', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-      { day: 4, title: '[למילוי] יום 4', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-      { day: 5, title: '[למילוי] יום 5', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-      { day: 6, title: '[למילוי] יום 6', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-      { day: 7, title: '[למילוי] יום 7', desc: '[למילוי] תיאור היום.', accommodation: '[למילוי] לינה' },
-    ],
     itineraryEn: [
       { day: 1, title: '[TO FILL] Day 1', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },
       { day: 2, title: '[TO FILL] Day 2', desc: '[TO FILL] Day description.', accommodation: '[TO FILL] Accommodation' },

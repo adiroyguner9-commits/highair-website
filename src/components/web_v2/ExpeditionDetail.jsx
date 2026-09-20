@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
 import FaqAccordion from './FaqAccordion.jsx';
+import { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn } from '../../data/faqData.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
@@ -62,22 +63,6 @@ const DEFAULT_REVIEWS_EN = [
   { name: 'Yoni Levi', date: 'January 2025', rating: 5, text: 'A once-in-a-lifetime experience. The HighAir team was professional at the highest level, always there for support. I didn\'t believe I could reach the summit, but they believed in me.', initial: 'Y' },
   { name: 'Michal Sharon', date: 'March 2025', rating: 5, text: 'Everything was perfect from the organisation to the moment we stood on the summit. Our guide was incredible — patient, professional, and great company.', initial: 'M' },
   { name: 'Roi Abraham', date: 'February 2025', rating: 5, text: 'I arrived with no experience and came back with a summit and lifelong friends. HighAir is more than a travel company — they\'re family.', initial: 'R' },
-];
-
-const makeDefaultFaq = (cap) => [
-  { q: 'האם נדרש ניסיון טיפוס קודם?', a: 'לא נדרש ניסיון טיפוס קודם לרוב המסלולים שלנו. כל מה שצריך הוא כושר גופני טוב ורצון להצליח.' },
-  { q: 'מה גודל הקבוצה?', a: `הקבוצות שלנו מוגבלות ל-${cap} משתתפים לכל היותר, כדי להבטיח ליווי אישי ואיכות מקסימלית.` },
-  { q: 'האם יש אופציה לחדר יחיד?', a: 'כן, ניתן לבקש חדר יחיד בתוספת תשלום. יש לציין זאת בטופס ההרשמה.' },
-  { q: 'מה קורה אם אני נסוג בדרך?', a: 'בטיחות המשתתפים היא בראש סדר העדיפויות. אם נדרשת נסיגה, המדריך ילווה אותך בבטחה בחזרה.' },
-  { q: 'מה כולל המחיר?', a: 'המחיר כולל את כל מה שמפורט בסעיף "מה כלול". טיסות וביטוח נסיעות אינם כלולים.' },
-];
-
-const makeDefaultFaqEn = (cap) => [
-  { q: 'Is prior climbing experience required?', a: 'No prior climbing experience is required for most of our routes. All you need is good physical fitness and the will to succeed.' },
-  { q: 'What is the group size?', a: `Our groups are limited to ${cap} participants at most, to ensure personal attention and maximum quality.` },
-  { q: 'Is a single room option available?', a: 'Yes, a single room can be requested for an additional fee. Please indicate this on the registration form.' },
-  { q: 'What happens if I turn back on the way?', a: 'Participant safety is our top priority. If a descent is required, the guide will safely accompany you back.' },
-  { q: 'What is included in the price?', a: 'The price includes everything listed in the "What\'s Included" section. Flights and travel insurance are not included.' },
 ];
 
 const DEFAULT_NOT_INCLUDED = ['טיסות בינלאומיות', 'ביטוח נסיעות', 'הוצאות אישיות', 'ציוד אישי'];
@@ -369,10 +354,11 @@ export default function ExpeditionDetail() {
 
   /* FAQ items - a single source shared by the FAQPage schema and the visible
      accordion below, so the structured data is always backed by on-page content. */
+  const faqEntry = exp ? FAQ_BY_SLUG[exp.slug] : null;
   const expFaqItems = exp
     ? (isRtl
-        ? (exp.faq?.length   ? exp.faq   : makeDefaultFaq(exp?.groupCapacity || 15))
-        : (exp.faqEn?.length ? exp.faqEn : makeDefaultFaqEn(exp?.groupCapacity || 15)))
+        ? (faqEntry?.he?.length ? faqEntry.he : makeDefaultFaq(exp?.groupCapacity || 15))
+        : (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15)))
     : [];
 
   const expJsonLd = exp ? [
