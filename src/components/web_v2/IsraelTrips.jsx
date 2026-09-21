@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, BTN, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
+import { cardThumb } from '../../website/cardThumb.js';
 import { CalendarIcon } from '../Icons.jsx';
 
 /* Display date for a trip: a single departure (DD/MM, parsed from the ISO parts
@@ -93,7 +94,7 @@ function IsraelCard({ trip }) {
   }, [trip.img]);
 
   const bg = trip.img
-    ? (imgReady ? `url(${trip.img}) center/cover no-repeat` : trip.grad)
+    ? (imgReady ? `url(${cardThumb(trip.img)}) center/cover no-repeat` : trip.grad)
     : trip.grad;
 
   function handleClick() {

@@ -11,6 +11,7 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { CARD_EXPS as EXPS } from '../../data/navData.js';
 import { HOME_CLIMBS, HOME_TREKS } from '../../data/expeditionGroups.js';
+import { cardThumb } from '../../website/cardThumb.js';
 import FlagImg from './FlagImg.jsx';
 
 /* ── Arrow button ── */
@@ -125,7 +126,7 @@ function ExpCard({ exp }) {
         <div style={{
           position:           'absolute',
           inset:              '-6px',
-          backgroundImage:    `url(${exp.img})`,
+          backgroundImage:    `url(${cardThumb(exp.img)})`,
           backgroundSize:     'cover',
           backgroundPosition: exp.imgPosition || 'center',
           transform:          hovered ? 'scale(1.06)' : 'scale(1)',

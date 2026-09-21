@@ -39,10 +39,32 @@ export default function HeroSection() {
  useEffect(() => { injectKeyframes(); }, []);
  const [btn1Hovered, setBtn1Hovered] = useState(false);
  const [btn2Hovered, setBtn2Hovered] = useState(false);
+ const [showVideo, setShowVideo] = useState(false);
  const videoRef = useRef(null);
  const playTracked = useRef(false);
  const { t, i18n } = useTranslation();
  const isEn = i18n.language === 'en';
+
+ /* Load the hero video OFF the critical path, and never on mobile — a phone on
+    cellular data should not download a ~4MB background video that sits under a
+    72%-dark overlay. Desktop shows the poster first, then swaps in the video
+    once the page has finished loading and the browser is idle. */
+ useEffect(() => {
+ if (typeof window === 'undefined') return;
+ if (window.innerWidth < 768) return;            // mobile: poster only
+ let id;
+ const start = () => {
+   id = ('requestIdleCallback' in window)
+     ? requestIdleCallback(() => setShowVideo(true), { timeout: 2000 })
+     : setTimeout(() => setShowVideo(true), 1200);
+ };
+ if (document.readyState === 'complete') start();
+ else window.addEventListener('load', start, { once: true });
+ return () => {
+   if (id) { (window.cancelIdleCallback || clearTimeout)(id); }
+   window.removeEventListener('load', start);
+ };
+ }, []);
 
  useEffect(() => {
  const video = videoRef.current;
@@ -58,14 +80,14 @@ export default function HeroSection() {
  };
  window.addEventListener('scroll', onScroll, { passive: true });
  return () => window.removeEventListener('scroll', onScroll);
- }, []);
+ }, [showVideo]);
 
  /* Explicit play() for iOS Safari — autoPlay attr alone is not enough */
  useEffect(() => {
  const el = videoRef.current;
  if (!el) return;
  el.play().catch(() => {});
- }, []);
+ }, [showVideo]);
 
  /* Track first video play (fires once per page load) */
  useEffect(() => {
@@ -78,7 +100,7 @@ export default function HeroSection() {
  };
  el.addEventListener('play', onPlay, { once: true });
  return () => el.removeEventListener('play', onPlay);
- }, []);
+ }, [showVideo]);
 
  return (
  <section id="hero" style={{
@@ -91,7 +113,19 @@ export default function HeroSection() {
  justifyContent: 'center',
  }}>
 
- {}
+ {/* Poster base layer: the only layer on mobile and until the desktop video loads */}
+ <div
+ aria-hidden="true"
+ style={{
+ position: 'absolute',
+ inset: 0,
+ backgroundImage: `url(${POSTER_SRC})`,
+ backgroundSize: 'cover',
+ backgroundPosition: 'center',
+ zIndex: 0,
+ }}
+ />
+ {showVideo && (
  <video
  ref={videoRef}
  autoPlay
@@ -115,6 +149,7 @@ export default function HeroSection() {
  >
  <source src={VIDEO_SRC} type="video/mp4" />
  </video>
+ )}
 
  <div style={{
  position: 'absolute',
