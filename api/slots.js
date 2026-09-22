@@ -1,6 +1,12 @@
 /**
  * GET /api/slots?date=YYYY-MM-DD[&expedition=...]
+ * POST /api/slots { date, expedition, lead, phone }
  * Returns available call slots for a given date.
+ *
+ * A customer whose lead already has an agent sees only THAT agent's free times
+ * (owner, 22 Sep 2026; see bookingAgent in ./_lib/active-lead.js). The widget
+ * says who is booking in a POST body, so a phone number never sits in a URL or
+ * a request log. The GET form stays for an old tab and keeps the rule below.
  *
  * A slot is closed only when every agent who covers `expedition` is already on
  * a call then, so two customers can hold the same time for two destinations
@@ -16,7 +22,8 @@
 
 import { checkRateLimit, setSecurityHeaders } from './_security.js';
 import { israelNow, isYomTov, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
-import { fetchCallAgents, busyByTime, someoneFreeAt } from './_lib/callAgents.js';
+import { fetchCallAgents, busyByTime, someoneFreeAt, agentKey } from './_lib/callAgents.js';
+import { bookingAgent } from './_lib/active-lead.js';
 
 const DEFAULT_AVAILABILITY = {
   days:     [0, 1, 2, 3, 4, 5], // Sun–Fri open, Sat closed
@@ -58,7 +65,8 @@ export async function loadAvailability(TOKEN, BASE) {
 
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const q = req.method === 'POST' ? (req.body || {}) : (req.query || {});
   if (!checkRateLimit(req, 'default')) {
     return res.status(429).json({ error: 'Too many requests' });
   }
@@ -71,7 +79,7 @@ export default async function handler(req, res) {
      from the admin's own config, the admin's manual blackout list, and the
      festivals. Change the open days in Settings and the customer's calendar
      follows on its own. */
-  const month = String(req.query.month || '').trim();
+  const month = String(q.month || '').trim();
   if (month) {
     if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) {
       return res.status(400).json({ error: 'Invalid month. Use YYYY-MM' });
@@ -91,7 +99,7 @@ export default async function handler(req, res) {
     return res.json({ closed });
   }
 
-  const { date } = req.query;
+  const date = String(q.date || '');
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return res.status(400).json({ error: 'Invalid date. Use YYYY-MM-DD' });
   }
@@ -148,20 +156,40 @@ export default async function handler(req, res) {
   }
 
   // Subtract the slots this customer's agent is already busy on.
-  const expedition = String(req.query.expedition || '').trim();
+  const expedition = String(q.expedition || '').trim();
+  const leadTok    = String(q.lead || '').trim().slice(0, 40);
+  const custPhone  = String(q.phone || '').trim().slice(0, 30);
   try {
     const formula = encodeURIComponent(`AND({Date}="${date}",{Status}="confirmed")`);
-    const atRes = await fetch(
-      `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}`
-        + `&fields[]=Time&fields[]=Agent&fields[]=${encodeURIComponent('Expedition')}`,
-      { headers: { Authorization: `Bearer ${TOKEN}` } }
-    );
+    const [atRes, ownAgent] = await Promise.all([
+      fetch(
+        `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}`
+          + `&fields[]=Time&fields[]=Agent&fields[]=${encodeURIComponent('Expedition')}`,
+        { headers: { Authorization: `Bearer ${TOKEN}` } }
+      ),
+      (leadTok || custPhone)
+        ? bookingAgent({ base: BASE, token: TOKEN, lead: leadTok, phone: custPhone }).catch(() => '')
+        : '',
+    ]);
     if (!atRes.ok) {
       // Table may not exist yet — return all future slots
       return res.json({ slots: futureSlots });
     }
     const atData = await atRes.json();
     const records = atData.records || [];
+
+    /* Their own agent's free times, whatever the destination. A booked call
+       whose owner cannot be named closes the time, as it does below: offering
+       it could put two customers on one person. */
+    if (ownAgent) {
+      let agents = [];
+      try { agents = await fetchCallAgents(BASE, TOKEN); } catch { /* named calls still count */ }
+      const busy = busyByTime(records, agents);
+      const mine = agentKey(ownAgent);
+      return res.json({
+        slots: futureSlots.filter(time => { const s = busy.get(time); return !s || (!s.unknown && !s.owners.has(mine)); }),
+      });
+    }
 
     /* No expedition on the request (an old client, or a generic booking page):
        keep the original rule rather than guessing whose call it is. */

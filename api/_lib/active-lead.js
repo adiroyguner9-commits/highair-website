@@ -70,6 +70,41 @@ export async function fetchActiveLead({ base, token, phone, fields = [] }) {
   } catch { return null; }
 }
 
+/* ── The agent a booking customer already belongs to ───────────────────────
+   Owner, 22 Sep 2026 (option 2 of two): a customer whose lead already has an
+   agent is offered only that agent's free times, and the lead never moves to
+   whoever happens to be free. Iris Montano's Kilimanjaro lead was Tomer Lan's;
+   she picked 12:30, when both Tomers were on calls, and ONE AGENT, ONE CALL
+   handed her call and her lead to Eldar.
+
+   One lookup for both ends, so the list and the booking cannot disagree:
+   /api/slots filters by this agent, and /api/book-slot refuses a time at which
+   this agent is busy. It is the same card book-slot then stamps the call on: a
+   lead-link token (Book Code or legacy record id) resolves to its phone, and
+   the phone to its active card (fetchActiveLead). '' when there is no card or
+   the card has no agent yet, and every free agent's time stays open. */
+export async function bookingAgent({ base, token, lead = '', phone = '' }) {
+  let ph = String(phone || '');
+  const tok = String(lead || '').trim();
+  if (!last9(ph) && tok) {
+    try {
+      let lf = null;
+      const H = { headers: { Authorization: `Bearer ${token}` } };
+      if (/^rec[A-Za-z0-9]{14}$/.test(tok)) {
+        const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent('Website Leads')}/${tok}?fields[]=Phone`, H);
+        if (r.ok) lf = (await r.json()).fields || null;
+      } else if (/^[a-z0-9]{4,12}$/.test(tok)) {
+        const f = encodeURIComponent(`{Book Code}="${tok}"`);
+        const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent('Website Leads')}?filterByFormula=${f}&maxRecords=1&fields[]=Phone`, H);
+        if (r.ok) lf = (await r.json()).records?.[0]?.fields || null;
+      }
+      ph = lf?.Phone || '';
+    } catch { return ''; }
+  }
+  const rec = await fetchActiveLead({ base, token, phone: ph, fields: ['Assigned Agent'] });
+  return String(rec?.fields?.['Assigned Agent'] || '').trim();
+}
+
 /* Is this the same trip? Compares the Expedition as written on a lead card,
    ignoring case, spacing, punctuation and the Hebrew/English spelling of the
    same destination. Deliberately treats "Kilimanjaro" and "Kilimanjaro

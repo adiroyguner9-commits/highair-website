@@ -187,7 +187,7 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
-import { fetchActiveLead } from './_lib/active-lead.js';
+import { fetchActiveLead, bookingAgent } from './_lib/active-lead.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey } from './_lib/callAgents.js';
 import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
@@ -350,6 +350,20 @@ export default async function handler(req, res) {
         throw e;                                   // staff: book on, with no map
       }
       busyNow = busyByTime(taken, callAgents);
+      /* A customer who already has an agent books with that agent or not at
+         all (owner, 22 Sep 2026; /api/slots offers only their agent's free
+         times, and this re-checks it at the moment of booking). A stale list
+         or a lead given out while the customer was choosing ends here with
+         slot_taken, and the widget reloads the list, instead of the call and
+         the lead moving to whoever is free. Staff keep the Lead Center's
+         "any hour" and the move below. */
+      if (!isStaffBooking) {
+        const ownAgent = await bookingAgent({ base: BASE, token: TOKEN, phone });
+        if (ownAgent && (busyNow.get(time)?.unknown || busyNow.get(time)?.owners.has(agentKey(ownAgent)))) {
+          console.log(`[book-slot] ${date} ${time} refused: the customer's agent ${ownAgent} is on another call then`);
+          return res.status(409).json({ error: 'slot_taken' });
+        }
+      }
       const anyoneFree = someoneFreeAt({ time, expedition, agents: callAgents, busy: busyNow });
       if (!isStaffBooking && !anyoneFree) {
         return res.status(409).json({ error: 'slot_taken' });
@@ -463,6 +477,12 @@ export default async function handler(req, res) {
           }
 
           /* ── ONE AGENT, ONE CALL ─────────────────────────────────────────
+             Since 22 Sep 2026 a CUSTOMER never gets here with a busy agent: the
+             slot list offers only their own agent's free times and step 1
+             refuses the rest. What is left is a staff booking at "any hour", a
+             lead with no agent yet (the Kilimanjaro queue above already picked
+             a free one) and a race in the same second. The rule below still
+             guards those.
              The slot list opens a time as soon as ANY agent who covers the
              destination is free — so the free one is not necessarily the agent
              this lead already belongs to. Tomer Lan ended up holding both

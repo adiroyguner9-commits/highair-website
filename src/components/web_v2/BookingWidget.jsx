@@ -112,8 +112,14 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
      customers can hold 09:00 for two destinations that belong to two different
      people (owner, Aug 20 2026). Sent on both slot loads; without it the server
      falls back to closing a taken time for everyone. */
-  const slotsUrl = date => `/api/slots?date=${date}`
-    + (expedition ? `&expedition=${encodeURIComponent(expedition)}` : '');
+  /* Who is booking travels too: a customer whose lead already has an agent is
+     offered only that agent's free times (owner, 22 Sep 2026). In a POST body,
+     so the phone number never sits in a URL or a server log. */
+  const fetchSlots = date => fetch('/api/slots', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ date, expedition: expedition || '', lead: leadToken || '', phone: phone || '' }),
+  });
 
   /* Load slots whenever a date is selected */
   useEffect(() => {
@@ -122,7 +128,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
     setSlots([]);
     setSelSlot(null);
     setError('');
-    fetch(slotsUrl(selDate))
+    fetchSlots(selDate)
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => { setSlots(d.slots || []); setSlotsLoad(false); })
       .catch(() => { setSlots([]); setSlotsLoad(false); });
@@ -217,7 +223,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
               ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : 'This time has passed or is too soon - please pick a later slot')
               : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time'));
           setSlotsLoad(true);
-          fetch(slotsUrl(selDate))
+          fetchSlots(selDate)
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(d => { setSlots(d.slots || []); setSelSlot(null); setSlotsLoad(false); })
             .catch(() => { setSlotsLoad(false); });
