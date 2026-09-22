@@ -7,6 +7,7 @@
  */
 import { destInfo } from './dest.js';
 import { firstName } from './name.js';
+import { greenFetch } from './green.js';
 
 export function msgFollowUp(name, expedition) {
   const { he } = destInfo(expedition);
@@ -41,7 +42,7 @@ export async function sendWhatsAppVerified(phone, message) {
   const chatId = toIntlIL(phone);
   if (!chatId) return { ok: false, error: `unusable phone "${phone}"` };
   try {
-    const r = await fetch(`https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`, {
+    const r = await greenFetch('sendMessage', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatId: `${chatId}@c.us`, message }),
     });

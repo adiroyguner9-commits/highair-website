@@ -13,6 +13,7 @@ import crypto from 'crypto';
 import { firstName } from './name.js';   // WhatsApp greeting — first name only
 
 const FB_PIXEL_ID   = '293738523242679';
+import { greenFetch } from './green.js';
 const PERSONAL_AREA = 'https://app.highair-expeditions.com/register';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
@@ -120,7 +121,7 @@ export async function sendDepositWelcome(rec) {
   const chatId = toIntlIL(f.Phone);
   if (chatId && GA_INSTANCE && GA_TOKEN) {
     try {
-      await fetch(`https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`, {
+      await greenFetch('sendMessage', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatId: `${chatId}@c.us`, message: msgDepositA(f.Name) }),
       });

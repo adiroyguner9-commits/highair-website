@@ -31,6 +31,7 @@ import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — f
 import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
 import { israelWeekendHold } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, nobody is here to answer
+import { greenFetch } from './_lib/green.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
 function toIntlIL(raw) {
@@ -163,7 +164,7 @@ export default async function handler(req, res) {
     const chatId = toIntlIL(phone);
     if (!chatId) return { ok: false, error: `unusable phone "${phone}"` };
     try {
-      const r = await fetch(`https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`, {
+      const r = await greenFetch('sendMessage', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatId: `${chatId}@c.us`, message }),
       });

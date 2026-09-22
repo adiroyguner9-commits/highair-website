@@ -11,6 +11,7 @@ import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 
 const HE_MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
+import { greenFetch } from './_lib/green.js';
 const HE_DAYS   = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 function formatDateHe(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
@@ -66,7 +67,7 @@ export default async function handler(req, res) {
     + `נתקשר אליך במועד החדש. נתראה! 😁`;
 
   try {
-    const r = await fetch(`https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`, {
+    const r = await greenFetch('sendMessage', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatId: `${chatId}@c.us`, message: msg }),
     });

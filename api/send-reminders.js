@@ -13,6 +13,7 @@ export const config = { api: { bodyParser: false } };
 import { setSecurityHeaders } from './_security.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
+import { greenFetch } from './_lib/green.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for the
    Green API chatId — handles 0…, +972…, "+972 0…", and the missing-leading-0
@@ -116,8 +117,8 @@ export default async function handler(req, res) {
     const message   = `היי ${firstName(Name)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
 
     try {
-      const waRes  = await fetch(
-        `https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`,
+      const waRes  = await greenFetch(
+        'sendMessage',
         {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },

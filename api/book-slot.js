@@ -195,6 +195,7 @@ import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
+import { greenFetch } from './_lib/green.js';
 
 /* ════════════════════════════════════════════ */
 export default async function handler(req, res) {
@@ -559,8 +560,8 @@ export default async function handler(req, res) {
     try {
       const clientNum = toIntlIL(phone);
       const waMessage = `היי ${firstName(name)} 👋🏼\n\nהשיחה שלך לגבי ${expeditionHe} שוריינה בהצלחה! 🏔️\n\n🗓️ מתי? ${formatDateHe(date)}\n⏰ שעה: ${time}\n\nאנחנו נתקשר אליך בזמן שנקבע. מצפים לשוחח איתך! 😁`;
-      const gaRes = await fetch(
-        `https://api.green-api.com/waInstance${GA_INSTANCE}/sendMessage/${GA_TOKEN}`,
+      const gaRes = await greenFetch(
+        'sendMessage',
         {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
