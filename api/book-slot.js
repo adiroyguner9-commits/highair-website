@@ -434,29 +434,30 @@ export default async function handler(req, res) {
           const prevLog = rec.fields?.['Activity Log'] || '';
           const patch = { Stage: 'Call Scheduled', 'Nudge Sent': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry };
 
-          /* ── Kilimanjaro: the CALLS queue (owner, 14 Sep 2026) ─────────────────
-             A Kilimanjaro lead who books a call while nobody has them yet goes
-             into the calls queue: Tomer Lan 4, Tomer Harush 1, in that order. If
-             the one whose turn it is already has a call at this hour, the other
-             takes it and the next call repays the turn. The queue and its tally
-             live in ./_lib/kiliRota.js, byte for byte the same file as the
-             webapp's api/_lib/kiliRota.js.
+          /* ── Kilimanjaro: the one queue (owner, 22 Sep 2026) ─────────────────
+             A Kilimanjaro lead who books a call while nobody has them yet takes
+             the next turn of the single Kilimanjaro queue: Tomer Lan 4, Tomer
+             Harush 2, Eldar Solomon 1, in that order, the same queue the
+             webapp's lead-notify gives the rest from. If the one whose turn it
+             is already has a call at this hour, the next free agent takes it and
+             the following lead repays the turn. The queue and its tally live in
+             ./_lib/kiliRota.js, byte for byte the same file as the webapp's
+             api/_lib/kiliRota.js.
 
-             The webapp's lead-notify leaves a Kilimanjaro lead without an agent
-             for its first 15 minutes to see whether they book, so a customer who
-             books straight after the form lands here. One who books later already
-             has an agent and keeps them; ONE AGENT, ONE CALL below still moves the
-             call when that agent is busy. */
+             lead-notify gives a Kilimanjaro lead out on its next minute, so this
+             runs for a customer who books straight after the form. One who books
+             later already has an agent and keeps them; ONE AGENT, ONE CALL below
+             still moves the call when that agent is busy. */
           const isKili = /קילימנ|kilimanjaro/i.test(String(rec.fields?.Expedition || ''));
           if (isKili && !assignedAgent) {
             const now = new Date();
-            const turn = await nextKiliAgent(BASE, TOKEN, 'calls', now);
+            const turn = await nextKiliAgent(BASE, TOKEN, now);
             const ownersNow = busyNow.get(time)?.owners;
             const winner = callsAgentFor(turn, n => !!ownersNow?.has(agentKey(n)));
-            if (winner !== turn) console.log(`[book-slot] kili calls queue: ${turn} is on a call at ${date} ${time}, ${winner} takes it`);
+            if (winner !== turn) console.log(`[book-slot] kili queue: ${turn} is on a call at ${date} ${time}, ${winner} takes it`);
             patch['Assigned Agent'] = winner;
             patch['Assigned At']    = now.toISOString();
-            patch[KILI_ROTA_FIELD]  = kiliRotaStamp('calls', winner, now);
+            patch[KILI_ROTA_FIELD]  = kiliRotaStamp(winner, now);
             assignedAgent = winner;   // so the staff alert + invite go to the right agent
           }
 
