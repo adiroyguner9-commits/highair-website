@@ -11,7 +11,15 @@ import { firstName } from './name.js';
 import { sendWhatsAppVerified } from './followup.js';
 import { normalizePhone } from './phone.js';
 
-const AGENT_FIRST_HE = { Tomer: 'תומר', Eldar: 'אלדר', Adir: 'אדיר', Ohad: 'אוהד', Chen: 'חן' };
+/* The agent's own Hebrew first name, from {Name Hebrew} on their Agents row,
+   which every sales agent already has. The map is the fallback for a row left
+   blank, and it is what went wrong: Raz Ohana was never added to it, so two
+   customers were told "Raz מהצוות שלנו ניסה להשיג אותך" (owner, 22 Sep 2026).
+   Reading the table means a new agent reads correctly the moment their Hebrew
+   name is typed in Airtable, with no deploy. Latin never reaches a customer. */
+const AGENT_FIRST_HE = { Tomer: 'תומר', Eldar: 'אלדר', Adir: 'אדיר', Ohad: 'אוהד', Chen: 'חן', Raz: 'רז' };
+const agentFirstHe = af => String(af['Name Hebrew'] || '').trim().split(/\s+/)[0]
+  || AGENT_FIRST_HE[af.Name] || af.Name;
 /* The agent's number as a CUSTOMER should read and dial it: the local Israeli
    form, 054-788-8245. The old version keyed off a 10-digit string, which was
    the shape phones used to be stored in; once every number became canonical
@@ -73,7 +81,7 @@ export async function sendNoAnswerNotice(rec) {
   for (const a of ((await ar.json()).records || [])) {
     const af = a.fields || {};
     if (af.Type !== 'Sales' || !af.Name || !af.Phone) continue;
-    if (`${af.Name} ${af['Last Name'] || ''}`.trim() === agentFull) { agent = { he: AGENT_FIRST_HE[af.Name] || af.Name, phone: af.Phone }; break; }
+    if (`${af.Name} ${af['Last Name'] || ''}`.trim() === agentFull) { agent = { he: agentFirstHe(af), phone: af.Phone }; break; }
   }
   if (!agent) return { sent: false, skipped: `agent "${agentFull}" not found / no phone` };
 
