@@ -14,6 +14,7 @@ import { setSecurityHeaders } from './_security.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { greenFetch } from './_lib/green.js';
+import { fetchActiveLead } from './_lib/active-lead.js';   // resolve the lead's Hebrew name by phone
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for the
    Green API chatId — handles 0…, +972…, "+972 0…", and the missing-leading-0
@@ -114,7 +115,18 @@ export default async function handler(req, res) {
     // Send WhatsApp reminder
     const clientNum = toIntlIL(Phone);
     if (!clientNum) continue;
-    const message   = `היי ${firstName(Name)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
+
+    // Greet with the lead's Hebrew name (correctable in the Lead Center), not the
+    // English name frozen on the appointment at booking time — so a name fixed any
+    // time before the call shows correctly here. Falls back to the appointment name.
+    let greetName = Name;
+    try {
+      const lead = await fetchActiveLead({ base: BASE, token: TOKEN, phone: Phone, fields: ['Name'] });
+      const ln = String(lead?.fields?.Name || '').trim();
+      if (ln) greetName = ln;
+    } catch { /* keep the appointment name */ }
+
+    const message   = `היי ${firstName(greetName)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
 
     try {
       const waRes  = await greenFetch(

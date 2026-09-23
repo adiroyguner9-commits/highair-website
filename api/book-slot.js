@@ -240,7 +240,12 @@ export default async function handler(req, res) {
         if (lr.ok) lf = (await lr.json()).records?.[0]?.fields || null;
       }
       if (lf) {
-        name       = name       || (lf.Name || '').trim();
+        // The lead's Name (the Hebrew one, corrected in the Lead Center) WINS
+        // over whatever the booking form carried — same reason the Expedition
+        // below wins: an English Facebook/autofill name must never end up in the
+        // customer's confirmation. Falls back to the form name only if the lead
+        // has none.
+        name       = (lf.Name || '').trim() || name;
         email      = email      || (lf.Email || '').trim();
         phone      = phone      || canonPhone(lf.Phone);
         // The lead's own Expedition (the destination they enquired about) wins
