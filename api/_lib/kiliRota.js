@@ -1,8 +1,10 @@
 /* ── Kilimanjaro lead rota ──────────────────────────────────────────────────
    Owner, 22 Sep 2026: ONE queue for every Kilimanjaro lead, whether or not they
-   book a call and whether they came from the website or from WhatsApp: Tomer
-   Lan 4, Tomer Harush 2, Eldar Solomon 1, a strict repeating cycle ("לן 4 הרוש 2
-   אלדר 1", "ותור אחד לכל הקילי", "כולל הווצאפים").
+   book a call and whether they came from the website or from WhatsApp ("ותור
+   אחד לכל הקילי", "כולל הווצאפים"). Tomer Lan 4, Tomer Harush 2, a strict
+   repeating cycle: Eldar Solomon was the third (1 in 7) until 5 Oct 2026, when
+   the owner stopped giving him new leads altogether ("אל תשייך יותר לאלדר
+   סולומון"). The leads he was holding in New Lead went to these two.
 
    It replaces the two queues of 14 Sep (calls: Lan 4, Harush 1; everyone else,
    after a 15-minute wait: Harush 3, Eldar 1). Only about a quarter of leads book
@@ -35,7 +37,7 @@
 
 export const KILI_ROTA_FIELD = 'Kili Rota';
 
-export const KILI_ROTA = { label: 'Kili', agents: [['Tomer Lan', 4], ['Tomer Harush', 2], ['Eldar Solomon', 1]] };
+export const KILI_ROTA = { label: 'Kili', agents: [['Tomer Lan', 4], ['Tomer Harush', 2]] };
 
 export function israelMonth(when = new Date()) {
   const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit' }).formatToParts(when);
@@ -47,7 +49,7 @@ const prefixFor = (when) => `${KILI_ROTA.label} ${israelMonth(when)}:`;
 export const kiliRotaStamp = (agent, when = new Date()) => `${prefixFor(when)} ${agent}`;
 
 /* Whose turn it is, given how many decisions each agent already has this month.
-   The cycle is laid out in order (L L L L H H E). After n decisions each agent is
+   The cycle is laid out in order (L L L L H H). After n decisions each agent is
    owed as many as the first n+1 places of the cycle give them; the one owed
    most takes it. With no overflow that is exactly the cycle; after an overflow
    the agent who lost a turn is owed one and gets the next. */
