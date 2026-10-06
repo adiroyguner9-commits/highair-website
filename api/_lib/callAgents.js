@@ -58,11 +58,12 @@ const EXCLUSIVE_DEST = {
   /* Every destination added in Sep 2026 is Chen's as well (owner, 17 Sep 2026:
      "בכל היעדים החדשים מטפל חן שקד"). Same entries in the webapp's assign.js
      and in its Lead Center (src/data/leads.js). */
-  /* Elbrus and Kazbek are Chen's as well (owner, 5 Oct 2026), the day Eldar
-     Solomon stopped taking new leads: he was the only agent on them, so
-     without an owner every lead to either would have sat unassigned. */
-  elbrus:          'Chen Shaked',   // 5,642m
-  kazbek:          'Chen Shaked',   // 5,054m
+  /* Elbrus and Kazbek are Eldar Solomon's again (owner, 6 Oct 2026: "תשייך לו
+     גם קזבק ואלברוס שיטפל בהם"). They were Chen's for a day, when Eldar had
+     stopped taking new leads; naming the owner here keeps them off the general
+     rota either way. */
+  elbrus:          'Eldar Solomon',   // 5,642m
+  kazbek:          'Eldar Solomon',   // 5,054m
   'mount kenya':   'Chen Shaked',   // 4,985m
   rwenzori:        'Chen Shaked',   // 5,109m
   scardus:         'Chen Shaked',   // trek
