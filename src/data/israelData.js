@@ -1348,7 +1348,7 @@ export const ISRAEL_TRIPS = [
     tagline:    'מסלול מעגלי ירוק בלב פארק הכרמל\nמעיינות, צמחייה ונופים קרוב לחיפה',
     taglineEn:  'A green loop in the heart of Carmel Park\nsprings, woodland and views near Haifa',
     grad:    'linear-gradient(135deg, #14532d, #15803d, #052e16)',
-    img:     '',
+    img:     '/images/cards/nachal-siach.webp',
     live:            true,
     departure:       '2026-10-27',
     airtableEvents:  ['NachalSiach'],
