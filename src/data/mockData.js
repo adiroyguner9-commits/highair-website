@@ -2649,7 +2649,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
     id: 17, slug: 'sinai', name: 'Sinai High Mountains', nameHe: 'טרק להר הגבוה בסיני', country: 'Egypt', countryHe: 'מצרים', flag: '🇪🇬',
     tagHe: 'סיני',
     elev: '2642m', elevNum: 2642, days: '6 ימים', daysEn: '6 days', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 950, priceStr: '$950', continent: 'africa',
+    diff: 'Challenging', diffHe: 'אתגרי', price: 950, priceStr: '$950', continent: 'africa',
     airtableEvents: ['Sinai'],
     img: '/images/cards/sinai.webp',
     heroImg: '/images/hero/sinai.webp',
