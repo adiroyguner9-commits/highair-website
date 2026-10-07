@@ -979,14 +979,7 @@ export const NAV_ISRAEL = [
     "name": "מצוקי אבנת",
     "nameEn": "Avnat Cliffs",
     "live": true,
-    "departure": "2027-01-08"
-  },
-  {
-    "slug": "great-fin",
-    "name": "הסנפיר הגדול",
-    "nameEn": "The Great Fin",
-    "live": true,
-    "departure": "2027-01-29"
+    "departure": "2026-12-11"
   },
   {
     "slug": "gilabon-ein-tina",
@@ -1008,24 +1001,10 @@ export const NAV_ISRAEL = [
   },
   {
     "slug": "arugot",
-    "name": "נחל ערוגות",
+    "name": "מעלה עין גדי ונחל ערוגות",
     "nameEn": "Nahal Arugot",
     "live": true,
-    "departure": "2026-11-20"
-  },
-  {
-    "slug": "sodom",
-    "name": "הר סדום ונחל פרצים",
-    "nameEn": "Mount Sodom & Nahal Partzim",
-    "live": true,
-    "departure": "2026-12-04"
-  },
-  {
-    "slug": "tzeelim-mishmar",
-    "name": "מעלה צאלים ונחל משמר",
-    "nameEn": "Maale Tze'elim & Nahal Mishmar",
-    "live": true,
-    "departure": "2026-12-18"
+    "departure": "2026-11-27"
   },
   {
     "slug": "meron",
@@ -1041,10 +1020,10 @@ export const NAV_ISRAEL = [
     "departure": "2026-09-04"
   },
   {
-    "slug": "tzeelim-harduf",
-    "name": "נחל צאלים וגבי הרדוף",
-    "nameEn": "Nahal Tze'elim & Gvei Harduf",
+    "slug": "nachal-siach",
+    "name": "נחל שיח מעגלי",
+    "nameEn": "Nahal Siach Loop",
     "live": true,
-    "departure": "2027-01-15"
+    "departure": "2026-10-27"
   }
 ];
