@@ -1020,9 +1020,9 @@ export const NAV_ISRAEL = [
     "departure": "2026-09-04"
   },
   {
-    "slug": "nachal-siach",
-    "name": "נחל שיח מעגלי",
-    "nameEn": "Nahal Siach Loop",
+    "slug": "poria",
+    "name": "רכס פוריה",
+    "nameEn": "Poria Ridge",
     "live": true,
     "departure": "2026-10-27"
   }
