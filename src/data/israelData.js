@@ -1348,7 +1348,7 @@ export const ISRAEL_TRIPS = [
     tagline:    'רכס מעל הכנרת, דרום-מזרחית לטבריה\nתצפיות פתוחות לכנרת ולגליל התחתון',
     taglineEn:  'A ridge above the Sea of Galilee, southeast of Tiberias\nopen views over the Kinneret and the Lower Galilee',
     grad:    'linear-gradient(135deg, #0c4a6e, #0891b2, #083344)',
-    img:     '',
+    img:     '/images/cards/poria.webp',
     live:            true,
     departure:       '2026-10-27',
     airtableEvents:  ['Poria'],
