@@ -1429,8 +1429,9 @@ That number is not accidental. We use the Machame Route over 7 days, allowing fo
 Part of the proceeds from every expedition supports cancer patients in Israel, because for us, the mountains are also a way to give back.`,
     highlightsEn: ['Uhuru Peak 5895m', "Africa's highest mountain", 'Machame Scenic Route', 'Five climate zones'],
     included: [
-      'קיט מתנה - כובע וחולצת דרייפיט!',
       'טיפוס לקילימנג׳רו:',
+      'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למושי וחזרה + העברות פנימיות לשמורה',
       '2 לילות במלון 4 כוכבים על בסיס ארוחת בוקר במושי',
       '6 לילות באוהלים זוגיים עם מזרנים במהלך הטיפוס',
@@ -1461,8 +1462,9 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
     seasonsEn: ['January-February', 'June-October'],
     successRate: 94,
     includedEn: [
-      'Gift kit - cap and dri-fit shirt!',
       'Kilimanjaro Climb:',
+      'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Airport transfers to/from Moshi + internal transfers to the park',
       '2 nights in a 4-star hotel with breakfast in Moshi',
       '6 nights in double tents with mattresses during the climb',
@@ -1626,8 +1628,9 @@ This is Kilimanjaro without compromise - the adventure of a lifetime, done your 
 Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English guides · Cancer charity donation included`,
     highlightsEn: ['Uhuru Peak 5895m', 'Fully glatt kosher meals', 'Shabbat-aware scheduling', 'Jewish group experience'],
     included: [
-      'קיט מתנה - כובע וחולצת דרייפיט!',
       'טיפוס לקילימנג׳רו:',
+      'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למושי וחזרה + העברות פנימיות לשמורה',
       '4 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בארושה',
       '5 לילות באוהלים זוגיים עם מזרנים במהלך הטיפוס',
@@ -1658,8 +1661,9 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
     seasonsEn: ['January-February', 'June-October'],
     successRate: 94,
     includedEn: [
-      'Gift kit - cap and dri-fit shirt!',
       'Kilimanjaro Climb:',
+      'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Airport transfers to/from Moshi + internal transfers to the park',
       '4 nights in a 4-star hotel with breakfast in Arusha',
       '5 nights in double tents with mattresses during the climb',
