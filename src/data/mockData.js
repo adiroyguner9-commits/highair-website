@@ -1602,10 +1602,12 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       { day: 11, title: 'Visit to the Hadza Tribe - Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
-      { name: 'דניאל גרגוריאן', nameEn: 'Daniel Gregorian', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/1.webp' },
-      { name: 'הדס אלון',       nameEn: 'Hadas Alon',       date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/2.webp' },
-      { name: 'דויד זבונרוב',   nameEn: 'David Zvunarov',   date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/3.webp' },
-      { name: 'רועי בכרך ואיציק חכמון', nameEn: 'Roei Bakhrakh & Itzik Hakmon', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/4.jpg' },
+      { name: 'נעמי ואורן שנקר', nameEn: 'Naomi & Oren Shenker', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/1.webp' },
+      { name: 'אור דובינסקי', nameEn: 'Or Dubinsky', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/2.webp' },
+      { name: 'משפחת זוהר', nameEn: 'The Zohar Family', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'חגי ויואב זילברמן', nameEn: 'Hagai & Yoav Zilberman', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/4.webp' },
+      { name: 'נדב עוזרי', nameEn: 'Nadav Ozeri', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/5.webp' },
+      { name: 'עידן מרזוק', nameEn: 'Idan Marzouk', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/6.webp' },
     ],
     reviews: [
       { name: 'אורי בן-דוד', date: 'ספטמבר 2025', rating: 5, text: 'עלינו לפסגת קילימנג׳רו בגובה 5895 מ׳ - חוויה שאין לתאר במילים. הצוות של HighAir ליווה אותנו בכל רגע, מהרישום ועד הפסגה.', initial: 'א' },
@@ -1802,10 +1804,12 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
       { day: 12, title: 'Visit to the Hadza Tribe - Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
-      { name: 'דניאל גרגוריאן', nameEn: 'Daniel Gregorian', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/1.webp' },
-      { name: 'הדס אלון',       nameEn: 'Hadas Alon',       date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/2.webp' },
-      { name: 'דויד זבונרוב',   nameEn: 'David Zvunarov',   date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/3.webp' },
-      { name: 'רועי בכרך ואיציק חכמון', nameEn: 'Roei Bakhrakh & Itzik Hakmon', date: 'יוני 2026', dateEn: 'June 2026', img: '/images/summit/kilimanjaro/4.jpg' },
+      { name: 'נעמי ואורן שנקר', nameEn: 'Naomi & Oren Shenker', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/1.webp' },
+      { name: 'אור דובינסקי', nameEn: 'Or Dubinsky', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/2.webp' },
+      { name: 'משפחת זוהר', nameEn: 'The Zohar Family', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'חגי ויואב זילברמן', nameEn: 'Hagai & Yoav Zilberman', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/4.webp' },
+      { name: 'נדב עוזרי', nameEn: 'Nadav Ozeri', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/5.webp' },
+      { name: 'עידן מרזוק', nameEn: 'Idan Marzouk', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/6.webp' },
     ],
     reviews: [
       { name: 'משה כץ', date: 'אוגוסט 2025', rating: 5, text: 'קילימנג׳רו עם שמירת מסורת - חוויה ייחודית שלא ציפיתי שאפשרית. HighAir ידעו לשמור על כל הפרטים החשובים לנו.', initial: 'מ' },
