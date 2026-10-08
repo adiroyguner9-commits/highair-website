@@ -1353,7 +1353,7 @@ export const ISRAEL_TRIPS = [
     departure:       '2026-10-27',
     airtableEvents:  ['NachalSiach'],
     groupCapacity:   12,
-    paymentUrl:      '',
+    paymentUrl:      'https://pay.grow.link/ODI3ODY~1cfb46c514925f596e79e5e23e3c96bf-NDA5OTc1Mg',
     desc:    'נחל שיח הוא אחד המסלולים הירוקים והיפים בפארק הכרמל, במרחק קצר מחיפה. המסלול המעגלי עובר בין מעיינות, בריכות קטנות וצמחייה ים-תיכונית סבוכה, עם נקודות תצפית יפות לאורך הדרך. מסלול יומי מהנה באורך כ-8 ק"מ, מתאים למיטיבי לכת.',
     descEn:  'Nahal Siach is one of the greenest and most beautiful routes in Carmel Park, a short drive from Haifa. The loop winds between springs, small pools and dense Mediterranean woodland, with lovely viewpoints along the way. A pleasant ~8 km day hike for experienced hikers.',
     included: ISRAEL_DAY_INCLUDED,
