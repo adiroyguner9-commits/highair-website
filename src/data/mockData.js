@@ -33,6 +33,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     highlightsEn: ['Mytikas Summit 2917m', 'Prionia forests', 'Ancient Greek mythology', 'Aegean Sea panorama'],
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בליטוחורו וחזרה',
       '3 לילות במלון 3 כוכבים על בסיס ארוחת בוקר בליטחורו',
       'לינה בבקתות בחדרים משותפים לכל אורך הטיפוס',
@@ -53,6 +54,7 @@ Join us on this incredible adventure to the Peak of the Gods and make a meaningf
     successRate: 98,
     includedEn: [
       'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Thessaloniki airport to Litochoro hotel',
       '3 nights in a 3-star hotel on B&B basis in Litochoro',
       'Accommodation in mountain huts (shared rooms) throughout the climb',
@@ -153,6 +155,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     highlightsEn: ['Jezerca Peak 2656m', 'Lake Komani boat ride', 'Albania-Kosovo-Montenegro borders', 'Local family guesthouses'],
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בשקודרה וחזרה',
       '2 לילות במלון 3 כוכבים על בסיס ארוחת בוקר בשקודרה',
       'לינה בבקתות בחדרים משותפים לכל אורך הטרק',
@@ -176,6 +179,7 @@ Join us for a once-in-a-lifetime adventure, and make a meaningful contribution t
     ],
     includedEn: [
       'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Tirana airport to Shkodra hotel',
       '2 nights in a 3-star hotel on B&B basis in Shkodra',
       'Accommodation in guesthouses (shared rooms) throughout the trek',
@@ -298,6 +302,7 @@ Join us for a cross border journey along the Scardus Ridge, and take a meaningfu
     highlightsEn: [],
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה בטירנה ובחזרה',
       'לינה בבקתת הרים, מלונות וגסטהאוסים לאורך המסלול',
       '3 ארוחות ביום לכל אורך הטרק',
@@ -318,6 +323,7 @@ Join us for a cross border journey along the Scardus Ridge, and take a meaningfu
     ],
     includedEn: [
       'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from and to Tirana airport',
       'Mountain hut, hotels and guesthouses throughout the route',
       '3 meals per day throughout the trek',
@@ -470,6 +476,7 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
     highlightsEn: ['Ras Bwahit 4430m', 'Gelada baboons', 'Erta Ale active lava lake', 'Prehistoric Danakil landscape'],
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון באדיס אבבה וחזרה',
       'העברות פנימיות לאורך כל הטרק',
       'ג׳יפים 4x4 מרווחים עם מזגן (עד 4 אנשים בג׳יפ)',
@@ -487,6 +494,7 @@ Join us on this incredible Ethiopian adventure and make a meaningful contributio
     ],
     includedEn: [
       'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Addis Ababa airport to hotel',
       'Domestic transfers throughout the trek',
       'Spacious 4x4 jeeps with A/C (up to 4 people per jeep)',
@@ -709,6 +717,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     ],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון + העברות פנימיות',
       '2 לילות על בסיס פנסיון מלא במלון בסטפנצמינדה',
       'לילה אחד על בסיס ארוחת בוקר במלון בטביליסי',
@@ -725,6 +734,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to airport to hotel + internal transfers',
       '2 nights full board at hotel in Stepantsminda',
       '1 night B&B at hotel in Tbilisi',
@@ -795,6 +805,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     highlightsEn: ['Larkya La Pass 5106m', 'Ancient Tibetan villages', 'Buddhist monasteries', 'Manaslu 8163m views'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'העברות פנימיות בג׳יפים',
       '3 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -819,6 +830,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     successRate: 91,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Internal jeep transfers',
       '3 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -961,6 +973,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     highlightsEn: ['Everest Base Camp 5364m', 'Gokyo Lakes', 'Everest panorama', 'Namche Bazaar market'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'טיסות פנים במסוק מקטמנדו ללוקלה וחזרה',
       '3 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -986,6 +999,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     successRate: 93,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Helicopter flights Kathmandu to Lukla and back',
       '3 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -1128,6 +1142,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     highlightsEn: ['Thorong La Pass 5416m', 'Annapurna panoramas', 'Kali Gandaki gorge', 'Traditional Nepalese villages'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'העברות פנימיות בג׳יפים',
       'טיסת פנים במטוס מפוקארה לקטמנדו',
@@ -1147,6 +1162,7 @@ This 14-day adventure takes you through traditional Gurung and Manangi villages,
     ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Internal jeep transfers',
       'Domestic flight from Pokhara to Kathmandu',
@@ -1292,6 +1308,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     highlightsEn: ['Elbrus Summit 5642m', "Europe's highest peak", 'Caucasus panoramas', 'Cable car ascent'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בצ׳גט וחזרה',
       '3 לילות במלון 3 כוכבים בצ׳גט בגובה 2100 מ׳',
       '2 לילות בבקתת הרים ״Cheeper Azau״ בגובה 3000 מ׳',
@@ -1314,6 +1331,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     successRate: 85,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to airport to Cheget hotel + internal transfers',
       '3 nights in a 3-star hotel in Cheget at 2100m',
       '2 nights at "Cheeper Azau" mountain hut at 3000m',
@@ -1829,6 +1847,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     highlightsEn: ['Lobuche East 6119m', 'Everest region views', 'Combined with EBC trek', 'First Himalayan peak'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'טיסות פנים במטוס מקטמנדו ללוקלה וחזרה',
       '3 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -1854,6 +1873,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     groupCapacity: 12,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Domestic flights Kathmandu–Lukla–Kathmandu',
       '3 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -2004,6 +2024,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     highlightsEn: ['Island Peak 6189m', 'Himalayan glacier travel', 'Everest panorama', 'Can combine with EBC'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'טיסות פנים במטוס מקטמנדו ללוקלה וחזרה',
       '3 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -2029,6 +2050,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     groupCapacity: 12,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Domestic flights Kathmandu–Lukla–Kathmandu',
       '3 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -2179,6 +2201,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     highlightsEn: ["Mera Peak 6476m", "View of 5 eight-thousanders", "Nepal's highest trekking peak", "Non-technical ascent"],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'טיסות פנים במטוס מקטמנדו ללוקלה וחזרה',
       '3 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -2204,6 +2227,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     groupCapacity: 12,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Domestic flights Kathmandu–Lukla–Kathmandu',
       '3 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -2349,6 +2373,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     highlightsEn: ['Aconcagua 6962m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'מלווה ישראלי צמוד (חן שקד - מטפס הרים מקצועי)',
       'העברות הלוך ושוב משדה התעופה למלון במנדוזה',
       'העברות פנימיות ממנדוזה - פואנטה דל אינקה - כניסה לפארק',
@@ -2380,6 +2405,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     successRate: 75,
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Dedicated Israeli escort (Chen Shaked - professional mountaineer)',
       'Round-trip transfers from/to Mendoza airport to hotel',
       'Internal transfers Mendoza - Puente del Inca - park entrance',
@@ -2520,6 +2546,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
     highlightsEn: ['Lenin Peak 7134m', 'Above 7000 meters', 'Multiple high camps', 'Pamir panorama'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון + העברות פנימיות',
       '2 לילות על בסיס ארוחת בוקר במלון באוש',
       'לינה באוהלים לכל אורך הטיפוס',
@@ -2544,6 +2571,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
     airtableEvents: ['Lenin_Peak'],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Airport-to-hotel transfers + internal transfers',
       '2 nights on B&B basis at a hotel in Osh',
       'Tent accommodation throughout the climb',
@@ -2697,6 +2725,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     highlightsEn: ['Jebel Katherina 2642m', 'Mount Sinai & St. Catherine\'s Monastery', 'The Blue Pool', 'Blue Hole snorkeling'],
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'הסעה מתחנה מרכזית אילת למעבר גבול טאבה',
       'הסעות מגבול טאבה ובחזרה',
       '4 לילות בבוסתן בהרי סיני על בסיס פנסיון מלא',
@@ -2713,6 +2742,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     ],
     includedEn: [
       'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Transfer from Eilat central station to the Taba border',
       'Transfers from the Taba border and back',
       '4 nights in Bedouin mountain orchards (bustans) on full board',
@@ -2831,8 +2861,8 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     nameEn: 'Safari 3 Days',
     descEn: `Three days in northern Tanzania covering the two reserves that made the region what it is: Tarangire, with its elephant herds and baobab trees, and the Ngorongoro Crater, a complete and enclosed ecosystem inside a volcanic caldera. The third day is given to the Hadzabe, one of the last hunter-gatherer communities in Africa. The safari is entirely private: your own jeep, your own driver-guide, and a pace you set. This is also the programme that runs alongside our Kilimanjaro groups, for anyone who wants to finish the climb with a few days in the field.`,
     highlightsEn: ['Tarangire National Park', 'Ngorongoro Crater', 'The Hadzabe at Lake Eyasi', 'Nights in Karatu'],
-    included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'מכשיר לוויני של מגנוס (אחד לקבוצה)', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
-    includedEn: ['Gift kit - cap and dri-fit shirt!', 'A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Magnus satellite device (one per group)', 'Transfers to and from Kilimanjaro International Airport'],
+    included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'אזור אישי לכל לקוח באפליקציית HighAir', 'ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'מכשיר לוויני של מגנוס (אחד לקבוצה)', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
+    includedEn: ['Gift kit - cap and dri-fit shirt!', 'A personal area for every customer in the HighAir app', 'A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Magnus satellite device (one per group)', 'Transfers to and from Kilimanjaro International Airport'],
     notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'ביטוח ממשלתי מקומי - 44$ לאדם', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
     notIncludedEn: ['International flights', 'Tanzania visa', 'Travel insurance', 'Local government insurance - $44 per person', 'Tips for the driver-guide and lodge staff', 'Alcohol and drinks outside of meals', 'Personal expenses', 'Paid extras such as a hot-air balloon flight'],
     safety: ['בשמורות אסור לצאת מהרכב אלא בנקודות המסומנות לכך, וההנחיה הזאת אינה נתונה לפרשנות.','הנהג-המדריך אחראי על המרחק מהחיות. הוא זה שקובע כמה מתקרבים ומתי ממשיכים.','אין להאכיל חיות ואין להוציא איברים מהרכב בזמן נסיעה.','ביטוח נסיעות הוא תנאי ליציאה, ועליו לכסול פינוי רפואי.','בקמפים שבתוך השמורות התנועה בשטח בשעות החשיכה נעשית בליווי צוות הקמפ בלבד.'],
@@ -2886,8 +2916,8 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     nameEn: 'Safari 5 Days',
     descEn: `Five days across the whole of northern Tanzania, including both regions of the Serengeti. It starts in Tarangire, continues to the central Serengeti where predator density is highest year round, and climbs to the northern Serengeti, where the herds cross the Mara River. From there it drops into the Ngorongoro Crater and ends with the Hadzabe at Lake Eyasi. Nights are inside the reserves themselves, which is what makes it possible to be out at the hours when things actually happen. The safari is entirely private and the departure date is set by your calendar.`,
     highlightsEn: ['Central and northern Serengeti', 'Ngorongoro Crater', 'Tarangire National Park', 'The Hadzabe at Lake Eyasi'],
-    included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'מכשיר לוויני של מגנוס (אחד לקבוצה)', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
-    includedEn: ['Gift kit - cap and dri-fit shirt!', 'A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Magnus satellite device (one per group)', 'Transfers to and from Kilimanjaro International Airport'],
+    included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'אזור אישי לכל לקוח באפליקציית HighAir', 'ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'מכשיר לוויני של מגנוס (אחד לקבוצה)', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
+    includedEn: ['Gift kit - cap and dri-fit shirt!', 'A personal area for every customer in the HighAir app', 'A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Magnus satellite device (one per group)', 'Transfers to and from Kilimanjaro International Airport'],
     notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'ביטוח ממשלתי מקומי - 44$ לאדם', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
     notIncludedEn: ['International flights', 'Tanzania visa', 'Travel insurance', 'Local government insurance - $44 per person', 'Tips for the driver-guide and lodge staff', 'Alcohol and drinks outside of meals', 'Personal expenses', 'Paid extras such as a hot-air balloon flight'],
     safety: ['בשמורות אסור לצאת מהרכב אלא בנקודות המסומנות לכך, וההנחיה הזאת אינה נתונה לפרשנות.','הנהג-המדריך אחראי על המרחק מהחיות. הוא זה שקובע כמה מתקרבים ומתי ממשיכים.','אין להאכיל חיות ואין להוציא איברים מהרכב בזמן נסיעה.','ביטוח נסיעות הוא תנאי ליציאה, ועליו לכסול פינוי רפואי.','בקמפים שבתוך השמורות התנועה בשטח בשעות החשיכה נעשית בליווי צוות הקמפ בלבד.'],
@@ -2943,8 +2973,8 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     nameEn: 'Safari 7 Days',
     descEn: `Seven days in northern Tanzania, our longest route. More days inside the reserves, fewer hours on the road each day, and real time to stay with whatever is unfolding in the field instead of rushing to the next stop. The safari is entirely private: your own jeep, your own driver-guide, and a departure date set by your calendar. The detailed day-by-day itinerary will be published here shortly.`,
     highlightsEn: ['[TO FILL] Reserve 1', '[TO FILL] Reserve 2', '[TO FILL] Highlight 3', '[TO FILL] Highlight 4'],
-    included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'מכשיר לוויני של מגנוס (אחד לקבוצה)', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
-    includedEn: ['Gift kit - cap and dri-fit shirt!', 'A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Magnus satellite device (one per group)', 'Transfers to and from Kilimanjaro International Airport'],
+    included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'אזור אישי לכל לקוח באפליקציית HighAir', 'ג׳יפ 4x4 פרטי עם גג נפתח, עד 6 נוסעים', 'נהג-מדריך שטח מוסמך דובר אנגלית', 'כל דמי הכניסה ואגרות השימור לשמורות', 'לינה בלודג׳ים ובקמפים לפי המסלול', 'ארוחות לפי המסלול, כולל ארוחות צהריים ארוזות בשטח', 'מים לשתייה בג׳יפ בכל ימי הספארי', 'מכשיר לוויני של מגנוס (אחד לקבוצה)', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
+    includedEn: ['Gift kit - cap and dri-fit shirt!', 'A personal area for every customer in the HighAir app', 'A private 4x4 with a pop-up roof, up to 6 passengers', 'A licensed English-speaking field guide', 'All park entry and conservation fees', 'Lodges and camps as per the itinerary', 'Meals as per the itinerary, including packed lunches in the field', 'Drinking water in the jeep on every safari day', 'Magnus satellite device (one per group)', 'Transfers to and from Kilimanjaro International Airport'],
     notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'ביטוח ממשלתי מקומי - 44$ לאדם', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
     notIncludedEn: ['International flights', 'Tanzania visa', 'Travel insurance', 'Local government insurance - $44 per person', 'Tips for the driver-guide and lodge staff', 'Alcohol and drinks outside of meals', 'Personal expenses', 'Paid extras such as a hot-air balloon flight'],
     safety: ['בשמורות אסור לצאת מהרכב אלא בנקודות המסומנות לכך, וההנחיה הזאת אינה נתונה לפרשנות.','הנהג-המדריך אחראי על המרחק מהחיות. הוא זה שקובע כמה מתקרבים ומתי ממשיכים.','אין להאכיל חיות ואין להוציא איברים מהרכב בזמן נסיעה.','ביטוח נסיעות הוא תנאי ליציאה, ועליו לכסול פינוי רפואי.','בקמפים שבתוך השמורות התנועה בשטח בשעות החשיכה נעשית בליווי צוות הקמפ בלבד.'],
@@ -3006,6 +3036,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
        Expedition plan (Peak 15 Adventure), phrased in HighAir's voice. */
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'הסעות פרטיות מקטמנדו לתחילת הטרק',
       'טיסה במסוק משותף בסיום המשלחת מסמה גאון',
@@ -3029,6 +3060,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
     ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Private transport from Kathmandu to the trailhead',
       'Shared helicopter flight out from Sama Gaun at the end of the expedition',
@@ -3153,6 +3185,7 @@ The climb requires good fitness, previous technical climbing experience and accl
 Join us on a journey to one of the most beautiful peaks in the world and take a meaningful part in the fight against cancer!`,
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'טיסות פנים במטוס מקטמנדו ללוקלה וחזרה',
       '4 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -3174,6 +3207,7 @@ Join us on a journey to one of the most beautiful peaks in the world and take a 
     ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Domestic flights Kathmandu–Lukla–Kathmandu',
       '4 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -3298,6 +3332,7 @@ The climb requires good fitness, previous mountaineering experience and acclimat
 Join us on a journey to your first 7000m peak and take a meaningful part in the fight against cancer!`,
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון בקטמנדו וחזרה',
       'הסעות פרטיות מקטמנדו לתחילת הטרק וחזרה',
       '4 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בקטמנדו',
@@ -3318,6 +3353,7 @@ Join us on a journey to your first 7000m peak and take a meaningful part in the 
     ],
     includedEn: [
       'Gift kit - cap, dri-fit shirt and 100L duffel bag!',
+      'A personal area for every customer in the HighAir app',
       'Transfers from/to Kathmandu airport to hotel',
       'Private transport from Kathmandu to the trailhead and back',
       '4 nights in a 4-star hotel on B&B basis in Kathmandu',
@@ -3441,6 +3477,7 @@ The climb is non-technical and suited to trekkers in good physical condition, bu
 Join us on a journey to Point Lenana and take a meaningful part in the fight against cancer!`,
     included: [
       'קיט מתנה - כובע וחולצת דרייפיט!',
+      'אזור אישי לכל לקוח באפליקציית HighAir',
       'העברות משדה התעופה למלון + העברות פנימיות לשמורה',
       '2 לילות על בסיס ארוחת בוקר במלון בניירובי',
       'מדריכים מקומיים מקצועיים דוברי אנגלית',
@@ -3456,6 +3493,7 @@ Join us on a journey to Point Lenana and take a meaningful part in the fight aga
     ],
     includedEn: [
       'Gift kit - cap and dri-fit shirt!',
+      'A personal area for every customer in the HighAir app',
       'Airport-hotel transfers + internal transfers to the reserve',
       '2 nights on a B&B basis at a hotel in Nairobi',
       'Professional local English-speaking guides',
