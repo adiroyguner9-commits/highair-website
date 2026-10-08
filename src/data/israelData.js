@@ -1367,6 +1367,7 @@ export const ISRAEL_TRIPS = [
         desc: ISRAEL_DAY_SCHEDULE,
         distance:      '8 ק"מ',
         duration:      '4–5 שעות',
+        elevationGain: '+300 מ׳ עלייה',
       },
     ],
     itineraryEn: [
@@ -1376,6 +1377,7 @@ export const ISRAEL_TRIPS = [
         desc: ISRAEL_DAY_SCHEDULE_EN,
         distance:      '8 km',
         duration:      '4–5 hours',
+        elevationGain: '+300m gain',
       },
     ],
     dates: [],
