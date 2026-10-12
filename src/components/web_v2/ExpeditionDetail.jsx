@@ -506,7 +506,7 @@ export default function ExpeditionDetail() {
 
     /* Step 1: fetch ALL Groups pages for this expedition */
     const fetchAllGroups = async () => {
-      const base = `/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity`;
+      const base = `/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden`;
       let allRecords = [];
       let offset = null;
       do {
@@ -523,9 +523,20 @@ export default function ExpeditionDetail() {
       .then(async allRecords => {
         const groupsData = { records: allRecords };
 
-        /* Filter to groups matching this expedition's events */
+        /* Filter to groups matching this expedition's events.
+
+           A group with Hidden checked in Airtable is a private departure: one
+           family, or four friends who took the mountain for themselves. It may
+           not appear here at all, and "here" is two things, not one - the dates
+           list the visitor reads, and the Event JSON-LD built from liveGroups
+           further down, which is what Google and the AI engines answer from.
+           Onboarding and the destination picker have honoured the checkbox
+           since the first private climb; this list never even asked Airtable
+           for the field (owner, 12 Oct 2026: a private Kilimanjaro group
+           "שלא יהיה חשוף לאנשים"). */
         const events = new Set((exp.airtableEvents || []).map(e => e.toLowerCase()));
         const relevant = (groupsData.records || []).filter(rec => {
+          if (rec.fields['Hidden']) return false;
           const ev = (rec.fields['Event'] || '').toLowerCase();
           return events.has(ev);
         });

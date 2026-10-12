@@ -350,6 +350,8 @@ export default function AnnualPlan() {
         returnDate,
         count:      counts[groupName] || 0,
         capacity:   rec.fields['Capacity'] || null,
+        /* A private departure, world or Israel: never on a public plan. */
+        hidden:     !!rec.fields['Hidden'],
         /* Israel-specific embedded fields (from IsraelGroups table) */
         _isIsrael:  isIsrael,
         _nameHe:    rec.fields['Name']       || '',
@@ -385,8 +387,8 @@ export default function AnnualPlan() {
     }
 
     Promise.all([
-      fetchAllRecords(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&pageSize=100`),
-      fetchAllRecords(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient&pageSize=100`),
+      fetchAllRecords(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&pageSize=100`),
+      fetchAllRecords(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient&pageSize=100`),
       fetchAllRecords(`/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`),
     ]).then(([worldRecords, israelRecords, custRecords]) => {
 
@@ -400,6 +402,7 @@ export default function AnnualPlan() {
       /* Process world groups */
       const worldGroups = worldRecords
         .map(rec => normaliseGroup(rec, false, counts))
+        .filter(g => !g.hidden)
         .filter(dateFilter)
         .filter(g => !g.eventName.toLowerCase().includes('kosher'))
         .filter(g => !g.eventName.toLowerCase().includes('safari'))
@@ -408,6 +411,7 @@ export default function AnnualPlan() {
       /* Process Israel groups */
       const israelGroups = israelRecords
         .map(rec => normaliseGroup(rec, true, counts))
+        .filter(g => !g.hidden)
         /* Israel day-treks can be joined right up to the trip itself — no
            flights or visas to arrange — so they show until their own day,
            not the 14-day advance cutoff the worldwide expeditions use. */
