@@ -67,6 +67,20 @@ const RESPONSE_FIELDS = {
   ]),
 };
 
+/* Tables whose private rows never leave this proxy.
+
+   The Hidden checkbox on a Groups row marks a departure that belongs to one
+   family or one closed group. No public surface needs that row, so it is
+   dropped here rather than trusted to every page remembering to filter it:
+   the Kilimanjaro dates list did not, and offered a private climb to
+   strangers until 12 Oct 2026. The row is also the only place the price and
+   the seat count live, and this endpoint is readable by anyone.
+
+   IsraelGroups is deliberately NOT in this set. A hidden Israel trek is
+   reachable by direct link on purpose, and its own page reads its dates from
+   this table. */
+const HIDE_PRIVATE_ROWS = new Set(['Groups']);
+
 // filterByFormula is only forwarded for tables where the client legitimately needs it
 // (Customers — group member count). It is blocked for all other tables.
 const TABLES_ALLOWING_FORMULA = new Set(['Customers']);
@@ -151,6 +165,13 @@ export default async function handler(req, res) {
   if (![...params.keys()].some(k => k === 'fields[]')) {
     for (const f of allowedFields) params.append('fields[]', f);
   }
+  /* Hidden decides whether a row may be served at all, so Airtable has to
+     return it even when the page asked for a narrower set: a response without
+     the field cannot be filtered on it, and every row would look public. The
+     projection further down removes it again unless the page asked for it. */
+  if (HIDE_PRIVATE_ROWS.has(table) && !params.getAll('fields[]').includes('Hidden')) {
+    params.append('fields[]', 'Hidden');
+  }
 
   const path = recordId
     ? `https://api.airtable.com/v0/${BASE}/${encodeURIComponent(table)}/${recordId}`
@@ -167,10 +188,16 @@ export default async function handler(req, res) {
       console.warn(`[at] upstream ${upstream.status} for GET ${table}`);
       return res.status(upstream.status).json({ error: 'Upstream error' });
     }
-    // Project the response to the field whitelist (defence in depth)
+    /* Private rows go first, while Hidden is still on the record: the
+       projection below strips it whenever the client did not ask for it. */
+    const isPrivate = r => !!(r?.fields || {})['Hidden'];
     if (data?.records) {
+      if (HIDE_PRIVATE_ROWS.has(table)) data.records = data.records.filter(r => !isPrivate(r));
       data.records = data.records.map(r => projectRecord(r, allowedFields));
     } else if (data?.id && data?.fields) {
+      if (HIDE_PRIVATE_ROWS.has(table) && isPrivate(data)) {
+        return res.status(404).json({ error: 'Not found' });
+      }
       Object.assign(data, projectRecord(data, allowedFields));
     }
     return res.status(200).json(data);
