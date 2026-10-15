@@ -24,6 +24,11 @@ export default async function handler(req, res) {
   const body = typeof req.body === 'string' ? (() => { try { return JSON.parse(req.body); } catch { return {}; } })() : (req.body || {});
   const leadId = String(body.leadId || '').trim();
   if (!leadId) return res.status(400).json({ error: 'leadId required' });
+  /* A human pressing "retry" after a send that Green refused. The owner's rule
+     is that a failed message never goes out again by itself and only on a
+     deliberate retry (3 Oct 2026), so the claimed flag keeps the automations
+     quiet and this is the one way past it. */
+  const retry = body.retry === true;
 
   try {
     // Global messaging pause (owner restaging the pipeline) — skip the instant send,
@@ -40,7 +45,7 @@ export default async function handler(req, res) {
     const f = rec.fields || {};
 
     if (f.Stage !== 'Deposit A Paid')      return res.status(200).json({ skipped: 'not a closing' });
-    if (f['Deposit A Notified'] === true)  return res.status(200).json({ skipped: 'already sent' });
+    if (f['Deposit A Notified'] === true && !retry) return res.status(200).json({ skipped: 'already sent' });
 
     const out = await sendDepositWelcome(rec);
     return res.status(200).json({ sent: true, ...out });

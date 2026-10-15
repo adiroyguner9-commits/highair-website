@@ -11,20 +11,14 @@
  */
 import crypto from 'crypto';
 import { firstName } from './name.js';   // WhatsApp greeting — first name only
+/* The honest send: it reads Green's answer and only reports success on a real
+   idMessage. This file used to assume success, which is how a closing could be
+   recorded as announced while the customer was told nothing (see below). */
+import { sendWhatsAppVerified } from './followup.js';
 
 const FB_PIXEL_ID   = '293738523242679';
-import { greenFetch } from './green.js';
 const PERSONAL_AREA = 'https://app.highair-expeditions.com/register';
 
-/* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
-function toIntlIL(raw) {
-  let d = String(raw || '').replace(/\D/g, '');
-  if (!d) return '';
-  if (d.startsWith('972') && d[3] === '0') d = '972' + d.slice(4);
-  else if (d.startsWith('0')) d = '972' + d.slice(1);
-  else if (d.length === 9 && d[0] === '5') d = '972' + d;
-  return d;
-}
 
 export function msgDepositA(name) {
   return `היי ${firstName(name)}, איזה כיף, התשלום התקבל בהצלחה! 🥳\n\n`
@@ -91,7 +85,6 @@ async function fireFbPurchase(f, eventId) {
    cron tick / a second instant call. Returns what actually happened. */
 export async function sendDepositWelcome(rec) {
   const BASE = process.env.AIRTABLE_BASE, TOKEN = process.env.AIRTABLE_TOKEN;
-  const GA_INSTANCE = process.env.GREENAPI_INSTANCE, GA_TOKEN = process.env.GREENAPI_TOKEN;
   const f = rec.fields || {};
 
   const claim = await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}/${rec.id}`, {
@@ -117,17 +110,18 @@ export async function sendDepositWelcome(rec) {
     return { fbFired, waSent: false, skippedWa: 'israel/sinai destination' };
   }
 
-  let waSent = false;
-  const chatId = toIntlIL(f.Phone);
-  if (chatId && GA_INSTANCE && GA_TOKEN) {
-    try {
-      await greenFetch('sendMessage', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chatId: `${chatId}@c.us`, message: msgDepositA(f.Name) }),
-      });
-      waSent = true;
-    } catch (e) { console.error('[deposit-welcome] wa:', e.message); }
-  }
+  /* waSent used to be set right after the request, without reading the reply.
+     greenFetch only throws when the CONNECTION fails, so a 400 (bad number), a
+     401 (token) or a quota refusal all came back as "sent": the card got its
+     "Deposit-welcome WhatsApp sent" line, the agent got a success toast, and the
+     customer who had just paid got nothing (owner, 15 Oct 2026, on Boaz
+     Hornstein: "העברתי מישו לשולם ... והוא לא קיבל וואטסאפ"). Every other
+     sender in this repo already checked for an idMessage; this one, the message
+     that greets a paying customer, was the only one that did not.
+     The error is returned as well as logged, so the Lead Center can say what
+     Green actually answered instead of claiming a send that never happened. */
+  const sent = await sendWhatsAppVerified(f.Phone, msgDepositA(f.Name));
+  if (!sent.ok) console.error('[deposit-welcome] wa:', sent.error);
 
-  return { fbFired, waSent };
+  return { fbFired, waSent: sent.ok, ...(sent.ok ? {} : { waError: sent.error }) };
 }
