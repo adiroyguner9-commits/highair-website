@@ -160,14 +160,14 @@ export default async function handler(req, res) {
      even on a 4xx/5xx — so a rate limit, a spam block or a number that isn't on
      WhatsApp all looked like success, and the caller happily ticked "Sent". Green
      answers 200 + {idMessage} on a real send; treat anything else as a failure. */
-  const sendWA = async (phone, message) => {
+  const sendWA = async (phone, message, meta = null) => {
     const chatId = toIntlIL(phone);
     if (!chatId) return { ok: false, error: `unusable phone "${phone}"` };
     try {
       const r = await greenFetch('sendMessage', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatId: `${chatId}@c.us`, message }),
-      });
+      }, '', meta);
       const d = await r.json().catch(() => ({}));
       if (r.ok && d?.idMessage) return { ok: true, id: d.idMessage };
       return { ok: false, error: `green ${r.status} ${JSON.stringify(d).slice(0, 140)}` };
@@ -240,7 +240,7 @@ export default async function handler(req, res) {
       }
       const claim = await patchLead(rec.id, { 'Nudge Sent': true });   // claim FIRST — and only send if the claim actually stuck
       if (!claim.ok) { result.errors.push('nudge claim failed ' + rec.id); continue; }   // failed claim + ok send would re-nudge next tick
-      const sent = await sendWA(f.Phone, msgNudge(f.Name, f.Expedition, code));
+      const sent = await sendWA(f.Phone, msgNudge(f.Name, f.Expedition, code), { kind: 'nudge', leadId: rec.id });
       if (sent.ok) { result.nudge++; continue; }
       await patchLead(rec.id, { 'Nudge Sent': false });   // release it — next run retries
       result.nudgeFailed++;
@@ -292,7 +292,7 @@ export default async function handler(req, res) {
         n2ThisRun++;
         const claim = await patchLead(rec.id, { 'Nudge 2 Sent': true });   // claim FIRST
         if (!claim.ok) { result.errors.push('nudge2 claim failed ' + rec.id); continue; }
-        const sent = await sendWA(f.Phone, msgNudge2(f.Name, f.Expedition));
+        const sent = await sendWA(f.Phone, msgNudge2(f.Name, f.Expedition), { kind: 'nudge_2', leadId: rec.id });
         if (sent.ok) { result.nudge2++; continue; }
         await patchLead(rec.id, { 'Nudge 2 Sent': false });   // release — next run retries
         result.nudge2Failed++;
@@ -372,7 +372,7 @@ export default async function handler(req, res) {
       // silently refused — the customer heard nothing and we thought we'd written.
       const claim = await patchLead(rec.id, { 'Follow-Up Sent': true });
       if (!claim.ok) { result.errors.push('followUp claim failed ' + rec.id); continue; }
-      const sent = await sendWA(f.Phone, msgFollowUp(f.Name, f.Expedition));
+      const sent = await sendWA(f.Phone, msgFollowUp(f.Name, f.Expedition), { kind: 'follow_up', leadId: rec.id });
       if (sent.ok) {
         // The message went out → the card belongs in "Follow-Up Sent".
         if (f.Stage !== 'Follow-Up Sent') await patchLead(rec.id, { 'Stage': 'Follow-Up Sent' });

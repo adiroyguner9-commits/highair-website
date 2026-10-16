@@ -12,6 +12,8 @@
    sent twice); any other error is thrown as before. The host that worked is
    remembered for the rest of the warm instance. GREENAPI_URL, if set, goes
    first of all. The webapp has the same list in api/_lib/wa.js. */
+import { GREEN_SEND_METHODS, recordGreenSend } from './outbox.js';
+
 const CONNECT_FAILURES = new Set(['UND_ERR_CONNECT_TIMEOUT', 'ENOTFOUND', 'EAI_AGAIN', 'ECONNREFUSED', 'EHOSTUNREACH', 'ENETUNREACH']);
 let greenHost = '';
 
@@ -25,21 +27,43 @@ function greenHosts() {
   ].filter(Boolean).map(h => String(h).replace(/\/+$/, '')))];
 }
 
-export async function greenFetch(method, init, query = '') {
+/* Every send leaves a row in the Outbox with Green's real answer (./outbox.js).
+   Awaited here, unlike the webapp: this repo has no waitUntil, and none of its
+   sends has a person waiting on the far side (crons, and the Lead Center's
+   fire-and-forget notices), so a bounded log write costs nobody anything and
+   cannot be frozen half-written when the function ends. */
+async function logSend(args) {
+  if (!GREEN_SEND_METHODS.has(args.method)) return;
+  await recordGreenSend(args).catch(() => {});
+}
+
+/* `meta` is optional { kind, leadId, source } and only labels the Outbox row. */
+export async function greenFetch(method, init, query = '', meta = null) {
   const hosts = greenHosts();
   const first = hosts.includes(greenHost) ? greenHost : hosts[0];
+  const tag = { source: 'website', ...(meta || {}) };
   let last;
   for (const host of [first, ...hosts.filter(h => h !== first)]) {
+    /* Only the request itself sits in the try. The log is written outside it,
+       so nothing about logging can ever look like a connection failure and send
+       the same message again through the next host. */
+    let res;
     try {
-      const res = await fetch(`${host}/waInstance${process.env.GREENAPI_INSTANCE}/${method}/${process.env.GREENAPI_TOKEN}${query}`, init);
-      greenHost = host;
-      return res;
+      res = await fetch(`${host}/waInstance${process.env.GREENAPI_INSTANCE}/${method}/${process.env.GREENAPI_TOKEN}${query}`, init);
     } catch (e) {
       last = e;
       const code = e?.cause?.code || e?.code;
-      if (!CONNECT_FAILURES.has(code)) throw e;   // it may have reached Green: never send twice
+      if (!CONNECT_FAILURES.has(code)) {             // it may have reached Green: never send twice
+        await logSend({ method, init, error: e, meta: tag });
+        throw e;
+      }
       console.warn(`[green] ${host} unreachable (${code}), trying the next Green host`);
+      continue;
     }
+    greenHost = host;
+    await logSend({ method, init, res, meta: tag });
+    return res;
   }
+  await logSend({ method, init, error: last, meta: tag });
   throw last;
 }

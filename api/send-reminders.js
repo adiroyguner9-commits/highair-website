@@ -135,7 +135,8 @@ export default async function handler(req, res) {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ chatId: `${clientNum}@c.us`, message }),
-        }
+        },
+        '', { kind: 'call_reminder' }
       );
       const waData = await waRes.json();
       console.log(`[reminders] Sent to ${clientNum}:`, waData?.idMessage);

@@ -591,7 +591,8 @@ export default async function handler(req, res) {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ chatId: `${clientNum}@c.us`, message: waMessage }),
-        }
+        },
+        '', { kind: 'call_booked' }
       );
       const gaData = await gaRes.json();
       console.log('[book-slot] WhatsApp status:', gaRes.status, gaData?.idMessage || gaData);

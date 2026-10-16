@@ -91,7 +91,7 @@ export async function sendNoAnswerNotice(rec) {
   const claim = await fetch(LEAD, { method: 'PATCH', headers: H, body: JSON.stringify({ fields: { 'No Answer Notified': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry } }) });
   if (!claim.ok) return { sent: false, error: 'claim failed' };
 
-  const out = await sendWhatsAppVerified(f.Phone, msgNoAnswer(f.Name, f.Expedition, agent.he, agent.phone));
+  const out = await sendWhatsAppVerified(f.Phone, msgNoAnswer(f.Name, f.Expedition, agent.he, agent.phone), { kind: 'no_answer', leadId: rec.id });
   if (out.ok) return { sent: true, id: out.id };
 
   await fetch(LEAD, { method: 'PATCH', headers: H, body: JSON.stringify({ fields: { 'No Answer Notified': false } }) });   // release — the cron retries

@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     }
     if (!f.Phone) return res.status(200).json({ ok: false, error: 'אין מספר טלפון לליד' });
 
-    const sent = await sendWhatsAppVerified(f.Phone, msgFollowUp(f.Name, f.Expedition));
+    const sent = await sendWhatsAppVerified(f.Phone, msgFollowUp(f.Name, f.Expedition), { kind: 'follow_up_manual', leadId });
     if (!sent.ok) return res.status(200).json({ ok: false, error: sent.error });
 
     // Only now — a real idMessage came back — record it and land the card in

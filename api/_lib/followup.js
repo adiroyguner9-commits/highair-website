@@ -35,7 +35,8 @@ export function toIntlIL(raw) {
    Green answers 200 + {idMessage} on a real send; a spam block, a rate limit or a
    number that isn't on WhatsApp all come back differently and must NOT be
    recorded as sent. Returns { ok, id? , error? }. */
-export async function sendWhatsAppVerified(phone, message) {
+/* `meta` is optional { kind, leadId } and only labels the Outbox row. */
+export async function sendWhatsAppVerified(phone, message, meta = null) {
   const GA_INSTANCE = process.env.GREENAPI_INSTANCE;
   const GA_TOKEN    = process.env.GREENAPI_TOKEN;
   if (!GA_INSTANCE || !GA_TOKEN) return { ok: false, error: 'green not configured' };
@@ -45,7 +46,7 @@ export async function sendWhatsAppVerified(phone, message) {
     const r = await greenFetch('sendMessage', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatId: `${chatId}@c.us`, message }),
-    });
+    }, '', meta);
     const d = await r.json().catch(() => ({}));
     if (r.ok && d?.idMessage) return { ok: true, id: d.idMessage };
     return { ok: false, error: `green ${r.status} ${JSON.stringify(d).slice(0, 140)}` };

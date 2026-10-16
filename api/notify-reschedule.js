@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     const r = await greenFetch('sendMessage', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatId: `${chatId}@c.us`, message: msg }),
-    });
+    }, '', { kind: 'call_rescheduled' });
     const d = await r.json().catch(() => ({}));
     return res.status(200).json({ sent: true, id: d?.idMessage || null });
   } catch (e) {

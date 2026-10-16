@@ -120,7 +120,7 @@ export async function sendDepositWelcome(rec) {
      that greets a paying customer, was the only one that did not.
      The error is returned as well as logged, so the Lead Center can say what
      Green actually answered instead of claiming a send that never happened. */
-  const sent = await sendWhatsAppVerified(f.Phone, msgDepositA(f.Name));
+  const sent = await sendWhatsAppVerified(f.Phone, msgDepositA(f.Name), { kind: 'deposit_welcome', leadId: rec.id });
   if (!sent.ok) console.error('[deposit-welcome] wa:', sent.error);
 
   return { fbFired, waSent: sent.ok, ...(sent.ok ? {} : { waError: sent.error }) };
