@@ -72,7 +72,12 @@ export default async function handler(req, res) {
       body: JSON.stringify({ chatId: `${chatId}@c.us`, message: msg }),
     }, '', { kind: 'call_rescheduled' });
     const d = await r.json().catch(() => ({}));
-    return res.status(200).json({ sent: true, id: d?.idMessage || null });
+    /* "sent" only on a real idMessage. This used to answer sent:true whatever
+       Green said, so a refused message still showed the agent "Customer
+       notified of the new time" (the same flaw the deposit welcome had until
+       15 Oct 2026). The Outbox records the same verdict independently. */
+    if (r.ok && d?.idMessage) return res.status(200).json({ sent: true, id: d.idMessage });
+    return res.status(200).json({ sent: false, error: `green ${r.status} ${JSON.stringify(d).slice(0, 140)}` });
   } catch (e) {
     console.error('[notify-reschedule]', e.message);
     return res.status(200).json({ error: e.message });

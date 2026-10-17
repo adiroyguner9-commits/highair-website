@@ -86,3 +86,27 @@ describe('the Outbox, from the website', () => {
     expect(greenCalls).toBe(1);
   });
 });
+
+const reschedule = (await import('../api/notify-reschedule.js')).default;
+describe('the reschedule notice tells the truth too (found 17 Oct 2026)', () => {
+  const callIt = () => new Promise(res => {
+    const out = {};
+    const r = { setHeader() {}, status(c) { out.code = c; return r; }, json(b) { out.body = b; res(out); }, end() { res(out); } };
+    reschedule({ method: 'POST', headers: { 'x-forwarded-for': `10.9.${Math.floor(Math.random() * 250)}.1` }, socket: { remoteAddress: '10.9.0.1' },
+      body: { phone: '0509001752', name: 'בעז', expedition: 'Kilimanjaro', date: '2026-10-20', time: '10:00' } }, r);
+  });
+  beforeEach(() => {
+    /* an appointment exists for this phone, which the endpoint insists on */
+    airtable = async () => new Response('{"records":[{"id":"recA","fields":{}}]}', { status: 200 });
+  });
+  it('a real idMessage is "sent"', async () => {
+    green = () => new Response('{"idMessage":"BAE9"}', { status: 200 });
+    expect((await callIt()).body).toMatchObject({ sent: true, id: 'BAE9' });
+  });
+  it('a refusal is NOT "sent", and says why', async () => {
+    green = () => new Response('{"message":"bad"}', { status: 400 });
+    const r = (await callIt()).body;
+    expect(r.sent).toBe(false);
+    expect(r.error).toMatch(/green 400/);
+  });
+});
