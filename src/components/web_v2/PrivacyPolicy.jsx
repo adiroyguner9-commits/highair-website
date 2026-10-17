@@ -136,7 +136,7 @@ export default function PrivacyPolicy() {
           <div style={CONTACT_BOX}>
             <h2 style={{ ...H2, marginBottom: '16px' }}>8. פרטי קשר</h2>
             <p style={{ ...P, margin: 0 }}>
-              <strong>שם החברה:</strong> HighAir Expeditions<br />
+              <strong>שם החברה:</strong> היי אייר - טרקים וטיפוסי הרים בע״מ (HighAir Expeditions)<br />
               <strong>ח.פ.:</strong> 517393542<br />
               <strong>דוא"ל:</strong>{' '}
               <a href="mailto:info@highair-expeditions.com" style={LINK}>info@highair-expeditions.com</a><br />
@@ -271,7 +271,7 @@ export default function PrivacyPolicy() {
           <div style={CONTACT_BOX}>
             <h2 style={{ ...H2, marginBottom: '16px' }}>8. Contact Details</h2>
             <p style={{ ...P, margin: 0 }}>
-              <strong>Company Name:</strong> HighAir Expeditions<br />
+              <strong>Company Name:</strong> HighAir Expeditions (היי אייר - טרקים וטיפוסי הרים בע״מ)<br />
               <strong>Company No.:</strong> 517393542<br />
               <strong>Email:</strong>{' '}
               <a href="mailto:info@highair-expeditions.com" style={LINK}>info@highair-expeditions.com</a><br />
