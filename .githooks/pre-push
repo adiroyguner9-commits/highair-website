@@ -1,0 +1,14 @@
+#!/bin/sh
+# Every push to main is a production deploy (Vercel builds it), so the rule
+# tests run first. The webapp's drift tests run too when it sits next to this
+# repo: a rule copied into both (lead owners, the Kili queue, phone format, the
+# Outbox) can be broken from this side as easily as from that one.
+# Emergency only: git push --no-verify
+cd "$(git rev-parse --show-toplevel)" || exit 1
+echo "[pre-push] rule tests…"
+npx --no-install vitest run --reporter=dot || { echo "[pre-push] a rule test failed — push stopped, nothing was deployed"; exit 1; }
+if [ -d ../HighAir-webapp ]; then
+  echo "[pre-push] cross-repo copies…"
+  (cd ../HighAir-webapp && npx --no-install vitest run tests/drift.test.js --reporter=dot) \
+    || { echo "[pre-push] the two repos disagree — push stopped, nothing was deployed"; exit 1; }
+fi
