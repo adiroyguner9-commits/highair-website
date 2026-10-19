@@ -9,7 +9,7 @@ export default function CancellationPolicy() {
   const isRtl = i18n.language !== 'en';
 
   return (
-    <LegalPageLayout title={isRtl ? 'מדיניות ביטולים' : 'Cancellation Policy'}>
+    <LegalPageLayout title={isRtl ? 'מדיניות ביטולים' : 'Cancellation Policy'} updated="2026-04-29">
       {isRtl ? (
         <>
           <div style={SECTION}>

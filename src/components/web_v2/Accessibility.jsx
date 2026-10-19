@@ -9,7 +9,7 @@ export default function Accessibility() {
   const isRtl = i18n.language !== 'en';
 
   return (
-    <LegalPageLayout title={isRtl ? 'הצהרת נגישות' : 'Accessibility Statement'}>
+    <LegalPageLayout title={isRtl ? 'הצהרת נגישות' : 'Accessibility Statement'} updated="2026-10-19">
       {isRtl ? (
         <>
           <div style={SECTION}>
@@ -24,8 +24,11 @@ export default function Accessibility() {
               התאמות הנגישות בוצעו עפ"י המלצות התקן הישראלי (ת"י 5568) לנגישות תכנים באינטרנט ברמת AA ומסמך WCAG 2.0 הבינלאומי. תקן זה מתבסס על מסמך הקווים המנחים של הארגון הבינלאומי העוסק בתקינה ברשת - Web Content Accessibility Guidelines (WCAG) 2.0.
             </p>
             <p style={P}>
-              האתר תומך בכל הדפדפנים הפופולריים כגון: Internet Explorer 10 ומעלה, Google Chrome, Mozilla Firefox.
+              האתר תומך בדפדפנים העדכניים: Google Chrome, Safari, Mozilla Firefox ו-Microsoft Edge.
               האתר מותאם לגלישה מנייד. אתר זה נגיש ומותאם לצפייה גם לאנשים בעלי מוגבלות ומאפשר תמיכה בתוכנת קריאת מסך ובטכנולוגיות נוספות המאפשרות הנגשת תכנים.
+            </p>
+            <p style={P}>
+              הצהרה זו חלה גם על אפליקציית HighAir לאייפון ולאנדרואיד. נתקלתם בקושי בשימוש באפליקציה? פנו אלינו בפרטים שלמטה ונטפל בכך.
             </p>
           </div>
 
@@ -96,8 +99,11 @@ export default function Accessibility() {
               The accessibility adjustments were carried out in accordance with the recommendations of the Israeli Standard (IS 5568) for web content accessibility at the AA level and the international WCAG 2.0 document. This standard is based on the Web Content Accessibility Guidelines (WCAG) 2.0 of the international standards organization for the web.
             </p>
             <p style={P}>
-              The site supports all popular browsers such as: Internet Explorer 10 and above, Google Chrome, Mozilla Firefox.
+              The site supports current browsers: Google Chrome, Safari, Mozilla Firefox and Microsoft Edge.
               The site is adapted for mobile browsing. This site is accessible and adapted for viewing by people with disabilities and supports screen reader software and additional technologies that enable content accessibility.
+            </p>
+            <p style={P}>
+              This statement also covers the HighAir app for iPhone and Android. If anything in the app is hard to use, contact us using the details below and we will fix it.
             </p>
           </div>
 

@@ -1,6 +1,6 @@
 /**
  * LegalPageLayout.jsx - shared wrapper for all legal/info pages
- * Usage: <LegalPageLayout title="..." subtitle="...">…sections…</LegalPageLayout>
+ * Usage: <LegalPageLayout title="..." updated="YYYY-MM-DD">…sections…</LegalPageLayout>
  */
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -81,14 +81,19 @@ export const LINK = {
    description, custom canonical) can pass a `pageMeta` prop to override
    the defaults below. Pages without it get the legacy auto-generated
    meta keyed off the `title` prop. */
-export default function LegalPageLayout({ title, subtitle, children, pageMeta }) {
+/* `updated` is the date the page's text really last changed (owner, 19 Oct
+   2026). It used to be today's month, computed on every visit, so every page
+   always claimed to be fresh. Change it together with the text. */
+export default function LegalPageLayout({ title, subtitle, updated, children, pageMeta }) {
   const { i18n } = useTranslation();
   const isRtl = i18n.language !== 'en';
-  const now = new Date();
-  const updatedHe = `עודכן לאחרונה: ${now.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' })}`;
-  const updatedEn = `Last updated: ${now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
-  const defaultSubtitle = isRtl ? updatedHe : updatedEn;
-  const resolvedSubtitle = subtitle || defaultSubtitle;
+  const when = updated ? new Date(`${updated}T12:00:00Z`) : null;
+  const updatedLine = when
+    ? (isRtl
+      ? `עודכן לאחרונה: ${when.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' })}`
+      : `Last updated: ${when.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`)
+    : '';
+  const resolvedSubtitle = subtitle || updatedLine;
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   usePageMeta(pageMeta || {
@@ -121,7 +126,7 @@ export default function LegalPageLayout({ title, subtitle, children, pageMeta })
         </p>
 
         <p style={{ ...P, color: '#9591B0', marginBottom: '48px' }}>
-          {resolvedSubtitle}
+          {resolvedSubtitle || '\u00a0'}
         </p>
 
         {children}

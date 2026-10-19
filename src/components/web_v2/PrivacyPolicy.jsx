@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
   const isRtl = i18n.language !== 'en';
 
   return (
-    <LegalPageLayout title={isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'}>
+    <LegalPageLayout title={isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'} updated="2026-10-17">
       {isRtl ? (
         <>
           <div style={SECTION}>

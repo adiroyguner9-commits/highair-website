@@ -9,12 +9,12 @@ export default function TermsOfService() {
   const isRtl = i18n.language !== 'en';
 
   return (
-    <LegalPageLayout title={isRtl ? 'תקנון ותנאי שימוש' : 'Terms & Conditions'}>
+    <LegalPageLayout title={isRtl ? 'תקנון ותנאי שימוש' : 'Terms & Conditions'} updated="2026-10-19">
       {isRtl ? (
         <>
           <div style={SECTION}>
             <p style={P}>
-              ברוכים הבאים לאתר HighAir Expeditions (להלן: "האתר").
+              ברוכים הבאים לאתר ולאפליקציה של HighAir Expeditions (להלן: "האתר" ו"האפליקציה"). תנאים אלה חלים על השימוש באתר ובאפליקציה כאחד.
               האתר מופעל ע"י היי אייר - טרקים וטיפוסי הרים בע״מ (HighAir Expeditions), ח.פ. 517393542. האתר משמש כאתר תדמית ומסחר אלקטרוני ומציע, בין היתר, מידע ושירותים בנושאי טיולים, טרקים, טיפוסי הרים ומכירת מוצרים נלווים. HighAir Expeditions משמשת כמתווכת ומקשרת לכל אירועים או שירותים מאורגנים ומאושרים לטיפוס הרים, טיפוס צוקים, שהייה בגובה רב מעל פני המים, שהייה בתנאי קור קיצוני, הליכה מרובה, ריצה, טרקים על כל סוגיהם, שחייה, טיפוס, רכיבה, מחנאות, מעיינות חמים, פעילות תרבותית וכן שירותי שינוע ותחבורה ליעדים המבוקשים בארץ ובחו"ל.
             </p>
           </div>
@@ -94,15 +94,15 @@ export default function TermsOfService() {
           </div>
 
           <div style={SECTION}>
-            <h2 style={H2}>6. רכישת מוצרים ושירותים</h2>
+            <h2 style={H2}>6. הרשמה ותשלום</h2>
             <p style={P}>
-              רכישת המוצרים תתבצע באמצעות הוספת מוצרים לסל הקניות. הלקוח יזין את פרטיו האישיים בטופס המקוון המיועד לכך.
+              ההרשמה לטיול מתבצעת בטופס ההרשמה המקוון באתר או באפליקציה. השדות המסומנים בכוכבית חובה למלאם; ללא מילויים לא תתאפשר השלמת ההרשמה. על הנרשם למסור פרטים מדויקים ונכונים בלבד.
             </p>
             <p style={P}>
-              השדות המסומנים בכוכבית חובה למלאם; ללא מילויים לא תתאפשר השלמת ההזמנה. על מנת למנוע תקלות במשלוח, על המזמין למסור פרטים מדויקים ונכונים בלבד.
+              התשלום מתבצע בעמוד תשלום חיצוני ומאובטח. פרטי כרטיס האשראי אינם נאספים ואינם נשמרים באתר או באפליקציה.
             </p>
             <p style={P}>
-              לאחר השלמת ההזמנה תתבצע בדיקת פרטי כרטיס האשראי, ורק לאחר אישור חברת האשראי תאושר הפעולה ויצא אישור סופי של ההזמנה.
+              לאחר ביצוע התשלום תתבצע בדיקת פרטי כרטיס האשראי, ורק לאחר אישור חברת האשראי תאושר הפעולה ויישלח אישור סופי של ההרשמה.
             </p>
           </div>
 
@@ -174,7 +174,7 @@ export default function TermsOfService() {
         <>
           <div style={SECTION}>
             <p style={P}>
-              Welcome to the HighAir Expeditions website (hereinafter: "the Site").
+              Welcome to the HighAir Expeditions website and app (hereinafter: "the Site" and "the App"). These terms apply to the use of both.
               The site is operated by HighAir Expeditions (היי אייר - טרקים וטיפוסי הרים בע״מ), company no. 517393542. The site serves as a brand and e-commerce site offering, among other things, information and services relating to trips, treks, mountain climbing, and the sale of related products. HighAir Expeditions acts as an intermediary and connector for all organized and approved events or services including mountain climbing, rock climbing, high-altitude stays, extreme cold conditions, extensive walking, running, treks of all kinds, swimming, climbing, cycling, camping, hot springs, cultural activities, and transportation services to desired destinations in Israel and abroad.
             </p>
           </div>
@@ -254,15 +254,15 @@ export default function TermsOfService() {
           </div>
 
           <div style={SECTION}>
-            <h2 style={H2}>6. Purchase of Products and Services</h2>
+            <h2 style={H2}>6. Registration and Payment</h2>
             <p style={P}>
-              Purchase of products will be carried out by adding items to the shopping cart. The customer will enter their personal details in the designated online form.
+              Registration for a trip is made through the online registration form on the Site or in the App. Fields marked with an asterisk are mandatory; without completing them, the registration cannot be finalized. The registrant must provide accurate and correct details only.
             </p>
             <p style={P}>
-              Fields marked with an asterisk are mandatory; without completing them, the order cannot be finalized. To prevent delivery errors, the orderer must provide accurate and correct details only.
+              Payment takes place on an external, secure payment page. Card details are not collected or stored on the Site or in the App.
             </p>
             <p style={P}>
-              After completing the order, credit card details will be verified, and only after approval by the credit card company will the transaction be confirmed and a final order confirmation sent.
+              After payment, the credit card details are verified, and only after approval by the credit card company is the transaction confirmed and a final registration confirmation sent.
             </p>
           </div>
 
