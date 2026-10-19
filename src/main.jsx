@@ -4,6 +4,7 @@ import './i18n.js';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
+import { scrubEvent, scrubBreadcrumb, scrubTransaction } from './utils/sentryScrub.js';
 import { Analytics } from '@vercel/analytics/react';
 import { captureAttribution } from './utils/attribution.js';
 import { installWaIntentListener } from './utils/waIntent.js';
@@ -39,7 +40,11 @@ if (import.meta.env.VITE_SENTRY_DSN) {
     environment:      import.meta.env.MODE,
     release:          import.meta.env.VITE_APP_VERSION || '1.0.0',
     tracesSampleRate: 0.1,   // 10% of transactions for performance
-    replaysOnErrorSampleRate: 1.0,
+    /* No customer data in reports: masked emails, phones and booking refs, no
+       query strings, no console breadcrumbs (src/utils/sentryScrub.js). No
+       session replay either: the setting that used to be here never ran, no
+       replay integration is loaded. */
+    sendDefaultPii: false,
     integrations: [
       Sentry.browserTracingIntegration(),
     ],
@@ -62,11 +67,13 @@ if (import.meta.env.VITE_SENTRY_DSN) {
       // Failed <link>/extension resource thrown as an error object
       '[object HTMLLinkElement]',
     ],
-    // Don't send errors in development
+    // Don't send errors in development; scrub everything else
     beforeSend(event) {
       if (import.meta.env.DEV) return null;
-      return event;
+      return scrubEvent(event);
     },
+    beforeSendTransaction: scrubTransaction,
+    beforeBreadcrumb: scrubBreadcrumb,
   });
 }
 
