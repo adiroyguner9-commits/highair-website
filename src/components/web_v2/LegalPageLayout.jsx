@@ -20,6 +20,15 @@ const SLUG_MAP = {
   'Accessibility Statement': '/accessibility',
 };
 
+/* The company behind the site, at the top of every legal page (owner, 19 Oct
+   2026: the pages named the old partnership or no one). One place: the
+   registered name, the trade name and the company number. */
+export const COMPANY = {
+  he: 'היי אייר - טרקים וטיפוסי הרים בע״מ (HighAir Expeditions)',
+  en: 'HighAir Expeditions (היי אייר - טרקים וטיפוסי הרים בע״מ)',
+  number: '517393542',
+};
+
 /* ── Shared style tokens (import these in every page) ── */
 export const SECTION = {
   marginBottom: '36px',
@@ -106,6 +115,10 @@ export default function LegalPageLayout({ title, subtitle, children, pageMeta })
         }}>
           {title}
         </h1>
+
+        <p style={{ ...P, color: '#9591B0', margin: '0 0 4px' }}>
+          {isRtl ? `${COMPANY.he}, ח.פ. ${COMPANY.number}` : `${COMPANY.en}, company no. ${COMPANY.number}`}
+        </p>
 
         <p style={{ ...P, color: '#9591B0', marginBottom: '48px' }}>
           {resolvedSubtitle}

@@ -15,7 +15,7 @@ export default function TermsOfService() {
           <div style={SECTION}>
             <p style={P}>
               ברוכים הבאים לאתר HighAir Expeditions (להלן: "האתר").
-              האתר מופעל ע"י חן שקד ואדיר אויגונר, ח.פ 558586087. האתר משמש כאתר תדמית ומסחר אלקטרוני ומציע, בין היתר, מידע ושירותים בנושאי טיולים, טרקים, טיפוסי הרים ומכירת מוצרים נלווים. HighAir Expeditions משמשת כמתווכת ומקשרת לכל אירועים או שירותים מאורגנים ומאושרים לטיפוס הרים, טיפוס צוקים, שהייה בגובה רב מעל פני המים, שהייה בתנאי קור קיצוני, הליכה מרובה, ריצה, טרקים על כל סוגיהם, שחייה, טיפוס, רכיבה, מחנאות, מעיינות חמים, פעילות תרבותית וכן שירותי שינוע ותחבורה ליעדים המבוקשים בארץ ובחו"ל.
+              האתר מופעל ע"י היי אייר - טרקים וטיפוסי הרים בע״מ (HighAir Expeditions), ח.פ. 517393542. האתר משמש כאתר תדמית ומסחר אלקטרוני ומציע, בין היתר, מידע ושירותים בנושאי טיולים, טרקים, טיפוסי הרים ומכירת מוצרים נלווים. HighAir Expeditions משמשת כמתווכת ומקשרת לכל אירועים או שירותים מאורגנים ומאושרים לטיפוס הרים, טיפוס צוקים, שהייה בגובה רב מעל פני המים, שהייה בתנאי קור קיצוני, הליכה מרובה, ריצה, טרקים על כל סוגיהם, שחייה, טיפוס, רכיבה, מחנאות, מעיינות חמים, פעילות תרבותית וכן שירותי שינוע ותחבורה ליעדים המבוקשים בארץ ובחו"ל.
             </p>
           </div>
 
@@ -175,7 +175,7 @@ export default function TermsOfService() {
           <div style={SECTION}>
             <p style={P}>
               Welcome to the HighAir Expeditions website (hereinafter: "the Site").
-              The site is operated by Chen Shaked and Adir Oigoner, C.N. 558586087. The site serves as a brand and e-commerce site offering, among other things, information and services relating to trips, treks, mountain climbing, and the sale of related products. HighAir Expeditions acts as an intermediary and connector for all organized and approved events or services including mountain climbing, rock climbing, high-altitude stays, extreme cold conditions, extensive walking, running, treks of all kinds, swimming, climbing, cycling, camping, hot springs, cultural activities, and transportation services to desired destinations in Israel and abroad.
+              The site is operated by HighAir Expeditions (היי אייר - טרקים וטיפוסי הרים בע״מ), company no. 517393542. The site serves as a brand and e-commerce site offering, among other things, information and services relating to trips, treks, mountain climbing, and the sale of related products. HighAir Expeditions acts as an intermediary and connector for all organized and approved events or services including mountain climbing, rock climbing, high-altitude stays, extreme cold conditions, extensive walking, running, treks of all kinds, swimming, climbing, cycling, camping, hot springs, cultural activities, and transportation services to desired destinations in Israel and abroad.
             </p>
           </div>
 
