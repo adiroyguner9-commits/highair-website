@@ -9,7 +9,7 @@ export default function CancellationPolicy() {
   const isRtl = i18n.language !== 'en';
 
   return (
-    <LegalPageLayout title={isRtl ? 'מדיניות ביטולים' : 'Cancellation Policy'} updated="2026-04-29">
+    <LegalPageLayout title={isRtl ? 'מדיניות ביטולים' : 'Cancellation Policy'} updated="2026-10-19">
       {isRtl ? (
         <>
           <div style={SECTION}>
@@ -22,7 +22,7 @@ export default function CancellationPolicy() {
             <h2 style={H2}>1. מדיניות ביטולים מצד הלקוח</h2>
             <ul style={UL}>
               {[
-                '60 יום לפני היציאה - החזר מקדמה בניכוי 15% מעלות הטיול.',
+                <>60 יום לפני היציאה - החזר מקדמה בניכוי <strong>15% מעלות הטיול כולו</strong>.</>,
                 'בין 1-59 יום לפני היציאה - אין החזר מקדמה.',
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
             </ul>
@@ -60,7 +60,7 @@ export default function CancellationPolicy() {
             <h2 style={H2}>1. Customer Cancellation Policy</h2>
             <ul style={UL}>
               {[
-                '60 days before departure - refund of advance payment minus 15% of the trip cost.',
+                <>60 days before departure - refund of advance payment minus <strong>15% of the total trip cost</strong>.</>,
                 'Between 1-59 days before departure - no advance payment refund.',
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
             </ul>

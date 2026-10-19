@@ -127,7 +127,7 @@ export default function TermsOfService() {
             <p style={P}>הזמנה שתבוטל מחוץ לתנאים אלו, דמי הביטול הם:</p>
             <ul style={UL}>
               {[
-                '60 יום לפני היציאה - החזר מקדמה בניכוי 15% מעלות הטיול.',
+                <>60 יום לפני היציאה - החזר מקדמה בניכוי <strong>15% מעלות הטיול כולו</strong>.</>,
                 'בין 1-59 יום לפני היציאה - אין החזר מקדמה.',
                 'ניתן לשמור את המקדמה כקרדיט לשימוש עתידי ללא דמי ביטול.',
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
@@ -146,7 +146,7 @@ export default function TermsOfService() {
               על הנוסע להעביר מקדמה לשריון המקום בקבוצה, תשלום נוסף 45 ימים לפני היציאה, והיתרה לספק המקומי בהגעה ליעד - בהעברה בנקאית לפי פרטי החשבון שיימסרו ע"י נציג HighAir.
             </p>
             <p style={P}>
-              תשלום באמצעות כרטיס אשראי יישא עמלת סליקה של 2%. אי השלמת התשלום אינה פוטרת את הנוסע מהתחייבויותיו כלפי HighAir לרבות חובת תשלום.
+              תשלום באמצעות כרטיס אשראי יישא <strong>עמלת סליקה של 2%</strong>. אי השלמת התשלום אינה פוטרת את הנוסע מהתחייבויותיו כלפי HighAir לרבות חובת תשלום.
             </p>
           </div>
 
@@ -287,7 +287,7 @@ export default function TermsOfService() {
             <p style={P}>For orders cancelled outside these conditions, the cancellation fees are:</p>
             <ul style={UL}>
               {[
-                '60 days before departure - refund of advance payment minus 15% of the trip cost.',
+                <>60 days before departure - refund of advance payment minus <strong>15% of the total trip cost</strong>.</>,
                 'Between 1-59 days before departure - no advance payment refund.',
                 'You may keep the advance payment as credit for future use with no cancellation fee.',
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
@@ -306,7 +306,7 @@ export default function TermsOfService() {
               The traveler must transfer a deposit to secure their place in the group, an additional payment 45 days before departure, and the balance to the local supplier upon arrival at the destination - by bank transfer according to the account details provided by the HighAir representative.
             </p>
             <p style={P}>
-              Payment by credit card will incur a 2% processing fee. Failure to complete payment does not release the traveler from their obligations to HighAir, including the payment obligation.
+              Payment by credit card will incur a <strong>2% processing fee</strong>. Failure to complete payment does not release the traveler from their obligations to HighAir, including the payment obligation.
             </p>
           </div>
 
