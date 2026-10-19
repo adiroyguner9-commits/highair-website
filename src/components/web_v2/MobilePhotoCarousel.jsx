@@ -11,6 +11,8 @@
  *   images        – string[]
  *   altPrefix     – string
  *   onImageClick  – (idx) => void
+ *   thumbOf       – (src) => the lighter copy to show in the slide (the tap
+ *                   still opens the original); defaults to the original
  *   hint          – string   (badge on first card; pass "" to hide)
  *   isRtl         – boolean
  */
@@ -20,7 +22,7 @@ import { RADIUS } from '../../website/theme.js';
 
 const CARD_HEIGHT = 280; // px — fixed for all cards
 
-export default function MobilePhotoCarousel({ images, altPrefix = '', onImageClick, hint, isRtl = false }) {
+export default function MobilePhotoCarousel({ images, altPrefix = '', onImageClick, hint, isRtl = false, thumbOf = src => src }) {
   const [activeIdx, setActiveIdx]             = useState(0);
   const [imgOrientations, setImgOrientations] = useState({}); // 'landscape' | 'portrait'
   const carouselRef = useRef(null);
@@ -89,7 +91,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
                 <div style={{
                   position:   'absolute',
                   inset:      '-10px',
-                  background: `url(${src}) center/cover no-repeat`,
+                  background: `url(${thumbOf(src)}) center/cover no-repeat`,
                   filter:     'blur(18px) brightness(0.55)',
                   transform:  'scale(1.05)',
                   zIndex:     0,
@@ -98,7 +100,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
 
               {/* ── Main image ── */}
               <img
-                src={src}
+                src={thumbOf(src)}
                 alt={`${altPrefix} ${i + 1}`}
                 loading="lazy"
                 decoding="async"

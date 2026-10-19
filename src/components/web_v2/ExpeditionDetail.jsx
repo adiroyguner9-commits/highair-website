@@ -4,7 +4,7 @@
  * RTL Hebrew · Ploni font · inline styles only · React 18
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ import BookingWidget from './BookingWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon, TreeIcon, LionIcon } from '../Icons.jsx';
 import { Analytics, useScrollDepth } from '../../utils/analytics.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
+import GALLERY from '../../website/galleryManifest.json';
 import VideoTestimonials from './VideoTestimonials.jsx';
 /* Safari-only blocks. Every one is rendered behind an isSafariExp gate, so a
    climb page renders exactly what it rendered before. */
@@ -445,24 +446,24 @@ export default function ExpeditionDetail() {
     }
   }, [exp?.slug]);
 
-  /* ── Probe gallery images — only keep URLs that actually exist, landscape first ── */
+  /* ── The gallery, from the list made at build time (scripts/gen-gallery.mjs).
+     It used to be discovered by loading 1.webp to 50.webp in full on page load,
+     every photo downloaded before anyone scrolled to it (Kilimanjaro: 3.3 MB,
+     19 Oct 2026). The list already knows each photo's size, landscape first. */
   useEffect(() => {
     if (!exp) return;
-    setResolvedGallery(null);
-    setImgOrientations({});
-    const potential = Array.from({ length: 50 }, (_, i) => `/images/gallery/${exp.slug}/${i + 1}.webp`);
-    Promise.all(
-      potential.map(url => new Promise(resolve => {
-        const img = new Image();
-        img.onload  = () => resolve({ url, w: img.naturalWidth, h: img.naturalHeight });
-        img.onerror = () => resolve(null);
-        img.src = url;
-      }))
-    ).then(results => {
-      const valid = results.filter(Boolean);
-      valid.sort((a, b) => (a.w >= a.h ? 0 : 1) - (b.w >= b.h ? 0 : 1));
-      setResolvedGallery(valid.map(r => r.url));
-    });
+    const list = GALLERY[exp.slug] || [];
+    setResolvedGallery(list.map(x => x.src));
+    setImgOrientations(Object.fromEntries(list.map((x, i) => [i, x.w >= x.h ? 'landscape' : 'portrait'])));
+  }, [exp?.slug]);
+
+  /* The grid and the phone carousel show a copy sized for them; the lightbox
+     opens the original. Cloudinary galleries (Gallery_URLs) get the same from
+     a resize in the URL. */
+  const thumbOf = useMemo(() => {
+    const local = Object.fromEntries((GALLERY[exp?.slug] || []).map(x => [x.src, x.thumb]));
+    return src => local[src]
+      || (/res\.cloudinary\.com\/.+\/upload\/(?!w_|c_|q_|f_)/.test(src) ? src.replace('/upload/', '/upload/w_1200,c_limit,q_auto,f_auto/') : src);
   }, [exp?.slug]);
 
 /* ── Itinerary accordion: array of open indices, first open by default ── */
@@ -2234,6 +2235,7 @@ export default function ExpeditionDetail() {
                 images={validGalleryImages}
                 altPrefix={isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)}
                 onImageClick={i => setLightboxIdx(i)}
+                thumbOf={thumbOf}
                 hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
                 isRtl={isRtl}
               />
@@ -2261,7 +2263,7 @@ export default function ExpeditionDetail() {
                     onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
                   >
                     <img
-                      src={src}
+                      src={thumbOf(src)}
                       alt={`${isRtl ? exp.nameHe : (exp.nameEn || exp.nameHe)} ${i + 1}`}
                       loading="lazy"
                       decoding="async"
