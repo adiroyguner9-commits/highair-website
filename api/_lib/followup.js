@@ -10,10 +10,15 @@ import { firstName } from './name.js';
 import { greenFetch } from './green.js';
 
 export function msgFollowUp(name, expedition) {
-  const { he } = destInfo(expedition);
+  const { he, slug } = destInfo(expedition);
+  /* "ל" + the unknown-destination fallback read "להמשלחות שלנו"; and a trip
+     with no flight (Sinai) was told the flights are being ticketed
+     (22 Oct 2026). */
+  const groups = slug !== 'call' ? `הקבוצות שלנו ל${he}` : 'הקבוצות שלנו';
+  const noFlight = slug === 'sinai';
   return `היי ${firstName(name)}, מה שלומך? ✨\n\n`
-    + `רק רצינו לעדכן שהקבוצות שלנו ל${he} מתמלאות בקצב מהיר והיציאה כבר מובטחת! 🏔️\n\n`
-    + `אנחנו מתחילים בימים הקרובים בכרטוס הטיסות ✈️\n\n`
+    + `רק רצינו לעדכן ש${groups} מתמלאות בקצב מהיר והיציאה כבר מובטחת! 🏔️\n\n`
+    + (noFlight ? '' : `אנחנו מתחילים בימים הקרובים בכרטוס הטיסות ✈️\n\n`)
     + `נשמח לעדכון ממך כדי שנוכל להתקדם ולשריין את המקום שלך באחת מהקבוצות שלנו 💪🏻`;
 }
 

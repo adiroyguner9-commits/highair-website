@@ -14,7 +14,7 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
-import { fetchActiveLead, tripKey } from './_lib/active-lead.js';
+import { fetchActiveLead, tripKey, OPEN_STAGES } from './_lib/active-lead.js';
 import { destKey } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 
@@ -225,7 +225,13 @@ export default async function handler(req, res) {
          merge it in a second; a swallowed lead is invisible for ever. */
       const sameTrip = rec && tripKey(rec.fields?.Expedition) === tripKey(sanitised['Expedition'])
                            && !!tripKey(sanitised['Expedition']);
-      if (rec && sameTrip) {
+      /* And only onto a card that is still being worked. A closed deal is
+         locked in the Lead Center (owner, 22 Oct 2026: it moves only to
+         Cancelled), and a "Not Relevant" card is never opened, so a line of
+         text there is a lost enquiry: the same trip again is a new deal and
+         gets its own card. */
+      const stillOpen = rec && OPEN_STAGES.includes(rec.fields?.Stage || 'New Lead');
+      if (rec && sameTrip && stillOpen) {
         {
           const note = `\n---\n[פנייה נוספת ${israelTime.slice(0, 10)}] ${sanitised['Expedition'] || sanitised['Source'] || ''}${sanitised['Experience'] ? ': ' + sanitised['Experience'] : ''}`;
           await fetch(`${LEADS_URL}/${rec.id}`, {
@@ -236,7 +242,8 @@ export default async function handler(req, res) {
           return res.status(200).json({ ok: true, linked: true });
         }
       }
-      if (rec) console.log(`[submit-lead] returning contact, DIFFERENT trip (${rec.fields?.Expedition || '—'} → ${sanitised['Expedition'] || '—'}) → new card`);
+      if (rec && sameTrip) console.log(`[submit-lead] returning contact, same trip on a ${rec.fields?.Stage || '?'} card → new card`);
+      else if (rec) console.log(`[submit-lead] returning contact, DIFFERENT trip (${rec.fields?.Expedition || '—'} → ${sanitised['Expedition'] || '—'}) → new card`);
     } catch (e) { console.warn('[submit-lead] dedupe check non-fatal:', e.message); }
   }
 

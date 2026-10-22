@@ -10,6 +10,7 @@
 
 export const config = { api: { bodyParser: false } };
 
+import { israelNow } from './_lib/iltime.js';
 import { setSecurityHeaders } from './_security.js';
 import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
@@ -60,26 +61,27 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Missing env vars' });
   }
 
-  // Israel time offset (IDT UTC+3 / IST UTC+2)
-  const nowUTC   = new Date();
-  const yr       = nowUTC.getUTCFullYear();
-  const mo       = nowUTC.getUTCMonth();
-  const dy       = nowUTC.getUTCDate();
-  const d0       = new Date(yr, mo, dy);
-  const lastSunMar = new Date(yr, 2, 31 - new Date(yr, 2, 31).getDay());
-  const lastSunOct = new Date(yr, 9, 31 - new Date(yr, 9, 31).getDay());
-  const ilOffset = (d0 >= lastSunMar && d0 < lastSunOct) ? 3 : 2;
+  /* The global pause covers this too: a staff-booked call made during a
+     pause got no confirmation but still got this reminder (22 Oct 2026). */
+  try {
+    const pr = await fetch(`https://api.airtable.com/v0/${BASE}/AppContent?filterByFormula=${encodeURIComponent('{Key}="lead_messaging_paused"')}&fields[]=Value&maxRecords=1`, { headers: { Authorization: `Bearer ${TOKEN}` } });
+    if (pr.ok) {
+      const v = String((await pr.json()).records?.[0]?.fields?.Value || '').trim().toLowerCase();
+      if (v === '1' || v === 'true' || v === 'yes' || v === 'on') return res.status(200).json({ ok: true, paused: true });
+    }
+  } catch (e) { console.warn('[reminders] pause check non-fatal:', e.message); }
 
-  const nowIL      = new Date(nowUTC.getTime() + ilOffset * 60 * 60 * 1000);
-  const nowMinutes = nowIL.getUTCHours() * 60 + nowIL.getUTCMinutes();
+  /* Israel wall clock from the shared helper. The hand-rolled rule switched
+     on the last SUNDAY of March; Israel switches on the Friday before, so on
+     those two days reminders went out an hour late (22 Oct 2026). */
+  const { ymd: ilYmd, minutes: nowMinutes } = israelNow();
 
   // Window: appointments starting between 110–130 min from now (centred on 2h)
   const windowStart = nowMinutes + 110;
   const windowEnd   = nowMinutes + 130;
 
   // Today's date in Israel time
-  const pad     = n => String(n).padStart(2, '0');
-  const dateStr = `${nowIL.getUTCFullYear()}-${pad(nowIL.getUTCMonth() + 1)}-${pad(nowIL.getUTCDate())}`;
+  const dateStr = ilYmd;
 
   // Query Airtable for confirmed appointments today.
   // dateStr is built from the system clock (no user input), but defence-in-depth:
@@ -144,8 +146,15 @@ export default async function handler(req, res) {
         },
         '', { kind: 'call_reminder' }
       );
-      const waData = await waRes.json();
+      const waData = await waRes.json().catch(() => ({}));
       console.log(`[reminders] Sent to ${clientNum}:`, waData?.idMessage);
+      /* Green answers 200 with no idMessage when it did not take the message.
+         Then the flag stays unset, so the next run (15 minutes on, still inside
+         the window) tries again, and it is reported as failed, not "sent". */
+      if (!waRes.ok || !waData?.idMessage) {
+        results.push({ name: Name, time: Time, status: 'error', error: `Green did not accept the message (${waRes.status})` });
+        continue;
+      }
 
       // Mark ReminderSent = true in Airtable so we don't send twice
       await fetch(`https://api.airtable.com/v0/${BASE}/Appointments/${record.id}`, {

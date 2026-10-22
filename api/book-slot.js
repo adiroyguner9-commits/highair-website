@@ -136,7 +136,9 @@ function googleCalUrl({ date, time, name, expedition }) {
 
   const params = new URLSearchParams({
     action:  'TEMPLATE',
-    text:    `שיחה עם ${name} — HighAir Expeditions`,
+    /* The customer's own calendar: the call is WITH us. It was titled with
+       the customer's own name, and with an em dash (22 Oct 2026). */
+    text:    'שיחה עם HighAir Expeditions',
     dates:   `${dtStart}/${dtEnd}`,
     ctz:     'Asia/Jerusalem',
     details: expedition ? `משלחת: ${expedition}` : 'HighAir Expeditions',
@@ -458,7 +460,10 @@ export default async function handler(req, res) {
           const stamp = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
           const entry = `[${stamp}] Call scheduled · ${date} at ${time}`;
           const prevLog = rec.fields?.['Activity Log'] || '';
-          const patch = { Stage: 'Call Scheduled', 'Nudge Sent': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry };
+          /* Leaving "No Answer" by a booking re-arms the no-answer notice, as
+             the Lead Center does on a drag: a booked call missed again was
+             otherwise never followed by "ניסינו להשיג אותך" (22 Oct 2026). */
+          const patch = { Stage: 'Call Scheduled', 'Nudge Sent': true, 'No Answer Notified': false, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry };
 
           /* ── Kilimanjaro: the one queue (owner, 22 Sep 2026) ─────────────────
              A Kilimanjaro lead who books a call while nobody has them yet takes

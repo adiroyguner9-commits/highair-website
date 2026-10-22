@@ -30,7 +30,7 @@ import { tripKey } from './_lib/active-lead.js';   // same-trip test — a call 
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
 import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
-import { israelWeekendHold } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, nobody is here to answer
+import { israelClosedHold } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, and festivals the same way: nobody is here to answer
 import { greenFetch } from './_lib/green.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
@@ -80,7 +80,10 @@ function msgNudge(name, expedition, code) {
   // The code drops them straight onto the slot picker (we already have their
   // details) — no second form, and the link stays clean.
   const url = `${SITE}/book/${slug}/${code}`;
-  return `היי ${firstName(name)}, ראינו שהתעניינת ב${he} עם HighAir 🏔️\n\n`
+  /* An unknown destination falls back to "המשלחות שלנו", and "ב" + that read
+     "בהמשלחות שלנו". */
+  const about = slug !== 'call' ? he : 'המשלחות שלנו';
+  return `היי ${firstName(name)}, ראינו שהתעניינת ${slug !== 'call' ? 'ב' + about : 'במשלחות שלנו'} עם HighAir 🏔️\n\n`
     + `כדי שנוכל לתת לך את כל הפרטים ולבדוק התאמה, נשמח לתאם שיחה קצרה (ללא התחייבות).\n\n`
     + `אפשר לבחור תאריך ושעה שנוחים לך בקישור כאן 👇\n${url}`;
 }
@@ -258,7 +261,7 @@ export default async function handler(req, res) {
      wide enough to just wait, once it was widened to 96h to survive the hold. */
   try {
     const hourIL = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
-    if (hourIL >= 9 && hourIL < 21 && !israelWeekendHold()) {
+    if (hourIL >= 9 && hourIL < 21 && !israelClosedHold()) {
       /* The upper bound is 96h, not 48h, and the weekend hold is exactly why.
          The hold lasts up to 42 hours, so a lead whose 24h mark fell on Friday
          evening would be 60-odd hours old by Sunday morning and would have
@@ -273,6 +276,10 @@ export default async function handler(req, res) {
         + `{Stage}='New Lead',`                          // still never booked/advanced
         + `NOT(FIND('WhatsApp',{Source}&'')),`
         + `NOT(FIND('GHL import',{Source}&'')),`
+        /* A lead typed in by hand in the Lead Center is someone we already
+           spoke to: the form sets Nudge Sent only to stop nudge 1, which made
+           it look like a form lead here (3 got "מתי יהיה לך נוח", 22 Oct 2026). */
+        + `{Source}!='Manual',`
         + `{Phone}!='',`
         + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
         + `)`;
@@ -353,7 +360,7 @@ export default async function handler(req, res) {
        It sits AFTER the Call Done At stamping above on purpose — that starts a
        clock rather than messaging anyone, and pausing it would push every Friday
        call's follow-up two days late permanently. */
-    const weekend = israelWeekendHold();
+    const weekend = israelClosedHold();   // Shabbat and festivals
     if (weekend) result.followUpHeldForWeekend = true;
     const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
     let fuThisRun = 0;

@@ -125,3 +125,17 @@ const HALF_DAYS = {
 export function halfDayName(dateStr) {
   return HALF_DAYS[hebrewKey(dateStr)] || '';
 }
+
+/* The weekend hold, plus the festivals (owner, 22 Oct 2026: "כולל בחגים"):
+   all of a festival day, from 15:00 on its eve (the half days and the evening
+   before any festival), and until 09:00 the morning after, the same shape as
+   Friday to Sunday. Nudge 2 and the 4-day follow-up went out on Rosh Hashana
+   and Yom Kippur 2026. */
+export function israelClosedHold(now = israelNow()) {
+  if (israelWeekendHold(now)) return true;
+  if (isYomTov(now.ymd)) return true;
+  const shift = days => { const d = new Date(`${now.ymd}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
+  if (now.minutes >= 15 * 60 && (isYomTov(shift(1)) || halfDayName(now.ymd))) return true;   // erev chag
+  if (now.minutes < 9 * 60 && isYomTov(shift(-1))) return true;                                // the morning after
+  return false;
+}
