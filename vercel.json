@@ -1,8 +1,12 @@
 {
   "crons": [
     { "path": "/api/send-reminders", "schedule": "*/15 * * * *" },
-    { "path": "/api/lead-messaging", "schedule": "*/5 * * * *" }
+    { "path": "/api/lead-messaging", "schedule": "*/5 * * * *" },
+    { "path": "/api/site-health", "schedule": "0 5 * * *" }
   ],
+  "functions": {
+    "api/site-health.js": { "includeFiles": "src/data/**", "maxDuration": 60 }
+  },
   "headers": [
     {
       "source": "/assets/(.*)",

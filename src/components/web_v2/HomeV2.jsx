@@ -14,6 +14,7 @@ import StatsSection       from './StatsSection.jsx';
 import PartnersSection    from './PartnersSection.jsx';
 import ExpeditionExplorer from './ExpeditionExplorer.jsx';
 import MountainBackdrop   from './MountainBackdrop.jsx';
+import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 
 /* ── Lazy-loaded (below the fold) ── */
 const IsraelTrips         = lazy(() => import('./IsraelTrips.jsx'));
@@ -178,9 +179,11 @@ export default function HomeV2() {
           <Divider />
           <FadeIn><ExpeditionExplorer type="treks" /></FadeIn>
 
+          {ISRAEL_TREKS_LIVE && (<>
           <Divider />
           <Divider />
           <FadeIn><IsraelTrips /></FadeIn>
+          </>)}
 
           <Divider />
           <FadeIn><ImpactSection /></FadeIn>

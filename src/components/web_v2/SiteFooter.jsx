@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { ISRAEL_TRIPS as ALL_ISRAEL_TRIPS } from '../../data/israelData.js';
+import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { FOOTER_CLIMBS, FOOTER_TREKS } from '../../data/expeditionGroups.js';
 
 /* Expeditions derived automatically (expeditionGroups.js), continent-ordered:
@@ -183,10 +184,12 @@ export default function SiteFooter() {
               <ColHeading>{t('footer.worldClimbs')}</ColHeading>
               {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
             </div>
+            {ISRAEL_TREKS_LIVE && (
             <div>
               <ColHeading>{t('footer.israelTrips')}</ColHeading>
               {ISRAEL_TRIPS.map(item => <FooterLink key={item.label} label={item.label} href={item.href} />)}
             </div>
+            )}
             <div>
               <ColHeading>{t('footer.info')}</ColHeading>
               {INFO_LINKS.map(l => <FooterLink key={l.label} label={l.label} href={l.href} />)}
@@ -212,8 +215,8 @@ export default function SiteFooter() {
 
   /* ── DESKTOP / TABLET layout ── */
   const gridCols = isTablet
-    ? '1fr 1fr 1fr 1fr'
-    : '1.4fr 1fr 1fr 1fr 1fr';
+    ? (ISRAEL_TREKS_LIVE ? '1fr 1fr 1fr 1fr' : '1fr 1fr 1fr')
+    : (ISRAEL_TREKS_LIVE ? '1.4fr 1fr 1fr 1fr 1fr' : '1.4fr 1fr 1fr 1fr');
 
   return (
     <footer style={{ background: '#FFFFFF', padding: '48px 5% 28px', boxSizing: 'border-box', direction: dir, borderTop: '1px solid #E2E0F0' }}>
@@ -245,10 +248,12 @@ export default function SiteFooter() {
             {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
           </div>
 
+          {ISRAEL_TREKS_LIVE && (
           <div>
             <ColHeading>{t('footer.israelTrips')}</ColHeading>
             {ISRAEL_TRIPS.map(item => <FooterLink key={item.label} label={item.label} href={item.href} />)}
           </div>
+          )}
 
           <div>
             <ColHeading>{t('footer.info')}</ColHeading>

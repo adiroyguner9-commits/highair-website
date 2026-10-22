@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
+import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { MENU_CLIMBS, MENU_TREKS } from '../../data/expeditionGroups.js';
 import FlagImg from './FlagImg.jsx';
 
@@ -881,7 +882,8 @@ export default function Header() {
  { key: 'home', href: '#hero' },
  { key: 'climbs', href: '/climbs', isPage: true, hasMega: true, megaType: 'climbs' },
  { key: 'treks', href: '/treks', isPage: true, hasMega: true, megaType: 'treks' },
- { key: 'israelTrips', href: '/israel', isPage: true, hasMega: true, megaType: 'israel' },
+ /* Israel treks hidden by the owner (23 Oct 2026) via ISRAEL_TREKS_LIVE */
+ ...(ISRAEL_TREKS_LIVE ? [{ key: 'israelTrips', href: '/israel', isPage: true, hasMega: true, megaType: 'israel' }] : []),
  /* Tanzania Safari hidden from the menu (owner, 2026-08-08) until told to show it.
     The /safari page still works by direct link; re-add this line to restore it. */
  // { key: 'safari', href: '/safari', isPage: true, hasMega: true, megaType: 'safari' },

@@ -32,6 +32,7 @@ const ROOT      = path.resolve(__dirname, '..');
 /* ── Import source data ─────────────────────────────────────────────────── */
 const { EXPS }         = await import(path.join(ROOT, 'src/data/mockData.js'));
 const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'));
+const { ISRAEL_TREKS_LIVE } = await import(path.join(ROOT, 'src/data/israelFlag.js'));
 
 /* ── Field lists — add fields here if new components need them ───────────
    Keep these minimal: every field adds to the initial JS download.        */
@@ -72,7 +73,7 @@ if (INCLUDE_DRAFTS) console.log('    [drafts] including live:false expeditions �
 
 const navExps    = EXPS.filter(isPublic).map(e => pick(e, NAV_EXP_FIELDS));
 const cardExps   = EXPS.filter(isPublic).map(e => pick(e, CARD_EXP_FIELDS));
-const navIsrael  = ISRAEL_TRIPS.filter(t => !t.hidden).map(t => pick(t, NAV_ISRAEL_FIELDS));
+const navIsrael  = ISRAEL_TREKS_LIVE ? ISRAEL_TRIPS.filter(t => !t.hidden).map(t => pick(t, NAV_ISRAEL_FIELDS)) : [];
 
 /* ── Write output ───────────────────────────────────────────────────────── */
 const output = `/**

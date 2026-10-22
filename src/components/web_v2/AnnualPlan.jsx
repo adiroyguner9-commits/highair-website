@@ -12,6 +12,7 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
+import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -388,7 +389,9 @@ export default function AnnualPlan() {
 
     Promise.all([
       fetchAllRecords(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&pageSize=100`),
-      fetchAllRecords(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient&pageSize=100`),
+      ISRAEL_TREKS_LIVE
+        ? fetchAllRecords(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient&pageSize=100`)
+        : Promise.resolve([]),
       fetchAllRecords(`/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`),
     ]).then(([worldRecords, israelRecords, custRecords]) => {
 
@@ -585,7 +588,8 @@ export default function AnnualPlan() {
             {t('annualPlan.subtitle')}
           </p>
 
-          {/* ── Category filter ── */}
+          {/* ── Category filter (hidden while Israel treks are off - only world remains) ── */}
+          {ISRAEL_TREKS_LIVE && (
           <div style={{
             display:        'inline-flex',
             alignItems:     'center',
@@ -624,6 +628,7 @@ export default function AnnualPlan() {
               );
             })}
           </div>
+          )}
         </div>
 
         {/* ── Sticky month tabs (real data) ── */}

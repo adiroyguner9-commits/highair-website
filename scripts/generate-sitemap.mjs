@@ -8,6 +8,10 @@ const ROOT = path.resolve(__dirname, '..');
 const BASE_URL = 'https://www.highair-expeditions.com';
 const today = new Date().toISOString().slice(0, 10);
 
+/* Israel treks hidden by the owner (23 Oct 2026): drop /israel and all
+   /israel/:slug URLs from the sitemap until ISRAEL_TREKS_LIVE is on again. */
+const { ISRAEL_TREKS_LIVE } = await import(path.join(ROOT, 'src/data/israelFlag.js'));
+
 // ── Static routes ────────────────────────────────────────────────────────────
 
 const staticRoutes = [
@@ -64,6 +68,7 @@ const urls = [];
 
 // Static
 for (const route of staticRoutes) {
+  if (!ISRAEL_TREKS_LIVE && route.path === '/israel') continue;
   urls.push(urlEntry({
     loc: `${BASE_URL}${route.path}`,
     priority: route.priority,
@@ -101,7 +106,7 @@ for (const post of BLOG_POSTS) {
 
 // /israel/:slug  — from israelData.js (live: true only)
 const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'));
-const israelSlugs = ISRAEL_TRIPS.filter(t => t.live && t.slug).map(t => t.slug);
+const israelSlugs = ISRAEL_TREKS_LIVE ? ISRAEL_TRIPS.filter(t => t.live && t.slug).map(t => t.slug) : [];
 for (const slug of israelSlugs) {
   urls.push(urlEntry({
     loc: `${BASE_URL}/israel/${slug}`,

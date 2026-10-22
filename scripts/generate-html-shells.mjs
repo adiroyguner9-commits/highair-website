@@ -298,8 +298,10 @@ for (const post of POSTS) {
 // ── Israel trip pages ────────────────────────────────────────────────────────
 
 const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'));
+const { ISRAEL_TREKS_LIVE } = await import(path.join(ROOT, 'src/data/israelFlag.js'));
 let israelCount = 0;
-for (const trip of ISRAEL_TRIPS) {
+/* Israel treks hidden by the owner (23 Oct 2026): emit no /israel/:slug shells when off */
+for (const trip of (ISRAEL_TREKS_LIVE ? ISRAEL_TRIPS : [])) {
   if (!trip.slug || !trip.live) continue;
 
   const tripUrl   = `${BASE_URL}/israel/${trip.slug}`;
@@ -464,12 +466,13 @@ const staticPages = [
     title: 'HighAir Expeditions | תכנית שנתית',
     desc:  'כל תאריכי המשלחות של HighAir Expeditions - קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד.',
   },
-  {
+  /* Israel treks hidden by the owner (23 Oct 2026) via ISRAEL_TREKS_LIVE */
+  ...(ISRAEL_TREKS_LIVE ? [{
     path:  'israel',
     title: 'HighAir Expeditions | הטרקים שלנו בארץ',
     desc:  'כל הטרקים של HighAir בארץ - מסלולים במדבר יהודה, ים המלח והנגב. יום אחד, מדריך מוסמך וארוחת צהריים כלולה, עם תרומה למאבק במחלת הסרטן. בחרו את הטרק הקרוב שלכם.',
     jsonLd: ISRAEL_LISTING_JSONLD,
-  },
+  }] : []),
   {
     path:  'treks',
     title: 'HighAir Expeditions | טרקים בעולם',

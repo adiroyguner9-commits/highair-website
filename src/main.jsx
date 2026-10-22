@@ -13,6 +13,7 @@ import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner        from './components/web_v2/CookieBanner.jsx';
 import FloatingWA          from './components/web_v2/FloatingWA.jsx';
 import SocialProofTicker   from './components/web_v2/SocialProofTicker.jsx';
+import { ISRAEL_TREKS_LIVE } from './data/israelFlag.js';
 /* Scroll depth is now tracked per-page via useScrollDepth() hook in each component */
 
 /* ── Where this visitor came from ──
@@ -120,8 +121,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/terms"             element={<TermsOfService />} />
           <Route path="/privacy"           element={<PrivacyPolicy />} />
           <Route path="/accessibility"     element={<Accessibility />} />
-          <Route path="/israel"            element={<IsraelTreksPage />} />
-          <Route path="/israel/:slug"      element={<IsraelDetail />} />
+          {/* Israel treks hidden by the owner (23 Oct 2026): routes fall through
+              to 404 until ISRAEL_TREKS_LIVE is flipped back on in src/data/israelFlag.js */}
+          {ISRAEL_TREKS_LIVE && <Route path="/israel"       element={<IsraelTreksPage />} />}
+          {ISRAEL_TREKS_LIVE && <Route path="/israel/:slug" element={<IsraelDetail />} />}
           <Route path="/treks"             element={<WorldExpeditionsPage type="treks" />} />
           <Route path="/climbs"            element={<WorldExpeditionsPage type="climbs" />} />
           <Route path="/about"             element={<AboutUs />} />
