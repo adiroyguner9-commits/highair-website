@@ -157,6 +157,12 @@ export default async function handler(req, res) {
   const LEADS = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}`;
   const authHeaders = { Authorization: `Bearer ${TOKEN}` };
   const nowMs = Date.now();
+  /* The no-answer notice and the closing welcome are sent the moment the card
+     moves (the Lead Center calls them), and those paths read the flag, then
+     claim it. Airtable has no compare-and-set, so a tick of this net landing in
+     that second sent the message twice. The net now only takes a move that is
+     a few minutes old, by which time the instant call has claimed it. */
+  const settledIso = new Date(nowMs - 3 * 60 * 1000).toISOString();
 
   /* Send a WhatsApp and report HONESTLY whether it actually went out.
      This used to return null for an unusable phone and to hand back Green's body
@@ -324,7 +330,8 @@ export default async function handler(req, res) {
       + `{Phone}!='',`
       + `{Assigned Agent}!='',`
       + `{Stage Changed At}!='',`
-      + `IS_AFTER({Stage Changed At},DATETIME_PARSE('${lowerNA}'))`
+      + `IS_AFTER({Stage Changed At},DATETIME_PARSE('${lowerNA}')),`
+      + `IS_BEFORE({Stage Changed At},DATETIME_PARSE('${settledIso}'))`
       + `)`);
     for (const rec of rowsNA) {
       const out = await sendNoAnswerNotice(rec);
@@ -362,8 +369,16 @@ export default async function handler(req, res) {
        call's follow-up two days late permanently. */
     const weekend = israelClosedHold();   // Shabbat and festivals
     if (weekend) result.followUpHeldForWeekend = true;
-    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
-    let fuThisRun = 0;
+    const dueBy = new Date(nowMs - 4 * 86400000).toISOString();
+    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
+    /* A failed send used to count against the cap of three, and the query came
+       back in the same order every tick, so three leads whose sends always fail
+       (a number not on WhatsApp) would hold every other follow-up back for good.
+       Now only a real send counts, the tries per run are bounded, and the least
+       recently touched card goes first: the release after a failure touches the
+       card, which moves it to the back of the line. */
+    due.sort((a, b) => String(a.fields?.['Last Modified'] || '').localeCompare(String(b.fields?.['Last Modified'] || '')));
+    let fuThisRun = 0, fuTried = 0;
     for (const rec of due) {
       const f = rec.fields || {};
       const ageDays = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
@@ -371,8 +386,8 @@ export default async function handler(req, res) {
       if (!f.Phone) { result.followUpNoPhone++; continue; }   // nothing to send to — never tick "Sent"
       /* Drip, do not dump. The flag is unclaimed, so whoever is left here is
          simply first in line on the next tick five minutes from now. */
-      if (fuThisRun >= MAX_SENDS_PER_RUN) { result.followUpQueued = (result.followUpQueued || 0) + 1; continue; }
-      fuThisRun++;
+      if (fuThisRun >= MAX_SENDS_PER_RUN || fuTried >= MAX_SENDS_PER_RUN * 3) { result.followUpQueued = (result.followUpQueued || 0) + 1; continue; }
+      fuTried++;
       // Claim FIRST so two overlapping cron runs can't double-send, then UNDO the
       // claim if the send didn't actually happen. Ticking "Sent" up front and
       // never checking the result is what marked leads as messaged when Green had
@@ -383,6 +398,7 @@ export default async function handler(req, res) {
       if (sent.ok) {
         // The message went out → the card belongs in "Follow-Up Sent".
         if (f.Stage !== 'Follow-Up Sent') await patchLead(rec.id, { 'Stage': 'Follow-Up Sent' });
+        fuThisRun++;
         result.followUp++;
         continue;
       }
@@ -404,7 +420,7 @@ export default async function handler(req, res) {
     // Safety-net for any closing the instant admin trigger (api/notify-deposit.js)
     // missed. sendDepositWelcome claims {Deposit A Notified} first, so this can
     // never double-send what the instant call already handled.
-    const rows = await queryLeads(`AND({Stage}='Deposit A Paid',{Deposit A Notified}!=TRUE())`);
+    const rows = await queryLeads(`AND({Stage}='Deposit A Paid',{Deposit A Notified}!=TRUE(),OR({Stage Changed At}='',IS_BEFORE({Stage Changed At},DATETIME_PARSE('${settledIso}'))))`);
     for (const rec of rows) {
       const out = await sendDepositWelcome(rec);
       if (out.fbFired) result.fbPurchase++;
