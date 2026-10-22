@@ -1,42 +1,44 @@
 /**
  * GET /api/site-health
- * Called by Vercel Cron once a day. Confirms the public site and the customer
- * payment links actually work, and emails a Hebrew report to the team.
+ * Called by Vercel Cron once a day. A SPEED monitor: runs Google PageSpeed
+ * Insights (Lighthouse) on the key public pages and emails a Hebrew report.
+ * Loading speed is the company's top priority, so this watches it daily and
+ * flags regressions. Report only - it never changes anything.
  *
  * WHY IN-REPO AND NOT A CLOUD ROUTINE: the claude.ai cloud-routine sandbox
- * blocks outbound DNS to our own domain and to pay.grow.link, so a cloud agent
- * could never reach the site to test it. A Vercel function has open network, so
- * the check lives here beside the other crons (send-reminders, lead-messaging).
+ * blocks outbound DNS to our own domain and to googleapis, so a cloud agent
+ * cannot measure us. A Vercel function has open network, so this lives here
+ * beside the other crons (send-reminders, lead-messaging).
  *
- * WHAT IT CHECKS
- *   1. Pages      - every <loc> in the live sitemap.xml (plus the core pages),
- *                   each must return a healthy 200 with real HTML.
- *   2. Payment    - every pay.grow.link URL found in the data files must return
- *                   a live payment page (a dead link means a customer cannot pay).
- *   3. Speed      - optional: Google PageSpeed Insights on the homepage, only if
- *                   PAGESPEED_API_KEY is set (skipped cleanly otherwise).
+ * REQUIRES env PAGESPEED_API_KEY (free Google Cloud key) - without it the PSI
+ * API rate-limits (HTTP 429) and nothing can be measured, so the run exits
+ * quietly without emailing. Get a key at console.cloud.google.com (enable
+ * "PageSpeed Insights API", create an API key) and add it in Vercel env vars.
  *
  * DELIVERY: one email via Resend to info@highair-expeditions.com, status word in
- * the subject (תקין / שים לב / תקלה). Report only - it never changes anything.
+ * the subject (תקין / שים לב / תקלה).
  *
  * SECURITY: requires CRON_SECRET (same pattern as send-reminders.js) and must be
- * registered under `crons` in vercel.json. `functions.includeFiles` ships the
- * src/data files so the payment-link scan can read them at runtime.
+ * registered under `crons` in vercel.json.
  */
 
 export const config = { api: { bodyParser: false } };
 
-import fs from 'fs';
-import path from 'path';
 import { setSecurityHeaders } from './_security.js';
 
 const SITE = 'https://www.highair-expeditions.com';
 
-/* Core pages always checked even if the sitemap fetch fails. */
-const CORE_PATHS = ['/', '/treks', '/climbs', '/about', '/contact', '/annual-plan', '/shop', '/blog'];
+/* Pages whose speed we track (mobile AND desktop each). Homepage first. */
+const PAGES = [
+  { path: '/',                       label: 'דף הבית' },
+  { path: '/treks',                  label: 'טרקים בעולם' },
+  { path: '/climbs',                 label: 'טיפוסי הרים' },
+  { path: '/expedition/kilimanjaro', label: 'קילימנג׳רו' },
+];
 
-/* Markers that mean a fetched page/link is actually broken despite a 200. */
-const DEAD_MARKERS = /(not found|page not found|expired|no longer available|link disabled|אינו קיים|לא נמצא|פג תוקף|הקישור אינו)/i;
+/* Thresholds on the Lighthouse performance score (0-100), mobile is the gate. */
+const YELLOW_BELOW = 80;
+const RED_BELOW    = 60;
 
 function isAuthorizedCron(req) {
   const expected = process.env.CRON_SECRET;
@@ -55,66 +57,35 @@ function isAuthorizedCron(req) {
   return diff === 0;
 }
 
-async function timedFetch(url, { method = 'GET', timeout = 9000 } = {}) {
+async function pagespeed(url, strategy, key) {
+  const api = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&category=performance&key=${key}`;
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeout);
-  const t0 = Date.now();
+  const t = setTimeout(() => ctrl.abort(), 55000);
   try {
-    const r = await fetch(url, {
-      method, redirect: 'follow', signal: ctrl.signal,
-      headers: { 'User-Agent': 'HighAirHealthBot/1.0 (+https://www.highair-expeditions.com)' },
-    });
-    const ms = Date.now() - t0;
-    let body = '';
-    if (method === 'GET') { try { body = (await r.text()).slice(0, 6000); } catch {} }
-    return { ok: r.ok, status: r.status, ms, body };
+    const r = await fetch(api, { signal: ctrl.signal });
+    if (!r.ok) return { error: `HTTP ${r.status}` };
+    const j = await r.json();
+    const lh = j.lighthouseResult;
+    if (!lh) return { error: 'no lighthouse result' };
+    const num = id => lh.audits?.[id]?.numericValue;
+    return {
+      score: Math.round((lh.categories?.performance?.score ?? 0) * 100),
+      lcp:   lh.audits?.['largest-contentful-paint']?.displayValue || 'n/a',
+      cls:   lh.audits?.['cumulative-layout-shift']?.displayValue || 'n/a',
+      tbt:   lh.audits?.['total-blocking-time']?.displayValue || 'n/a',
+      lcpMs: num('largest-contentful-paint'),
+    };
   } catch (e) {
-    return { ok: false, status: 0, ms: Date.now() - t0, err: `${e.name}: ${e.message}` };
+    return { error: `${e.name}: ${e.message}` };
   } finally { clearTimeout(t); }
 }
 
-/* Small concurrency pool so we never fire 50 requests at once. */
+/* Small concurrency pool - PSI is heavy, so don't fire all at once. */
 async function pool(items, size, fn) {
   const out = []; let i = 0;
   await Promise.all(Array.from({ length: Math.min(size, items.length) }, async () => {
     while (i < items.length) { const idx = i++; out[idx] = await fn(items[idx], idx); }
   }));
-  return out;
-}
-
-function uniq(arr) { return [...new Set(arr)]; }
-
-function readPaymentLinks() {
-  const files = ['src/data/israelData.js', 'src/data/mockData.js', 'src/data/shopData.js'];
-  const links = [];
-  for (const f of files) {
-    try {
-      const txt = fs.readFileSync(path.join(process.cwd(), f), 'utf8');
-      for (const m of txt.matchAll(/https:\/\/pay\.grow\.link\/[^"'`\s)]+/g)) links.push(m[0]);
-    } catch (e) { console.warn(`[site-health] could not read ${f}:`, e.message); }
-  }
-  return uniq(links);
-}
-
-async function runPageSpeed(url) {
-  const key = process.env.PAGESPEED_API_KEY;
-  if (!key) return null;
-  const out = {};
-  for (const strategy of ['mobile', 'desktop']) {
-    try {
-      const api = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&category=performance&key=${key}`;
-      const r = await timedFetch(api, { timeout: 30000 });
-      if (!r.ok) { out[strategy] = { error: `HTTP ${r.status}` }; continue; }
-      const j = JSON.parse(r.body.length < 6000 ? r.body : (await (await fetch(api)).text()));
-      const lh = j.lighthouseResult;
-      out[strategy] = {
-        score: Math.round((lh?.categories?.performance?.score ?? 0) * 100),
-        lcp: lh?.audits?.['largest-contentful-paint']?.displayValue || 'n/a',
-        cls: lh?.audits?.['cumulative-layout-shift']?.displayValue || 'n/a',
-        tbt: lh?.audits?.['total-blocking-time']?.displayValue || 'n/a',
-      };
-    } catch (e) { out[strategy] = { error: e.message }; }
-  }
   return out;
 }
 
@@ -130,6 +101,7 @@ export default async function handler(req, res) {
   const TOKEN      = process.env.AIRTABLE_TOKEN;
   const BASE       = process.env.AIRTABLE_BASE;
   const RESEND_KEY = process.env.RESEND_API_KEY;
+  const PSI_KEY    = process.env.PAGESPEED_API_KEY;
 
   /* Kill switch, same AppContent pattern as the other crons. */
   if (TOKEN && BASE) {
@@ -142,80 +114,81 @@ export default async function handler(req, res) {
     } catch (e) { console.warn('[site-health] pause check non-fatal:', e.message); }
   }
 
-  /* ── 1. Pages (sitemap + core) ── */
-  const sm = await timedFetch(`${SITE}/sitemap.xml`);
-  const sitemapOk = sm.ok && /<urlset/i.test(sm.body);
-  const locs = sitemapOk ? uniq([...sm.body.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1].trim())) : [];
-  const corePages = CORE_PATHS.map(p => `${SITE}${p}`);
-  const pageUrls = uniq([...corePages, ...locs]).slice(0, 40);
+  /* No PSI key -> PageSpeed cannot run reliably (429). Exit quietly, no email. */
+  if (!PSI_KEY) {
+    console.warn('[site-health] PAGESPEED_API_KEY not set — speed monitoring is a no-op until a key is added');
+    return res.status(200).json({ ok: true, skipped: 'no PAGESPEED_API_KEY' });
+  }
 
-  const pageResults = await pool(pageUrls, 6, async (url) => {
-    const r = await timedFetch(url);
-    const healthy = r.status >= 200 && r.status < 400 && !(r.body && DEAD_MARKERS.test(r.body));
-    const slow = r.ms > 3000;
-    return { url, status: r.status, ms: r.ms, healthy, slow, err: r.err };
-  });
-  const pageFails = pageResults.filter(p => !p.healthy);
-  const pageSlow  = pageResults.filter(p => p.healthy && p.slow);
+  /* Measure every page on mobile + desktop. */
+  const jobs = [];
+  for (const p of PAGES) for (const strategy of ['mobile', 'desktop']) jobs.push({ ...p, strategy });
+  const measured = await pool(jobs, 3, async (j) => ({ ...j, result: await pagespeed(`${SITE}${j.path}`, j.strategy, PSI_KEY) }));
 
-  /* ── 2. Payment links ── */
-  const payLinks = readPaymentLinks();
-  const payResults = await pool(payLinks, 4, async (url) => {
-    const r = await timedFetch(url);
-    const dead = !(r.status >= 200 && r.status < 400) || (r.body && DEAD_MARKERS.test(r.body));
-    return { url, status: r.status, ms: r.ms, dead, err: r.err };
-  });
-  const payFails = payResults.filter(p => p.dead);
+  /* Fold into per-page rows. */
+  const byPath = {};
+  for (const m of measured) {
+    byPath[m.path] ||= { label: m.label, path: m.path };
+    byPath[m.path][m.strategy] = m.result;
+  }
+  const rows = PAGES.map(p => byPath[p.path]);
 
-  /* ── 3. Speed (optional) ── */
-  const psi = await runPageSpeed(`${SITE}/`);
-
-  /* ── Status ── */
+  /* Status from the mobile score (plus any hard error). */
+  let worstMobile = 100; let anyError = false;
+  for (const r of rows) {
+    const mob = r.mobile || {};
+    if (mob.error) anyError = true;
+    else if (typeof mob.score === 'number') worstMobile = Math.min(worstMobile, mob.score);
+  }
   let status = 'תקין';
-  if (!sitemapOk || pageSlow.length) status = 'שים לב';
-  if (pageFails.length || payFails.length) status = 'תקלה';
+  if (worstMobile < YELLOW_BELOW) status = 'שים לב';
+  if (worstMobile < RED_BELOW || anyError) status = 'תקלה';
 
   const dd = new Date().toLocaleDateString('he-IL', { timeZone: 'Asia/Jerusalem', day: '2-digit', month: '2-digit' });
 
-  /* ── Email ── */
+  /* Email. */
   let emailed = false;
   if (RESEND_KEY) {
-    const line = (label, val, bad) =>
-      `<tr><td style="padding:6px 0;font-size:13px;color:#6B6B8A;">${esc(label)}</td><td style="padding:6px 0;font-size:14px;font-weight:700;color:${bad ? '#B91C1C' : '#166534'};text-align:left;">${esc(val)}</td></tr>`;
-    const failBlock = (title, items) => items.length ? `
-      <div style="margin-top:16px;background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:14px 18px;">
-        <p style="margin:0 0 8px;font-size:13px;color:#991B1B;font-weight:700;">${esc(title)}</p>
-        ${items.map(i => `<p style="margin:2px 0;font-size:12px;color:#7F1D1D;direction:ltr;text-align:left;">${esc(i)}</p>`).join('')}
-      </div>` : '';
-    const psiBlock = psi ? `
-      <div style="margin-top:16px;background:#F9F8FF;border:1px solid #ECEAF8;border-radius:12px;padding:14px 18px;">
-        <p style="margin:0 0 8px;font-size:13px;color:#4338ca;font-weight:700;">מהירות (PageSpeed, דף הבית)</p>
-        ${['mobile', 'desktop'].map(s => psi[s] ? `<p style="margin:2px 0;font-size:12px;color:#1e1b4b;direction:ltr;text-align:left;">${s}: ${psi[s].error ? 'שגיאה ' + esc(psi[s].error) : `score ${psi[s].score} · LCP ${esc(psi[s].lcp)} · CLS ${esc(psi[s].cls)} · TBT ${esc(psi[s].tbt)}`}</p>` : '').join('')}
-      </div>` : '';
-
+    const cell = (r) => {
+      if (!r) return '<td style="padding:6px 8px;font-size:12px;color:#9591B0;">—</td>';
+      if (r.error) return `<td style="padding:6px 8px;font-size:12px;color:#B91C1C;">שגיאה</td>`;
+      const col = r.score >= YELLOW_BELOW ? '#166534' : r.score >= RED_BELOW ? '#B45309' : '#B91C1C';
+      return `<td style="padding:6px 8px;font-size:13px;color:${col};font-weight:700;">${r.score}</td>`;
+    };
+    const metricRow = (r) => {
+      const m = r.mobile || {}; const d = r.desktop || {};
+      const detail = m.error ? `<span style="color:#B91C1C;direction:ltr;">${esc(m.error)}</span>`
+        : `<span style="direction:ltr;">LCP ${esc(m.lcp)} · CLS ${esc(m.cls)} · TBT ${esc(m.tbt)}</span>`;
+      return `<tr style="border-top:1px solid #ECEAF8;">
+        <td style="padding:6px 8px;font-size:13px;color:#1e1b4b;font-weight:600;">${esc(r.label)}</td>
+        ${cell(r.mobile)}${cell(r.desktop)}
+        <td style="padding:6px 8px;font-size:11px;color:#6B6B8A;">${detail}</td>
+      </tr>`;
+    };
     const statusColor = status === 'תקלה' ? '#B91C1C' : status === 'שים לב' ? '#B45309' : '#166534';
     const html = `<!DOCTYPE html><html dir="rtl" lang="he"><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;"><tr><td align="center">
     <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;max-width:600px;width:100%;box-shadow:0 4px 24px rgba(109,40,217,0.10);">
       <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:26px 32px;text-align:center;">
-        <h1 style="margin:0;color:#fff;font-size:20px;font-weight:700;">בדיקת תקינות אתר</h1>
+        <h1 style="margin:0;color:#fff;font-size:20px;font-weight:700;">דוח מהירות יומי</h1>
         <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions · ${esc(dd)}</p>
       </td></tr>
       <tr><td style="padding:28px 32px;">
         <div style="text-align:center;margin-bottom:20px;"><span style="display:inline-block;padding:8px 24px;border-radius:999px;background:${statusColor};color:#fff;font-size:16px;font-weight:700;">${esc(status)}</span></div>
-        <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;padding:4px 16px;">
-          ${line('דפים שנבדקו', `${pageResults.length} (${pageFails.length} תקלות, ${pageSlow.length} איטיים)`, pageFails.length > 0)}
-          ${line('מפת אתר (sitemap)', sitemapOk ? `תקינה · ${locs.length} כתובות` : 'לא נטענה', !sitemapOk)}
-          ${line('לינקי תשלום', `${payResults.length} נבדקו (${payFails.length} תקולים)`, payFails.length > 0)}
+        <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
+          <tr style="background:#F5F0FF;">
+            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">עמוד</td>
+            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">מובייל</td>
+            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">דסקטופ</td>
+            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">Core Web Vitals (מובייל)</td>
+          </tr>
+          ${rows.map(metricRow).join('')}
         </table>
-        ${failBlock('דפים שנכשלו', pageFails.map(p => `${p.status || p.err || 'ERR'}  ${p.url}`))}
-        ${failBlock('לינקי תשלום תקולים - דחוף', payFails.map(p => `${p.status || p.err || 'ERR'}  ${p.url}`))}
-        ${pageSlow.length ? failBlock('דפים איטיים (מעל 3 שניות)', pageSlow.map(p => `${p.ms}ms  ${p.url}`)) : ''}
-        ${psiBlock}
+        <p style="margin:16px 0 0;font-size:11px;color:#9591B0;line-height:1.6;">הציון הוא Lighthouse Performance (0-100). ירוק 80+, כתום 60-79, אדום מתחת ל-60. הסף נקבע לפי המובייל.</p>
       </td></tr>
       <tr><td style="background:#FAFAF8;padding:18px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-        <p style="margin:0;font-size:12px;color:#9591B0;">נשלח אוטומטית מבדיקת התקינות היומית · קריאה בלבד</p>
+        <p style="margin:0;font-size:12px;color:#9591B0;">נשלח אוטומטית מבדיקת המהירות היומית · קריאה בלבד</p>
       </td></tr>
     </table>
   </td></tr></table>
@@ -228,7 +201,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from: 'HighAir Website <noreply@highair-expeditions.com>',
           to: ['info@highair-expeditions.com'],
-          subject: `HighAir - בדיקת תקינות אתר (${dd}): ${status}`,
+          subject: `HighAir - דוח מהירות (${dd}): ${status}`,
           html,
         }),
       });
@@ -239,8 +212,6 @@ export default async function handler(req, res) {
 
   return res.status(200).json({
     ok: true, status, emailed,
-    pages: { checked: pageResults.length, failed: pageFails.length, slow: pageSlow.length, sitemapOk },
-    payments: { checked: payResults.length, failed: payFails.length },
-    speed: psi ? 'measured' : 'skipped (no PAGESPEED_API_KEY)',
+    pages: rows.map(r => ({ path: r.path, mobile: r.mobile?.score ?? r.mobile?.error, desktop: r.desktop?.score ?? r.desktop?.error })),
   });
 }

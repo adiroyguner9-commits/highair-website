@@ -5,7 +5,7 @@
     { "path": "/api/site-health", "schedule": "0 5 * * *" }
   ],
   "functions": {
-    "api/site-health.js": { "includeFiles": "src/data/**", "maxDuration": 60 }
+    "api/site-health.js": { "maxDuration": 120 }
   },
   "headers": [
     {
