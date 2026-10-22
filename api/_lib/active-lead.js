@@ -91,7 +91,7 @@ export async function bookingAgent({ base, token, lead = '', phone = '' }) {
       let lf = null;
       const H = { headers: { Authorization: `Bearer ${token}` } };
       if (/^rec[A-Za-z0-9]{14}$/.test(tok)) {
-        const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent('Website Leads')}/${tok}?fields[]=Phone`, H);
+        const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent('Website Leads')}/${tok}`, H);   // no fields[]: 422 on this endpoint
         if (r.ok) lf = (await r.json()).fields || null;
       } else if (/^[a-z0-9]{4,12}$/.test(tok)) {
         const f = encodeURIComponent(`{Book Code}="${tok}"`);

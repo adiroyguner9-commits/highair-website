@@ -87,7 +87,13 @@ export default async function handler(req, res) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
     return res.status(500).json({ error: 'Internal date format error' });
   }
-  const formula = encodeURIComponent(`AND({Date}="${dateStr}",{Status}="confirmed",{ReminderSent}!=TRUE())`);
+  /* ReminderSent is a TEXT column. The flag used to be written as a boolean,
+     which Airtable rejects on a text field, so it was never set (empty on all
+     707 calls, 22 Oct 2026) and a call at an off-quarter time (09:55) fell in
+     two runs' windows and got two reminders. Written as 'true' now, and read
+     as "empty". A reschedule in the Lead Center clears it, so the new time
+     gets its own reminder. */
+  const formula = encodeURIComponent(`AND({Date}="${dateStr}",{Status}="confirmed",NOT({ReminderSent}))`);
   let records = [];
   try {
     const atRes  = await fetch(
@@ -145,7 +151,7 @@ export default async function handler(req, res) {
       await fetch(`https://api.airtable.com/v0/${BASE}/Appointments/${record.id}`, {
         method:  'PATCH',
         headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ fields: { ReminderSent: true } }),
+        body:    JSON.stringify({ fields: { ReminderSent: 'true' } }),
       });
 
       results.push({ name: Name, time: Time, status: 'sent' });

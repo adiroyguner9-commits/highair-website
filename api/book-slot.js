@@ -93,8 +93,13 @@ function generateICS({ date, time, name, expedition }) {
 }
 
 /* Admin ICS — METHOD:REQUEST → iOS Mail shows Accept/Decline banner automatically */
-function generateAdminICS({ date, time, name, expedition, attendeeEmail, attendeeName }) {
-  const { dtStart, dtEnd, uid } = icsDateTimes(date, time);
+/* uid: the Appointment record id (appt-<id>@…), shared with the webapp's
+   reschedule and cancel invites (api/_lib/call-ics.js) so a change replaces
+   this event. The date+time UID it used made two calls at the same hour one
+   event in info@'s calendar (22 Oct 2026). */
+function generateAdminICS({ date, time, name, expedition, attendeeEmail, attendeeName, uid: callUid }) {
+  const { dtStart, dtEnd, uid: slotUid } = icsDateTimes(date, time);
+  const uid = callUid || slotUid;
   const safeName       = icsEscape(name);
   const safeExpedition = icsEscape(expedition);
   const desc = [`לקוח: ${safeName}`, safeExpedition ? `משלחת: ${safeExpedition}` : ''].filter(Boolean).join('\\n');
@@ -229,7 +234,8 @@ export default async function handler(req, res) {
       let lf = null;
       if (/^rec[A-Za-z0-9]{14}$/.test(tok)) {          // legacy record-id token
         const lr = await fetch(
-          `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}/${tok}?${F}`,
+          // No ?fields[]: the single-record endpoint answers 422 to it (22 Oct 2026).
+          `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}/${tok}`,
           { headers: { Authorization: `Bearer ${TOKEN}` } });
         if (lr.ok) lf = (await lr.json()).fields || null;
       } else if (/^[a-z0-9]{4,12}$/.test(tok)) {        // short Book Code
@@ -651,7 +657,8 @@ export default async function handler(req, res) {
   }];
 
   // ICS for admin — REQUEST format (iOS shows Accept/Decline banner automatically)
-  const adminIcsContent = generateAdminICS({ date, time, name, expedition: expeditionHe });
+  const callUid = apptId ? `appt-${apptId}@highair-expeditions.com` : '';
+  const adminIcsContent = generateAdminICS({ date, time, name, expedition: expeditionHe, uid: callUid });
   const adminIcsBase64  = Buffer.from(adminIcsContent, 'utf-8').toString('base64');
   const adminIcsAttachment = [{
     filename:     'highair-meeting.ics',
@@ -810,7 +817,7 @@ export default async function handler(req, res) {
       if (agentTo) {
         const agentIcs = generateAdminICS({
           date, time, name, expedition: expeditionHe,
-          attendeeEmail: agentTo, attendeeName: assignedAgent,
+          attendeeEmail: agentTo, attendeeName: assignedAgent, uid: callUid,
         });
         await sendEmail(RESEND_KEY, {
           to:      agentTo,
