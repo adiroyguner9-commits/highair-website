@@ -4,6 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Fonts preload: only the faces the first screen draws, chosen by host
+         because www (Hebrew) and en. (English) serve this same HTML. Hebrew:
+         Ploni Bold / Medium / Regular (the faces global.css defines) + Mazzard
+         Bold for the hero brand line. English: Mazzard only. Kept first in
+         <head> so nothing blocking runs before it (23 Oct 2026: the old static
+         preloads fetched two .otf files no rule used, ~250 KB wasted). -->
+    <script>
+      (function () {
+        var files = location.hostname.indexOf('en.') === 0
+          ? ['MazzardH-Regular.ttf', 'MazzardH-Bold.ttf']
+          : ['Ploni-Bold-AAA.ttf', 'Ploni-Medium-AAA.ttf', 'Ploni-Regular-AAA.ttf', 'MazzardH-Bold.ttf'];
+        for (var i = 0; i < files.length; i++) {
+          var l = document.createElement('link');
+          l.rel = 'preload'; l.as = 'font'; l.type = 'font/ttf'; l.crossOrigin = 'anonymous';
+          l.href = '/' + files[i];
+          document.head.appendChild(l);
+        }
+      })();
+    </script>
+
     <title>HighAir Expeditions | משלחות טיפוס הרים וטרקים בעולם</title>
     <meta name="description" content="HighAir Expeditions - משלחות טיפוס הרים וטרקים בארץ ובעולם. קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד - בשילוב תרומה למלחמה בסרטן." />
     <meta name="robots" content="index, follow" />
@@ -78,7 +98,9 @@
     <!-- End Facebook Pixel -->
 
     <!-- UserWay Accessibility Widget -->
+    <!-- defer: it used to block the page parse on every load (23 Oct 2026) -->
     <script
+      defer
       src="https://cdn.userway.org/widget.js"
       data-account="rpURKYiNcS"
       data-position="bottom-left"
@@ -140,30 +162,10 @@
     </style>
     <!-- End UserWay -->
 
-    <!-- Fonts preload -->
-    <link rel="preload" href="/PloniBold.otf"        as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="/PloniMedium.otf"      as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="/MazzardH-Regular.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="/MazzardH-Bold.ttf"    as="font" type="font/ttf" crossorigin>
-
     <!-- Hero poster preload - browser fetches this immediately, before React renders -->
     <link rel="preload" href="/videos/hero-home-poster.jpg" as="image" fetchpriority="high">
 
     <style>
-      @font-face {
-        font-family: 'Ploni';
-        src: url('/PloniBold.otf') format('opentype');
-        font-weight: 700 900;
-        font-style: normal;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'Ploni';
-        src: url('/PloniMedium.otf') format('opentype');
-        font-weight: 400 600;
-        font-style: normal;
-        font-display: swap;
-      }
       * { font-family: 'Ploni', sans-serif; }
       body { font-family: 'Ploni', sans-serif; }
     </style>
