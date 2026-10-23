@@ -503,7 +503,7 @@ export const CARD_EXPS = [
     "country": "Nepal",
     "countryHe": "נפאל",
     "flag": "🇳🇵",
-    "img": "/images/cards/manaslu.avif",
+    "img": "/images/cards/manaslu.webp",
     "grad": "linear-gradient(135deg,#0f766e,#0d9488,#042f2e)",
     "elevNum": 5106,
     "type": "Trekking",

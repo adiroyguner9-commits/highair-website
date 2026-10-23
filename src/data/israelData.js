@@ -141,7 +141,7 @@ export const ISRAEL_TRIPS = [
     tagline:    'הצטרפו אלינו לטרק אל הפסגה הגבוהה ביותר בישראל\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!',
     taglineEn:  'Join us for a trek to the highest peak in Israel\nand take part in the fight against cancer!',
     grad:    'linear-gradient(135deg, #1a4a2e, #2d7a4f, #0d2b1a)',
-    img:     '/images/cards/Hermon.avif',
+    img:     '/images/cards/Hermon.webp',
     live:            true,
     hidden:          false,
     airtableEvents:  ['Hermon'],

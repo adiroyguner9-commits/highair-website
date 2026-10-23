@@ -777,7 +777,7 @@ This is a true mountaineering expedition requiring crampons, ice axes, and rope 
     elev: '5106m', elevNum: 5106, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
     diff: 'Moderate', diffHe: 'בינוני', price: 2250, priceStr: '$2250', continent: 'asia',
     airtableEvents: ['Manaslu_Circut'],
-    img: '/images/cards/manaslu.avif',
+    img: '/images/cards/manaslu.webp',
     ogImage: '/images/og/manaslu.jpg',
     seoTitle:       'HighAir Expeditions | טרק סובב מנסלו',
     seoTitleEn:     'Manaslu Circuit Trek | HighAir Expeditions',

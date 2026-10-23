@@ -11,10 +11,12 @@
  * (see cardThumb() in ExpeditionExplorer / IsraelTrips); the detail heroes keep
  * using the full-size original. Re-run after adding or changing a card image:
  *   node scripts/gen-card-thumbs.mjs
+ * It also re-stamps the copyright metadata (scripts/stamp-copyright.mjs).
  */
 import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
+import { stampOwned } from './stamp-copyright.mjs';
 
 const SRC = 'public/images/cards';
 const OUT = 'public/images/cards/thumbs';
@@ -42,3 +44,5 @@ for (const f of files) {
 }
 console.log(`card thumbs written: ${count} | total ${(total / 1024 / 1024).toFixed(2)}MB`);
 if (skipped.length) console.log('skipped (unreadable):', skipped.join(', '));
+/* sharp drops metadata, so re-stamp HighAir's copyright on the new copies */
+stampOwned({ quiet: true });
