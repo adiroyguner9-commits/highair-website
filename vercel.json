@@ -43,6 +43,7 @@
     }
   ],
   "redirects": [
+    { "source": "/", "has": [{ "type": "host", "value": "highair-expeditions.com" }], "destination": "https://www.highair-expeditions.com/", "permanent": true },
     { "source": "/:path*", "has": [{ "type": "host", "value": "highair-expeditions.com" }], "destination": "https://www.highair-expeditions.com/:path*", "permanent": true },
     { "source": "/kilimanjaro",        "destination": "/expedition/kilimanjaro",        "permanent": true },
     { "source": "/kilimanjaro-kosher", "destination": "/expedition/kilimanjaro-kosher", "permanent": true },
