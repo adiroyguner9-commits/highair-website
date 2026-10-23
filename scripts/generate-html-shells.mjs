@@ -385,8 +385,8 @@ const ORG_NODE = {
   priceRange: '$$$',
   address:    { '@type': 'PostalAddress', addressLocality: 'Tel Aviv', addressCountry: 'IL' },
   areaServed: 'IL',
-  // Real Google Business Profile rating (5.0, 263 reviews as of Sep 2026).
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '263', bestRating: '5', worstRating: '1' },
+  // Real Google Business Profile rating (5.0, 296 reviews as of Oct 2026).
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '296', bestRating: '5', worstRating: '1' },
   contactPoint: { '@type': 'ContactPoint', telephone: '+972-55-563-6975', contactType: 'customer service', availableLanguage: ['Hebrew', 'English'] },
   sameAs: [
     'https://www.facebook.com/highair.expeditions',

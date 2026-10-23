@@ -7,6 +7,150 @@
 export const POSTS = [
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:13  tomer-bassan-mera-peak  (2026-10-23)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+    id:       13,
+    slug:     'tomer-bassan-mera-peak',
+    title:    'תומר בסן: חלה בסרטן בגיל 18 והעפיל לפסגת מרה בהימלאיה',
+    titleEn:  'Tomer Bassan: Cancer at 18, the Summit of Mera Peak at 42',
+    author:   'HighAir Expeditions',
+    dateIso:      '2026-10-23',
+    dateModified: '2026-10-23',
+    dateHe:   '23 באוקטובר 2026',
+    dateEn:   'October 23, 2026',
+    category:   'חדשות',
+    categoryEn: 'News',
+    img:              '/images/blog/tomer-bassan-mera-summit.webp',
+    ogImg:            '/images/blog/tomer-bassan-mera-summit-og.webp',
+    imgPosition:      'center 24%',
+    imgPositionCard:  'center 35%',
+    imgCredit:        '',
+    excerpt:   'בגיל 18 חלה תומר בסן בסרטן, ומחשב מהאגודה למלחמה בסרטן חיבר אותו לעולם. בגיל 42 העפיל איתנו לפסגת מרה בנפאל כדי לגייס מחשבים לילדים חולי סרטן.',
+    excerptEn: 'At 18 Tomer Bassan had cancer and a computer kept him connected. At 42 he summited Mera Peak with us to fund computers for children with cancer.',
+    content: [
+      { type: 'text', value: 'ביום חמישי, 15 באוקטובר 2026, עמד תומר בסן על פסגת מרה, 6,476 מטרים מעל פני הים, בלב רכס ההימלאיה בנפאל. מסביבו נפרש אופק שמעטים זוכים לראות, ובו האוורסט ועוד ארבע מתוך שש הפסגות הגבוהות בעולם. אבל תומר לא הגיע לשם בשביל הנוף. הוא הגיע בשביל ילדים שהוא לא מכיר, שנמצאים היום בדיוק במקום שבו היה הוא כשהיה בן 18.' },
+      { type: 'text', value: 'תומר הוא בן 42 מראשון לציון, פיזיותרפיסט, נשוי ואב לשלושה. הוא טיפס למרה פיק עם HighAir, כחלק מקבוצת אוקטובר שלנו, והקדיש את המסע לגיוס תרומות לילדים חולי סרטן. כדי להבין למה, צריך לחזור 24 שנים אחורה.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-snow.webp', alt: 'תומר בסן עם מקלות הליכה בשלג, מול רכס מושלג בהימלאיה', caption: 'תומר בסן בדרך לפסגת מרה' },
+
+      { type: 'section', value: 'האבחנה בגיל 18' },
+      { type: 'text', value: 'בגיל 18, הגיל שבו רוב בני גילו מסיימים תיכון ומתכוננים לצבא, תומר אובחן בסרטן באזור האף והלוע. אחרי האבחנה הגיעה כמעט שנה של טיפולים: כימותרפיה, הקרנות ותקופות ארוכות של בידוד, שבהן לא יכול היה לצאת מהבית, ללכת ללימודים או לפגוש חברים.' },
+      { type: 'text', value: 'באותה תקופה נכנסה לחייו האגודה למלחמה בסרטן. האגודה ליוותה אותו לאורך הטיפולים, ובין השאר העניקה לו מחשב לבית. היום זה נשמע כמו פרט קטן. אז, לנער שמבלה חודשים בבידוד, זה היה החלון שלו לעולם: דרך המחשב הוא המשיך ללמוד, שמר על קשר עם החברים, והרגיש שהחיים לא נעצרו לגמרי.' },
+      { type: 'text', value: 'תומר החלים, ומאז עברו יותר מ-20 שנה. הוא בחר במקצוע שכולו עזרה לאחרים, פיזיותרפיה, שבה הוא מלווה אנשים בדרך חזרה אל מה שהם אוהבים לעשות. את התקופה ההיא הוא לא שכח, והוא אף נושא את סמל האגודה כקעקוע על גבו.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-mera-camp.webp', alt: 'אוהל צהוב של HighAir בשלג מתחת לקיר הר מושלג בדרך למרה פיק', caption: 'אוהל של HighAir במחנה בדרך לפסגת מרה' },
+
+      { type: 'section', value: 'הטיול הראשון לנפאל' },
+      { type: 'text', value: 'הקשר של תומר לנפאל התחיל הרבה לפני מרה. בגיל 20, אחרי השירות הצבאי, הוא נסע לשם לראשונה, בלי שום ניסיון בטיפוס הרים, רק כדי לגלות מה הוא מסוגל לעשות. המסע הזה, כך סיפר, פתח בפניו עולם חדש.' },
+      { type: 'text', value: 'יותר מעשרים שנה אחר כך החליט לחזור אל ההימלאיה, והפעם עם מטרה גדולה ממנו. הוא בחר במרה פיק, הפסגה הגבוהה ביותר לטרקינג בנפאל, והפך את הטיפוס למסע גיוס בשביל הילדים.' },
+
+      { type: 'section', value: 'הטיפוס למרה פיק' },
+      { type: 'text', value: 'מרה פיק מתנשאת לגובה 6,476 מטרים באזור עמק הינקו שבמזרח נפאל, לא רחוק מהאוורסט. היא גבוהה מכל פסגה בהרי האלפים ובקווקז, ובכל זאת נחשבת לאחד השערים הנגישים לעולם הטיפוס בגובה רב, כי המסלול הרגיל אליה אינו דורש טיפוס טכני מורכב.' },
+      { type: 'text', value: 'נגישה לא אומר קלה. המשלחת שלנו נמשכת 19 ימים: טיסה ללוקלה, טרק של ימים ארוכים דרך יערות ועמקים שקטים, ימי התאקלמות הדרגתיים, ועלייה למחנה הגבוה בגובה של כ-5,900 מטרים. יום הפסגה מתחיל בחשיכה וממשיך על פני קרחון רחב, עם קרמפונים, גרזן קרח וחבל שמחבר בין המטפסים. התמורה היא נוף נדיר: האוורסט, לוצה, מקאלו, צ׳ו אויו וקנצ׳נג׳ונגה, חמש מתוך שש הפסגות הגבוהות בעולם, באופק אחד.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-glacier.webp', alt: 'תומר בסן עם מקלות הליכה וחבל על הקרחון של מרה פיק בזריחה', caption: 'תומר בסן על הקרחון בדרך לפסגת מרה, עם אור הזריחה' },
+      { type: 'callout', title: '✦ המסע במספרים', items: [
+        '6,476 מטרים: גובה פסגת מרה',
+        '19 ימים: משך המשלחת, מתל אביב ובחזרה',
+        '2 באוקטובר 2026: היציאה מישראל',
+        '15 באוקטובר 2026: יום ההעפלה לפסגה',
+        '24 שנים: מהאבחנה בגיל 18 ועד הפסגה בגיל 42',
+      ]},
+
+      { type: 'section', value: 'הגיוס לפרויקט המחשבים' },
+      { type: 'text', value: 'את התרומות הקדיש תומר לפרויקט ״מחשב לילד חולה״ של האגודה למלחמה בסרטן, פרויקט שממשיך בדיוק את מה שהאגודה עשתה עבורו אז. הפרויקט מעניק מחשבים לילדים חולי סרטן מגיל 9 ומעלה, במשפחות שאין בהן מחשב, כדי שיוכלו להמשיך ללמוד מהבית או מבית החולים ולשמור על קשר עם המורים והחברים גם בתקופות הארוכות שבהן הם רחוקים מהכיתה.' },
+      { type: 'text', value: 'חשוב לדעת: התרומות אינן מממנות את הטיפוס עצמו, והן מיועדות כולן לפרויקט המחשבים. אפשר להצטרף ולתרום בכל סכום.' },
+      { type: 'extlink', href: 'https://www.jgive.com/new/he/ils/donation-targets/176807', text: 'לתרומה לפרויקט המחשבים לילדים חולי סרטן', textEn: 'Donate to the computers project for children with cancer' },
+
+      { type: 'section', value: 'הדגל על הפסגה' },
+      { type: 'text', value: 'בראיונות שנתן לפני ואחרי המסע חזר תומר על אותו רעיון: מבחינתו, הטיפוס הזה הוא סגירת מעגל. לפני היציאה סיפר שכשיניף את הדגל על הפסגה, הוא יחשוב על הילדים שנמצאים היום במקום שבו היה הוא. ב-15 באוקטובר עמד על הפסגה והניף אותו, דגל לבן של האגודה ועליו המילים From Survival to Summit. אחרי שירד מההר תיאר מסע קשה מאוד, פיזית ומנטלית, והודה לאגודה שליוותה אותו לאורך כל הדרך.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-ica-flag.webp', alt: 'תומר בסן מחזיק על פסגת מרה את הדגל של האגודה למלחמה בסרטן', caption: 'תומר בסן על פסגת מרה עם דגל האגודה למלחמה בסרטן' },
+      { type: 'text', value: 'לילדים עצמם היה לו מסר פשוט: הוא היה שם, בדיוק במקום שלהם, והוא מבקש מהם להיות חזקים. מאחורי המשפט הזה עומדים 24 שנים, 6,476 מטרים ומחשב אחד שהגיע בזמן הנכון.' },
+
+      { type: 'section', value: 'תומר ו-HighAir' },
+      { type: 'text', value: 'לראות לקוח שלנו מעפיל לפסגה זה תמיד רגע מרגש. לראות אותו עושה את זה בשביל ילדים חולי סרטן, זה רגע שנוגע בדיוק במקום שממנו HighAir נולדה.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-team.webp', alt: 'חברי משלחת HighAir ומדריכי השרפה ליד אוהל בשלג', caption: 'המשלחת של HighAir ומדריכי השרפה במחנה בדרך לפסגת מרה' },
+      { type: 'text', value: 'HighAir הוקמה מתוך אובדן. אמו של חן שקד, ממייסדי החברה, קרול שקד ז״ל, נפטרה לאחר מאבק ממושך בסרטן. מאז, חלק מהרווחים מכל משלחת שלנו מוקדש לתמיכה בחולי סרטן בישראל, כי ההרים, בעינינו, הם גם דרך לתת. כשלקוח בוחר להפוך את הפסגה שלו לתרומה, הוא לוקח את הרעיון הזה עוד צעד קדימה, ואנחנו גאים שהיינו חלק מהדרך שלו.' },
+      { type: 'text', value: 'ב-HighAir אנחנו מוציאים קבוצות למרה פיק פעמיים בשנה, באביב ובסתיו, במסלול של 19 ימים דרך עמק הינקו, עם ימי התאקלמות, מדריכי שרפה מנוסים והכשרה על ציוד הקרח לפני יום הפסגה. וכמו שתומר מוכיח, כל מטפס שאתם רואים היום על פסגות העולם התחיל פעם אחת, על הר אחד, בלי ניסיון ועם הרבה סקרנות.' },
+      { type: 'cta', text: 'למשלחת למרה פיק', textEn: 'Mera Peak Expedition', href: '/expedition/mera-peak' },
+
+      { type: 'section', value: 'שאלות נפוצות' },
+      { type: 'heading', value: 'מי הוא תומר בסן?' },
+      { type: 'text', value: 'תומר בסן הוא פיזיותרפיסט בן 42 מראשון לציון, נשוי ואב לשלושה. בגיל 18 חלה בסרטן באזור האף והלוע והחלים. באוקטובר 2026 העפיל לפסגת מרה בנפאל עם HighAir, כדי לגייס תרומות לילדים חולי סרטן.' },
+      { type: 'heading', value: 'מתי הגיע תומר בסן לפסגת מרה?' },
+      { type: 'text', value: 'ביום חמישי, 15 באוקטובר 2026, כשבועיים אחרי שיצא מישראל עם קבוצת המשלחת של HighAir.' },
+      { type: 'heading', value: 'לאיזו מטרה גייס תומר תרומות?' },
+      { type: 'text', value: 'לפרויקט ״מחשב לילד חולה״ של האגודה למלחמה בסרטן, שמעניק מחשבים לילדים חולי סרטן מגיל 9 ומעלה במשפחות שאין בהן מחשב, כדי שימשיכו ללמוד ולשמור על קשר בתקופת הטיפולים. התרומות אינן מממנות את הטיפוס עצמו.' },
+      { type: 'heading', value: 'מה הגובה של מרה פיק?' },
+      { type: 'text', value: '6,476 מטרים. זו הפסגה הגבוהה ביותר לטרקינג בנפאל, והיא נמצאת בעמק הינקו שבמזרח נפאל, לא רחוק מהאוורסט.' },
+      { type: 'heading', value: 'האם צריך ניסיון בטיפוס כדי לטפס למרה פיק?' },
+      { type: 'text', value: 'המסלול הרגיל אינו דורש טיפוס טכני מורכב, אבל יום הפסגה כולל הליכה על קרחון עם קרמפונים, גרזן קרח וחבל. נדרשים כושר גופני טוב וניסיון בטרקים, וב-HighAir המשתתפים עוברים הכשרה על הציוד לפני יום הפסגה.' },
+      { type: 'heading', value: 'כמה זמן נמשכת משלחת למרה פיק?' },
+      { type: 'text', value: 'המשלחת של HighAir נמשכת 19 ימים, כולל טיסה ללוקלה, טרק דרך עמק הינקו, ימי התאקלמות, יום פסגה ויום ספייר למקרה של מזג אוויר גרוע.' },
+      { type: 'heading', value: 'מתי יוצאות המשלחות הבאות של HighAir למרה פיק?' },
+      { type: 'text', value: 'אנחנו יוצאים למרה פיק פעמיים בשנה, באביב ובסתיו. את התאריכים המעודכנים אפשר למצוא בעמוד המשלחת באתר.' },
+    ],
+    contentEn: [
+      { type: 'text', value: 'On Thursday, October 15, 2026, Tomer Bassan stood on the summit of Mera Peak, 6,476 meters above sea level, in the heart of the Nepal Himalaya. Around him spread a horizon few people ever see, with Everest and four more of the six highest mountains on Earth. But Tomer did not come for the view. He came for children he has never met, who are today exactly where he was at 18.' },
+      { type: 'text', value: 'Tomer is 42, from Rishon LeZion, a physiotherapist, married and a father of three. He climbed Mera Peak with HighAir as part of our October group and dedicated the expedition to raising money for children with cancer. To understand why, you have to go back 24 years.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-snow.webp', alt: 'Tomer Bassan with trekking poles in the snow, facing a snowy Himalayan ridge', caption: 'Tomer Bassan on the way to the summit of Mera Peak' },
+
+      { type: 'section', value: 'Diagnosed at 18' },
+      { type: 'text', value: 'At 18, when most people his age are finishing high school and getting ready for the army, Tomer was diagnosed with cancer in the nose and throat area. Almost a year of treatment followed: chemotherapy, radiation and long periods of isolation, when he could not leave home, go to school or see friends.' },
+      { type: 'text', value: 'During that time the Israel Cancer Association came into his life. The Association stayed with him throughout his treatment and, among other things, gave him a computer at home. Today that sounds like a small detail. Back then, for a teenager spending months in isolation, it was his window to the world: through it he kept studying, stayed in touch with friends, and felt that life had not stopped completely.' },
+      { type: 'text', value: 'Tomer recovered, and more than 20 years have passed since. He chose a profession built entirely around helping others, physiotherapy, guiding people back to the things they love to do. He never forgot that period, and he even carries the Association emblem as a tattoo on his back.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-mera-camp.webp', alt: 'A yellow HighAir tent in the snow below a snowy mountain wall on the way to Mera Peak', caption: 'A HighAir tent at camp on the way to Mera Peak' },
+
+      { type: 'section', value: 'His First Trip to Nepal' },
+      { type: 'text', value: 'Tomer\'s connection to Nepal began long before Mera. At 20, after his army service, he traveled there for the first time with no mountaineering experience at all, simply to discover what he was capable of. That journey, he has said, opened a new world for him.' },
+      { type: 'text', value: 'More than twenty years later he decided to return to the Himalaya, this time with a purpose bigger than himself. He chose Mera Peak, the highest trekking peak in Nepal, and turned the climb into a fundraising journey for the children.' },
+
+      { type: 'section', value: 'The Climb to Mera Peak' },
+      { type: 'text', value: 'Mera Peak rises to 6,476 meters in the Hinku Valley of eastern Nepal, not far from Everest. It stands higher than any summit in the Alps or the Caucasus, yet it is considered one of the most accessible gateways to high-altitude climbing, because the standard route requires no complex technical climbing.' },
+      { type: 'text', value: 'Accessible does not mean easy. Our expedition runs 19 days: a flight to Lukla, long trekking days through forests and quiet valleys, gradual acclimatization, and a move up to high camp at around 5,900 meters. Summit day starts in the dark and continues across a wide glacier, with crampons, an ice axe and a rope linking the climbers. The reward is a rare view: Everest, Lhotse, Makalu, Cho Oyu and Kangchenjunga, five of the six highest mountains in the world, on a single horizon.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-glacier.webp', alt: 'Tomer Bassan with trekking poles and a rope on the Mera Peak glacier at sunrise', caption: 'Tomer Bassan on the glacier on the way to the summit of Mera Peak, at first light' },
+      { type: 'callout', title: '✦ The Journey in Numbers', items: [
+        '6,476 meters: the height of Mera Peak',
+        '19 days: the length of the expedition, from Tel Aviv and back',
+        'October 2, 2026: departure from Israel',
+        'October 15, 2026: summit day',
+        '24 years: from diagnosis at 18 to the summit at 42',
+      ]},
+
+      { type: 'section', value: 'The Computers Fundraiser' },
+      { type: 'text', value: 'Tomer dedicated the donations to the Israel Cancer Association project "A Computer for a Sick Child", which continues exactly what the Association did for him back then. The project gives computers to children with cancer aged 9 and up whose families do not have one, so they can keep learning from home or from the hospital and stay connected with teachers and friends through the long stretches away from the classroom.' },
+      { type: 'text', value: 'Worth knowing: the donations do not fund the climb itself. All of them go to the computers project, and anyone can join with any amount.' },
+      { type: 'extlink', href: 'https://www.jgive.com/new/he/ils/donation-targets/176807', text: 'לתרומה לפרויקט המחשבים לילדים חולי סרטן', textEn: 'Donate to the computers project for children with cancer' },
+
+      { type: 'section', value: 'The Flag on the Summit' },
+      { type: 'text', value: 'In interviews before and after the expedition, Tomer returned to the same idea: for him, this climb closes a circle. Before leaving he said that when he raised the flag on the summit, he would think of the children who are today where he once was. On October 15 he stood on the summit and raised it, a white Israel Cancer Association flag bearing the words From Survival to Summit. After coming down he described the journey as extremely hard, physically and mentally, and thanked the Association for standing by him all along the way.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-ica-flag.webp', alt: 'Tomer Bassan holding the Israel Cancer Association flag on the summit of Mera Peak', caption: 'Tomer Bassan on the summit of Mera Peak with the Israel Cancer Association flag' },
+      { type: 'text', value: 'To the children themselves he had a simple message: he was there, exactly where they are, and he asks them to be strong. Behind that sentence stand 24 years, 6,476 meters and one computer that arrived at the right time.' },
+
+      { type: 'section', value: 'Tomer and HighAir' },
+      { type: 'text', value: 'Watching one of our clients reach a summit is always a moving moment. Watching him do it for children with cancer touches the very place HighAir was born from.' },
+      { type: 'image', src: '/images/blog/tomer-bassan-team.webp', alt: 'HighAir expedition members and Sherpa guides beside a tent in the snow', caption: 'The HighAir expedition and our Sherpa guides at camp on the way to Mera Peak' },
+      { type: 'text', value: 'HighAir was founded out of loss. The mother of our co-founder Chen Shaked, the late Carol Shaked, died after a long battle with cancer. Since then, part of the profits from every expedition we run goes to supporting cancer patients in Israel, because to us the mountains are also a way to give. When a client chooses to turn his summit into a donation, he takes that idea one step further, and we are proud to have been part of his journey.' },
+      { type: 'text', value: 'At HighAir we lead groups to Mera Peak twice a year, in spring and autumn, on a 19-day route through the Hinku Valley with acclimatization days, experienced Sherpa guides and training on ice equipment before summit day. And as Tomer shows, every climber you see on the world\'s summits today started once, on one mountain, with no experience and a lot of curiosity.' },
+      { type: 'cta', text: 'למשלחת למרה פיק', textEn: 'Mera Peak Expedition', href: '/expedition/mera-peak' },
+
+      { type: 'section', value: 'Frequently asked questions' },
+      { type: 'heading', value: 'Who is Tomer Bassan?' },
+      { type: 'text', value: 'Tomer Bassan is a 42-year-old physiotherapist from Rishon LeZion, married and a father of three. At 18 he had cancer in the nose and throat area and recovered. In October 2026 he summited Mera Peak in Nepal with HighAir to raise money for children with cancer.' },
+      { type: 'heading', value: 'When did Tomer Bassan reach the summit of Mera Peak?' },
+      { type: 'text', value: 'On Thursday, October 15, 2026, about two weeks after he left Israel with the HighAir expedition group.' },
+      { type: 'heading', value: 'What cause did Tomer raise money for?' },
+      { type: 'text', value: 'The Israel Cancer Association project "A Computer for a Sick Child", which gives computers to children with cancer aged 9 and up whose families do not have one, so they can keep learning and stay connected during treatment. The donations do not fund the climb itself.' },
+      { type: 'heading', value: 'How high is Mera Peak?' },
+      { type: 'text', value: '6,476 meters. It is the highest trekking peak in Nepal, located in the Hinku Valley of eastern Nepal, not far from Everest.' },
+      { type: 'heading', value: 'Do you need climbing experience to climb Mera Peak?' },
+      { type: 'text', value: 'The standard route requires no complex technical climbing, but summit day includes glacier travel with crampons, an ice axe and a rope. Good fitness and trekking experience are required, and at HighAir participants are trained on the equipment before summit day.' },
+      { type: 'heading', value: 'How long is a Mera Peak expedition?' },
+      { type: 'text', value: 'The HighAir expedition runs 19 days, including a flight to Lukla, a trek through the Hinku Valley, acclimatization days, summit day and a spare day for bad weather.' },
+      { type: 'heading', value: 'When are the next HighAir expeditions to Mera Peak?' },
+      { type: 'text', value: 'We run Mera Peak twice a year, in spring and autumn. Up-to-date dates are on the expedition page on our website.' },
+    ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:12  nepal-flood-2026-trekking-season  (2026-08-27)
    * ═══════════════════════════════════════════════════════════════════ */
   {

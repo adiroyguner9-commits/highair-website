@@ -125,7 +125,7 @@ export default function BlogPost() {
     title:         `${postSeoTitle} | HighAir Expeditions`,
     description:   postExcerpt,
     canonicalPath: `/blog/${post.slug}`,
-    image:         post.img ? `${BASE}${post.img}` : undefined,
+    image:         (post.ogImg || post.img) ? `${BASE}${post.ogImg || post.img}` : undefined,
     ogType:        'article',
     /* jsonLd intentionally omitted — schema lives in the static shell (see note above) */
   } : {
