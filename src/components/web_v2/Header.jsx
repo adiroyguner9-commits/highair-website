@@ -965,11 +965,15 @@ export default function Header() {
      setNavFit(Math.round(Math.min(1, Math.max(-0.3, k)) * 1000) / 1000);
    };
    fit();
+   // Re-fit whenever any measured box changes: the header (window width), the
+   // label copies (web fonts arriving) and the logo, which is 0px wide until the
+   // image decodes when switching from the phone header. Window resize is a
+   // belt-and-braces trigger on top of the observer.
    const ro = new ResizeObserver(fit);
-   if (headerRef.current) ro.observe(headerRef.current);
-   if (measureRef.current) ro.observe(measureRef.current);
+   [headerRef, measureRef, logoRef, ctaMeasureRef].forEach(r => r.current && ro.observe(r.current));
+   window.addEventListener('resize', fit, { passive: true });
    document.fonts?.ready?.then(fit);
-   return () => ro.disconnect();
+   return () => { ro.disconnect(); window.removeEventListener('resize', fit); };
  }, [isMobile, i18n.language, LINKS.length]);
  /* Leaving the phone layout closes its dropdown. */
  useEffect(() => { if (!isMobile) setMenuOpen(false); }, [isMobile]);
@@ -1211,7 +1215,7 @@ export default function Header() {
  </span>
  ))}
  </div>
- <span ref={ctaMeasureRef} style={{ fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.ctaFont}px`, fontWeight: 600 }}>
+ <span ref={ctaMeasureRef} style={{ display: 'inline-block', fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.ctaFont}px`, fontWeight: 600 }}>
  {isEn ? 'My Account' : 'כניסה לאזור אישי'}
  </span>
  </div>
