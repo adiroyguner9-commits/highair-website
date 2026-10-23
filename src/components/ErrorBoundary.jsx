@@ -1,15 +1,49 @@
 import { Component } from 'react';
 import * as Sentry from '@sentry/react';
 
+/* Chunk-error recovery, at most once per 30 seconds per tab. A chunk that is
+   still broken after that shows the error screen instead of reloading forever.
+   23 Oct 2026: a deploy-time race cached the HTML page under a chunk URL with
+   the one-year immutable header, and the old unconditional reload looped. */
+const RECOVERY_KEY = 'ha_chunk_recovery_at';
+const RECOVERY_WINDOW_MS = 30000;
+let recoveryStarted = false; // this page load is already refreshing + reloading
+
+function claimRecovery() {
+  try {
+    const last = Number(sessionStorage.getItem(RECOVERY_KEY)) || 0;
+    if (Date.now() - last < RECOVERY_WINDOW_MS) return false;
+    sessionStorage.setItem(RECOVERY_KEY, String(Date.now()));
+    return true;
+  } catch (_) {
+    return false; // no storage: never risk a reload loop
+  }
+}
+
+/* /assets/ files are cached for a year as immutable, so a bad copy would
+   survive a plain reload. Re-fetch every asset this page touched (plus the URL
+   named in the error), bypassing the cache, then reload onto fresh copies. */
+function refreshAssetsAndReload(error) {
+  const urls = new Set(
+    performance.getEntriesByType('resource')
+      .map(e => e.name)
+      .filter(u => u.startsWith(`${window.location.origin}/assets/`)),
+  );
+  for (const m of String(error?.message || '').matchAll(/https?:\/\/\S+?\/assets\/\S+?\.(?:js|css)/g)) urls.add(m[0]);
+  const refresh = Promise.allSettled([...urls].map(u => fetch(u, { cache: 'reload' })));
+  const timeout = new Promise(resolve => setTimeout(resolve, 4000));
+  Promise.race([refresh, timeout]).finally(() => window.location.reload());
+}
+
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, recovering: false };
   }
 
   static getDerivedStateFromError(error) {
-    // Stale chunk after a new deployment — reload so the browser fetches
-    // the updated index.html and fresh chunk hashes.
+    // Stale chunk after a new deployment: refresh the cached chunks and reload
+    // so the browser gets the updated index.html and fresh chunk hashes.
     const msg = error?.message || '';
     const isChunkError =
       error?.name === 'ChunkLoadError' ||
@@ -18,12 +52,15 @@ export default class ErrorBoundary extends Component {
       /importing a module script failed/i.test(msg) ||
       /unable to preload css/i.test(msg);
 
-    if (isChunkError) {
-      window.location.reload();
-      return { hasError: false, error: null };
+    if (isChunkError && (recoveryStarted || claimRecovery())) {
+      if (!recoveryStarted) {
+        recoveryStarted = true;
+        refreshAssetsAndReload(error);
+      }
+      return { hasError: false, error: null, recovering: true };
     }
 
-    return { hasError: true, error };
+    return { hasError: true, error, recovering: false };
   }
 
   componentDidCatch(error, info) {
@@ -33,6 +70,9 @@ export default class ErrorBoundary extends Component {
   }
 
   render() {
+    // Reload is on its way; don't re-render the failing tree meanwhile
+    if (this.state.recovering) return null;
+
     if (!this.state.hasError) {
       return this.props.children;
     }
