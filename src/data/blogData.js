@@ -21,17 +21,17 @@ export const POSTS = [
     dateEn:   'October 23, 2026',
     category:   'חדשות',
     categoryEn: 'News',
-    img:              '/images/blog/tomer-bassan-mera-summit.webp',
+    img:              '/images/blog/tomer-bassan-snow.webp',
     ogImg:            '/images/blog/tomer-bassan-mera-summit-og.webp',
-    imgPosition:      'center 24%',
-    imgPositionCard:  'center 35%',
+    imgPosition:      'center 25%',
+    imgPositionCard:  'center 30%',
     imgCredit:        '',
     excerpt:   'בגיל 18 חלה תומר בסן בסרטן, ומחשב מהאגודה למלחמה בסרטן חיבר אותו לעולם. בגיל 42 העפיל איתנו לפסגת מרה בנפאל כדי לגייס מחשבים לילדים חולי סרטן.',
     excerptEn: 'At 18 Tomer Bassan had cancer and a computer kept him connected. At 42 he summited Mera Peak with us to fund computers for children with cancer.',
     content: [
       { type: 'text', value: 'ביום חמישי, 15 באוקטובר 2026, עמד תומר בסן על פסגת מרה, 6,476 מטרים מעל פני הים, בלב רכס ההימלאיה בנפאל. מסביבו נפרש אופק שמעטים זוכים לראות, ובו האוורסט ועוד ארבע מתוך שש הפסגות הגבוהות בעולם. אבל תומר לא הגיע לשם בשביל הנוף. הוא הגיע בשביל ילדים שהוא לא מכיר, שנמצאים היום בדיוק במקום שבו היה הוא כשהיה בן 18.' },
       { type: 'text', value: 'תומר הוא בן 42 מראשון לציון, פיזיותרפיסט, נשוי ואב לשלושה. הוא טיפס למרה פיק עם HighAir, כחלק מקבוצת אוקטובר שלנו, והקדיש את המסע לגיוס תרומות לילדים חולי סרטן. כדי להבין למה, צריך לחזור 24 שנים אחורה.' },
-      { type: 'image', src: '/images/blog/tomer-bassan-snow.webp', alt: 'תומר בסן עם מקלות הליכה בשלג, מול רכס מושלג בהימלאיה', caption: 'תומר בסן בדרך לפסגת מרה' },
+      { type: 'image', src: '/images/blog/tomer-bassan-mera-summit.webp', alt: 'תומר בסן על פסגת מרה פיק מחזיק את דגל הפסגה של HighAir', caption: 'תומר בסן על פסגת מרה, 6,476 מטרים, עם הדגל של HighAir' },
 
       { type: 'section', value: 'האבחנה בגיל 18' },
       { type: 'text', value: 'בגיל 18, הגיל שבו רוב בני גילו מסיימים תיכון ומתכוננים לצבא, תומר אובחן בסרטן באזור האף והלוע. אחרי האבחנה הגיעה כמעט שנה של טיפולים: כימותרפיה, הקרנות ותקופות ארוכות של בידוד, שבהן לא יכול היה לצאת מהבית, ללכת ללימודים או לפגוש חברים.' },
@@ -91,7 +91,7 @@ export const POSTS = [
     contentEn: [
       { type: 'text', value: 'On Thursday, October 15, 2026, Tomer Bassan stood on the summit of Mera Peak, 6,476 meters above sea level, in the heart of the Nepal Himalaya. Around him spread a horizon few people ever see, with Everest and four more of the six highest mountains on Earth. But Tomer did not come for the view. He came for children he has never met, who are today exactly where he was at 18.' },
       { type: 'text', value: 'Tomer is 42, from Rishon LeZion, a physiotherapist, married and a father of three. He climbed Mera Peak with HighAir as part of our October group and dedicated the expedition to raising money for children with cancer. To understand why, you have to go back 24 years.' },
-      { type: 'image', src: '/images/blog/tomer-bassan-snow.webp', alt: 'Tomer Bassan with trekking poles in the snow, facing a snowy Himalayan ridge', caption: 'Tomer Bassan on the way to the summit of Mera Peak' },
+      { type: 'image', src: '/images/blog/tomer-bassan-mera-summit.webp', alt: 'Tomer Bassan on the summit of Mera Peak holding the HighAir summit flag', caption: 'Tomer Bassan on the summit of Mera Peak, 6,476 meters, with the HighAir flag' },
 
       { type: 'section', value: 'Diagnosed at 18' },
       { type: 'text', value: 'At 18, when most people his age are finishing high school and getting ready for the army, Tomer was diagnosed with cancer in the nose and throat area. Almost a year of treatment followed: chemotherapy, radiation and long periods of isolation, when he could not leave home, go to school or see friends.' },

@@ -1353,6 +1353,18 @@
    "h": 1440
   },
   {
+   "src": "/images/gallery/mera-peak/18.webp",
+   "thumb": "/images/gallery/mera-peak/thumbs/18.webp",
+   "w": 1448,
+   "h": 1086
+  },
+  {
+   "src": "/images/gallery/mera-peak/19.webp",
+   "thumb": "/images/gallery/mera-peak/thumbs/19.webp",
+   "w": 1600,
+   "h": 1200
+  },
+  {
    "src": "/images/gallery/mera-peak/4.webp",
    "thumb": "/images/gallery/mera-peak/thumbs/4.webp",
    "w": 1536,
@@ -1405,6 +1417,30 @@
    "thumb": "/images/gallery/mera-peak/thumbs/16.webp",
    "w": 1440,
    "h": 1920
+  },
+  {
+   "src": "/images/gallery/mera-peak/17.webp",
+   "thumb": "/images/gallery/mera-peak/thumbs/17.webp",
+   "w": 1280,
+   "h": 1600
+  },
+  {
+   "src": "/images/gallery/mera-peak/20.webp",
+   "thumb": "/images/gallery/mera-peak/thumbs/20.webp",
+   "w": 1280,
+   "h": 1600
+  },
+  {
+   "src": "/images/gallery/mera-peak/21.webp",
+   "thumb": "/images/gallery/mera-peak/thumbs/21.webp",
+   "w": 1280,
+   "h": 1600
+  },
+  {
+   "src": "/images/gallery/mera-peak/22.webp",
+   "thumb": "/images/gallery/mera-peak/thumbs/22.webp",
+   "w": 1280,
+   "h": 1600
   }
  ],
  "mount-kenya": [

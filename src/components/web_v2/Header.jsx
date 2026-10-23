@@ -11,7 +11,7 @@
  * · Desktop: mega menu on "משלחות בעולם" hover
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
@@ -427,6 +427,7 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
  textDecoration: 'none',
  letterSpacing: '0.01em',
  paddingBottom: '3px',
+ whiteSpace: 'nowrap',
  transition: 'color 0.3s ease',
  }}
  >
@@ -458,7 +459,36 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
  );
 }
 
-function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
+/* Hamburger / close toggle, shared by phones and by the compact desktop header. */
+function MenuToggle({ open, onClick, isEn }) {
+ return (
+ <button
+ onClick={onClick}
+ aria-label={isEn ? (open ? 'Close menu' : 'Open menu') : (open ? 'סגור תפריט' : 'פתח תפריט')}
+ aria-expanded={open}
+ style={{
+ background: 'none', border: 'none', cursor: 'pointer',
+ padding: '8px', color: '#0A0818',
+ display: 'flex', alignItems: 'center', justifyContent: 'center',
+ }}
+ >
+ {open ? (
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+ <line x1="18" y1="6" x2="6" y2="18"/>
+ <line x1="6" y1="6" x2="18" y2="18"/>
+ </svg>
+ ) : (
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+ <line x1="3" y1="6" x2="21" y2="6"/>
+ <line x1="3" y1="12" x2="21" y2="12"/>
+ <line x1="3" y1="18" x2="21" y2="18"/>
+ </svg>
+ )}
+ </button>
+ );
+}
+
+function MobileMenu({ navigate, closeMenu, handleNavigation, links, top = 80, showLogin = true }) {
  const [openMegaKey, setOpenMegaKey] = useState(null);
  const { t, i18n } = useTranslation();
  const isEn = i18n.language === 'en';
@@ -481,7 +511,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  aria-label={isEn ? 'Navigation menu' : 'תפריט ניווט'}
  style={{
  position: 'fixed',
- top: '80px',
+ top: `${top}px`,
  left: 0,
  right: 0,
  background: '#FFFFFF',
@@ -490,7 +520,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  padding: '8px 5% 20px',
  direction: isEn ? 'ltr' : 'rtl',
  borderTop: '1px solid #F0EEF8',
- maxHeight: 'calc(100vh - 80px)',
+ maxHeight: `calc(100vh - ${top}px)`,
  overflowY: 'auto',
  }}>
 
@@ -674,7 +704,8 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  );
  })}
 
- {/* App login button */}
+ {/* App login button (hidden when the header already shows it, i.e. folded desktop nav) */}
+ {showLogin && (
  <a
  href="https://app.highair-expeditions.com"
  target="_blank"
@@ -698,8 +729,9 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  direction: isEn ? 'ltr' : 'rtl',
  }}
  >
- {isEn ? 'Customer Login →' : 'כניסה ללקוחות רשומים ←'}
+ {isEn ? 'My Account →' : 'כניסה לאזור אישי ←'}
  </a>
+ )}
  </div>
  );
 }
@@ -888,6 +920,8 @@ export default function Header() {
     The /safari page still works by direct link; re-add this line to restore it. */
  // { key: 'safari', href: '/safari', isPage: true, hasMega: true, megaType: 'safari' },
  { key: 'annualPlan', href: '/annual-plan', isPage: true },
+ /* Magazine -> the blog, back in the header now that Israel + Safari are hidden (owner, 23 Oct 2026) */
+ { key: 'news', href: '/blog', isPage: true },
  { key: 'about', href: '/about', isPage: true },
  /* Blog and Contact moved to the FOOTER (owner, Jul 30 2026): adding the
     Safari heading left no room for them in the header. Both still live at
@@ -897,6 +931,39 @@ export default function Header() {
  const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 
  const closeMenu = () => setMenuOpen(false);
+
+ /* ── Responsive nav: show the full menu only when it truly fits ──
+    The nav is centred on the page between the logo and the CTA. Instead of a
+    guessed breakpoint, a hidden copy of the nav (same type, same gap) is
+    measured on every resize, language switch and menu change. When it would
+    run into the logo or the CTA, the nav folds into the same hamburger dropdown
+    phones use. Wide screens look exactly as before (owner, 23 Oct 2026). */
+ const NAV_GAP = 'clamp(24px, calc((100vw - 1024px) * 0.09 + 24px), 40px)';
+ const headerRef = useRef(null);
+ const logoRef = useRef(null);
+ const ctaRef = useRef(null);
+ const measureRef = useRef(null);
+ const [compactNav, setCompactNav] = useState(false);
+ useLayoutEffect(() => {
+   if (isMobile) { setCompactNav(false); return undefined; }
+   const check = () => {
+     const h = headerRef.current, m = measureRef.current, l = logoRef.current, c = ctaRef.current;
+     if (!h || !m || !l || !c) return;
+     const cs = getComputedStyle(h);
+     const inner = h.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+     const side = Math.max(l.offsetWidth, c.offsetWidth);
+     setCompactNav(m.offsetWidth / 2 > inner / 2 - side - 24);
+   };
+   check();
+   const ro = new ResizeObserver(check);
+   if (headerRef.current) ro.observe(headerRef.current);
+   if (measureRef.current) ro.observe(measureRef.current);
+   document.fonts?.ready?.then(check);
+   return () => ro.disconnect();
+ }, [isMobile, i18n.language, LINKS.length]);
+ /* Widening back to the full nav closes the dropdown; folding closes any mega menu. */
+ useEffect(() => { if (!isMobile && !compactNav) setMenuOpen(false); }, [isMobile, compactNav]);
+ useEffect(() => { if (compactNav) setMegaType(null); }, [compactNav]);
 
  /* Notify SocialProofTicker so it pauses while the mobile menu is open */
  useEffect(() => {
@@ -971,7 +1038,7 @@ export default function Header() {
  </div>
  )}
 
- <header style={{
+ <header ref={headerRef} style={{
  position: 'fixed',
  top: isMobile ? 0 : '44px',
  left: 0,
@@ -1014,29 +1081,7 @@ export default function Header() {
  {isMobile ? (
  <>
  <div style={{ justifySelf: 'start' }}>
- <button
- onClick={() => setMenuOpen(prev => !prev)}
- aria-label={isEn ? (menuOpen ? 'Close menu' : 'Open menu') : (menuOpen ? 'סגור תפריט' : 'פתח תפריט')}
- aria-expanded={menuOpen}
- style={{
- background: 'none', border: 'none', cursor: 'pointer',
- padding: '8px', color: '#0A0818',
- display: 'flex', alignItems: 'center', justifyContent: 'center',
- }}
- >
- {menuOpen ? (
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
- <line x1="18" y1="6" x2="6" y2="18"/>
- <line x1="6" y1="6" x2="18" y2="18"/>
- </svg>
- ) : (
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
- <line x1="3" y1="6" x2="21" y2="6"/>
- <line x1="3" y1="12" x2="21" y2="12"/>
- <line x1="3" y1="18" x2="21" y2="18"/>
- </svg>
- )}
- </button>
+ <MenuToggle open={menuOpen} isEn={isEn} onClick={() => setMenuOpen(prev => !prev)} />
  </div>
  <div style={{ justifySelf: 'center' }}>
  <button
@@ -1079,7 +1124,7 @@ export default function Header() {
  </>
  ) : (
  <>
- <div style={{ justifySelf: 'start' }}>
+ <div ref={logoRef} style={{ justifySelf: 'start' }}>
  <button
  onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
  aria-label="HighAir Expeditions - Home"
@@ -1099,9 +1144,10 @@ export default function Header() {
  />
  </button>
  </div>
+ {compactNav ? <div aria-hidden="true" /> : (
  <nav
  onMouseLeave={closeMega}
- style={{ display: 'flex', gap: '40px', alignItems: 'center', justifyContent: 'center' }}
+ style={{ display: 'flex', gap: NAV_GAP, alignItems: 'center', justifyContent: 'center' }}
  >
  {LINKS.map(link => (
  <NavLink
@@ -1116,9 +1162,11 @@ export default function Header() {
  />
  ))}
  </nav>
- <div style={{ justifySelf: 'end' }}>
+ )}
+ <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '12px' }}>
  {/* Personal area login button */}
  <a
+ ref={ctaRef}
  href="https://app.highair-expeditions.com"
  target="_blank"
  rel="noopener noreferrer"
@@ -1144,20 +1192,34 @@ export default function Header() {
  >
  {isEn ? 'My Account' : 'כניסה לאזור אישי'}
  </a>
+ {compactNav && (
+ <MenuToggle open={menuOpen} isEn={isEn} onClick={() => setMenuOpen(prev => !prev)} />
+ )}
+ </div>
+ {/* Hidden copy of the nav, measured to choose full vs folded (never visible) */}
+ <div ref={measureRef} aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, visibility: 'hidden', pointerEvents: 'none', display: 'flex', gap: NAV_GAP, whiteSpace: 'nowrap' }}>
+ {LINKS.map(link => (
+ <span key={link.key} style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.body, fontWeight: 500, letterSpacing: '0.01em' }}>
+ {link.label}
+ {link.hasMega && <span style={{ fontSize: '10px', marginRight: '3px', display: 'inline-block' }}>▾</span>}
+ </span>
+ ))}
  </div>
  </>
  )}
 
- {!isMobile && megaType && (
+ {!isMobile && !compactNav && megaType && (
  <MegaMenu type={megaType} onClose={closeMega} onKeepOpen={keepMegaOpen} />
  )}
 
- {isMobile && menuOpen && (
+ {(isMobile || compactNav) && menuOpen && (
  <MobileMenu
  navigate={navigate}
  closeMenu={closeMenu}
  handleNavigation={handleNavigation}
  links={LINKS}
+ top={isMobile ? 80 : 124}
+ showLogin={isMobile}
  />
  )}
 
