@@ -13,7 +13,12 @@
  * has kept it for 90 days (utils/attribution.js). This endpoint parks that
  * knowledge for a few minutes so the incoming message can be joined back to it.
  *
- * NO CODE IN THE MESSAGE, deliberately (owner, Aug 15 2026: "אני לא רוצה שהוא
+ * UPDATE 24 Oct 2026: an INVISIBLE marker now carries a token in the message
+ * (zero-width characters, see utils/waIntent.js); the token is stored here and
+ * the webapp claims exactly that tap. Everything below about the time join is
+ * still the fallback when the marker does not arrive.
+ *
+ * NO VISIBLE CODE IN THE MESSAGE, deliberately (owner, Aug 15 2026: "אני לא רוצה שהוא
  * יראה קוד"). A short reference in the prefilled text would be exact, but the
  * customer sees it, and he would rather have a slightly softer number than put
  * a machine artefact in front of a person about to say hello.
@@ -43,6 +48,9 @@ export default async function handler(req, res) {
   const attribution = clean(b.attribution, 2000);
   const landing     = clean(b.landing, 200);
   const campaign    = clean(b.campaign, 200);
+  /* The invisible marker's token (utils/waIntent.js): 8 hex characters or
+     nothing. Anything else is dropped rather than stored. */
+  const token       = /^[0-9a-f]{8}$/.test(String(b.token || '')) ? String(b.token) : '';
 
   /* A tap with nothing to say is not worth a row — and worse, it would sit in
      the window as a second candidate and spoil a real one's match. */
@@ -57,6 +65,7 @@ export default async function handler(req, res) {
         'Attribution': attribution,
         'Landing': landing,
         'Campaign': campaign,
+        ...(token ? { 'Token': token } : {}),
       } }),
     });
     if (!r.ok) console.error('[wa-intent] airtable', r.status);
