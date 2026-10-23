@@ -1106,7 +1106,7 @@ export default function Header() {
  <img
  src="/Logo.png"
  alt="HighAir Expeditions"
- style={{ height: '60px', width: 'auto', display: 'block', objectFit: 'contain' }}
+ style={{ height: '60px', width: '60px', display: 'block', objectFit: 'contain' }}
  />
  </button>
  </div>
@@ -1149,7 +1149,9 @@ export default function Header() {
  alt="HighAir Expeditions"
  style={{
  height: '64px',
- width: 'auto',
+ /* Fixed width (the logo is square): no reflow while the 2000px PNG decodes,
+    so the fit-to-width nav measures the real row from the first paint */
+ width: '64px',
  display: 'block',
  objectFit: 'contain',
  filter: isTransparent ? 'brightness(0) invert(1)' : 'none',
