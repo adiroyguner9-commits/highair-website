@@ -17,11 +17,14 @@
  *
  * Re-run after adding, replacing or removing a gallery photo:
  *   node scripts/gen-gallery.mjs
+ * It also stamps HighAir's copyright metadata on the photos and grid copies
+ * (scripts/stamp-copyright.mjs).
  * tests/gallery-manifest.test.js fails when the folders and the list disagree.
  */
 import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
+import { stampOwned } from './stamp-copyright.mjs';
 
 const ROOT = 'public/images/gallery';
 const OUT = 'src/website/galleryManifest.json';
@@ -60,3 +63,5 @@ for (const slug of fs.readdirSync(ROOT).sort()) {
 }
 fs.writeFileSync(OUT, JSON.stringify(manifest, null, 1) + '\n');
 console.log(`[gallery] ${Object.keys(manifest).length} galleries, ${made} grid copies (${(savedKB / 1024).toFixed(1)} MB lighter in the grid), ${kept} photos already small enough`);
+/* sharp drops metadata, so re-stamp the copyright on new photos and grid copies */
+stampOwned({ quiet: true });

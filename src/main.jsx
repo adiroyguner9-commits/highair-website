@@ -27,11 +27,15 @@ captureAttribution();
    story. */
 installWaIntentListener();
 
-/* ── Prevent right-click save on images & videos ── */
+/* ── Prevent right-click save and drag-out save on images & videos ──
+   (CSS in global.css covers WebKit drag and the iPhone long-press menu;
+   dragstart covers Firefox, which ignores -webkit-user-drag) */
+const isMedia = el => el?.tagName === 'IMG' || el?.tagName === 'VIDEO';
 document.addEventListener('contextmenu', e => {
-  if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
-    e.preventDefault();
-  }
+  if (isMedia(e.target)) e.preventDefault();
+});
+document.addEventListener('dragstart', e => {
+  if (isMedia(e.target)) e.preventDefault();
 });
 
 /* ── Sentry error monitoring ── */

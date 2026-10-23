@@ -117,6 +117,14 @@ p, li {
   unicode-bidi: plaintext;
 }
 
+/* Our photos and videos: no drag-out-to-save, no iPhone long-press "Save to
+   Photos". The right-click menu is blocked in main.jsx. A screenshot can't be
+   blocked on the web; this only stops casual saving (owner, 23 Oct 2026). */
+img, video {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
