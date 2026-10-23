@@ -59,6 +59,13 @@ body {
   position: relative;
 }
 
+/* Hero entrance animation. Defined here in CSS instead of being injected via JS
+   at runtime, so the hero no longer waits on a JS style injection to animate. */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
 textarea {
   -webkit-appearance: none;

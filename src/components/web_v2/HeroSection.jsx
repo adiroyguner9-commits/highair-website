@@ -15,28 +15,13 @@ import { Analytics } from '../../utils/analytics.js';
 const VIDEO_SRC = '/videos/hero-home.mp4';
 const POSTER_SRC = '/videos/hero-home-poster.jpg';
 
-const KEYFRAMES = `
- @keyframes heroFadeUp {
- from { opacity: 0; transform: translateY(22px); }
- to { opacity: 1; transform: translateY(0); }
- }
-`;
-
-function injectKeyframes() {
- if (document.getElementById('hero-v2-kf')) return;
- const s = document.createElement('style');
- s.id = 'hero-v2-kf';
- s.textContent = KEYFRAMES;
- document.head.appendChild(s);
-}
-
+/* heroFadeUp keyframes now live in global.css (no longer injected via JS). */
 const fadeUp = (delayS = 0) => ({
  opacity: 0,
  animation: `heroFadeUp 1.5s cubic-bezier(0.22, 1, 0.36, 1) ${delayS}s forwards`,
 });
 
 export default function HeroSection() {
- useEffect(() => { injectKeyframes(); }, []);
  const [btn1Hovered, setBtn1Hovered] = useState(false);
  const [btn2Hovered, setBtn2Hovered] = useState(false);
  const [showVideo, setShowVideo] = useState(false);

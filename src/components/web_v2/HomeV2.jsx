@@ -12,11 +12,11 @@ import Header             from './Header.jsx';
 import HeroSection        from './HeroSection.jsx';
 import StatsSection       from './StatsSection.jsx';
 import PartnersSection    from './PartnersSection.jsx';
-import ExpeditionExplorer from './ExpeditionExplorer.jsx';
 import MountainBackdrop   from './MountainBackdrop.jsx';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 
 /* ── Lazy-loaded (below the fold) ── */
+const ExpeditionExplorer  = lazy(() => import('./ExpeditionExplorer.jsx'));
 const IsraelTrips         = lazy(() => import('./IsraelTrips.jsx'));
 const CommunitySection  = lazy(() => import('./CommunitySection.jsx'));
 const ImpactSection     = lazy(() => import('./ImpactSection.jsx'));
