@@ -381,7 +381,7 @@ function IsraelMegaItem({ trip, onClose }) {
  );
 }
 
-function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnter, isTransparent = false }) {
+function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnter, isTransparent = false, fontSize = FS.body }) {
  const [hovered, setHovered] = useState(false);
  const location = useLocation();
  const navigate = useNavigate();
@@ -421,7 +421,7 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
  style={{
  position: 'relative',
  fontFamily: "'Ploni', sans-serif",
- fontSize: FS.body,
+ fontSize,
  fontWeight: 500,
  color: textColor,
  textDecoration: 'none',
@@ -459,7 +459,7 @@ function NavLink({ label, href, isPage, hasMega, onClick, onNavigate, onMegaEnte
  );
 }
 
-/* Hamburger / close toggle, shared by phones and by the compact desktop header. */
+/* Hamburger / close toggle for the phone header. */
 function MenuToggle({ open, onClick, isEn }) {
  return (
  <button
@@ -488,7 +488,7 @@ function MenuToggle({ open, onClick, isEn }) {
  );
 }
 
-function MobileMenu({ navigate, closeMenu, handleNavigation, links, top = 80, showLogin = true }) {
+function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  const [openMegaKey, setOpenMegaKey] = useState(null);
  const { t, i18n } = useTranslation();
  const isEn = i18n.language === 'en';
@@ -511,7 +511,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links, top = 80, sh
  aria-label={isEn ? 'Navigation menu' : 'תפריט ניווט'}
  style={{
  position: 'fixed',
- top: `${top}px`,
+ top: '80px',
  left: 0,
  right: 0,
  background: '#FFFFFF',
@@ -520,7 +520,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links, top = 80, sh
  padding: '8px 5% 20px',
  direction: isEn ? 'ltr' : 'rtl',
  borderTop: '1px solid #F0EEF8',
- maxHeight: `calc(100vh - ${top}px)`,
+ maxHeight: 'calc(100vh - 80px)',
  overflowY: 'auto',
  }}>
 
@@ -704,8 +704,7 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links, top = 80, sh
  );
  })}
 
- {/* App login button (hidden when the header already shows it, i.e. folded desktop nav) */}
- {showLogin && (
+ {/* App login button */}
  <a
  href="https://app.highair-expeditions.com"
  target="_blank"
@@ -731,7 +730,6 @@ function MobileMenu({ navigate, closeMenu, handleNavigation, links, top = 80, sh
  >
  {isEn ? 'My Account →' : 'כניסה לאזור אישי ←'}
  </a>
- )}
  </div>
  );
 }
@@ -932,38 +930,49 @@ export default function Header() {
 
  const closeMenu = () => setMenuOpen(false);
 
- /* ── Responsive nav: show the full menu only when it truly fits ──
-    The nav is centred on the page between the logo and the CTA. Instead of a
-    guessed breakpoint, a hidden copy of the nav (same type, same gap) is
-    measured on every resize, language switch and menu change. When it would
-    run into the logo or the CTA, the nav folds into the same hamburger dropdown
-    phones use. Wide screens look exactly as before (owner, 23 Oct 2026). */
- const NAV_GAP = 'clamp(24px, calc((100vw - 1024px) * 0.09 + 24px), 40px)';
+ /* ── Fit-to-width desktop nav (owner, 23 Oct 2026) ──
+    Logo, links and the login button always share one row, with the links
+    centred between the logo and the button (equal space on both sides). Wide
+    screens get the full sizes (NAV_MAX: 16px links, 40px gaps). As the window
+    narrows, gaps, link type and button shrink together towards NAV_MIN, which
+    still fits the Hebrew menu at the 768px tablet edge. The amount is solved
+    from hidden copies of the labels, so it holds in both languages and after
+    menu changes; below NAV_MIN it may shrink a little further rather than wrap. */
+ const NAV_MAX = { font: 16, gap: 40, side: 32, ctaFont: 14, ctaPadX: 22 };
+ const NAV_MIN = { font: 13, gap: 16, side: 16, ctaFont: 13, ctaPadX: 16 };
  const headerRef = useRef(null);
  const logoRef = useRef(null);
- const ctaRef = useRef(null);
  const measureRef = useRef(null);
- const [compactNav, setCompactNav] = useState(false);
+ const ctaMeasureRef = useRef(null);
+ const [navFit, setNavFit] = useState(1);
+ const navSize = {};
+ for (const k of Object.keys(NAV_MAX)) {
+   navSize[k] = Math.round((NAV_MIN[k] + (NAV_MAX[k] - NAV_MIN[k]) * navFit) * 10) / 10;
+ }
  useLayoutEffect(() => {
-   if (isMobile) { setCompactNav(false); return undefined; }
-   const check = () => {
-     const h = headerRef.current, m = measureRef.current, l = logoRef.current, c = ctaRef.current;
+   if (isMobile) return undefined;
+   const fit = () => {
+     const h = headerRef.current, m = measureRef.current, l = logoRef.current, c = ctaMeasureRef.current;
      if (!h || !m || !l || !c) return;
      const cs = getComputedStyle(h);
      const inner = h.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-     const side = Math.max(l.offsetWidth, c.offsetWidth);
-     setCompactNav(m.offsetWidth / 2 > inner / 2 - side - 24);
+     const gaps = LINKS.length - 1;
+     // Row width for a size set: logo + side spaces + links + button (1.5px border each side)
+     const rowWidth = z => l.offsetWidth + 2 * z.side
+       + m.offsetWidth * z.font / NAV_MAX.font + gaps * z.gap
+       + c.offsetWidth * z.ctaFont / NAV_MAX.ctaFont + 2 * z.ctaPadX + 3;
+     const k = (inner - 4 - rowWidth(NAV_MIN)) / (rowWidth(NAV_MAX) - rowWidth(NAV_MIN));
+     setNavFit(Math.round(Math.min(1, Math.max(-0.3, k)) * 1000) / 1000);
    };
-   check();
-   const ro = new ResizeObserver(check);
+   fit();
+   const ro = new ResizeObserver(fit);
    if (headerRef.current) ro.observe(headerRef.current);
    if (measureRef.current) ro.observe(measureRef.current);
-   document.fonts?.ready?.then(check);
+   document.fonts?.ready?.then(fit);
    return () => ro.disconnect();
  }, [isMobile, i18n.language, LINKS.length]);
- /* Widening back to the full nav closes the dropdown; folding closes any mega menu. */
- useEffect(() => { if (!isMobile && !compactNav) setMenuOpen(false); }, [isMobile, compactNav]);
- useEffect(() => { if (compactNav) setMegaType(null); }, [compactNav]);
+ /* Leaving the phone layout closes its dropdown. */
+ useEffect(() => { if (!isMobile) setMenuOpen(false); }, [isMobile]);
 
  /* Notify SocialProofTicker so it pauses while the mobile menu is open */
  useEffect(() => {
@@ -1051,7 +1060,8 @@ export default function Header() {
  background: '#FFFFFF',
  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
  display: 'grid',
- gridTemplateColumns: '1fr auto 1fr',
+ gridTemplateColumns: isMobile ? '1fr auto 1fr' : 'auto 1fr auto',
+ columnGap: isMobile ? 0 : `${navSize.side}px`,
  alignItems: 'center',
  direction: dir,
  }}>
@@ -1144,10 +1154,9 @@ export default function Header() {
  />
  </button>
  </div>
- {compactNav ? <div aria-hidden="true" /> : (
  <nav
  onMouseLeave={closeMega}
- style={{ display: 'flex', gap: NAV_GAP, alignItems: 'center', justifyContent: 'center' }}
+ style={{ justifySelf: 'center', display: 'flex', gap: `${navSize.gap}px`, alignItems: 'center', justifyContent: 'center' }}
  >
  {LINKS.map(link => (
  <NavLink
@@ -1159,14 +1168,13 @@ export default function Header() {
  onNavigate={handleNavigation}
  onMegaEnter={link.hasMega ? () => openMega(link.megaType) : undefined}
  isTransparent={isTransparent}
+ fontSize={`${navSize.font}px`}
  />
  ))}
  </nav>
- )}
- <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '12px' }}>
+ <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
  {/* Personal area login button */}
  <a
- ref={ctaRef}
  href="https://app.highair-expeditions.com"
  target="_blank"
  rel="noopener noreferrer"
@@ -1174,13 +1182,13 @@ export default function Header() {
  display: 'inline-flex',
  alignItems: 'center',
  gap: '6px',
- padding: '9px 22px',
+ padding: `9px ${navSize.ctaPadX}px`,
  borderRadius: '50px',
  border: '1.5px solid #6D28D9',
  color: '#FFFFFF',
  background: '#6D28D9',
  fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
+ fontSize: `${navSize.ctaFont}px`,
  fontWeight: 600,
  textDecoration: 'none',
  whiteSpace: 'nowrap',
@@ -1192,34 +1200,34 @@ export default function Header() {
  >
  {isEn ? 'My Account' : 'כניסה לאזור אישי'}
  </a>
- {compactNav && (
- <MenuToggle open={menuOpen} isEn={isEn} onClick={() => setMenuOpen(prev => !prev)} />
- )}
  </div>
- {/* Hidden copy of the nav, measured to choose full vs folded (never visible) */}
- <div ref={measureRef} aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, visibility: 'hidden', pointerEvents: 'none', display: 'flex', gap: NAV_GAP, whiteSpace: 'nowrap' }}>
+ {/* Hidden copies of the labels at full size, measured by the fit (never visible) */}
+ <div aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, visibility: 'hidden', pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+ <div ref={measureRef} style={{ display: 'inline-flex' }}>
  {LINKS.map(link => (
- <span key={link.key} style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.body, fontWeight: 500, letterSpacing: '0.01em' }}>
+ <span key={link.key} style={{ fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.font}px`, fontWeight: 500, letterSpacing: '0.01em' }}>
  {link.label}
  {link.hasMega && <span style={{ fontSize: '10px', marginRight: '3px', display: 'inline-block' }}>▾</span>}
  </span>
  ))}
  </div>
+ <span ref={ctaMeasureRef} style={{ fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.ctaFont}px`, fontWeight: 600 }}>
+ {isEn ? 'My Account' : 'כניסה לאזור אישי'}
+ </span>
+ </div>
  </>
  )}
 
- {!isMobile && !compactNav && megaType && (
+ {!isMobile && megaType && (
  <MegaMenu type={megaType} onClose={closeMega} onKeepOpen={keepMegaOpen} />
  )}
 
- {(isMobile || compactNav) && menuOpen && (
+ {isMobile && menuOpen && (
  <MobileMenu
  navigate={navigate}
  closeMenu={closeMenu}
  handleNavigation={handleNavigation}
  links={LINKS}
- top={isMobile ? 80 : 124}
- showLogin={isMobile}
  />
  )}
 
