@@ -32,6 +32,10 @@ Examples from our posts:
 **Avoid:**
 > "קאמי ריטה הוא מאוד מדהים ועלה הרבה פעמים לאוורסט."
 
+**Words the owner corrected (always use the right form):**
+- התאקלמות, never אקלום: ימי התאקלמות, יום התאקלמות, תהליך ההתאקלמות.
+- מעפילים / להעפיל, never כובשים / לכבוש (a summit is ascended, not conquered).
+
 ### 2.2 No dashes of any kind
 
 **This is a hard rule. No exceptions.**

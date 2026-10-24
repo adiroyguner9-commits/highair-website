@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, FS, RADIUS, SHADOW, EASING, DUR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useInView } from '../../website/useInView.js';
-import { POSTS } from '../../data/blogData.js';
+import { POSTS, isNewsPost } from '../../data/blogData.js';
 
 /* ─────────────── BlogCard ─────────────── */
 function BlogCard({ post, isEn, dir }) {
@@ -19,7 +19,7 @@ function BlogCard({ post, isEn, dir }) {
 
   const title    = isEn ? (post.titleEn    || post.title)    : post.title;
   const excerpt  = isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt;
-  const date     = isEn ? (post.dateEn     || post.dateHe)   : post.dateHe;
+  const date     = !isNewsPost(post) ? null : isEn ? (post.dateEn     || post.dateHe)   : post.dateHe;
   const category = isEn ? (post.categoryEn || post.category) : post.category;
 
   const handleClick = () => navigate(`/blog/${post.slug}`);

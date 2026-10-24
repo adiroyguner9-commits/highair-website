@@ -104,6 +104,12 @@ for (const post of BLOG_POSTS) {
   }));
 }
 
+// /author/:id  — who signs the guides (authors.js)
+const { AUTHORS } = await import(path.join(ROOT, 'src/data/authors.js'));
+for (const id of Object.keys(AUTHORS)) {
+  urls.push(urlEntry({ loc: `${BASE_URL}/author/${id}`, priority: '0.6', changefreq: 'monthly' }));
+}
+
 // /israel/:slug  — from israelData.js (live: true only)
 const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'));
 const israelSlugs = ISRAEL_TREKS_LIVE ? ISRAEL_TRIPS.filter(t => t.live && t.slug).map(t => t.slug) : [];

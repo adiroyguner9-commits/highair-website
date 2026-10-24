@@ -31,6 +31,10 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
 7. Images: ONLY photos that already exist in `public/images/` (our own, copyright-stamped). Never
    stock, never press, never generated. Reuse the destination's card/hero images if needed.
 8. Category `מדריכים` / `Guides`. New post goes at the top of `POSTS` in `src/data/blogData.js`.
+   Sign every guide as Chen Shaked: `author: 'חן שקד'` and `authorId: 'chen-shaked'` (src/data/authors.js;
+   the byline links to /author/chen-shaked). Guides show no date on the site (only news does), so never
+   write "today" or "this week" in a guide; keep `dateIso` / `dateModified` accurate for the schema.
+   Hebrew: התאקלמות, never אקלום; להעפיל, never לכבוש (BLOG_STYLE_GUIDE.md §2.1).
 9. Run `npm test` and `npm run build`; both must pass.
 
 ## Topic queue (in order)
@@ -40,7 +44,7 @@ where HighAir has something nobody else answers well in Hebrew, then where only 
 
 | # | Status | Topic (Hebrew working title) | Why | Links to |
 |---|--------|------------------------------|-----|----------|
-| 1 | in review (branch seo-kosher-kilimanjaro) | טיפוס לקילימנג'רו כשר: שבת, כשרות ותפילה על ההר | unique product, HighAir absent for "קילימנג'רו כשר" | kilimanjaro-kosher, kilimanjaro |
+| 1 | live | טיפוס לקילימנג'רו כשר: שבת, כשרות ותפילה על ההר | unique product, HighAir absent for "קילימנג'רו כשר" | kilimanjaro-kosher, kilimanjaro |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |

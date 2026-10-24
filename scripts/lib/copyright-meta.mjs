@@ -24,7 +24,7 @@ export const STAMP_MARK = 'HighAir Expeditions';
    OWNED_FILES are single files picked from a mixed folder. */
 export const OWNED_DIRS = [
   'public/images/gallery', 'public/images/summit', 'public/images/cards',
-  'public/images/og', 'public/images/hero', 'public/images/donation',
+  'public/images/og', 'public/images/hero', 'public/images/donation', 'public/images/team',
 ];
 export const OWNED_FILES = [
   { dir: 'public/images/blog', match: /^tomer-bassan-/ },        // the blog is mostly press photos

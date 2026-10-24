@@ -2,14 +2,15 @@
  * BlogPost.jsx - /blog/:slug
  * Individual blog post page - Hebrew RTL
  */
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import { POSTS } from '../../data/blogData.js';
+import { POSTS, isNewsPost } from '../../data/blogData.js';
+import { authorOf } from '../../data/authors.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import MountainBackdrop from './MountainBackdrop.jsx';
@@ -113,6 +114,7 @@ export default function BlogPost() {
   const postExcerpt  = post ? (isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt)  : '';
   const postContent  = post ? (isEn ? (post.contentEn  || post.content)  : post.content)  : [];
   const postCategory = post ? (isEn ? (post.categoryEn || post.category) : post.category) : '';
+  const author       = authorOf(post);
 
   /* seoTitle — optional shorter version for <title> / og:title (H1 still uses postTitle) */
   const postSeoTitle = post
@@ -236,7 +238,23 @@ export default function BlogPost() {
               }}>
                 {readingTime} {t('blogPost.readTime')}
               </span>
-              {post.dateIso && (
+              {/* The guide's author, linked to their page (guides only; news is the company's) */}
+              {author && (
+                <Link to={`/author/${author.id}`} style={{
+                  background:     'rgba(255,255,255,0.15)',
+                  backdropFilter: 'blur(6px)',
+                  color:          'rgba(255,255,255,0.9)',
+                  fontFamily:     "'Ploni', sans-serif",
+                  fontSize:       '12px',
+                  fontWeight:     400,
+                  padding:        '4px 12px',
+                  borderRadius:   RADIUS.full,
+                  textDecoration: 'none',
+                }}>
+                  {isEn ? `By ${author.nameEn}` : `מאת ${author.nameHe}`}
+                </Link>
+              )}
+              {post.dateIso && isNewsPost(post) && (
                 <span style={{
                   background:     'rgba(255,255,255,0.15)',
                   backdropFilter: 'blur(6px)',

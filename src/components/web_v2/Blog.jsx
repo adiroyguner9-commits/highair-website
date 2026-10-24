@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import { POSTS, CATEGORIES } from '../../data/blogData.js';
+import { POSTS, CATEGORIES, isNewsPost } from '../../data/blogData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import MountainBackdrop from './MountainBackdrop.jsx';
@@ -19,7 +19,7 @@ function fmtDate(iso) {
   return `${d}/${m}/${y}`;
 }
 
-function PostCard({ post }) {
+export function PostCard({ post }) {
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
@@ -127,7 +127,7 @@ function PostCard({ post }) {
           }}>
             {t('blog.readMore')}
           </div>
-          {post.dateIso && (
+          {post.dateIso && isNewsPost(post) && (
             <div style={{
               fontFamily: "'Ploni', sans-serif",
               fontSize:   '12px',

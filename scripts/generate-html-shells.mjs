@@ -19,7 +19,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, homeText } from './lib/text-layer.mjs';
+import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, authorText, homeText } from './lib/text-layer.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
@@ -165,7 +165,7 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
     const tags = [];
     if (articleMeta.publishedTime) tags.push(`<meta property="article:published_time" content="${esc(articleMeta.publishedTime)}" />`);
     if (articleMeta.modifiedTime)  tags.push(`<meta property="article:modified_time" content="${esc(articleMeta.modifiedTime)}" />`);
-    tags.push(`<meta property="article:author" content="HighAir Expeditions" />`);
+    tags.push(`<meta property="article:author" content="${esc(articleMeta.author || 'HighAir Expeditions')}" />`);
     if (articleMeta.section)       tags.push(`<meta property="article:section" content="${esc(articleMeta.section)}" />`);
     (articleMeta.tags || []).forEach(tag => tags.push(`<meta property="article:tag" content="${esc(tag)}" />`));
     out = out.replace('</head>', `  ${tags.join('\n  ')}\n</head>`);
@@ -315,13 +315,22 @@ for (const exp of EXPS) {
 
 // ── Blog posts ───────────────────────────────────────────────────────────────
 
-const { POSTS } = await import(path.join(ROOT, 'src/data/blogData.js'));
+const { POSTS, isNewsPost } = await import(path.join(ROOT, 'src/data/blogData.js'));
+const { AUTHORS, authorOf } = await import(path.join(ROOT, 'src/data/authors.js'));
+/* A guide signed by a person names them as a Person with their page; news and
+   unsigned posts stay the company's. */
+const personNode = a => ({
+  '@type': 'Person', '@id': `${BASE_URL}/author/${a.id}#person`, name: a.nameHe, alternateName: a.nameEn,
+  url: `${BASE_URL}/author/${a.id}`, image: `${BASE_URL}${a.photo}`, jobTitle: a.roleHe,
+  worksFor: { '@id': `${BASE_URL}/#organization` },
+});
 let blogCount = 0;
 for (const post of POSTS) {
   if (!post.slug) continue;
   const postUrl = `${BASE_URL}/blog/${post.slug}`;
   const postImg = post.img ? (post.img.startsWith('http') ? post.img : `${BASE_URL}${post.img}`) : `${BASE_URL}/og-image.jpg`;
-  const isNews  = (post.category || '') === 'חדשות' || (post.categoryEn || '') === 'News';
+  const isNews  = isNewsPost(post);
+  const author  = authorOf(post);
 
   const articleNode = {
     '@type':      isNews ? 'NewsArticle' : 'BlogPosting',
@@ -330,7 +339,7 @@ for (const post of POSTS) {
     image:        postImg,
     datePublished: post.dateIso || '',
     dateModified:  post.dateModified || post.dateIso || '',
-    author:       { '@type': 'Organization', name: 'HighAir Expeditions', url: BASE_URL },
+    author:       author ? personNode(author) : { '@type': 'Organization', name: 'HighAir Expeditions', url: BASE_URL },
     publisher:    { '@type': 'Organization', name: 'HighAir Expeditions', logo: { '@type': 'ImageObject', url: `${BASE_URL}/Logo.png` } },
     mainEntityOfPage: postUrl,
     inLanguage:   'he',
@@ -367,11 +376,33 @@ for (const post of POSTS) {
       publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
       modifiedTime:  (post.dateModified || post.dateIso) ? `${post.dateModified || post.dateIso}T12:00:00+03:00` : undefined,
       section:       post.category || undefined,
+      author:        author?.nameHe,
       tags:          post.tags || [],
     },
     jsonLd,
   });
   blogCount++;
+}
+
+// ── Author pages ─────────────────────────────────────────────────────────────
+/* /author/<id>: who signs the guides (src/data/authors.js), as a ProfilePage
+   about a Person, with the guides they wrote. AuthorPage.jsx renders the same. */
+let authorCount = 0;
+for (const a of Object.values(AUTHORS)) {
+  const url = `${BASE_URL}/author/${a.id}`;
+  const posts = POSTS.filter(p => p.authorId === a.id);
+  writeShell(`author/${a.id}`, {
+    title:         `HighAir Expeditions | ${a.nameHe}`,
+    description:   a.bioHe,
+    canonicalPath: `/author/${a.id}`,
+    image:         a.photo,
+    text:          wrapText(authorText({ author: a, posts })),
+    jsonLd: { '@context': 'https://schema.org', '@graph': [
+      { '@type': 'ProfilePage', '@id': url, url, name: a.nameHe, mainEntity: { '@id': `${url}#person` }, isPartOf: { '@id': `${BASE_URL}/#website` } },
+      { ...personNode(a), description: a.bioHe, knowsAbout: ['טיפוס הרים', 'טרקים', 'משלחות לגובה'] },
+    ] },
+  });
+  authorCount++;
 }
 
 // ── Israel trip pages ────────────────────────────────────────────────────────
@@ -675,5 +706,6 @@ console.log('HTML shells generated!');
 console.log(`  Expeditions : ${expCount}`);
 console.log(`  Blog posts  : ${blogCount}`);
 console.log(`  Israel      : ${israelCount}`);
+console.log(`  Authors     : ${authorCount}`);
 console.log(`  Static      : ${staticPages.length}`);
-console.log(`  Total       : ${expCount + blogCount + israelCount + staticPages.length}`);
+console.log(`  Total       : ${expCount + blogCount + authorCount + israelCount + staticPages.length}`);

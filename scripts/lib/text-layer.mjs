@@ -17,6 +17,8 @@
    Pure functions only: generate-html-shells.mjs does the file writing, and
    tests/text-layer.test.js checks the output. */
 
+import { isNewsPost } from '../../src/data/blogData.js';
+
 export const esc = s => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -73,7 +75,8 @@ export function expeditionText(exp, faq = []) {
     + '</article>';
 }
 
-/* A blog post, block by block, as BlogPost.jsx renders them. */
+/* A blog post, block by block, as BlogPost.jsx renders them. Only news shows
+   its date (isNewsPost in blogData.js), so only news carries it here. */
 export function blogText(post) {
   if (!post) return '';
   const blocks = (post.content || []).map(b => {
@@ -92,7 +95,7 @@ export function blogText(post) {
   }).join('');
   return '<article>'
     + `<h1>${esc(post.title)}</h1>`
-    + (post.dateHe || post.author ? p([post.author, post.dateHe].filter(Boolean).join(', ')) : '')
+    + p([post.author, isNewsPost(post) && post.dateHe].filter(Boolean).join(', '))
     + p(post.excerpt)
     + blocks
     + '</article>';
@@ -121,6 +124,16 @@ export function aboutText({ h1, sub, caption, story = [], sign, teamTitle, team 
     + story.map(x => p(x)).join('') + (sign ? p(sign.replace(/\n/g, ' ')) : '')
     + (members ? h2(teamTitle) + members : '')
     + (givingText ? h2(givingTitle) + p(givingText) : '')
+    + '</article>';
+}
+
+/* An author's page: name, role, bio, summits, and the guides they wrote. */
+export function authorText({ author: a, posts = [] }) {
+  const guides = posts.map(x => `<li>${link(`/blog/${x.slug}`, x.title)}</li>`).join('');
+  return '<article>'
+    + `<h1>${esc(a.nameHe)}</h1>` + p(a.roleHe) + p(a.bioHe)
+    + (a.summitsHe?.length ? h2('פסגות שטיפס עליהן') + ul(a.summitsHe) : '')
+    + (guides ? h2(`המדריכים של ${a.nameHe}`) + `<ul>${guides}</ul>` : '')
     + '</article>';
 }
 
