@@ -19,7 +19,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { wrapText, expeditionText, blogText, listingText, blogListText, homeText } from './lib/text-layer.mjs';
+import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, homeText } from './lib/text-layer.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
@@ -518,11 +518,24 @@ const ABOUT_JSONLD = { '@context': 'https://schema.org', '@graph': [
 
 // ── Static pages ─────────────────────────────────────────────────────────────
 
+const ABOUT = await import(path.join(ROOT, 'src/data/aboutData.js'));
+
 const staticPages = [
   {
     path:  'about',
-    textH1:  'הסיפור שלנו',                          // AboutUs.jsx hero
-    textSub: 'מי אנחנו ולמה אנחנו עושים את זה?',
+    /* The story and team come from src/data/aboutData.js, the same lists the
+       page renders; the headings below are AboutUs.jsx's (a test checks them). */
+    textHtml: () => aboutText({
+      h1:          'הסיפור שלנו',
+      sub:         'מי אנחנו ולמה אנחנו עושים את זה?',
+      caption:     'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם',
+      story:       ABOUT.STORY_HE,
+      sign:        ABOUT.STORY_SIGN_HE,
+      teamTitle:   'הכירו את הצוות שלנו',
+      team:        ABOUT.TEAM_HE,
+      givingTitle: 'כי כל ילד ראוי לחגוג',
+      givingText:  'ילד שנלחם בסרטן לא צריך לוותר על יום ההולדת שלו. כל חודש אנחנו מקבלים משאלות ישירות מהילדים ומוודאים שכל אחד מקבל בדיוק את מה שחלם עליו.',
+    }),
     title: 'HighAir Expeditions | הסיפור שלנו',
     desc:  'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק - ותורמים מדי חודש לילדים חולי סרטן.',
     jsonLd: ABOUT_JSONLD,
@@ -609,7 +622,7 @@ for (const page of staticPages) {
     image:         '',
     heroImage:     page.heroImage || '',
     preHero:       preHeroHtml('list', page.heroImage),
-    text:          !page.textH1 ? '' : wrapText(page.textPosts
+    text:          page.textHtml ? wrapText(page.textHtml()) : !page.textH1 ? '' : wrapText(page.textPosts
                      ? blogListText({ h1: page.textH1, sub: page.textSub, posts: page.textPosts() })
                      : listingText({ h1: page.textH1, sub: page.textSub, exps: page.textExps?.() || [] })),
     jsonLd:        page.jsonLd,

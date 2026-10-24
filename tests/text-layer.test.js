@@ -5,7 +5,8 @@ import { describe, it, expect } from 'vitest';
 import { EXPS } from '../src/data/mockData.js';
 import { POSTS } from '../src/data/blogData.js';
 import { FAQ_BY_SLUG } from '../src/data/faqData.js';
-import { wrapText, expeditionText, blogText, listingText, blogListText, homeText, esc } from '../scripts/lib/text-layer.mjs';
+import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, homeText, esc } from '../scripts/lib/text-layer.mjs';
+import { STORY_HE, TEAM_HE } from '../src/data/aboutData.js';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -53,7 +54,7 @@ describe('static page headings match the pages', () => {
   const shells = readFileSync(resolve(__dirname, '../scripts/generate-html-shells.mjs'), 'utf8');
   const src = f => readFileSync(resolve(__dirname, '..', f), 'utf8');
   const pairs = [
-    ['src/components/web_v2/AboutUs.jsx',     ['הסיפור שלנו', 'מי אנחנו ולמה אנחנו עושים את זה?']],
+    ['src/components/web_v2/AboutUs.jsx',     ['הסיפור שלנו', 'מי אנחנו ולמה אנחנו עושים את זה?', 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם', 'הכירו את הצוות שלנו', 'כי כל ילד ראוי לחגוג', 'ילד שנלחם בסרטן לא צריך לוותר על יום ההולדת שלו. כל חודש אנחנו מקבלים משאלות ישירות מהילדים ומוודאים שכל אחד מקבל בדיוק את מה שחלם עליו.']],
     ['src/i18n.js',                            ['הבלוג של HighAir', 'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים', 'התכנית השנתית', 'כל הטיולים שלנו - מהתאריך הקרוב ועד סוף העונה']],
     ['src/components/web_v2/ContactPage.jsx', ['דברו איתנו', 'בין אם אתם מתכננים את הפסגה הראשונה שלכם ובין אם העשירית, אנחנו כאן לכל שאלה, גדולה כקטנה.']],
     ['src/components/web_v2/Shop.jsx',        ['החנות שלנו', 'ציוד מוכח בשטח. לכל טרק ולכל מסע.']],
@@ -69,5 +70,20 @@ describe('static page headings match the pages', () => {
     expect(html).toContain('<h1>h</h1>');
     expect(html).toContain('<a href="/blog/a">A</a>: x');
     expect(html).toContain('<a href="/blog/b">B</a></li>');
+  });
+});
+
+describe('about page text', () => {
+  const html = aboutText({ h1: 'הסיפור שלנו', story: STORY_HE, sign: 'a\nb', teamTitle: 'הצוות', team: TEAM_HE, givingTitle: 'g', givingText: 'gt' });
+  it('carries the whole story and every team member, from the data the page renders', () => {
+    expect(html.match(/<h1>/g)).toHaveLength(1);
+    for (const para of STORY_HE) expect(html).toContain(esc(para));
+    for (const m of TEAM_HE) { expect(html).toContain(esc(m.name)); expect(html).toContain(esc(m.bio)); }
+    expect(html).toContain('<p>a b</p>');
+  });
+  it('AboutUs.jsx reads the story and team from the data file', () => {
+    const page = readFileSync(resolve(__dirname, '../src/components/web_v2/AboutUs.jsx'), 'utf8');
+    expect(page).toContain("from '../../data/aboutData.js'");
+    expect(page).not.toMatch(/const (STORY_HE|TEAM_HE) =/);
   });
 });

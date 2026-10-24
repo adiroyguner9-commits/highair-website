@@ -111,6 +111,19 @@ export function blogListText({ h1, sub, posts = [] }) {
   return `<article><h1>${esc(h1)}</h1>${p(sub)}${items ? `<ul>${items}</ul>` : ''}</article>`;
 }
 
+/* The About page, in the order it shows: the founder's story, the team, and
+   the monthly birthday gifts for children with cancer. */
+export function aboutText({ h1, sub, caption, story = [], sign, teamTitle, team = [], givingTitle, givingText }) {
+  const members = team.map(m => `<h3>${esc(m.name)}${m.role ? `, ${esc(m.role)}` : ''}</h3>${p(m.bio)}`).join('');
+  return '<article>'
+    + `<h1>${esc(h1)}</h1>` + p(sub)
+    + (caption ? `<figure><figcaption>${esc(caption)}</figcaption></figure>` : '')
+    + story.map(x => p(x)).join('') + (sign ? p(sign.replace(/\n/g, ' ')) : '')
+    + (members ? h2(teamTitle) + members : '')
+    + (givingText ? h2(givingTitle) + p(givingText) : '')
+    + '</article>';
+}
+
 /* The homepage: who we are, every trip, and the guides. */
 export function homeText({ description, exps = [], posts = [] }) {
   const group = (title, list) => list.length ? h2(title) + `<ul>${list.map(e =>
