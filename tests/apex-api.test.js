@@ -58,6 +58,8 @@ describe('old Wix URLs', () => {
     expect(first('/langtang').destination).toBe('/treks');
     expect(first('/pirin').destination).toBe('/treks');
     expect(first('/post/kazbek').destination).toBe('/expedition/kazbek');
+    expect(first('/gokyo').destination).toBe('/expedition/everest-base-camp');   // our EBC trek includes Gokyo and Cho La
+    expect(first('/everest-base-camp-three-passes').destination).toBe('/expedition/everest-base-camp');
     expect(first('/post/magnus').destination).toBe('/blog');
     expect(first('/post/some-other-old-post').destination).toBe('/blog');
   });

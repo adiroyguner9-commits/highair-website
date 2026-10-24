@@ -78,7 +78,9 @@
     { "source": "/post/nepal-vaccinations",  "destination": "/blog",                         "permanent": true },
     { "source": "/post/:path*",              "destination": "/blog",                         "permanent": true },
     { "source": "/langtang",                 "destination": "/treks",                        "permanent": true },
-    { "source": "/pirin",                    "destination": "/treks",                        "permanent": true }
+    { "source": "/pirin",                    "destination": "/treks",                        "permanent": true },
+    { "source": "/gokyo",                    "destination": "/expedition/everest-base-camp", "permanent": true },
+    { "source": "/everest-base-camp-three-passes", "destination": "/expedition/everest-base-camp", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/airtable/:table/:id", "destination": "/api/at?table=:table&id=:id" },
