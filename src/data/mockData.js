@@ -1628,7 +1628,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
     seoTitle:       'HighAir Expeditions | קילימנג׳רו לשומרי מסורת',
     seoTitleEn:     'Climbing Kilimanjaro Kosher | HighAir Expeditions',
     seoDescription: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5895 מ׳ - לשומרי מסורת. 10 ימים כולל שבת בארושה עם חב״ד, אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.',
-    seoDescriptionEn: "Climb Kilimanjaro (5895m) - the world's only glatt kosher expedition. 10 days, Shabbat in Arusha, kosher food throughout. 94% success rate. Optional kosher safari.",
+    seoDescriptionEn: "Climb Kilimanjaro (5895m) on a fully glatt kosher expedition. 10 days, Shabbat in Arusha, kosher food throughout. 94% success rate. Optional kosher safari.",
     airtableEvents: ['Kilimanjaro_Kosher', 'Kilimanjaro_Kosher_with_Safari'],
     groupCapacity: 15,
     grad: 'linear-gradient(135deg,#f59e0b,#d97706,#92400e)',
@@ -1641,7 +1641,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
 הצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אוהורו 5895מ׳', 'ליווי רוחני מיוחד', 'שבת בארושה עם חב״ד', 'אוכל כשר מבושל טרי על ההר'],
     nameEn: 'Kilimanjaro Kosher',
-    descEn: `The world's only fully kosher Kilimanjaro expedition - and we've been running it for years.
+    descEn: `A fully kosher Kilimanjaro expedition - and we've been running it for years.
 
 Everything about this trek is identical to our standard Kilimanjaro expedition in terms of route, guides, and success rate. The difference: every meal is freshly prepared kosher, the group schedule is adapted to respect Shabbat and Jewish holidays, and you're surrounded by a Jewish group that shares your values.
 
@@ -1767,7 +1767,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Hebrew + English gu
       'Tanzania visa costs $50 per person  -  we recommend applying online in advance (eVisa). Valid for 90 days.',
       'All food is strictly kosher with full supervision  -  separate kitchen, separate utensils and shechita as per halacha. Suitable for Shabbat observant participants too.',
       'Summit day starts at midnight (00:00)  -  full winter gear required for -15°C conditions and summit winds.',
-      'Machame Route 7 days  -  our success rate stands at 94% thanks to built-in acclimatization days.',
+      'Machame Route, 6 days on the mountain (Sunday to Friday, before Shabbat)  -  our success rate stands at 94% thanks to built-in acclimatization days.',
       'Medical clearance required  -  including fitness for 5895m altitude.',
       'No prior climbing experience needed  -  anyone who can walk 8-10 hours per day can reach the summit.',
       'Safety before summit  -  the guide decides whether to continue based on each participant\'s condition.',
