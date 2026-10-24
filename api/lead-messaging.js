@@ -61,6 +61,14 @@ const SITE          = 'https://highair-expeditions.com';
  */
 const MAX_SENDS_PER_RUN = 3;
 
+/* The two contact forms are questions, not leads (owner, 24 Oct 2026): they
+   never get the automated "book a call" nudges. 'Contact Form' is the /contact
+   page, 'Contact' the homepage contact section (CTASection.jsx). All 6 contact
+   messages ever sent had received nudge 1, one of them also nudge 2. A message
+   an agent triggers by moving the card (no answer, follow-up, deposit) is a
+   deliberate choice and still goes. */
+const NOT_A_LEAD = `{Source}!='Contact',{Source}!='Contact Form',`;
+
 /* Canonical lead Expedition (English) → Hebrew name + its own /book/<slug> link,
    so every destination gets its own booking widget + unique link. */
 /* destInfo() now lives in ./_lib/dest.js — the single source of truth shared with
@@ -229,6 +237,7 @@ export default async function handler(req, res) {
       + `{Stage}='New Lead',`                          // still New Lead = never booked/advanced
       + `NOT(FIND('WhatsApp',{Source}&'')),`           // WhatsApp leads are handled by the AI
       + `NOT(FIND('GHL import',{Source}&'')),`         // never the imported backlog
+      + NOT_A_LEAD                                     // contact forms are not leads
       + `{Phone}!='',`
       + `IS_AFTER({Created Time},DATETIME_PARSE('${lowerIso}'))`
       + `)`;
@@ -294,6 +303,7 @@ export default async function handler(req, res) {
            spoke to: the form sets Nudge Sent only to stop nudge 1, which made
            it look like a form lead here (3 got "מתי יהיה לך נוח", 22 Oct 2026). */
         + `{Source}!='Manual',`
+        + NOT_A_LEAD
         + `{Phone}!='',`
         + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
         + `)`;

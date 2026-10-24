@@ -84,3 +84,16 @@ describe('the safety net does not race the instant send', () => {
     expect(dep).toContain("IS_BEFORE({Stage Changed At},DATETIME_PARSE('2026-10-22T07:57:00.000Z'))");
   });
 });
+
+describe('contact forms are not leads', () => {
+  it('neither nudge asks for a contact-form submission', async () => {
+    dueLeads = [];
+    await run();
+    const n1 = formulas.find(f => f.includes('{Nudge Sent}!=TRUE()'));
+    const n2 = formulas.find(f => f.includes('{Nudge 2 Sent}!=TRUE()'));
+    for (const f of [n1, n2]) {
+      expect(f).toContain("{Source}!='Contact'");
+      expect(f).toContain("{Source}!='Contact Form'");
+    }
+  });
+});
