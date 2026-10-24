@@ -19,7 +19,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { wrapText, expeditionText, blogText, listingText, homeText } from './lib/text-layer.mjs';
+import { wrapText, expeditionText, blogText, listingText, blogListText, homeText } from './lib/text-layer.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
@@ -521,27 +521,38 @@ const ABOUT_JSONLD = { '@context': 'https://schema.org', '@graph': [
 const staticPages = [
   {
     path:  'about',
+    textH1:  'הסיפור שלנו',                          // AboutUs.jsx hero
+    textSub: 'מי אנחנו ולמה אנחנו עושים את זה?',
     title: 'HighAir Expeditions | הסיפור שלנו',
     desc:  'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק - ותורמים מדי חודש לילדים חולי סרטן.',
     jsonLd: ABOUT_JSONLD,
   },
   {
     path:  'blog',
+    textH1:  'הבלוג של HighAir',                     // i18n.js blog.pageTitle
+    textSub: 'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים',   // blog.subtitle
+    textPosts: () => POSTS,
     title: 'HighAir Expeditions | בלוג טיפוס הרים וטרקים',
     desc:  'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים - מבית HighAir Expeditions. קילימנג׳רו, אוורסט, אנאפורנה ועוד.',
   },
   {
     path:  'contact',
+    textH1:  'דברו איתנו',                           // ContactPage.jsx T.heroTitle
+    textSub: 'בין אם אתם מתכננים את הפסגה הראשונה שלכם ובין אם העשירית, אנחנו כאן לכל שאלה, גדולה כקטנה.',
     title: 'HighAir Expeditions | צרו קשר',
     desc:  'צרו קשר עם צוות HighAir Expeditions לפרטים על משלחות, תאריכים, מחירים ורישום. אנחנו כאן לענות על כל שאלה.',
   },
   {
     path:  'shop',
+    textH1:  'החנות שלנו',                           // Shop.jsx hero
+    textSub: 'ציוד מוכח בשטח. לכל טרק ולכל מסע.',
     title: 'HighAir Expeditions | חנות ציוד טרקים',
     desc:  'ציוד טיולים ומשלחות עם הלוגו של HighAir Expeditions - תיקים, ציוד הרים ועוד. כל רכישה תורמת לחולי סרטן.',
   },
   {
     path:  'annual-plan',
+    textH1:  'התכנית השנתית',                        // i18n.js annualPlan.title
+    textSub: 'כל הטיולים שלנו - מהתאריך הקרוב ועד סוף העונה',   // annualPlan.subtitle (the dates load live)
     title: 'HighAir Expeditions | תכנית שנתית',
     desc:  'כל תאריכי המשלחות של HighAir Expeditions - קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד.',
   },
@@ -598,7 +609,9 @@ for (const page of staticPages) {
     image:         '',
     heroImage:     page.heroImage || '',
     preHero:       preHeroHtml('list', page.heroImage),
-    text:          page.textH1 ? wrapText(listingText({ h1: page.textH1, sub: page.textSub, exps: page.textExps?.() || [] })) : '',
+    text:          !page.textH1 ? '' : wrapText(page.textPosts
+                     ? blogListText({ h1: page.textH1, sub: page.textSub, posts: page.textPosts() })
+                     : listingText({ h1: page.textH1, sub: page.textSub, exps: page.textExps?.() || [] })),
     jsonLd:        page.jsonLd,
   });
 }

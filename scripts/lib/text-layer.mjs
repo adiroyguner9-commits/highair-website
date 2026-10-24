@@ -105,6 +105,12 @@ export function listingText({ h1, sub, exps = [] }) {
   return `<article><h1>${esc(h1)}</h1>${p(sub)}${items ? `<ul>${items}</ul>` : ''}</article>`;
 }
 
+/* The blog index: what it is, then every post with its excerpt. */
+export function blogListText({ h1, sub, posts = [] }) {
+  const items = posts.map(x => `<li>${link(`/blog/${x.slug}`, x.title)}${x.excerpt ? `: ${esc(x.excerpt)}` : ''}</li>`).join('');
+  return `<article><h1>${esc(h1)}</h1>${p(sub)}${items ? `<ul>${items}</ul>` : ''}</article>`;
+}
+
 /* The homepage: who we are, every trip, and the guides. */
 export function homeText({ description, exps = [], posts = [] }) {
   const group = (title, list) => list.length ? h2(title) + `<ul>${list.map(e =>
