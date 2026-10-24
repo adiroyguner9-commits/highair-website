@@ -121,11 +121,11 @@ export default function LegalPageLayout({ title, subtitle, updated, children, pa
           {title}
         </h1>
 
-        <p style={{ ...P, color: '#9591B0', margin: '0 0 4px' }}>
+        <p style={{ ...P, color: '#6B6B8A', margin: '0 0 4px' }}>
           {isRtl ? `${COMPANY.he}, ח.פ. ${COMPANY.number}` : `${COMPANY.en}, company no. ${COMPANY.number}`}
         </p>
 
-        <p style={{ ...P, color: '#9591B0', marginBottom: '48px' }}>
+        <p style={{ ...P, color: '#6B6B8A', marginBottom: '48px' }}>
           {resolvedSubtitle || '\u00a0'}
         </p>
 

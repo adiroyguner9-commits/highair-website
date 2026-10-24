@@ -77,7 +77,7 @@ export default function FounderSection() {
             fontFamily: "'Ploni', sans-serif",
             fontSize:   '13px',
             fontWeight: 400,
-            color:      '#9896B0',
+            color:      '#6B6B8A',
             margin:     0,
             textAlign:  'center',
           }}>

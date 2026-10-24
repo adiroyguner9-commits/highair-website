@@ -128,7 +128,7 @@ function PressCard({ item, isMobile }) {
             fontFamily: "'Ploni', sans-serif",
             fontSize:   FS.sm,
             fontWeight: 300,
-            color:      '#9591B0',
+            color:      '#6B6B8A',
           }}>
             {date}
           </span>

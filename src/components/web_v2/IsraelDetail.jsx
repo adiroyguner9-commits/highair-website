@@ -1240,7 +1240,7 @@ export default function IsraelDetail() {
                 {(liveGroups.length > 0 || trip.dates?.length > 0) && (
                   <div>
                     <label style={labelStyle}>{isRtl ? 'באיזה תאריך תרצו לטייל? *' : 'Preferred Date *'}</label>
-                    <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
+                    <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }} onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}>
                       <option value="">{isRtl ? 'בחרו תאריך' : 'Select a date'}</option>
                       {liveGroups.length > 0
@@ -1369,7 +1369,7 @@ export default function IsraelDetail() {
                       <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600, color: '#3D3B5A' }}>
                         {isRtl ? 'סה"כ לתשלום' : 'Total'}
                         {count > 1 && (
-                          <span style={{ fontWeight: 400, color: '#9591B0', marginRight: '6px', marginLeft: '6px' }}>
+                          <span style={{ fontWeight: 400, color: '#6B6B8A', marginRight: '6px', marginLeft: '6px' }}>
                             ({isRtl ? `₪${basePrice} × ${count}` : `₪${basePrice} × ${count}`})
                           </span>
                         )}

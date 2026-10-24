@@ -79,6 +79,7 @@
     { "source": "/post/:path*",              "destination": "/blog",                         "permanent": true },
     { "source": "/langtang",                 "destination": "/treks",                        "permanent": true },
     { "source": "/pirin",                    "destination": "/treks",                        "permanent": true },
+    { "source": "/author/:path*",            "destination": "/about",                        "permanent": true },
     { "source": "/gokyo",                    "destination": "/expedition/everest-base-camp", "permanent": true },
     { "source": "/everest-base-camp-three-passes", "destination": "/expedition/everest-base-camp", "permanent": true }
   ],

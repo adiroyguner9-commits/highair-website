@@ -28,6 +28,7 @@ export const OWNED_DIRS = [
 ];
 export const OWNED_FILES = [
   { dir: 'public/images/blog', match: /^tomer-bassan-/ },        // the blog is mostly press photos
+  { dir: 'public/images/blog/w800', match: /^tomer-bassan-/ },   // its 800px copies (gen-image-variants.mjs)
   { dir: 'public/videos', match: /-poster\.jpg$/ },
   { dir: 'public', match: /^(og-image|hero-poster)\.jpg$/ },
 ];

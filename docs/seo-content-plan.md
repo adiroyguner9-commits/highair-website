@@ -32,7 +32,7 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
    stock, never press, never generated. Reuse the destination's card/hero images if needed.
 8. Category `מדריכים` / `Guides`. New post goes at the top of `POSTS` in `src/data/blogData.js`.
    Sign every guide as Chen Shaked: `author: 'חן שקד'` and `authorId: 'chen-shaked'` (src/data/authors.js;
-   the byline links to /author/chen-shaked). Guides show no date on the site (only news does), so never
+   a plain-text byline, no author page). Guides show no date on the site (only news does), so never
    write "today" or "this week" in a guide; keep `dateIso` / `dateModified` accurate for the schema.
    Hebrew: התאקלמות, never אקלום; להעפיל, never לכבוש (BLOG_STYLE_GUIDE.md §2.1).
 9. Run `npm test` and `npm run build`; both must pass.

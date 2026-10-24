@@ -204,7 +204,7 @@ export default function PhoneField({
             transform: 'translateY(-50%)',
             pointerEvents: 'none',
             fontSize: '10px',
-            color: dark ? 'rgba(255,255,255,0.5)' : '#9591B0',
+            color: dark ? 'rgba(255,255,255,0.5)' : '#6B6B8A',
           }}>▾</span>
         </div>
 

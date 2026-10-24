@@ -3,10 +3,11 @@
  * תמונה משמאל · טקסט מימין · רקע לבן
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { srcSetOf } from '../../website/imageVariants.js';
 
 const SLIDES = [
   '/images/donation/img-1.webp',
@@ -20,6 +21,11 @@ const SLIDES = [
 
 export default function ImpactSection() {
   const [active, setActive] = useState(0);
+  /* Only the slides shown so far and the next one load (PageSpeed, 24 Oct
+     2026: all 7 photos, 1.8MB, loaded at once although one shows at a time).
+     The next one is ready before its fade starts, so nothing changes on screen. */
+  const loadedUpTo = useRef(1);
+  loadedUpTo.current = Math.max(loadedUpTo.current, active + 1);
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
@@ -71,7 +77,9 @@ export default function ImpactSection() {
             {SLIDES.map((src, i) => (
               <img
                 key={i}
-                src={src}
+                src={i <= loadedUpTo.current ? src : undefined}
+                srcSet={i <= loadedUpTo.current ? srcSetOf(src) : undefined}
+                sizes="(max-width: 767.98px) 92vw, 46vw"
                 alt="HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים"
                 loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"

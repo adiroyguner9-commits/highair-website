@@ -10,6 +10,7 @@ import { COLOR, FS, RADIUS, SHADOW, EASING, DUR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useInView } from '../../website/useInView.js';
 import { POSTS, isNewsPost } from '../../data/blogData.js';
+import { srcSetOf } from '../../website/imageVariants.js';
 
 /* ─────────────── BlogCard ─────────────── */
 function BlogCard({ post, isEn, dir }) {
@@ -53,6 +54,8 @@ function BlogCard({ post, isEn, dir }) {
       >
         <img
           src={post.img}
+          srcSet={srcSetOf(post.img)}
+          sizes="(max-width: 767.98px) 92vw, 30vw"
           alt={title}
           style={{
             width:      '100%',

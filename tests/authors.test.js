@@ -4,8 +4,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { POSTS, isNewsPost } from '../src/data/blogData.js';
-import { AUTHORS, authorOf } from '../src/data/authors.js';
-import { blogText, authorText } from '../scripts/lib/text-layer.mjs';
+import { authorOf } from '../src/data/authors.js';
+import { blogText } from '../scripts/lib/text-layer.mjs';
 
 describe('authors', () => {
   it('every authorId names a real author with a bio and a photo that exists', () => {
@@ -22,11 +22,10 @@ describe('authors', () => {
       else expect(p.authorId, p.slug).toBe('chen-shaked');
     }
   });
-  it('the author page text lists the author\'s guides', () => {
-    const a = AUTHORS['chen-shaked'];
-    const html = authorText({ author: a, posts: POSTS.filter(p => p.authorId === a.id) });
-    expect(html.match(/<h1>/g)).toHaveLength(1);
-    expect(html).toContain('/blog/kosher-kilimanjaro-shabbat-guide');
+  it('there is no author page (owner): the old URL goes to About', () => {
+    const cfg = JSON.parse(readFileSync('vercel.json', 'utf8'));
+    expect(cfg.redirects.find(r => r.source === '/author/:path*')?.destination).toBe('/about');
+    expect(readFileSync('src/main.jsx', 'utf8')).not.toContain('/author/');
   });
 });
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { srcSetOf } from '../../website/imageVariants.js';
 
 const PHOTO_SRCS = [
  { src: '/images/gallery/home/1.webp', ratio: '4/3' },
@@ -383,6 +384,8 @@ function SlideCard({ src, caption, width, height, onClick, snapAlign }) {
  >
  <img
  src={src}
+ srcSet={srcSetOf(src)}
+ sizes={`${width}px`}
  alt={caption}
  loading="lazy"
  decoding="async"

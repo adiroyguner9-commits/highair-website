@@ -158,7 +158,7 @@ export default function BookCall() {
                     {T.detailsTitle}
                   </h2>
                   <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 300,
-                    color: '#9591B0', margin: 0 }}>
+                    color: '#6B6B8A', margin: 0 }}>
                     {T.detailsSub}
                   </p>
                 </div>

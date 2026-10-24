@@ -2,7 +2,7 @@
  * BlogPost.jsx - /blog/:slug
  * Individual blog post page - Hebrew RTL
  */
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
@@ -238,9 +238,9 @@ export default function BlogPost() {
               }}>
                 {readingTime} {t('blogPost.readTime')}
               </span>
-              {/* The guide's author, linked to their page (guides only; news is the company's) */}
+              {/* The guide's author (guides only; news is the company's) */}
               {author && (
-                <Link to={`/author/${author.id}`} style={{
+                <span style={{
                   background:     'rgba(255,255,255,0.15)',
                   backdropFilter: 'blur(6px)',
                   color:          'rgba(255,255,255,0.9)',
@@ -249,10 +249,9 @@ export default function BlogPost() {
                   fontWeight:     400,
                   padding:        '4px 12px',
                   borderRadius:   RADIUS.full,
-                  textDecoration: 'none',
                 }}>
                   {isEn ? `By ${author.nameEn}` : `מאת ${author.nameHe}`}
-                </Link>
+                </span>
               )}
               {post.dateIso && isNewsPost(post) && (
                 <span style={{
@@ -296,7 +295,7 @@ export default function BlogPost() {
           borderBottom: '1px solid #ECEAF8',
           fontFamily: "'Ploni', sans-serif",
           fontSize:   '11px',
-          color:      '#9591B0',
+          color:      '#6B6B8A',
           direction:  'ltr',
         }}>
           📷 {post.imgCredit}
@@ -613,7 +612,7 @@ export default function BlogPost() {
                   <figcaption style={{
                     fontFamily: "'Ploni', sans-serif",
                     fontSize:   '13px',
-                    color:      '#9591B0',
+                    color:      '#6B6B8A',
                     textAlign:  'center',
                     marginTop:  '10px',
                   }}>
@@ -668,7 +667,7 @@ export default function BlogPost() {
                   <figcaption style={{
                     fontFamily: "'Ploni', sans-serif",
                     fontSize:   '13px',
-                    color:      '#9591B0',
+                    color:      '#6B6B8A',
                     textAlign:  'center',
                     marginTop:  '10px',
                   }}>
@@ -692,7 +691,7 @@ export default function BlogPost() {
           overflowX:  'auto',
           flexWrap:   'nowrap',
         }}>
-          <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#9591B0', fontWeight: 600 }}>
+          <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', fontWeight: 600 }}>
             {t('blogPost.share')}
           </span>
           <ShareBtn color="#25D366" onClick={shareWA}>

@@ -63,7 +63,7 @@ describe('every page route is served', () => {
   const routes = [...readFileSync('src/main.jsx', 'utf8').matchAll(/<Route path="([^"]+)"/g)].map(m => m[1]);
   const staticShells = new Set([...shells.matchAll(/path:\s+'([a-z-]+)'/g)].map(m => '/' + m[1]));
   for (const [, p] of shells.matchAll(/\['([a-z-]+)',\s+'[^']+'\]/g)) staticShells.add('/' + p);
-  const dynamicShells = ['/expedition/:slug', '/blog/:slug', '/israel/:slug', '/author/:id'];   // one shell per slug / author
+  const dynamicShells = ['/expedition/:slug', '/blog/:slug', '/israel/:slug'];   // one shell per slug
   const hidden = ['/israel', '/israel/:slug'];   // ISRAEL_TREKS_LIVE off: React shows the 404 page too
 
   it('has a shell, the fallback, or is a hidden route', () => {

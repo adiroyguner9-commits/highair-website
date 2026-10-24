@@ -161,7 +161,7 @@ export default function SiteFooter() {
     <>
       <div style={{ height: '1px', background: '#DDD9F0', marginBottom: '24px' }} />
       <div style={{ direction: 'ltr', textAlign: 'center' }}>
-        <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#9591B0', margin: 0 }}>
+        <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: 0 }}>
           {t('footer.copyright', { year: new Date().getFullYear() })}
         </p>
       </div>

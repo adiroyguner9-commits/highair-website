@@ -1,0 +1,137 @@
+{
+ "/images/gallery/home/1.webp": {
+  "w": 1200,
+  "h": 900,
+  "s": "/images/gallery/home/w800/1.webp"
+ },
+ "/images/gallery/home/10.webp": {
+  "w": 1200,
+  "h": 675,
+  "s": "/images/gallery/home/w800/10.webp"
+ },
+ "/images/gallery/home/11.webp": {
+  "w": 1200,
+  "h": 900,
+  "s": "/images/gallery/home/w800/11.webp"
+ },
+ "/images/gallery/home/2.webp": {
+  "w": 1200,
+  "h": 803,
+  "s": "/images/gallery/home/w800/2.webp"
+ },
+ "/images/gallery/home/3.webp": {
+  "w": 1200,
+  "h": 881,
+  "s": "/images/gallery/home/w800/3.webp"
+ },
+ "/images/gallery/home/4.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/gallery/home/w800/4.webp"
+ },
+ "/images/gallery/home/5.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/gallery/home/w800/5.webp"
+ },
+ "/images/gallery/home/6.webp": {
+  "w": 1200,
+  "h": 900,
+  "s": "/images/gallery/home/w800/6.webp"
+ },
+ "/images/gallery/home/7.webp": {
+  "w": 963,
+  "h": 1280,
+  "s": "/images/gallery/home/w800/7.webp"
+ },
+ "/images/gallery/home/8.webp": {
+  "w": 1200,
+  "h": 802,
+  "s": "/images/gallery/home/w800/8.webp"
+ },
+ "/images/gallery/home/9.webp": {
+  "w": 1200,
+  "h": 900,
+  "s": "/images/gallery/home/w800/9.webp"
+ },
+ "/images/donation/img-1.webp": {
+  "w": 1382,
+  "h": 1160,
+  "s": "/images/donation/w800/img-1.webp"
+ },
+ "/images/donation/img-2.webp": {
+  "w": 1382,
+  "h": 1160,
+  "s": "/images/donation/w800/img-2.webp"
+ },
+ "/images/donation/img-3.webp": {
+  "w": 1382,
+  "h": 1160,
+  "s": "/images/donation/w800/img-3.webp"
+ },
+ "/images/donation/img-4.webp": {
+  "w": 1382,
+  "h": 1160,
+  "s": "/images/donation/w800/img-4.webp"
+ },
+ "/images/donation/img-5.webp": {
+  "w": 1600,
+  "h": 2133,
+  "s": "/images/donation/w800/img-5.webp"
+ },
+ "/images/donation/img-6.webp": {
+  "w": 1600,
+  "h": 2133,
+  "s": "/images/donation/w800/img-6.webp"
+ },
+ "/images/donation/img-7.webp": {
+  "w": 1600,
+  "h": 2133,
+  "s": "/images/donation/w800/img-7.webp"
+ },
+ "/images/blog/chen-shaked-nimsdai-manaslu-2025.webp": {
+  "w": 1200,
+  "h": 1600,
+  "s": "/images/blog/w800/chen-shaked-nimsdai-manaslu-2025.webp"
+ },
+ "/images/blog/kristin-harila.webp": {
+  "w": 1350,
+  "h": 955,
+  "s": "/images/blog/w800/kristin-harila.webp"
+ },
+ "/images/blog/nabiev-everest.jpg": {
+  "w": 1080,
+  "h": 1440,
+  "s": "/images/blog/w800/nabiev-everest.webp"
+ },
+ "/images/blog/nepal-gyirong-flood.webp": {
+  "w": 1600,
+  "h": 808,
+  "s": "/images/blog/w800/nepal-gyirong-flood.webp"
+ },
+ "/images/blog/seven-summits-everest.webp": {
+  "w": 1200,
+  "h": 802,
+  "s": "/images/blog/w800/seven-summits-everest.webp"
+ },
+ "/images/blog/tanzania-currency.jpg": {
+  "w": 1600,
+  "h": 800,
+  "s": "/images/blog/w800/tanzania-currency.webp"
+ },
+ "/images/blog/tanzania-vaccinations.jpg": {
+  "w": 1600,
+  "h": 800,
+  "s": "/images/blog/w800/tanzania-vaccinations.webp"
+ },
+ "/images/blog/tanzania-visa.jpg": {
+  "w": 1600,
+  "h": 800,
+  "s": "/images/blog/w800/tanzania-visa.webp"
+ },
+ "/images/blog/tomer-bassan-snow.webp": {
+  "w": 1800,
+  "h": 1350,
+  "s": "/images/blog/w800/tomer-bassan-snow.webp"
+ }
+}

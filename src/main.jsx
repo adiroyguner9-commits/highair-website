@@ -94,7 +94,6 @@ const IsraelTreksPage    = lazy(() => import('./components/web_v2/IsraelTreksPag
 const WorldExpeditionsPage = lazy(() => import('./components/web_v2/WorldExpeditionsPage.jsx'));
 const Blog               = lazy(() => import('./components/web_v2/Blog.jsx'));
 const BlogPost           = lazy(() => import('./components/web_v2/BlogPost.jsx'));
-const AuthorPage         = lazy(() => import('./components/web_v2/AuthorPage.jsx'));
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
 const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
@@ -168,7 +167,6 @@ preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
           <Route path="/about"             element={<AboutUs />} />
           <Route path="/blog"              element={<Blog />} />
           <Route path="/blog/:slug"        element={<BlogPost />} />
-          <Route path="/author/:id"        element={<AuthorPage />} />
           <Route path="/shop"              element={<Shop />} />
           <Route path="/contact"           element={<ContactPage />} />
           <Route path="/safari"            element={<SafariPage />} />

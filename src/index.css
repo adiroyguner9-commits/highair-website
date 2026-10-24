@@ -85,10 +85,10 @@ button.nav-menu-item:active {
 
 input::placeholder,
 textarea::placeholder {
-  color: #9591B0;
+  color: #6B6B8A;
   opacity: 1;
 }
 
 select:has(option[value=""]:checked) {
-  color: #9591B0;
+  color: #6B6B8A;
 }

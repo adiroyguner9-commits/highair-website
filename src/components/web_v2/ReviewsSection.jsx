@@ -166,7 +166,7 @@ function ReviewCard({ name, nameEn, initials, initialsEn, date, dateEn, text, te
             <div style={{
               fontFamily: 'Ploni, sans-serif',
               fontSize:   FS.sm,
-              color:      '#9591B0',
+              color:      '#6B6B8A',
               marginTop:  '2px',
             }}>
               {displayDate}
@@ -335,7 +335,7 @@ export default function ReviewsSection() {
           <span style={{
             fontFamily: 'Ploni, sans-serif',
             fontSize:   FS.sm,
-            color:      '#9591B0',
+            color:      '#6B6B8A',
           }}>
             {t('reviews.basedOn')}
           </span>

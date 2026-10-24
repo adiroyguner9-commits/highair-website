@@ -94,7 +94,7 @@ export default function PartnersSection() {
         fontFamily:    "'Ploni', sans-serif",
         fontSize:      '13px',
         fontWeight:    600,
-        color:         '#9896B0',
+        color:         '#6B6B8A',
         textAlign:     'center',
         letterSpacing: '0.06em',
         textTransform: 'uppercase',

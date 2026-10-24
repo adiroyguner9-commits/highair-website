@@ -212,7 +212,7 @@ export default function ContactPage() {
  </div>
  <div>
  <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', fontWeight: 700,
- color: '#9591B0', margin: '0 0 3px', letterSpacing: '0.07em', textTransform: 'uppercase' }}>
+ color: '#6B6B8A', margin: '0 0 3px', letterSpacing: '0.07em', textTransform: 'uppercase' }}>
  {label}
  </p>
  <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600,
@@ -366,7 +366,7 @@ export default function ContactPage() {
  {T.formTitle}
  </h2>
  <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 300,
- color: '#9591B0', margin: 0 }}>
+ color: '#6B6B8A', margin: 0 }}>
  {T.formSub}
  </p>
  </div>

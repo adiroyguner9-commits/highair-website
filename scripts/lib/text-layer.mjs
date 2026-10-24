@@ -127,16 +127,6 @@ export function aboutText({ h1, sub, caption, story = [], sign, teamTitle, team 
     + '</article>';
 }
 
-/* An author's page: name, role, bio, summits, and the guides they wrote. */
-export function authorText({ author: a, posts = [] }) {
-  const guides = posts.map(x => `<li>${link(`/blog/${x.slug}`, x.title)}</li>`).join('');
-  return '<article>'
-    + `<h1>${esc(a.nameHe)}</h1>` + p(a.roleHe) + p(a.bioHe)
-    + (a.summitsHe?.length ? h2('פסגות שטיפס עליהן') + ul(a.summitsHe) : '')
-    + (guides ? h2(`המדריכים של ${a.nameHe}`) + `<ul>${guides}</ul>` : '')
-    + '</article>';
-}
-
 /* The homepage: who we are, every trip, and the guides. */
 export function homeText({ description, exps = [], posts = [] }) {
   const group = (title, list) => list.length ? h2(title) + `<ul>${list.map(e =>

@@ -9,6 +9,7 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, CATEGORIES, isNewsPost } from '../../data/blogData.js';
+import { smallOf } from '../../website/imageVariants.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import MountainBackdrop from './MountainBackdrop.jsx';
@@ -19,7 +20,7 @@ function fmtDate(iso) {
   return `${d}/${m}/${y}`;
 }
 
-export function PostCard({ post }) {
+function PostCard({ post }) {
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
@@ -58,7 +59,7 @@ export function PostCard({ post }) {
       <div style={{
         height:     '200px',
         background: post.img
-          ? `url(${post.img}) ${post.imgPositionCard || post.imgPosition || 'center'}/cover no-repeat`
+          ? `url(${smallOf(post.img)}) ${post.imgPositionCard || post.imgPosition || 'center'}/cover no-repeat`
           : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
         flexShrink: 0,
         position:   'relative',
@@ -131,7 +132,7 @@ export function PostCard({ post }) {
             <div style={{
               fontFamily: "'Ploni', sans-serif",
               fontSize:   '12px',
-              color:      '#9591B0',
+              color:      '#6B6B8A',
               direction:  'ltr',
             }}>
               {fmtDate(post.dateIso)}
@@ -301,7 +302,7 @@ export default function Blog() {
           </div>
 
           {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '80px 0', color: '#9591B0', fontFamily: "'Ploni', sans-serif" }}>
+            <div style={{ textAlign: 'center', padding: '80px 0', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>
               {t('blog.empty')}
             </div>
           )}

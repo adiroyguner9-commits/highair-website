@@ -1473,7 +1473,7 @@ export default function ExpeditionDetail() {
                       <div key={i} style={{ marginTop: '14px', paddingInlineStart: '34px' }}>
                         <span style={{
                           fontFamily: "'Ploni', sans-serif", fontSize: '13px',
-                          color: '#9591B0', lineHeight: 1.6, fontStyle: 'italic',
+                          color: '#6B6B8A', lineHeight: 1.6, fontStyle: 'italic',
                         }}>
                           {item}
                         </span>
@@ -2603,7 +2603,7 @@ export default function ExpeditionDetail() {
                         required value={form.month}
                         onFocus={() => trackFieldFocus('month')}
                         onChange={e => { setWomenGroup(false); setForm(f => ({ ...f, month: e.target.value })); }}
-                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
+                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       >
@@ -2615,7 +2615,7 @@ export default function ExpeditionDetail() {
                         required value={form.month}
                         onFocus={() => trackFieldFocus('month')}
                         onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setForm(f => ({ ...f, month: e.target.value })); }}
-                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#9591B0' }}
+                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
                       >
