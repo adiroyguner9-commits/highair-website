@@ -74,7 +74,7 @@ export const FAQ_BY_SLUG = {
       { q: 'מה רמת הכושר הנדרשת לטרק EBC?', a: 'צריך כושר גופני טוב, אבל לא של ספורטאי מקצועי. המפתח הוא היכולת ללכת 5-7 שעות ביום עם תרמיל גב, יום אחרי יום, לאורך שבועיים. ההכנה הטובה ביותר היא הליכות ארוכות עם תיק בחודשים שלפני - הקושי מצטבר, לא טכני.' },
       { q: 'האם רואים את פסגת אוורסט מהבייס קמפ?', a: 'דווקא לא - מהבייס קמפ עצמו הקרחון חוסם את הנוף לפסגה. הנקודה הטובה ביותר לצפות באוורסט היא קאלה פטאר (5,545 מ׳), ומשם הנוף לאוורסט, ללהוטסה ולנופצה הוא מהמרהיבים בעולם.' },
       { q: 'מתי העונה הטובה לטרק בנפאל?', a: 'שתי עונות מצוינות: אפריל-מאי לפני המונסון, ואוקטובר-נובמבר אחריו. בשתיהן השמיים בהירים, הנופים עוצרי נשימה ומזג האוויר נוח יחסית - ואנחנו מכוונים בדיוק אליהן. את חודשי המונסון (יוני-ספטמבר) עדיף להימנע.' },
-      { q: 'האם הטרק לאוורסט בייס קמפ מתאים למתחילים?', a: 'כן, אם מגיעים מוכנים. זה טרק ולא טיפוס טכני - אין חבלים, קרמפונים או גרזן קרח. מה שנדרש הוא סיבולת לב-ריאה, הכנה נפשית לגובה וציוד מתאים. מטיילים רבים בלי ניסיון קודם עשו אותו בהצלחה איתנו.' },
+      { q: 'האם הטרק לאוורסט בייס קמפ מתאים למתחילים?', a: 'כן, אם מגיעים מוכנים. זה טרק ולא טיפוס טכני: אין חבלים או גרזן קרח, וקרמפונים נדרשים רק כשיש שלג על השביל. מה שנדרש הוא סיבולת לב-ריאה, הכנה נפשית לגובה וציוד מתאים. מטיילים רבים בלי ניסיון קודם עשו אותו בהצלחה איתנו.' },
     ],
     en: [
       { q: 'How high do you go on the Everest Base Camp trek?', a: 'The highest point on the trek is Kala Patthar (5,545 m), which offers a stunning panorama of Everest; Base Camp itself sits at 5,364 m. These are the heights that challenge the body\'s acclimatization, which is why our itinerary is built carefully with rest days.' },
@@ -82,7 +82,7 @@ export const FAQ_BY_SLUG = {
       { q: 'What fitness level does the EBC trek require?', a: 'You need good fitness, but not that of a professional athlete. The key is being able to walk 5-7 hours a day with a daypack, day after day, over two weeks. The best preparation is long hikes with a pack in the months before - the difficulty is cumulative, not technical.' },
       { q: 'Can you see the summit of Everest from Base Camp?', a: 'Actually no - from Base Camp itself the glacier blocks the view of the summit. The best place to see Everest is Kala Patthar (5,545 m), from where the view of Everest, Lhotse and Nuptse is among the most spectacular in the world.' },
       { q: 'When is the best season to trek in Nepal?', a: 'Two excellent seasons: April-May before the monsoon, and October-November after it. In both the skies are clear, the scenery breathtaking and the weather relatively comfortable - and we aim for exactly those. It is best to avoid the monsoon months (June-September).' },
-      { q: 'Is the Everest Base Camp trek suitable for beginners?', a: 'Yes, if you come prepared. It is a trek, not a technical climb - no ropes, crampons or ice axe. What it takes is cardiovascular endurance, mental readiness for altitude and the right gear. Many trekkers with no prior experience have completed it successfully with us.' },
+      { q: 'Is the Everest Base Camp trek suitable for beginners?', a: 'Yes, if you come prepared. It is a trek, not a technical climb: no ropes or ice axe, and crampons are needed only when there is snow on the trail. What it takes is cardiovascular endurance, mental readiness for altitude and the right gear. Many trekkers with no prior experience have completed it successfully with us.' },
     ],
   },
 
