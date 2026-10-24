@@ -1,0 +1,33 @@
+/* The bare domain 308s to www for SEO (23 Oct 2026), but never its API. The
+   Lead Center calls this site's API cross-origin, and a browser does not follow
+   a redirect on a CORS preflight: with /api redirected, the deposit welcome,
+   call booking, follow-up, no-answer and reschedule calls all failed silently
+   (found 24 Oct 2026, a closing's welcome 7.5 minutes late). Old app builds and
+   cached pages still call the bare domain, so its /api must answer in place. */
+import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+const cfg = JSON.parse(readFileSync(resolve(__dirname, '../vercel.json'), 'utf8'));
+const apex = (cfg.redirects || []).filter(r => (r.has || []).some(h => h.type === 'host' && h.value === 'highair-expeditions.com'));
+/* path-to-regexp, for the three shapes used here: "/", "/:path*" and
+   "/:path(<regex>)", where the regex is everything after the slash. */
+const toRe = src => {
+  if (src.startsWith('/:path(') && src.endsWith(')')) return new RegExp('^/(' + src.slice(7, -1) + ')$');
+  if (src === '/:path*') return /^\/(.*)$/;
+  return new RegExp('^' + src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$');
+};
+
+describe('bare-domain redirect', () => {
+  it('sends pages to www', () => {
+    const hit = p => apex.some(r => toRe(r.source).test(p));
+    expect(hit('/')).toBe(true);
+    expect(hit('/expedition/kilimanjaro')).toBe(true);
+    expect(hit('/blog/tanzania-visa-guide')).toBe(true);
+  });
+  it('never redirects the API', () => {
+    for (const p of ['/api/notify-deposit', '/api/book-slot', '/api/send-followup', '/api/notify-no-answer', '/api/notify-reschedule']) {
+      expect(apex.some(r => toRe(r.source).test(p)), p).toBe(false);
+    }
+  });
+});
