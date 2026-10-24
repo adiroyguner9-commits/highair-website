@@ -13,11 +13,11 @@
     <script>
       (function () {
         var files = location.hostname.indexOf('en.') === 0
-          ? ['MazzardH-Regular.ttf', 'MazzardH-Bold.ttf']
-          : ['Ploni-Bold-AAA.ttf', 'Ploni-Medium-AAA.ttf', 'Ploni-Regular-AAA.ttf', 'MazzardH-Bold.ttf'];
+          ? ['MazzardH-Regular.woff2', 'MazzardH-Bold.woff2']
+          : ['Ploni-Bold-AAA.woff2', 'Ploni-Medium-AAA.woff2', 'Ploni-Regular-AAA.woff2', 'MazzardH-Bold.woff2'];
         for (var i = 0; i < files.length; i++) {
           var l = document.createElement('link');
-          l.rel = 'preload'; l.as = 'font'; l.type = 'font/ttf'; l.crossOrigin = 'anonymous';
+          l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
           l.href = '/' + files[i];
           document.head.appendChild(l);
         }

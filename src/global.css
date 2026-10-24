@@ -1,35 +1,39 @@
+/* Fonts are woff2 (24 Oct 2026: the same glyphs as the .ttf, 701KB -> 231KB,
+   lossless; checked glyph by glyph). The .ttf stays only as a fallback for
+   browsers without woff2. index.html preloads these exact .woff2 URLs: a
+   preload that does not match the src here would download the font twice. */
 
 @font-face {
   font-family: 'Ploni';
-  src: url('/Ploni-Bold-AAA.ttf') format('truetype');
+  src: url('/Ploni-Bold-AAA.woff2') format('woff2'), url('/Ploni-Bold-AAA.ttf') format('truetype');
   font-weight: 700 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Ploni';
-  src: url('/Ploni-Medium-AAA.ttf') format('truetype');
+  src: url('/Ploni-Medium-AAA.woff2') format('woff2'), url('/Ploni-Medium-AAA.ttf') format('truetype');
   font-weight: 400 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Ploni';
-  src: url('/Ploni-Regular-AAA.ttf') format('truetype');
+  src: url('/Ploni-Regular-AAA.woff2') format('woff2'), url('/Ploni-Regular-AAA.ttf') format('truetype');
   font-weight: 300 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mazzard';
-  src: url('/MazzardH-Regular.ttf') format('truetype');
+  src: url('/MazzardH-Regular.woff2') format('woff2'), url('/MazzardH-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mazzard';
-  src: url('/MazzardH-Bold.ttf') format('truetype');
+  src: url('/MazzardH-Bold.woff2') format('woff2'), url('/MazzardH-Bold.ttf') format('truetype');
   font-weight: 700 900;
   font-style: normal;
   font-display: swap;
