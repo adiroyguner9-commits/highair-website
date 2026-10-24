@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { COLOR, FS } from '../../website/theme.js';
 import { Analytics } from '../../utils/analytics.js';
+import { ArrowIcon } from '../Icons.jsx';
 
 const VIDEO_SRC = '/videos/hero-home.mp4';
 const POSTER_SRC = '/videos/hero-home-poster.jpg';
@@ -242,6 +243,7 @@ export default function HeroSection() {
  }}
  >
  {t('hero.climbs')}
+ <ArrowIcon size={18} flip={!isEn} />
  </Link>
 
  {/* Secondary - טרקים בעולם */}
@@ -279,6 +281,7 @@ export default function HeroSection() {
  }}
  >
  {t('hero.treks')}
+ <ArrowIcon size={18} flip={!isEn} />
  </Link>
 
  </div>

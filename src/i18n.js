@@ -36,8 +36,8 @@ const he = {
   hero: {
     subtitle: 'ארגון טרקים ומשלחות טיפוס הרים בארץ ובעולם',
     cancer: 'בשילוב תרומה לחולי סרטן בכל מסע!',
-    climbs: 'טיפוס הרים',
-    treks: 'טרקים בעולם',
+    climbs: 'לכל טיפוסי ההרים',
+    treks: 'לכל הטרקים בעולם',
   },
   stats: {
     successRate: 'אחוזי הצלחה',
@@ -228,8 +228,8 @@ const en = {
   hero: {
     subtitle: 'Trekking and Climbing Expeditions',
     cancer: 'Every Expedition Supports Cancer Patients',
-    climbs: 'Mountain Climbs',
-    treks: 'Treks Worldwide',
+    climbs: 'Expeditions',
+    treks: 'Trekking',
   },
   stats: {
     successRate: 'Summit success rate',

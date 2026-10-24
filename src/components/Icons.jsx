@@ -47,6 +47,8 @@ export const SnowflakeIcon   = p => <I {...p}><path d="M12 2v20M2 12h20M4.93 4.9
 export const TreeIcon        = p => <I {...p}><path d="M12 2L4 12h4l-2 5h4l-2 5h8l-2-5h4l-2-5h4L12 2z"/></I>;
 export const GlobeIcon       = p => <I {...p}><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></I>;
 export const EyeIcon         = p => <I {...p}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></I>;
+/* Forward arrow: points right; in RTL pass flip to point left (the reading direction's "next"). */
+export const ArrowIcon       = ({ flip, ...p }) => <span style={{ display: 'inline-flex', transform: flip ? 'scaleX(-1)' : 'none' }} aria-hidden="true"><I {...p}><path d="M5 12h14M13 6l6 6-6 6"/></I></span>;
 export const ElephantIcon    = p => <I {...p}><path d="M18 6c0-2-1.5-4-4-4s-4 2-5 4H7a4 4 0 00-4 4v2a4 4 0 004 4h1v4h6v-4h1a4 4 0 004-4V9"/><path d="M21 8c1 1 1 3 0 4"/></I>;
 
 /* ── Map: event key → decorative SVG icon key ── */
