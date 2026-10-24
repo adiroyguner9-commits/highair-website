@@ -32,9 +32,11 @@ export const OWNED_FILES = [
   { dir: 'public/videos', match: /-poster\.jpg$/ },
   { dir: 'public', match: /^(og-image|hero-poster)\.jpg$/ },
 ];
-/* Unsplash / Pexels stock, documented in public/images/safari/SOURCES.md:
-   the safari photos and the safari card + hero images. Not ours to claim. */
-export const NOT_OURS = /safari/i;
+/* Unsplash / Pexels stock, not ours to claim:
+   - the safari photos and the safari card + hero images (public/images/safari/SOURCES.md);
+   - the Sinai gallery, card and hero (a curated Unsplash/Pexels set, 13 Jul 2026),
+     stamped by mistake on 23 Oct and restored unstamped on 25 Oct. */
+export const NOT_OURS = /safari|sinai/i;
 
 const XMP = Buffer.from(
   '<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>' +

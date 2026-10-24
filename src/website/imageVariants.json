@@ -134,6 +134,42 @@
   "h": 1350,
   "s": "/images/blog/w800/tomer-bassan-snow.webp"
  },
+ "/images/cards/kilimanjaro.webp": {
+  "w": 1400,
+  "h": 781,
+  "s": "/images/cards/thumbs/kilimanjaro.webp",
+  "sw": 760
+ },
+ "/images/cards/annapurna.webp": {
+  "w": 1300,
+  "h": 731,
+  "s": "/images/cards/thumbs/annapurna.webp",
+  "sw": 760
+ },
+ "/images/cards/MeraPeak.webp": {
+  "w": 1200,
+  "h": 1499,
+  "s": "/images/cards/thumbs/MeraPeak.webp",
+  "sw": 760
+ },
+ "/images/cards/elbrus.webp": {
+  "w": 1400,
+  "h": 933,
+  "s": "/images/cards/thumbs/elbrus.webp",
+  "sw": 760
+ },
+ "/images/cards/kazbek.webp": {
+  "w": 1400,
+  "h": 1050,
+  "s": "/images/cards/thumbs/kazbek.webp",
+  "sw": 760
+ },
+ "/images/cards/sinai.webp": {
+  "w": 1400,
+  "h": 933,
+  "s": "/images/cards/thumbs/sinai.webp",
+  "sw": 760
+ },
  "/images/cards/aconcagua.webp": {
   "w": 960,
   "h": 720,

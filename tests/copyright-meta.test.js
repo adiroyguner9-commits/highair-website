@@ -4,9 +4,10 @@
    would go out unmarked. The stamp is lossless and must never overwrite
    someone else's metadata. */
 import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { ownedImages } from '../scripts/stamp-copyright.mjs';
-import { stampBuffer, hasStamp, imageFormat } from '../scripts/lib/copyright-meta.mjs';
+import { stampBuffer, hasStamp, imageFormat, NOT_OURS } from '../scripts/lib/copyright-meta.mjs';
 
 const files = ownedImages();
 
@@ -29,5 +30,11 @@ describe('copyright metadata on owned photos (run: node scripts/gen-gallery.mjs)
     const seg = Buffer.concat([Buffer.from([0xff, 0xe1, 0x00, 2 + 6 + tiff.length]), Buffer.from('Exif\0\0', 'binary'), tiff]);
     const credited = Buffer.concat([jpeg.subarray(0, 2), seg, jpeg.subarray(2)]);
     expect(() => stampBuffer(credited)).toThrow(/credit/);
+  });
+  it('stock photos (safari, Sinai) are never stamped', () => {
+    const walk = d => readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
+    const stock = walk('public/images').filter(f => NOT_OURS.test(f) && /\.(webp|jpe?g)$/i.test(f));
+    expect(stock.length).toBeGreaterThan(20);
+    expect(stock.filter(f => hasStamp(readFileSync(f)))).toEqual([]);
   });
 });

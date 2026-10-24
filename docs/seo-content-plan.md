@@ -57,15 +57,17 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 1 | live | טיפוס לקילימנג'רו כשר: שבת, כשרות ותפילה על ההר | unique product, HighAir absent for "קילימנג'רו כשר" | kilimanjaro-kosher, kilimanjaro |
 | 9 | live | טרק לאוורסט בייס קמפ: המדריך המלא | core query, HighAir absent | everest-base-camp |
 | 14 | live | טיפוס לאקונקגואה: המדריך המלא | Hebrew results are trip reports | aconcagua |
+| 28 | live | טיפוס לקילימנג'רו: המדריך המלא | main product, no deep Hebrew guide | kilimanjaro, kilimanjaro-kosher |
+| 22 | live | טרק סובב אנאפורנה: המדריך המלא | only a comparison exists (#4) | annapurna |
+| 29 | live | טיפוס למרה פיק: המדריך המלא | first peak above 6,000 m, English results only | mera-peak |
+| 18 | live | טיפוס לאלברוס: המדריך המלא | trip pages rank, no deep guide | elbrus |
+| 27 | live | טיפוס לקזבק: המדריך המלא | only in the comparison (#15), English results dominate | kazbek |
+| 21 | live | טרק להר הגבוה בסיני: המדריך המלא | new destination, winter season, no Hebrew guide | sinai |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
-| 21 | todo | טרק להר הגבוה בסיני: המדריך המלא | new destination, winter season, no Hebrew guide | sinai |
 | 13 | todo | טרק באתיופיה ברכס הסימיאן וראס דשן | thin Hebrew coverage | ethiopia |
 | 11 | todo | טיפוס להר קניה: המדריך המלא בעברית | Hebrew search returns English only | mount-kenya |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
-| 22 | todo | טרק סובב אנאפורנה: המדריך המלא | only a comparison exists (#4) | annapurna |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
-| 18 | todo | טיפוס לאלברוס: המדריך המלא | trip pages rank, no deep guide | elbrus |
-| 27 | todo | טיפוס לקזבק: המדריך המלא | only in the comparison (#15), English results dominate | kazbek |
 | 19 | todo | פסגות הבלקן: טרק בשלוש מדינות | thin Hebrew coverage | peaks-of-balkan |
 | 12 | todo | טיפוס לאולימפוס: המדריך המלא בעברית | Hebrew search returns English only | olympus |
 | 25 | todo | טיפוס ללנין פיק: המדריך המלא | 7,134 m, English results only | lenin-peak |
