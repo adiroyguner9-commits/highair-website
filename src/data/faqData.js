@@ -54,14 +54,14 @@ export const FAQ_BY_SLUG = {
       { q: 'האם אלברוס קשה יותר מקילימנג׳רו?', a: 'אלברוס קשה יותר טכנית. בגובה דומה (5,642 מ׳) הוא דורש הליכה עם קרמפונים ומקל קרח, הקור חריף יותר ויש סיכון לסופות פתאומיות. שיעור ההצלחה שלנו הוא 85%, לעומת 94% בקילימנג׳רו. ההמלצה: אם זו הפסגה הגבוהה הראשונה שלכם, התחילו בקילימנג׳רו.' },
       { q: 'האם נדרש ניסיון לטיפוס על אלברוס?', a: 'נדרש ניסיון בסיסי בהליכה בשלג ובקרמפונים, אבל לא טיפוס טכני. ביום הראשון בבייס קמפ אנחנו עושים תרגול קרמפונים ואימון על שיפועי השלג, ומי שכבר היה בגובה - למשל קילימנג׳רו - מגיע עם יתרון גופני ומנטלי.' },
       { q: 'כמה קר בפסגת אלברוס?', a: 'בלילה שלפני הפסגה הטמפרטורה יורדת בדרך כלל ל-15° עד 25° מתחת לאפס, ועם רוח הקור זה יכול להרגיש כמו 35°- . לכן חובה כפפות חמות, שכבות תרמיות, מסכת פנים (באלקלבה) ומשקפי סקי טובים. רשימת ציוד מלאה נשלחת לכל נרשם.' },
-      { q: 'מה מצב הכניסה לרוסיה לישראלים?', a: 'נכון להיום, ישראלים נדרשים לאשרת כניסה לרוסיה. אנחנו מסייעים בהגשת הוויזה ומספקים את כל המסמכים הנדרשים - כדאי לפנות אלינו לעדכון המדויק לגבי המצב בזמן היציאה שלכם.' },
+      { q: 'מה מצב הכניסה לרוסיה לישראלים?', a: 'ישראלים נכנסים לרוסיה ללא ויזה, עם דרכון בתוקף, לשהייה של עד 90 יום בכל תקופה של 180 יום. כללי הכניסה עשויים להשתנות, ולכן כדאי לבדוק אותם לפני ההזמנה ושוב לפני הטיסה.' },
       { q: 'איזה ציוד טכני מקבלים מכם?', a: 'אנחנו מספקים לכל המשתתפים קרמפונים, מקל קרח ורתמה בהשאלה, ללא עלות נוספת - אין צורך לרכוש ציוד טיפוס יקר. כל מה שצריך להביא הוא ציוד חם בסיסי, נעלי הרים עם סוליה נוקשה וציוד שינה מתאים לגובה.' },
     ],
     en: [
       { q: 'Is Elbrus harder than Kilimanjaro?', a: 'Elbrus is more technical. At a similar height (5,642 m) it requires walking on crampons with an ice axe, the cold is harsher, and sudden storms are a risk. Our summit success rate is 85%, versus 94% on Kilimanjaro. Our recommendation: if this is your first high peak, start with Kilimanjaro.' },
       { q: 'Do I need experience to climb Elbrus?', a: 'You need basic experience walking on snow and in crampons, but not technical climbing. On the first day at base camp we run crampon practice and training on the snow slopes, and anyone who has already been to altitude - Kilimanjaro, for example - arrives with a physical and mental advantage.' },
       { q: 'How cold is the Elbrus summit?', a: 'On summit night the temperature usually drops to between -15° and -25°C, and with wind chill it can feel like -35°C. That makes warm gloves, thermal layers, a face mask (balaclava) and good ski goggles essential. A full gear list is sent to every registrant.' },
-      { q: 'What is the entry situation to Russia for Israelis?', a: 'As of now, Israelis need an entry visa to Russia. We help with the visa application and provide all the required documents - it is worth contacting us for the exact status around your departure date.' },
+      { q: 'What is the entry situation to Russia for Israelis?', a: 'Israelis enter Russia without a visa, with a valid passport, for stays of up to 90 days in any 180-day period. Entry rules can change, so check them before booking and again before your flight.' },
       { q: 'What technical gear do you provide?', a: 'We provide every participant with crampons, an ice axe and a harness on loan, at no extra cost - there is no need to buy expensive climbing gear. All you need to bring is basic warm clothing, mountain boots with a stiff sole, and a sleeping setup suited to altitude.' },
     ],
   },
@@ -91,16 +91,16 @@ export const FAQ_BY_SLUG = {
     he: [
       { q: 'מה ההבדל בין טרק סובב אנאפורנה לטרק אוורסט בייס קמפ?', a: 'סובב אנאפורנה מגוון יותר מבחינה נופית ותרבותית - הוא חוצה כפרים בסגנונות שונים, יערות ומעברים, בעוד שאוורסט בייס קמפ ממוקד יותר באתגר הגובה ובתחושת ״לב ההימלאיה״. אנאפורנה מושלם למי שרוצה את החוויה המלאה של נפאל; EBC למי שהגובה הוא המטרה.' },
       { q: 'מה הגובה המקסימלי בסובב אנאפורנה?', a: 'הנקודה הגבוהה היא מעבר תורונג לה (5,416 מ׳), אחד ממעברי ההרים הגבוהים בעולם שחוצים ברגל. העלייה אליו לפני עלות השחר, אל נוף הזריחה מעל ענני נפאל, היא שיא הטרק וחוויה שנשארת.' },
-      { q: 'הטרק בכיוון השעון או נגדו?', a: 'אנחנו עושים את הסובב בכיוון השעון, מבסיסי עד ג׳ומסום. כך העלייה למעבר תורונג לה הדרגתית ומאפשרת התאקלמות טובה יותר, ובנוסף מסיימים בצד של פוקרה - מה שחוסך ימי הליכה מיותרים.' },
+      { q: 'הטרק בכיוון השעון או נגדו?', a: 'אנחנו עושים את הסובב נגד כיוון השעון, מעמק המרסיאנדי ומנאנג אל מעבר תורונג לה, ומשם יורדים למוקטינאת. כך העלייה למעבר הדרגתית ומאפשרת התאקלמות טובה יותר, וממוקטינאת נוסעים בג׳יפ לפוקארה.' },
       { q: 'האם נדרש ניסיון לטרק סובב אנאפורנה?', a: 'לא נדרש ניסיון טיפוס. מי שמסוגל ללכת 6-8 שעות ביום ומגיע בכושר סביר יכול לסיים את הטרק. הקושי המרכזי הוא מעבר תורונג לה, שדורש יציאה בחשיכה ועלייה ממושכת - והמדריכים שלנו מכינים אתכם אליו לאורך כל הדרך.' },
-      { q: 'מה כלול בטרק סובב אנאפורנה ומה לא?', a: 'כלול: העברות, לינה בלודג׳ים, שלוש ארוחות ביום, מדריך והיתרי הכניסה לאזור. לא כלול: טיסות בינלאומיות, ביטוח נסיעות, ויזה לנפאל (25-30 דולר) וציוד אישי. רשימת ציוד מפורטת נשלחת לאחר ההרשמה.' },
+      { q: 'מה כלול בטרק סובב אנאפורנה ומה לא?', a: 'כלול: העברות, לינה בלודג׳ים, שלוש ארוחות ביום, מדריך והיתרי הכניסה לאזור. לא כלול: טיסות בינלאומיות, ביטוח נסיעות, ויזה לנפאל (50 דולר) וציוד אישי. רשימת ציוד מפורטת נשלחת לאחר ההרשמה.' },
     ],
     en: [
       { q: 'What is the difference between the Annapurna Circuit and the Everest Base Camp trek?', a: 'The Annapurna Circuit is more varied in scenery and culture - it crosses villages of different styles, forests and passes, while Everest Base Camp is more focused on the altitude challenge and the "heart of the Himalayas" feeling. Annapurna is perfect for the full Nepal experience; EBC for when altitude is the goal.' },
       { q: 'What is the highest point on the Annapurna Circuit?', a: 'The highest point is the Thorong La Pass (5,416 m), one of the highest mountain passes in the world crossed on foot. The pre-dawn ascent to it, into a sunrise view above the clouds of Nepal, is the highlight of the trek and an experience that stays with you.' },
-      { q: 'Is the trek clockwise or counter-clockwise?', a: 'We walk the circuit clockwise, from Besisahar to Jomsom. This makes the ascent to the Thorong La Pass gradual and allows better acclimatization, and we also finish on the Pokhara side - which saves unnecessary walking days.' },
+      { q: 'Is the trek clockwise or counter-clockwise?', a: 'We walk the circuit anticlockwise, up the Marsyangdi valley and through Manang to the Thorong La Pass, then down to Muktinath. This makes the ascent to the pass gradual and allows better acclimatization, and from Muktinath we drive by jeep to Pokhara.' },
       { q: 'Do I need experience for the Annapurna Circuit?', a: 'No climbing experience is needed. Anyone who can walk 6-8 hours a day and arrives in reasonable shape can complete the trek. The main challenge is the Thorong La Pass, which requires a start in the dark and a long ascent - and our guides prepare you for it along the way.' },
-      { q: 'What is included in the Annapurna Circuit and what is not?', a: 'Included: transfers, lodge accommodation, three meals a day, a guide and the area entry permits. Not included: international flights, travel insurance, the Nepal visa ($25-30) and personal gear. A detailed gear list is sent after registration.' },
+      { q: 'What is included in the Annapurna Circuit and what is not?', a: 'Included: transfers, lodge accommodation, three meals a day, a guide and the area entry permits. Not included: international flights, travel insurance, the Nepal visa ($50) and personal gear. A detailed gear list is sent after registration.' },
     ],
   },
 
@@ -145,7 +145,7 @@ export const FAQ_BY_SLUG = {
   /* ── Sinai ── */
   'sinai': {
     he: [
-      { q: 'איך מגיעים לטרק בסיני?', a: 'המסע מתחיל ומסתיים במעבר הגבול טאבה. חוצים את הגבול יחד עם המדריך, ומשם ההסעות לסנטה קתרינה ובחזרה כלולות במחיר. שימו לב שאגרות המעבר בצד הישראלי (120₪) ובצד המצרי (120$) אינן כלולות.' },
+      { q: 'איך מגיעים לטרק בסיני?', a: 'המסע מתחיל ומסתיים במעבר הגבול טאבה. חוצים את הגבול כקבוצה, ומשם ההסעות לסנטה קתרינה ובחזרה כלולות במחיר. שימו לב שאגרות המעבר בצד הישראלי (120₪) ובצד המצרי (120$) אינן כלולות.' },
       { q: 'מה רמת הקושי של הטרק בסיני?', a: 'הטרק מתאים למטיילים בכושר גופני טוב: ימי הליכה מלאים בשטח הררי, בין 10 ל-15 ק״מ ביום, כולל עלייה לג׳בל קתרינה (2,642 מ׳) - ההר הגבוה במצרים. אין טיפוס טכני, אבל נדרשת מוטיבציה ויכולת הליכה של כמה שעות ביום.' },
       { q: 'איפה ישנים במהלך הטרק בסיני?', a: 'ארבעה לילות בלב הרי סיני - בבוסתנים בדואיים ובלינת שטח תחת שמיים זרועי כוכבים, עם ארוחות חמות בפנסיון מלא. את הלילה האחרון מעבירים במלון מפנק בדהב, בחדר פרטי, על שפת ים סוף.' },
       { q: 'מה הגובה המקסימלי בטרק?', a: 'הנקודה הגבוהה היא פסגת ג׳בל קתרינה (2,642 מ׳), ההר הגבוה בסיני ובמצרים כולה. בנוסף עולים לפסגת הר סיני (2,285 מ׳), שלפי המסורת עליו ניתנו לוחות הברית.' },
@@ -153,7 +153,7 @@ export const FAQ_BY_SLUG = {
       { q: 'מה חשוב להביא לטרק בסיני?', a: 'ציוד אישי אינו כלול, וחשוב להצטייד בנעלי הליכה טובות, שק שינה, פנס ראש ובגדים חמים לערבים המדבריים הקרים. רשימת ציוד מפורטת נשלחת לכל נרשם לאחר ההרשמה.' },
     ],
     en: [
-      { q: 'How do you get to the Sinai trek?', a: 'The journey starts and ends at the Taba border crossing. You cross the border together with the guide, and from there the transfers to Saint Catherine and back are included. Note that the crossing fees on the Israeli side (120 NIS) and the Egyptian side ($120) are not included.' },
+      { q: 'How do you get to the Sinai trek?', a: 'The journey starts and ends at the Taba border crossing. You cross the border as a group, and from there the transfers to Saint Catherine and back are included. Note that the crossing fees on the Israeli side (120 NIS) and the Egyptian side ($120) are not included.' },
       { q: 'What is the difficulty level of the Sinai trek?', a: 'The trek suits travellers in good physical condition: full walking days in mountainous terrain, 10 to 15 km a day, including the ascent of Jabal Katherina (2,642 m) - the highest mountain in Egypt. There is no technical climbing, but it takes motivation and the ability to walk several hours a day.' },
       { q: 'Where do you sleep during the Sinai trek?', a: 'Four nights in the heart of the Sinai mountains - in Bedouin orchards and open-air camps under star-filled skies, with hot meals on a full-board basis. The last night is spent at a comfortable hotel in Dahab, in a private room, on the shore of the Red Sea.' },
       { q: 'What is the maximum altitude on the trek?', a: 'The highest point is the summit of Jabal Katherina (2,642 m), the highest mountain in Sinai and in all of Egypt. We also ascend Mount Sinai (2,285 m), where, by tradition, the Tablets of the Covenant were given.' },
