@@ -35,10 +35,14 @@ function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
     }
   }
 
+  /* A teaser has no page yet, so it is a <span>, not an <a> without an href:
+     Lighthouse and crawlers count those as broken, uncrawlable links (24 Oct
+     2026, 5 per page). Same styles, so it looks exactly as before. */
+  const Tag = teaser ? 'span' : 'a';
   return (
-    <a
+    <Tag
       href={teaser ? undefined : href}
-      onClick={teaser ? (e => e.preventDefault()) : handleClick}
+      onClick={teaser ? undefined : handleClick}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       onMouseEnter={() => !teaser && setHovered(true)}
@@ -73,7 +77,7 @@ function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
           {i18n.language === 'en' ? 'Coming soon' : 'בקרוב'}
         </span>
       )}
-    </a>
+    </Tag>
   );
 }
 

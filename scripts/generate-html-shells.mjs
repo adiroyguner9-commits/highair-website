@@ -19,6 +19,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { wrapText, expeditionText, blogText, listingText, homeText } from './lib/text-layer.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
@@ -196,7 +197,10 @@ function writeShell(routePath, meta) {
   const dir = path.join(DIST, routePath);
   fs.mkdirSync(dir, { recursive: true });
   let html = injectMeta(template, meta).replace(HOME_HERO_PRELOAD, heroPreload(meta.heroImage));
-  if (meta.preHero) html = html.replace(EMPTY_ROOT, `<div id="root">${meta.preHero}</div>`);
+  /* #root starts with the pre-hero (what the eye sees first) and the page's text
+     (what a reader without JavaScript gets, see scripts/lib/text-layer.mjs). */
+  const rootInner = (meta.preHero || '') + (meta.text || '');
+  if (rootInner) html = html.replace(EMPTY_ROOT, `<div id="root">${rootInner}</div>`);
   // Inject JSON-LD before </head>
   if (meta.jsonLd) {
     html = html.replace('</head>', `${buildJsonLd(meta)}\n</head>`);
@@ -207,6 +211,9 @@ function writeShell(routePath, meta) {
 // ── Expedition pages ─────────────────────────────────────────────────────────
 
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
+/* The FAQ the trip page shows: its own list, else the default (ExpeditionDetail.jsx). */
+const { FAQ_BY_SLUG, makeDefaultFaq } = await import(path.join(ROOT, 'src/data/faqData.js'));
+const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15));
 let expCount = 0;
 for (const exp of EXPS) {
   if (!exp.slug || exp.teaser) continue;   // teaser cards have no detail page
@@ -293,6 +300,7 @@ for (const exp of EXPS) {
     image:         exp.ogImage         || exp.img || '',
     heroImage:     expHeroImage(exp),
     preHero:       preHeroHtml('trip', expHeroImage(exp)),
+    text:          wrapText(expeditionText(exp, faqFor(exp))),
     jsonLd,
   });
   expCount++;
@@ -346,6 +354,7 @@ for (const post of POSTS) {
     ogImage:       post.ogImg    || '',
     heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
     preHero:       preHeroHtml('blog', localImg(post.img), post.imgPosition),
+    text:          wrapText(blogText(post)),
     ogType:        'article',
     articleMeta: {
       publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
@@ -539,6 +548,9 @@ const staticPages = [
   {
     path:  'treks',
     heroImage: '/images/cards/annapurna.webp',   // WorldExpeditionsPage.jsx CONFIG.treks.heroImg
+    textH1:  'הטרקים שלנו בעולם',                // CONFIG.treks.h1He
+    textSub: 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס.',   // CONFIG.treks.subHe
+    textExps: () => trekExps,
     title: 'HighAir Expeditions | טרקים בעולם',
     desc:  'כל הטרקים של HighAir בעולם - מהבלקן ואתיופיה ועד ההימלאיה בנפאל. מדריכים מקצועיים, קבוצות קטנות ותרומה למאבק במחלת הסרטן. בחרו את הטרק הבא שלכם.',
     jsonLd: TREKS_JSONLD,
@@ -546,6 +558,9 @@ const staticPages = [
   {
     path:  'climbs',
     heroImage: '/images/cards/kilimanjaro.webp', // WorldExpeditionsPage.jsx CONFIG.climbs.heroImg
+    textH1:  'משלחות טיפוס הרים בעולם',          // CONFIG.climbs.h1He
+    textSub: 'מקילימנג׳רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים.',   // CONFIG.climbs.subHe
+    textExps: () => climbExps,
     title: 'HighAir Expeditions | משלחות טיפוס הרים',
     desc:  'כל משלחות טיפוס ההרים של HighAir - קילימנג׳רו, אלברוס, אקונקגואה, אמה דבלאם ועוד. מדריכים מוסמכים, ליווי מלא ותרומה למאבק במחלת הסרטן.',
     jsonLd: CLIMBS_JSONLD,
@@ -560,6 +575,7 @@ for (const page of staticPages) {
     image:         '',
     heroImage:     page.heroImage || '',
     preHero:       preHeroHtml('list', page.heroImage),
+    text:          page.textH1 ? wrapText(listingText({ h1: page.textH1, sub: page.textSub, exps: page.textExps() })) : '',
     jsonLd:        page.jsonLd,
   });
 }
@@ -577,11 +593,17 @@ for (const page of staticPages) {
      own CSS then hides it, so it cannot flash even for one frame (a guard after
      the markup could: measured on /privacy, 24 Oct 2026). */
   if (!homeHtml.includes('id="ha-pre"')) {
+    const homeTextLayer = wrapText(homeText({ description: ORG_NODE.description, exps: liveExps, posts: POSTS }));
     homeHtml = homeHtml
       .replace('</head>', '  <script>if(location.pathname!=="/")document.documentElement.classList.add("ha-nopre")</script>\n</head>')
-      .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}</div>`);
+      .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}${homeTextLayer}</div>`);
     fs.writeFileSync(homePath, homeHtml, 'utf8');
   }
+  /* Every route WITHOUT a shell (/privacy, /terms, /book/..., a 404) is served
+     dist/spa.html (vercel.json rewrite), the plain app shell: no home hero, no
+     home text. Before this, those routes got index.html, and a reader without
+     JavaScript would have read the homepage's text on the privacy page. */
+  fs.writeFileSync(path.join(DIST, 'spa.html'), template.replace(HOME_HERO_PRELOAD, ''), 'utf8');
   if (!homeHtml.includes('id="home-jsonld"')) {
     const tag = `\n  <script id="home-jsonld" type="application/ld+json">${JSON.stringify(homeGraph)}</script>`;
     homeHtml = homeHtml.replace('</head>', `${tag}\n</head>`);
