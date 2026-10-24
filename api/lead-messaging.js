@@ -25,6 +25,7 @@ export const config = { api: { bodyParser: false } };
 
 import { setSecurityHeaders } from './_security.js';
 import { sendDepositWelcome } from './_lib/deposit-welcome.js';
+import { sendBackupAlert } from './_lib/backup-alert.js';   // a safety-net send means the instant one failed
 import { destInfo } from './_lib/dest.js';   // single source of truth for destination → Hebrew name + slug
 import { tripKey } from './_lib/active-lead.js';   // same-trip test — a call booked for a DIFFERENT destination must not suppress this enquiry's link
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
@@ -163,6 +164,13 @@ export default async function handler(req, res) {
      that second sent the message twice. The net now only takes a move that is
      a few minutes old, by which time the instant call has claimed it. */
   const settledIso = new Date(nowMs - 3 * 60 * 1000).toISOString();
+  /* Sends the instant trigger should have made (see _lib/backup-alert.js). */
+  const backupSends = [];
+  const backupItem = (kind, rec) => {
+    const f = rec.fields || {};
+    const at = Date.parse(f['Stage Changed At'] || '');
+    return { kind, name: f.Name, expedition: f.Expedition, minutes: at ? Math.round((nowMs - at) / 60000) : undefined };
+  };
 
   /* Send a WhatsApp and report HONESTLY whether it actually went out.
      This used to return null for an unusable phone and to hand back Green's body
@@ -335,7 +343,7 @@ export default async function handler(req, res) {
       + `)`);
     for (const rec of rowsNA) {
       const out = await sendNoAnswerNotice(rec);
-      if (out.sent) result.noAnswer++;
+      if (out.sent) { result.noAnswer++; backupSends.push(backupItem('noAnswer', rec)); }
       else if (out.error) { result.noAnswerFailed++; result.errors.push(`noAnswer ${rec.fields?.Name || rec.id}: ${out.error}`); }
     }
   } catch (e) { result.errors.push('noAnswer: ' + e.message); }
@@ -425,8 +433,12 @@ export default async function handler(req, res) {
       const out = await sendDepositWelcome(rec);
       if (out.fbFired) result.fbPurchase++;
       result.depositA++;
+      if (out.waSent) backupSends.push(backupItem('deposit', rec));
     }
   } catch (e) { result.errors.push('depositA: ' + e.message); }
+
+  /* Every message above that only the safety net sent: the instant path failed. */
+  if (backupSends.length) result.backupAlert = (await sendBackupAlert(backupSends)) ? backupSends.length : 'not sent';
 
   console.log('[lead-messaging]', JSON.stringify(result));
   return res.json({ ok: true, ...result });
