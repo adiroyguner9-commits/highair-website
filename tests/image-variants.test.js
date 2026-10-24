@@ -28,9 +28,10 @@ describe('image variants', () => {
     expect(smallOf('/images/nope.webp')).toBe('/images/nope.webp');
   });
   it('the components that show these photos use the copies', () => {
-    for (const f of ['ImpactSection.jsx', 'GallerySection.jsx', 'BlogPreview.jsx']) {
+    for (const f of ['ImpactSection.jsx', 'BlogPreview.jsx']) {
       expect(readFileSync(`src/components/web_v2/${f}`, 'utf8'), f).toContain('srcSetOf(');
     }
     expect(readFileSync('src/components/web_v2/Blog.jsx', 'utf8')).toContain('smallOf(post.img)');
+    expect(readFileSync('src/components/web_v2/GallerySection.jsx', 'utf8')).toContain('thumbOf={smallOf}');
   });
 });
