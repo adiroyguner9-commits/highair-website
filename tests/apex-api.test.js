@@ -31,3 +31,19 @@ describe('bare-domain redirect', () => {
     }
   });
 });
+
+/* Old /post/ URLs (the previous site) must land on a page that exists. Two of
+   them pointed at a blog slug that was never published, so their visitors and
+   link value went to a 404 (found by the weekly SEO agent, 24 Oct 2026). */
+import { POSTS } from '../src/data/blogData.js';
+import { EXPS } from '../src/data/mockData.js';
+describe('old URL redirects', () => {
+  it('every /blog/ or /expedition/ destination exists', () => {
+    const blog = new Set(POSTS.map(p => p.slug)), trips = new Set(EXPS.filter(e => e.slug && !e.teaser).map(e => e.slug));
+    for (const r of cfg.redirects || []) {
+      const b = r.destination.match(/^\/blog\/([^/?#]+)$/), t = r.destination.match(/^\/expedition\/([^/?#]+)$/);
+      if (b) expect(blog.has(b[1]), r.destination).toBe(true);
+      if (t) expect(trips.has(t[1]), r.destination).toBe(true);
+    }
+  });
+});

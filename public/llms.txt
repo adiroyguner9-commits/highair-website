@@ -8,7 +8,7 @@ Contact: +972-55-563-6975 · Tel Aviv, Israel
 ## What we offer
 
 - **Mountain climbing expeditions worldwide** (`/climbs`): Kilimanjaro, Elbrus, Aconcagua, Kazbek, Lobuche Peak, Island Peak, Mera Peak, Lenin Peak, Ama Dablam and more. Certified IFMGA guides, small groups, full support.
-- **Treks worldwide** (`/treks`): Everest Base Camp & Gokyo, Annaparna Circuit, Manaslu Circuit, Peaks of the Balkans, Simien Mountains & Danakil (Ethiopia), Mount Olympus, Mestia to Ushguli and more.
+- **Treks worldwide** (`/treks`): Everest Base Camp & Gokyo, Annapurna Circuit, Manaslu Circuit, Peaks of the Balkans, Simien Mountains & Danakil (Ethiopia), Mount Olympus and more.
 
 ## Key pages
 
