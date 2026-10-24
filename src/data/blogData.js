@@ -798,10 +798,10 @@ export const POSTS = [
     dateEn:   'August 27, 2026',
     category:   'חדשות',
     categoryEn: 'News',
-    img:             '/images/blog/nepal-gyirong-flood.webp',
-    imgPosition:     'center 40%',
-    imgPositionCard: 'center 40%',
-    imgCredit:       '',
+    img:             '/images/blog/nepal-rasuwa-valley.webp',
+    imgPosition:     'center 50%',
+    imgPositionCard: 'center 50%',
+    imgCredit:       'Krish Dulal, CC BY-SA 3.0',
     excerpt:   'השיטפון שפרץ ב-26 באוגוסט במחוז רסואה הפך לאחד האסונות הקשים בתולדות נפאל. מה קרה, מה המצב היום, ואיך זה משפיע על עונת הטרקים באביב 2027.',
     excerptEn: 'The 26 August flood in Rasuwa became one of the worst disasters in Nepal\'s history. What happened, where things stand now, and what it means for the spring 2027 trekking season.',
     content: [
@@ -813,7 +813,6 @@ export const POSTS = [
       { type: 'text', value: 'עוצמת הפריצה הייתה קיצונית: במורד הזרם עלה מפלס הנהר בכתשעה מטרים בתוך חצי שעה. לגבי הגורם הראשוני ההערכות חלוקות. הערכה אחת קושרת את המפולת לרעידת אדמה קלה בצד הטיבטי של הגבול, ואחרות סבורות שמדובר בקריסת קרחון. הרקע הרחב ברור: ההימלאיה מתחממת, והסיכון מקריסות קרח כאלה הולך וגדל.' },
       { type: 'image', src: '/images/blog/nepal-langtang-lirung.webp', alt: 'פסגת לנגטנג לירונג בנפאל', caption: 'פסגת לנגטנג לירונג, שמצפון לה קרס הקרחון שהצית את זרם הבוץ · צילום: Stefanos Nikologianis, CC BY 2.0' },
       { type: 'text', value: 'הנזק לתשתיות כבד במיוחד. מעבר הגבול רסואגאדהי, נקודת המעבר המרכזית בין נפאל לטיבט, נהרס, והנזק נרשם גם בצד הטיבטי. עשרות גשרים ניזוקו, קטעי כביש ארוכים נסחפו, ותחנות כוח הידרו-אלקטריות לאורך הנהר נפגעו.' },
-      { type: 'image', src: '/images/blog/nepal-rasuwa-valley.webp', alt: 'מפגש נהרות במחוז רסואה בנפאל', caption: 'מפגש נהרות הבהוטה קושי והלנדה קולה במחוז רסואה, האזור שבו פרץ השיטפון · צילום: Krish Dulal, CC BY-SA 3.0' },
       { type: 'section', value: 'מה המצב היום' },
       { type: 'list', items: [
         'אזור לנגטנג וגוסאיקונדה: נפתח מחדש לטרקים בסוף אוקטובר, אחרי שהוצב גשר זמני בבטרוואטי. לפי איגוד סוכנויות הטרקים של נפאל, יש שתי דרכי גישה לעמק, וכדאי לבדוק את מצב השבילים לפני היציאה.',
@@ -853,7 +852,6 @@ export const POSTS = [
       { type: 'text', value: 'The force was extreme: downstream, the river rose by about nine metres within half an hour. Views on the initial trigger differ. One assessment links the avalanche to a minor earthquake on the Tibetan side of the border, while others believe it was a glacier collapse. The wider background is clear: the Himalaya is warming, and the risk of ice collapses like this is growing.' },
       { type: 'image', src: '/images/blog/nepal-langtang-lirung.webp', alt: 'Langtang Lirung in Nepal', caption: 'Langtang Lirung; the glacier collapsed on the slopes to its north · Photo: Stefanos Nikologianis, CC BY 2.0' },
       { type: 'text', value: 'The damage to infrastructure is especially heavy. The Rasuwagadhi border crossing, the main crossing between Nepal and Tibet, was destroyed, with damage on the Tibetan side too. Dozens of bridges were damaged, long stretches of road were washed away, and hydropower plants along the river were hit.' },
-      { type: 'image', src: '/images/blog/nepal-rasuwa-valley.webp', alt: 'Confluence of rivers in Rasuwa district, Nepal', caption: 'The confluence of the Bhote Koshi and the Lende Khola in Rasuwa, where the flood broke out · Photo: Krish Dulal, CC BY-SA 3.0' },
       { type: 'section', value: 'Where things stand now' },
       { type: 'list', items: [
         'Langtang and Gosaikunda: reopened for trekking in late October, after a temporary bridge was installed at Betrawati. According to the Trekking Agencies\' Association of Nepal, there are two access routes into the valley, and trail conditions are worth checking before you set out.',
