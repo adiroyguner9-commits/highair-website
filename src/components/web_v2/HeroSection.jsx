@@ -9,6 +9,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { COLOR, FS } from '../../website/theme.js';
 import { Analytics } from '../../utils/analytics.js';
 
@@ -211,10 +212,10 @@ export default function HeroSection() {
  flexWrap: 'wrap',
  }}>
 
- {/* Primary - לכל המשלחות */}
- <a
- href="#expeditions"
- onClick={() => Analytics.clickCTA('all_expeditions', 'hero')}
+ {/* Primary - טיפוס הרים (owner, 24 Oct 2026: the hero leads to the two catalogues) */}
+ <Link
+ to="/climbs"
+ onClick={() => Analytics.clickCTA('climbs', 'hero')}
  onMouseEnter={() => setBtn1Hovered(true)}
  onMouseLeave={() => setBtn1Hovered(false)}
  style={{
@@ -240,13 +241,13 @@ export default function HeroSection() {
  whiteSpace: 'nowrap',
  }}
  >
- {t('hero.allExpeditions')}
- </a>
+ {t('hero.climbs')}
+ </Link>
 
- {/* Secondary - הסיפור שלנו */}
- <a
- href="/about"
- onClick={() => Analytics.clickCTA('our_story', 'hero')}
+ {/* Secondary - טרקים בעולם */}
+ <Link
+ to="/treks"
+ onClick={() => Analytics.clickCTA('treks', 'hero')}
  onMouseEnter={() => setBtn2Hovered(true)}
  onMouseLeave={() => setBtn2Hovered(false)}
  style={{
@@ -277,8 +278,8 @@ export default function HeroSection() {
  whiteSpace: 'nowrap',
  }}
  >
- {t('hero.ourStory')}
- </a>
+ {t('hero.treks')}
+ </Link>
 
  </div>
 
