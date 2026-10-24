@@ -119,6 +119,19 @@
         margin: 0 !important;
         transition: bottom 0.35s cubic-bezier(0.22,1,0.36,1) !important;
       }
+      /* Smooth on phones (owner, 24 Oct 2026: the icon limped while scrolling).
+         The WhatsApp button below it sits on its own compositor layer
+         (translateZ + will-change) and glides; this icon did not, so the phone
+         redrew it on every scroll frame. Same treatment, on the icon only: a
+         transform on the wrapper would make it the frame the icon is placed in
+         and double the offsets. */
+      #userwayAccessibilityIcon,
+      [id^="userwayAccessibilityIcon"] {
+        transform: translateZ(0) !important;
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
       /* When the cookie banner covers this corner (narrow screens), lift the
          accessibility button above it. The banner sets --ha-cookie-clear on
          <html> and toggles .ha-cookie-open on <body>; WhatsApp sits at the var,
