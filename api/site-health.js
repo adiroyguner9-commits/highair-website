@@ -34,6 +34,8 @@ const PAGES = [
   { path: '/treks',                  label: 'טרקים בעולם' },
   { path: '/climbs',                 label: 'טיפוסי הרים' },
   { path: '/expedition/kilimanjaro', label: 'קילימנג׳רו' },
+  /* A blog post: where Google search visitors land, and its own layout. */
+  { path: '/blog/tanzania-visa-guide', label: 'מאמר: ויזה לטנזניה' },
 ];
 
 /* Thresholds on the Lighthouse performance score (0-100), mobile is the gate. */
@@ -123,7 +125,9 @@ export default async function handler(req, res) {
   /* Measure every page on mobile + desktop. */
   const jobs = [];
   for (const p of PAGES) for (const strategy of ['mobile', 'desktop']) jobs.push({ ...p, strategy });
-  const measured = await pool(jobs, 3, async (j) => ({ ...j, result: await pagespeed(`${SITE}${j.path}`, j.strategy, PSI_KEY) }));
+  /* 10 runs in two rounds of 5, so the whole check stays well inside the
+     function's 120s even when PSI is slow (each run is capped at 55s). */
+  const measured = await pool(jobs, 5, async (j) => ({ ...j, result: await pagespeed(`${SITE}${j.path}`, j.strategy, PSI_KEY) }));
 
   /* Fold into per-page rows. */
   const byPath = {};

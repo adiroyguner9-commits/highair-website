@@ -38,6 +38,23 @@ function addDays(iso, n) {
 
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 
+/* The template is the homepage, and its <head> preloads the HOME hero poster at
+   high priority. Every shell used to inherit it, so a phone opening Kilimanjaro
+   or a blog post first fetched 131KB of an image that page never shows
+   (measured 24 Oct 2026), ahead of its own. Each shell swaps it for the image
+   its own hero paints first, or for nothing. */
+const HOME_HERO_PRELOAD = /<link rel="preload" href="\/videos\/hero-home-poster\.jpg"[^>]*>/;
+if (!HOME_HERO_PRELOAD.test(template)) {
+  throw new Error('generate-html-shells: the home hero preload in index.html changed; update HOME_HERO_PRELOAD');
+}
+const localImg = src => (src && !/^https?:/.test(src) ? src : '');
+const heroPreload = src => (src ? `<link rel="preload" href="${esc(src)}" as="image" fetchpriority="high">` : '');
+/* What ExpeditionDetail paints first in its hero: YouTube has no image of ours,
+   a hero video shows its poster, otherwise the hero image. */
+const expHeroImage = exp => (exp.videoUrl ? ''
+  : exp.heroVideo ? exp.heroVideo.replace('.mp4', '-poster.jpg')
+  : localImg(exp.heroImg || exp.img));
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function esc(str) {
@@ -137,7 +154,7 @@ function faqFromContent(content) {
 function writeShell(routePath, meta) {
   const dir = path.join(DIST, routePath);
   fs.mkdirSync(dir, { recursive: true });
-  let html = injectMeta(template, meta);
+  let html = injectMeta(template, meta).replace(HOME_HERO_PRELOAD, heroPreload(meta.heroImage));
   // Inject JSON-LD before </head>
   if (meta.jsonLd) {
     html = html.replace('</head>', `${buildJsonLd(meta)}\n</head>`);
@@ -232,6 +249,7 @@ for (const exp of EXPS) {
     description:   exp.seoDescription  || exp.descEn || '',
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.ogImage         || exp.img || '',
+    heroImage:     expHeroImage(exp),
     jsonLd,
   });
   expCount++;
@@ -283,6 +301,7 @@ for (const post of POSTS) {
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img      || '',
     ogImage:       post.ogImg    || '',
+    heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
     ogType:        'article',
     articleMeta: {
       publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
@@ -475,12 +494,14 @@ const staticPages = [
   }] : []),
   {
     path:  'treks',
+    heroImage: '/images/cards/annapurna.webp',   // WorldExpeditionsPage.jsx CONFIG.treks.heroImg
     title: 'HighAir Expeditions | טרקים בעולם',
     desc:  'כל הטרקים של HighAir בעולם - מהבלקן ואתיופיה ועד ההימלאיה בנפאל. מדריכים מקצועיים, קבוצות קטנות ותרומה למאבק במחלת הסרטן. בחרו את הטרק הבא שלכם.',
     jsonLd: TREKS_JSONLD,
   },
   {
     path:  'climbs',
+    heroImage: '/images/cards/kilimanjaro.webp', // WorldExpeditionsPage.jsx CONFIG.climbs.heroImg
     title: 'HighAir Expeditions | משלחות טיפוס הרים',
     desc:  'כל משלחות טיפוס ההרים של HighAir - קילימנג׳רו, אלברוס, אקונקגואה, אמה דבלאם ועוד. מדריכים מוסמכים, ליווי מלא ותרומה למאבק במחלת הסרטן.',
     jsonLd: CLIMBS_JSONLD,
@@ -493,6 +514,7 @@ for (const page of staticPages) {
     description:   page.desc,
     canonicalPath: `/${page.path}`,
     image:         '',
+    heroImage:     page.heroImage || '',
     jsonLd:        page.jsonLd,
   });
 }

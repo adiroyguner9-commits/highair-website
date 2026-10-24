@@ -347,6 +347,33 @@ export default function ExpeditionDetail() {
   const isPreview = searchParams.get('preview') === '1';
   const exp = EXPS.find(e => e.slug === slug && (isPreview || !e.teaser));
 
+  /* The hero video starts only once the page has loaded. Its mp4 (1.8MB for
+     Kilimanjaro, measured 24 Oct 2026) used to download beside the page's own
+     code, which on a phone pushed the first screen back. Until then the poster
+     shows, the video's own first frame, so the screen looks the same. Same rule
+     as the homepage hero, except phones still get the video here. */
+  const [heroVideoOn, setHeroVideoOn] = useState(false);
+  const heroVideoRef = useRef(null);
+  useEffect(() => {
+    let id;
+    const start = () => {
+      id = ('requestIdleCallback' in window)
+        ? requestIdleCallback(() => setHeroVideoOn(true), { timeout: 2000 })
+        : setTimeout(() => setHeroVideoOn(true), 1200);
+    };
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
+    return () => {
+      if (id) (window.cancelIdleCallback || clearTimeout)(id);
+      window.removeEventListener('load', start);
+    };
+  }, []);
+  /* Explicit play() for iOS Safari, where the autoplay attribute alone does not
+     start a video whose src arrives after mount. */
+  useEffect(() => {
+    if (heroVideoOn) heroVideoRef.current?.play().catch(() => {});
+  }, [heroVideoOn, exp?.heroVideo]);
+
   /* Schema.org JSON-LD: Tour + Breadcrumbs + FAQ — built once per expedition.
      This is what unlocks rich-result eligibility on Google for tour queries
      ("טיפוס קילימנג'רו", "Mt Kilimanjaro tour from Israel", etc.). */
@@ -966,6 +993,8 @@ export default function ExpeditionDetail() {
           exp.heroVideo ? (
             <video
               key={exp.heroVideo}
+              ref={heroVideoRef}
+              src={heroVideoOn ? exp.heroVideo : undefined}
               autoPlay muted loop playsInline preload="none"
               poster={exp.heroVideo.replace('.mp4', '-poster.jpg')}
               style={{
@@ -973,9 +1002,7 @@ export default function ExpeditionDetail() {
                 width: '100%', height: '100%',
                 objectFit: 'cover', pointerEvents: 'none',
               }}
-            >
-              <source src={exp.heroVideo} type="video/mp4" />
-            </video>
+            />
           ) : (
             <div style={{
               position: 'absolute', inset: 0,
