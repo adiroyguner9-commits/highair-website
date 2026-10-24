@@ -55,6 +55,47 @@ const expHeroImage = exp => (exp.videoUrl ? ''
   : exp.heroVideo ? exp.heroVideo.replace('.mp4', '-poster.jpg')
   : localImg(exp.heroImg || exp.img));
 
+/* ── Pre-hero: the first screen before any JavaScript ────────────────────────
+   The site renders in the browser: until ~1.2MB of code has downloaded and run,
+   the page is blank, and on PageSpeed's mobile profile that put the main image
+   at 12-15s (24 Oct 2026). Each shell now carries a static copy of its own
+   header bar and hero image, with the same dark overlay, sized like the live
+   layout (measured at 360, 412, 800 and 1350px wide), so the browser paints it
+   straight from the HTML. React replaces it on its first render; the first
+   Suspense fallback repeats it (src/main.jsx, BootFallback) so it never blinks
+   out while the page's own chunk loads. Text and buttons stay React's.
+   Sizes mirror: HomeV2 + HeroSection (home), ExpeditionDetail (trip),
+   WorldExpeditionsPage (list), BlogPost (blog); the header is 80px everywhere. */
+const PRE_HERO_CSS = [
+  '.ha-nopre #ha-pre{display:none}',
+  '#ha-pre .b{position:fixed;top:0;left:0;right:0;height:80px;background:#fff;z-index:10}',
+  '#ha-pre .h{width:100%}',
+  /* Home's gap is a SPACER, not a margin: HomeV2 pads <main>, so #root starts at 0;
+     a margin would collapse through #root, start it at 80px and make the whole
+     page jump on React's first render (CLS 0.008 -> 0.105, measured 24 Oct 2026).
+     The blog keeps its margin because BlogPost's own margin collapses the same way. */
+  '#ha-pre .sp{height:124px}',
+  '#ha-pre .home{height:90vh}',
+  '#ha-pre .trip{height:100dvh;min-height:600px}',
+  '#ha-pre .list{height:440px}',
+  '#ha-pre .blog{margin-top:80px;height:440px}',
+  '@media (max-width:767.98px){#ha-pre .sp{height:80px}#ha-pre .trip{height:65dvh;min-height:480px}#ha-pre .list{height:340px}#ha-pre .blog{height:300px}}',
+].join('');
+const PRE_HERO_BG = {
+  home: img => `linear-gradient(rgba(10,8,24,.72),rgba(10,8,24,.72)),url(${img}) center/cover no-repeat`,
+  trip: img => `linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.65)),url(${img}) center/cover no-repeat,#0A0818`,
+  list: img => `linear-gradient(to bottom,rgba(10,8,24,.55),rgba(10,8,24,.78)),url(${img}) center/cover no-repeat`,
+  blog: (img, pos) => `linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url(${img}) ${pos || 'center'}/cover no-repeat`,
+};
+function preHeroHtml(kind, img, pos) {
+  if (!img || !PRE_HERO_BG[kind]) return '';
+  return `<div id="ha-pre" aria-hidden="true"><style>${PRE_HERO_CSS}</style>`
+    + `<div class="b"></div>${kind === 'home' ? '<div class="sp"></div>' : ''}`
+    + `<div class="h ${kind}" style="background:${esc(PRE_HERO_BG[kind](img, pos))}"></div></div>`;
+}
+const EMPTY_ROOT = '<div id="root"></div>';
+if (!template.includes(EMPTY_ROOT)) throw new Error('generate-html-shells: <div id="root"></div> not found in index.html');
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function esc(str) {
@@ -155,6 +196,7 @@ function writeShell(routePath, meta) {
   const dir = path.join(DIST, routePath);
   fs.mkdirSync(dir, { recursive: true });
   let html = injectMeta(template, meta).replace(HOME_HERO_PRELOAD, heroPreload(meta.heroImage));
+  if (meta.preHero) html = html.replace(EMPTY_ROOT, `<div id="root">${meta.preHero}</div>`);
   // Inject JSON-LD before </head>
   if (meta.jsonLd) {
     html = html.replace('</head>', `${buildJsonLd(meta)}\n</head>`);
@@ -250,6 +292,7 @@ for (const exp of EXPS) {
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.ogImage         || exp.img || '',
     heroImage:     expHeroImage(exp),
+    preHero:       preHeroHtml('trip', expHeroImage(exp)),
     jsonLd,
   });
   expCount++;
@@ -302,6 +345,7 @@ for (const post of POSTS) {
     image:         post.img      || '',
     ogImage:       post.ogImg    || '',
     heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
+    preHero:       preHeroHtml('blog', localImg(post.img), post.imgPosition),
     ogType:        'article',
     articleMeta: {
       publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
@@ -515,6 +559,7 @@ for (const page of staticPages) {
     canonicalPath: `/${page.path}`,
     image:         '',
     heroImage:     page.heroImage || '',
+    preHero:       preHeroHtml('list', page.heroImage),
     jsonLd:        page.jsonLd,
   });
 }
@@ -526,6 +571,17 @@ for (const page of staticPages) {
   const homeGraph = { '@context': 'https://schema.org', '@graph': [ORG_NODE, WEBSITE_NODE] };
   const homePath  = path.join(DIST, 'index.html');
   let homeHtml    = fs.readFileSync(homePath, 'utf8');
+  /* dist/index.html is also what every route WITHOUT a shell gets (/privacy,
+     /terms, a 404), so the home hero must never paint there. A script at the
+     end of <head> marks those visits before the body is parsed; the pre-hero's
+     own CSS then hides it, so it cannot flash even for one frame (a guard after
+     the markup could: measured on /privacy, 24 Oct 2026). */
+  if (!homeHtml.includes('id="ha-pre"')) {
+    homeHtml = homeHtml
+      .replace('</head>', '  <script>if(location.pathname!=="/")document.documentElement.classList.add("ha-nopre")</script>\n</head>')
+      .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}</div>`);
+    fs.writeFileSync(homePath, homeHtml, 'utf8');
+  }
   if (!homeHtml.includes('id="home-jsonld"')) {
     const tag = `\n  <script id="home-jsonld" type="application/ld+json">${JSON.stringify(homeGraph)}</script>`;
     homeHtml = homeHtml.replace('</head>', `${tag}\n</head>`);

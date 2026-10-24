@@ -66,7 +66,15 @@
     })(window,document,'script','dataLayer','GTM-MVJ7Z7FB');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- Google Analytics + Ads - default denied until cookie consent -->
+    <!-- Google Analytics - GTM (above) is the ONE loader.
+         Measured 24 Oct 2026: the page also loaded gtag.js itself, and both
+         runtimes read the same dataLayer, so every command ran twice: GA's
+         library downloaded twice (~195KB each), the Google Ads remarketing hit
+         fired 4 times per page view, and the retired Ads account AW-6948606470
+         (no conversion anywhere points at it) loaded its own 149KB. GTM's own
+         Google tag already configures AW-16520015098 and its lead/purchase
+         conversions, so the page only queues the GA config; GTM loads it.
+         Consent default stays where it always was (after the GTM snippet). -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -74,28 +82,14 @@
       if (localStorage.getItem('highair_cookie_consent') === 'accepted') {
         gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
       }
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XBRSD9V1M"></script>
-    <script>
       gtag('js', new Date());
       gtag('config', 'G-5XBRSD9V1M', { send_page_view: false });
-      gtag('config', 'AW-6948606470');
-      gtag('config', 'AW-16520015098');
     </script>
 
-    <!-- Facebook Pixel - deferred after load to avoid blocking FCP/LCP -->
-    <script>
-    window.addEventListener('load', function() {
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init','293738523242679');
-      fbq('track','PageView');
-    });
-    </script>
-    <!-- End Facebook Pixel -->
+    <!-- Meta Pixel 293738523242679: fired by GTM's Meta Pixel tag (PageView on
+         every page, Lead on the dataLayer 'lead' event). It was ALSO loaded
+         here, so every page view reached Meta twice (measured 24 Oct 2026).
+         The noscript image in <body> stays for visitors without JavaScript. -->
 
     <!-- UserWay Accessibility Widget -->
     <!-- defer: it used to block the page parse on every load (23 Oct 2026) -->

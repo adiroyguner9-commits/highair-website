@@ -2,7 +2,7 @@ import { StrictMode, lazy, Suspense } from 'react';
 import './global.css';
 import './i18n.js';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { scrubEvent, scrubBreadcrumb, scrubTransaction } from './utils/sentryScrub.js';
 import { Analytics } from '@vercel/analytics/react';
@@ -108,6 +108,21 @@ if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 
+/* The page's static shell paints its header bar and hero image before any of
+   this code runs (#ha-pre, scripts/generate-html-shells.mjs). React's first
+   render replaces #root, and every page is a lazy chunk, so the first Suspense
+   fallback repeats that same markup: the hero stays on screen until the real
+   page takes its place. Any other wait (a later navigation) keeps the plain
+   blank fallback, so one page's hero never shows on another. */
+const bootPre = document.getElementById('ha-pre');
+const BOOT_HTML = bootPre && getComputedStyle(bootPre).display !== 'none' ? bootPre.outerHTML : '';
+const BOOT_PATH = location.pathname;
+function BootFallback() {
+  const { pathname } = useLocation();
+  if (BOOT_HTML && pathname === BOOT_PATH) return <div dangerouslySetInnerHTML={{ __html: BOOT_HTML }} />;
+  return <div style={{ minHeight: '100vh' }} />;
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
@@ -116,7 +131,7 @@ createRoot(document.getElementById('root')).render(
       <CookieBanner />
       <FloatingWA />
       {/* <SocialProofTicker /> */}
-      <Suspense fallback={<div style={{minHeight:'100vh'}}/>}>
+      <Suspense fallback={<BootFallback />}>
         <Routes>
           <Route path="/"                  element={<HomeV2 />} />
           <Route path="/expedition/:slug"  element={<ExpeditionDetail />} />
