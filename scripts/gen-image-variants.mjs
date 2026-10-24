@@ -51,6 +51,16 @@ for (const dir of DIRS) {
     saved += buf.length - out.length;
   }
 }
+/* A guide whose cover is an expedition card image (/images/cards/...) already
+   has a 760px copy from scripts/gen-card-thumbs.mjs: point at it, no new file. */
+for (const src of blogCardImages) {
+  if (manifest[src] || !src.startsWith('/images/cards/')) continue;
+  const thumb = src.replace('/images/cards/', '/images/cards/thumbs/');
+  if (!fs.existsSync('public' + thumb) || !fs.existsSync('public' + src)) continue;
+  const { width, height } = await sharp(fs.readFileSync('public' + src)).metadata();
+  const sw = (await sharp(fs.readFileSync('public' + thumb)).metadata()).width;
+  if (sw < width) manifest[src] = { w: width, h: height, s: thumb, sw };
+}
 fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 1) + '\n');
 stampOwned({ quiet: true });
 console.log(`image variants: ${Object.keys(manifest).length} written, ${(saved / 1024 / 1024).toFixed(1)} MB lighter in total`);

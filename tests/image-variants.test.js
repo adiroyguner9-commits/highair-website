@@ -11,7 +11,7 @@ describe('image variants', () => {
     for (const [src, v] of Object.entries(VARIANTS)) {
       expect(existsSync(`public${v.s}`), v.s).toBe(true);
       expect(existsSync(`public${src}`), src).toBe(true);
-      expect(v.w, src).toBeGreaterThan(800);
+      expect(v.w, src).toBeGreaterThan(v.sw || 800);
     }
   });
   it('the donation slider and the home gallery photos all have a copy', () => {
@@ -23,7 +23,7 @@ describe('image variants', () => {
   });
   it('srcset offers both sizes; an unknown photo falls back to itself', () => {
     const [src, v] = Object.entries(VARIANTS)[0];
-    expect(srcSetOf(src)).toBe(`${v.s} 800w, ${src} ${v.w}w`);
+    expect(srcSetOf(src)).toBe(`${v.s} ${v.sw || 800}w, ${src} ${v.w}w`);
     expect(srcSetOf('/images/nope.webp')).toBeUndefined();
     expect(smallOf('/images/nope.webp')).toBe('/images/nope.webp');
   });

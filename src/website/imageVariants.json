@@ -133,5 +133,23 @@
   "w": 1800,
   "h": 1350,
   "s": "/images/blog/w800/tomer-bassan-snow.webp"
+ },
+ "/images/cards/aconcagua.webp": {
+  "w": 960,
+  "h": 720,
+  "s": "/images/cards/thumbs/aconcagua.webp",
+  "sw": 760
+ },
+ "/images/cards/EBC.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/cards/thumbs/EBC.webp",
+  "sw": 760
+ },
+ "/images/cards/kilimanjaroKosher.webp": {
+  "w": 1050,
+  "h": 1400,
+  "s": "/images/cards/thumbs/kilimanjaroKosher.webp",
+  "sw": 760
  }
 }

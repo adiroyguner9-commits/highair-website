@@ -1079,7 +1079,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 10, title: 'לובוצ׳ה - אוורסט בייס קמפ (5364 מ׳) - גורקשפ (5140 מ׳)', desc: 'ביום הזה של המסע מגיעים לאוורסט בייס קמפ. מתחילים את היום בלובוצ\'ה ומטפסים לבייס קמפ בגובה 5364 מ׳. המסלול מאתגר במיוחד בשל הגובה הרב. בבייס קמפ זוכים לזמן חופשי לחוות את האווירה הייחודית ולהתרשם מהנוף המרהיב של האוורסט. לאחר מכן יורדים לגורקשפ ללינה.', distance: '15 ק"מ', duration: '7–8 שעות', elevationGain: '424 מ׳', accommodation: 'בקתה בגורקשפ' },
       { day: 11, title: 'גורקשפ - קאלה פטאר (5545 מ׳) - דזונגלה (4830 מ׳)', desc: 'היום חווים את אחד מרגעי השיא של המסע עם עלייה מוקדמת לקאלה פטאר בגובה של 5545 מ\' לתצפית מרהיבה בזריחה על האוורסט. לאחר מכן, יורדים חזרה לדזונגלה למנוחה ולינה, עם הזדמנות לעכל את החוויות העוצמתיות שחוויתם.', distance: '13 ק"מ', duration: '6–7 שעות', elevationGain: '405 מ׳', accommodation: 'בקתה בדזונגלה' },
       { day: 12, title: 'דזונגלה - צ׳ו לה פס (5420 מ׳) - טנגנאק (4700 מ׳)', desc: 'זהו יום טיפוס מאתגר. התחלת המסלול מדזונגלה מובילה לטיפוס משמעותי אל צ\'ו לה פס בגובה של כ-5420 מ׳, המקטע נחשב למאתגר ביותר במסלול. לאחר חציית הפס, תתחילו בירידה לעבר הכפר טנגנאק דרך קרחונים ואגמים מרהיבים עם תחושה של ניתוק בטבע הפראי.', distance: '12 ק"מ', duration: '10–11 שעות', elevationGain: '590 מ׳', accommodation: 'בקתה בטנגנאק' },
-      { day: 13, title: 'טנגנאק - גוקיו רי (5360 מ׳) - גוקיו (4750 מ׳)', desc: 'ביום זה תטפסו לפסגת גוקיו רי בגובה 5360 מ׳ כדי לצפות בנופים עוצרי נשימה של רכס ההימלאיה, כולל האוורסט, לוטסה, ונוף פנורמי של אגמי גוקיו. לאחר ההגעה לפסגה וירידה חזרה, תעבירו את הלילה בגוקיו להתרעננות.', distance: '2 ק"מ', duration: '3–4 שעות', elevationGain: '610 מ׳', accommodation: 'בקתה בגוקיו' },
+      { day: 13, title: 'טנגנאק - גוקיו רי (5360 מ׳) - גוקיו (4750 מ׳)', desc: 'ביום זה תטפסו לפסגת גוקיו רי בגובה 5360 מ׳ כדי לצפות בנופים עוצרי נשימה של רכס ההימלאיה, כולל האוורסט, להוטסה, ונוף פנורמי של אגמי גוקיו. לאחר ההגעה לפסגה וירידה חזרה, תעבירו את הלילה בגוקיו להתרעננות.', distance: '2 ק"מ', duration: '3–4 שעות', elevationGain: '610 מ׳', accommodation: 'בקתה בגוקיו' },
       { day: 14, title: 'גוקיו - מאצ׳רמו (4470 מ׳)', desc: 'הירידה מגוקיו למאצ\'רמו היא קצרה יחסית ומתונה, ומספקת נופים נוספים של אגמי גוקיו. תוכלו לנוח בכפר מאצ\'רמו ולהשלים את ההתאקלמות לפני החזרה לגובה נמוך יותר, ולהנות מהשקט של העמק היפהפה.', distance: '7 ק"מ', duration: '4–5 שעות', elevationLoss: '280 מ׳', accommodation: 'בקתה במאצ׳רמו' },
       { day: 15, title: 'מאצ׳רמו - נאמצ׳ה בזאר (3440 מ׳)', desc: 'מתחילים בירידה משמעותית ממאצ\'רמו לנאמצ\'ה בזאר, מסע שמסמל את תחילת החזרה לציביליזציה. לאורך הדרך עוצרים למנוחה קצרה, הזדמנות להתרעננות ולהתבוננות בסביבה המשתנה. עם ההגעה לנאמצ\'ה בזאר, הערב יוקדש למנוחה, ארוחה טובה ולינה בבקתה נוחה.', distance: '16 ק"מ', duration: '8–10 שעות', elevationLoss: '1030 מ׳', accommodation: 'בקתה בנאמצ׳ה בזאר' },
       { day: 16, title: 'נאמצ׳ה בזאר - לוקלה (2860 מ׳)', desc: 'לאחר ארוחת בוקר בנאמצ\'ה בזאר, יוצאים ליום הליכה אחרון בטרק לכיוון לוקלה. המסלול מוביל דרך נופים מוכרים, אך הפעם במגמת ירידה, המסמלת את סיום המסע. עם ההגעה ללוקלה, תחושת ההישג ממלאת את הלב. בערב, מתכנסים לארוחת פרידה חגיגית עם המדריכים והפורטרים שליוו אתכם לאורך המסע.', distance: '15 ק"מ', duration: '7–8 שעות', elevationLoss: '580 מ׳', accommodation: 'בקתה בלוקלה' },
@@ -2010,7 +2010,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     ogImage: '/images/og/island-peak.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס לאיילנד פיק',
     seoTitleEn:     'Climbing Island Peak | HighAir Expeditions',
-    seoDescription: 'טיפוס לאיילנד פיק - 6189 מ׳ בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוצה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
+    seoDescription: 'טיפוס לאיילנד פיק - 6189 מ׳ בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוטסה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
     seoDescriptionEn: 'Climb Island Peak (6189m) in Nepal - 20 days. Technical summit with views of Everest, Lhotse & Ama Dablam. Includes full EBC trek. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
     desc: `איילנד פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6189 מ׳ מעל פני הים. הפסגה ממוקמת באזור קוחומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
@@ -2194,7 +2194,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
 
 הטיפוס למרה פיק משמש כשער הכניסה לעולם טיפוס ההרים ומאפשר להגיע לגובה רב מבלי להיות טכני במיוחד. הוא נחשב לטרק הגבוה ביותר בהימלאיה, משום שהוא משלב הליכה על קרחונים ושלג, קטעים תלולים, ואתגר בגובה מבלי לדרוש ניסיון בטיפוס הרים. יחד עם זאת, מדובר באתגר אמיתי שמספק תחושת הישג משמעותית.
 
-מהפסגה נשקפים נופים מרהיבים של ההימלאיה, כולל ארבעה מתוך ששת ההרים הגבוהים בעולם: האוורסט, להוצה, מקאלו וצ׳ו אויו, לצד פסגות רבות נוספות מעל 7000 מ׳. החוויה והנוף עוצרי הנשימה הופכים את הטיפוס לבלתי נשכח.
+מהפסגה נשקפים נופים מרהיבים של ההימלאיה, כולל ארבעה מתוך ששת ההרים הגבוהים בעולם: האוורסט, להוטסה, מקאלו וצ׳ו אויו, לצד פסגות רבות נוספות מעל 7000 מ׳. החוויה והנוף עוצרי הנשימה הופכים את הטיפוס לבלתי נשכח.
 
 מרה פיק מתאים למי שמחפש אתגר בגובה רב, צבירת ניסיון בטכניקות טיפוס בסיסיות, וחשיפה לעוצמה של ההימלאיה, אידיאלי למטיילים שמוכנים לגובה אך רוצים חוויה נגישה ובטוחה יחסית.
 
@@ -2356,31 +2356,31 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
   {
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
     ghlCalendarId: 'wrrh6IYs1eCAe9kuNxnW', tagHe: 'אקונקגואה',
-    elev: '6962m', elevNum: 6962, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6961m', elevNum: 6961, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Extreme', diffHe: 'אקסטרים', price: 10000, priceStr: '$10,000', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.webp',
     ogImage: '/images/og/aconcagua.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס לאקונקגואה',
     seoTitleEn:     'Climbing Aconcagua | HighAir Expeditions',
-    seoDescription: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6962 מ׳. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
-    seoDescriptionEn: 'Climb Aconcagua (6962m) - the highest peak in the Western Hemisphere, one of the 7 Summits. 20 days in Argentina, 3 high camps, mules to base camp. 75% success rate.',
+    seoDescription: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6961 מ׳. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
+    seoDescriptionEn: 'Climb Aconcagua (6961m) - the highest peak in the Western Hemisphere, one of the 7 Summits. 20 days in Argentina, 3 high camps, mules to base camp. 75% success rate.',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
-    desc: `הר אקונקגואה מתנשא לגובה 6962 מ׳ בהרי האנדים שבארגנטינה, והוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם.
+    desc: `הר אקונקגואה מתנשא לגובה 6961 מ׳ בהרי האנדים שבארגנטינה, והוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם.
 
 המסלול אל פסגת האקונקגואה הוא אתגר לוגיסטי ופיזי מהמעלה הראשונה. למרות שהמסלול אינו נחשב לטכני מאוד מבחינת טיפוס סלעים או קרח, הגובה הקיצוני, הרוחות העזות והתנאים המדבריים דורשים חוסן מנטלי יוצא דופן וסיבולת גבוהה. במהלך המשלחת תתנסו בחיים האמיתיים של מטפס הרים בגובה רב: התאקלמות הדרגתית, הקמת מחנות גובה והתמודדות עם איתני הטבע בלב הרי האנדים הפראיים.
 
 התגמול על המאמץ הוא חוויה של פעם בחיים - עמידה על הנקודה הגבוהה ביותר בעולם מחוץ לרכס ההימלאיה, כשמתחת לרגליכם פרוס רכס האנדים האינסופי והנופים עוצרי הנשימה של דרום אמריקה. המסע כולל גם מפגש עם התרבות הארגנטינאית המרתקת, מהעיר מנדוזה התוססת ועד לבשר המצוין והיינות המפורסמים של האזור.
 
 הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
-    highlights: ['פסגת אקונקגואה 6962מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
+    highlights: ['פסגת אקונקגואה 6961מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
     nameEn: 'Aconcagua',
-    descEn: `Aconcagua (6962m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
+    descEn: `Aconcagua (6961m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
 
 This 21-day expedition uses the Normal Route via Horcones Valley and high camps at Nido de Condores and Camp 3. While non-technical, the extreme altitude and harsh Andean weather make this a serious mountaineering objective requiring excellent fitness and prior high-altitude experience.
 
 The reward: standing on the highest point in the Americas, with the Andes stretching endlessly in every direction.`,
-    highlightsEn: ['Aconcagua 6962m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
+    highlightsEn: ['Aconcagua 6961m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
       'אזור אישי לכל לקוח באפליקציית HighAir',
@@ -2469,8 +2469,8 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
-      'Aconcagua (6962m) is the highest peak outside Asia  -  a minimum of 3 weeks on the mountain with acclimatization rotations to altitude is required.',
-      'Entry permit to the Argentine National Park is included  -  permit cost is approximately $900 per season and is paid directly in Argentina.',
+      'Aconcagua (6961m) is the highest peak outside Asia  -  a minimum of 3 weeks on the mountain with acclimatization rotations to altitude is required.',
+      'The Aconcagua Provincial Park permit is not included: about $1,000 to $1,300 per person depending on the season, and we help you obtain it.',
       'Camping is on the mountain itself  -  sleeping in tents at 5500m, 6000m and 6800m. Full warm camping gear and a sleeping bag rated to -25°C are mandatory.',
       'Israelis do not need a visa for Argentina  -  free entry with a valid passport.',
       'Extended medical clearance required  -  ECG, blood tests and doctor\'s approval for climbing to 7000m.',
@@ -2493,7 +2493,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       { day: 12, title: 'קמפ 1 (5050 מ׳) - קמפ 2 (5550 מ׳)',                               desc: '' },
       { day: 13, title: 'יום מנוחה בקמפ 2 (5550 מ׳)',                                       desc: '' },
       { day: 14, title: 'קמפ 2 (5550 מ׳) - קמפ 3 (5970 מ׳)',                               desc: '' },
-      { day: 15, title: 'פסגת הר אקונקגואה (6962 מ׳) - קמפ 3 (5970 מ׳)',                    desc: '' },
+      { day: 15, title: 'פסגת הר אקונקגואה (6961 מ׳) - קמפ 3 (5970 מ׳)',                    desc: '' },
       { day: 16, title: 'יום ספייר למזג אוויר גרוע',                                         desc: '' },
       { day: 17, title: 'יום ספייר למזג אוויר גרוע',                                         desc: '' },
       { day: 18, title: 'קמפ 3 (5970 מ׳) - פלאזה דל מולאס (4300 מ׳)',                       desc: '' },
@@ -2515,7 +2515,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       { day: 12, title: 'Camp 1 (5050m) - Camp 2 (5550m)',                                 desc: '' },
       { day: 13, title: 'Rest day at Camp 2 (5550m)',                                        desc: '' },
       { day: 14, title: 'Camp 2 (5550m) - Camp 3 (5970m)',                                 desc: '' },
-      { day: 15, title: 'Aconcagua summit (6962m) - Camp 3 (5970m)',                        desc: '' },
+      { day: 15, title: 'Aconcagua summit (6961m) - Camp 3 (5970m)',                        desc: '' },
       { day: 16, title: 'Buffer day for bad weather',                                         desc: '' },
       { day: 17, title: 'Buffer day for bad weather',                                         desc: '' },
       { day: 18, title: 'Camp 3 (5970m) - Base Camp (4300m)',                               desc: '' },
