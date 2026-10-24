@@ -17,6 +17,7 @@ import {
 import { fetchActiveLead, tripKey, OPEN_STAGES } from './_lib/active-lead.js';
 import { destKey } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
+import { googleCampaignName } from './_lib/googleCampaigns.js';
 
 /* Fields that exist in the Airtable "Website Leads" table */
 const AIRTABLE_FIELDS = new Set([
@@ -334,7 +335,7 @@ export default async function handler(req, res) {
             <table width="100%" cellpadding="0" cellspacing="0">
               ${utm.source   ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;width:35%;">Source</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.source)}</td></tr>` : ''}
               ${utm.medium   ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Medium</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.medium)}</td></tr>` : ''}
-              ${utm.campaign ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Campaign</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.campaign)}</td></tr>` : ''}
+              ${utm.campaign ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Campaign</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(googleCampaignName(utm.campaign))}</td></tr>` : ''}
               ${utm.content  ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Ad</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.content)}</td></tr>` : ''}
               ${utm.term     ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Audience</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.term)}</td></tr>` : ''}
             </table>
