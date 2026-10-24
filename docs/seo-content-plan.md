@@ -35,6 +35,9 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
    a plain-text byline, no author page). Guides show no date on the site (only news does), so never
    write "today" or "this week" in a guide; keep `dateIso` / `dateModified` accurate for the schema.
    Hebrew: התאקלמות, never אקלום; להעפיל, never לכבוש (BLOG_STYLE_GUIDE.md §2.1).
+   Facts the owner set (24 Oct 2026): climbs are led by LOCAL guides in English. There is NO Hebrew
+   guiding and NO Israeli guide or escort on any destination. Never write otherwise; say it plainly
+   where a reader would ask (the kosher guide has an FAQ for it).
 9. Run `npm test` and `npm run build`; both must pass.
 
 ## Topic queue (in order)
