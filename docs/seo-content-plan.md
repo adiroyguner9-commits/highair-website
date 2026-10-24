@@ -22,8 +22,12 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
    metadata checklist, FAQ section, HighAir connection, Hebrew + English content arrays).
 2. Evergreen and useful first. Answer the question in the first 2 to 3 sentences (AI engines quote
    the opening), then go deep. 1,500 to 2,500 Hebrew words.
-3. Facts only from sources you checked this week, cited inline by name ("לפי רשות הפארקים של
-   טנזניה, 2026"). Prices and dates: say the year. Never invent numbers, quotes or experiences.
+3. Check every fact against a current source, but DO NOT name sources in the text (owner, 24 Oct
+   2026: a guide by an expert, not a news report; the first guides had 15-19 "לפי ..." each). The only
+   exception is a number that changes (a fee, permit price, rule): give it with its year, e.g.
+   "3,000 רופי לאדם (נכון ל-2024)", at most 2 or 3 such numbers per guide, no newspaper names.
+   Leave out trivia that does not help the reader decide or prepare (monthly visitor counts, a past
+   year's disruption story, dates a lake was listed). Never invent numbers, quotes or experiences.
 4. Our own facts come from the repo (`src/data/mockData.js`, `src/data/faqData.js`, the trip pages):
    our routes, days, group sizes, what is included, success rate as published. Do not contradict them.
 5. Link the matching trip page(s) at least twice (`/expedition/<slug>`), and 2 to 3 related guides.
