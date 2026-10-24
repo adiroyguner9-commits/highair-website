@@ -340,7 +340,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
   const heading   = type === 'safari'
     ? (isRtl ? 'ספארי בטנזניה' : 'Tanzania Safari')
     : type === 'climbs'
-      ? (isRtl ? 'טיפוסי הרים בעולם'  : 'Expeditions')
+      ? (isRtl ? 'טיפוס הרים בעולם'   : 'Expeditions')
       : (isRtl ? 'טרקים בעולם'        : 'Trekking');
   const subtitle  = type === 'safari'
     ? (isRtl ? 'שלושה אורכים, אותן שמורות מהמרהיבות באפריקה - בחרו כמה ימים בטבע' : 'Three lengths, the same spectacular African reserves - choose how many days in the wild')

@@ -519,7 +519,7 @@ const ISRAEL_LISTING_JSONLD = listingGraph({ name: 'הטרקים שלנו באר
   items: liveIsrael.map(t => ({ name: t.name, url: `${BASE_URL}/israel/${t.slug}` })) });
 const TREKS_JSONLD = listingGraph({ name: 'טרקים בעולם', path: '/treks', crumb: 'טרקים בעולם',
   items: trekExps.map(e => ({ name: e.nameHe, url: `${BASE_URL}/expedition/${e.slug}` })) });
-const CLIMBS_JSONLD = listingGraph({ name: 'משלחות טיפוס הרים', path: '/climbs', crumb: 'טיפוסי הרים בעולם',
+const CLIMBS_JSONLD = listingGraph({ name: 'משלחות טיפוס הרים', path: '/climbs', crumb: 'טיפוס הרים בעולם',
   items: climbExps.map(e => ({ name: e.nameHe, url: `${BASE_URL}/expedition/${e.slug}` })) });
 const ABOUT_JSONLD = { '@context': 'https://schema.org', '@graph': [
   { '@type': 'AboutPage', '@id': `${BASE_URL}/about`, name: 'הסיפור של HighAir Expeditions', url: `${BASE_URL}/about`, isPartOf: { '@id': `${BASE_URL}/#website` }, about: { '@id': `${BASE_URL}/#organization` } },

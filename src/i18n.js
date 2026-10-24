@@ -21,7 +21,7 @@ const he = {
     home: 'דף בית',
     expeditions: 'טרקים וטיפוסים',
     treks: 'טרקים בעולם',
-    climbs: 'טיפוסי הרים בעולם',
+    climbs: 'טיפוס הרים בעולם',
     israelTrips: 'טרקים בארץ',
     safari: 'ספארי בטנזניה',
     annualPlan: 'תכנית שנתית',
@@ -114,7 +114,7 @@ const he = {
   },
   footer: {
     worldTreks: 'טרקים בעולם',
-    worldClimbs: 'טיפוסי הרים בעולם',
+    worldClimbs: 'טיפוס הרים בעולם',
     israelTrips: 'טרקים בארץ',
     info: 'מידע',
     hermon: 'טרק לפסגת החרמון',
