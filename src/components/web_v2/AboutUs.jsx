@@ -324,7 +324,7 @@ const PEAKS = [
   { id:7,  he:'אמא דאבלם',       en:'Ama Dablam',       cHe:'נפאל',      cEn:'Nepal',     alt:6812, done:true  },
   { id:8,  he:'מנסלו',           en:'Manaslu',          cHe:'נפאל',      cEn:'Nepal',     alt:8163, done:true  },
   { id:9,  he:'אלברוס',          en:'Elbrus',           cHe:'רוסיה',     cEn:'Russia',    alt:5642, done:false, dHe:'יוני 2026',   dEn:'Jun 2026'  },
-  { id:10, he:'אקונקגואה',       en:'Aconcagua',        cHe:'ארגנטינה',  cEn:'Argentina', alt:6961, done:false, dHe:'ינואר 2027',  dEn:'Jan 2027'  },
+  { id:10, he:'אקונקגואה',       en:'Aconcagua',        cHe:'ארגנטינה',  cEn:'Argentina', alt:6962, done:false, dHe:'ינואר 2027',  dEn:'Jan 2027'  },
   { id:11, he:'אוורסט + להוצה',  en:'Everest + Lhotse', cHe:'נפאל',      cEn:'Nepal',     alt:8849, done:false, dHe:'אפריל 2027',  dEn:'Apr 2027'  },
 ];
 

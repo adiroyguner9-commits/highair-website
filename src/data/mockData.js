@@ -2356,31 +2356,31 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
   {
     id: 15, slug: 'aconcagua', name: 'Aconcagua', nameHe: 'טיפוס לאקונקגואה', country: 'Argentina', countryHe: 'ארגנטינה', flag: '🇦🇷',
     ghlCalendarId: 'wrrh6IYs1eCAe9kuNxnW', tagHe: 'אקונקגואה',
-    elev: '6961m', elevNum: 6961, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
+    elev: '6962m', elevNum: 6962, days: '20 ימים', daysEn: '20 days', type: 'Climbing', typeHe: 'טיפוס',
     diff: 'Extreme', diffHe: 'אקסטרים', price: 10000, priceStr: '$10,000', continent: 'southamerica',
     airtableEvents: ['Aconcagua'],
     img: '/images/cards/aconcagua.webp',
     ogImage: '/images/og/aconcagua.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס לאקונקגואה',
     seoTitleEn:     'Climbing Aconcagua | HighAir Expeditions',
-    seoDescription: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6961 מ׳. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
-    seoDescriptionEn: 'Climb Aconcagua (6961m) - the highest peak in the Western Hemisphere, one of the 7 Summits. 20 days in Argentina, 3 high camps, mules to base camp. 75% success rate.',
+    seoDescription: 'טיפוס לאקונקגואה - הפסגה הגבוהה בחצי הכדור המערבי, 6962 מ׳. 20 ימים בארגנטינה, אחת מ-7 הפסגות. שלושה מחנות גובה, פרדות עד בייס קמפ. שיעור הצלחה 75%.',
+    seoDescriptionEn: 'Climb Aconcagua (6962m) - the highest peak in the Western Hemisphere, one of the 7 Summits. 20 days in Argentina, 3 high camps, mules to base camp. 75% success rate.',
     grad: 'linear-gradient(135deg,#d97706,#b45309,#451a03)',
-    desc: `הר אקונקגואה מתנשא לגובה 6961 מ׳ בהרי האנדים שבארגנטינה, והוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם.
+    desc: `הר אקונקגואה מתנשא לגובה 6962 מ׳ בהרי האנדים שבארגנטינה, והוא ההר הגבוה ביותר ביבשת אמריקה ובכל חצי הכדור המערבי והדרומי, ואחת מהפסגות הנחשקות ביותר בקרב מטפסי הרים בעולם.
 
 המסלול אל פסגת האקונקגואה הוא אתגר לוגיסטי ופיזי מהמעלה הראשונה. למרות שהמסלול אינו נחשב לטכני מאוד מבחינת טיפוס סלעים או קרח, הגובה הקיצוני, הרוחות העזות והתנאים המדבריים דורשים חוסן מנטלי יוצא דופן וסיבולת גבוהה. במהלך המשלחת תתנסו בחיים האמיתיים של מטפס הרים בגובה רב: התאקלמות הדרגתית, הקמת מחנות גובה והתמודדות עם איתני הטבע בלב הרי האנדים הפראיים.
 
 התגמול על המאמץ הוא חוויה של פעם בחיים - עמידה על הנקודה הגבוהה ביותר בעולם מחוץ לרכס ההימלאיה, כשמתחת לרגליכם פרוס רכס האנדים האינסופי והנופים עוצרי הנשימה של דרום אמריקה. המסע כולל גם מפגש עם התרבות הארגנטינאית המרתקת, מהעיר מנדוזה התוססת ועד לבשר המצוין והיינות המפורסמים של האזור.
 
 הצטרפו אלינו להרפתקה של פעם חיים, וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
-    highlights: ['פסגת אקונקגואה 6961מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
+    highlights: ['פסגת אקונקגואה 6962מ׳', 'הגבוה מחוץ לאסיה', 'מחנות בסיס עם פרדות', 'אזור יינות מנדוזה'],
     nameEn: 'Aconcagua',
-    descEn: `Aconcagua (6961m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
+    descEn: `Aconcagua (6962m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
 
 This 21-day expedition uses the Normal Route via Horcones Valley and high camps at Nido de Condores and Camp 3. While non-technical, the extreme altitude and harsh Andean weather make this a serious mountaineering objective requiring excellent fitness and prior high-altitude experience.
 
 The reward: standing on the highest point in the Americas, with the Andes stretching endlessly in every direction.`,
-    highlightsEn: ['Aconcagua 6961m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
+    highlightsEn: ['Aconcagua 6962m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
     included: [
       'קיט מתנה - כובע, חולצת דרייפיט ודאפל באג 100 ליטר!',
       'אזור אישי לכל לקוח באפליקציית HighAir',
@@ -2469,7 +2469,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       'במקרה של ירידה מוקדמת מההר, מכל סיבה שהיא, כל ההוצאות הנוספות הכרוכות בכך חלות על המטייל, כגון לינה נוספת בבית מלון, ארוחות, וכל שינוי הנדרש בטיסות.',
     ],
     importantToNoteEn: [
-      'Aconcagua (6961m) is the highest peak outside Asia  -  a minimum of 3 weeks on the mountain with acclimatization rotations to altitude is required.',
+      'Aconcagua (6962m) is the highest peak outside Asia  -  a minimum of 3 weeks on the mountain with acclimatization rotations to altitude is required.',
       'The Aconcagua Provincial Park permit is not included: about $1,000 to $1,300 per person depending on the season, and we help you obtain it.',
       'Camping is on the mountain itself  -  sleeping in tents at 5500m, 6000m and 6800m. Full warm camping gear and a sleeping bag rated to -25°C are mandatory.',
       'Israelis do not need a visa for Argentina  -  free entry with a valid passport.',
@@ -2493,7 +2493,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       { day: 12, title: 'קמפ 1 (5050 מ׳) - קמפ 2 (5550 מ׳)',                               desc: '' },
       { day: 13, title: 'יום מנוחה בקמפ 2 (5550 מ׳)',                                       desc: '' },
       { day: 14, title: 'קמפ 2 (5550 מ׳) - קמפ 3 (5970 מ׳)',                               desc: '' },
-      { day: 15, title: 'פסגת הר אקונקגואה (6961 מ׳) - קמפ 3 (5970 מ׳)',                    desc: '' },
+      { day: 15, title: 'פסגת הר אקונקגואה (6962 מ׳) - קמפ 3 (5970 מ׳)',                    desc: '' },
       { day: 16, title: 'יום ספייר למזג אוויר גרוע',                                         desc: '' },
       { day: 17, title: 'יום ספייר למזג אוויר גרוע',                                         desc: '' },
       { day: 18, title: 'קמפ 3 (5970 מ׳) - פלאזה דל מולאס (4300 מ׳)',                       desc: '' },
@@ -2515,7 +2515,7 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
       { day: 12, title: 'Camp 1 (5050m) - Camp 2 (5550m)',                                 desc: '' },
       { day: 13, title: 'Rest day at Camp 2 (5550m)',                                        desc: '' },
       { day: 14, title: 'Camp 2 (5550m) - Camp 3 (5970m)',                                 desc: '' },
-      { day: 15, title: 'Aconcagua summit (6961m) - Camp 3 (5970m)',                        desc: '' },
+      { day: 15, title: 'Aconcagua summit (6962m) - Camp 3 (5970m)',                        desc: '' },
       { day: 16, title: 'Buffer day for bad weather',                                         desc: '' },
       { day: 17, title: 'Buffer day for bad weather',                                         desc: '' },
       { day: 18, title: 'Camp 3 (5970m) - Base Camp (4300m)',                               desc: '' },
