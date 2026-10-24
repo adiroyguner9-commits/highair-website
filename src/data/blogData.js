@@ -92,6 +92,7 @@ export const POSTS = [
       { type: 'section', value: 'למי זה מתאים' },
       { type: 'text', value: 'קילימנג׳רו אינו דורש ניסיון טיפוס טכני. אין חבלים, אין קרמפונים ואין קירות קרח. מה שהוא דורש הוא כושר אירובי טוב, יכולת ללכת שעות ארוכות ביום כמה ימים ברציפות, ובעיקר את הסבלנות לעלות לאט. גיל המינימום בשמורה הוא 10. אישור רפואי והצהרת בריאות נדרשים מכל משתתף לפני היציאה.' },
       { type: 'text', value: 'המסע לשומרי מסורת מתאים לשומרי שבת מכל הזרמים, לזוגות, להורים עם ילדים בוגרים ולמי שפשוט רוצה לטפס בקבוצה שחולקת איתו ערכים. הקבוצה מוגבלת ל-15 משתתפים. העונות המועדפות הן ינואר עד פברואר ויוני עד אוקטובר, החודשים היבשים יותר בהר. כדאי גם לבדוק מול מרפאת מטיילים אילו חיסונים נדרשים, ועל זה כתבנו מדריך נפרד.' },
+      { type: 'text', value: 'חשוב לדעת: את הטיפוס מובילים מדריכים מקומיים מקצועיים דוברי אנגלית, עם ניסיון רב בהובלת קבוצות על ההר. אין הדרכה בעברית, ולכן כדאי להגיע עם אנגלית בסיסית שמאפשרת להבין את ההנחיות בשטח.' },
       { type: 'cta', text: 'למדריך החיסונים לטנזניה', textEn: 'Tanzania vaccinations guide', href: '/blog/tanzania-vaccinations-guide' },
 
       { type: 'section', value: 'קילימנג׳רו לשומרי מסורת עם HighAir' },
@@ -114,6 +115,8 @@ export const POSTS = [
       { type: 'text', value: 'ארושה קרובה לקו המשווה, ולכן השקיעה כמעט קבועה לאורך השנה, בערך בין 18:20 ל-18:55 לפי העונה. את זמן הדלקת הנרות המדויק לכל שבת כדאי לבדוק בלוח זמנים לפי מיקום או מול בית חב״ד המקומי.' },
       { type: 'heading', value: 'איך מתפללים ביום הפסגה?' },
       { type: 'text', value: 'ביום הפסגה יוצאים בחצות ומגיעים לפסגה סביב הזריחה, ולכן זמני התפילה והנחת התפילין דורשים תכנון מראש. אנחנו ממליצים לכל משתתף לשאול את הרב שלו לפני הנסיעה ולהגיע עם הנחיה ברורה. בשאר הימים יש זמן לשחרית לפני היציאה ולמנחה ומעריב במחנה.' },
+      { type: 'heading', value: 'האם יש הדרכה בעברית?' },
+      { type: 'text', value: 'לא. את הטיפוס מובילים מדריכים מקומיים מקצועיים דוברי אנגלית, עם ניסיון רב בהובלת קבוצות על קילימנג׳רו. אין הדרכה בעברית, ולכן כדאי להגיע עם אנגלית בסיסית.' },
     ],
     contentEn: [
       { type: 'text', value: 'On Friday at midday, at Mweka Gate, 1,640 m above sea level, our Shabbat-observant group finishes its climb. A few hours later the Shabbat candles are already lit in Arusha. Yes, you can climb to the summit of Kilimanjaro, 5,895 m, without walking a single step on Shabbat and without eating a single dish that is not kosher. The condition is planning: a route that fits exactly between two Shabbatot, a kosher kitchen that goes up the mountain with the group, and prayer that fits the rhythm of the trekking days.' },
@@ -179,6 +182,7 @@ export const POSTS = [
       { type: 'section', value: 'Who it suits' },
       { type: 'text', value: 'Kilimanjaro requires no technical climbing experience. There are no ropes, no crampons and no ice walls. What it requires is good aerobic fitness, the ability to walk for many hours a day, several days in a row, and above all the patience to climb slowly. The minimum age in the park is 10. A medical certificate and health declaration are required from every participant before departure.' },
       { type: 'text', value: 'The Shabbat-observant expedition suits observant travellers of every background, couples, parents with adult children, and anyone who simply wants to climb with a group that shares their values. The group is limited to 15 participants. The preferred seasons are January to February and June to October, the drier months on the mountain. It is also worth checking with a travel clinic which vaccinations you need, and we have written a separate guide on that.' },
+      { type: 'text', value: 'Good to know: the climb is led by professional local guides who speak English and have long experience leading groups on the mountain. There is no Hebrew-speaking guide, so basic English, enough to follow instructions on the trail, is worth having.' },
       { type: 'cta', text: 'למדריך החיסונים לטנזניה', textEn: 'Tanzania vaccinations guide', href: '/blog/tanzania-vaccinations-guide' },
 
       { type: 'section', value: 'Kosher Kilimanjaro with HighAir' },
@@ -201,6 +205,8 @@ export const POSTS = [
       { type: 'text', value: 'Arusha is close to the equator, so sunset is almost constant through the year, roughly between 18:20 and 18:55 depending on the season. Check the exact candle lighting time for each Shabbat with a location-based calendar or with the local Chabad House.' },
       { type: 'heading', value: 'How do you pray on summit day?' },
       { type: 'text', value: 'On summit day you leave at midnight and reach the summit around sunrise, so prayer times and tefillin need planning in advance. We recommend every participant ask their own rabbi before the trip and arrive with clear guidance. On the other days there is time for Shacharit before setting out and for Mincha and Maariv at camp.' },
+      { type: 'heading', value: 'Is there a Hebrew-speaking guide?' },
+      { type: 'text', value: 'No. The climb is led by professional local guides who speak English and have long experience leading groups on Kilimanjaro. There is no Hebrew-speaking guide, so basic English is worth having.' },
     ],
   },
 
@@ -727,7 +733,7 @@ export const POSTS = [
       { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', alt: 'מחנה בקילימנג\'רו', caption: 'לינה בגובה היא חלק בלתי נפרד מתהליך ההתאקלמות. כל לילה במחנה מכין את הגוף ליום שאחריו' },
 
       { type: 'section', value: 'קילימנג\'רו עם HighAir' },
-      { type: 'text', value: 'ב-HighAir אנחנו מוציאים קבוצות לקילימנג\'רו בכל שנה. הבחירה שלנו היא תמיד במסלולים ארוכים, שבעה ימים לפחות, כי הנתונים ברורים: כל יום נוסף של התאקלמות מגדיל את הסיכויים להגיע לפסגה. הצוות שלנו מתמחה בהדרכה בעברית, בשמירה על קצב נכון, ובזיהוי מוקדם של תסמיני גובה לפני שהם הופכים לבעיה.' },
+      { type: 'text', value: 'ב-HighAir אנחנו מוציאים קבוצות לקילימנג\'רו בכל שנה. הבחירה שלנו היא תמיד במסלולים ארוכים, שבעה ימים לפחות, כי הנתונים ברורים: כל יום נוסף של התאקלמות מגדיל את הסיכויים להגיע לפסגה. הצוות שלנו מתמחה בשמירה על קצב נכון, ובזיהוי מוקדם של תסמיני גובה לפני שהם הופכים לבעיה.' },
       { type: 'text', value: 'חלק מהרווחים מכל משלחת שלנו מוקדש לתמיכה בחולי סרטן בישראל, כי ההרים, בעינינו, הם גם דרך לתת. כשאתם עולים איתנו לקילימנג\'רו, אתם לא רק עושים משהו בשביל עצמכם.' },
       { type: 'text', value: 'כל מטפס שאתם רואים היום על פסגות העולם התחיל פעם אחת, על הר אחד. קילימנג\'רו הוא אחד ההרים הטובים ביותר להתחיל בו. אם אתם שוקלים, אנחנו כאן.' },
       { type: 'cta', text: 'למשלחות קילימנג\'רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
@@ -786,7 +792,7 @@ export const POSTS = [
       { type: 'image', src: '/images/blog/kilimanjaro-camp.avif', alt: 'A high camp on Kilimanjaro', caption: 'Sleeping at altitude is an essential part of the acclimatisation process. Each night at camp prepares the body for the following day' },
 
       { type: 'section', value: 'Kilimanjaro with HighAir' },
-      { type: 'text', value: 'At HighAir we take groups to Kilimanjaro every year. We always choose routes of at least seven days, because the data is clear: each additional acclimatisation day meaningfully increases the chances of reaching the summit. Our team specialises in Hebrew-speaking guidance, maintaining the correct pace throughout, and recognising the early signs of altitude sickness before they become a problem.' },
+      { type: 'text', value: 'At HighAir we take groups to Kilimanjaro every year. We always choose routes of at least seven days, because the data is clear: each additional acclimatisation day meaningfully increases the chances of reaching the summit. Our team specialises in maintaining the correct pace throughout, and recognising the early signs of altitude sickness before they become a problem.' },
       { type: 'text', value: 'A portion of the proceeds from every expedition we run is dedicated to supporting cancer patients in Israel, because the mountains, in our view, are also a way of giving back. When you climb Kilimanjaro with us, you are not only doing something for yourself.' },
       { type: 'text', value: 'Every climber you see today on the summits of the world started once, on one mountain. Kilimanjaro is one of the best places to begin. If you are considering it, we are here.' },
       { type: 'cta', text: 'למשלחות קילימנג\'רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
