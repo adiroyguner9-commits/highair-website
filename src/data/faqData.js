@@ -33,14 +33,14 @@ export const FAQ_BY_SLUG = {
   /* ── Aconcagua ── */
   'aconcagua': {
     he: [
-      { q: 'כמה אקונקגואה קשה לעומת קילימנג׳רו?', a: 'אקונקגואה קשה משמעותית. זו הפסגה הגבוהה מחוץ לאסיה (6,961 מ׳) והמסע נמשך 20 יום - הגובה גדול יותר, הקור חריף יותר, וצריך לשאת ציוד כבד עד מחנה 2. ניסיון קודם בגובה, כמו קילימנג׳רו או טרק אוורסט בייס קמפ, ממש מומלץ לפני שיוצאים.' },
+      { q: 'כמה אקונקגואה קשה לעומת קילימנג׳רו?', a: 'אקונקגואה קשה משמעותית. זו הפסגה הגבוהה מחוץ לאסיה (6,961 מ׳) והמסע נמשך 20 יום - הגובה גדול יותר, הקור חריף יותר, וצריך לשאת ציוד כבד עד מחנה 2. נדרש ניסיון קודם בגובה של 5,000 מ׳ לפחות, כמו קילימנג׳רו או טרק אוורסט בייס קמפ.' },
       { q: 'מה עלות ההיתר לאקונקגואה?', a: 'היתר הכניסה לפארק הפרובינציאלי אקונקגואה עולה כ-1,000 עד 1,300 דולר לאדם, לפי העונה והמסלול. הוא אינו כלול במחיר ומשולם ישירות לרשות הפארק, ואנחנו מלווים אתכם ברכישה ובכל הניירת הנדרשת.' },
       { q: 'האם נדרש ניסיון טיפוס טכני לאקונקגואה?', a: 'לא. מסלול הנורמל, שבו אנחנו עולים, הוא מסלול הליכה ולא טיפוס טכני - בלי חבלים וללא קרמפונים (אלא אם יורד שלג). עם זאת, הגובה הרב והקור הקיצוני דורשים ניסיון קודם בגובה וציוד חם ואיכותי.' },
       { q: 'מתי עונת הטיפוס על אקונקגואה?', a: 'העונה היא דצמבר עד פברואר, קיץ חצי הכדור הדרומי, ואז ניתן לטפס בתנאים הבטוחים ביותר. מחוץ לחלון הזה ההר נסגר רשמית. אנחנו יוצאים פעם בשנה, בינואר, בלב העונה.' },
       { q: 'מה שיעור ההצלחה באקונקגואה?', a: 'שיעור ההצלחה הכללי על אקונקגואה עומד על כ-40% בלבד; אצלנו הוא 75%, הרבה מעל הממוצע. הסוד הוא לו״ז התאקלמות מוקפד, מדריך שמכיר את ההר לעומק, ובחירה נכונה של מי יוצא ליום הפסגה.' },
     ],
     en: [
-      { q: 'How hard is Aconcagua compared to Kilimanjaro?', a: 'Aconcagua is significantly harder. It is the highest peak outside Asia (6,961 m) and the expedition runs 20 days - the altitude is higher, the cold sharper, and you carry heavy gear up to Camp 2. Prior altitude experience, such as Kilimanjaro or the Everest Base Camp trek, is strongly recommended before you go.' },
+      { q: 'How hard is Aconcagua compared to Kilimanjaro?', a: 'Aconcagua is significantly harder. It is the highest peak outside Asia (6,961 m) and the expedition runs 20 days - the altitude is higher, the cold sharper, and you carry heavy gear up to Camp 2. Prior experience at an altitude of at least 5,000 m, such as Kilimanjaro or the Everest Base Camp trek, is required.' },
       { q: 'How much is the Aconcagua permit?', a: 'The Aconcagua Provincial Park permit costs about $1,000 to $1,300 per person, depending on the season and route. It is not included in the price and is paid directly to the park authority; we guide you through the purchase and all the required paperwork.' },
       { q: 'Do I need technical climbing experience for Aconcagua?', a: 'No. The Normal Route, which we climb, is a walking route rather than a technical climb - no ropes and no crampons (unless it snows). That said, the high altitude and extreme cold demand prior altitude experience and quality warm gear.' },
       { q: 'When is the Aconcagua climbing season?', a: 'The season is December to February, the southern-hemisphere summer, when the peak can be climbed in the safest conditions. Outside that window the mountain is officially closed. We run one expedition a year, in January, at the heart of the season.' },
