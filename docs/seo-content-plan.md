@@ -51,8 +51,8 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | # | Status | Topic (Hebrew working title) | Why | Links to |
 |---|--------|------------------------------|-----|----------|
 | 1 | live | טיפוס לקילימנג'רו כשר: שבת, כשרות ותפילה על ההר | unique product, HighAir absent for "קילימנג'רו כשר" | kilimanjaro-kosher, kilimanjaro |
-| 9 | in review | טרק לאוורסט בייס קמפ: המדריך המלא | core query, HighAir absent | everest-base-camp |
-| 14 | in review | טיפוס לאקונקגואה: המדריך המלא | Hebrew results are trip reports | aconcagua |
+| 9 | live | טרק לאוורסט בייס קמפ: המדריך המלא | core query, HighAir absent | everest-base-camp |
+| 14 | live | טיפוס לאקונקגואה: המדריך המלא | Hebrew results are trip reports | aconcagua |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 21 | todo | טרק להר הגבוה בסיני: המדריך המלא | new destination, winter season, no Hebrew guide | sinai |
 | 13 | todo | טרק באתיופיה ברכס הסימיאן וראס דשן | thin Hebrew coverage | ethiopia |
