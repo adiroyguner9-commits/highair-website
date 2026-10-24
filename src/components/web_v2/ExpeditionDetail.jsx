@@ -424,7 +424,7 @@ export default function ExpeditionDetail() {
     image:         exp.ogImage ? `https://www.highair-expeditions.com${exp.ogImage}` : exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
     ogType:        'product',
-    noIndex:       !!exp.teaser,      // a draft shown via ?preview=1 must never be indexed
+    noIndex:       !!exp.teaser || exp.live === false,   // a draft (?preview=1) or a hidden trip must never be indexed
   } : {
     title:       'HighAir Expeditions | משלחות הרים',
     description: 'משלחות טיפוס הרים וטרקים בעולם.',

@@ -113,7 +113,7 @@ function truncate(str, max = 155) {
   return str.length <= max ? str : str.slice(0, max - 1) + '…';
 }
 
-function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta }) {
+function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta, noIndex }) {
   const url   = `${BASE_URL}${canonicalPath}`;
   const img   = image
     ? (image.startsWith('http') ? image : `${BASE_URL}${image}`)
@@ -141,6 +141,12 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
     .replace(/(<meta name="twitter:image"\s+content=")[^"]*(")/,        `$1${esc(social)}$2`)
     // canonical
     .replace(/(<link rel="canonical"\s+href=")[^"]*(")/,               `$1${esc(url)}$2`);
+
+  /* A hidden page (a trip with live:false) stays reachable by its link but out of
+     search: the same rule the React page applies once it loads. */
+  if (noIndex) {
+    out = out.replace(/(<meta name="robots"\s+content=")[^"]*(")/, '$1noindex, follow$2');
+  }
 
   // og:type override (blog posts = "article" for news/social/AI)
   if (ogType) {
@@ -301,6 +307,7 @@ for (const exp of EXPS) {
     heroImage:     expHeroImage(exp),
     preHero:       preHeroHtml('trip', expHeroImage(exp)),
     text:          wrapText(expeditionText(exp, faqFor(exp))),
+    noIndex:       exp.live === false,
     jsonLd,
   });
   expCount++;
@@ -565,6 +572,22 @@ const staticPages = [
     desc:  'כל משלחות טיפוס ההרים של HighAir - קילימנג׳רו, אלברוס, אקונקגואה, אמה דבלאם ועוד. מדריכים מוסמכים, ליווי מלא ותרומה למאבק במחלת הסרטן.',
     jsonLd: CLIMBS_JSONLD,
   },
+  /* The legal pages. They had no shell, so the raw HTML carried the homepage's
+     title and description and no heading: Bing listed them as duplicate titles
+     and missing h1 (24 Oct 2026). Title and description are the ones
+     LegalPageLayout.jsx sets once React loads, so both stay the same. */
+  ...[
+    ['cancellation',  'מדיניות ביטולים'],
+    ['terms',         'תקנון ותנאי שימוש'],
+    ['privacy',       'מדיניות פרטיות'],
+    ['accessibility', 'הצהרת נגישות'],
+  ].map(([p, h1]) => ({
+    path:    p,
+    textH1:  h1,
+    textSub: `${h1} של HighAir Expeditions.`,
+    title:   `${h1} | HighAir Expeditions`,
+    desc:    `${h1} - HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.`,
+  })),
 ];
 
 for (const page of staticPages) {
@@ -575,7 +598,7 @@ for (const page of staticPages) {
     image:         '',
     heroImage:     page.heroImage || '',
     preHero:       preHeroHtml('list', page.heroImage),
-    text:          page.textH1 ? wrapText(listingText({ h1: page.textH1, sub: page.textSub, exps: page.textExps() })) : '',
+    text:          page.textH1 ? wrapText(listingText({ h1: page.textH1, sub: page.textSub, exps: page.textExps?.() || [] })) : '',
     jsonLd:        page.jsonLd,
   });
 }
@@ -604,6 +627,15 @@ for (const page of staticPages) {
      home text. Before this, those routes got index.html, and a reader without
      JavaScript would have read the homepage's text on the privacy page. */
   fs.writeFileSync(path.join(DIST, 'spa.html'), template.replace(HOME_HERO_PRELOAD, ''), 'utf8');
+  /* Any other path is a 404 with a real 404 status. Until 24 Oct 2026 every
+     unknown path (old Wix URLs such as /langtang or /post/magnus) answered 200
+     with the homepage's title and no content, and Bing flagged them as pages
+     with no h1 and duplicate titles. Vercel serves dist/404.html when no file
+     and no rewrite matches. It is the same app shell, so React still draws the
+     right screen (the 404 page, or a hidden page opened by its link). */
+  fs.writeFileSync(path.join(DIST, '404.html'), injectMeta(template.replace(HOME_HERO_PRELOAD, ''), {
+    title: '404 - הדף לא נמצא | HighAir Expeditions', description: 'הדף שחיפשת לא קיים.', canonicalPath: '/', noIndex: true,
+  }), 'utf8');
   if (!homeHtml.includes('id="home-jsonld"')) {
     const tag = `\n  <script id="home-jsonld" type="application/ld+json">${JSON.stringify(homeGraph)}</script>`;
     homeHtml = homeHtml.replace('</head>', `${tag}\n</head>`);

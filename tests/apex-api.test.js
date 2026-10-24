@@ -47,3 +47,22 @@ describe('old URL redirects', () => {
     }
   });
 });
+
+/* Old Wix URLs Bing still crawls (24 Oct 2026). Each must redirect, and the
+   /post/ catch-all must come after every specific /post/ rule (Vercel takes
+   the first match). */
+describe('old Wix URLs', () => {
+  const rules = (cfg.redirects || []).filter(r => !r.has);
+  const first = p => rules.find(r => new RegExp('^' + r.source.replace(/:path\*$/, '.*') + '$').test(p));
+  it('redirect to a live page', () => {
+    expect(first('/langtang').destination).toBe('/treks');
+    expect(first('/pirin').destination).toBe('/treks');
+    expect(first('/post/kazbek').destination).toBe('/expedition/kazbek');
+    expect(first('/post/magnus').destination).toBe('/blog');
+    expect(first('/post/some-other-old-post').destination).toBe('/blog');
+  });
+  it('the /post/ catch-all is the last /post/ rule', () => {
+    const posts = rules.filter(r => r.source.startsWith('/post/'));
+    expect(posts.at(-1).source).toBe('/post/:path*');
+  });
+});
