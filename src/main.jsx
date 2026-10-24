@@ -123,7 +123,25 @@ function BootFallback() {
   return <div style={{ minHeight: '100vh' }} />;
 }
 
-createRoot(document.getElementById('root')).render(
+/* Lab tests (PageSpeed) replay a fast load. There React could finish before the
+   pre-hero's image had painted, the swap hid it, and the real hero, which
+   waits for all the code, became the measured largest paint: 12s instead of
+   3s in 2 of 3 live runs (24 Oct 2026). On a real phone the 20-130KB image
+   beats the ~1.2MB of code by seconds anyway. So the first render waits until
+   the pre-hero's image is on screen, at most 800ms; without a visible
+   pre-hero it renders at once. */
+function preHeroOnScreen() {
+  const box = BOOT_HTML && bootPre.querySelector('.h');
+  const url = box && (getComputedStyle(box).backgroundImage.match(/url\("?([^")]+)"?\)/) || [])[1];
+  if (!url) return Promise.resolve();
+  const img = new Image();
+  img.src = url;
+  const loaded = img.decode ? img.decode().catch(() => {}) : new Promise(r => { img.onload = img.onerror = r; });
+  const painted = loaded.then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+  return Promise.race([painted, new Promise(r => setTimeout(r, 800))]);
+}
+
+preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
     <BrowserRouter>
@@ -162,4 +180,4 @@ createRoot(document.getElementById('root')).render(
     </ErrorBoundary>
     <Analytics />
   </StrictMode>
-);
+));

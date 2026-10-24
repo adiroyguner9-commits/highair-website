@@ -71,6 +71,10 @@ describe('pre-hero lifecycle', () => {
       '<Suspense fallback={<BootFallback />}>');
   });
 
+  it('the first render waits for the pre-hero image to be on screen, never longer than 800ms', () => {
+    has('src/main.jsx', 'preHeroOnScreen().then(() => createRoot(', 'setTimeout(r, 800)', "const box = BOOT_HTML && bootPre.querySelector('.h')");
+  });
+
   it('the homepage copy hides itself before the body on every other route', () => {
     expect(shells).toContain('.ha-nopre #ha-pre{display:none}');
     expect(shells).toContain('if(location.pathname!=="/")document.documentElement.classList.add("ha-nopre")');
