@@ -12,8 +12,8 @@ export const POSTS = [
   {
     id:       14,
     slug:     'kosher-kilimanjaro-shabbat-guide',
-    title:    'קילימנג׳רו כשר: שבת, כשרות ותפילה על ההר',
-    titleEn:  'Kosher Kilimanjaro: Shabbat, Kashrut and Prayer on the Mountain',
+    title:    'קילימנג׳רו לשומרי מסורת וכשרות: המדריך המלא',
+    titleEn:  'Kilimanjaro for Shabbat and Kashrut Observers: The Complete Guide',
     author:   'חן שקד',
     authorId: 'chen-shaked',
     dateIso:      '2026-10-24',
