@@ -206,6 +206,30 @@
   "s": "/images/cards/thumbs/ethiopia.webp",
   "sw": 760
  },
+ "/images/cards/lobuchePeak.webp": {
+  "w": 1300,
+  "h": 1228,
+  "s": "/images/cards/thumbs/lobuchePeak.webp",
+  "sw": 760
+ },
+ "/images/cards/himlung-himal.webp": {
+  "w": 1200,
+  "h": 1501,
+  "s": "/images/cards/thumbs/himlung-himal.webp",
+  "sw": 760
+ },
+ "/images/cards/leninPeak.webp": {
+  "w": 1200,
+  "h": 801,
+  "s": "/images/cards/thumbs/leninPeak.webp",
+  "sw": 760
+ },
+ "/images/cards/scardus.webp": {
+  "w": 1600,
+  "h": 1200,
+  "s": "/images/cards/thumbs/scardus.webp",
+  "sw": 760
+ },
  "/images/cards/aconcagua.webp": {
   "w": 960,
   "h": 720,

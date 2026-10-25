@@ -76,14 +76,16 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 12 | live | טיפוס לאולימפוס: המדריך המלא בעברית | Hebrew search returns English only | olympus |
 | 10 | live | מנסלו סירקיט: המדריך המלא בעברית | Hebrew search returns English only | manaslu-circuit, manaslu |
 | 30 | live | טיפוס לאיילנד פיק: המדריך המלא | technical first 6,000 m peak, English results only | island-peak |
+| 25 | live | טיפוס ללנין פיק: המדריך המלא | 7,134 m, English results only | lenin-peak |
+| 23 | live | טיפוס לאמא דאבלם: המדריך המלא | technical 6,812 m, English results only | ama-dablam |
+| 24 | live | טיפוס להימלונג הימאל: הפסגה הראשונה מעל 7,000 מטרים | English results only | himlung-himal |
+| 31 | live | טיפוס ללובוצ׳ה פיק: המדריך המלא | technical 6,119 m in the Khumbu, English results only | lobuche-peak |
+| 32 | live | טרק רכס הסקארדוס: המדריך המלא | new Balkans route, no Hebrew guide | scardus |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
-| 25 | todo | טיפוס ללנין פיק: המדריך המלא | 7,134 m, English results only | lenin-peak |
 | 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
-| 23 | todo | טיפוס לאמא דאבלם: המדריך המלא | technical 6,812 m, English results only | ama-dablam |
-| 24 | todo | טיפוס להימלונג הימאל: הפסגה הראשונה מעל 7,000 מטרים | English results only | himlung-himal |
-| 26 | todo | טיפוס למנסלו: משלחת לפסגה מעל 8,000 מטרים | our 8,000 m expedition, no Hebrew guide | manaslu |
+| 26 | writing | טיפוס למנסלו: משלחת לפסגה מעל 8,000 מטרים | our 8,000 m expedition, no Hebrew guide | manaslu |
 | 15 | todo | אלברוס, קזבק או קילימנג'רו: איזו פסגה ראשונה מתאימה לך | only English comparisons rank | elbrus, kazbek, kilimanjaro |
 | 5 | todo | מחלת גבהים וביטוח מעל 4,000 ו-6,000 מטר: מה חייבים לדעת | no Hebrew source covers insurance at altitude | kilimanjaro, everest-base-camp, mera-peak, aconcagua |
 | 6 | todo | תוכנית אימונים של 12 שבועות לטרק בגובה, במסלולים בישראל | no week-by-week Hebrew plan | kilimanjaro, everest-base-camp |
