@@ -105,8 +105,12 @@ function PostCard({ post }) {
           color:      '#6B6B8A',
           margin:     0,
           lineHeight: 1.7,
-          height:     `calc(1.7em * 4)`,
+          /* exactly 3 lines on every card, so all cards are the same height (owner, 25 Oct 2026) */
+          height:     `calc(1.7em * 3)`,
           overflow:   'hidden',
+          display:    '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical',
         }}>
           {excerpt}
         </p>

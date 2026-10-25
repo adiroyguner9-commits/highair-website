@@ -777,8 +777,9 @@ export default function BlogPost() {
                         margin:          0,
                         lineHeight:      1.6,
                         fontWeight:      300,
+                        height:          'calc(1.6em * 3)',
                         display:         '-webkit-box',
-                        WebkitLineClamp: 2,
+                        WebkitLineClamp: 3,
                         WebkitBoxOrient: 'vertical',
                         overflow:        'hidden',
                       }}>
