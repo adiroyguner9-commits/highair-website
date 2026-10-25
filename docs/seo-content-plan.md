@@ -80,7 +80,7 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 23 | live | טיפוס לאמא דאבלם: המדריך המלא | technical 6,812 m, English results only | ama-dablam |
 | 24 | live | טיפוס להימלונג הימאל: הפסגה הראשונה מעל 7,000 מטרים | English results only | himlung-himal |
 | 31 | live | טיפוס ללובוצ׳ה פיק: המדריך המלא | technical 6,119 m in the Khumbu, English results only | lobuche-peak |
-| 32 | live | טרק רכס הסקארדוס: המדריך המלא | new Balkans route, no Hebrew guide | scardus |
+| 32 | ready | טרק רכס הסקארדוס: המדריך המלא | written, waits for the trip to launch (teaser): docs/drafts/scardus-ridge-trek-guide.mjs | scardus |
 | 26 | live | משלחת למנסלו: המדריך המלא | our 8,000 m expedition, no Hebrew guide | manaslu |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
