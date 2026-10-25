@@ -2010,7 +2010,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     ogImage: '/images/og/island-peak.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס לאיילנד פיק',
     seoTitleEn:     'Climbing Island Peak | HighAir Expeditions',
-    seoDescription: 'טיפוס לאיילנד פיק - 6189 מ׳ בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוטסה, מקאלו, צ׳ו אויו ואמה דבלאם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
+    seoDescription: 'טיפוס לאיילנד פיק - 6189 מ׳ בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוטסה, מקאלו, צ׳ו אויו ואמא דאבלם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
     seoDescriptionEn: 'Climb Island Peak (6189m) in Nepal - 20 days. Technical summit with views of Everest, Lhotse & Ama Dablam. Includes full EBC trek. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
     desc: `איילנד פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6189 מ׳ מעל פני הים. הפסגה ממוקמת באזור קומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
