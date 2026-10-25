@@ -7,6 +7,216 @@
 export const POSTS = [
 
   /* ═══════════════════════════════════════════════════════════════════
+   *  id:23  kilimanjaro-routes-compared  (2026-10-25)
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+      id:       23,
+      slug:     'kilimanjaro-routes-compared',
+      title:    'מסלולי הקילימנג׳רו: מצ׳אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך',
+      titleEn:  'Kilimanjaro Routes Compared: Machame, Lemosho, Marangu and Rongai',
+      seoTitle:   'מסלולי קילימנג׳רו: איזה מסלול מתאים לך',
+      seoTitleEn: 'Kilimanjaro Routes Compared: Which One Suits You',
+      author:   'חן שקד',
+      authorId: 'chen-shaked',
+      dateIso:      '2026-10-25',
+      dateModified: '2026-10-25',
+      dateHe:   '25 באוקטובר 2026',
+      dateEn:   'October 25, 2026',
+      category:   'מדריכים',
+      categoryEn: 'Guides',
+      img:              '/images/gallery/kilimanjaro/12.webp',
+      imgPosition:      'center 50%',
+      imgPositionCard:  'center 50%',
+      imgCredit:        '',
+      excerpt:   'לקילימנג׳רו שישה מסלולים מרכזיים. מה ההבדל בין מצ׳אמה, לממשה, מרנגו, רונגאי, הסובב הצפוני ואומבווה, ולמה מספר הימים חשוב יותר משם המסלול.',
+      excerptEn: 'Kilimanjaro has six main routes. How Machame, Lemosho, Marangu, Rongai, the Northern Circuit and Umbwe differ, and why the days matter more than the name.',
+      content: [
+        { type: 'text', value: 'בחצות, במחנה בראפו בגובה 4,673 מ׳, נדלקים פנסי הראש, ובאותה שעה בדיוק, בצדו השני של ההר, יוצאת קבוצה אחרת מבקתת קיבו. שתיהן מטפסות לאותה פסגה, אוהורו, 5,895 מ׳, אבל הגיעו אליה בדרכים שונות לגמרי. לקילימנג׳רו יש כמה מסלולי עלייה מרכזיים: מצ׳אמה, לממשה, מרנגו, רונגאי, הסובב הצפוני ואומבווה. ההבדלים ביניהם הם בכמות הימים, בפרופיל ההתאקלמות, בעומס, בנוף ובשאלה אם ישנים באוהל או בבקתה. למטפס בפעם הראשונה, מסלול של שבעה ימים ומעלה שבנוי על העיקרון ״לטפס גבוה, לישון נמוך״ הוא בדרך כלל הבחירה הנכונה, ולכן אנחנו עולים במצ׳אמה בשבעה ימים.' },
+        { type: 'text', value: 'השאלה ״איזה מסלול לבחור״ היא הראשונה שעולה כשמתחילים לתכנן את קילימנג׳רו, והתשובות שמוצאים ברשת סותרות זו את זו. כל חברה מקומית משבחת את המסלול שהיא מוכרת, ומספרי ההצלחה שמתפרסמים משתנים מאתר לאתר. המדריך הזה מסדר את התמונה: מה באמת מבדיל בין המסלולים, מה היתרון והחיסרון של כל אחד, ואיך מתאימים מסלול לאדם, ללוח הזמנים ולעונה. בסוף תדעו מה לשאול לפני שאתם בוחרים, גם אם תבחרו לעלות עם מישהו אחר.' },
+
+        { type: 'section', value: 'מה באמת מבדיל בין המסלולים' },
+        { type: 'text', value: 'כל המסלולים מגיעים בסוף לאותה נקודה, פסגת אוהורו על שפת הלוע של קיבו, החרוט הגבוה מבין שלושת החרוטים הגעשיים של ההר. מה שמשתנה הוא הצד שממנו עולים, וזה משפיע על כמה דברים שכדאי להכיר לפני שמשווים:' },
+        { type: 'list', items: [
+          'מספר הימים: מסלול קצר מעלה את הגוף לגובה מהר יותר, וזה הגורם החשוב ביותר בסיכוי להגיע לפסגה.',
+          'פרופיל ההתאקלמות: יש מסלולים שעולים לנקודה גבוהה וחוזרים לישון נמוך יותר, ויש מסלולים שעולים בקו ישר יחסית.',
+          'לינה: מרנגו הוא היחיד שבו ישנים בבקתות. בכל השאר ישנים באוהלים, במחנות קבועים של הפארק.',
+          'עומס: המסלולים הדרומיים, ובעיקר מצ׳אמה, עמוסים יותר. הצד הצפוני שקט בהרבה.',
+          'גשם ונוף: הצד הצפוני יבש יותר. המסלולים המערביים והדרומיים חוצים יותר אזורי נוף, מיער גשם ועד קרחונים.',
+          'ליל הפסגה: ממחנה בראפו מגיעים לשפת הלוע בסטלה פוינט, ומבקתת קיבו או מהצד הצפוני מגיעים אליה בגילמנס פוינט. משתי הנקודות ממשיכים לאורך שפת הלוע עד אוהורו.',
+        ]},
+        { type: 'text', value: 'חשוב לזכור שבכל המסלולים הטיפוס אינו טכני. לא צריך חבלים, לא צריך קרמפונים ואין צורך בניסיון קודם בטיפוס. הקושי הוא הגובה, הקור בליל הפסגה וימי ההליכה הארוכים, ולכן ההבדל בין המסלולים הוא בעיקר בשאלה כמה זמן הם נותנים לגוף להסתגל.' },
+
+        { type: 'section', value: 'מצ׳אמה: המסלול שבו אנחנו עולים' },
+        { type: 'text', value: 'מצ׳אמה עולה מצדו הדרום מערבי של ההר. מתחילים בשער מצ׳אמה, 1,800 מ׳, הולכים ביער גשם עד מחנה מצ׳אמה, יוצאים אל רמת שירה, ומשם המסלול מקיף את כיפת הפסגה מדרום דרך מגדל הלבה, מחנה ברנקו ומחנה קראנגה, עד מחנה בראפו. הירידה עוברת בשביל אחר, דרך מחנה מוואקה, כך שכמעט לא חוזרים על אותה דרך.' },
+        { type: 'text', value: 'היתרון הגדול של מצ׳אמה הוא הפרופיל שלו. ביום הרביעי של המשלחת עולים עד מגדל הלבה, 4,600 מ׳, ויורדים לישון במחנה ברנקו, 3,900 מ׳. למחרת מטפסים על קיר ברנקו, קטע שבו משתמשים לפעמים גם בידיים, אבל הוא אינו טכני ואינו מסוכן עם ליווי. גרסת שבעת הימים מחלקת את הדרך מברנקו לבראפו לשני ימים, עם לילה במחנה קראנגה, וזה עוד לילה של התאקלמות לפני ליל הפסגה.' },
+        { type: 'text', value: 'החיסרון הוא העומס. מצ׳אמה הוא מהמסלולים הפופולריים בהר, ובעונת השיא המחנות מלאים ובקיר ברנקו נוצרים לפעמים תורים. יש גם גרסה של שישה ימים, שדוחסת את הקטע מברנקו לבראפו ליום אחד. אנחנו משתמשים בה רק במשלחת לשומרי מסורת, שבה לוח הזמנים נבנה סביב השבת, ובכל המשלחות האחרות עולים בשבעה ימים.' },
+        { type: 'image', src: '/images/gallery/kilimanjaro/10.webp', alt: 'קבוצת מטפסים עם תרמילים הולכת בשביל סלעי בין צוקי לבה, מתחת לשמיים מעוננים', caption: 'בשביל הסלעי של מצ׳אמה, בדרך אל מעל קו הצמחייה' },
+
+        { type: 'section', value: 'לממשה: מצ׳אמה עם התחלה ארוכה ושקטה' },
+        { type: 'text', value: 'לממשה מתחיל רחוק יותר, בשער לונדורוסי שבצדו המערבי של ההר, אחרי נסיעה ארוכה ממושי. הימים הראשונים עוברים ביער ובשטחים שקטים, ואז המסלול חוצה את רמת שירה כולה ממערב למזרח. באזור מגדל הלבה הוא מתחבר למסלול מצ׳אמה, ומשם הדרך זהה: ברנקו, קראנגה, בראפו, ליל הפסגה וירידה דרך מוואקה.' },
+        { type: 'text', value: 'בדרך כלל עולים בלממשה בשבעה או בשמונה ימים. הימים הנוספים והפתיחה ההדרגתית נותנים לגוף יותר זמן, והחלק הראשון שקט בהרבה. המחיר הוא יום או יומיים נוספים של חופשה, נסיעה ארוכה ביום הראשון ועלות גבוהה יותר, כי אגרות הפארק משולמות על כל יום. מהחצי השני של המסלול, הנוף והעומס זהים למצ׳אמה.' },
+
+        { type: 'section', value: 'מרנגו: הבקתות והדרך הישירה' },
+        { type: 'text', value: 'מרנגו הוא המסלול הוותיק בהר, והיחיד שבו ישנים בבקתות ולא באוהלים. הוא עולה מצדו הדרום מזרחי של ההר, משער מרנגו, דרך שלוש קבוצות בקתות: מנדרה, בערך 2,700 מ׳, הורומבו, בערך 3,720 מ׳, וקיבו, בערך 4,700 מ׳. בבקתות ישנים על דרגשים בחדרים משותפים, ולכן לא צריך לסחוב ציוד קמפינג. העלייה והירידה עוברות באותו שביל.' },
+        { type: 'text', value: 'המוניטין של מרנגו כמסלול ״קל״ מטעה. השביל אכן מתון, אבל הוא מוצע לרוב בחמישה או בשישה ימים, ועולה בקו ישר יחסית, בלי העלייה הגבוהה והשינה הנמוכה שיש במצ׳אמה. התוצאה היא ששיעורי ההצלחה במרנגו הם מהנמוכים בהר. מי שבוחר במרנגו בגלל הבקתות צריך להוסיף לפחות יום התאקלמות אחד בהורומבו. ליל הפסגה יוצא מבקתת קיבו, במדרון תלול של חצץ אל גילמנס פוינט.' },
+
+        { type: 'section', value: 'רונגאי: הצד הצפוני היבש' },
+        { type: 'text', value: 'רונגאי הוא המסלול היחיד שעולה מצפון, סמוך לגבול עם קניה. הצד הזה של ההר מקבל פחות גשם, ולכן רונגאי נחשב לבחירה טובה בעונות הגשמים. הוא גם שקט בהרבה מהמסלולים הדרומיים, והשיפוע שלו מתון. בדרך כלל עולים בו בשישה או בשבעה ימים, עם לילה במחנה שליד אגם מוונזי, למרגלות החרוט המשונן של מוונזי, ומשם חוצים את האוכף המדברי בין מוונזי לקיבו אל בקתת קיבו.' },
+        { type: 'text', value: 'החיסרון של רונגאי הוא שיש בו פחות ימים של ״לטפס גבוה, לישון נמוך״ מאשר במצ׳אמה, והנוף בו פחות מגוון מזה של המסלולים המערביים. הירידה עוברת במסלול מרנגו, כך שבסוף רואים גם את הצד הדרום מזרחי של ההר.' },
+
+        { type: 'section', value: 'הסובב הצפוני: הארוך והשקט ביותר' },
+        { type: 'text', value: 'הסובב הצפוני מתחיל כמו לממשה, בשער לונדורוסי ובחציית רמת שירה, אבל במקום לפנות דרומה הוא מקיף את ההר מצפון, במדרונות שכמעט אין בהם מטפסים אחרים. זה המסלול הארוך ביותר בהר, ובדרך כלל עולים בו בשמונה או בתשעה ימים. ליל הפסגה יוצא מהצד הצפוני מזרחי של ההר אל גילמנס פוינט, והירידה עוברת דרך מוואקה.' },
+        { type: 'text', value: 'בזכות אורכו הסובב הצפוני נותן לגוף את הזמן הרב ביותר להסתגל לגובה, והוא הבחירה של מי שרוצה שקט ונוף פתוח. הוא דורש כמעט שבועיים של חופשה ועולה יותר מכל המסלולים האחרים, כי אגרות הפארק מצטברות על כל יום ולילה נוסף.' },
+        { type: 'image', src: '/images/gallery/kilimanjaro/8.webp', alt: 'אוהלים כתומים ואפורים במחנה מושלג על קילימנג׳רו בשעת דמדומים, ומאחוריהם קו רכס כהה', caption: 'מחנה אוהלים בגובה, בערב שאחרי שלג' },
+
+        { type: 'section', value: 'אומבווה: הקצר והתלול' },
+        { type: 'text', value: 'אומבווה עולה מדרום, ישר ובתלילות, ומתחבר למסלול מצ׳אמה באזור מחנה ברנקו. זה המסלול הקצר והתלול ביותר בהר, והוא מעלה את הגוף לגובה מהר מאוד. הוא מתאים למטפסים מנוסים שכבר היו בגובה ויודעים איך גופם מגיב, ואינו מתאים להר גבוה ראשון.' },
+        { type: 'callout', title: '✦ הימים חשובים יותר מהשם', value: 'ההבדל בין מסלול טוב למסלול טוב פחות הוא קודם כול מספר הלילות על ההר. מצ׳אמה בשבעה ימים, לממשה בשמונה או הסובב הצפוני בתשעה מעלים את הסיכוי להגיע לפסגה, לא בגלל השביל אלא בגלל הזמן שהגוף מקבל להתאקלם.' },
+
+        { type: 'section', value: 'כמה ימים באמת צריך' },
+        { type: 'text', value: 'מחלת גבהים היא הסיבה העיקרית לכך שמטפסים אינם מגיעים לפסגת קילימנג׳רו, והיא אינה תלויה בכושר. אנשים צעירים ומאומנים סובלים ממנה, ואנשים שלא עסקו בספורט שנים עולים בלי תסמין. מה שכן אפשר לשלוט בו הוא קצב העלייה, ולכן כל יום נוסף על ההר משנה את התמונה. חברות שמציעות מסלול של חמישה או שישה ימים במחיר נמוך חוסכות בדרך כלל דווקא את הימים שעושים את ההבדל.' },
+        { type: 'text', value: 'כשמשווים הצעות, כדאי לספור לילות על ההר ולא ימי טיול. אצלנו המשלחת נמשכת 9 ימים, מתוכם שבעה ימים על ההר ושישה לילות באוהלים. שיעור ההצלחה שאנחנו מפרסמים לטיפוס לקילימנג׳רו הוא 94%, והוא נשען בדיוק על ההחלטה הזאת. מספרי הצלחה של מסלולים שמתפרסמים ברשת שונים מאתר לאתר, ולכן כדאי לשאול כל חברה מה שיעור ההצלחה שלה עצמה, באיזה מסלול ובכמה ימים.' },
+
+        { type: 'section', value: 'גשם, עונה ועומס' },
+        { type: 'text', value: 'קילימנג׳רו נמצא קרוב לקו המשווה, ולכן העונות בו נקבעות בעיקר בגשם. בעונות הגשמים, בערך ממרץ עד מאי ובנובמבר, המסלולים הדרומיים והמערביים בוציים יותר והראות נמוכה, ואז לרונגאי יש יתרון של ממש. בעונות היבשות, ינואר עד פברואר ויוני עד אוקטובר, היתרון הזה קטן, והשיקולים של התאקלמות ונוף חוזרים להיות העיקר. באלה המשלחות שלנו יוצאות.' },
+        { type: 'text', value: 'העומס תלוי גם בעונה. ביולי ובאוגוסט המסלולים הדרומיים עמוסים במיוחד. מי שמחפש שקט באמצע הקיץ ימצא אותו בסובב הצפוני או ברונגאי, ומי שעולה במצ׳אמה מרוויח מכך שהקבוצה יוצאת מוקדם מכל מחנה ומתקדמת בקצב שלה.' },
+
+        { type: 'section', value: 'ומה זה עושה למחיר' },
+        { type: 'text', value: 'אגרות הפארק הלאומי קילימנג׳רו משולמות לפי זמן: דמי שימור על כל יום בשמורה, ודמי לינה על כל לילה. דמי השימור הם 70 דולר לאדם ליום, ודמי הלינה הם 50 דולר ללילה במחנות האוהלים ו-60 דולר ללילה בבקתות של מרנגו, לפני מע״מ (נכון ל-2026). מכאן שכל יום נוסף על ההר מוסיף לא רק אגרות אלא גם שכר של צוות שלם, מדריכים, טבחים ופורטרים, ולכן מסלולים ארוכים יקרים יותר.' },
+        { type: 'text', value: 'במשלחת שלנו אישורי הכניסה והטיפוס לשמורה כלולים במחיר, כמו גם האוהלים, שלוש הארוחות ביום, הפורטרים והלינה במלון במושי. כשמשווים מחירים בין חברות, כדאי לבדוק שהאגרות כלולות, וכמה לילות על ההר מקבלים בתמורה.' },
+
+        { type: 'section', value: 'איזה מסלול מתאים לכם' },
+        { type: 'text', value: 'במקום לחפש את ״המסלול הטוב ביותר״, כדאי לשאול איזה מסלול מתאים לכם. כך זה נראה בפועל:' },
+        { type: 'list', items: [
+          'זה ההר הגבוה הראשון שלכם ויש לכם כעשרה ימי חופשה: מצ׳אמה בשבעה ימים.',
+          'יש לכם עוד יום או יומיים ואתם רוצים התחלה שקטה: לממשה בשמונה ימים.',
+          'אתם מחפשים את השקט המרבי ויש לכם כמעט שבועיים: הסובב הצפוני.',
+          'אתם עולים בעונת הגשמים: רונגאי.',
+          'אתם לא רוצים לישון באוהל: מרנגו, רק עם יום התאקלמות נוסף.',
+          'כבר הייתם בגובה ואתם יודעים איך הגוף מגיב: אומבווה הוא אפשרות, לא המלצה.',
+          'אתם שומרי שבת: מצ׳אמה בשישה ימים, במשלחת שבנויה סביב השבת.',
+        ]},
+        { type: 'text', value: 'לשומרי שבת יש משלחת נפרדת, 10 ימים, עם שבת בארושה לפני הטיפוס. עולים במצ׳אמה מיום ראשון ויורדים ביום שישי בצהריים, כך שהשבת השנייה עוברת במלון. את כל הפרטים, מהכשרות על ההר ועד התפילה, פירטנו במדריך נפרד.' },
+        { type: 'cta', text: 'למדריך קילימנג׳רו לשומרי מסורת וכשרות', textEn: 'Kosher Kilimanjaro guide', href: '/blog/kosher-kilimanjaro-shabbat-guide' },
+
+        { type: 'section', value: 'קילימנג׳רו עם HighAir' },
+        { type: 'text', value: 'ב-HighAir אנחנו מוציאים קבוצות לקילימנג׳רו בכל עונה יבשה, במסלול מצ׳אמה בשבעה ימים על ההר, בתוך משלחת של 9 ימים, עם קבוצה של עד 15 משתתפים. בחרנו במצ׳אמה כי הוא משלב את מה שחשוב למטפס בפעם הראשונה: יום התאקלמות אמיתי במגדל הלבה, לילה נוסף בקראנגה לפני בראפו, ונוף שמשתנה כמעט בכל יום, מיער הגשם ועד השלג שליד הפסגה. אפשר להוסיף לטיפוס שלושה ימי ספארי בטרנגירי ובמכתש נגורונגורו.' },
+        { type: 'text', value: 'חשוב לדעת: את הטיפוס מובילים מדריכים מקומיים מקצועיים מטנזניה, דוברי אנגלית, עם ניסיון רב בהובלת קבוצות בהר. אין הדרכה בעברית ואין מדריך או מלווה ישראלי. לפני הטיסה הקבוצה נפגשת למפגש הכנה על ציוד ויוצאת יחד לטרק הכנה של יום אחד בארץ. לפני הנסיעה כדאי גם לסדר את הוויזה ואת החיסונים, ולשניהם כתבנו מדריכים מפורטים.' },
+        { type: 'image', src: '/images/gallery/kilimanjaro/9.webp', alt: 'קבוצת מטפסים בבגדים חמים עם מקלות הליכה עולה בשביל חצץ עם שחר, ומאחוריה פסגה מעל ים של עננים', caption: 'עם שחר, מעל העננים, בדרך לפסגה' },
+        { type: 'text', value: 'חלק מהרווחים מכל משלחת שלנו מוקדש לתמיכה בחולי סרטן בישראל, כי ההרים, בעינינו, הם גם דרך לתת.' },
+        { type: 'cta', text: 'לטיפוס לקילימנג׳רו במסלול מצ׳אמה', textEn: 'Climb Kilimanjaro on the Machame Route', href: '/expedition/kilimanjaro' },
+        { type: 'cta', text: 'למדריך הוויזה לטנזניה', textEn: 'Tanzania visa guide', href: '/blog/tanzania-visa-guide' },
+        { type: 'cta', text: 'למדריך החיסונים לטנזניה', textEn: 'Tanzania vaccinations guide', href: '/blog/tanzania-vaccinations-guide' },
+
+        { type: 'section', value: 'שאלות נפוצות' },
+        { type: 'heading', value: 'איזה מסלול לקילימנג׳רו הכי קל?' },
+        { type: 'text', value: 'אין מסלול קל באמת, כי הקושי העיקרי הוא הגובה ולא השביל. מרנגו ורונגאי מתונים יותר בשיפוע, אבל כשהם קצרים הם נותנים לגוף פחות זמן להתאקלם. למטפס בפעם הראשונה, מסלול של שבעה ימים ומעלה, כמו מצ׳אמה או לממשה, הוא בדרך כלל הדרך ״הקלה״ ביותר להגיע לפסגה.' },
+        { type: 'heading', value: 'באיזה מסלול הסיכוי הגבוה ביותר להגיע לפסגה?' },
+        { type: 'text', value: 'הסיכוי תלוי קודם כול במספר הימים על ההר. המסלולים הארוכים, הסובב הצפוני ולממשה בשמונה ימים, נותנים לגוף את הזמן הרב ביותר, ומצ׳אמה בשבעה ימים קרוב אליהם בזכות יום ההתאקלמות במגדל הלבה. שיעור ההצלחה שאנחנו מפרסמים בקילימנג׳רו, במצ׳אמה בשבעה ימים, הוא 94%.' },
+        { type: 'heading', value: 'אפשר לישון בבקתות בקילימנג׳רו?' },
+        { type: 'text', value: 'כן, אבל רק במסלול מרנגו, שבו ישנים על דרגשים בבקתות משותפות במנדרה, בהורומבו ובקיבו. בכל שאר המסלולים ישנים באוהלים במחנות של הפארק. במשלחת שלנו ישנים באוהלים זוגיים עם מזרנים, ואת הציוד נושאים הפורטרים.' },
+        { type: 'heading', value: 'איזה מסלול מתאים לעונת הגשמים?' },
+        { type: 'text', value: 'רונגאי, שעולה מהצד הצפוני של ההר, מקבל פחות גשם, ולכן נחשב לבחירה הטובה בעונות הגשמים. עם זאת, ההמלצה שלנו היא לטפס בעונות היבשות, ינואר עד פברואר ויוני עד אוקטובר, ובהן יוצאות המשלחות שלנו.' },
+        { type: 'heading', value: 'כמה ימים צריך כדי לטפס על קילימנג׳רו?' },
+        { type: 'text', value: 'על ההר עצמו, לפחות שישה ימים, ועדיף שבעה ומעלה. בתוספת יום הגעה ויום טיסה הביתה, משלחת של שבעה ימים על ההר נמשכת כ-9 ימים. אצלנו זה בדיוק המבנה, ואפשר להוסיף לו שלושה ימי ספארי.' },
+        { type: 'heading', value: 'האם יש הדרכה בעברית בטיפוס לקילימנג׳רו?' },
+        { type: 'text', value: 'לא. את הטיפוס מובילים מדריכים מקומיים מקצועיים מטנזניה, דוברי אנגלית, עם ניסיון רב בהובלת קבוצות בהר. אין הדרכה בעברית ואין מדריך או מלווה ישראלי, ולכן כדאי להגיע עם אנגלית בסיסית שמאפשרת להבין את ההנחיות בשטח.' },
+      ],
+      contentEn: [
+        { type: 'text', value: 'At midnight, at Barafu Camp at 4,673 m, the headlamps come on, and at exactly the same hour, on the other side of the mountain, another group sets out from Kibo Hut. Both are climbing to the same summit, Uhuru Peak, 5,895 m, but they reached it by entirely different paths. Kilimanjaro has several main ascent routes: Machame, Lemosho, Marangu, Rongai, the Northern Circuit and Umbwe. They differ in the number of days, the acclimatisation profile, the crowds, the scenery and whether you sleep in a tent or a hut. For a first-time climber, a route of seven days or more built on the "climb high, sleep low" principle is usually the right choice, which is why we climb Machame over seven days.' },
+        { type: 'text', value: '"Which route should I choose?" is the first question that comes up when you start planning Kilimanjaro, and the answers online contradict one another. Every local company praises the route it sells, and the published success figures change from site to site. This guide puts the picture in order: what really separates the routes, the advantage and drawback of each, and how to match a route to a person, a schedule and a season. By the end you will know what to ask before you choose, even if you choose to climb with someone else.' },
+
+        { type: 'section', value: 'What really separates the routes' },
+        { type: 'text', value: 'Every route ends at the same point, Uhuru Peak on the crater rim of Kibo, the highest of the mountain\'s three volcanic cones. What changes is the side you climb from, and that affects several things worth knowing before you compare:' },
+        { type: 'list', items: [
+          'Number of days: a short route takes the body to altitude faster, and that is the single most important factor in your chance of reaching the summit.',
+          'Acclimatisation profile: some routes climb to a high point and return to sleep lower, while others climb in a relatively straight line.',
+          'Accommodation: Marangu is the only route with huts. On all the others you sleep in tents, at fixed park campsites.',
+          'Crowds: the southern routes, Machame above all, are busier. The north side is far quieter.',
+          'Rain and scenery: the north side is drier. The western and southern routes cross more landscape zones, from rainforest to glaciers.',
+          'Summit night: from Barafu Camp you reach the crater rim at Stella Point, and from Kibo Hut or the north side you reach it at Gilman\'s Point. From either point you continue along the rim to Uhuru.',
+        ]},
+        { type: 'text', value: 'It is important to remember that on every route the climb is not technical. You need no ropes, no crampons and no previous climbing experience. The difficulty is the altitude, the cold on summit night and the long walking days, so the difference between the routes is mainly how much time they give the body to adapt.' },
+
+        { type: 'section', value: 'Machame: the route we climb' },
+        { type: 'text', value: 'Machame climbs from the south-western side of the mountain. You start at Machame Gate, 1,800 m, walk through rainforest to Machame Camp, emerge onto the Shira Plateau, and from there the route circles the summit dome to the south via Lava Tower, Barranco Camp and Karanga Camp, up to Barafu Camp. The descent follows a different trail, via Mweka Camp, so you hardly ever retrace your steps.' },
+        { type: 'text', value: 'The great advantage of Machame is its profile. On day four of the expedition you climb to Lava Tower, 4,600 m, and descend to sleep at Barranco Camp, 3,900 m. The next day you climb the Barranco Wall, a section where you sometimes use your hands as well, but it is not technical and not dangerous with a guide. The seven-day version splits the way from Barranco to Barafu into two days, with a night at Karanga Camp, which is one more night of acclimatisation before summit night.' },
+        { type: 'text', value: 'The drawback is the crowds. Machame is one of the most popular routes on the mountain, and in peak season the camps are full and queues sometimes form on the Barranco Wall. There is also a six-day version, which compresses the stretch from Barranco to Barafu into a single day. We use it only on the expedition for observant travellers, whose schedule is built around Shabbat, and on every other expedition we climb over seven days.' },
+        { type: 'image', src: '/images/gallery/kilimanjaro/10.webp', alt: 'A group of climbers with backpacks walking a rocky trail between lava crags under a cloudy sky', caption: 'On the rocky Machame trail, on the way above the tree line' },
+
+        { type: 'section', value: 'Lemosho: Machame with a long, quiet start' },
+        { type: 'text', value: 'Lemosho starts further away, at Londorossi Gate on the western side of the mountain, after a long drive from Moshi. The first days pass through forest and quiet terrain, and then the route crosses the entire Shira Plateau from west to east. Near Lava Tower it joins the Machame route, and from there the way is identical: Barranco, Karanga, Barafu, summit night and the descent via Mweka.' },
+        { type: 'text', value: 'Lemosho is usually climbed over seven or eight days. The extra days and the gradual start give the body more time, and the first part is far quieter. The price is one or two more days of holiday, a long drive on the first day and a higher cost, because park fees are paid for every day. From the second half of the route onwards, the scenery and the crowds are the same as on Machame.' },
+
+        { type: 'section', value: 'Marangu: the huts and the direct way' },
+        { type: 'text', value: 'Marangu is the oldest route on the mountain and the only one where you sleep in huts rather than tents. It climbs from the south-eastern side of the mountain, from Marangu Gate, through three groups of huts: Mandara, at about 2,700 m, Horombo, at about 3,720 m, and Kibo, at about 4,700 m. In the huts you sleep on bunks in shared rooms, so there is no camping gear to carry. The ascent and descent follow the same trail.' },
+        { type: 'text', value: 'Marangu\'s reputation as the "easy" route is misleading. The trail is indeed gentle, but it is usually offered over five or six days, and it climbs in a relatively straight line, without the climb high and sleep low that Machame has. As a result, success rates on Marangu are among the lowest on the mountain. Anyone who chooses Marangu for the huts should add at least one acclimatisation day at Horombo. Summit night starts from Kibo Hut, up a steep scree slope to Gilman\'s Point.' },
+
+        { type: 'section', value: 'Rongai: the dry north side' },
+        { type: 'text', value: 'Rongai is the only route that climbs from the north, close to the border with Kenya. This side of the mountain receives less rain, so Rongai is considered a good choice in the rainy seasons. It is also far quieter than the southern routes, and its gradient is gentle. It is usually climbed over six or seven days, with a night at the camp by Mawenzi Tarn, at the foot of the jagged cone of Mawenzi, and from there you cross the desert saddle between Mawenzi and Kibo to Kibo Hut.' },
+        { type: 'text', value: 'The drawback of Rongai is that it has fewer "climb high, sleep low" days than Machame, and its scenery is less varied than that of the western routes. The descent follows the Marangu route, so in the end you also see the south-eastern side of the mountain.' },
+
+        { type: 'section', value: 'The Northern Circuit: the longest and quietest' },
+        { type: 'text', value: 'The Northern Circuit starts like Lemosho, at Londorossi Gate and across the Shira Plateau, but instead of turning south it circles the mountain to the north, on slopes that see almost no other climbers. It is the longest route on the mountain and is usually climbed over eight or nine days. Summit night leaves from the north-eastern side of the mountain for Gilman\'s Point, and the descent follows the Mweka trail.' },
+        { type: 'text', value: 'Thanks to its length, the Northern Circuit gives the body the most time to adapt to altitude, and it is the choice for those who want quiet and open views. It requires almost two weeks of holiday and costs more than any other route, because park fees add up for every extra day and night.' },
+        { type: 'image', src: '/images/gallery/kilimanjaro/8.webp', alt: 'Orange and grey tents at a snow-covered camp on Kilimanjaro at dusk, with a dark ridge line behind them', caption: 'A high tent camp, on an evening after snowfall' },
+
+        { type: 'section', value: 'Umbwe: the short, steep one' },
+        { type: 'text', value: 'Umbwe climbs from the south, directly and steeply, and joins the Machame route near Barranco Camp. It is the shortest and steepest route on the mountain, and it takes the body to altitude very quickly. It suits experienced climbers who have already been to altitude and know how their body reacts, and it is not suitable as a first high mountain.' },
+        { type: 'callout', title: '✦ The days matter more than the name', value: 'The difference between a good route and a less good one is first of all the number of nights on the mountain. Machame over seven days, Lemosho over eight or the Northern Circuit over nine raise the chance of reaching the summit, not because of the trail but because of the time the body gets to acclimatise.' },
+
+        { type: 'section', value: 'How many days you really need' },
+        { type: 'text', value: 'Altitude sickness is the main reason climbers do not reach the summit of Kilimanjaro, and it does not depend on fitness. Young, well-trained people suffer from it, and people who have not done sport for years climb without a symptom. What you can control is the rate of ascent, so every extra day on the mountain changes the picture. Companies offering a five or six-day route at a low price are usually saving on precisely the days that make the difference.' },
+        { type: 'text', value: 'When you compare offers, count nights on the mountain rather than trip days. Our expedition lasts 9 days, of which seven days are on the mountain and six nights in tents. The success rate we publish for climbing Kilimanjaro is 94%, and it rests on exactly that decision. Route success figures published online differ from site to site, so ask every company for its own success rate, on which route and over how many days.' },
+
+        { type: 'section', value: 'Rain, season and crowds' },
+        { type: 'text', value: 'Kilimanjaro lies close to the equator, so its seasons are set mainly by rain. In the rainy seasons, roughly from March to May and in November, the southern and western routes are muddier and visibility is lower, and then Rongai has a real advantage. In the dry seasons, January to February and June to October, that advantage shrinks, and acclimatisation and scenery become the main considerations again. Those are the seasons in which our expeditions depart.' },
+        { type: 'text', value: 'Crowds depend on the season too. In July and August the southern routes are especially busy. Anyone looking for quiet in midsummer will find it on the Northern Circuit or on Rongai, and those who climb Machame benefit from the group leaving each camp early and moving at its own pace.' },
+
+        { type: 'section', value: 'And what it does to the price' },
+        { type: 'text', value: 'Kilimanjaro National Park fees are charged by time: a conservation fee for every day in the park, and an accommodation fee for every night. The conservation fee is 70 US dollars per person per day, and the accommodation fee is 50 dollars a night at the tent campsites and 60 dollars a night in the Marangu huts, before VAT (as of 2026). So every extra day on the mountain adds not only fees but also the wages of a whole crew, guides, cooks and porters, which is why longer routes cost more.' },
+        { type: 'text', value: 'On our expedition the park entry and climbing permits are included in the price, as are the tents, three meals a day, the porters and the hotel nights in Moshi. When you compare prices between companies, check that the fees are included, and how many nights on the mountain you get in return.' },
+
+        { type: 'section', value: 'Which route suits you' },
+        { type: 'text', value: 'Instead of looking for "the best route", ask which route suits you. In practice it looks like this:' },
+        { type: 'list', items: [
+          'This is your first high mountain and you have about ten days of holiday: Machame over seven days.',
+          'You have one or two more days and want a quiet start: Lemosho over eight days.',
+          'You want maximum quiet and have almost two weeks: the Northern Circuit.',
+          'You are climbing in the rainy season: Rongai.',
+          'You do not want to sleep in a tent: Marangu, but only with an extra acclimatisation day.',
+          'You have already been to altitude and know how your body reacts: Umbwe is an option, not a recommendation.',
+          'You keep Shabbat: Machame over six days, on an expedition built around Shabbat.',
+        ]},
+        { type: 'text', value: 'For Shabbat-observant travellers there is a separate expedition, 10 days, with a Shabbat in Arusha before the climb. You start Machame on Sunday and descend on Friday at midday, so the second Shabbat is spent at the hotel. We have set out all the details, from kashrut on the mountain to prayer, in a separate guide.' },
+        { type: 'cta', text: 'למדריך קילימנג׳רו לשומרי מסורת וכשרות', textEn: 'Kosher Kilimanjaro guide', href: '/blog/kosher-kilimanjaro-shabbat-guide' },
+
+        { type: 'section', value: 'Kilimanjaro with HighAir' },
+        { type: 'text', value: 'At HighAir we take groups to Kilimanjaro in every dry season, on the Machame Route with seven days on the mountain, within a 9-day expedition, in groups of up to 15 participants. We chose Machame because it combines what matters to a first-time climber: a real acclimatisation day at Lava Tower, an extra night at Karanga before Barafu, and scenery that changes almost every day, from the rainforest to the snow near the summit. Three safari days in Tarangire and the Ngorongoro Crater can be added to the climb.' },
+        { type: 'text', value: 'Important to know: the climb is led by professional local guides from Tanzania who speak English and have long experience leading groups on the mountain. There is no Hebrew-speaking guiding and no Israeli guide or escort. Before the flight the group meets for a gear preparation session and goes on a one-day preparation trek together in Israel. Before you travel it is also worth arranging the visa and the vaccinations, and we have written detailed guides for both.' },
+        { type: 'image', src: '/images/gallery/kilimanjaro/9.webp', alt: 'A group of climbers in warm clothing with trekking poles climbing a scree trail at dawn, with a peak above a sea of clouds behind them', caption: 'At dawn, above the clouds, on the way to the summit' },
+        { type: 'text', value: 'Part of the proceeds from every expedition supports cancer patients in Israel, because for us, the mountains are also a way to give back.' },
+        { type: 'cta', text: 'לטיפוס לקילימנג׳רו במסלול מצ׳אמה', textEn: 'Climb Kilimanjaro on the Machame Route', href: '/expedition/kilimanjaro' },
+        { type: 'cta', text: 'למדריך הוויזה לטנזניה', textEn: 'Tanzania visa guide', href: '/blog/tanzania-visa-guide' },
+        { type: 'cta', text: 'למדריך החיסונים לטנזניה', textEn: 'Tanzania vaccinations guide', href: '/blog/tanzania-vaccinations-guide' },
+
+        { type: 'section', value: 'Frequently asked questions' },
+        { type: 'heading', value: 'Which Kilimanjaro route is the easiest?' },
+        { type: 'text', value: 'No route is truly easy, because the main difficulty is the altitude, not the trail. Marangu and Rongai have gentler gradients, but when they are short they give the body less time to acclimatise. For a first-time climber, a route of seven days or more, such as Machame or Lemosho, is usually the "easiest" way to reach the summit.' },
+        { type: 'heading', value: 'Which route gives the best chance of reaching the summit?' },
+        { type: 'text', value: 'The chance depends first of all on the number of days on the mountain. The long routes, the Northern Circuit and Lemosho over eight days, give the body the most time, and Machame over seven days comes close thanks to the acclimatisation day at Lava Tower. The success rate we publish on Kilimanjaro, on Machame over seven days, is 94%.' },
+        { type: 'heading', value: 'Can you sleep in huts on Kilimanjaro?' },
+        { type: 'text', value: 'Yes, but only on the Marangu route, where you sleep on bunks in shared huts at Mandara, Horombo and Kibo. On all the other routes you sleep in tents at park campsites. On our expedition you sleep in two-person tents with mattresses, and the porters carry the gear.' },
+        { type: 'heading', value: 'Which route suits the rainy season?' },
+        { type: 'text', value: 'Rongai, which climbs the north side of the mountain, receives less rain, so it is considered the good choice in the rainy seasons. Even so, our recommendation is to climb in the dry seasons, January to February and June to October, which is when our expeditions depart.' },
+        { type: 'heading', value: 'How many days do you need to climb Kilimanjaro?' },
+        { type: 'text', value: 'On the mountain itself, at least six days, and preferably seven or more. With an arrival day and a flight home, an expedition with seven days on the mountain lasts about 9 days. That is exactly our structure, and three safari days can be added to it.' },
+        { type: 'heading', value: 'Is there Hebrew-speaking guiding on the Kilimanjaro climb?' },
+        { type: 'text', value: 'No. The climb is led by professional local guides from Tanzania who speak English and have long experience leading groups on the mountain. There is no Hebrew-speaking guiding and no Israeli guide or escort, so it is worth arriving with basic English that lets you understand instructions in the field.' },
+      ],
+  },
+
+  /* ═══════════════════════════════════════════════════════════════════
    *  id:16  aconcagua-climbing-guide  (2026-10-24)
    * ═══════════════════════════════════════════════════════════════════ */
   {
