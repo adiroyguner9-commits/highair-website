@@ -129,7 +129,7 @@ function BlogCard({ post, isEn, dir }) {
             margin:            0,
             lineHeight:        1.35,
             display:           '-webkit-box',
-            WebkitLineClamp:   2,
+            WebkitLineClamp:   1,
             WebkitBoxOrient:   'vertical',
             overflow:          'hidden',
           }}
@@ -214,7 +214,7 @@ export default function BlogPreview() {
     (isEn ? (p.categoryEn || p.category) : p.category) === (isEn ? 'News' : 'חדשות')
   ).slice(0, 3);
 
-  const sectionLabel = isEn ? 'Our Blog' : 'הבלוג שלנו';
+  const sectionLabel = isEn ? 'Our Magazine' : 'המגזין שלנו';
   const heading      = isEn ? 'News & Updates' : 'חדשות ועדכונים';
   const allPostsText = isEn ? 'All posts' : 'לכל הפוסטים';
 

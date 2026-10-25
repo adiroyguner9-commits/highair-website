@@ -350,7 +350,7 @@ for (const post of POSTS) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` },
+      { '@type': 'ListItem', position: 2, name: 'מגזין', item: `${BASE_URL}/blog` },
       { '@type': 'ListItem', position: 3, name: post.title || post.titleEn || '', item: postUrl },
     ],
   }];
@@ -363,7 +363,7 @@ for (const post of POSTS) {
 
   const postTitle = post.title || post.titleEn || '';
   writeShell(`blog/${post.slug}`, {
-    title:         postTitle ? `HighAir Expeditions | ${postTitle}` : 'HighAir Expeditions | בלוג',
+    title:         postTitle ? `HighAir Expeditions | ${postTitle}` : 'HighAir Expeditions | מגזין',
     description:   post.excerpt  || post.excerptEn  || '',
     canonicalPath: `/blog/${post.slug}`,
     image:         post.img      || '',
@@ -552,11 +552,11 @@ const staticPages = [
   },
   {
     path:  'blog',
-    textH1:  'הבלוג של HighAir',                     // i18n.js blog.pageTitle
-    textSub: 'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים',   // blog.subtitle
+    textH1:  'המגזין של HighAir',                    // i18n.js blog.pageTitle
+    textSub: 'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים',   // blog.subtitle
     textPosts: () => POSTS,
-    title: 'HighAir Expeditions | בלוג טיפוס הרים וטרקים',
-    desc:  'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים - מבית HighAir Expeditions. קילימנג׳רו, אוורסט, אנאפורנה ועוד.',
+    title: 'HighAir Expeditions | מגזין טיפוס הרים וטרקים',
+    desc:  'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים, מבית HighAir Expeditions. קילימנג׳רו, אוורסט, אנאפורנה ועוד.',
   },
   {
     path:  'contact',

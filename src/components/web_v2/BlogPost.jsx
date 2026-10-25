@@ -131,8 +131,8 @@ export default function BlogPost() {
     ogType:        'article',
     /* jsonLd intentionally omitted — schema lives in the static shell (see note above) */
   } : {
-    title:         isRtl ? 'מאמר לא נמצא | HighAir Blog' : 'Article Not Found | HighAir Blog',
-    description:   isRtl ? 'המאמר המבוקש לא נמצא. חזרו לבלוג של HighAir Expeditions למאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים.' : 'The requested article was not found. Return to the HighAir Expeditions blog for articles, tips and stories from the world of trekking and mountaineering.',
+    title:         isRtl ? 'מאמר לא נמצא | המגזין של HighAir' : 'Article Not Found | The HighAir Magazine',
+    description:   isRtl ? 'המאמר המבוקש לא נמצא. חזרו למגזין של HighAir Expeditions: מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים.' : 'The requested article was not found. Back to the HighAir Expeditions magazine: complete guides to all our destinations, and news from the world of climbing and trekking.',
     canonicalPath: `/blog/${slug}`,
     noIndex:       true,
   });
@@ -767,6 +767,10 @@ export default function BlogPost() {
                         margin:        '0 0 8px',
                         lineHeight:    1.35,
                         letterSpacing: '-0.01em',
+                        display:         '-webkit-box',
+                        WebkitLineClamp: 1,
+                        WebkitBoxOrient: 'vertical',
+                        overflow:        'hidden',
                       }}>
                         {isEn ? (p.titleEn || p.title) : p.title}
                       </p>

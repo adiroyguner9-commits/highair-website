@@ -92,8 +92,12 @@ function PostCard({ post }) {
           margin:        0,
           lineHeight:    1.35,
           letterSpacing: '-0.01em',
-          height:        `calc(1.35em * 2)`,
+          /* every title is one line (owner, 25 Oct 2026; titles are kept to 33 characters) */
+          height:        '1.35em',
           overflow:      'hidden',
+          display:       '-webkit-box',
+          WebkitLineClamp: 1,
+          WebkitBoxOrient: 'vertical',
         }}>
           {title}
         </h2>
@@ -198,11 +202,11 @@ export default function Blog() {
 
   usePageMeta({
     title:         isEn
-      ? 'Trekking & Climbing Blog | HighAir Expeditions'
-      : 'HighAir Expeditions | בלוג טיפוס הרים וטרקים',
+      ? 'Trekking & Climbing Magazine | HighAir Expeditions'
+      : 'HighAir Expeditions | מגזין טיפוס הרים וטרקים',
     description:   isEn
-      ? 'Articles, tips and stories from the world of trekking and mountain climbing - by the HighAir Expeditions team. Kilimanjaro, Everest, Elbrus and more.'
-      : 'מאמרים, טיפים וסיפורים מעולם הטרקים וטיפוס ההרים - מבית HighAir Expeditions.',
+      ? 'Complete guides to all our destinations, and news from the world of climbing and trekking, by HighAir Expeditions.'
+      : 'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים, מבית HighAir Expeditions.',
     canonicalPath: '/blog',
   });
 

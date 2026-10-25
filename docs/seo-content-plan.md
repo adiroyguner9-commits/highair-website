@@ -46,6 +46,9 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
    once in the body and in the FAQ ("האם יש הדרכה בעברית?").
 11. Card description (`excerpt`): 135 to 145 characters in Hebrew (owner, 25 Oct 2026). The cards show
    exactly 3 lines, and this length fills 3 lines on every phone width without leaving a 2-line card.
+12. Title: one line on every card (owner, 25 Oct 2026): at most 32 characters in Hebrew and in English.
+   Guides: "<topic>: המדריך המלא" / "<Topic>: Full Guide". News: "<name>: <what happened>".
+   Category is `מדריכים` / `Guides` or `חדשות` / `News` only. The section is called מגזין / Magazine.
    Facts the owner set (24 Oct 2026): climbs are led by LOCAL guides in English. There is NO Hebrew
    guiding and NO Israeli guide or escort on any destination. Never write otherwise; say it plainly
    where a reader would ask (the kosher guide has an FAQ for it).
