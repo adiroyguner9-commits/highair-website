@@ -44,6 +44,8 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
    המסע". No warning levels, no warning section, no warning FAQ. Never call a destination safe.
 10. Guiding: local guides, no Hebrew guiding and no Israeli guide or escort on any destination; say it
    once in the body and in the FAQ ("האם יש הדרכה בעברית?").
+11. Card description (`excerpt`): 135 to 145 characters in Hebrew (owner, 25 Oct 2026). The cards show
+   exactly 3 lines, and this length fills 3 lines on every phone width without leaving a 2-line card.
    Facts the owner set (24 Oct 2026): climbs are led by LOCAL guides in English. There is NO Hebrew
    guiding and NO Israeli guide or escort on any destination. Never write otherwise; say it plainly
    where a reader would ask (the kosher guide has an FAQ for it).
