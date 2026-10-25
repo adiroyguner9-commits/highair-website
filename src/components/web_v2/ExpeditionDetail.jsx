@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
 import FaqAccordion from './FaqAccordion.jsx';
-import { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn } from '../../data/faqData.js';
+import { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } from '../../data/faqData.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import Header from './Header.jsx';
@@ -385,8 +385,8 @@ export default function ExpeditionDetail() {
   const faqEntry = exp ? FAQ_BY_SLUG[exp.slug] : null;
   const expFaqItems = exp
     ? (isRtl
-        ? (faqEntry?.he?.length ? faqEntry.he : makeDefaultFaq(exp?.groupCapacity || 15))
-        : (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15)))
+        ? (faqEntry?.he?.length ? faqEntry.he : makeDefaultFaq(exp?.groupCapacity || 15, exp?.experienceHe))
+        : (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15, exp?.experienceEn)))
     : [];
 
   const expJsonLd = exp ? [
@@ -928,8 +928,8 @@ export default function ExpeditionDetail() {
   const extrasItems = extrasIdx === -1 ? [] : notIncludedRaw.slice(extrasIdx + 1);
   const isSafariExp = exp.type === 'Safari';
   const importantToNote = isRtl
-    ? (exp.importantToNote?.length ? exp.importantToNote : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI : DEFAULT_IMPORTANT))
-    : (exp.importantToNoteEn?.length ? exp.importantToNoteEn : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI_EN : DEFAULT_IMPORTANT_EN));
+    ? notesWithExperience(exp.importantToNote?.length ? exp.importantToNote : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI : DEFAULT_IMPORTANT), exp.experienceHe)
+    : notesWithExperience(exp.importantToNoteEn?.length ? exp.importantToNoteEn : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI_EN : DEFAULT_IMPORTANT_EN), exp.experienceEn);
   const includedItems = isRtl ? (exp.included || []) : (exp.includedEn || exp.included || []);
   const seasons = isRtl ? (exp.seasons || []) : ((exp.seasonsEn || exp.seasons || []).map(s => translateSeason(s, false)));
   const displayDays = isRtl ? exp.days : (exp.daysEn || translateDays(exp.days, false));

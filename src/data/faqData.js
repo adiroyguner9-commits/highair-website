@@ -192,9 +192,15 @@ function safariEn() {
 
 /* ── Default FAQ ── used by any destination without its own entry above.
    `cap` is the group capacity, interpolated so the group-size answer stays true. */
-export function makeDefaultFaq(cap = 15) {
+/* A trip that needs previous experience says so in experienceHe / experienceEn
+   (mockData; owner, 25 Oct 2026). That line replaces the generic "no prior
+   experience" FAQ answer and note, which would mislead on a technical climb. */
+const NO_PRIOR_EXPERIENCE = /אם אין לכם ניסיון קודם|If you have no prior experience|No prior climbing experience required/;
+export const notesWithExperience = (notes = [], line) => (line ? notes.map(n => (NO_PRIOR_EXPERIENCE.test(n) ? line : n)) : notes);
+
+export function makeDefaultFaq(cap = 15, experience) {
   return [
-    { q: 'האם נדרש ניסיון קודם?', a: 'לרוב המסלולים שלנו לא נדרש ניסיון טיפוס קודם. מה שצריך הוא כושר גופני טוב, ראש פתוח ורצון להגיע לפסגה - וההכנה שאנחנו עושים יחד לפני היציאה עושה את השאר.' },
+    { q: 'האם נדרש ניסיון קודם?', a: experience || 'לרוב המסלולים שלנו לא נדרש ניסיון טיפוס קודם. מה שצריך הוא כושר גופני טוב, ראש פתוח ורצון להגיע לפסגה - וההכנה שאנחנו עושים יחד לפני היציאה עושה את השאר.' },
     { q: 'מה גודל הקבוצה?', a: `הקבוצות שלנו מוגבלות ל-${cap} משתתפים לכל היותר, כדי לשמור על ליווי אישי, יחס חם ואיכות חוויה גבוהה לאורך כל המסע.` },
     { q: 'האם יש אפשרות לחדר יחיד?', a: 'כן, ניתן לבקש חדר יחיד בתוספת תשלום. חשוב לציין זאת כבר בטופס ההרשמה כדי שנוכל להבטיח את החדר.' },
     { q: 'מה קורה אם אני צריך לרדת באמצע?', a: 'בטיחות המשתתפים לפני הכול. אם צריך לרדת מוקדם מכל סיבה, המדריך מלווה אתכם בחזרה בבטחה. חשוב לדעת שהוצאות נוספות שנובעות מירידה מוקדמת חלות על המטייל.' },
@@ -202,9 +208,9 @@ export function makeDefaultFaq(cap = 15) {
   ];
 }
 
-export function makeDefaultFaqEn(cap = 15) {
+export function makeDefaultFaqEn(cap = 15, experience) {
   return [
-    { q: 'Is prior experience required?', a: 'For most of our routes no prior climbing experience is needed. What it takes is good fitness, an open mind and the will to reach the summit - and the preparation we do together before departure does the rest.' },
+    { q: 'Is prior experience required?', a: experience || 'For most of our routes no prior climbing experience is needed. What it takes is good fitness, an open mind and the will to reach the summit - and the preparation we do together before departure does the rest.' },
     { q: 'What is the group size?', a: `Our groups are limited to a maximum of ${cap} participants, to keep personal guidance, a warm touch and a high-quality experience throughout the journey.` },
     { q: 'Is a single room available?', a: 'Yes, a single room can be requested for an additional fee. Please note it on the registration form so we can secure the room for you.' },
     { q: 'What happens if I need to descend early?', a: 'Participant safety comes first. If you need to descend early for any reason, the guide accompanies you back safely. Note that any extra costs arising from an early descent are the traveller\'s responsibility.' },

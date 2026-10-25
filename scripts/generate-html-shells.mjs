@@ -218,8 +218,8 @@ function writeShell(routePath, meta) {
 
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
 /* The FAQ the trip page shows: its own list, else the default (ExpeditionDetail.jsx). */
-const { FAQ_BY_SLUG, makeDefaultFaq } = await import(path.join(ROOT, 'src/data/faqData.js'));
-const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15));
+const { FAQ_BY_SLUG, makeDefaultFaq, notesWithExperience } = await import(path.join(ROOT, 'src/data/faqData.js'));
+const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe));
 let expCount = 0;
 for (const exp of EXPS) {
   if (!exp.slug || exp.teaser) continue;   // teaser cards have no detail page
@@ -306,7 +306,7 @@ for (const exp of EXPS) {
     image:         exp.ogImage         || exp.img || '',
     heroImage:     expHeroImage(exp),
     preHero:       preHeroHtml('trip', expHeroImage(exp)),
-    text:          wrapText(expeditionText(exp, faqFor(exp))),
+    text:          wrapText(expeditionText({ ...exp, importantToNote: notesWithExperience(exp.importantToNote, exp.experienceHe) }, faqFor(exp))),
     noIndex:       exp.live === false,
     jsonLd,
   });

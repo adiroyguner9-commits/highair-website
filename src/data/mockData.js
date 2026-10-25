@@ -1291,6 +1291,10 @@ This 16-day adventure takes you through traditional Gurung and Manangi villages,
     seoDescription: 'טיפוס לאלברוס - ההר הגבוה באירופה, 5642 מ׳. 8 ימים ברוסיה, אחת מ-7 הפסגות. מסלול דרומי עם רכבל עד 3850 מ׳, לינה בבקתות ויום פסגה של 10–14 שעות.',
     seoDescriptionEn: 'Climb Elbrus (5642m) - the highest peak in Europe, one of the 7 Summits. 8 days, cable car to 3850m, summit day 10-14 hours. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#64748b,#475569,#1e293b)',
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'נדרש ניסיון בסיסי בהליכה בשלג ובקרמפונים, אבל לא טיפוס טכני. על ההר מתקיים אימון אלפיני לפני יום הפסגה.',
+    experienceEn: 'Basic experience walking on snow and in crampons is required, but not technical climbing. Alpine training takes place on the mountain before summit day.',
     desc: `הר אלברוס הוא הפסגה הגבוהה באירופה, מתנשא לגובה 5642 מ׳ ונמנה עם "שבע הפסגות" הגבוהות בכל יבשת. הוא מהווה יעד מושלם עבור מטפסים השואפים להעפיל אל פסגה אלפינית משמעותית בלב רכס הקווקז העוצמתי.
 
 הטיפוס דרך המסלול הדרומי נחשב לדרך הפופולרית והבטוחה ביותר להגיע אל הפסגה. המסלול מאתגר ודורש כושר גופני טוב, אך בעזרת התאקלמות נכונה ושימוש בתשתיות המסלול הדרומי (כמו הרכבלים ובקתות ההרים), הוא בהחלט בר השגה עבור מטפסים נחושים! במהלך המשלחת תלמדו ותתרגלו עבודה עם ציוד טכני הכולל קרמפונים, גרזן קרח ועבודה בחבלים.
@@ -1836,6 +1840,10 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
     seoDescription: 'טיפוס ללובוצ׳ה פיק - 6119 מ׳ בנפאל. 19 ימים, פסגה ממול קרחון קומבו עם נוף ישיר על אוורסט. כולל בייס קמפ אוורסט וקאלה פטאר לפני יום הפסגה.',
     seoDescriptionEn: 'Climb Lobuche Peak (6119m) in Nepal - 19 days. Technical summit opposite the Khumbu Glacier with direct views of Everest. Includes EBC & Kala Patthar. Expert guides.',
     grad: 'linear-gradient(135deg,#6366f1,#4f46e5,#1e1b4b)',
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'הטיפוס דורש כושר גופני גבוה, כישורי טיפוס טכניים וניסיון קודם במסלולים בגובה רב. לפני יום הפסגה המשתתפים עוברים הכשרה מלאה על הציוד.',
+    experienceEn: 'The climb requires high fitness, technical climbing skills and previous high-altitude experience. Before summit day participants receive full training on the gear.',
     desc: `לובוצ׳ה פיק היא אחת הפסגות המבוקשות בהימלאיה, המתנשאת לגובה 6119 מ׳ מעל פני הים. הפסגה ממוקמת באזור קומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת ליעד מצוין עבור מטפסי הרים המעוניינים לצבור ניסיון בטיפוס מאתגר בהימלאיה.
 
 פסגת לובוצ׳ה הפכה לפסגת הסתגלות לגובה מצוינת עבור מטפסים המתכוננים להעפיל אל הרי הענק של ההימלאיה בגובה 8000 מ׳ ומעלה. המסלול ברמת קושי בינוני ומאפשר למטפסים לשפר את כישוריהם בשימוש בקסדה, רתמה, גרזן קרח, ג׳ומאר, קרמפונים, חבלים קבועים וציוד מקצועי נוסף על פני השלג, הקרח והסלע של ההר.
@@ -2013,6 +2021,10 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     seoDescription: 'טיפוס לאיילנד פיק - 6189 מ׳ בנפאל. 20 ימים, פסגה טכנית עם נוף על אוורסט, להוטסה, מקאלו, צ׳ו אויו ואמא דאבלם בבת-אחת. כולל בייס קמפ אוורסט מלא.',
     seoDescriptionEn: 'Climb Island Peak (6189m) in Nepal - 20 days. Technical summit with views of Everest, Lhotse & Ama Dablam. Includes full EBC trek. Expert guides. Supports cancer patients.',
     grad: 'linear-gradient(135deg,#9333ea,#7c3aed,#3b0764)',
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'הטיפוס דורש ניסיון קודם בטרקים ובטיפוס, ורצוי בטרק בגובה של מעל 4,500 מ׳. לפני יום הפסגה המשתתפים עוברים הכשרה על הציוד, כולל עלייה בג׳ומאר על חבל מקובע.',
+    experienceEn: 'The climb requires previous trekking and climbing experience, ideally a trek above 4,500 m. Before summit day participants train on the gear, including jumaring on a fixed rope.',
     desc: `איילנד פיק היא אחת הפסגות הגבוהות והמרשימות בהימלאיה, המתנשאת לגובה 6189 מ׳ מעל פני הים. הפסגה ממוקמת באזור קומבו שבנפאל, סמוך לפסגת האוורסט, ונחשבת לאתגר מרתק עבור מטפסי הרים בעלי ניסיון בטרקים ובטיפוס.
 
 הפסגה קיבלה את כינויה, "פסגת האי", בשל צורתה הייחודית והבולטת, המזכירה אי בודד המתנשא מעל סביבתו. צורה זו באה לידי ביטוי במיוחד כאשר מסתכלים על הפסגה מהצד הדרומי שלה.
@@ -2535,6 +2547,10 @@ The reward: standing on the highest point in the Americas, with the Andes stretc
     seoDescription: 'טיפוס ללנין פיק - ההר הנגיש מעל 7000 מ׳, 7134 מ׳ בקירגיזסטן. 20 ימים, שלושה מחנות גובה, בייס קמפ עם יורטות. נדרש ניסיון מעל 5500 מ׳.',
     seoDescriptionEn: 'Climb Lenin Peak (7134m) in Kyrgyzstan - 20 days. The most accessible peak above 7000m, 3 high camps, yurt base camp. Prior experience above 5500m required.',
     grad: 'linear-gradient(135deg,#4c1d95,#2d1b69,#0f0a1e)',
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'נדרש ניסיון קודם בגובה של מעל 5,500 מ׳, למשל בקילימנג׳רו, באלברוס או באקונקגואה, וכושר וסיבולת גבוהים.',
+    experienceEn: 'Previous experience above 5,500 m is required, for example on Kilimanjaro, Elbrus or Aconcagua, together with high fitness and endurance.',
     desc: `הר לנין הוא אחת הפסגות הגבוהות ביותר במרכז אסיה, המתנשא לגובה אדיר של 7134 מ׳. ההר, השוכן ברכס פמיר שבין קירגיזסטן לטג'יקיסטן, נחשב לאחד ההרים הנגישים ביותר בעולם מעל קו 7000 המטרים, והוא השלב הבא והמתבקש עבור מטפסים החולמים על גבהים חדשים.
 
 המסלול אל הפסגה הוא אתגר פיזי ומנטלי יוצא דופן. הטיפוס אינו נחשב לטכני באופן קיצוני, אך הוא דורש סיבולת גבוהה מאוד, התמודדות עם תנאי גובה משמעותיים ושהייה ממושכת בשטח. במהלך המשלחת תתנסו בטיפוס אלפיני אמיתי הכולל הקמת מחנות גובה, הליכה בקרחונים וחציית שדות שלג אינסופיים, כל זאת תחת פיקוח מקצועי וליווי צמוד.
@@ -3022,6 +3038,10 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     img: '/images/cards/manaslu-climb.webp',
     grad: 'linear-gradient(135deg,#4C1D95,#5B21B6,#1e1b4b)',
     /* Live. Intro by HighAir; itinerary + included/notIncluded per supplier (Peak 15 Adventure). */
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'המשלחת מיועדת למטפסים מנוסים שכבר צברו ניסיון בפסגות של 6,000 ו-7,000 מטרים, בכושר גופני גבוה.',
+    experienceEn: 'The expedition is for experienced climbers who have already climbed peaks of 6,000 and 7,000 m, with high fitness.',
     desc: `מנסלו, ״הר הרוח״, מתנשא לגובה 8163 מ׳ בלב הרי ההימלאיה בנפאל, והוא הפסגה השמינית בגובהה בעולם ואחת מ-14 הפסגות הגבוהות בעולם מעל 8000 מ׳. עבור מטפסי הרים מנוסים, מנסלו הוא שער הכניסה אל עולם ה-8000 מ׳: מסע רציני של טיפוס בגובה רב, כזה שמזמין את מי שכבר צבר ניסיון בפסגות של 6000 ו-7000 מ׳ בלבד.
 
 הדרך אל בייס קמפ עוברת בכפרים נידחים ובעמקים עמוקים למרגלות הרכס, הרחק ממסלולי התיירות ההומים. משם מתחיל הטיפוס עצמו: סבב התאקלמות ורוטציות בין המחנות הגבוהים, מעבר על קרחונים וסדקים, וטיפוס לאורך חבלים קבועים אל עבר הפסגה. מנסלו נחשב לאחד ה-8000 מ׳ הנגישים יותר מבחינה טכנית, אך דורש כושר מעולה, הכנה מנטלית וליווי מקצועי צמוד.
@@ -3169,6 +3189,10 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
     img: '/images/cards/ama-dablam.webp',
     grad: 'linear-gradient(135deg,#1e3a8a,#3730a3,#0f172a)',
     /* Live. Itinerary + included/notIncluded from the supplier (Peak 15 Adventure), intro in HighAir's voice. */
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'הטיפוס דורש ניסיון קודם בטיפוס טכני, כושר גופני טוב והסתגלות לתנאי הגובה, והוא מתאים למטפסים מנוסים.',
+    experienceEn: 'The climb requires previous technical climbing experience, good fitness and adaptation to altitude, and suits experienced climbers.',
     desc: `אמא דאבלם היא אחת הפסגות היפות והמזוהות ביותר בהרי ההימלאיה, המתנשאת לגובה 6812 מ׳ מעל פני הים. הפסגה ממוקמת באזור הקומבו שבנפאל, סמוך לאוורסט, ונחשבת לאחת מפסגות הטיפוס הטכניות המבוקשות בעולם.
 
 בשל צורתה החדה והמושלמת זכתה אמא דאבלם לכינוי ״המטרהורן של ההימלאיה״, ושמה, ״שרשרת האם״, ניתן לה בשל הקרחון התלוי על מדרונותיה שנראה כמו תליון על צוואר האם.
@@ -3316,6 +3340,10 @@ Join us on a journey to one of the most beautiful peaks in the world and take a 
     img: '/images/cards/himlung-himal.webp',
     grad: 'linear-gradient(135deg,#0e7490,#155e75,#0c1a2b)',
     /* Live. Itinerary + included/notIncluded from the supplier (Peak 15 Adventure), intro in HighAir's voice. */
+    /* Previous experience this trip needs (owner, 25 Oct 2026): replaces the generic
+       "no prior experience" note and default FAQ answer (faqData.js). */
+    experienceHe: 'הטיפוס דורש ניסיון קודם בטיפוס הרים, כושר גופני טוב והסתגלות לתנאי הגובה.',
+    experienceEn: 'The climb requires previous mountaineering experience, good fitness and adaptation to altitude.',
     desc: `הימלונג הימאל היא פסגת טיפוס מרשימה בהרי ההימלאיה, המתנשאת לגובה 7126 מ׳ מעל פני הים. הפסגה ממוקמת בעמק נאר-פו הנידח שבצפון נפאל, סמוך לגבול טיבט, באזור שבין המנסלו לאנאפורנה.
 
 הימלונג נחשבת לאחת הפסגות הטובות בעולם לטיפוס ראשון בגובה של 7000 מ׳, והיא משמשת הכנה מצוינת לקראת משלחות אל פסגות ה-8000 מ׳.
