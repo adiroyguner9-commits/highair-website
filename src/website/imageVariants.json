@@ -170,6 +170,42 @@
   "s": "/images/cards/thumbs/sinai.webp",
   "sw": 760
  },
+ "/images/cards/manaslu.webp": {
+  "w": 1400,
+  "h": 1049,
+  "s": "/images/cards/thumbs/manaslu.webp",
+  "sw": 760
+ },
+ "/images/cards/IslandPeak.webp": {
+  "w": 900,
+  "h": 1284,
+  "s": "/images/cards/thumbs/IslandPeak.webp",
+  "sw": 760
+ },
+ "/images/cards/mount-kenya.webp": {
+  "w": 1024,
+  "h": 768,
+  "s": "/images/cards/thumbs/mount-kenya.webp",
+  "sw": 760
+ },
+ "/images/cards/olympus.jpg": {
+  "w": 1600,
+  "h": 1067,
+  "s": "/images/cards/thumbs/olympus.jpg",
+  "sw": 760
+ },
+ "/images/cards/peaks-of-balkan.webp": {
+  "w": 1600,
+  "h": 1200,
+  "s": "/images/cards/thumbs/peaks-of-balkan.webp",
+  "sw": 760
+ },
+ "/images/cards/ethiopia.webp": {
+  "w": 1400,
+  "h": 1050,
+  "s": "/images/cards/thumbs/ethiopia.webp",
+  "sw": 760
+ },
  "/images/cards/aconcagua.webp": {
   "w": 960,
   "h": 720,

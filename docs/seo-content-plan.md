@@ -39,6 +39,11 @@ Only the owner (or Claude in a session, on his instruction) reorders or adds top
    a plain-text byline, no author page). Guides show no date on the site (only news does), so never
    write "today" or "this week" in a guide; keep `dateIso` / `dateModified` accurate for the schema.
    Hebrew: התאקלמות, never אקלום; להעפיל, never לכבוש (BLOG_STYLE_GUIDE.md §2.1).
+9. Travel warnings (owner, 25 Oct 2026: "אל תפחיד את הקורא"): one neutral line only, e.g. "כמו לפני
+   כל נסיעה לחו״ל, כדאי לבדוק את המלצות המסע העדכניות לישראלים ולוודא שביטוח הנסיעות מכסה את
+   המסע". No warning levels, no warning section, no warning FAQ. Never call a destination safe.
+10. Guiding: local guides, no Hebrew guiding and no Israeli guide or escort on any destination; say it
+   once in the body and in the FAQ ("האם יש הדרכה בעברית?").
    Facts the owner set (24 Oct 2026): climbs are led by LOCAL guides in English. There is NO Hebrew
    guiding and NO Israeli guide or escort on any destination. Never write otherwise; say it plainly
    where a reader would ask (the kosher guide has an FAQ for it).
@@ -63,15 +68,16 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 18 | live | טיפוס לאלברוס: המדריך המלא | trip pages rank, no deep guide | elbrus |
 | 27 | live | טיפוס לקזבק: המדריך המלא | only in the comparison (#15), English results dominate | kazbek |
 | 21 | live | טרק להר הגבוה בסיני: המדריך המלא | new destination, winter season, no Hebrew guide | sinai |
+| 13 | live | טרק סימיאן ודנקיל באתיופיה: המדריך המלא | thin Hebrew coverage | ethiopia |
+| 11 | live | טיפוס להר קניה: המדריך המלא בעברית | Hebrew search returns English only | mount-kenya |
+| 19 | live | פסגות הבלקן: טרק בשלוש מדינות | thin Hebrew coverage | peaks-of-balkan |
+| 12 | live | טיפוס לאולימפוס: המדריך המלא בעברית | Hebrew search returns English only | olympus |
+| 10 | live | מנסלו סירקיט: המדריך המלא בעברית | Hebrew search returns English only | manaslu-circuit, manaslu |
+| 30 | live | טיפוס לאיילנד פיק: המדריך המלא | technical first 6,000 m peak, English results only | island-peak |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
-| 13 | todo | טרק באתיופיה ברכס הסימיאן וראס דשן | thin Hebrew coverage | ethiopia |
-| 11 | todo | טיפוס להר קניה: המדריך המלא בעברית | Hebrew search returns English only | mount-kenya |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
-| 19 | todo | פסגות הבלקן: טרק בשלוש מדינות | thin Hebrew coverage | peaks-of-balkan |
-| 12 | todo | טיפוס לאולימפוס: המדריך המלא בעברית | Hebrew search returns English only | olympus |
 | 25 | todo | טיפוס ללנין פיק: המדריך המלא | 7,134 m, English results only | lenin-peak |
-| 10 | todo | מנסלו סירקיט: המדריך המלא בעברית | Hebrew search returns English only | manaslu-circuit, manaslu |
 | 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
 | 23 | todo | טיפוס לאמא דאבלם: המדריך המלא | technical 6,812 m, English results only | ama-dablam |
 | 24 | todo | טיפוס להימלונג הימאל: הפסגה הראשונה מעל 7,000 מטרים | English results only | himlung-himal |
