@@ -254,7 +254,7 @@ export const POSTS = [
       imgPosition:      'center 40%',
       imgPositionCard:  'center 40%',
       imgCredit:        '',
-      excerpt:   'המדריך המלא לטרק סובב אנאפורנה: המסלול יום אחרי יום, אגם טיליצ׳ו, מעבר תורונג לה, התאקלמות, היתרים, עונות, כושר ועלויות.',
+      excerpt:   'טרק סובב אנאפורנה הוא מהטרקים הקלאסיים של נפאל. המדריך המלא: המסלול יום אחרי יום, אגם טיליצ׳ו, מעבר תורונג לה, התאקלמות, היתרים, עונות ועלויות.',
       excerptEn: 'The complete guide to the Annapurna Circuit trek: the route day by day, Tilicho Lake, the Thorong La pass, acclimatisation, permits, seasons and cost.',
       content: [
         { type: 'text', value: 'ביום ה-13 של הטרק, עוד לפני עלות השחר, יוצאים המטיילים מתורונג היי קמפ, בגובה 4,880 מטרים, ומתחילים לעלות בחשיכה אל מעבר תורונג לה, 5,416 מטרים, הנקודה הגבוהה ביותר בסובב אנאפורנה. טרק סובב אנאפורנה הוא מסע הליכה מעגלי סביב רכס אנאפורנה שבצפון מרכז נפאל: הוא עולה בעמק נהר המרסיאנדי, חוצה את המעבר ויורד אל מוקטינאת שבצד השני. הוא אינו דורש ניסיון טיפוס, אבל דורש כושר טוב, כשבועיים בנפאל וסבלנות לתהליך ההתאקלמות. העונות המומלצות הן האביב והסתיו, לפני המונסון ואחריו.' },
@@ -708,7 +708,7 @@ export const POSTS = [
       imgPosition:      'center 40%',
       imgPositionCard:  'center 40%',
       imgCredit:        '',
-      excerpt:   'אלברוס, 5,642 מ׳, הוא ההר הגבוה באירופה. המדריך המלא: המסלול הדרומי, ההתאקלמות, יום הפסגה, הציוד הטכני, העונה והכניסה לרוסיה.',
+      excerpt:   'אלברוס, 5,642 מ׳, הוא ההר הגבוה באירופה. המדריך המלא: המסלול הדרומי יום אחרי יום, ההתאקלמות, יום הפסגה, הציוד הטכני, העונה והכניסה לרוסיה.',
       excerptEn: 'Elbrus, 5,642 m, is the highest mountain in Europe. The full guide: the South Route, acclimatisation, summit day, technical gear, season and entry to Russia.',
       content: [
         { type: 'text', value: 'בשעות הלילה, ביום השישי של המשלחת, מבקתת ליפרוס בגובה 3,900 מ׳, יוצאים המטפסים ליום הארוך ביותר שלהם: עלייה לפסגת הר אלברוס, 5,642 מ׳, ההר הגבוה באירופה, וירידה חזרה לבקתה. המשלחת שלנו עולה במסלול הדרומי, שבו רכבלים ובקתות הרים מקצרים את הדרך אל קו השלג, והיא נמשכת 8 ימים. זה אינו טיפוס טכני, אבל הוא דורש קרמפונים, גרזן קרח ועבודה בחבלים, עמידה בקור של ממש ויום פסגה של 10 עד 14 שעות. העונה היא הקיץ, מיוני עד ספטמבר.' },
@@ -916,7 +916,7 @@ export const POSTS = [
       imgPosition:      'center 35%',
       imgPositionCard:  'center 35%',
       imgCredit:        '',
-      excerpt:   'קזבק, 5,054 מ׳, הוא הר געש רדום בקווקז הגאורגי. המדריך המלא: המסלול מגרגטי, הקרחון והציוד הטכני, ההתאקלמות, יום הפסגה, העונה, הכניסה לגאורגיה והמחיר.',
+      excerpt:   'קזבק, 5,054 מ׳, הוא הר געש רדום בקווקז הגאורגי. המדריך המלא: המסלול מגרגטי, הקרחון והציוד הטכני, ההתאקלמות, יום הפסגה, העונה, הכניסה והמחיר.',
       excerptEn: 'Kazbek, 5,054 m, a dormant volcano in the Georgian Caucasus. The full guide: route from Gergeti, glacier and gear, acclimatisation, summit day, season and cost.',
       content: [
         { type: 'text', value: 'באישון לילה, לאור פנסי ראש, יוצאים המטפסים ממחנה הבסיס של קזבק, התחנה המטאורולוגית הישנה בגובה 3,650 מ׳, אל יום הטיפוס הארוך של המסע: 1,404 מ׳ של עלייה על שלג וקרח אל הפסגה, 5,054 מ׳, וירידה חזרה לאוהלים, 10 עד 12 שעות בסך הכול. טיפוס לקזבק הוא משלחת של 8 ימים בגאורגיה, טיסה קצרה מישראל, שבה הולכים על קרחון עם קרמפונים, גרזן קרח ורתמה. במשלחת שלנו לא נדרש ניסיון קודם בטיפוס, אבל נדרשים כושר גבוה, אימון אלפיני על ההר ועמידות ליום פסגה ארוך. העונה היא הקיץ, מיוני עד ספטמבר.' },
@@ -1100,7 +1100,7 @@ export const POSTS = [
       imgPosition: 'center 55%',
       imgPositionCard: 'center 55%',
       imgCredit: '',
-      excerpt: 'טרק של 6 ימים בהר הגבוה של דרום סיני: הר סיני, ג׳בל קתרינה, ואדיות ובוסתנים בדואיים. המסלול, הקושי, העונה, מעבר טאבה והמחיר.',
+      excerpt: 'טרק של 6 ימים בהר הגבוה של דרום סיני: הר סיני, ג׳בל קתרינה, ואדיות ובוסתנים בדואיים. המדריך המלא: המסלול, הקושי, העונה, מעבר טאבה והמחיר.',
       excerptEn: 'A 6-day trek in the high mountains of South Sinai: Mount Sinai, Jebel Katherina and Bedouin bustans. Route, difficulty, season, Taba and cost.',
       content: [
         { type: 'text', value: 'בבוקר השני של הטרק, על פסגת ג׳בל קתרינה בגובה 2,642 מ׳, נפרשים מתחת למטיילים רכסי הגרניט של דרום סיני, ובימים בהירים נראה מכאן גם ים סוף. זו הנקודה הגבוהה ביותר במצרים, ואחת מתחנות השיא של הטרק להר הגבוה בסיני: מסע של 6 ימים בין פסגות, ואדיות ובוסתנים בדואיים, בהובלת צוות בדואי מקומי. הטרק אינו כולל טיפוס טכני, אבל הוא דורש כושר גופני טוב, 10 עד 15 ק״מ הליכה ביום בשטח הררי.' },
@@ -1260,7 +1260,7 @@ export const POSTS = [
       imgPosition: 'center 40%',
       imgPositionCard: 'center 40%',
       imgCredit: '',
-      excerpt: 'המדריך המלא לטרק סובב מנסלו: המסלול יום אחרי יום, מעבר לרקיה לה, התאקלמות, היתר האזור המוגבל, שיטפונות בעמק, עונות, כושר ועלויות.',
+      excerpt: 'המדריך המלא לטרק סובב מנסלו: המסלול יום אחרי יום, מעבר לרקיה לה, התאקלמות, היתר האזור המוגבל, השיטפונות בעמק, העונות, הכושר וכמה זה עולה.',
       excerptEn: 'The complete guide to the Manaslu Circuit trek: the route day by day, the Larkya La pass, acclimatisation, the restricted area permit, seasons and cost.',
       content: [
         { type: 'text', value: 'בין דגלי התפילה שבמעבר לרקיה לה, בגובה 5,106 מטרים, עומד שלט עץ פשוט שמודה למטיילים על הביקור במנסלו, ומגיעים אליו ביום ה-13 של הטרק, אחרי עלייה בחשיכה. טרק סובב מנסלו הוא מסע הליכה מעגלי סביב מנסלו, ההר השמיני בגובהו בעולם, 8,163 מטרים, במרכז נפאל. הוא עולה לאורך עמק נהר בודהי גנדקי, חוצה את מעבר לרקיה לה ויורד אל עמק המרסיאנדי. האזור מוגדר אזור מוגבל, ונכנסים אליו רק בהיתר מיוחד ועם מדריך מורשה. לא נדרש בו ניסיון קודם בטרקים, אבל נדרשים כושר טוב, כשבועיים בנפאל וסבלנות לתהליך ההתאקלמות. העונות המומלצות הן האביב והסתיו.' },
@@ -2058,7 +2058,7 @@ export const POSTS = [
       imgPosition: 'center 55%',
       imgPositionCard: 'center 55%',
       imgCredit: '',
-      excerpt: 'המדריך המלא לטרק באתיופיה: הרי הסימיאן וראס בוהאיט, מדבר דנקיל וכנסיות טיגראי. המסלול יום אחרי יום, קושי, עונה, ויזה והמחיר.',
+      excerpt: 'המדריך המלא לטרק באתיופיה: הרי הסימיאן וראס בוהאיט, מדבר דנקיל והכנסיות החצובות בטיגראי. המסלול יום אחרי יום, הקושי, העונה, הוויזה והמחיר.',
       excerptEn: 'The complete guide to our Ethiopia trek: the Simien Mountains and Ras Bwahit, the Danakil and Tigray. Route, difficulty, season, visa and cost.',
       content: [
         { type: 'text', value: 'בבוקר השישי של המסע, עוד לפני הזריחה, יוצאת הקבוצה ממחנה צ׳נק שבהרי הסימיאן, בגובה 3,620 מטרים, ומעפילה לפסגת ראס בוהאיט, 4,430 מטרים, הנקודה הגבוהה במסע כולו. טרק הרי סימיאן ומדבר דנקיל הוא מסע של 12 ימים בצפון אתיופיה: ארבעה ימי הליכה ברמות ובמצוקים של הסימיאן, שלושה ימים במדבר דנקיל, מהמקומות הנמוכים והחמים בעולם, וביקור בכנסיות החצובות בסלע בטיגראי. ניסיון קודם בטרקים אינו תנאי, אבל נדרש כושר שמאפשר ללכת 10 עד 15 ק״מ ביום בגובה של יותר מ-3,000 מטרים. העונה היא נובמבר עד פברואר.' },
@@ -3611,7 +3611,7 @@ export const POSTS = [
     imgPosition:     'center 45%',
     imgPositionCard: 'center 45%',
     imgCredit:       '',
-    excerpt:  'כמה כסף לקחת לטיפוס בקילימנג׳רו, האם דולרים מתקבלים בטנזניה, מזומן מול אשראי, וטיפים על תשר. מדריך הכסף המלא למטייל.',
+    excerpt:  'כמה כסף לקחת לטיפוס בקילימנג׳רו, האם דולרים מתקבלים בטנזניה, מזומן או אשראי, וכמה טיפ נותנים לצוות ההר. מדריך הכסף המלא למטייל בטנזניה.',
     excerptEn: 'How much cash to bring for Kilimanjaro, whether US dollars are accepted in Tanzania, cash versus cards, and tips on tipping the mountain crew.',
 
     content: [
@@ -3889,7 +3889,7 @@ export const POSTS = [
     imgPosition:     'center 40%',
     imgPositionCard: 'center 40%',
     imgCredit:       '',
-    excerpt:  'כל מה שצריך לדעת על הוצאת ויזה לטנזניה לקראת טיפוס לקילימנג׳רו: עלות, זמן הנפקה, סוג הויזה, ומדריך מילוי הבקשה צעד אחר צעד.',
+    excerpt:  'כל מה שצריך לדעת על הוצאת ויזה לטנזניה לקראת טיפוס לקילימנג׳רו: העלות, זמן ההנפקה, סוג הוויזה המתאים, ומילוי הבקשה באתר הרשמי צעד אחר צעד.',
     excerptEn: 'Everything you need to know about getting a Tanzania visa before your Kilimanjaro climb: cost, processing time, visa type, and a step-by-step application walkthrough.',
 
     content: [
@@ -4187,7 +4187,7 @@ export const POSTS = [
     imgPosition:     'center 20%',
     imgPositionCard: 'center 20%',
     imgCredit:       '',
-    excerpt:  'בעונת 2026 השלימה המטפסת הנורווגית את שלושת הכתרים של האוורסט, הישג שרק ארבעה אנשים עשו לפניה, ואף אישה. אבל מתחת לשיא הספורטיבי מסתתר סיפור על אובדן, על הר אחד באוקטובר, ועל הסיבה האמיתית שבגללה היא חזרה.',
+    excerpt:  'בעונת 2026 השלימה קריסטין הרילה את שלושת הכתרים של האוורסט, הישג שאף אישה לא השיגה לפניה. מתחת לשיא מסתתר סיפור על אובדן ועל הסיבה שבגללה חזרה.',
     excerptEn: 'In the 2026 season the Norwegian climber completed the Everest Triple Crown, a feat only four people had achieved before her, and no woman. But beneath the sporting achievement lies a story of loss, one mountain in October, and the real reason she came back.',
 
     /* ── Hebrew content ── */
@@ -4483,7 +4483,7 @@ export const POSTS = [
     img:         '/images/blog/seven-summits-everest.webp',
     imgPosition: 'center 30%',
     imgPositionCard: 'center 30%',
-    excerpt:  'שבע הפסגות: אוורסט, קילימנג\'רו, אלברוס, אקונקגואה ועוד. כמה זה קשה? כמה זה עולה? מה הסדר הנכון? המדריך שמסביר הכל, בלי לעגל פינות.',
+    excerpt:  'שבע הפסגות: אוורסט, קילימנג׳רו, אלברוס, אקונקגואה ועוד. כמה זה קשה, כמה זה עולה ומה הסדר הנכון? המדריך שמסביר הכל, צעד אחר צעד ובלי לעגל פינות.',
     excerptEn: 'The Seven Summits: Everest, Kilimanjaro, Elbrus, Aconcagua and three more. How hard, how expensive, and what order to climb them in. A guide that tells it straight.',
 
     /* ── Hebrew content ── */
