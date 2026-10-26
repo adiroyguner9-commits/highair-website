@@ -1529,7 +1529,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       'תוספות (לא חובה):',
       'חדר יחיד במלון במושי - 90$ ללילה',
       'אוהל יחיד בטיפוס - 100$ לכל תקופת הטיפוס',
-      'אוהל שלישייה (עמידה) בטיפוס - 150$ לכל תקופת הטיפוס',
+      'אוהל עמידה בטיפוס, גבוה ומרווח לאותם שני מטפסים - 150$ לכל תקופת הטיפוס',
       'חדר יחיד בלודג׳ בספארי - 200$ ללילה',
     ],
     notIncludedEn: [
@@ -1550,7 +1550,7 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       'Optional extras:',
       'Single room at Moshi hotel - $90/night',
       'Solo tent during climb - $100 for entire climb',
-      'Triple standing tent during climb - $150 for entire climb',
+      'Standing tent during the climb, taller and roomier for the same two climbers - $150 for the entire climb',
       'Single room at safari lodge - $200/night',
     ],
     importantToNote: [
@@ -1598,13 +1598,13 @@ Part of the proceeds from every expedition supports cancer patients in Israel, b
       { day: 9, title: 'Flight Back Home', desc: 'Start the day with breakfast at the hotel, then pack your bags and check out. Board the shuttle to Kilimanjaro Airport for your flight back to Israel. During the flight, share memories and experiences from the incredible journey  -  full of photos and stories to tell :)' },
     ],
     safariItinerary: [
-      { day: 9,  title: 'ספארי בשמורת טרנגירי', desc: 'טרנגירי ידועה בעדרי הפילים הגדולים שלה ובעצי הבאובב. בשמורה נוכל ליהנות מטיול ספארי מהנה ושונה מיתר השמורות במדינה, לצפות בעדרים גדולים של פילים אפריקאים, להתרשם מנדידת הציפורים ולראות מגוון בעלי חיים: אריות, נמרים, צ׳יטות, ג׳ירפות, באפלו, זברות, קופים ועוד.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
-      { day: 10, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה  -  אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
+      { day: 9,  title: 'ספארי בשמורת טרנגירי', desc: 'טרנגירי ידועה בעדרי הפילים הגדולים שלה ובעצי הבאובב. בשמורה נוכל ליהנות מטיול ספארי מהנה ושונה מיתר השמורות במדינה, לצפות בעדרים גדולים של פילים אפריקאים, להתרשם מנדידת הציפורים ולראות מגוון בעלי חיים: אריות, נמרים, צ׳יטות, ג׳ירפות, באפלו, זברות, קופים ועוד.', accommodation: 'לודג׳ Kudu Lodge בקרטו או דומה לו' },
+      { day: 10, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה  -  אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Kudu Lodge בקרטו או דומה לו' },
       { day: 11, title: 'ביקור בשבט ההדזבה באגם אייסי', desc: 'שבט ההדזבה הוא אחד מהקהילות האחרונות בעולם שחיות אורח חיים של ציידים, הם ממוקמים בצפון טנזניה, בעיקר סביב אזור אגם אייסי. בני שבט ההדזבה מדברים בשפה ייחודית משלהם, המורכבת מצלילים מיוחדים הנקראים "קליקים", והם ממשיכים לשמור על המסורת העתיקה שלהם למרות השפעות המודרניזציה. התזונה שלהם מבוססת בעיקר על ציד בעלי חיים, איסוף פירות יער, דבש וצמחים  -  דוגמה נדירה ומרתקת לאורח חיים אנושי קדום המעוררת עניין רב בקרב חוקרים ואנתרופולוגים. בצהריים נוסעים לשדה התעופה קילימנג׳רו לטיסה חזרה הביתה.' },
     ],
     safariItineraryEn: [
-      { day: 9,  title: 'Safari at Tarangire National Park', desc: 'Tarangire is known for its large elephant herds and baobab trees. Enjoy a safari experience that stands apart from other reserves in the country  -  spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Marera Valley Lodge or similar' },
-      { day: 10, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25000 animals "enclosed" within the crater  -  including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
+      { day: 9,  title: 'Safari at Tarangire National Park', desc: 'Tarangire is known for its large elephant herds and baobab trees. Enjoy a safari experience that stands apart from other reserves in the country  -  spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Kudu Lodge, Karatu, or similar' },
+      { day: 10, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25000 animals "enclosed" within the crater  -  including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Kudu Lodge, Karatu, or similar' },
       { day: 11, title: 'Visit to the Hadza Tribe - Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
@@ -1657,7 +1657,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
       'טיפוס לקילימנג׳רו:',
       'קיט מתנה - כובע וחולצת דרייפיט!',
       'אזור אישי לכל לקוח באפליקציית HighAir',
-      'העברות משדה התעופה למושי וחזרה + העברות פנימיות לשמורה',
+      'העברות משדה התעופה לארושה וחזרה + העברות פנימיות לשמורה',
       '4 לילות במלון 4 כוכבים על בסיס ארוחת בוקר בארושה',
       '5 לילות באוהלים זוגיים עם מזרנים במהלך הטיפוס',
       '3 ארוחות מלאות ביום לכל אורך הטיפוס (בתיאום בית חב״ד ארושה)',
@@ -1691,7 +1691,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
       'Kilimanjaro Climb:',
       'Gift kit - cap and dry-fit shirt!',
       'A personal area for every customer in the HighAir app',
-      'Airport transfers to/from Moshi + internal transfers to the park',
+      'Airport transfers to/from Arusha + internal transfers to the park',
       '4 nights in a 4-star hotel with breakfast in Arusha',
       '5 nights in double tents with mattresses during the climb',
       '3 full meals per day throughout the climb (coordinated with Chabad Arusha)',
@@ -1732,7 +1732,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
       'תוספות (לא חובה):',
       'חדר יחיד במלון בארושה - 130$ ללילה',
       'אוהל יחיד בטיפוס - 100$ לכל תקופת הטיפוס',
-      'אוהל שלישייה (עמידה) בטיפוס - 150$ לכל תקופת הטיפוס',
+      'אוהל עמידה בטיפוס, גבוה ומרווח לאותם שני מטפסים - 150$ לכל תקופת הטיפוס',
       'חדר יחיד בלודג׳ בספארי - 200$ ללילה',
     ],
     notIncludedEn: [
@@ -1753,7 +1753,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
       'Optional extras:',
       'Single room at hotel in Arusha - $130/night',
       'Solo tent during climb - $100 for entire climb',
-      'Triple standing tent during climb - $150 for entire climb',
+      'Standing tent during the climb, taller and roomier for the same two climbers - $150 for the entire climb',
       'Single room at safari lodge - $200/night',
     ],
     importantToNote: [
@@ -1804,13 +1804,13 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
       { day: 10, title: 'Flight Back Home!', desc: 'Start the day with breakfast at the hotel, then pack up and check out. Board the shuttle to Kilimanjaro Airport for the flight back home to Israel. On the way, share memories and stories from this incredible journey  -  full of photos and experiences that will stay with you forever :)' },
     ],
     safariItinerary: [
-      { day: 10, title: 'ספארי בשמורת טרנגירי', desc: 'טרנגירי ידועה בעדרי הפילים הגדולים שלה ובעצי הבאובב. בשמורה נוכל ליהנות מטיול ספארי מהנה ושונה מיתר השמורות במדינה, לצפות בעדרים גדולים של פילים אפריקאים, להתרשם מנדידת הציפורים ולראות מגוון בעלי חיים: אריות, נמרים, צ׳יטות, ג׳ירפות, באפלו, זברות, קופים ועוד.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
-      { day: 11, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה  -  אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Marera Valley Lodge או דומה לו' },
+      { day: 10, title: 'ספארי בשמורת טרנגירי', desc: 'טרנגירי ידועה בעדרי הפילים הגדולים שלה ובעצי הבאובב. בשמורה נוכל ליהנות מטיול ספארי מהנה ושונה מיתר השמורות במדינה, לצפות בעדרים גדולים של פילים אפריקאים, להתרשם מנדידת הציפורים ולראות מגוון בעלי חיים: אריות, נמרים, צ׳יטות, ג׳ירפות, באפלו, זברות, קופים ועוד.', accommodation: 'לודג׳ Kudu Lodge בקרטו או דומה לו' },
+      { day: 11, title: 'ספארי בשמורת נגורונגורו', desc: 'מכתש נגורונגורו נוצר כתוצאה מקריסה של הר הגעש. בתחתית הלוע מצויים מישורי עשב עצומים, יערות ומעיינות, אשר מאפשרים את נוכחותם של כ-25 אלף בעלי חיים שונים ש"נכלאו" בתוך הלוע. מדובר במרבית מיני בעלי החיים האופייניים למזרח אפריקה  -  אריה, נמר, פיל, באפלו וקרנף.', accommodation: 'לודג׳ Kudu Lodge בקרטו או דומה לו' },
       { day: 12, title: 'ביקור בשבט ההדזבה באגם אייסי', desc: 'שבט ההדזבה הוא אחד מהקהילות האחרונות בעולם שחיות אורח חיים של ציידים, הם ממוקמים בצפון טנזניה, בעיקר סביב אזור אגם אייסי. בני שבט ההדזבה מדברים בשפה ייחודית משלהם, המורכבת מצלילים מיוחדים הנקראים "קליקים", והם ממשיכים לשמור על המסורת העתיקה שלהם למרות השפעות המודרניזציה. התזונה שלהם מבוססת בעיקר על ציד בעלי חיים, איסוף פירות יער, דבש וצמחים  -  דוגמה נדירה ומרתקת לאורח חיים אנושי קדום המעוררת עניין רב בקרב חוקרים ואנתרופולוגים. בצהריים נוסעים לשדה התעופה קילימנג׳רו לטיסה חזרה הביתה.' },
     ],
     safariItineraryEn: [
-      { day: 10, title: 'Safari at Tarangire National Park', desc: 'Tarangire is known for its large elephant herds and baobab trees. Enjoy a safari experience that stands apart from other reserves in the country  -  spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Marera Valley Lodge or similar' },
-      { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25000 animals "enclosed" within the crater  -  including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Marera Valley Lodge or similar' },
+      { day: 10, title: 'Safari at Tarangire National Park', desc: 'Tarangire is known for its large elephant herds and baobab trees. Enjoy a safari experience that stands apart from other reserves in the country  -  spotting large herds of African elephants, marveling at spectacular bird migrations, and observing diverse wildlife including lions, leopards, cheetahs, giraffes, buffalo, zebras, monkeys, and more.', accommodation: 'Kudu Lodge, Karatu, or similar' },
+      { day: 11, title: 'Safari at Ngorongoro Crater', desc: 'The Ngorongoro Crater was formed by the collapse of a volcano. At the bottom of the caldera lie vast grasslands, forests, and springs that support approximately 25000 animals "enclosed" within the crater  -  including most of the iconic East African species: lions, leopards, elephants, buffalo, and rhinoceros.', accommodation: 'Kudu Lodge, Karatu, or similar' },
       { day: 12, title: 'Visit to the Hadza Tribe - Lake Eyasi', desc: 'The Hadza tribe is one of the last communities in the world living a hunter-gatherer lifestyle, located in northern Tanzania around the Lake Eyasi region. The Hadza people speak a unique language made up of distinctive click sounds, and continue to maintain their ancient traditions despite modern influences. Their diet is based primarily on hunting, gathering wild berries, honey, and plants  -  a rare and fascinating example of ancient human existence that draws great interest from researchers and anthropologists. In the afternoon, drive to Kilimanjaro Airport for the flight back home.' },
     ],
     summitUpdates: [
