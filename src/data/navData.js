@@ -735,7 +735,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Aconcagua"
     ],
-    "groupCapacity": 12
+    "groupCapacity": 9
   },
   {
     "id": 16,
