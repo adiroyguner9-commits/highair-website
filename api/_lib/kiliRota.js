@@ -1,10 +1,11 @@
 /* ── Kilimanjaro lead rota ──────────────────────────────────────────────────
    Owner, 22 Sep 2026: ONE queue for every Kilimanjaro lead, whether or not they
    book a call and whether they came from the website or from WhatsApp ("ותור
-   אחד לכל הקילי", "כולל הווצאפים"). Tomer Lan 4, Tomer Harush 2, a strict
-   repeating cycle: Eldar Solomon was the third (1 in 7) until 5 Oct 2026, when
-   the owner stopped giving him new leads altogether ("אל תשייך יותר לאלדר
-   סולומון"). The leads he was holding in New Lead went to these two.
+   אחד לכל הקילי", "כולל הווצאפים"). Since 26 Oct 2026: Tomer Lan 4, Tomer
+   Harush 1, Raz Ohana 1, a strict repeating cycle (owner: "שיישאר 4 ללן ולפצל
+   את 2 הלידים בין הרוש לרז אוחנה"). Before that it was Lan 4, Harush 2, and
+   Eldar Solomon was a third (1 in 7) until 5 Oct 2026, when the owner stopped
+   giving him new leads altogether ("אל תשייך יותר לאלדר סולומון").
 
    It replaces the two queues of 14 Sep (calls: Lan 4, Harush 1; everyone else,
    after a 15-minute wait: Harush 3, Eldar 1). Only about a quarter of leads book
@@ -24,20 +25,23 @@
    Both write the same stamps and read the same tally. If they disagree they
    fight over whose turn it is. Change one, copy it to the other.
 
-   WHY A STAMP. Each decision writes {Kili Rota} = "Kili 2026-09: Tomer Lan" on
+   WHY A STAMP. Each decision writes {Kili Rota} = "Kili v3 2026-10: Tomer Lan" on
    the lead, and the tally counts those stamps. Nothing a person fills in is
    counted, and moving a lead by hand later does not shift anyone's turn: the
    stamp records what the rota decided, not who owns the lead today. The month
    in the stamp keeps the tally small: each month starts a fresh cycle. The
-   label is new with the single queue, so the stamps of the two old queues
-   ("Calls 2026-09", "New lead 2026-09") stay on their leads as history and are
-   not counted.
+   label is new with every change of the cycle, so the stamps of the old ones
+   ("Calls 2026-09" and "New lead 2026-09" for the two queues of 14 Sep, "Kili
+   2026-10" for Lan 4 : Harush 2) stay on their leads as history and are not
+   counted. A new cycle under the OLD label would be measured against the whole
+   month so far, and whoever it now owes more would take a long run of leads in
+   a row (26 Oct 2026: about 24 for one agent).
    (An earlier tally read one page of 100 leads and never past it, so from
    21 Aug 2026 every rota decision came out Tomer Lan.) */
 
 export const KILI_ROTA_FIELD = 'Kili Rota';
 
-export const KILI_ROTA = { label: 'Kili', agents: [['Tomer Lan', 4], ['Tomer Harush', 2]] };
+export const KILI_ROTA = { label: 'Kili v3', agents: [['Tomer Lan', 4], ['Tomer Harush', 1], ['Raz Ohana', 1]] };
 
 export function israelMonth(when = new Date()) {
   const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit' }).formatToParts(when);
@@ -49,7 +53,7 @@ const prefixFor = (when) => `${KILI_ROTA.label} ${israelMonth(when)}:`;
 export const kiliRotaStamp = (agent, when = new Date()) => `${prefixFor(when)} ${agent}`;
 
 /* Whose turn it is, given how many decisions each agent already has this month.
-   The cycle is laid out in order (L L L L H H). After n decisions each agent is
+   The cycle is laid out in order (L L L L H R). After n decisions each agent is
    owed as many as the first n+1 places of the cycle give them; the one owed
    most takes it. With no overflow that is exactly the cycle; after an overflow
    the agent who lost a turn is owed one and gets the next. */

@@ -468,7 +468,7 @@ export default async function handler(req, res) {
           /* ── Kilimanjaro: the one queue (owner, 22 Sep 2026) ─────────────────
              A Kilimanjaro lead who books a call while nobody has them yet takes
              the next turn of the single Kilimanjaro queue: Tomer Lan 4, Tomer
-             Harush 2, Eldar Solomon 1, in that order, the same queue the
+             Harush 1, Raz Ohana 1, in that order, the same queue the
              webapp's lead-notify gives the rest from. If the one whose turn it
              is already has a call at this hour, the next free agent takes it and
              the following lead repays the turn. The queue and its tally live in
