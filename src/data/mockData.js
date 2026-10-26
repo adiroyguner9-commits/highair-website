@@ -2915,9 +2915,9 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     tagHe: 'ספארי',
     elev: '—', elevNum: 0, days: '5 ימים', daysEn: '5 days', type: 'Safari', typeHe: 'ספארי',
     diff: 'Easy', diffHe: 'קלה', price: 0, priceStr: '[למילוי]', continent: 'africa',
-    cardDesc: 'טרנגירי, מרכז סרנגטי, צפון סרנגטי, מכתש נגורונגורו וביקור אצל שבט ההדזבה. המסלול המלא, עם לילות בתוך השמורות עצמן.',
-    cardDescEn: 'Tarangire, central Serengeti, northern Serengeti, the Ngorongoro Crater and a visit to the Hadzabe. The full route, with nights inside the reserves themselves.',
-    reserves: '3 שמורות + כפר הדזבה',            // e.g. '3 שמורות' — shown in the safari stats row
+    cardDesc: 'טרנגירי, מרכז סרנגטי, צפון סרנגטי, מכתש נגורונגורו וביקור אצל שבטי ההדזבה והדטוגה. המסלול המלא, עם לילות בתוך השמורות עצמן.',
+    cardDescEn: 'Tarangire, central Serengeti, northern Serengeti, the Ngorongoro Crater and a visit to the Hadzabe and Datoga tribes. The full route, with nights inside the reserves themselves.',
+    reserves: '3 שמורות + 2 שבטים',            // e.g. '3 שמורות' — shown in the safari stats row
     wildlife: 'החמישייה הגדולה והנדידה', wildlifeEn: 'The Big Five and the migration',   // e.g. 'החמישייה הגדולה' / 'The Big Five'
     airtableEvents: ['Safari'],   // confirm the Airtable Event value per length
     img: '/images/cards/safari-5-days.webp',        // TODO: image does not exist yet
@@ -2928,14 +2928,14 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     itineraryNoteEn: 'Tarangire · Central and northern Serengeti · Ngorongoro · Lake Eyasi',
     seoTitle:       'HighAir Expeditions | ספארי 5 ימים בטנזניה',
     seoTitleEn:     '5-Day Tanzania Safari | HighAir Expeditions',
-    seoDescription: 'ספארי פרטי של 5 ימים בטנזניה: טרנגירי, מרכז וצפון הסרנגטי, מכתש נגורונגורו ושבט ההדזבה. לינה בתוך השמורות, ג׳יפ ומדריך פרטיים.',
-    seoDescriptionEn: 'A private 5-day safari in Tanzania: Tarangire, the central and northern Serengeti, the Ngorongoro Crater and the Hadzabe. Nights inside the reserves.',
+    seoDescription: 'ספארי פרטי של 5 ימים בטנזניה: טרנגירי, מרכז וצפון הסרנגטי, מכתש נגורונגורו ושבטי ההדזבה והדטוגה. לינה בתוך השמורות, ג׳יפ ומדריך פרטיים.',
+    seoDescriptionEn: 'A private 5-day safari in Tanzania: Tarangire, the central and northern Serengeti, the Ngorongoro Crater and the Hadzabe and Datoga tribes. Nights inside the reserves.',
     grad: 'linear-gradient(135deg,#78350f,#b45309,#422006)',
-    desc: `חמישה ימים שמכסים את כל צפון טנזניה, כולל שני האזורים של הסרנגטי. מתחילים בטרנגירי, ממשיכים למרכז הסרנגטי שבו ריכוז הטורפים הגבוה ביותר לאורך כל השנה, ועולים לצפון הסרנגטי, לאזור שבו העדרים חוצים את נהר המארה. משם יורדים למכתש נגורונגורו, ומסיימים אצל שבט ההדזבה באגם אייסי. הלינה היא בתוך השמורות עצמן, וזה מה שמאפשר להיות בשטח בשעות שבהן באמת קורים דברים. הספארי פרטי לחלוטין ותאריך היציאה נקבע לפי היומן שלכם.`,
-    highlights: ['מרכז וצפון הסרנגטי', 'מכתש נגורונגורו', 'שמורת טרנגירי', 'שבט ההדזבה באגם אייסי'],
+    desc: `חמישה ימים שמכסים את כל צפון טנזניה, כולל שני האזורים של הסרנגטי. מתחילים בטרנגירי, ממשיכים למרכז הסרנגטי שבו ריכוז הטורפים הגבוה ביותר לאורך כל השנה, ועולים לצפון הסרנגטי, לאזור שבו העדרים חוצים את נהר המארה. משם יורדים למכתש נגורונגורו, ומסיימים אצל שבטי ההדזבה והדטוגה באגם אייסי. הלינה היא בתוך השמורות עצמן, וזה מה שמאפשר להיות בשטח בשעות שבהן באמת קורים דברים. הספארי פרטי לחלוטין ותאריך היציאה נקבע לפי היומן שלכם.`,
+    highlights: ['מרכז וצפון הסרנגטי', 'מכתש נגורונגורו', 'שמורת טרנגירי', 'שבטי ההדזבה והדטוגה'],
     nameEn: 'Safari 5 Days',
-    descEn: `Five days across the whole of northern Tanzania, including both regions of the Serengeti. It starts in Tarangire, continues to the central Serengeti where predator density is highest year round, and climbs to the northern Serengeti, where the herds cross the Mara River. From there it drops into the Ngorongoro Crater and ends with the Hadzabe at Lake Eyasi. Nights are inside the reserves themselves, which is what makes it possible to be out at the hours when things actually happen. The safari is entirely private and the departure date is set by your calendar.`,
-    highlightsEn: ['Central and northern Serengeti', 'Ngorongoro Crater', 'Tarangire National Park', 'The Hadzabe at Lake Eyasi'],
+    descEn: `Five days across the whole of northern Tanzania, including both regions of the Serengeti. It starts in Tarangire, continues to the central Serengeti where predator density is highest year round, and climbs to the northern Serengeti, where the herds cross the Mara River. From there it drops into the Ngorongoro Crater and ends with the Hadzabe and Datoga tribes at Lake Eyasi. Nights are inside the reserves themselves, which is what makes it possible to be out at the hours when things actually happen. The safari is entirely private and the departure date is set by your calendar.`,
+    highlightsEn: ['Central and northern Serengeti', 'Ngorongoro Crater', 'Tarangire National Park', 'The Hadzabe and Datoga tribes'],
     included: ['קיט מתנה - כובע וחולצת דרייפיט!', 'אזור אישי לכל לקוח באפליקציית HighAir', 'רכב ספארי 4X4 פרטי עם גג פתוח עד 6 מקומות', 'מקרר ושקעי טעינה בג׳יפ', 'מדריך ספארי מקומי מקצועי דובר אנגלית', 'לינה בלודג׳ים ובקמפים לפי המסלול', '3 ארוחות ביום ומים מינרליים לכל אורך ימי הספארי', 'אישורי כניסה לכל השמורות בספארי', 'עדכונים לייב למשפחות בווצאפ במהלך הספארי', 'העברות מנמל התעופה קילימנג׳רו ואליו'],
     includedEn: ['Gift kit - cap and dry-fit shirt!', 'A personal area for every customer in the HighAir app', 'Private 4x4 safari vehicle with open roof (up to 6 seats)', 'Fridge and charging points in the jeep', 'Professional local English-speaking safari guide', 'Lodges and camps as per the itinerary', '3 meals per day and mineral water throughout the safari days', 'Entry permits for all safari reserves', 'Live WhatsApp updates for families during the safari', 'Transfers to and from Kilimanjaro International Airport'],
     notIncluded: ['טיסות בינלאומיות', 'ויזה לטנזניה', 'ביטוח נסיעות', 'ביטוח ממשלתי מקומי - 44$ לאדם', 'טיפים לנהג-מדריך ולצוותי הלודג׳ים', 'שתייה חריפה ומשקאות מחוץ לארוחות', 'הוצאות אישיות', 'פעילויות בתוספת תשלום כמו טיסת כדור פורח'],
@@ -2956,7 +2956,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
       { day: 2, title: 'Safari in the central Serengeti', desc: 'We drive to the Serengeti and enter the central area, which holds the highest year-round wildlife concentration. This is big-cat country, especially lions and the leopards draped along acacia branches. We keep viewing through the afternoon until sunset, and spend the night at a camp in the heart of the reserve.', accommodation: 'Heritage Luxury Tented Camp' , meals: 'Breakfast, packed lunch in the field and dinner' },
       { day: 3, title: 'Safari in the northern Serengeti', desc: 'We head north to the Mara River area. In migration season this is where the herds cross the river, one of the most dramatic encounters nature offers. Outside the season it is an exceptionally wild and quiet area, with fewer vehicles and open horizons.', accommodation: 'Baobab Mara Luxury Camp' , meals: 'Breakfast, packed lunch in the field and dinner' },
       { day: 4, title: 'Safari in the Ngorongoro Crater', desc: 'Descending into the Ngorongoro Crater, a 19 km wide volcanic caldera holding a complete, self-contained ecosystem. Its wildlife density is among the highest in Africa, and it is the best place in Tanzania to see a black rhino. We look for the Big Five on the crater floor and climb back to Karatu toward evening.', accommodation: 'Kudu Lodge Karatu' , meals: 'Breakfast, packed lunch in the field and dinner' },
-      { day: 5, title: 'The Hadzabe at Lake Eyasi', desc: 'An early start to Lake Eyasi to meet the Hadzabe, one of the last hunter-gatherer communities in Africa. We join them on a morning hunt, learn how they make fire and find food, and also visit their Datoga neighbours, blacksmiths who still work by traditional methods. After the visit we return to Arusha.' , meals: 'Breakfast and lunch' },
+      { day: 5, title: 'The Hadzabe and Datoga Tribes', desc: 'An early start to Lake Eyasi to meet the Hadzabe, one of the last hunter-gatherer communities in Africa. We join them on a morning hunt, learn how they make fire and find food, and also visit their Datoga neighbours, blacksmiths who still work by traditional methods. After the visit we return to Arusha.' , meals: 'Breakfast and lunch' },
     ],
   },
   {

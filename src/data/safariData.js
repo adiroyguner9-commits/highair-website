@@ -164,8 +164,8 @@ export const SAFARI_RESERVES = [
        passing as a national park. */
     slug: 'hadzabe',
     kind: 'culture',
-    name: 'שבט ההדזבה', nameEn: 'The Hadzabe',
-    desc: 'אחת מקהילות הלקטים-ציידים האחרונות באפריקה. יוצאים איתם לציד בוקר, לומדים להדליק אש ולאתר מזון, ומבקרים גם אצל הדאטוגה, נפחי הכפר.',
+    name: 'שבטי ההדזבה והדטוגה', nameEn: 'The Hadzabe and Datoga',
+    desc: 'אחת מקהילות הלקטים-ציידים האחרונות באפריקה. יוצאים איתם לציד בוקר, לומדים להדליק אש ולאתר מזון, ומבקרים גם אצל הדטוגה, נפחי הכפר.',
     descEn: 'One of the last hunter-gatherer communities in Africa. You join them on a morning hunt, learn how they make fire and find food, and also visit the Datoga, blacksmiths still working by traditional methods.',
     img: '/images/safari/hadzabe.webp',
   },
