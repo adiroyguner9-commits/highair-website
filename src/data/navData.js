@@ -783,7 +783,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Sinai"
     ],
-    "groupCapacity": 12
+    "groupCapacity": 15
   },
   {
     "id": 22,
@@ -803,7 +803,8 @@ export const CARD_EXPS = [
     "diffHe": "אקסטרים",
     "price": 15000,
     "priceStr": "$15,000",
-    "continent": "asia"
+    "continent": "asia",
+    "groupCapacity": 10
   },
   {
     "id": 23,
@@ -823,7 +824,8 @@ export const CARD_EXPS = [
     "diffHe": "אקסטרים",
     "price": 7000,
     "priceStr": "$7000",
-    "continent": "asia"
+    "continent": "asia",
+    "groupCapacity": 10
   },
   {
     "id": 24,
@@ -843,7 +845,8 @@ export const CARD_EXPS = [
     "diffHe": "אקסטרים",
     "price": 8500,
     "priceStr": "$8500",
-    "continent": "asia"
+    "continent": "asia",
+    "groupCapacity": 10
   },
   {
     "id": 25,
@@ -863,7 +866,8 @@ export const CARD_EXPS = [
     "diffHe": "בינוני",
     "price": 1800,
     "priceStr": "$1800",
-    "continent": "africa"
+    "continent": "africa",
+    "groupCapacity": 10
   },
   {
     "id": 26,
