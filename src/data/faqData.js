@@ -108,14 +108,14 @@ export const FAQ_BY_SLUG = {
   'peaks-of-balkan': {
     he: [
       { q: 'כמה קשה טרק פסגות הבלקן?', a: 'הטרק ברמת קושי בינונית. ימי ההליכה נעים בין 13 ל-22 ק״מ עם עליות של עד 1,100 מ׳, ונדרש כושר גופני טוב ויכולת לשאת תיק יום 7-9 שעות. אין בו טיפוס טכני - זה מסלול הליכה במיטבו, בין אלבניה, קוסובו ומונטנגרו.' },
-      { q: 'מה גודל הקבוצה בטרק פסגות הבלקן?', a: 'הקבוצות שלנו מוגבלות ל-15 משתתפים לכל היותר, כדי לשמור על ליווי אישי, גמישות בשטח ואיכות חוויה גבוהה.' },
+      { q: 'מה גודל הקבוצה בטרק פסגות הבלקן?', a: 'הקבוצות שלנו מוגבלות ל-14 משתתפים לכל היותר, כדי לשמור על ליווי אישי, גמישות בשטח ואיכות חוויה גבוהה.' },
       { q: 'האם יש אפשרות לחדר יחיד?', a: 'חדר יחיד זמין רק בלילות במלון בשקודרה, לפני הטרק ואחריו. במהלך הטרק עצמו הלינה היא בגסטהאוסים משפחתיים עם חדרים משותפים בלבד, ואין בהם אפשרות לחדר יחיד - וזה בדיוק חלק מהקסם של המסלול.' },
       { q: 'האם נדרש ניסיון טיפוס לטרק פסגות הבלקן?', a: 'לא נדרש ניסיון טכני - זהו מסלול טרק ללא טיפוס. עם זאת, הצטברות ימי ההליכה מחייבת כושר גופני סביר וניסיון קודם בהליכות ארוכות בשטח הררי.' },
       { q: 'מה קורה אם אני נסוג באמצע הטרק?', a: 'בטיחות המטיילים לפני הכול. אם מסיבה כלשהי צריך לרדת מוקדם, המדריך מלווה אתכם בחזרה בבטחה ומסדיר את ההמשך. חשוב לדעת שהוצאות נוספות שנובעות מירידה מוקדמת חלות על המטייל.' },
     ],
     en: [
       { q: 'How hard is the Peaks of the Balkans trek?', a: 'The trek is moderate. Walking days range from 13 to 22 km with ascents of up to 1,100 m, and it takes good fitness and the ability to carry a daypack for 7-9 hours. There is no technical climbing - it is trekking at its best, across Albania, Kosovo and Montenegro.' },
-      { q: 'What is the group size on the Peaks of the Balkans trek?', a: 'Our groups are limited to a maximum of 15 participants, to keep personal guidance, flexibility on the trail and a high-quality experience.' },
+      { q: 'What is the group size on the Peaks of the Balkans trek?', a: 'Our groups are limited to a maximum of 14 participants, to keep personal guidance, flexibility on the trail and a high-quality experience.' },
       { q: 'Is a single room available?', a: 'A single room is available only for the hotel nights in Shkodra, before and after the trek. During the trek itself accommodation is in family guesthouses with shared rooms only, with no single-room option - and that is part of the route\'s charm.' },
       { q: 'Do I need climbing experience for the Peaks of the Balkans trek?', a: 'No technical experience is needed - this is a trek with no climbing. That said, the accumulation of walking days requires reasonable fitness and prior experience with long hikes in mountainous terrain.' },
       { q: 'What happens if I turn back mid-trek?', a: 'Trekker safety comes first. If for any reason you need to descend early, the guide accompanies you back safely and arranges what comes next. Note that any extra costs arising from an early descent are the traveller\'s responsibility.' },
