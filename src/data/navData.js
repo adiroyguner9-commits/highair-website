@@ -17,7 +17,7 @@ export const NAV_EXPS = [
     "nameEn": "Olympus",
     "country": "Greece",
     "countryHe": "יוון",
-    "elev": "2917m",
+    "elev": "2918m",
     "elevNum": 2918,
     "continent": "europe",
     "type": "Trekking",
