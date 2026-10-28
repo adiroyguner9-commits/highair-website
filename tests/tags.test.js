@@ -28,6 +28,19 @@ describe('marketing tags', () => {
   it('the Meta pixel is not initialised here (GTM fires PageView and Lead)', () => {
     expect(scripts.some(s => /fbq\(|fbevents\.js/.test(s))).toBe(false);
   });
+  it('GTM loads after the first screen: on the first touch, scroll or key, on load, or at 3.5s', () => {
+    const gtm = scripts.find(s => s.includes('gtm.js?id='));
+    expect(gtm).toContain("w[l].push({'gtm.start':");               // the page-start time, at once
+    expect(gtm).toContain("EV=['pointerdown','keydown','touchstart','scroll','mousemove']");
+    expect(gtm).toContain("w.addEventListener('load',");
+    expect(gtm).toContain('setTimeout(go,3500)');
+    expect(gtm).toContain('if(done)return;done=1;');                 // once, whichever comes first
+  });
+  it('the site sends events only through the queue GTM reads when it arrives', () => {
+    const analytics = readFileSync(resolve(__dirname, '../src/utils/analytics.js'), 'utf8');
+    expect(analytics).toContain('window.dataLayer.push({ event: eventName, ...params })');
+    expect(analytics).not.toMatch(/\bfbq\(/);
+  });
   it('consent defaults to denied and follows the visitor\'s banner choice', () => {
     expect(html).toContain("gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' })");
     expect(html).toContain("localStorage.getItem('highair_cookie_consent') === 'accepted'");

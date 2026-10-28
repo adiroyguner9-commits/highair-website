@@ -10,7 +10,8 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePhoneHero } from '../../website/phoneHero.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import { POSTS, isNewsPost } from '../../data/blogData.js';
+import { POSTS, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
+import { readPostContent, preloadPostContent, openPost } from '../../data/blogContent.js';
 import { authorOf } from '../../data/authors.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -106,6 +107,16 @@ export default function BlogPost() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  /* The related posts' text, once the browser is idle, so opening one is instant. */
+  useEffect(() => {
+    if (!post) return undefined;
+    const lang = isEn ? 'en' : 'he';
+    const go = () => POSTS.filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 3)
+      .forEach(p => preloadPostContent(p.slug, lang));
+    const id = 'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 4000 }) : setTimeout(go, 2000);
+    return () => ('cancelIdleCallback' in window ? cancelIdleCallback(id) : clearTimeout(id));
+  }, [post, isEn]);
+
   /* NOTE: Article + FAQPage + BreadcrumbList JSON-LD is baked into the static
      HTML shell by scripts/generate-html-shells.mjs (single source of truth,
      crawlable without JS). Do NOT inject schema at runtime here — it would
@@ -114,7 +125,7 @@ export default function BlogPost() {
   /* Language-aware fields — must be declared before usePageMeta */
   const postTitle    = post ? (isEn ? (post.titleEn    || post.title)    : post.title)    : '';
   const postExcerpt  = post ? (isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt)  : '';
-  const postContent  = post ? (isEn ? (post.contentEn  || post.content)  : post.content)  : [];
+  const postContent  = post ? readPostContent(post.slug, isEn ? 'en' : 'he') : [];   // waits (Suspense) for the text
   const postCategory = post ? (isEn ? (post.categoryEn || post.category) : post.category) : '';
   const author       = authorOf(post);
 
@@ -736,7 +747,7 @@ export default function BlogPost() {
                 {related.map(p => (
                   <div
                     key={p.slug}
-                    onClick={() => navigate(`/blog/${p.slug}`)}
+                    onClick={() => openPost(navigate, p.slug, isEn ? 'en' : 'he')}
                     style={{
                       background:   '#FFFFFF',
                       borderRadius: RADIUS.xl,

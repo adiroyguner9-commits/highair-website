@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
-import { POSTS, CATEGORIES, isNewsPost } from '../../data/blogData.js';
+import { POSTS, CATEGORIES, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
+import { openPost } from '../../data/blogContent.js';
 import { smallOf } from '../../website/imageVariants.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -31,7 +32,7 @@ function PostCard({ post }) {
   const excerpt  = isEn ? (post.excerptEn  || post.excerpt) : post.excerpt;
   const category = isEn ? (post.categoryEn || post.category) : post.category;
 
-  function handleNav() { navigate(`/blog/${post.slug}`); }
+  function handleNav() { openPost(navigate, post.slug, isEn ? 'en' : 'he'); }
 
   return (
     <div

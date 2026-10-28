@@ -58,11 +58,23 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="HighAir" />
 
-    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager, loaded after the first screen (28 Oct 2026).
+         GTM and the tags it loads (GA, Google Ads, the Meta pixel: ~630KB and
+         ~1.5s of a phone's processor, measured) used to download beside the
+         page's own code and hero image, and run while the page was drawing.
+         The page-start time is still recorded at once ('gtm.start'), and every
+         command queued before GTM arrives (consent, config, page_view, lead)
+         runs when it does. GTM starts at whichever comes first: the visitor
+         touching, scrolling or typing, the page finishing loading, or 3.5s. -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    new Date().getTime(),event:'gtm.js'});var done=0,EV=['pointerdown','keydown','touchstart','scroll','mousemove'],
+    go=function(){if(done)return;done=1;EV.forEach(function(e){w.removeEventListener(e,go,true)});
+    var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);};
+    EV.forEach(function(e){w.addEventListener(e,go,{capture:true,passive:true})});
+    w.addEventListener('load',function(){'requestIdleCallback' in w?requestIdleCallback(go,{timeout:1000}):setTimeout(go,0)},{once:true});
+    setTimeout(go,3500);
     })(window,document,'script','dataLayer','GTM-MVJ7Z7FB');</script>
     <!-- End Google Tag Manager -->
 

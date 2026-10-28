@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, FS, RADIUS, SHADOW, EASING, DUR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useInView } from '../../website/useInView.js';
-import { POSTS, isNewsPost } from '../../data/blogData.js';
+import { POSTS, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
+import { openPost } from '../../data/blogContent.js';
 import { srcSetOf } from '../../website/imageVariants.js';
 
 /* ─────────────── BlogCard ─────────────── */
@@ -23,7 +24,7 @@ function BlogCard({ post, isEn, dir }) {
   const date     = !isNewsPost(post) ? null : isEn ? (post.dateEn     || post.dateHe)   : post.dateHe;
   const category = isEn ? (post.categoryEn || post.category) : post.category;
 
-  const handleClick = () => navigate(`/blog/${post.slug}`);
+  const handleClick = () => openPost(navigate, post.slug, isEn ? 'en' : 'he');
 
   return (
     <article
