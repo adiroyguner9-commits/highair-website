@@ -14,6 +14,7 @@ import FaqAccordion from './FaqAccordion.jsx';
 import { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } from '../../data/faqData.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { usePhoneHero } from '../../website/phoneHero.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
@@ -346,6 +347,9 @@ export default function ExpeditionDetail() {
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get('preview') === '1';
   const exp = EXPS.find(e => e.slug === slug && (isPreview || !e.teaser));
+  /* What the hero paints first: a hero video's poster, else the hero image.
+     A phone gets the slice it shows (scripts/gen-phone-heroes.mjs). */
+  const heroImage = usePhoneHero(exp?.heroVideo ? exp.heroVideo.replace('.mp4', '-poster.jpg') : (exp?.heroImg || exp?.img), 'trip');
 
   /* The hero video starts only once the page has loaded. Its mp4 (1.8MB for
      Kilimanjaro, measured 24 Oct 2026) used to download beside the page's own
@@ -995,7 +999,7 @@ export default function ExpeditionDetail() {
               ref={heroVideoRef}
               src={heroVideoOn ? exp.heroVideo : undefined}
               autoPlay muted loop playsInline preload="none"
-              poster={exp.heroVideo.replace('.mp4', '-poster.jpg')}
+              poster={heroImage}
               style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
@@ -1005,7 +1009,7 @@ export default function ExpeditionDetail() {
           ) : (
             <div style={{
               position: 'absolute', inset: 0,
-              backgroundImage: `url(${exp.heroImg || exp.img})`,
+              backgroundImage: `url(${heroImage})`,
               backgroundSize: 'cover', backgroundPosition: 'center',
             }} />
           )

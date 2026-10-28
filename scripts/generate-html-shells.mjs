@@ -49,7 +49,20 @@ if (!HOME_HERO_PRELOAD.test(template)) {
   throw new Error('generate-html-shells: the home hero preload in index.html changed; update HOME_HERO_PRELOAD');
 }
 const localImg = src => (src && !/^https?:/.test(src) ? src : '');
-const heroPreload = src => (src ? `<link rel="preload" href="${esc(src)}" as="image" fetchpriority="high">` : '');
+/* A phone gets the slice of its hero it can show, a third to a half of the bytes
+   (scripts/gen-phone-heroes.mjs, 28 Oct 2026). The shell preloads and paints
+   that copy under the same media query usePhoneHero() follows
+   (src/website/phoneHero.js), so a phone downloads its hero once, and every
+   other screen the original. */
+const PHONE_HEROES = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/website/phoneHeroes.json'), 'utf8'));
+const PHONE_MEDIA = '(max-width: 440px)';
+const phoneCopyOf = (src, kind) => PHONE_HEROES[kind]?.[src] || '';
+const preloadLink = (src, media) => `<link rel="preload" href="${esc(src)}" as="image" fetchpriority="high"${media ? ` media="${media}"` : ''}>`;
+function heroPreload(src, kind) {
+  if (!src) return '';
+  const phone = phoneCopyOf(src, kind);
+  return phone ? preloadLink(phone, PHONE_MEDIA) + preloadLink(src, `not all and ${PHONE_MEDIA}`) : preloadLink(src);
+}
 /* What ExpeditionDetail paints first in its hero: YouTube has no image of ours,
    a hero video shows its poster, otherwise the hero image. */
 const expHeroImage = exp => (exp.videoUrl ? ''
@@ -88,11 +101,17 @@ const PRE_HERO_BG = {
   list: img => `linear-gradient(to bottom,rgba(10,8,24,.55),rgba(10,8,24,.78)),url(${img}) center/cover no-repeat`,
   blog: (img, pos) => `linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url(${img}) ${pos || 'center'}/cover no-repeat`,
 };
+/* The hero's background sits in the pre-hero's own <style>, so a phone can get
+   its copy by media query (main.jsx reads whichever one is on screen). */
+const cssSafe = s => String(s).replace(/[<>"{}]/g, '');
 function preHeroHtml(kind, img, pos) {
   if (!img || !PRE_HERO_BG[kind]) return '';
-  return `<div id="ha-pre" aria-hidden="true"><style>${PRE_HERO_CSS}</style>`
+  const phone = phoneCopyOf(img, kind);
+  const bg = `#ha-pre .h{background:${cssSafe(PRE_HERO_BG[kind](img, pos))}}`
+    + (phone ? `@media ${PHONE_MEDIA}{#ha-pre .h{background:${cssSafe(PRE_HERO_BG[kind](phone, pos))}}}` : '');
+  return `<div id="ha-pre" aria-hidden="true"><style>${PRE_HERO_CSS}${bg}</style>`
     + `<div class="b"></div>${kind === 'home' ? '<div class="sp"></div>' : ''}`
-    + `<div class="h ${kind}" style="background:${esc(PRE_HERO_BG[kind](img, pos))}"></div></div>`;
+    + `<div class="h ${kind}"></div></div>`;
 }
 const EMPTY_ROOT = '<div id="root"></div>';
 if (!template.includes(EMPTY_ROOT)) throw new Error('generate-html-shells: <div id="root"></div> not found in index.html');
@@ -202,7 +221,7 @@ function faqFromContent(content) {
 function writeShell(routePath, meta) {
   const dir = path.join(DIST, routePath);
   fs.mkdirSync(dir, { recursive: true });
-  let html = injectMeta(template, meta).replace(HOME_HERO_PRELOAD, heroPreload(meta.heroImage));
+  let html = injectMeta(template, meta).replace(HOME_HERO_PRELOAD, heroPreload(meta.heroImage, meta.heroKind));
   /* #root starts with the pre-hero (what the eye sees first) and the page's text
      (what a reader without JavaScript gets, see scripts/lib/text-layer.mjs). */
   const rootInner = (meta.preHero || '') + (meta.text || '');
@@ -305,6 +324,7 @@ for (const exp of EXPS) {
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.ogImage         || exp.img || '',
     heroImage:     expHeroImage(exp),
+    heroKind:      'trip',
     preHero:       preHeroHtml('trip', expHeroImage(exp)),
     text:          wrapText(expeditionText({ ...exp, importantToNote: notesWithExperience(exp.importantToNote, exp.experienceHe) }, faqFor(exp))),
     noIndex:       exp.live === false,
@@ -369,6 +389,7 @@ for (const post of POSTS) {
     image:         post.img      || '',
     ogImage:       post.ogImg    || '',
     heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
+    heroKind:      'blog',
     preHero:       preHeroHtml('blog', localImg(post.img), post.imgPosition),
     text:          wrapText(blogText(post)),
     ogType:        'article',
@@ -631,6 +652,7 @@ for (const page of staticPages) {
     canonicalPath: `/${page.path}`,
     image:         '',
     heroImage:     page.heroImage || '',
+    heroKind:      'list',
     preHero:       preHeroHtml('list', page.heroImage),
     text:          page.textHtml ? wrapText(page.textHtml()) : !page.textH1 ? '' : wrapText(page.textPosts
                      ? blogListText({ h1: page.textH1, sub: page.textSub, posts: page.textPosts() })
@@ -654,6 +676,7 @@ for (const page of staticPages) {
   if (!homeHtml.includes('id="ha-pre"')) {
     const homeTextLayer = wrapText(homeText({ description: ORG_NODE.description, exps: liveExps, posts: POSTS }));
     homeHtml = homeHtml
+      .replace(HOME_HERO_PRELOAD, heroPreload('/videos/hero-home-poster.jpg', 'home'))
       .replace('</head>', '  <script>if(location.pathname!=="/")document.documentElement.classList.add("ha-nopre")</script>\n</head>')
       .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}${homeTextLayer}</div>`);
     fs.writeFileSync(homePath, homeHtml, 'utf8');

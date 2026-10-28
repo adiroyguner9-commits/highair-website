@@ -10,6 +10,7 @@
 
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { usePhoneHero } from '../../website/phoneHero.js';
 import { usePageMeta, itemList, breadcrumbList } from '../../website/usePageMeta.js';
 import { HOME_TREKS, HOME_CLIMBS } from '../../data/expeditionGroups.js';
 import Header from './Header.jsx';
@@ -49,6 +50,7 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
   const isRtl = i18n.language !== 'en';
   const { isMobile } = useBreakpoint();
   const cfg = CONFIG[type] || CONFIG.treks;
+  const heroImg = usePhoneHero(cfg.heroImg, 'list');   // a phone gets the slice it shows
 
   /* SEO + Schema.org (canonical, OG, hreflang, JSON-LD) via the shared hook. */
   const list = (type === 'climbs' ? HOME_CLIMBS : HOME_TREKS).filter(e => e.slug && !e.teaser);
@@ -82,7 +84,7 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
         padding: isMobile ? '140px 6% 48px' : '184px 8% 72px',
         overflow: 'hidden',
       }}>
-        <div style={{ position: 'absolute', inset: 0, background: `url(${cfg.heroImg}) ${cfg.heroPos}/cover no-repeat` }} />
+        <div style={{ position: 'absolute', inset: 0, background: `url(${heroImg}) ${cfg.heroPos}/cover no-repeat` }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,8,24,0.55), rgba(10,8,24,0.78))' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '760px' }}>
           <h1 style={{

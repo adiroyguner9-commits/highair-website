@@ -21,7 +21,8 @@ describe('hero preload per page', () => {
 
   it('the shells name the same trip-page poster the page shows', () => {
     const rule = "exp.heroVideo.replace('.mp4', '-poster.jpg')";
-    expect(detail).toContain(`poster={${rule}}`);
+    expect(detail).toContain(`usePhoneHero(exp?.heroVideo ? ${rule}`);
+    expect(detail).toContain('poster={heroImage}');
     expect(shells).toContain(rule);
   });
 

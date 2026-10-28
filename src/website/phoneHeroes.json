@@ -1,0 +1,65 @@
+{
+ "home": {
+  "/videos/hero-home-poster.jpg": "/images/phone/home/videos/hero-home-poster.webp"
+ },
+ "trip": {
+  "/images/cards/olympus.jpg": "/images/phone/trip/cards/olympus.webp",
+  "/videos/hero-peaks-of-balkan-poster.jpg": "/images/phone/trip/videos/hero-peaks-of-balkan-poster.webp",
+  "/videos/hero-ethiopia-poster.jpg": "/images/phone/trip/videos/hero-ethiopia-poster.webp",
+  "/videos/hero-kazbek-poster.jpg": "/images/phone/trip/videos/hero-kazbek-poster.webp",
+  "/videos/hero-manaslu-poster.jpg": "/images/phone/trip/videos/hero-manaslu-poster.webp",
+  "/videos/hero-nepal-poster.jpg": "/images/phone/trip/videos/hero-nepal-poster.webp",
+  "/images/cards/elbrus.webp": "/images/phone/trip/cards/elbrus.webp",
+  "/videos/hero-kilimanjaro-poster.jpg": "/images/phone/trip/videos/hero-kilimanjaro-poster.webp",
+  "/videos/hero-mera-peak-poster.jpg": "/images/phone/trip/videos/hero-mera-peak-poster.webp",
+  "/images/cards/aconcagua.webp": "/images/phone/trip/cards/aconcagua.webp",
+  "/images/cards/leninPeak.webp": "/images/phone/trip/cards/leninPeak.webp",
+  "/images/hero/sinai.webp": "/images/phone/trip/hero/sinai.webp",
+  "/images/hero/safari-3-days.webp": "/images/phone/trip/hero/safari-3-days.webp",
+  "/images/hero/safari-5-days.webp": "/images/phone/trip/hero/safari-5-days.webp",
+  "/images/hero/safari-7-days.webp": "/images/phone/trip/hero/safari-7-days.webp",
+  "/images/cards/manaslu-climb.webp": "/images/phone/trip/cards/manaslu-climb.webp",
+  "/images/cards/ama-dablam.webp": "/images/phone/trip/cards/ama-dablam.webp",
+  "/images/cards/himlung-himal.webp": "/images/phone/trip/cards/himlung-himal.webp",
+  "/images/cards/mount-kenya.webp": "/images/phone/trip/cards/mount-kenya.webp"
+ },
+ "list": {
+  "/images/cards/annapurna.webp": "/images/phone/list/cards/annapurna.webp",
+  "/images/cards/kilimanjaro.webp": "/images/phone/list/cards/kilimanjaro.webp"
+ },
+ "blog": {
+  "/images/cards/kilimanjaro.webp": null,
+  "/images/cards/annapurna.webp": null,
+  "/images/cards/MeraPeak.webp": "/images/phone/blog/cards/MeraPeak.webp",
+  "/images/cards/elbrus.webp": null,
+  "/images/cards/kazbek.webp": "/images/phone/blog/cards/kazbek.webp",
+  "/images/cards/sinai.webp": null,
+  "/images/cards/manaslu.webp": null,
+  "/images/cards/IslandPeak.webp": "/images/phone/blog/cards/IslandPeak.webp",
+  "/images/cards/mount-kenya.webp": null,
+  "/images/cards/olympus.jpg": null,
+  "/images/cards/peaks-of-balkan.webp": null,
+  "/images/cards/ethiopia.webp": null,
+  "/images/cards/lobuchePeak.webp": "/images/phone/blog/cards/lobuchePeak.webp",
+  "/images/cards/ama-dablam.webp": "/images/phone/blog/cards/ama-dablam.webp",
+  "/images/cards/himlung-himal.webp": "/images/phone/blog/cards/himlung-himal.webp",
+  "/images/cards/leninPeak.webp": null,
+  "/images/cards/manaslu-climb.webp": null,
+  "/images/cards/aconcagua.webp": null,
+  "/images/cards/EBC.webp": null,
+  "/images/cards/kilimanjaroKosher.webp": "/images/phone/blog/cards/kilimanjaroKosher.webp",
+  "/images/blog/tomer-bassan-snow.webp": null,
+  "/images/blog/nepal-rasuwa-valley.webp": null,
+  "/images/blog/chen-shaked-nimsdai-manaslu-2025.webp": "/images/phone/blog/blog/chen-shaked-nimsdai-manaslu-2025.webp",
+  "/images/blog/tanzania-currency.jpg": "/images/phone/blog/blog/tanzania-currency.webp",
+  "/images/blog/tanzania-vaccinations.jpg": "/images/phone/blog/blog/tanzania-vaccinations.webp",
+  "/images/blog/tanzania-visa.jpg": "/images/phone/blog/blog/tanzania-visa.webp",
+  "/images/blog/nabiev-everest.jpg": "/images/phone/blog/blog/nabiev-everest.webp",
+  "/images/blog/kristin-harila.webp": null,
+  "/images/blog/kami-rita-sherpa.avif": null,
+  "/images/blog/seven-summits-everest.webp": null
+ },
+ "backdrop": {
+  "/images/mountain-bw-bg.webp": "/images/phone/backdrop/mountain-bw-bg.webp"
+ }
+}

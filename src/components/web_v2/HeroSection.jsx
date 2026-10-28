@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { COLOR, FS } from '../../website/theme.js';
 import { Analytics } from '../../utils/analytics.js';
 import { ArrowIcon } from '../Icons.jsx';
+import { usePhoneHero } from '../../website/phoneHero.js';
 
 const VIDEO_SRC = '/videos/hero-home.mp4';
 const POSTER_SRC = '/videos/hero-home-poster.jpg';
@@ -31,6 +32,7 @@ export default function HeroSection() {
  const playTracked = useRef(false);
  const { t, i18n } = useTranslation();
  const isEn = i18n.language === 'en';
+ const poster = usePhoneHero(POSTER_SRC, 'home');   // a phone gets the slice it shows
 
  /* Load the hero video OFF the critical path, and never on mobile — a phone on
     cellular data should not download a ~4MB background video that sits under a
@@ -106,7 +108,7 @@ export default function HeroSection() {
  style={{
  position: 'absolute',
  inset: 0,
- backgroundImage: `url(${POSTER_SRC})`,
+ backgroundImage: `url(${poster})`,
  backgroundSize: 'cover',
  backgroundPosition: 'center',
  zIndex: 0,

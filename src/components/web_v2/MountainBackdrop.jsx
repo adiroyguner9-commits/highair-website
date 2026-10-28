@@ -6,16 +6,22 @@
  * backdrop. Shared across pages so the effect is consistent site-wide.
  *
  * Performance: a fixed positioned div (NOT background-attachment:fixed, which
- * is janky/disabled on mobile) + a single ~140KB webp.
+ * is janky/disabled on mobile) + a single ~140KB webp, 36KB on a phone
+ * (scripts/gen-phone-heroes.mjs).
  */
+import { usePhoneHero } from '../../website/phoneHero.js';
+
+const BACKDROP = '/images/mountain-bw-bg.webp';
+
 export default function MountainBackdrop() {
+  const img = usePhoneHero(BACKDROP, 'backdrop');   // a phone gets the slice it shows
   return (
     <div aria-hidden="true" style={{
       position:           'fixed',
       inset:              0,
       zIndex:             -1,
       pointerEvents:      'none',
-      backgroundImage:    'linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.93)), url(/images/mountain-bw-bg.webp)',
+      backgroundImage:    `linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.93)), url(${img})`,
       backgroundSize:     'cover',
       backgroundPosition: 'center top',
       backgroundRepeat:   'no-repeat',

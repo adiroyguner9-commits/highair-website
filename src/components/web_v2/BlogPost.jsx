@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { usePhoneHero } from '../../website/phoneHero.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, isNewsPost } from '../../data/blogData.js';
 import { authorOf } from '../../data/authors.js';
@@ -88,6 +89,7 @@ export default function BlogPost() {
   const isRtl = dir === 'rtl';
   const isEn = i18n.language === 'en';
   const post = POSTS.find(p => p.slug === slug);
+  const heroImg = usePhoneHero(post?.img, 'blog');   // a phone gets the slice it shows
 
   const [copied, setCopied] = useState(false);
   const progressBarRef = useRef(null);
@@ -194,7 +196,7 @@ export default function BlogPost() {
         width:      '100%',
         height:     isMobile ? '300px' : '440px',
         background: post.img
-          ? `url(${post.img}) ${post.imgPosition || 'center'}/cover no-repeat`
+          ? `url(${heroImg}) ${post.imgPosition || 'center'}/cover no-repeat`
           : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
         position:   'relative',
         marginTop:  '80px',
