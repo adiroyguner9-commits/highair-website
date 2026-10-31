@@ -11,6 +11,8 @@ const HE_MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','�
                    'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
 const HE_DAYS   = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
 
+const HE_MONTHS_SHORT = ['ינו׳', 'פבר׳', 'מרץ', 'אפר׳', 'מאי', 'יוני', 'יולי', 'אוג׳', 'ספט׳', 'אוק׳', 'נוב׳', 'דצמ׳'];
+
 function formatDateHe(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
   return `יום ${HE_DAYS[d.getDay()]}, ${d.getDate()} ב${HE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
@@ -203,6 +205,7 @@ import { firstName } from './_lib/name.js';   // WhatsApp greeting — first nam
 import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
 import { greenFetch } from './_lib/green.js';
+import { emailShell, p, link, when, signoff, whatsapp, greeting } from './_lib/email-shell.js';
 
 /* ════════════════════════════════════════════ */
 export default async function handler(req, res) {
@@ -681,71 +684,19 @@ export default async function handler(req, res) {
     if (email) {
       await sendEmail(RESEND_KEY, {
         to:          email,
-        subject:     `השיחה שלך נקבעה ל-${dateHe} ✅`,
+        subject:     `השיחה שלך נקבעה ל${dateHe}, בשעה ${time} ✅`,
         attachments: icsAttachment,
-        html: `
-<!DOCTYPE html><html dir="rtl" lang="he">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
-  <tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0"
-      style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
-
-      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
-        <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">השיחה נקבעה!</h1>
-        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
-      </td></tr>
-
-      <tr><td style="padding:36px;text-align:center;">
-        <p style="margin:0 0 4px;font-size:14px;color:#9591B0;">שלום ${escapeHtml(name)},</p>
-        <p style="margin:0 0 28px;font-size:15px;color:#1e1b4b;line-height:1.6;">קבענו לך שיחה עם הצוות שלנו.</p>
-
-        <div style="background:#F5F0FF;border-radius:12px;padding:20px 32px;margin-bottom:28px;">
-          <p style="margin:0 0 6px;font-size:14px;color:#7c3aed;font-weight:700;">${dateHe}</p>
-          <p style="margin:0;font-size:36px;color:#1e1b4b;font-weight:800;letter-spacing:-1px;">${time}</p>
-          ${expedition ? `<p style="margin:8px 0 0;font-size:13px;color:#9591B0;">משלחת: ${escapeHtml(expeditionHe)}</p>` : ''}
-        </div>
-
-        <table cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
-          <tr>
-            <td style="padding:4px;" align="center">
-              <a href="${gcalUrl}"
-                style="display:inline-block;background:#4285F4;color:#fff;text-decoration:none;
-                       padding:12px 22px;border-radius:50px;font-size:14px;font-weight:700;">
-                הוסף ל-Google Calendar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:6px 4px 0;" align="center">
-              <a href="${icsLink}"
-                style="display:inline-block;background:#1C1C1E;color:#fff;text-decoration:none;
-                       padding:12px 22px;border-radius:50px;font-size:14px;font-weight:700;">
-                הוסף ל-Apple Calendar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:8px 4px 0;" align="center">
-              <p style="margin:0;font-size:12px;color:#9591B0;">או פתח את הקובץ המצורף לכל יומן אחר</p>
-            </td>
-          </tr>
-        </table>
-
-        <p style="margin:0;font-size:13px;color:#9591B0;line-height:1.7;">
-          נשמח לדבר איתך!<br>
-          לכל שאלה: <a href="mailto:info@highair-expeditions.com" style="color:#7c3aed;">info@highair-expeditions.com</a>
-        </p>
-      </td></tr>
-
-      <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-        <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>
-</body></html>`,
+        html: emailShell({
+          title: 'השיחה נקבעה!', subtitle: expedition ? escapeHtml(expeditionHe) : '',
+          preheader: `${dateHe}, ${time}`,
+          body: [
+            p(greeting(escapeHtml(name)), 4),
+            p('קבענו לך שיחה עם הצוות שלנו, ואנחנו נתקשר אליך במועד הזה:'),
+            when({ day: Number(date.slice(8, 10)), month: HE_MONTHS_SHORT[Number(date.slice(5, 7)) - 1], date: dateHe, time }),
+            p(`${link(gcalUrl, 'הוספה ל-Google Calendar')}<br>${link(icsLink, 'הוספה ל-Apple Calendar')}<br>הקובץ המצורף מתאים לכל יומן אחר.`, 0),
+            signoff('נשמח לדבר איתך!', `אם המועד לא מתאים, אפשר לכתוב לנו ב${whatsapp('וואטסאפ')} ונמצא מועד אחר.`),
+          ].join(''),
+        }),
       });
     }
 
