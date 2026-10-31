@@ -1,9 +1,9 @@
 /**
  * GET /api/site-health
  * Called by Vercel Cron once a day. A SPEED monitor: runs Google PageSpeed
- * Insights (Lighthouse) on the key public pages and emails a Hebrew report.
- * Loading speed is the company's top priority, so this watches it daily and
- * flags regressions. Report only - it never changes anything.
+ * Insights (Lighthouse) on the key public pages and keeps the numbers. Loading
+ * speed is the company's top priority, so this watches it daily. Report only -
+ * it never changes anything on the site.
  *
  * WHY IN-REPO AND NOT A CLOUD ROUTINE: the claude.ai cloud-routine sandbox
  * blocks outbound DNS to our own domain and to googleapis, so a cloud agent
@@ -15,8 +15,11 @@
  * quietly without emailing. Get a key at console.cloud.google.com (enable
  * "PageSpeed Insights API", create an API key) and add it in Vercel env vars.
  *
- * DELIVERY: one email via Resend to info@highair-expeditions.com, status word in
- * the subject (תקין / שים לב / תקלה).
+ * DELIVERY (owner, 31 Oct 2026): measure daily, email weekly. The daily email is
+ * gone because one run is noise (see _lib/speed-trend.js). Via Resend to
+ * info@highair-expeditions.com: a report on Sunday built from 7-day medians, and
+ * an alert only when a drop holds for three days. The numbers live in the
+ * AppContent row site_health_history.
  *
  * SECURITY: requires CRON_SECRET (same pattern as send-reminders.js) and must be
  * registered under `crons` in vercel.json.
@@ -25,6 +28,12 @@
 export const config = { api: { bodyParser: false } };
 
 import { setSecurityHeaders } from './_security.js';
+import { israelNow } from './_lib/iltime.js';
+import {
+  YELLOW_BELOW, RED_BELOW, MIN_WEEK_DAYS, OUTAGE_KEY,
+  parseHistory, dayEntry, addDay, findRegressions, measurementDown,
+  daysThisWeek, weeklyRows, weeklyStatus,
+} from './_lib/speed-trend.js';
 
 const SITE = 'https://www.highair-expeditions.com';
 
@@ -37,10 +46,6 @@ const PAGES = [
   /* A blog post: where Google search visitors land, and its own layout. */
   { path: '/blog/tanzania-visa-guide', label: 'מאמר: ויזה לטנזניה' },
 ];
-
-/* Thresholds on the Lighthouse performance score (0-100), mobile is the gate. */
-const YELLOW_BELOW = 80;
-const RED_BELOW    = 60;
 
 function isAuthorizedCron(req) {
   const expected = process.env.CRON_SECRET;
@@ -95,6 +100,115 @@ function esc(s) {
   return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
 
+const HISTORY_KEY = 'site_health_history';
+const appContentUrl = BASE => `https://api.airtable.com/v0/${BASE}/AppContent`;
+
+/* null means the read failed, which is not the same as "no history yet". */
+async function loadHistory(BASE, TOKEN) {
+  try {
+    const url = `${appContentUrl(BASE)}?filterByFormula=${encodeURIComponent(`{Key}="${HISTORY_KEY}"`)}&fields[]=Value&maxRecords=1`;
+    const r = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
+    if (!r.ok) return null;
+    const rec = (await r.json()).records?.[0];
+    return { id: rec?.id || null, history: parseHistory(rec?.fields?.Value) };
+  } catch (e) {
+    console.warn('[site-health] history read failed:', e.message);
+    return null;
+  }
+}
+
+async function saveHistory(BASE, TOKEN, id, history) {
+  const Value = JSON.stringify(history);
+  try {
+    const r = await fetch(id ? `${appContentUrl(BASE)}/${id}` : appContentUrl(BASE), {
+      method: id ? 'PATCH' : 'POST',
+      headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields: id ? { Value } : { Key: HISTORY_KEY, Value } }),
+    });
+    if (!r.ok) console.error('[site-health] history write failed:', r.status);
+    return r.ok;
+  } catch (e) {
+    console.warn('[site-health] history write failed:', e.message);
+    return false;
+  }
+}
+
+async function sendMail(RESEND_KEY, subject, html) {
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'HighAir Website <noreply@highair-expeditions.com>',
+        to: ['info@highair-expeditions.com'],
+        subject,
+        html,
+      }),
+    });
+    if (!r.ok) console.error('[site-health] Resend error:', r.status);
+    return r.ok;
+  } catch (e) {
+    console.warn('[site-health] Resend non-fatal:', e.message);
+    return false;
+  }
+}
+
+function shell(title, dd, body) {
+  return `<!DOCTYPE html><html dir="rtl" lang="he"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;max-width:600px;width:100%;box-shadow:0 4px 24px rgba(109,40,217,0.10);">
+      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:26px 32px;text-align:center;">
+        <h1 style="margin:0;color:#fff;font-size:20px;font-weight:700;">${esc(title)}</h1>
+        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions · ${esc(dd)}</p>
+      </td></tr>
+      <tr><td style="padding:28px 32px;">${body}</td></tr>
+      <tr><td style="background:#FAFAF8;padding:18px 32px;text-align:center;border-top:1px solid #ECEAF8;">
+        <p style="margin:0;font-size:12px;color:#9591B0;">נשלח אוטומטית מבדיקת המהירות · קריאה בלבד</p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+}
+
+const scoreColor = n => n >= YELLOW_BELOW ? '#166534' : n >= RED_BELOW ? '#B45309' : '#B91C1C';
+const blank = '<td style="padding:6px 8px;font-size:12px;color:#9591B0;">-</td>';
+const scoreCell = n => n == null ? blank
+  : `<td style="padding:6px 8px;font-size:13px;color:${scoreColor(n)};font-weight:700;">${n}</td>`;
+const textCell = t => t == null ? blank
+  : `<td style="padding:6px 8px;font-size:12px;color:#6B6B8A;direction:ltr;text-align:right;">${esc(t)}</td>`;
+const head = t => `<td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">${esc(t)}</td>`;
+
+function weeklyHtml(rows, status, dd) {
+  const statusColor = status === 'תקלה' ? '#B91C1C' : status === 'שים לב' ? '#B45309' : '#166534';
+  const row = r => `<tr style="border-top:1px solid #ECEAF8;">
+    <td style="padding:6px 8px;font-size:13px;color:#1e1b4b;font-weight:600;">${esc(r.label)}</td>
+    ${scoreCell(r.mobile)}${scoreCell(r.prev)}
+    ${textCell(r.low == null ? null : `${r.low}-${r.high}`)}
+    ${scoreCell(r.desktop)}
+    ${textCell(r.lcp == null ? null : `${(r.lcp / 1000).toFixed(1)}s`)}
+  </tr>`;
+  return shell('דוח מהירות שבועי', dd, `
+    <div style="text-align:center;margin-bottom:20px;"><span style="display:inline-block;padding:8px 24px;border-radius:999px;background:${statusColor};color:#fff;font-size:16px;font-weight:700;">${esc(status)}</span></div>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
+      <tr style="background:#F5F0FF;">${head('עמוד')}${head('מובייל')}${head('שבוע קודם')}${head('טווח')}${head('דסקטופ')}${head('LCP')}</tr>
+      ${rows.map(row).join('')}
+    </table>
+    <p style="margin:16px 0 0;font-size:11px;color:#9591B0;line-height:1.6;">כל מספר הוא חציון של 7 ימים, כי ריצה בודדת קופצת בכ-20 נקודות על אותו קוד. ירוק 80+, כתום 60-79, אדום מתחת ל-60. הסטטוס נקבע לפי העמוד הנמוך במובייל.</p>`);
+}
+
+function alertHtml(regressions, dd) {
+  const line = r => `<p style="margin:0 0 10px;font-size:14px;color:#1e1b4b;line-height:1.6;"><b>${esc(r.label)}</b>: חציון של ${r.base} בשבוע שלפני, ו-${r.now} בשלושת הימים האחרונים.</p>`;
+  return shell('התרעת מהירות', dd, `
+    ${regressions.map(line).join('')}
+    <p style="margin:16px 0 0;font-size:12px;color:#6B6B8A;line-height:1.6;">התרעה נשלחת רק כששלושה ימים ברציפות נמוכים מהרגיל, אז זו ירידה אמיתית ולא רעש של ריצה אחת. כדאי לבדוק מה עלה לאתר ולתגי השיווק בימים האלה.</p>`);
+}
+
+function outageHtml(dd) {
+  return shell('התרעת מהירות', dd, `
+    <p style="margin:0;font-size:14px;color:#1e1b4b;line-height:1.6;">בדיקת המהירות לא הצליחה למדוד אף עמוד שלושה ימים ברציפות, ולכן אין כרגע מעקב. הסיבה הנפוצה היא מפתח PageSpeed או מכסת הבדיקות, לא האתר עצמו.</p>`);
+}
+
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).end();
@@ -137,85 +251,56 @@ export default async function handler(req, res) {
   }
   const rows = PAGES.map(p => byPath[p.path]);
 
-  /* Status from the mobile score (plus any hard error). */
-  let worstMobile = 100; let anyError = false;
-  for (const r of rows) {
-    const mob = r.mobile || {};
-    if (mob.error) anyError = true;
-    else if (typeof mob.score === 'number') worstMobile = Math.min(worstMobile, mob.score);
+  /* Keep today's numbers. If the history cannot be read, stop here: saving on
+     top of it would wipe the weeks already stored. */
+  const stored = TOKEN && BASE ? await loadHistory(BASE, TOKEN) : null;
+  if (!stored) {
+    console.error('[site-health] history not readable, nothing stored or sent');
+    return res.status(200).json({ ok: false, stored: false });
   }
-  let status = 'תקין';
-  if (worstMobile < YELLOW_BELOW) status = 'שים לב';
-  if (worstMobile < RED_BELOW || anyError) status = 'תקלה';
+  const { ymd } = israelNow();
+  let history = addDay(stored.history, dayEntry(ymd, rows));
+  const dd = `${ymd.slice(8, 10)}/${ymd.slice(5, 7)}`;
 
-  const dd = new Date().toLocaleDateString('he-IL', { timeZone: 'Asia/Jerusalem', day: '2-digit', month: '2-digit' });
-
-  /* Email. */
-  let emailed = false;
-  if (RESEND_KEY) {
-    const cell = (r) => {
-      if (!r) return '<td style="padding:6px 8px;font-size:12px;color:#9591B0;">—</td>';
-      if (r.error) return `<td style="padding:6px 8px;font-size:12px;color:#B91C1C;">שגיאה</td>`;
-      const col = r.score >= YELLOW_BELOW ? '#166534' : r.score >= RED_BELOW ? '#B45309' : '#B91C1C';
-      return `<td style="padding:6px 8px;font-size:13px;color:${col};font-weight:700;">${r.score}</td>`;
-    };
-    const metricRow = (r) => {
-      const m = r.mobile || {}; const d = r.desktop || {};
-      const detail = m.error ? `<span style="color:#B91C1C;direction:ltr;">${esc(m.error)}</span>`
-        : `<span style="direction:ltr;">LCP ${esc(m.lcp)} · CLS ${esc(m.cls)} · TBT ${esc(m.tbt)}</span>`;
-      return `<tr style="border-top:1px solid #ECEAF8;">
-        <td style="padding:6px 8px;font-size:13px;color:#1e1b4b;font-weight:600;">${esc(r.label)}</td>
-        ${cell(r.mobile)}${cell(r.desktop)}
-        <td style="padding:6px 8px;font-size:11px;color:#6B6B8A;">${detail}</td>
-      </tr>`;
-    };
-    const statusColor = status === 'תקלה' ? '#B91C1C' : status === 'שים לב' ? '#B45309' : '#166534';
-    const html = `<!DOCTYPE html><html dir="rtl" lang="he"><head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;"><tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;max-width:600px;width:100%;box-shadow:0 4px 24px rgba(109,40,217,0.10);">
-      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:26px 32px;text-align:center;">
-        <h1 style="margin:0;color:#fff;font-size:20px;font-weight:700;">דוח מהירות יומי</h1>
-        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions · ${esc(dd)}</p>
-      </td></tr>
-      <tr><td style="padding:28px 32px;">
-        <div style="text-align:center;margin-bottom:20px;"><span style="display:inline-block;padding:8px 24px;border-radius:999px;background:${statusColor};color:#fff;font-size:16px;font-weight:700;">${esc(status)}</span></div>
-        <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
-          <tr style="background:#F5F0FF;">
-            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">עמוד</td>
-            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">מובייל</td>
-            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">דסקטופ</td>
-            <td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">Core Web Vitals (מובייל)</td>
-          </tr>
-          ${rows.map(metricRow).join('')}
-        </table>
-        <p style="margin:16px 0 0;font-size:11px;color:#9591B0;line-height:1.6;">הציון הוא Lighthouse Performance (0-100). ירוק 80+, כתום 60-79, אדום מתחת ל-60. הסף נקבע לפי המובייל.</p>
-      </td></tr>
-      <tr><td style="background:#FAFAF8;padding:18px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-        <p style="margin:0;font-size:12px;color:#9591B0;">נשלח אוטומטית מבדיקת המהירות היומית · קריאה בלבד</p>
-      </td></tr>
-    </table>
-  </td></tr></table>
-</body></html>`;
-
-    try {
-      const er = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          from: 'HighAir Website <noreply@highair-expeditions.com>',
-          to: ['info@highair-expeditions.com'],
-          subject: `HighAir - דוח מהירות (${dd}): ${status}`,
-          html,
-        }),
-      });
-      emailed = er.ok;
-      if (!er.ok) console.error('[site-health] Resend error:', er.status);
-    } catch (e) { console.warn('[site-health] Resend non-fatal:', e.message); }
+  /* An alert goes the day a drop is confirmed. It is marked only after it left,
+     so a failed send tries again tomorrow. */
+  const regressions = findRegressions(history, PAGES, ymd);
+  const down = measurementDown(history, PAGES, ymd);
+  let alerted = false;
+  if (RESEND_KEY && regressions.length) {
+    const first = regressions[0];
+    const subject = regressions.length > 1
+      ? `HighAir - התרעת מהירות (${dd}): ${regressions.length} עמודים ירדו`
+      : `HighAir - התרעת מהירות (${dd}): ${first.label} ירד מ-${first.base} ל-${first.now}`;
+    alerted = await sendMail(RESEND_KEY, subject, alertHtml(regressions, dd));
+    if (alerted) {
+      const marks = Object.fromEntries(regressions.map(r => [r.path, ymd]));
+      history = { ...history, alerted: { ...history.alerted, ...marks } };
+    }
   }
+  if (RESEND_KEY && down) {
+    const sent = await sendMail(RESEND_KEY, `HighAir - התרעת מהירות (${dd}): הבדיקה לא מודדת`, outageHtml(dd));
+    if (sent) history = { ...history, alerted: { ...history.alerted, [OUTAGE_KEY]: ymd } };
+  }
+
+  /* The weekly report: Sunday, once, and only with enough days to mean something.
+     ?weekly=1 forces it (the route is still behind CRON_SECRET). */
+  const sunday = new Date(`${ymd}T00:00:00Z`).getUTCDay() === 0;
+  const forced = req.query?.weekly === '1';
+  const enough = daysThisWeek(history, ymd) >= MIN_WEEK_DAYS;
+  let weekly = false;
+  let status = null;
+  if (RESEND_KEY && enough && (forced || (sunday && history.weekly !== ymd))) {
+    const table = weeklyRows(history, PAGES, ymd);
+    status = weeklyStatus(table);
+    weekly = await sendMail(RESEND_KEY, `HighAir - דוח מהירות שבועי (${dd}): ${status}`, weeklyHtml(table, status, dd));
+    if (weekly) history = { ...history, weekly: ymd };
+  }
+
+  const saved = await saveHistory(BASE, TOKEN, stored.id, history);
 
   return res.status(200).json({
-    ok: true, status, emailed,
+    ok: true, stored: saved, weekly, status, alerted, down,
     pages: rows.map(r => ({ path: r.path, mobile: r.mobile?.score ?? r.mobile?.error, desktop: r.desktop?.score ?? r.desktop?.error })),
   });
 }
