@@ -114,23 +114,17 @@
       data-offset-y="86"
     ></script>
     <style>
-      /* The two floating buttons share one corner. On a phone they are smaller
-         and closer to the edge, so they cover less of the text. */
-      :root { --ha-fab-size: 46px; --ha-fab-left: 28px; --ha-fab-bottom: 28px; }
-      @media (max-width: 767.98px) {
-        :root { --ha-fab-size: 44px; --ha-fab-left: 12px; --ha-fab-bottom: 14px; }
-      }
-      /* UserWay - circle bottom-left, stacked above WhatsApp button */
+      /* UserWay - 58px circle bottom-left, stacked above WhatsApp button */
       #userwayAccessibilityIcon,
       .userway_buttons_wrapper,
       [id^="userwayAccessibilityIcon"] {
         position: fixed !important;
         top: auto !important;
         right: auto !important;
-        bottom: calc(var(--ha-fab-bottom) + var(--ha-fab-size) + 12px) !important;
-        left: var(--ha-fab-left) !important;
-        width:  var(--ha-fab-size) !important;
-        height: var(--ha-fab-size) !important;
+        bottom: 86px !important;
+        left: 28px !important;
+        width:  46px !important;
+        height: 46px !important;
         border-radius: 50% !important;
         overflow: visible !important;
         padding: 0 !important;
@@ -157,14 +151,14 @@
       body.ha-cookie-open #userwayAccessibilityIcon,
       body.ha-cookie-open .userway_buttons_wrapper,
       body.ha-cookie-open [id^="userwayAccessibilityIcon"] {
-        bottom: calc(var(--ha-cookie-clear, 86px) + var(--ha-fab-size) + 12px) !important;
+        bottom: calc(var(--ha-cookie-clear, 86px) + 58px) !important;
       }
       /* The clickable button element UserWay renders */
       #userwayAccessibilityIcon button,
       .userway_buttons_wrapper button,
       [id^="userwayAccessibilityIcon"] button {
-        width:  var(--ha-fab-size) !important;
-        height: var(--ha-fab-size) !important;
+        width:  46px !important;
+        height: 46px !important;
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;

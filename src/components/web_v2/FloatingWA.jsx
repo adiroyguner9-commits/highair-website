@@ -31,14 +31,12 @@ export default function FloatingWA() {
       style={{
         position:       'fixed',
         /* Lifts above the cookie banner when it covers this corner (the banner
-           sets --ha-cookie-clear). Size and corner are shared with the
-           accessibility button (--ha-fab-* in index.html): smaller and closer
-           to the edge on a phone, so they cover less of the text. */
-        bottom:         'var(--ha-cookie-clear, var(--ha-fab-bottom))',
-        left:           'var(--ha-fab-left)',
+           sets --ha-cookie-clear); otherwise rests at 28px. */
+        bottom:         'var(--ha-cookie-clear, 28px)',
+        left:           '28px',
         zIndex:         998,
-        width:          'var(--ha-fab-size)',
-        height:         'var(--ha-fab-size)',
+        width:          '46px',
+        height:         '46px',
         borderRadius:   '50%',
         background:     hovered ? '#1aab52' : '#25D366',
         boxShadow:      hovered
