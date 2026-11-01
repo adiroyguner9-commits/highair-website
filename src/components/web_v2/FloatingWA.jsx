@@ -5,7 +5,7 @@
  * button slides up above the banner while it's visible, then slides back
  * down once the user accepts or declines.
  */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 
@@ -18,24 +18,6 @@ export default function FloatingWA() {
   const { i18n } = useTranslation();
   const isEn = i18n.language === 'en';
   const href = `https://wa.me/${WA_PHONE}?text=${isEn ? WA_MSG_EN : WA_MSG_HE}`;
-
-  /* On a phone the accessibility button slides away while the visitor reads down
-     the page and comes back on the way up (index.html reads body.ha-reading).
-     This button stays: it brings the leads. */
-  useEffect(() => {
-    let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (Math.abs(y - last) < 10) return;
-      document.body.classList.toggle('ha-reading', y > last && y > 240);
-      last = y;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      document.body.classList.remove('ha-reading');
-    };
-  }, []);
 
   return (
     <a

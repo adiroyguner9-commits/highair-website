@@ -135,7 +135,7 @@
         overflow: visible !important;
         padding: 0 !important;
         margin: 0 !important;
-        transition: bottom 0.35s cubic-bezier(0.22,1,0.36,1), transform 0.25s ease !important;
+        transition: bottom 0.35s cubic-bezier(0.22,1,0.36,1) !important;
       }
       /* Smooth on phones (owner, 24 Oct 2026: the icon limped while scrolling).
          The WhatsApp button below it sits on its own compositor layer
@@ -158,14 +158,6 @@
       body.ha-cookie-open .userway_buttons_wrapper,
       body.ha-cookie-open [id^="userwayAccessibilityIcon"] {
         bottom: calc(var(--ha-cookie-clear, 86px) + var(--ha-fab-size) + 12px) !important;
-      }
-      /* A phone reading down the page: the accessibility button steps aside and
-         comes back on the way up (FloatingWA sets body.ha-reading). */
-      @media (max-width: 767.98px) {
-        body.ha-reading:not(.ha-cookie-open) #userwayAccessibilityIcon,
-        body.ha-reading:not(.ha-cookie-open) [id^="userwayAccessibilityIcon"] {
-          transform: translate3d(-72px, 0, 0) !important;
-        }
       }
       /* The clickable button element UserWay renders */
       #userwayAccessibilityIcon button,
