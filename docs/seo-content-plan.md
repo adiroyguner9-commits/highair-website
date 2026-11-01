@@ -3,7 +3,10 @@
 The weekly SEO agent (claude.ai routine "HighAir - סוכן SEO שבועי", Sunday 08:10 Israel) works from this file.
 Each week it takes the FIRST topic marked `todo`, writes it, and changes its status to `in review`
 in the same branch. The owner approves; after merge the status becomes `live`.
-Only the owner (or Claude in a session, on his instruction) reorders or adds topics.
+The weekly keyword planner (routine "HighAir - מתכנן מילות מפתח שבועי", Sunday 06:41 Israel, after the
+Search Console email) may reorder `todo` rows and add new `todo` rows, committing ONLY this file to main
+(owner, 2 Nov 2026). It never touches rows that are not `todo` and reports every change in its email.
+The owner (or Claude in a session, on his instruction) may change anything.
 
 ## Why this plan exists (measured, 24 Oct 2026)
 
@@ -96,6 +99,14 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 16 | todo | רשימת ציוד לטרק בגובה ולטיפוס לקילימנג'רו | competitors rank with lists | kilimanjaro, everest-base-camp |
 | 17 | todo | הטרק הראשון שלי בחו"ל: איך בוחרים יעד לפי כושר וניסיון | first-trek intent, listicles rank | treks, climbs |
 | 20 | todo | מה לשאול חברת טרקים לפני שנרשמים | "חברת טרקים מומלצת" is listicles | treks, climbs |
+
+## Keyword targets
+
+Maintained by the keyword planner from Google Search Console only (never from a WebSearch position).
+One row per query we want to rank for; `GSC` = average position and clicks in the latest weekly email.
+
+| Query | Page that should rank | GSC (date) | Next step |
+|-------|-----------------------|------------|-----------|
 
 ## Weekly visibility probe queries
 
