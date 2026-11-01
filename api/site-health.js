@@ -29,6 +29,7 @@ export const config = { api: { bodyParser: false } };
 
 import { setSecurityHeaders } from './_security.js';
 import { israelNow } from './_lib/iltime.js';
+import { emailShell } from './_lib/email-shell.js';
 import {
   YELLOW_BELOW, RED_BELOW, MIN_WEEK_DAYS, OUTAGE_KEY,
   parseHistory, dayEntry, addDay, findRegressions, measurementDown,
@@ -154,21 +155,7 @@ async function sendMail(RESEND_KEY, subject, html) {
 }
 
 function shell(title, dd, body) {
-  return `<!DOCTYPE html><html dir="rtl" lang="he"><head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;"><tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;max-width:600px;width:100%;box-shadow:0 4px 24px rgba(109,40,217,0.10);">
-      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:26px 32px;text-align:center;">
-        <h1 style="margin:0;color:#fff;font-size:20px;font-weight:700;">${esc(title)}</h1>
-        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions · ${esc(dd)}</p>
-      </td></tr>
-      <tr><td style="padding:28px 32px;">${body}</td></tr>
-      <tr><td style="background:#FAFAF8;padding:18px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-        <p style="margin:0;font-size:12px;color:#9591B0;">נשלח אוטומטית מבדיקת המהירות · קריאה בלבד</p>
-      </td></tr>
-    </table>
-  </td></tr></table>
-</body></html>`;
+  return emailShell({ title: esc(title), subtitle: esc(dd), dark: false, body, footer: 'נשלח אוטומטית מבדיקת המהירות, קריאה בלבד' });
 }
 
 const scoreColor = n => n >= YELLOW_BELOW ? '#166534' : n >= RED_BELOW ? '#B45309' : '#B91C1C';

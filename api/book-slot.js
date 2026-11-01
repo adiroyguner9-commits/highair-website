@@ -205,7 +205,7 @@ import { firstName } from './_lib/name.js';   // WhatsApp greeting — first nam
 import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
 import { greenFetch } from './_lib/green.js';
-import { emailShell, p, link, when, signoff, whatsapp, greeting } from './_lib/email-shell.js';
+import { emailShell, p, link, details, when, signoff, whatsapp, greeting } from './_lib/email-shell.js';
 
 /* ════════════════════════════════════════════ */
 export default async function handler(req, res) {
@@ -704,64 +704,16 @@ export default async function handler(req, res) {
     //    (Green API → STAFF_NOTIFY_PHONES) instead. ──────────────────────────
     await sendEmail(RESEND_KEY, {
       to:          'info@highair-expeditions.com',
-      subject:     `נקבעה שיחה חדשה - ${name} 📅`,
+      subject:     `נקבעה שיחה חדשה: ${name}`,
       attachments: adminIcsAttachment,
-      html: `
-<!DOCTYPE html><html dir="rtl" lang="he">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
-  <tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0"
-      style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
-
-      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
-        <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">שיחה חדשה נקבעה</h1>
-        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
-      </td></tr>
-
-      <tr><td style="padding:32px;">
-        <table width="100%" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;margin-bottom:24px;">
-          ${row('שם',    name)}
-          ${row('טלפון', phone)}
-          ${email      ? row('מייל',   email)      : ''}
-          ${expedition ? row('משלחת', expedition) : ''}
-          ${row2('תאריך', dateHe)}
-          ${row2('שעה',   time)}
-        </table>
-
-        <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:12px;">
-          <tr>
-            <td style="padding:4px;" align="center">
-              <a href="${gcalUrl}"
-                style="display:inline-block;background:#4285F4;color:#fff;text-decoration:none;
-                       padding:13px 28px;border-radius:50px;font-size:14px;font-weight:700;">
-                הוסף ל-Google Calendar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:6px 4px 4px;" align="center">
-              <a href="${icsLink}"
-                style="display:inline-block;background:#1C1C1E;color:#fff;text-decoration:none;
-                       padding:13px 28px;border-radius:50px;font-size:14px;font-weight:700;">
-                הוסף ל-Apple Calendar
-              </a>
-            </td>
-          </tr>
-        </table>
-        <p style="text-align:center;margin:0;font-size:12px;color:#9591B0;">
-          ב-iPhone: המייל אמור להציג כפתור "קבל" ישירות בראש ההודעה
-        </p>
-      </td></tr>
-
-      <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-        <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>
-</body></html>`,
+      html: emailShell({
+        title: 'שיחה חדשה נקבעה',
+        body: [
+          details(callRows({ name, phone, email, expedition, dateHe, time })),
+          p(`${link(gcalUrl, 'הוספה ל-Google Calendar')}<br>${link(icsLink, 'הוספה ל-Apple Calendar')}`, 8),
+          p('ב-iPhone: המייל אמור להציג כפתור "קבל" ישירות בראש ההודעה', 0),
+        ].join(''),
+      }),
     });
 
     /* ── The lead's own agent gets the same invite, in their calendar ──
@@ -777,43 +729,17 @@ export default async function handler(req, res) {
         });
         await sendEmail(RESEND_KEY, {
           to:      agentTo,
-          subject: `שיחה חדשה עם ${name} 📅`,
+          subject: `שיחה חדשה עם ${name}`,
           attachments: [{
             filename:     'highair-meeting.ics',
             content:      Buffer.from(agentIcs, 'utf-8').toString('base64'),
             content_type: 'text/calendar; charset=utf-8; method=REQUEST',
           }],
-          html: `
-<!DOCTYPE html><html dir="rtl" lang="he">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
-  <tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
-      <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
-        <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">נקבעה לך שיחה</h1>
-        <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
-      </td></tr>
-      <tr><td style="padding:32px;">
-        <table width="100%" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;margin-bottom:24px;">
-          ${row('שם',    name)}
-          ${row('טלפון', phone)}
-          ${email      ? row('מייל',   email)      : ''}
-          ${expedition ? row('משלחת', expedition) : ''}
-          ${row2('תאריך', dateHe)}
-          ${row2('שעה',   time)}
-        </table>
-        <p style="text-align:center;margin:0;font-size:12px;color:#9591B0;">
-          הזימון מצורף למייל — אישור יוסיף אותו ליומן שלך
-        </p>
-      </td></tr>
-      <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-        <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>
-</body></html>`,
+          html: emailShell({
+            title: 'נקבעה לך שיחה',
+            body: details(callRows({ name, phone, email, expedition, dateHe, time }))
+              + p('הזימון מצורף למייל, אישור יוסיף אותו ליומן שלך', 0),
+          }),
         });
       }
     } catch (e) { console.warn('[book-slot] agent invite non-fatal:', e.message); }
@@ -822,17 +748,8 @@ export default async function handler(req, res) {
   return res.json({ ok: true });
 }
 
-function row(label, value) {
-  if (!value) return '';
-  return `<tr>
-    <td style="padding:12px 16px;background:#FAFAF8;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;border-bottom:1px solid #ECEAF8;">${escapeHtml(label)}</td>
-    <td style="padding:12px 16px;font-size:14px;color:#1e1b4b;font-weight:500;border-bottom:1px solid #ECEAF8;">${escapeHtml(String(value))}</td>
-  </tr>`;
-}
-function row2(label, value) {
-  if (!value) return '';
-  return `<tr>
-    <td style="padding:12px 16px;background:#F5F0FF;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;border-bottom:1px solid #ECEAF8;">${escapeHtml(label)}</td>
-    <td style="padding:12px 16px;font-size:16px;color:#7c3aed;font-weight:700;border-bottom:1px solid #ECEAF8;">${escapeHtml(String(value))}</td>
-  </tr>`;
+/* The call, as label and value rows for the office and for the agent. */
+function callRows({ name, phone, email, expedition, dateHe, time }) {
+  return [['שם', name], ['טלפון', phone], ['מייל', email], ['משלחת', expedition], ['תאריך', dateHe], ['שעה', time]]
+    .filter(([, v]) => v).map(([label, v]) => [label, escapeHtml(String(v))]);
 }

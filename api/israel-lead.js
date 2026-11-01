@@ -19,6 +19,7 @@ import {
   setSecurityHeaders,
 } from './_security.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
+import { emailShell, details } from './_lib/email-shell.js';
 
 const TABLE_NAME = 'IsraelCustomers';
 
@@ -146,48 +147,15 @@ export default async function handler(req, res) {
     /* ── 4. Email notification via Resend (awaited to ensure delivery on Vercel) ── */
   const RESEND_KEY = process.env.RESEND_API_KEY;
   if (RESEND_KEY) {
-    const emailHtml = `
-<!DOCTYPE html>
-<html dir="rtl" lang="he">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
-
-        <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
-          <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">ליד חדש - טרק בארץ 🇮🇱</h1>
-          <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
-        </td></tr>
-
-        <tr><td style="padding:32px;">
-          ${cleanTripName ? `
-          <div style="background:#F5F0FF;border-right:4px solid #7c3aed;border-radius:8px;padding:16px 20px;margin-bottom:20px;">
-            <p style="margin:0;font-size:12px;color:#9591B0;font-weight:600;">טרק</p>
-            <p style="margin:6px 0 0;font-size:18px;font-weight:700;color:#1e1b4b;">${escapeHtml(cleanTripName)}</p>
-            ${tripDate ? `<p style="margin:4px 0 0;font-size:14px;color:#9591B0;">${escapeHtml(tripDate)}</p>` : ''}
-          </div>` : ''}
-
-          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
-            ${iRow('שם מלא',        cleanName)}
-            ${iRow('טלפון',         cleanPhone)}
-            ${cleanEmail ? iRow('מייל', cleanEmail) : ''}
-            ${iRow('משתתפים',       String(participantsCount))}
-            ${pkg ? iRow('חבילה',   pkg.label) : ''}
-            ${pkg && participantsCount > 1 ? iRow('מחיר לאדם', `₪${pkg.price}`) : ''}
-            ${totalPrice ? iRow('סה"כ לתשלום', `₪${totalPrice}`) : ''}
-          </table>
-        </td></tr>
-
-        <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-          <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
-        </td></tr>
-
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`;
+    const emailHtml = emailShell({
+      title: 'ליד חדש, טרק בארץ',
+      subtitle: [cleanTripName, tripDate].filter(Boolean).map(escapeHtml).join(', '),
+      body: details([
+        ['שם מלא', cleanName], ['טלפון', cleanPhone], ['מייל', cleanEmail], ['משתתפים', String(participantsCount)],
+        ['חבילה', pkg?.label], ['מחיר לאדם', pkg && participantsCount > 1 ? `₪${pkg.price}` : ''],
+        ['סה"כ לתשלום', totalPrice ? `₪${totalPrice}` : ''],
+      ].filter(([, v]) => v).map(([label, v]) => [escapeHtml(label), escapeHtml(String(v))])),
+    });
 
     try {
       const emailRes = await fetch('https://api.resend.com/emails', {
@@ -199,7 +167,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: `ליד חדש - ${escapeHtml(cleanTripName || 'לא צוין')} 🇮🇱`,
+          subject: `ליד חדש: ${escapeHtml(cleanTripName || 'לא צוין')}`,
           html:    emailHtml,
         }),
       });
@@ -212,13 +180,4 @@ export default async function handler(req, res) {
   }
 
   return res.status(200).json({ ok: true, id: recordId });
-}
-
-function iRow(label, value) {
-  if (!value && value !== 0) return '';
-  return `
-    <tr>
-      <td style="padding:12px 16px;border-bottom:1px solid #ECEAF8;background:#FAFAF8;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;vertical-align:top;">${escapeHtml(label)}</td>
-      <td style="padding:12px 16px;border-bottom:1px solid #ECEAF8;font-size:14px;color:#1e1b4b;font-weight:500;">${escapeHtml(String(value))}</td>
-    </tr>`;
 }

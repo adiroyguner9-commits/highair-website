@@ -6,6 +6,7 @@
    emails info@ the same day, so a broken instant path is found by us, the first
    time, whatever broke it. Expected exceptions are named in the email: a card
    moved directly in Airtable also lands here. */
+import { emailShell } from './email-shell.js';
 
 const LABEL = { deposit: 'הודעת הסגירה (שילם מקדמה)', noAnswer: 'ההודעה "ניסינו להשיג אותך"' };
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -17,11 +18,11 @@ export function backupAlert(items) {
     + `${Number.isFinite(i.minutes) ? `, ${i.minutes} דקות אחרי שהכרטיס הועבר` : ''}</li>`).join('');
   return {
     subject: `HighAir - הודעה ללקוח יצאה רק דרך הגיבוי (${items.length})`,
-    html: `<div dir="rtl" style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7">`
+    html: emailShell({ title: 'הודעה ללקוח יצאה רק דרך הגיבוי', dark: false, body: `<div style="font-size:15px;line-height:1.7;color:#3F3B5C;">`
       + `<p>ההודעות האלה היו אמורות לצאת ברגע שהכרטיס הועבר במערכת הלידים, ויצאו רק דרך הגיבוי שרץ כל 5 דקות:</p>`
       + `<ul>${rows}</ul>`
       + `<p>אם הכרטיס הועבר ממערכת הלידים, השליחה המיידית לא עבדה וצריך לבדוק למה. אם הוא שונה ישירות ב-Airtable, זה צפוי ואין מה לעשות.</p>`
-      + `<p style="color:#666;font-size:13px">הלקוח קיבל את ההודעה. המייל הזה נועד רק כדי שתקלה כזו תתגלה מיד.</p></div>`,
+      + `<p style="color:#6B7280;font-size:13px">הלקוח קיבל את ההודעה. המייל הזה נועד רק כדי שתקלה כזו תתגלה מיד.</p></div>` }),
   };
 }
 

@@ -18,6 +18,7 @@ import { fetchActiveLead, tripKey, OPEN_STAGES } from './_lib/active-lead.js';
 import { destKey } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { googleCampaignName } from './_lib/googleCampaigns.js';
+import { emailShell, p, heading, details } from './_lib/email-shell.js';
 
 /* Fields that exist in the Airtable "Website Leads" table */
 const AIRTABLE_FIELDS = new Set([
@@ -297,67 +298,24 @@ export default async function handler(req, res) {
   if (RESEND_KEY) {
     const f = sanitised;
     // All values HTML-escaped before insertion into email template
-    const emailHtml = `
-<!DOCTYPE html>
-<html dir="rtl" lang="he">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#F5F0FF;font-family:Arial,sans-serif;direction:rtl;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0FF;padding:32px 0;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(109,40,217,0.10);max-width:600px;width:100%;">
-
-        <tr><td style="background:linear-gradient(135deg,#4338ca,#7c3aed);padding:28px 32px;text-align:center;">
-          <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">ליד חדש מהאתר</h1>
-          <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">HighAir Expeditions</p>
-        </td></tr>
-
-        <tr><td style="padding:32px;">
-          ${f['Expedition'] ? `
-          <div style="background:#F5F0FF;border-right:4px solid #7c3aed;border-radius:8px;padding:16px 20px;margin-bottom:20px;">
-            <p style="margin:0;font-size:12px;color:#9591B0;font-weight:600;">משלחת</p>
-            <p style="margin:6px 0 0;font-size:18px;font-weight:700;color:#1e1b4b;">${escapeHtml(f['Expedition'])}</p>
-          </div>` : ''}
-
-          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
-            ${row('שם מלא',      f['Name'])}
-            ${row('טלפון',       f['Phone'])}
-            ${row('מייל',        f['Email'])}
-            ${row('חודש מועדף', f['Preferred Month'])}
-            ${row('גיל',         f['Age'])}
-            ${row('גודל קבוצה', f['Group Size'])}
-            ${row('ניסיון',     f['Experience'])}
-            ${row('מקור',        f['Source'])}
-          </table>
-
-          ${(utm.source || utm.campaign) ? `
-          <div style="margin-top:16px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:12px;padding:16px 20px;">
-            <p style="margin:0 0 10px;font-size:12px;color:#9A3412;font-weight:700;">📊 UTM / מקור המודעה</p>
-            <table width="100%" cellpadding="0" cellspacing="0">
-              ${utm.source   ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;width:35%;">Source</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.source)}</td></tr>` : ''}
-              ${utm.medium   ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Medium</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.medium)}</td></tr>` : ''}
-              ${utm.campaign ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Campaign</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(googleCampaignName(utm.campaign))}</td></tr>` : ''}
-              ${utm.content  ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Ad</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.content)}</td></tr>` : ''}
-              ${utm.term     ? `<tr><td style="font-size:12px;color:#6B6B8A;padding:3px 0;">Audience</td><td style="font-size:13px;font-weight:600;color:#1e1b4b;">${escapeHtml(utm.term)}</td></tr>` : ''}
-            </table>
-          </div>` : ''}
-
-
-          ${f['Message'] ? `
-          <div style="margin-top:20px;background:#F9F8FF;border:1px solid #ECEAF8;border-radius:12px;padding:16px 20px;">
-            <p style="margin:0 0 8px;font-size:12px;color:#9591B0;font-weight:600;">הודעה</p>
-            <p style="margin:0;font-size:14px;color:#1e1b4b;line-height:1.6;">${escapeHtml(f['Message'])}</p>
-          </div>` : ''}
-        </td></tr>
-
-        <tr><td style="background:#FAFAF8;padding:20px 32px;text-align:center;border-top:1px solid #ECEAF8;">
-          <p style="margin:0;font-size:12px;color:#9591B0;">הודעה זו נשלחה אוטומטית מאתר HighAir Expeditions</p>
-        </td></tr>
-
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`;
+    const emailHtml = emailShell({
+      title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? escapeHtml(f['Expedition']) : '',
+      body: [
+        details(shown([
+          ['שם מלא', f['Name']], ['טלפון', f['Phone']], ['מייל', f['Email']],
+          ['חודש מועדף', f['Preferred Month']], ['גיל', f['Age']], ['גודל קבוצה', f['Group Size']],
+          ['ניסיון', f['Experience']], ['מקור', f['Source']],
+        ])),
+        (utm.source || utm.campaign) ? heading('UTM, מקור המודעה') + details([
+          ['Source', utm.source && escapeHtml(utm.source)],
+          ['Medium', utm.medium && escapeHtml(utm.medium)],
+          ['Campaign', utm.campaign && escapeHtml(googleCampaignName(utm.campaign))],
+          ['Ad', utm.content && escapeHtml(utm.content)],
+          ['Audience', utm.term && escapeHtml(utm.term)],
+        ].filter(([, v]) => v)) : '',
+        f['Message'] ? heading('הודעה') + p(escapeHtml(f['Message']), 0) : '',
+      ].join(''),
+    });
 
     try {
       const emailRes = await fetch('https://api.resend.com/emails', {
@@ -369,7 +327,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: `ליד חדש - ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')} ✅`,
+          subject: `ליד חדש: ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')}`,
           html:    emailHtml,
         }),
       });
@@ -384,11 +342,7 @@ export default async function handler(req, res) {
   return res.status(200).json({ ok: true });
 }
 
-function row(label, value) {
-  if (!value && value !== 0) return '';
-  return `
-    <tr>
-      <td style="padding:12px 16px;border-bottom:1px solid #ECEAF8;background:#FAFAF8;font-size:12px;color:#6B6B8A;font-weight:600;width:35%;vertical-align:top;">${escapeHtml(label)}</td>
-      <td style="padding:12px 16px;border-bottom:1px solid #ECEAF8;font-size:14px;color:#1e1b4b;font-weight:500;">${escapeHtml(String(value))}</td>
-    </tr>`;
+/* Label and value rows for the shell, without the empty ones. */
+function shown(rows) {
+  return rows.filter(([, v]) => v || v === 0).map(([label, v]) => [escapeHtml(label), escapeHtml(String(v))]);
 }

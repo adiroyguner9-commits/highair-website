@@ -94,7 +94,7 @@ export const details = rows => block(PAGE, LINE, `
     ${rows.map(([l, v], i) => { const line = i < rows.length - 1 ? `border-bottom:1px solid ${LINE};` : ''; return `
     <tr>
       <td class="ha-m ha-l" width="112" style="padding:10px 0;font-size:14px;color:${MUTED};width:112px;${line}">${l}</td>
-      <td class="ha-i ha-l" style="padding:10px 0;font-size:14px;font-weight:700;color:${INK};${line}">${v}</td>
+      <td class="ha-i ha-l" style="padding:10px 0;font-size:14px;font-weight:700;color:${INK};word-break:break-word;${line}">${v}</td>
     </tr>`; }).join('')}
   </table>`);
 
@@ -140,6 +140,10 @@ export const button = (href, label) => `
     <a href="${href}" target="_blank" style="display:inline-block;padding:14px 36px;font-size:15px;font-weight:800;color:#FFFFFF;text-decoration:none;border-radius:14px;">${keepWhite(label)}</a>
   </td></tr></table>`;
 
+/* The same button on a web page that posts a form. */
+export const formButton = label =>
+  `<form method="POST" style="margin:22px 0 0;"><button type="submit" style="width:100%;padding:14px;border:0;border-radius:14px;${gradient}font-family:inherit;font-size:15px;font-weight:800;color:#FFFFFF;cursor:pointer;">${label}</button></form>`;
+
 export const codeBlock = c =>
   `<table class="ha-block" width="100%" ${TABLE} bgcolor="${PAGE}" style="background-color:${PAGE};border:1px solid ${LINE};border-radius:14px;border-collapse:separate;margin-bottom:18px;"><tr><td class="ha-a" align="center" dir="ltr" style="padding:18px 8px;font-size:34px;font-weight:900;letter-spacing:8px;color:${ACCENT};">${c}</td></tr></table>`;
 
@@ -162,22 +166,38 @@ export const greeting = name => {
 
 const SITE = 'https://www.highair-expeditions.com';
 
+/* A staff email in English. Only the frame and the helpers' direction flip: a
+   report's own columns keep the alignment they were written with. */
+const flipFrame = html => html
+  .replaceAll('dir="rtl"', 'dir="ltr"').replaceAll('lang="he"', 'lang="en"')
+  .replaceAll('text-align:right', 'text-align:left').replaceAll('align="right"', 'align="left"')
+  .replaceAll('direction:rtl', 'direction:ltr').replaceAll('padding-right:12px', 'padding-left:12px');
+
 /* `hero` swaps the contour for the trip's photo under our purple; Outlook on
-   Windows shows the plain purple either way. `footer` is a second, smaller line. */
-export function emailShell({ title, subtitle, preheader, body, footer = '', hero = '' }) {
+   Windows shows the plain purple either way. `footer` is a second, smaller line.
+   `lang: 'en'` is the left-to-right staff letter, `width` a wider sheet for a
+   report. `dark: false` keeps the letter light for a report whose tables carry
+   their own colours, which the dark rules below cannot reach. */
+export function emailShell({ title, subtitle, preheader, body, footer = '', hero = '', lang = 'he', width = 560, dark = true }) {
+  if (lang === 'en') {
+    const mark = '<!--ha-body-->';
+    return flipFrame(emailShell({ title, subtitle, preheader, body: mark, footer, hero, width, dark }))
+      .replace(mark, body.replaceAll('dir="rtl"', 'dir="ltr"'));
+  }
   const headerImage = `${ASSETS}/${hero || 'header.jpg'}`;
   const headerPad = hero ? '64px 26px 22px' : '24px 26px';
+  const scheme = dark ? 'light dark' : 'light';
   return `<!DOCTYPE html>
 <html lang="he" dir="rtl" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">
+<meta name="color-scheme" content="${scheme}"><meta name="supported-color-schemes" content="${scheme}">
 <!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><style>body,table,td,p,a,div,span,strong{font-family:'Segoe UI',Arial,sans-serif !important;}</style><![endif]-->
-<!--[if !mso]><!--><style>${FONTS}</style><style>${DARK}</style><style>${GMAIL}</style><!--<![endif]-->
+<!--[if !mso]><!--><style>${FONTS}</style>${dark ? `<style>${DARK}</style>` : ''}<style>${GMAIL}</style><!--<![endif]-->
 </head>
 <body class="body ha-page" style="margin:0;padding:0;background-color:${PAGE};font-family:${FONT};" dir="rtl">
 ${preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${preheader}</div>` : ''}
 <table class="ha-page" width="100%" ${TABLE} bgcolor="${PAGE}" style="background-color:${PAGE};"><tr><td align="center" style="padding:24px 12px 28px;direction:rtl;font-family:${FONT};">
-  <!--[if mso]><table width="560" align="center" ${TABLE}><tr><td><![endif]-->
-  <table class="ha-card" ${TABLE} bgcolor="#FFFFFF" style="width:100%;max-width:560px;background-color:#FFFFFF;border:1px solid ${LINE};border-radius:18px;border-collapse:separate;box-shadow:0 3px 12px rgba(109,40,217,0.07);direction:rtl;font-family:${FONT};">
+  <!--[if mso]><table width="${width}" align="center" ${TABLE}><tr><td><![endif]-->
+  <table class="ha-card" ${TABLE} bgcolor="#FFFFFF" style="width:100%;max-width:${width}px;background-color:#FFFFFF;border:1px solid ${LINE};border-radius:18px;border-collapse:separate;box-shadow:0 3px 12px rgba(109,40,217,0.07);direction:rtl;font-family:${FONT};">
     <tr><td bgcolor="#4C1D95" background="${headerImage}" style="background-color:#4C1D95;background-image:url('${headerImage}');background-size:cover;background-position:right top;border-radius:17px 17px 0 0;padding:${headerPad};">
       <table width="100%" ${TABLE}><tr>
         <td valign="${hero ? 'bottom' : 'middle'}" align="right" style="text-align:right;">
