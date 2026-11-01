@@ -123,7 +123,8 @@ function LangSwitcher() {
  justifyContent: 'center',
  background: 'transparent',
  border: 'none',
- padding: '4px',
+ padding: '8px',
+ margin: '-4px',   // 40px to tap, same place in the row
  cursor: 'pointer',
  opacity: 0.85,
  transition: 'opacity 0.15s ease',
@@ -1035,7 +1036,7 @@ export default function Header() {
     aria-label={isEn ? 'Search' : 'חיפוש'}
     style={{
      display: 'flex', alignItems: 'center', justifyContent: 'center',
-     background: 'transparent', border: 'none', padding: '4px',
+     background: 'transparent', border: 'none', padding: '8px', margin: '-4px',
      cursor: 'pointer', color: '#5B5788', opacity: 0.85,
      transition: 'opacity 0.15s ease',
     }}
@@ -1120,7 +1121,7 @@ export default function Header() {
  className="nav-menu-item"
  style={{
  display: 'flex', alignItems: 'center', justifyContent: 'center',
- width: '36px', height: '36px',
+ width: '40px', height: '40px', margin: '-2px',
  background: 'transparent', border: 'none',
  cursor: 'pointer',
  color: '#3D3D3D',

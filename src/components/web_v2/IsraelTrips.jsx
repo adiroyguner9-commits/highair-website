@@ -45,6 +45,7 @@ const monthLabel = (key, isEn) => `${(isEn ? EN_MONTHS : HE_MONTHS)[parseInt(key
 
 function MonthChip({ label, active, onClick }) {
   const [hov, setHov] = useState(false);
+  const { isMobile } = useBreakpoint();
   return (
     <button
       onClick={onClick}
@@ -52,6 +53,7 @@ function MonthChip({ label, active, onClick }) {
       onMouseLeave={() => setHov(false)}
       style={{
         padding:      '7px 16px',
+        minHeight:    isMobile ? '40px' : undefined,
         borderRadius: RADIUS.full,
         border:       `1.5px solid ${active ? COLOR.primary : '#E5E3F0'}`,
         background:   active ? COLOR.primary : (hov ? '#F5F3FF' : 'transparent'),

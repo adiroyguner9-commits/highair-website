@@ -4,7 +4,7 @@
  * To add a product: copy the object below and paste at the top of PRODUCTS.
  * price: null  → shows "בקרוב" badge instead of price
  * buyLink: null → shows "בקרוב" button (product not yet purchasable)
- * img: path to /public/images/shop/<filename>.webp
+ * img: path to /public/images/shop/<filename>.webp, null until the photo exists
  */
 
 export const PRODUCTS = [
@@ -30,7 +30,7 @@ export const PRODUCTS = [
     descriptionEn: 'Professional backpack rain cover designed by HighAir Expeditions. Shields your gear from rain and moisture in any conditions. Lightweight, packs into its own small pouch, and fits most backpack sizes. Essential kit for every trek and expedition.',
     price:         null,
     currency:      '₪',
-    img:           '/images/shop/rain-cover.webp',
+    img:           null,
     buyLink:       null,
     badge:         null,
   },
@@ -43,7 +43,7 @@ export const PRODUCTS = [
     descriptionEn: 'Multifunctional neck gaiter designed by HighAir Expeditions. Wear it as a neck warmer, face mask, headband, hat, or balaclava. Soft microfiber fabric, moisture-wicking and quick-dry. Essential kit for every trek, in every season.',
     price:         null,
     currency:      '₪',
-    img:           '/images/shop/buff.webp',
+    img:           null,
     buyLink:       null,
     badge:         null,
   },
@@ -56,7 +56,7 @@ export const PRODUCTS = [
     descriptionEn: 'Professional Julbo mountain sunglasses for high-altitude activities and expeditions. Category 3-4 lenses with full UV protection, designed for altitude and snow conditions. Lightweight, durable frame built for intensive field use.',
     price:         null,
     currency:      '₪',
-    img:           '/images/shop/julbo-sunglasses.webp',
+    img:           null,
     buyLink:       null,
     badge:         null,
   },
@@ -69,7 +69,7 @@ export const PRODUCTS = [
     descriptionEn: 'Sport sunglasses for trekking and outdoor activities. Full UV-protection lenses in a lightweight, practical design suited for trekking, trail running, and everyday outdoor use. All-weather ready.',
     price:         null,
     currency:      '₪',
-    img:           '/images/shop/swift-sunglasses.webp',
+    img:           null,
     buyLink:       null,
     badge:         null,
   },
@@ -82,7 +82,7 @@ export const PRODUCTS = [
     descriptionEn: 'Softshell jacket designed by HighAir Expeditions. Flexible, wind-resistant, and water-repellent fabric for full freedom of movement. Ideal for trekking, expeditions, and mountain activities year-round. The perfect mid-layer.',
     price:         null,
     currency:      '₪',
-    img:           '/images/shop/softshell.webp',
+    img:           null,
     buyLink:       null,
     badge:         null,
   },

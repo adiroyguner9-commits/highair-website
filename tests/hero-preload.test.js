@@ -51,7 +51,7 @@ describe('hero preload per page', () => {
 
 describe('trip-page hero video', () => {
   it('gets its src only after the page has loaded', () => {
-    expect(detail).toContain('src={heroVideoOn ? exp.heroVideo : undefined}');
+    expect(detail).toContain('src={heroVideoOn ? heroVideoSrc : undefined}');
     expect(detail).not.toContain('<source src={exp.heroVideo}');
     expect(detail).toMatch(/addEventListener\('load', start, \{ once: true \}\)/);
   });

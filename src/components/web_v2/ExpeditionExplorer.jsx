@@ -12,6 +12,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { CARD_EXPS as EXPS } from '../../data/navData.js';
 import { HOME_CLIMBS, HOME_TREKS } from '../../data/expeditionGroups.js';
 import { cardThumb } from '../../website/cardThumb.js';
+import { useNearView } from '../../website/useInView.js';
 import FlagImg from './FlagImg.jsx';
 
 /* ── Arrow button ── */
@@ -56,6 +57,7 @@ function NavArrow({ direction, disabled, onClick, isRtl }) {
 /* ── Altitude filter chip (climbs section) ── */
 function TierChip({ label, active, onClick }) {
   const [hov, setHov] = useState(false);
+  const { isMobile } = useBreakpoint();
   return (
     <button
       onClick={onClick}
@@ -63,6 +65,7 @@ function TierChip({ label, active, onClick }) {
       onMouseLeave={() => setHov(false)}
       style={{
         padding:      '7px 16px',
+        minHeight:    isMobile ? '40px' : undefined,
         borderRadius: RADIUS.full,
         border:       `1.5px solid ${active ? COLOR.primary : '#E5E3F0'}`,
         background:   active ? COLOR.primary : (hov ? '#F5F3FF' : 'transparent'),
@@ -85,6 +88,7 @@ function TierChip({ label, active, onClick }) {
 function ExpCard({ exp }) {
   const [hovered,  setHovered]  = useState(false);
   const cardRef  = useRef(null);
+  const [photoRef, photoNear] = useNearView();
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
@@ -123,10 +127,11 @@ function ExpCard({ exp }) {
     >
       {/* ── Background image (scales on hover) ── */}
       {exp.img ? (
-        <div style={{
+        <div ref={photoRef} style={{
           position:           'absolute',
           inset:              '-6px',
-          backgroundImage:    `url(${cardThumb(exp.img)})`,
+          backgroundColor:    '#2A2740',
+          backgroundImage:    photoNear ? `url(${cardThumb(exp.img)})` : undefined,
           backgroundSize:     'cover',
           backgroundPosition: exp.imgPosition || 'center',
           transform:          hovered ? 'scale(1.06)' : 'scale(1)',

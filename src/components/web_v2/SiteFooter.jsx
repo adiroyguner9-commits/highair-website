@@ -23,6 +23,7 @@ const WA_HREF = 'https://api.whatsapp.com/send?phone=972555636975';
 /* ── Single link ── */
 function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
   const [hovered, setHovered] = useState(false);
+  const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
 
@@ -55,7 +56,9 @@ function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
         color:          hovered ? '#0A0818' : '#6B6B8A',
         textDecoration: 'none',
         display:        'block',
-        marginBottom:   '10px',
+        /* On a phone the gap moves inside the link, so a finger gets 40px. */
+        marginBottom:   isMobile ? 0 : '10px',
+        padding:        isMobile ? '10px 0' : 0,
         transition:     'color 0.18s ease',
         letterSpacing:  '0.01em',
       }}

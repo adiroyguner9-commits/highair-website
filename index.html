@@ -114,22 +114,28 @@
       data-offset-y="86"
     ></script>
     <style>
-      /* UserWay - 58px circle bottom-left, stacked above WhatsApp button */
+      /* The two floating buttons share one corner. On a phone they are smaller
+         and closer to the edge, so they cover less of the text. */
+      :root { --ha-fab-size: 46px; --ha-fab-left: 28px; --ha-fab-bottom: 28px; }
+      @media (max-width: 767.98px) {
+        :root { --ha-fab-size: 44px; --ha-fab-left: 12px; --ha-fab-bottom: 14px; }
+      }
+      /* UserWay - circle bottom-left, stacked above WhatsApp button */
       #userwayAccessibilityIcon,
       .userway_buttons_wrapper,
       [id^="userwayAccessibilityIcon"] {
         position: fixed !important;
         top: auto !important;
         right: auto !important;
-        bottom: 86px !important;
-        left: 28px !important;
-        width:  46px !important;
-        height: 46px !important;
+        bottom: calc(var(--ha-fab-bottom) + var(--ha-fab-size) + 12px) !important;
+        left: var(--ha-fab-left) !important;
+        width:  var(--ha-fab-size) !important;
+        height: var(--ha-fab-size) !important;
         border-radius: 50% !important;
         overflow: visible !important;
         padding: 0 !important;
         margin: 0 !important;
-        transition: bottom 0.35s cubic-bezier(0.22,1,0.36,1) !important;
+        transition: bottom 0.35s cubic-bezier(0.22,1,0.36,1), transform 0.25s ease !important;
       }
       /* Smooth on phones (owner, 24 Oct 2026: the icon limped while scrolling).
          The WhatsApp button below it sits on its own compositor layer
@@ -151,14 +157,22 @@
       body.ha-cookie-open #userwayAccessibilityIcon,
       body.ha-cookie-open .userway_buttons_wrapper,
       body.ha-cookie-open [id^="userwayAccessibilityIcon"] {
-        bottom: calc(var(--ha-cookie-clear, 86px) + 58px) !important;
+        bottom: calc(var(--ha-cookie-clear, 86px) + var(--ha-fab-size) + 12px) !important;
+      }
+      /* A phone reading down the page: the accessibility button steps aside and
+         comes back on the way up (FloatingWA sets body.ha-reading). */
+      @media (max-width: 767.98px) {
+        body.ha-reading:not(.ha-cookie-open) #userwayAccessibilityIcon,
+        body.ha-reading:not(.ha-cookie-open) [id^="userwayAccessibilityIcon"] {
+          transform: translate3d(-72px, 0, 0) !important;
+        }
       }
       /* The clickable button element UserWay renders */
       #userwayAccessibilityIcon button,
       .userway_buttons_wrapper button,
       [id^="userwayAccessibilityIcon"] button {
-        width:  46px !important;
-        height: 46px !important;
+        width:  var(--ha-fab-size) !important;
+        height: var(--ha-fab-size) !important;
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;

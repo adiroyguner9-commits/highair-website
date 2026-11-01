@@ -52,12 +52,15 @@ export default function CookieBanner() {
     const raf = requestAnimationFrame(measure);
     const ro  = new ResizeObserver(measure);
     ro.observe(el);
+    // The slide-up ends 20px higher than the first read, under the buttons.
+    el.addEventListener('animationend', measure);
     window.addEventListener('resize', measure);
     if (document.fonts?.ready) document.fonts.ready.then(measure).catch(() => {});
 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      el.removeEventListener('animationend', measure);
       window.removeEventListener('resize', measure);
       document.body.classList.remove('ha-cookie-open');
       document.documentElement.style.removeProperty('--ha-cookie-clear');

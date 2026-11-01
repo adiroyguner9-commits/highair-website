@@ -350,6 +350,7 @@ export default function ExpeditionDetail() {
   /* What the hero paints first: a hero video's poster, else the hero image.
      A phone gets the slice it shows (scripts/gen-phone-heroes.mjs). */
   const heroImage = usePhoneHero(exp?.heroVideo ? exp.heroVideo.replace('.mp4', '-poster.jpg') : (exp?.heroImg || exp?.img), 'trip');
+  const heroVideoSrc = usePhoneHero(exp?.heroVideo, 'video');
 
   /* The hero video starts only once the page has loaded. Its mp4 (1.8MB for
      Kilimanjaro, measured 24 Oct 2026) used to download beside the page's own
@@ -997,7 +998,7 @@ export default function ExpeditionDetail() {
             <video
               key={exp.heroVideo}
               ref={heroVideoRef}
-              src={heroVideoOn ? exp.heroVideo : undefined}
+              src={heroVideoOn ? heroVideoSrc : undefined}
               autoPlay muted loop playsInline preload="none"
               poster={heroImage}
               style={{
@@ -1286,7 +1287,7 @@ export default function ExpeditionDetail() {
             onClick={scrollToForm}
             style={{
               background: COLOR.primary, color: 'white', border: 'none',
-              borderRadius: RADIUS.full, padding: '8px 20px',
+              borderRadius: RADIUS.full, padding: '8px 20px', minHeight: '40px',
               fontSize: '13px', fontWeight: 700, cursor: 'pointer',
               fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap',
             }}
@@ -1596,7 +1597,7 @@ export default function ExpeditionDetail() {
                         className="accordion-row"
                         onClick={() => { setItineraryTab(tab.key); setOpenItinerary([]); }}
                         style={{
-                          padding: '8px 20px',
+                          padding: '9px 20px',
                           borderRadius: RADIUS.full,
                           border: `1.5px solid ${itineraryTab === tab.key ? COLOR.primary : '#ECEAF8'}`,
                           background: itineraryTab === tab.key ? COLOR.primary : '#fff',

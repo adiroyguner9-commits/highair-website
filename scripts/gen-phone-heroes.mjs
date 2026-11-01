@@ -45,7 +45,10 @@ export const PHONE_WIDTH = 440;
 export const BOX = {
   home:     { aspect: PHONE_WIDTH / (0.9 * 640), quality: 62 },
   trip:     { aspect: PHONE_WIDTH / 480,         quality: 74 },
-  list:     { aspect: PHONE_WIDTH / 340,         quality: 64 },
+  /* The two list pages use card photos twice the size their box needs, and under
+     a 55-78% overlay nobody sees the extra pixels: 720px wide took /treks from
+     114KB to about 45KB, the file its LCP was waiting for (1 Nov 2026). */
+  list:     { aspect: PHONE_WIDTH / 340,         quality: 56, maxWidth: 720 },
   blog:     { aspect: PHONE_WIDTH / 300,         quality: 80 },
   backdrop: { aspect: PHONE_WIDTH / 640,         quality: 50 },
 };
@@ -107,6 +110,7 @@ if (import.meta.url === `file://${path.resolve(process.argv[1])}`) {
     const crop = phoneCrop(meta.width, meta.height, BOX[kind].aspect, parsePos(pos));
     const owned = hasStamp(buf);
     const img = sharp(buf).extract(crop);
+    if (BOX[kind].maxWidth) img.resize({ width: BOX[kind].maxWidth, withoutEnlargement: true });
     let out = await (owned ? img : img.keepMetadata()).webp({ quality: BOX[kind].quality, effort: 6 }).toBuffer();
     if (owned) out = stampBuffer(out);
     if (out.length >= buf.length * 0.8) continue;   // only when clearly lighter

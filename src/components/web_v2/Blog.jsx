@@ -2,7 +2,7 @@
  * Blog.jsx - /blog
  * Article listing page - Hebrew RTL
  */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
@@ -11,9 +11,13 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, CATEGORIES, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
 import { openPost } from '../../data/blogContent.js';
 import { smallOf } from '../../website/imageVariants.js';
+import { useNearView } from '../../website/useInView.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import MountainBackdrop from './MountainBackdrop.jsx';
+
+/* Newest first. The posts live in blogData.js; there is no Blog table. */
+const SORTED_POSTS = [...POSTS].sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''));
 
 function fmtDate(iso) {
   if (!iso) return '';
@@ -23,6 +27,7 @@ function fmtDate(iso) {
 
 function PostCard({ post }) {
   const navigate = useNavigate();
+  const [photoRef, photoNear] = useNearView();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
@@ -57,9 +62,9 @@ function PostCard({ post }) {
       }}
     >
       {/* Image or gradient placeholder */}
-      <div style={{
+      <div ref={photoRef} style={{
         height:     '200px',
-        background: post.img
+        background: post.img && photoNear
           ? `url(${smallOf(post.img)}) ${post.imgPositionCard || post.imgPosition || 'center'}/cover no-repeat`
           : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
         flexShrink: 0,
@@ -161,46 +166,6 @@ export default function Blog() {
   /* Use a stable key ('all' or the category string) rather than a
      translated label so the filter survives language switches. */
   const [activeCategory, setActiveCategory] = useState('all');
-  const [posts, setPosts] = useState(
-    [...POSTS].sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''))
-  );
-
-  useEffect(() => {
-    fetch('/api/airtable/Blog')
-      .then(r => r.json())
-      .then(data => {
-        const staticMap = Object.fromEntries(POSTS.map(p => [p.slug, p]));
-        const loaded = (data.records || [])
-          .map(r => r.fields)
-          .filter(f => f.Active)
-          .sort((a, b) => (b.Date_ISO || '').localeCompare(a.Date_ISO || ''))
-          .map(f => ({
-            slug:            f.Slug,
-            title:           f.Title,
-            titleEn:         f.Title_En,
-            author:          f.Author || 'HighAir Expeditions',
-            dateIso:         f.Date_ISO,
-            dateHe:          f.Date_He,
-            dateEn:          f.Date_En,
-            category:        f.Category,
-            categoryEn:      f.Category_En,
-            img:             f.Image_URL ? f.Image_URL.replace(/^https?:\/\/[^/]+/, '') : null,
-            imgPosition:     staticMap[f.Slug]?.imgPosition,
-            imgPositionCard: staticMap[f.Slug]?.imgPositionCard,
-            excerpt:         f.Excerpt,
-            excerptEn:       f.Excerpt_En,
-          }));
-        if (loaded.length) {
-          const airtableSlugs = new Set(loaded.map(p => p.slug));
-          const extras = POSTS.filter(p => !airtableSlugs.has(p.slug));
-          const merged = [...loaded, ...extras]
-            .sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''));
-          setPosts(merged);
-        }
-      })
-      .catch(() => {}); // silently keep hardcoded fallback
-  }, []);
-
   usePageMeta({
     title:         isEn
       ? 'Trekking & Climbing Magazine | HighAir Expeditions'
@@ -214,6 +179,7 @@ export default function Blog() {
   const allLabel = t('blog.all');
 
   // Derive unique category keys (raw strings) from live data
+  const posts = SORTED_POSTS;
   const derivedCats = [...new Set(posts.map(p => p.category).filter(Boolean))];
   const catKeys     = derivedCats.length ? derivedCats : CATEGORIES;
   // Prepend 'all' sentinel — label is translated, key stays 'all'

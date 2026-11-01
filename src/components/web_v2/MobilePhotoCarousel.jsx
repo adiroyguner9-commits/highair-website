@@ -19,12 +19,17 @@
 
 import { useState, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
+import CarouselDot from './CarouselDot.jsx';
 
 const CARD_HEIGHT = 280; // px — fixed for all cards
 
 export default function MobilePhotoCarousel({ images, altPrefix = '', onImageClick, hint, isRtl = false, thumbOf = src => src }) {
   const [activeIdx, setActiveIdx]             = useState(0);
   const [imgOrientations, setImgOrientations] = useState({}); // 'landscape' | 'portrait'
+  /* Slides up to here have their photo. The rest wait until they are next: in a
+     side-scrolling row the browser's own lazy loading took all of them at once
+     (Kilimanjaro: 13 photos, 1.5MB, for a visitor who may never swipe). */
+  const [reach, setReach]                     = useState(1);
   const carouselRef = useRef(null);
 
   const hintLabel = hint !== undefined ? hint : (isRtl ? 'לחץ להגדלה' : 'Tap to zoom');
@@ -34,6 +39,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
     const cardW = el.offsetWidth * 0.88 + 12;
     const idx = Math.round(Math.abs(el.scrollLeft) / cardW);
     setActiveIdx(Math.max(0, Math.min(idx, images.length - 1)));
+    setReach(r => Math.max(r, idx + 1));
   };
 
   const scrollToIdx = i => {
@@ -42,6 +48,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
     const cardW = el.offsetWidth * 0.88 + 12;
     el.scrollTo({ left: isRtl ? -(i * cardW) : i * cardW, behavior: 'smooth' });
     setActiveIdx(i);
+    setReach(r => Math.max(r, i + 1));
   };
 
   return (
@@ -99,7 +106,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
               )}
 
               {/* ── Main image ── */}
-              <img
+              {i <= reach && <img
                 src={thumbOf(src)}
                 alt={`${altPrefix} ${i + 1}`}
                 loading="lazy"
@@ -122,7 +129,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
                   display:       'block',
                   zIndex:        1,
                 }}
-              />
+              />}
 
               {/* ── Hint badge on first card ── */}
               {i === 0 && hintLabel && (
@@ -175,8 +182,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
         display:        'flex',
         justifyContent: 'center',
         alignItems:     'center',
-        gap:            '6px',
-        marginTop:      '14px',
+        marginTop:      '8px',
         direction:      'ltr',
       }}>
         {(() => {
@@ -184,20 +190,13 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
           const total = images.length;
           if (total <= MAX_DOTS) {
             return images.map((_, i) => (
-              <button
+              <CarouselDot
                 key={i}
                 onClick={() => scrollToIdx(i)}
-                style={{
-                  width:        activeIdx === i ? '20px' : '7px',
-                  height:       '7px',
-                  borderRadius: '4px',
-                  background:   activeIdx === i ? '#6D28D9' : '#D1C9F0',
-                  border:       'none',
-                  padding:      0,
-                  cursor:       'pointer',
-                  transition:   'all 0.25s ease',
-                }}
-                aria-label={`תמונה ${i + 1}`}
+                label={`תמונה ${i + 1}`}
+                width={activeIdx === i ? '20px' : '7px'}
+                color={activeIdx === i ? '#6D28D9' : '#D1C9F0'}
+                transition="all 0.25s ease"
               />
             ));
           }
@@ -208,20 +207,14 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
             const isActive = activeIdx === i;
             const isEdge = (i === visible[0] && i > 0) || (i === visible[MAX_DOTS - 1] && i < total - 1);
             return (
-              <button
+              <CarouselDot
                 key={i}
                 onClick={() => scrollToIdx(i)}
-                style={{
-                  width:        isActive ? '20px' : isEdge ? '5px' : '7px',
-                  height:       isActive ? '7px' : isEdge ? '5px' : '7px',
-                  borderRadius: '4px',
-                  background:   isActive ? '#6D28D9' : '#D1C9F0',
-                  border:       'none',
-                  padding:      0,
-                  cursor:       'pointer',
-                  transition:   'all 0.25s ease',
-                }}
-                aria-label={`תמונה ${i + 1}`}
+                label={`תמונה ${i + 1}`}
+                width={isActive ? '20px' : isEdge ? '5px' : '7px'}
+                height={isActive ? '7px' : isEdge ? '5px' : '7px'}
+                color={isActive ? '#6D28D9' : '#D1C9F0'}
+                transition="all 0.25s ease"
               />
             );
           });

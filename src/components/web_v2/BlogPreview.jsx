@@ -56,8 +56,12 @@ function BlogCard({ post, isEn, dir }) {
         <img
           src={post.img}
           srcSet={srcSetOf(post.img)}
-          sizes="(max-width: 767.98px) 92vw, 30vw"
+          /* A card 351px wide: at 260px a 3x phone settles for the 800px copy,
+             sharp at this size and a quarter of the full file. */
+          sizes="(max-width: 767.98px) 260px, 30vw"
           alt={title}
+          loading="lazy"
+          decoding="async"
           style={{
             width:      '100%',
             height:     '100%',

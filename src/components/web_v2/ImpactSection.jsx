@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { srcSetOf } from '../../website/imageVariants.js';
+import CarouselDot from './CarouselDot.jsx';
 
 const SLIDES = [
   '/images/donation/img-1.webp',
@@ -79,9 +80,9 @@ export default function ImpactSection() {
                 key={i}
                 src={i <= loadedUpTo.current ? src : undefined}
                 srcSet={i <= loadedUpTo.current ? srcSetOf(src) : undefined}
-                sizes="(max-width: 767.98px) 92vw, 46vw"
+                sizes="(max-width: 767.98px) 260px, 46vw"
                 alt="HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים"
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading="lazy"
                 decoding="async"
                 style={{
                   position:   'absolute',
@@ -105,21 +106,14 @@ export default function ImpactSection() {
             marginTop:      '14px',
           }}>
             {SLIDES.map((_, i) => (
-              <button
+              <CarouselDot
                 key={i}
                 onClick={() => setActive(i)}
-                aria-label={`Photo ${i + 1} of ${SLIDES.length}`}
-                aria-pressed={i === active}
-                style={{
-                  width:        i === active ? '22px' : '7px',
-                  height:       '7px',
-                  borderRadius: '4px',
-                  background:   i === active ? COLOR.primary : '#D4D0EC',
-                  border:       'none',
-                  cursor:       'pointer',
-                  padding:      0,
-                  transition:   `all 0.3s ${EASING.out}`,
-                }}
+                label={`Photo ${i + 1} of ${SLIDES.length}`}
+                pressed={i === active}
+                width={i === active ? '22px' : '7px'}
+                color={i === active ? COLOR.primary : '#D4D0EC'}
+                transition={`all 0.3s ${EASING.out}`}
               />
             ))}
           </div>

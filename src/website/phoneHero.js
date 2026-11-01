@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import PHONE from './phoneHeroes.json';
+import HEROES from './phoneHeroes.json';
+import VIDEOS from './phoneVideos.json';
 
 /* phoneHero.js: the phone copy of a page's hero image (written by
    scripts/gen-phone-heroes.mjs, listed in phoneHeroes.json by kind: home,
@@ -7,11 +8,15 @@ import PHONE from './phoneHeroes.json';
    copy is that slice, a third to a half of the bytes, so the first screen
    arrives sooner (28 Oct 2026).
 
+   The trip hero videos work the same way, kind 'video': the slice of the
+   frame a phone shows, shorter (scripts/gen-phone-videos.mjs).
+
    usePhoneHero(src, kind) -> the copy on a phone (PHONE_MEDIA), else src.
                               Follows the window across the breakpoint.
    The page shells preload and paint the same copy under the same media query
    (scripts/generate-html-shells.mjs), so a phone downloads the hero once. */
 export const PHONE_MEDIA = '(max-width: 440px)';
+const PHONE = { ...HEROES, video: VIDEOS };
 
 const onPhone = () => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia(PHONE_MEDIA).matches;
 
