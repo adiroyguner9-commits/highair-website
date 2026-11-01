@@ -201,6 +201,7 @@ import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, ag
 import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe } from './_lib/dest.js';
+import { withFlag } from './_lib/dest-flag.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
@@ -687,7 +688,7 @@ export default async function handler(req, res) {
         subject:     `השיחה שלך נקבעה ל${dateHe}, בשעה ${time} ✅`,
         attachments: icsAttachment,
         html: emailShell({
-          title: 'השיחה נקבעה!', subtitle: expedition ? escapeHtml(expeditionHe) : '',
+          title: 'השיחה נקבעה!', subtitle: expedition ? withFlag(escapeHtml(expeditionHe), expeditionHe) : '',
           preheader: `${dateHe}, ${time}`,
           body: [
             p(greeting(escapeHtml(name)), 4),

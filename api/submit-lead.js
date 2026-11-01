@@ -19,6 +19,7 @@ import { destKey } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { googleCampaignName } from './_lib/googleCampaigns.js';
 import { emailShell, p, heading, details } from './_lib/email-shell.js';
+import { withFlag } from './_lib/dest-flag.js';
 
 /* Fields that exist in the Airtable "Website Leads" table */
 const AIRTABLE_FIELDS = new Set([
@@ -299,7 +300,7 @@ export default async function handler(req, res) {
     const f = sanitised;
     // All values HTML-escaped before insertion into email template
     const emailHtml = emailShell({
-      title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? escapeHtml(f['Expedition']) : '',
+      title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',
       body: [
         details(shown([
           ['שם מלא', f['Name']], ['טלפון', f['Phone']], ['מייל', f['Email']],
@@ -327,7 +328,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: `ליד חדש: ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')}`,
+          subject: withFlag(`ליד חדש: ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')}`, f['Expedition']),
           html:    emailHtml,
         }),
       });

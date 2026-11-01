@@ -20,6 +20,7 @@ import {
 } from './_security.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { emailShell, details } from './_lib/email-shell.js';
+import { withFlag } from './_lib/dest-flag.js';
 
 const TABLE_NAME = 'IsraelCustomers';
 
@@ -149,7 +150,7 @@ export default async function handler(req, res) {
   if (RESEND_KEY) {
     const emailHtml = emailShell({
       title: 'ליד חדש, טרק בארץ',
-      subtitle: [cleanTripName, tripDate].filter(Boolean).map(escapeHtml).join(', '),
+      subtitle: withFlag([cleanTripName, tripDate].filter(Boolean).map(escapeHtml).join(', '), 'Israel'),
       body: details([
         ['שם מלא', cleanName], ['טלפון', cleanPhone], ['מייל', cleanEmail], ['משתתפים', String(participantsCount)],
         ['חבילה', pkg?.label], ['מחיר לאדם', pkg && participantsCount > 1 ? `₪${pkg.price}` : ''],
@@ -167,7 +168,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: `ליד חדש: ${escapeHtml(cleanTripName || 'לא צוין')}`,
+          subject: withFlag(`ליד חדש: ${escapeHtml(cleanTripName || 'לא צוין')}`, 'Israel'),
           html:    emailHtml,
         }),
       });
