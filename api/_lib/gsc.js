@@ -100,3 +100,19 @@ export function pagePath(url) {
     return url;
   }
 }
+
+/* Brand searches: they show people who already know us, not new demand. */
+const BRAND = /high\s*air|highair|היי\s*אייר|הייר/i;
+export const isBrand = q => BRAND.test(q || '');
+
+/* Near the top but not there yet: non-brand queries at average position 4 to 20,
+   most impressions first. Moving these up is the fastest search gain. */
+export function opportunities(rows, limit = 15) {
+  return rows
+    .filter(r => !isBrand(r.key) && r.position != null && r.position >= 4 && r.position <= 20 && r.impressions > 0)
+    .sort((a, b) => b.impressions - a.impressions)
+    .slice(0, limit);
+}
+
+/* Clicks that did not come from a brand search. */
+export const nonBrandClicks = rows => rows.filter(r => !isBrand(r.key)).reduce((n, r) => n + (r.clicks || 0), 0);

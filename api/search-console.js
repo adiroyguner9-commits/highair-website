@@ -26,7 +26,7 @@ import { israelNow } from './_lib/iltime.js';
 import { emailShell } from './_lib/email-shell.js';
 import {
   TOKEN_URL, reportRanges, buildAssertion, parseAccount, totals, withPrevious,
-  pctChange, fmtPos, pagePath,
+  pctChange, fmtPos, pagePath, opportunities, nonBrandClicks,
 } from './_lib/gsc.js';
 
 const PROPERTIES = ['sc-domain:highair-expeditions.com', 'https://www.highair-expeditions.com/'];
@@ -121,14 +121,16 @@ const table = (cols, rows) => `<table width="100%" cellpadding="0" cellspacing="
 </table>`;
 const title = t => `<p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#1e1b4b;">${esc(t)}</p>`;
 
-function reportHtml({ now, before, queries, pages, blog, ranges, site }) {
+function reportHtml({ now, before, queries, pages, blog, ranges, site, near, nb }) {
   const change = (a, b) => pctChange(a, b) ?? '-';
   const summary = table(['מדד', 'השבוע', 'שבוע קודם', 'שינוי'], [
     [cell('קליקים'), cell(now.clicks), cell(before.clicks), cell(change(now.clicks, before.clicks), true)],
     [cell('חשיפות'), cell(now.impressions), cell(before.impressions), cell(change(now.impressions, before.impressions), true)],
     [cell('אחוז הקלקה'), cell(`${(now.ctr * 100).toFixed(1)}%`, true), cell(`${(before.ctr * 100).toFixed(1)}%`, true), cell('-')],
     [cell('מיקום ממוצע'), cell(fmtPos(now.position), true), cell(fmtPos(before.position), true), cell('-')],
+    [cell('קליקים לא ממותג'), cell(nb.now), cell(nb.before), cell(change(nb.now, nb.before), true)],
   ]);
+  const nRows = near.map(q => [cell(q.key), cell(q.impressions), cell(q.clicks), cell(fmtPos(q.position), true), cell(fmtPos(q.prevPosition), true)]);
   const qRows = queries.map(q => [cell(q.key), cell(q.clicks), cell(q.prevClicks ?? '-'), cell(q.impressions), cell(fmtPos(q.position), true)]);
   const pRows = pages.map(p => [cell(pagePath(p.key), true), cell(p.clicks), cell(p.prevClicks ?? '-'), cell(p.impressions), cell(fmtPos(p.position), true)]);
   const bRows = blog.map(p => [cell(pagePath(p.key), true), cell(p.clicks), cell(p.impressions), cell(fmtPos(p.position), true)]);
@@ -142,6 +144,8 @@ function reportHtml({ now, before, queries, pages, blog, ranges, site }) {
       ${summary}
       ${title('החיפושים שהביאו הכי הרבה קליקים')}
       ${qRows.length ? table(['חיפוש', ...cols.slice(1)], qRows) : '<p style="font-size:13px;color:#6B6B8A;">אין חיפושים עם קליקים השבוע.</p>'}
+      ${title('קרובים לפסגה: חיפושים לא ממותגים במקום 4 עד 20')}
+      ${nRows.length ? table(['חיפוש', 'חשיפות', 'קליקים', 'מיקום', 'שבוע קודם'], nRows) : '<p style="font-size:13px;color:#6B6B8A;">אין השבוע חיפושים במקום 4 עד 20.</p>'}
       ${title('העמודים שקיבלו הכי הרבה קליקים')}
       ${pRows.length ? table(['עמוד', ...cols.slice(1)], pRows) : ''}
       ${title('מדריכי הבלוג בחיפוש')}
@@ -188,21 +192,24 @@ export default async function handler(req, res) {
     const { site } = picked;
     const [prevTotal, qNow, qPrev, pNow, pPrev] = await Promise.all([
       query(token, site, ranges.previous, [], 1),
-      query(token, site, ranges.current, ['query'], 15),
-      query(token, site, ranges.previous, ['query'], 250),
+      query(token, site, ranges.current, ['query'], 1000),
+      query(token, site, ranges.previous, ['query'], 1000),
       query(token, site, ranges.current, ['page'], 250),
       query(token, site, ranges.previous, ['page'], 250),
     ]);
     const now = totals(picked.rows);
     const before = totals(prevTotal);
-    const queries = withPrevious(qNow, qPrev);
+    const allQueries = withPrevious(qNow, qPrev);
+    const queries = [...allQueries].sort((a, b) => b.clicks - a.clicks).slice(0, 15);
+    const near = opportunities(allQueries);
+    const nb = { now: nonBrandClicks(allQueries), before: nonBrandClicks(withPrevious(qPrev, [])) };
     const allPages = withPrevious(pNow, pPrev);
     const pages = allPages.slice(0, 10);
     const blog = allPages.filter(p => pagePath(p.key).startsWith('/blog/')).sort((a, b) => b.impressions - a.impressions).slice(0, 10);
 
     const delta = pctChange(now.clicks, before.clicks);
     const subject = `HighAir - Search Console שבועי (${dmy(ymd)}): ${now.clicks} קליקים${delta ? ` (${delta})` : ''}`;
-    const sent = await sendMail(RESEND_KEY, subject, reportHtml({ now, before, queries, pages, blog, ranges, site }));
+    const sent = await sendMail(RESEND_KEY, subject, reportHtml({ now, before, queries, pages, blog, ranges, site, near, nb }));
     return res.status(200).json({ ok: sent, site, clicks: now.clicks, impressions: now.impressions });
   } catch (e) {
     console.error('[search-console] failed:', e.message);

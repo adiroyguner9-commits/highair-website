@@ -4,6 +4,7 @@
 import crypto from 'node:crypto';
 import { describe, it, expect } from 'vitest';
 import {
+  opportunities, nonBrandClicks, isBrand,
   reportRanges, buildAssertion, parseAccount, totals, withPrevious, pctChange, fmtPos, pagePath, SCOPE, TOKEN_URL,
 } from '../api/_lib/gsc.js';
 
@@ -63,5 +64,22 @@ describe('joins and formatting', () => {
   it('shows a Hebrew page path readably', () => {
     expect(pagePath('https://www.highair-expeditions.com/blog/kilimanjaro-climb-cost-guide')).toBe('/blog/kilimanjaro-climb-cost-guide');
     expect(pagePath('https://www.highair-expeditions.com/')).toBe('/');
+  });
+});
+
+describe('opportunities', () => {
+  const rows = [
+    { key: 'high air', clicks: 11, impressions: 900, position: 1.2 },
+    { key: 'טיפוס על הקילימנג׳רו', clicks: 1, impressions: 300, position: 6.4 },
+    { key: 'מנסלו', clicks: 0, impressions: 120, position: 10.3 },
+    { key: 'אלברוס', clicks: 0, impressions: 80, position: 25 },
+    { key: 'היי אייר', clicks: 9, impressions: 50, position: 5 },
+  ];
+  it('keeps non-brand queries at position 4 to 20, most impressions first', () => {
+    expect(opportunities(rows).map(r => r.key)).toEqual(['טיפוס על הקילימנג׳רו', 'מנסלו']);
+  });
+  it('counts clicks that did not come from the brand name', () => {
+    expect(isBrand('HighAir Expeditions')).toBe(true);
+    expect(nonBrandClicks(rows)).toBe(1);
   });
 });
