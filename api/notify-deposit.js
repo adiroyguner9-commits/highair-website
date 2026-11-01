@@ -12,11 +12,13 @@
  */
 import { setSecurityHeaders } from './_security.js';
 import { sendDepositWelcome } from './_lib/deposit-welcome.js';
+import { hookAllowed } from './_lib/hook-auth.js';
 
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!hookAllowed(req)) return res.status(401).json({ error: 'Unauthorized' });
 
   const BASE = process.env.AIRTABLE_BASE, TOKEN = process.env.AIRTABLE_TOKEN;
   if (!BASE || !TOKEN) return res.status(500).json({ error: 'Missing env' });

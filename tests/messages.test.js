@@ -6,6 +6,7 @@ process.env.AIRTABLE_BASE = 'appTEST';
 process.env.AIRTABLE_TOKEN = 'tok';
 process.env.GREENAPI_INSTANCE = '7107596827';
 process.env.GREENAPI_TOKEN = 'gtok';
+process.env.PUSH_HOOK_SECRET = 'hook';
 
 let green, airtable, greenCalls, rows, lead;
 beforeEach(() => {
@@ -30,7 +31,7 @@ const notify = (await import('../api/notify-deposit.js')).default;
 const call = body => new Promise(res => {
   const out = {};
   const r = { setHeader() {}, status(c) { out.code = c; return r; }, json(b) { out.body = b; res(out); }, end() { res(out); } };
-  notify({ method: 'POST', headers: {}, body }, r);
+  notify({ method: 'POST', headers: { 'x-hook-key': 'hook' }, body }, r);
 });
 
 describe('the closing welcome tells the truth (Boaz Hornstein, 15 Oct 2026)', () => {
@@ -92,7 +93,7 @@ describe('the reschedule notice tells the truth too (found 17 Oct 2026)', () => 
   const callIt = () => new Promise(res => {
     const out = {};
     const r = { setHeader() {}, status(c) { out.code = c; return r; }, json(b) { out.body = b; res(out); }, end() { res(out); } };
-    reschedule({ method: 'POST', headers: { 'x-forwarded-for': `10.9.${Math.floor(Math.random() * 250)}.1` }, socket: { remoteAddress: '10.9.0.1' },
+    reschedule({ method: 'POST', headers: { 'x-hook-key': 'hook', 'x-forwarded-for': `10.9.${Math.floor(Math.random() * 250)}.1` }, socket: { remoteAddress: '10.9.0.1' },
       body: { phone: '0509001752', name: 'בעז', expedition: 'Kilimanjaro', date: '2026-10-20', time: '10:00' } }, r);
   });
   beforeEach(() => {

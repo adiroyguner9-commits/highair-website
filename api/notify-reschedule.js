@@ -12,6 +12,7 @@ import { firstName } from './_lib/name.js';   // WhatsApp greeting — first nam
 
 const HE_MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
 import { greenFetch } from './_lib/green.js';
+import { hookAllowed } from './_lib/hook-auth.js';
 const HE_DAYS   = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 function formatDateHe(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
   setSecurityHeaders(req, res);
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!hookAllowed(req)) return res.status(401).json({ error: 'Unauthorized' });
   // Rate limit: this endpoint sends WhatsApp from the company number, so cap abuse.
   if (!checkRateLimit(req, 'notify-reschedule')) return res.status(429).json({ error: 'Too many requests' });
 
