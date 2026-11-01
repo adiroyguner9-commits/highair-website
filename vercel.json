@@ -2,10 +2,12 @@
   "crons": [
     { "path": "/api/send-reminders", "schedule": "*/15 * * * *" },
     { "path": "/api/lead-messaging", "schedule": "*/5 * * * *" },
-    { "path": "/api/site-health", "schedule": "0 5 * * *" }
+    { "path": "/api/site-health", "schedule": "0 5 * * *" },
+    { "path": "/api/search-console", "schedule": "30 4 * * 0" }
   ],
   "functions": {
-    "api/site-health.js": { "maxDuration": 120 }
+    "api/site-health.js": { "maxDuration": 120 },
+    "api/search-console.js": { "maxDuration": 60 }
   },
   "headers": [
     {
