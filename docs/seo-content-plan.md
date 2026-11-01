@@ -86,7 +86,7 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 32 | ready | טרק רכס הסקארדוס: המדריך המלא | written, waits for the trip to launch (teaser): docs/drafts/scardus-ridge-trek-guide.mjs | scardus |
 | 26 | live | משלחת למנסלו: המדריך המלא | our 8,000 m expedition, no Hebrew guide | manaslu |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
-| 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
+| 3 | in review (branch seo-kilimanjaro-cost) | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
 | 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
 | 15 | todo | אלברוס, קזבק או קילימנג'רו: איזו פסגה ראשונה מתאימה לך | only English comparisons rank | elbrus, kazbek, kilimanjaro |
