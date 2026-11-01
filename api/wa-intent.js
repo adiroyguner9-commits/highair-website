@@ -33,12 +33,15 @@
  * Writes nothing about WHO tapped: no phone (we do not have one yet), no name,
  * no cookie id. Just when, from where, and which campaign.
  */
-import { setSecurityHeaders } from './_security.js';
+import { checkRateLimit, setSecurityHeaders } from './_security.js';
 
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);   /* (req, res) — it reads the Origin header */
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
+  /* Open by design, a visitor has no account. The limit keeps a script from
+     filling WA Intents, where a fake row would spoil a real tap's match. */
+  if (!checkRateLimit(req, 'wa-intent')) return res.status(429).json({ ok: false });
 
   const BASE = process.env.AIRTABLE_BASE, TOKEN = process.env.AIRTABLE_TOKEN;
   if (!BASE || !TOKEN) return res.status(200).json({ ok: true, skipped: 'no base' });

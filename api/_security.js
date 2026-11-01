@@ -89,6 +89,7 @@ const RATE_LIMITS = {
   default:      { max: 30, windowMs: 60_000  },   // 30 req/min
   'submit-lead':{ max:  5, windowMs: 300_000 },   // 5 submissions per 5 min
   'book-slot':  { max:  5, windowMs: 300_000 },   // 5 bookings per 5 min
+  'wa-intent':  { max: 20, windowMs: 60_000  },   // WhatsApp button taps
 };
 
 function clientIp(req) {

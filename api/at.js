@@ -30,7 +30,6 @@ const RESPONSE_FIELDS = {
     'Display Name', 'Description', 'Capacity', 'Booked', 'Status',
     'Retail Price', 'Gallery_URLs',
   ]),
-  AppContent: new Set(['Key', 'Value', 'Type', 'Locale']),
   Customers: new Set(['Group Name']), // ONLY Group Name — used for group count display
   Blog: new Set([
     'Title', 'Title_En', 'Slug', 'Author',
@@ -81,13 +80,18 @@ const RESPONSE_FIELDS = {
    this table. */
 const HIDE_PRIVATE_ROWS = new Set(['Groups']);
 
-// filterByFormula is only forwarded for tables where the client legitimately needs it
-// (Customers — group member count). It is blocked for all other tables.
-const TABLES_ALLOWING_FORMULA = new Set(['Customers']);
+/* Customers is here to count seats per departure, by paging through Group Name,
+   and for nothing else. The projection only limits what comes back: a formula or
+   a sort still runs on every column, so anyone could ask "does this booking's
+   passport number start with 3" and read a customer letter by letter from which
+   rows returned (found 1 Nov 2026). So no formula on any table, sort only on
+   fields the page may read anyway, and for Customers no record ids either. */
+const COUNT_ONLY = new Set(['Customers']);
 
 const FORWARDED_QUERY_KEYS = new Set([
   'maxRecords', 'pageSize', 'offset', 'view',
 ]);
+const COUNT_ONLY_QUERY_KEYS = new Set(['pageSize', 'offset']);
 
 function buildForwardedQuery(query, allowedFields, table) {
   const out = new URLSearchParams();
@@ -102,19 +106,17 @@ function buildForwardedQuery(query, allowedFields, table) {
       }
       continue;
     }
-    // filterByFormula only allowed for specific tables; truncated to 500 chars
-    if (k === 'filterByFormula') {
-      if (TABLES_ALLOWING_FORMULA.has(table)) {
-        out.append('filterByFormula', String(v).slice(0, 500));
+    const sortPart = /^sort\[\d+]\[(field|direction)]$/.exec(k)?.[1];
+    if (sortPart) {
+      if (COUNT_ONLY.has(table)) continue;
+      const vals = Array.isArray(v) ? v : [v];
+      for (const item of vals) {
+        const ok = sortPart === 'field' ? allowedFields.has(String(item)) : /^(asc|desc)$/.test(String(item));
+        if (ok) out.append(k, String(item));
       }
       continue;
     }
-    if (/^sort\[\d+]\[(field|direction)]$/.test(k)) {
-      const vals = Array.isArray(v) ? v : [v];
-      for (const item of vals) out.append(k, String(item));
-      continue;
-    }
-    if (FORWARDED_QUERY_KEYS.has(k)) {
+    if ((COUNT_ONLY.has(table) ? COUNT_ONLY_QUERY_KEYS : FORWARDED_QUERY_KEYS).has(k)) {
       const vals = Array.isArray(v) ? v : [v];
       for (const item of vals) out.append(k, String(item));
     }
@@ -122,12 +124,13 @@ function buildForwardedQuery(query, allowedFields, table) {
   return out;
 }
 
-function projectRecord(record, whitelist) {
+function projectRecord(record, whitelist, table) {
   const f = record?.fields || {};
   const out = {};
   for (const [k, v] of Object.entries(f)) {
     if (whitelist.has(k)) out[k] = v;
   }
+  if (COUNT_ONLY.has(table)) return { fields: out };
   return { id: record.id, createdTime: record.createdTime, fields: out };
 }
 
@@ -157,6 +160,9 @@ export default async function handler(req, res) {
   }
   if (recordId && !REC_ID_RE.test(recordId)) {
     return res.status(400).json({ error: 'Invalid record id' });
+  }
+  if (recordId && COUNT_ONLY.has(table)) {
+    return res.status(403).json({ error: 'Access denied' });
   }
 
   const params = buildForwardedQuery(req.query, allowedFields, table);
@@ -193,12 +199,12 @@ export default async function handler(req, res) {
     const isPrivate = r => !!(r?.fields || {})['Hidden'];
     if (data?.records) {
       if (HIDE_PRIVATE_ROWS.has(table)) data.records = data.records.filter(r => !isPrivate(r));
-      data.records = data.records.map(r => projectRecord(r, allowedFields));
+      data.records = data.records.map(r => projectRecord(r, allowedFields, table));
     } else if (data?.id && data?.fields) {
       if (HIDE_PRIVATE_ROWS.has(table) && isPrivate(data)) {
         return res.status(404).json({ error: 'Not found' });
       }
-      Object.assign(data, projectRecord(data, allowedFields));
+      Object.assign(data, projectRecord(data, allowedFields, table));
     }
     return res.status(200).json(data);
   } catch (err) {
