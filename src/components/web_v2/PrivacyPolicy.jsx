@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
   const isRtl = i18n.language !== 'en';
 
   return (
-    <LegalPageLayout title={isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'} updated="2026-10-17">
+    <LegalPageLayout title={isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'} updated="2026-11-02">
       {isRtl ? (
         <>
           <div style={SECTION}>
@@ -80,6 +80,7 @@ export default function PrivacyPolicy() {
                 'המפעילים המקומיים ביעד (חברות הטרקים והטיפוס המקומיות): רשימת המשתתפים, פרטי דרכון ומידע רפואי הנחוץ לבטיחותכם בשטח',
                 'סוכני הנסיעות שמנפיקים עבורכם כרטיס טיסה וביטוח נסיעות',
                 'ספקי שירות שמפעילים עבורנו את המערכות: אחסון נתונים וקבצים (Airtable, Cloudinary), אירוח (Vercel), שליחת הודעות וואטסאפ ומיילים (Green API, Resend) וזיהוי תקלות (Sentry). ספקים אלה מעבדים את המידע עבורנו בלבד',
+                'סיכום פניות של מתעניינים, כדי לעזור לצוות לחזור אליהם (Anthropic). כל הודעה ללקוח נשלחת רק על ידי נציג.',
                 'חברת סליקה חיצונית, לביצוע התשלום',
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
             </ul>
@@ -215,6 +216,7 @@ export default function PrivacyPolicy() {
                 'The local operators at the destination (the local trekking and climbing companies): the participant list, passport details and the medical information needed for your safety in the field',
                 'The travel agents who issue your flight ticket and travel insurance',
                 'Service providers who run our systems for us: data and file storage (Airtable, Cloudinary), hosting (Vercel), sending WhatsApp messages and emails (Green API, Resend) and error tracking (Sentry). These providers process the information on our behalf only',
+                'Summarising enquiries from prospective customers, to help the team get back to them (Anthropic). Every message to a customer is sent only by a team member.',
                 'An external payment processor, to complete the payment',
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
             </ul>
