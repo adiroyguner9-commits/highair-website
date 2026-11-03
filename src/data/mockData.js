@@ -922,7 +922,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 13, title: 'דארמסלה - לרקה פס (5106 מ׳) - בימטאנג (3590 מ׳)', desc: 'זהו יום השיא של הטרק! נתחיל מוקדם מאוד כדי להבטיח תנאי טרק בטוחים לחציית מעבר ההרים לרקה פס, אחד המעברים הגבוהים והמפורסמים בנפאל. הטיפוס אל הפס מתגמל באופן בלתי רגיל עם נופים פנורמיים על פסגת מנסלו ופסגות האזור. בפס נחגוג את ההישג בגובה 5106 מ׳ לצד דגלי תפילה מתנופפים. הירידה אל בימטאנג דורשת ניווט זהיר בשטח תלול ולעיתים קרחוני, ובהגעה לעמק השליו המוקף פסגות  -  נוח ונתאושש.', distance: '18-20 ק״מ', duration: 'כ-8-10 שעות', elevationGain: '646 מ׳', elevationLoss: '1516 מ׳', accommodation: 'בקתה בבימטאנג' },
       { day: 14, title: 'בימטאנג - דראפני (1860 מ׳)', desc: 'נתחיל את הירידה מבימטאנג, נחצה גשר תלוי מעל נהר פונקאר ונעבור דרך יערות עבותים ומרהיבים המלאים בעצי רודודנדרון. נעצור לארוחת צהריים בכפר קארצ׳ה על גדות נהר דוד קולה. נמשיך לכפר הציורי גואה, העמק מתרחב ומגלה שדות חקלאיים פוריים וטראסות. הגעה לדראפני מסמנת את סיומו הרשמי של טרק סובב מנסלו.', distance: '18-20 ק״מ', duration: 'כ-6-8 שעות', elevationLoss: '1730 מ׳', accommodation: 'בקתה בדראפני' },
       { day: 15, title: 'נסיעה בג׳יפ מדראפני לקטמנדו', desc: 'לאחר ארוחת בוקר מוקדמת, נסיעה בג׳יפ של כ-3 שעות אל בסיסהר, דרך יערות ירוקים, שדות מדורגים וכפרים מקסימים - נקודת מבט אחרונה על החיים הכפריים בהימלאיה. מבסיסהר, נמשיך כ-6-7 שעות נוספות חזרה אל קטמנדו. בערב, ארוחת ערב מסורתית במסעדה נפאלית עם מופע ריקודים תרבותיים.', accommodation: 'מלון Barahi, קטמנדו', travelTime: 'כ-9-10 שעות נסיעה' },
-      { day: 16, title: 'טיסה הביתה', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה לשדה התעופה בקטמנדו לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.', travelTime: 'כ-12 שעות טיסה' },
+      { day: 16, title: 'טיסה חזרה לישראל!', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה לשדה התעופה בקטמנדו לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.', travelTime: 'כ-12 שעות טיסה' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!', desc: 'Before landing in Kathmandu, enjoy breathtaking views of the Himalayas from the plane. After landing, we transfer to Hotel Barahi in Kathmandu, passing through scenic rural and mountain landscapes. Once checked in, rest and prepare for the adventure ahead.', accommodation: 'Hotel Barahi, Kathmandu', travelTime: '~12 hours flying' },
@@ -940,7 +940,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 13, title: 'Dharamsala - Larkya La Pass (5106m) - Bimtang (3590m)', desc: 'The highlight of the trek! We start very early to ensure safe conditions for crossing Larkya La Pass, one of the highest and most renowned mountain passes in Nepal. The climb rewards us with extraordinary panoramic views of Manaslu and the surrounding peaks. At the pass (5106 m) we celebrate the achievement beside fluttering Buddhist prayer flags. The descent to Bimtang requires careful navigation on steep and sometimes icy terrain; upon reaching the peaceful valley surrounded by towering peaks we rest and recover.', distance: '18–20 km', duration: '~8–10 hours', elevationGain: '646m', elevationLoss: '1516m', accommodation: 'Teahouse in Bimtang' },
       { day: 14, title: 'Bimtang - Dharapani (1860m)', desc: 'We begin the descent from Bimtang, cross a suspension bridge over the Ponkar River and pass through dense forests of rhododendron (spectacular in bloom during spring). We stop for lunch at the village of Karche on the banks of the Dudh Khola River. Continuing to the picturesque village of Goa, the valley broadens to reveal fertile farmland and terraces. Reaching Dharapani marks the official end of the Manaslu Circuit Trek.', distance: '18–20 km', duration: '~6–8 hours', elevationLoss: '1730m', accommodation: 'Teahouse in Dharapani' },
       { day: 15, title: 'Jeep drive from Dharapani to Kathmandu', desc: 'After an early breakfast we take a jeep for roughly 3 hours to Besisahar, passing through green forests, terraced fields and charming villages  -  a final glimpse of Himalayan rural life. From Besisahar we continue another 6–7 hours to Kathmandu. In the evening enjoy a traditional Nepali dinner with cultural dance performances.', accommodation: 'Hotel Barahi, Kathmandu', travelTime: '~9–10 hours drive' },
-      { day: 16, title: 'Flight home', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
+      { day: 16, title: 'Flight back to Israel!', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
     ],
   },
   {
@@ -1097,7 +1097,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 16, title: 'נאמצ׳ה בזאר - לוקלה (2860 מ׳)', desc: 'לאחר ארוחת בוקר בנאמצ\'ה בזאר, יוצאים ליום הליכה אחרון בטרק לכיוון לוקלה. המסלול מוביל דרך נופים מוכרים, אך הפעם במגמת ירידה, המסמלת את סיום המסע. עם ההגעה ללוקלה, תחושת ההישג ממלאת את הלב. בערב נפרדים מהפורטרים שליוו אתכם לאורך המסע ומודים להם על התמיכה.', distance: '15 ק"מ', duration: '7–8 שעות', elevationLoss: '580 מ׳', accommodation: 'בקתה בלוקלה' },
       { day: 17, title: 'טיסה במסוק מלוקלה לקטמנדו', desc: 'מתעוררים מוקדם ומתארגנים לטיסה במסוק חזרה לקטמנדו. לאחר ההגעה למלון יש זמן לנוח ולהסתובב ברחובות הססגוניים, ובערב נפגשים לארוחת פרידה חגיגית במסעדה בקטמנדו, עם תחושת סיפוק על השלמת הטרק המאתגר.', travelTime: 'טיסה במסוק', accommodation: 'מלון Barahi קטמנדו' },
       { day: 18, title: 'יום ספייר / יום חופשי בקטמנדו', desc: 'יום ספייר בתכנית למקרה של מזג אוויר גרוע, או יום חופשי לטיול בקטמנדו. בערב עושים צ\'ק-אאוט מהמלון, וההסעה לוקחת אתכם לשדה התעופה, לטיסת הלילה הביתה.' },
-      { day: 19, title: 'טיסה הביתה', desc: 'נוחתים בתל אביב, מלאים בתמונות, סיפורים וזיכרונות שיישארו לכל החיים.', travelTime: 'טיסה חזרה הביתה' },
+      { day: 19, title: 'טיסה חזרה לישראל!', desc: 'נוחתים בתל אביב, מלאים בתמונות, סיפורים וזיכרונות שיישארו לכל החיים.', travelTime: 'טיסה חזרה הביתה' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!', desc: 'Before landing in Kathmandu, enjoy breathtaking views of the Himalayas from the plane. After landing, transfer to Hotel Barahi in Kathmandu, passing through unique rural and mountain scenery along the way. Check in, rest and prepare for the adventure ahead.', travelTime: 'Flight + transfer', accommodation: 'Hotel Barahi Kathmandu' },
@@ -1118,7 +1118,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 16, title: 'Namche Bazaar - Lukla (2860m)', desc: 'The final day of trekking. Familiar scenery, now in descent, marks the end of an incredible journey. Arriving in Lukla, a sense of achievement fills the air. In the evening we say goodbye to the porters and thank them for their support.', distance: '15 km', duration: '7–8 hrs', elevationLoss: '580m', accommodation: 'Teahouse in Lukla' },
       { day: 17, title: 'Helicopter from Lukla to Kathmandu', desc: 'An early rise and transfer by helicopter back to Kathmandu. After reaching the hotel there is time to rest or explore the city streets, and in the evening we meet for a farewell dinner at a restaurant in Kathmandu. A deep sense of satisfaction from completing one of the world\'s great treks.', travelTime: 'Helicopter flight', accommodation: 'Hotel Barahi Kathmandu' },
       { day: 18, title: 'Spare day / free day in Kathmandu', desc: 'A spare day built into the schedule for bad weather or flight delays  -  or simply a free day to explore Kathmandu at your own pace. In the evening we check out of the hotel and transfer to the airport for the night flight home.' },
-      { day: 19, title: 'Flight home', desc: 'Landing in Tel Aviv, full of photos, stories and memories that will last a lifetime.', travelTime: 'Flight home' },
+      { day: 19, title: 'Flight back to Israel!', desc: 'Landing in Tel Aviv, full of photos, stories and memories that will last a lifetime.', travelTime: 'Flight home' },
     ],
   },
   {
@@ -1260,7 +1260,7 @@ This 16-day adventure takes you through traditional Gurung and Manangi villages,
       { day: 13, title: 'תורונג היי קמפ - תורונג לה פס (5416 מ׳) - מוקטינאת (3800 מ׳)', desc: 'ביום זה מתחילים בטיפוס מוקדם לתורונג לה פס בגובה 5416 מ׳. במהלך הטיפוס תיהנו מנוף פנורמי של הרים מרשימים כמו האנאפורנה, דהואלאגירי (8167 מ׳) וההרים של אזור מוסטאנג. אחרי הפס, יורדים אל מוקטינאת וניתן לבקר במקדש מוקטינאת, אחד ממקדשי ההינדים המפורסמים שנחשב לאתר קדוש. זהו יום מרהיב ומאתגר שדורש המון כוח נפשי וגופני.', distance: '12-13 ק״מ', duration: 'כ-7-8 שעות', elevationGain: '536 מ׳', elevationLoss: '1616 מ׳', accommodation: 'בקתה במוקטינאת' },
       { day: 14, title: 'נסיעה בג׳יפ ממוקטינאת לפוקארה (820 מ׳)', desc: 'יוצאים בג׳יפ לנסיעה ארוכה אל פוקארה, דרך ג׳ומסום ולאורך עמק קאלי גנדקי, אחד הערוצים העמוקים בעולם, שעובר בין האנאפורנה לדהאולגירי. עם ההגעה לפוקארה מתמקמים במלון ונחים אחרי הטרק, ובערב אפשר לטייל על שפת אגם פווה ולשבת באחת המסעדות שעל המים.', accommodation: 'מלון Barahi, פוקארה', travelTime: 'כ-7-8 שעות נסיעה' },
       { day: 15, title: 'טיסה במטוס מפוקארה לקטמנדו', desc: 'מתעוררים מוקדם ומתארגנים לטיסה הקצרה חזרה לקטמנדו. לאחר ההגעה למלון, ניתן לבלות את היום בחופשיות, להסתובב ברחובות הססגוניים או לנוח במלון. בערב נפגשים לארוחת פרידה חגיגית במסעדה נפאלית, עם מופע ריקודים מסורתי, וחוגגים יחד את השלמת הטרק.', accommodation: 'מלון Barahi, קטמנדו' },
-      { day: 16, title: 'טיסה הביתה', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה שתקח אתכם לשדה התעופה בקטמנדו לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.', travelTime: 'כ-12 שעות טיסה' },
+      { day: 16, title: 'טיסה חזרה לישראל!', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה שתקח אתכם לשדה התעופה בקטמנדו לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.', travelTime: 'כ-12 שעות טיסה' },
     ],
     importantToNote: [
       'הטרק מתבצע בקבוצה עד 10 משתתפים בלבד!',
@@ -1289,7 +1289,7 @@ This 16-day adventure takes you through traditional Gurung and Manangi villages,
       { day: 13, title: 'Thorong High Camp - Thorong La Pass (5416m) - Muktinath (3800m)', desc: 'An early start as we push for Thorong La Pass at 5416 m. Panoramic views of Annapurna, Dhaulagiri (8167 m  -  the world\'s 7th highest peak) and the Mustang region unfold before us. After the pass we descend to Muktinath, where we can visit one of Hinduism\'s most revered temples. A breathtaking yet demanding day requiring both physical and mental strength.', distance: '12–13 km', duration: '~7–8 hours', elevationGain: '536m', elevationLoss: '1616m', accommodation: 'Teahouse in Muktinath' },
       { day: 14, title: 'Jeep drive from Muktinath to Pokhara (820m)', desc: 'A long jeep drive via Jomsom down the Kali Gandaki valley, one of the deepest gorges in the world, between Annapurna and Dhaulagiri. On arrival in Pokhara we check into the hotel and rest after the trek; in the evening you can stroll along Phewa Lake and sit at one of the lakeside restaurants.', accommodation: 'Hotel Barahi, Pokhara', travelTime: '~7–8 hours drive' },
       { day: 15, title: 'Domestic flight from Pokhara to Kathmandu', desc: 'An early wake-up and a short domestic flight back to Kathmandu. After check-in at the hotel we have the day free  -  explore the colourful streets, pick up souvenirs or simply rest. In the evening we gather for a festive farewell dinner at a Nepali restaurant with a traditional dance show, celebrating the completed circuit.', accommodation: 'Hotel Barahi, Kathmandu' },
-      { day: 16, title: 'Flight home', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
+      { day: 16, title: 'Flight back to Israel!', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
     ],
   },
   {
@@ -1982,7 +1982,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 16, title: 'נאמצ׳ה בזאר - לוקלה (2860 מ׳)',                                           desc: '' },
       { day: 17, title: 'טיסה חזרה מלוקלה (לקטמנדו או רמצ׳אפ)',                                    desc: '' },
       { day: 18, title: 'יום ספייר למזג אוויר גרוע / יום חופשי בקטמנדו',                           desc: '' },
-      { day: 19, title: 'טיסה הביתה',                                                 desc: '' },
+      { day: 19, title: 'טיסה חזרה לישראל!',                                                 desc: '' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!',                                              desc: '' },
@@ -2003,7 +2003,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 16, title: 'Namche Bazaar - Lukla (2860m)',                                            desc: '' },
       { day: 17, title: 'Flight back from Lukla (to Kathmandu or Ramechhap)',                        desc: '' },
       { day: 18, title: 'Spare day for bad weather / free day in Kathmandu',                        desc: '' },
-      { day: 19, title: 'Flight home',                                              desc: '' },
+      { day: 19, title: 'Flight back to Israel!',                                              desc: '' },
     ],
     importantToNote: [
       'הטיפוס מתבצע בקבוצה עד 12 משתתפים בלבד!',
@@ -2135,7 +2135,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 17, title: 'נאמצ׳ה בזאר - לוקלה (2860 מ׳)',                                             desc: '' },
       { day: 18, title: 'טיסה חזרה מלוקלה (לקטמנדו או רמצ׳אפ)',                                      desc: '' },
       { day: 19, title: 'יום ספייר למזג אוויר גרוע / יום חופשי בקטמנדו',                             desc: '' },
-      { day: 20, title: 'טיסה הביתה',                                                   desc: '' },
+      { day: 20, title: 'טיסה חזרה לישראל!',                                                   desc: '' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!',                                                desc: '' },
@@ -2157,7 +2157,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 17, title: 'Namche Bazaar - Lukla (2860m)',                                              desc: '' },
       { day: 18, title: 'Flight back from Lukla (to Kathmandu or Ramechhap)',                          desc: '' },
       { day: 19, title: 'Spare day for bad weather / free day in Kathmandu',                          desc: '' },
-      { day: 20, title: 'Flight home',                                                desc: '' },
+      { day: 20, title: 'Flight back to Israel!',                                                desc: '' },
     ],
     notIncluded: [
       'כרטיסי טיסה בינלאומיים (דרך סוכני נסיעות שלנו)',
@@ -2348,7 +2348,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 16, title: 'טולי קרקה - זטרווה לה (4600 מ׳) - לוקלה (2860 מ׳)',                        desc: '' },
       { day: 17, title: 'טיסה חזרה מלוקלה (לקטמנדו או רמצ׳אפ)',                                    desc: '' },
       { day: 18, title: 'יום ספייר למזג אוויר גרוע / יום חופשי בקטמנדו',                           desc: '' },
-      { day: 19, title: 'טיסה הביתה',                                                 desc: '' },
+      { day: 19, title: 'טיסה חזרה לישראל!',                                                 desc: '' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!',                                              desc: '' },
@@ -2369,7 +2369,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 16, title: 'Tuli Kharka - Zatrawala Pass (4600m) - Lukla (2860m)',                    desc: '' },
       { day: 17, title: 'Flight back from Lukla (to Kathmandu or Ramechhap)',                        desc: '' },
       { day: 18, title: 'Spare day for bad weather / free day in Kathmandu',                        desc: '' },
-      { day: 19, title: 'Flight home',                                              desc: '' },
+      { day: 19, title: 'Flight back to Israel!',                                              desc: '' },
     ],
     importantToNote: [
       'הטיפוס מתבצע בקבוצה עד 12 משתתפים בלבד!',
@@ -3185,7 +3185,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
       { day: 27, title: 'בייס קמפ - סאמגון (3530 מ׳)', desc: '' },
       { day: 28, title: 'טיסת מסוק מסאמגון לקטמנדו', desc: '' },
       { day: 29, title: 'יום חופשי בקטמנדו', desc: '' },
-      { day: 30, title: 'טיסה הביתה', desc: '' },
+      { day: 30, title: 'טיסה חזרה לישראל!', desc: '' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!', desc: '' },
@@ -3205,7 +3205,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
       { day: 27, title: 'Base Camp - Sama Gaun (3530m)', desc: '' },
       { day: 28, title: 'Helicopter Sama Gaun to Kathmandu', desc: '' },
       { day: 29, title: 'Free day in Kathmandu', desc: '' },
-      { day: 30, title: 'Flight home', desc: '' },
+      { day: 30, title: 'Flight back to Israel!', desc: '' },
     ],
   },
   {
@@ -3340,7 +3340,7 @@ Join us on a journey to one of the most beautiful peaks in the world and take a 
       { day: 27, title: 'נאמצ׳ה בזאר - לוקלה (2860 מ׳)', desc: '' },
       { day: 28, title: 'טיסה חזרה מלוקלה (לקטמנדו או רמצ׳אפ)', desc: '' },
       { day: 29, title: 'יום ספייר למזג אוויר גרוע / יום חופשי בקטמנדו', desc: '' },
-      { day: 30, title: 'טיסה הביתה', desc: '' },
+      { day: 30, title: 'טיסה חזרה לישראל!', desc: '' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!', desc: '' },
@@ -3361,7 +3361,7 @@ Join us on a journey to one of the most beautiful peaks in the world and take a 
       { day: 27, title: 'Namche Bazaar - Lukla (2860m)', desc: '' },
       { day: 28, title: 'Flight back from Lukla (to Kathmandu or Ramechhap)', desc: '' },
       { day: 29, title: 'Spare day for bad weather / free day in Kathmandu', desc: '' },
-      { day: 30, title: 'Flight home', desc: '' },
+      { day: 30, title: 'Flight back to Israel!', desc: '' },
     ],
   },
   {
@@ -3494,7 +3494,7 @@ Join us on a journey to your first 7000m peak and take a meaningful part in the 
       { day: 27, title: 'קוטו - בסיסהר (760 מ׳)', desc: '' },
       { day: 28, title: 'בסיסהר - קטמנדו', desc: '' },
       { day: 29, title: 'יום ספייר למזג אוויר גרוע / יום חופשי בקטמנדו', desc: '' },
-      { day: 30, title: 'טיסה הביתה', desc: '' },
+      { day: 30, title: 'טיסה חזרה לישראל!', desc: '' },
     ],
     itineraryEn: [
       { day: 1,  title: 'Welcome to Kathmandu!', desc: '' },
@@ -3515,7 +3515,7 @@ Join us on a journey to your first 7000m peak and take a meaningful part in the 
       { day: 27, title: 'Koto - Besisahar (760m)', desc: '' },
       { day: 28, title: 'Besisahar - Kathmandu', desc: '' },
       { day: 29, title: 'Spare day for bad weather / free day in Kathmandu', desc: '' },
-      { day: 30, title: 'Flight home', desc: '' },
+      { day: 30, title: 'Flight back to Israel!', desc: '' },
     ],
   },
   {
