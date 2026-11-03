@@ -1126,7 +1126,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     ghlCalendarId: 'AgaJz8eLIAvY6SZ3VaGF', tagHe: 'אנאפורנה',
     heroVideo: '/videos/hero-nepal.mp4',
     elev: '5416m', elevNum: 5416, days: '16 ימים', daysEn: '16 days', type: 'Trekking', typeHe: 'טרק',
-    diff: 'Moderate', diffHe: 'בינוני', price: 2150, priceStr: '$2150', continent: 'asia',
+    diff: 'Moderate', diffHe: 'בינוני', price: 2500, priceStr: '$2500', continent: 'asia',
     /* Same reason as Ethiopia above: the kosher departure had no entry. */
     airtableEvents: ['Annapurna_Circut', 'Annapurna_Circut_Kosher'],
     img: '/images/cards/annapurna.webp',
@@ -2222,7 +2222,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     ghlCalendarId: 'KWcNLifWHtfL6Gtiuksx', tagHe: 'מרה פיק',
     heroVideo: '/videos/hero-mera-peak.mp4',
     elev: '6476m', elevNum: 6476, days: '19 ימים', daysEn: '19 days', type: 'Climbing', typeHe: 'טיפוס',
-    diff: 'Challenging', diffHe: 'אתגרי', price: 3550, priceStr: '$3550', continent: 'asia',
+    diff: 'Challenging', diffHe: 'אתגרי', price: 3800, priceStr: '$3800', continent: 'asia',
     img: '/images/cards/MeraPeak.webp',
     ogImage: '/images/og/mera-peak.jpg',
     seoTitle:       'HighAir Expeditions | טיפוס למרה פיק',

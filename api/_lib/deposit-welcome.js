@@ -30,8 +30,8 @@ export function msgDepositA(name) {
 /* ── Facebook Purchase tracking (Conversions API, valued by destination) ── */
 const EXPEDITION_PRICES = {   // canonical /book slug → [value, currency]
   'kilimanjaro': [2700, 'USD'], 'ethiopia': [3000, 'USD'], 'elbrus': [3500, 'USD'],
-  'kazbek': [2300, 'EUR'], 'everest-base-camp': [3300, 'USD'], 'annapurna': [2150, 'USD'],
-  'manaslu': [2250, 'USD'], 'island-peak': [3550, 'USD'], 'mera-peak': [3550, 'USD'],
+  'kazbek': [2300, 'EUR'], 'everest-base-camp': [3300, 'USD'], 'annapurna': [2500, 'USD'],
+  'manaslu': [2250, 'USD'], 'island-peak': [3550, 'USD'], 'mera-peak': [3800, 'USD'],
   'lobuche-peak': [3550, 'USD'], 'aconcagua': [10000, 'USD'], 'lenin-peak': [6200, 'USD'],
   'olympus': [1700, 'EUR'], 'peaks-of-balkan': [1750, 'EUR'],
 };

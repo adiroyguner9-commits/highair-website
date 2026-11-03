@@ -558,8 +558,8 @@ export const CARD_EXPS = [
     "typeHe": "טרק",
     "diff": "Moderate",
     "diffHe": "בינוני",
-    "price": 2150,
-    "priceStr": "$2150",
+    "price": 2500,
+    "priceStr": "$2500",
     "continent": "asia",
     "airtableEvents": [
       "Annapurna_Circut",
@@ -705,8 +705,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Challenging",
     "diffHe": "אתגרי",
-    "price": 3550,
-    "priceStr": "$3550",
+    "price": 3800,
+    "priceStr": "$3800",
     "continent": "asia",
     "airtableEvents": [
       "Mera_Peak"
