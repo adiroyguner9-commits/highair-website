@@ -20,8 +20,7 @@
   "/images/hero/safari-7-days.webp": "/images/phone/trip/hero/safari-7-days.webp",
   "/images/cards/manaslu-climb.webp": "/images/phone/trip/cards/manaslu-climb.webp",
   "/images/cards/ama-dablam.webp": "/images/phone/trip/cards/ama-dablam.webp",
-  "/images/cards/himlung-himal.webp": "/images/phone/trip/cards/himlung-himal.webp",
-  "/images/cards/mount-kenya.webp": "/images/phone/trip/cards/mount-kenya.webp"
+  "/images/cards/himlung-himal.webp": "/images/phone/trip/cards/himlung-himal.webp"
  },
  "list": {
   "/images/cards/annapurna.webp": "/images/phone/list/cards/annapurna.webp",
@@ -36,7 +35,6 @@
   "/images/cards/sinai.webp": null,
   "/images/cards/manaslu.webp": null,
   "/images/cards/IslandPeak.webp": "/images/phone/blog/cards/IslandPeak.webp",
-  "/images/cards/mount-kenya.webp": null,
   "/images/cards/olympus.jpg": null,
   "/images/cards/peaks-of-balkan.webp": null,
   "/images/cards/ethiopia.webp": null,

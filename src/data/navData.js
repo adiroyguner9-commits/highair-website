@@ -292,20 +292,6 @@ export const NAV_EXPS = [
     "typeHe": "טיפוס"
   },
   {
-    "id": 25,
-    "slug": "mount-kenya",
-    "name": "Mount Kenya",
-    "nameHe": "טיפוס להר קניה",
-    "nameEn": "Mount Kenya",
-    "country": "Kenya",
-    "countryHe": "קניה",
-    "elev": "4985m",
-    "elevNum": 4985,
-    "continent": "africa",
-    "type": "Climbing",
-    "typeHe": "טיפוס"
-  },
-  {
     "id": 26,
     "slug": "rwenzori",
     "name": "Rwenzori Mountains",
@@ -846,27 +832,6 @@ export const CARD_EXPS = [
     "price": 8500,
     "priceStr": "$8500",
     "continent": "asia",
-    "groupCapacity": 10
-  },
-  {
-    "id": 25,
-    "slug": "mount-kenya",
-    "name": "Mount Kenya",
-    "nameHe": "טיפוס להר קניה",
-    "nameEn": "Mount Kenya",
-    "country": "Kenya",
-    "countryHe": "קניה",
-    "flag": "🇰🇪",
-    "img": "/images/cards/mount-kenya.webp",
-    "grad": "linear-gradient(135deg,#78350f,#9a3412,#431407)",
-    "elevNum": 4985,
-    "type": "Climbing",
-    "typeHe": "טיפוס",
-    "diff": "Moderate",
-    "diffHe": "בינוני",
-    "price": 1800,
-    "priceStr": "$1800",
-    "continent": "africa",
     "groupCapacity": 10
   },
   {

@@ -83,7 +83,9 @@
     { "source": "/pirin",                    "destination": "/treks",                        "permanent": true },
     { "source": "/author/:path*",            "destination": "/about",                        "permanent": true },
     { "source": "/gokyo",                    "destination": "/expedition/everest-base-camp", "permanent": true },
-    { "source": "/everest-base-camp-three-passes", "destination": "/expedition/everest-base-camp", "permanent": true }
+    { "source": "/everest-base-camp-three-passes", "destination": "/expedition/everest-base-camp", "permanent": true },
+    { "source": "/expedition/mount-kenya",          "destination": "/climbs",                       "permanent": true },
+    { "source": "/blog/mount-kenya-climbing-guide", "destination": "/blog",                         "permanent": true }
   ],
   "rewrites": [
     { "source": "/docs/:path*", "destination": "https://app.highair-expeditions.com/docs/:path*" },

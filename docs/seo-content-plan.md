@@ -77,7 +77,7 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 27 | live | טיפוס לקזבק: המדריך המלא | only in the comparison (#15), English results dominate | kazbek |
 | 21 | live | טרק להר הגבוה בסיני: המדריך המלא | new destination, winter season, no Hebrew guide | sinai |
 | 13 | live | טרק סימיאן ודנקיל באתיופיה: המדריך המלא | thin Hebrew coverage | ethiopia |
-| 11 | live | טיפוס להר קניה: המדריך המלא בעברית | Hebrew search returns English only | mount-kenya |
+| 11 | removed | טיפוס להר קניה: המדריך המלא בעברית | trip discontinued (owner, 4 Nov 2026): post deleted, its URL redirects to /blog; write nothing on Mount Kenya | mount-kenya |
 | 19 | live | פסגות הבלקן: טרק בשלוש מדינות | thin Hebrew coverage | peaks-of-balkan |
 | 12 | live | טיפוס לאולימפוס: המדריך המלא בעברית | Hebrew search returns English only | olympus |
 | 10 | live | מנסלו סירקיט: המדריך המלא בעברית | Hebrew search returns English only | manaslu-circuit, manaslu |
