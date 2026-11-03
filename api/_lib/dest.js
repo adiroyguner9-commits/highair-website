@@ -12,7 +12,7 @@ export const DEST = {
   'Elbrus':            { he: 'טיפוס לאלברוס',                slug: 'elbrus' },
   'Aconcagua':         { he: 'טיפוס לאקונקגואה',             slug: 'aconcagua' },
   'Kazbek':            { he: 'טיפוס לקזבק',                  slug: 'kazbek' },
-  'Olympus':           { he: 'טרק לאולימפוס',                slug: 'olympus' },
+  'Olympus':           { he: 'טיפוס לאולימפוס',              slug: 'olympus' },
   'Peaks of Balkan':   { he: 'טרק פסגות הבלקן',              slug: 'peaks-of-balkan' },
   'Scardus':           { he: 'טרק רכס הסקארדוס',             slug: 'scardus' },
   'Annapurna':         { he: 'טרק סובב אנאפורנה',            slug: 'annapurna' },
