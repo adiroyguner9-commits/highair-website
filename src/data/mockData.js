@@ -868,7 +868,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'לילה רביעי במלון בקטמנדו (במידת הצורך)',
       'כל מה שלא צוין בחלק הכלול בטרק',
       'תוספות (לא חובה):',
-      'חדר יחיד בבקתות במהלך הטרק - 15$ ללילה',
+      'חדר יחיד בבקתות במהלך הטרק - 20$ ללילה',
     ],
     notIncludedEn: [
       'International flights (via our travel agents)',
@@ -882,7 +882,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'A fourth hotel night in Kathmandu (if needed)',
       'Anything not listed in the included section',
       'Optional extras:',
-      'Single room at teahouses during trek - $15/night',
+      'Single room at teahouses during trek - $20/night',
     ],
     groupCapacity: 10,
     importantToNote: [
@@ -1218,7 +1218,7 @@ This 16-day adventure takes you through traditional Gurung and Manangi villages,
       'לילה רביעי במלון בקטמנדו (במידת הצורך)',
       'כל מה שלא צוין בחלק הכלול בטרק',
       'תוספות (לא חובה):',
-      'חדר יחיד בבקתות במהלך הטרק - 15$ ללילה',
+      'חדר יחיד בבקתות במהלך הטרק - 20$ ללילה',
     ],
     notIncludedEn: [
       'International flights (via our travel agents)',
@@ -1232,7 +1232,7 @@ This 16-day adventure takes you through traditional Gurung and Manangi villages,
       'A fourth hotel night in Kathmandu (if needed)',
       'Anything not listed in the included section',
       'Optional extras:',
-      'Single room at teahouses during trek - $15/night',
+      'Single room at teahouses during trek - $20/night',
     ],
     importantToNoteEn: [
       'The Annapurna trek requires ACAP and TIMS permits  -  both are included in the package.',
@@ -2327,7 +2327,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'כל מה שלא צוין בחלק הכלול בטיפוס',
       'תוספות (לא חובה):',
       'טיסות במסוק מקטמנדו ללוקלה וחזרה - 800$ לאדם',
-      'חדר יחיד בבקתות במהלך הטרק - 15$ ללילה',
+      'חדר יחיד בבקתות במהלך הטרק - 20$ ללילה',
     ],
     notIncludedEn: [
       'International flights (via our travel agents)',
@@ -2344,7 +2344,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       'Anything not listed in the included section',
       'Optional extras:',
       'Helicopter Kathmandu - Lukla - Kathmandu - $800 per person',
-      'Single room at teahouses during trek - $15/night',
+      'Single room at teahouses during trek - $20/night',
     ],
     airtableEvents: ['Mera_Peak'],
     itinerary: [
