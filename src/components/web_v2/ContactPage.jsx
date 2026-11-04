@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Analytics } from '../../utils/analytics.js';
+import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { usePageMeta } from '../../website/usePageMeta.js';
@@ -148,6 +148,7 @@ export default function ContactPage() {
  });
  if (!res.ok) throw new Error(await res.text());
  Analytics.leadSubmit({ source: 'contact_form' });
+ trackLead({ source: 'contact_form' });
  setSent(true);
  } catch (err) {
  console.error('[contact] submit error:', err);

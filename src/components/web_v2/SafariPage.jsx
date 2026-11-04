@@ -14,7 +14,7 @@
  * a future card restyle lands in both places at once.
  */
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { Analytics } from '../../utils/analytics.js';
+import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -560,7 +560,10 @@ function EnquiryBand({ isRtl, isMobile }) {
           ...getAttribution(),
         }),
       });
-      if (res.ok) Analytics.leadSubmit({ source: 'safari_page' });
+      if (res.ok) {
+        Analytics.leadSubmit({ source: 'safari_page' });
+        trackLead({ source: 'safari_page', slug: len ? `safari-${len}-days` : 'safari', name: len ? `Safari ${len} Days` : 'Safari' });
+      }
       setStatus(res.ok ? 'sent' : 'error');
     } catch { setStatus('error'); }
   }

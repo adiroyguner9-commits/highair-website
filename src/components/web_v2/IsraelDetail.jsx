@@ -15,6 +15,7 @@ import SiteFooter                      from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import { CalendarIcon }                from '../Icons.jsx';
 import { ISRAEL_TRIPS }                from '../../data/israelData.js';
+import { Analytics, trackLead }         from '../../utils/analytics.js';
 import MobilePhotoCarousel            from './MobilePhotoCarousel.jsx';
 import FlagImg                        from './FlagImg.jsx';
 
@@ -334,6 +335,10 @@ export default function IsraelDetail() {
           : (data.error || 'Please enter a real phone number'));
         setSubmitting(false);
         return;
+      }
+      if (res.ok) {
+        Analytics.leadSubmit({ source: 'israel_page', expedition: trip.name });
+        trackLead({ source: 'israel_page', slug: `israel-${trip.slug}`, name: trip.name });
       }
     } catch (err) {
       console.error('[israel-lead]', err);

@@ -21,7 +21,7 @@ import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './Phon
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon, TreeIcon, LionIcon } from '../Icons.jsx';
-import { Analytics, useScrollDepth } from '../../utils/analytics.js';
+import { Analytics, useScrollDepth, trackLead, priceToUsd } from '../../utils/analytics.js';
 import PhotoGallery from './PhotoGallery.jsx';   // the gallery, shared with the homepage
 import GALLERY from '../../website/galleryManifest.json';
 import VideoTestimonials from './VideoTestimonials.jsx';
@@ -837,8 +837,7 @@ export default function ExpeditionDetail() {
       }
       /* ── Conversion tracking ── */
       Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'lead', expedition: exp.nameHe, source: isWaitlist ? 'waitlist' : 'expedition_page' });
+      trackLead({ source: isWaitlist ? 'waitlist' : 'expedition_page', slug: exp.slug, name: exp.nameHe, value: priceToUsd(exp) });
 
       /* Expeditions with a Deposit A link continue straight to checkout instead
          of the consultation calendar. The lead is already saved above, so an

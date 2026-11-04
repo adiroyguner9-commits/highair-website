@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import PhoneField, { formatFullPhone, validatePhone } from './PhoneField.jsx';
-import { Analytics } from '../../utils/analytics.js';
+import { Analytics, trackLead } from '../../utils/analytics.js';
 
 /* ── Submit lead ── */
 async function submitLead({ name, dial, phone, message }) {
@@ -99,8 +99,7 @@ export default function CTASection() {
     try {
       await submitLead(form);
       Analytics.leadSubmit({ source: 'cta_section' });
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'lead', source: 'cta_section' });
+      trackLead({ source: 'cta_section' });
       setSubmitted(true);
     } catch (err) {
       console.error(err);

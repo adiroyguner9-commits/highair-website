@@ -18,6 +18,38 @@ export function trackEvent(eventName, params = {}) {
   }
 }
 
+/* ── Lead conversion — ONE event for every lead form on the site ──
+   GTM's "Lead trigger" (event = lead) fires the dynamic Google Ads lead tag,
+   which reads expedition_slug, value and currency from this push. Every form
+   calls this after the lead is saved, so all pages report the same way.
+   value = the trip's list price in USD (0 when the form isn't for one trip).
+   The Meta tag in GTM is limited to the sources it fired on before
+   (expedition_page, waitlist, cta_section), so Meta counting is unchanged. */
+const EUR_TO_USD = 1.08;
+const ILS_TO_USD = 0.27;
+
+export function priceToUsd(trip) {
+  const n = Number(trip?.price);
+  if (!n) return 0;
+  const s = String(trip?.priceStr || '');
+  if (s.includes('€')) return Math.round(n * EUR_TO_USD);
+  if (s.includes('₪')) return Math.round(n * ILS_TO_USD);
+  return n;
+}
+
+export function trackLead({ source, slug = '', name = '', value = 0 } = {}) {
+  if (typeof window === 'undefined') return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event:           'lead',
+    source,
+    expedition_slug: slug || source,
+    expedition:      name,
+    value:           Number(value) || 0,
+    currency:        'USD',
+  });
+}
+
 /* ── Predefined events ── */
 export const Analytics = {
   // Navigation / clicks
