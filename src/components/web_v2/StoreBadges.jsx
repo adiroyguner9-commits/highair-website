@@ -63,8 +63,12 @@ export function StoreBadges({ height = 40, stacked = false, justify = 'flex-star
 
 /* The QR code for desktops (a phone camera opens app.highair-expeditions.com/download,
    which sends iPhone to the App Store and Android to Google Play). The SVG carries
-   its own white quiet zone, so it reads on any background. */
-export function AppQr({ size = 96, title, sub, alt, dark = false }) {
+   its own white quiet zone, so it reads on any background.
+   The code is 37 squares wide with its margin: show it at a whole number of
+   pixels per square (111 = 3 x 37, 148 = 4 x 37), pixelated, or the squares
+   blur on screen and a phone camera cannot read it (owner, 4 Nov 2026). */
+export const QR_SQUARES = 37;
+export function AppQr({ size = QR_SQUARES * 3, title, sub, alt, dark = false }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
       <img
@@ -73,7 +77,7 @@ export function AppQr({ size = 96, title, sub, alt, dark = false }) {
         width={size}
         height={size}
         decoding="async"
-        style={{ display: 'block', width: `${size}px`, height: `${size}px`, borderRadius: '10px', flexShrink: 0, boxShadow: dark ? 'none' : '0 0 0 1px #ECEAF8' }}
+        style={{ display: 'block', width: `${size}px`, height: `${size}px`, borderRadius: '6px', flexShrink: 0, imageRendering: 'pixelated', boxShadow: dark ? 'none' : '0 0 0 1px #ECEAF8' }}
       />
       {(title || sub) && (
         <div style={{ minWidth: 0 }}>

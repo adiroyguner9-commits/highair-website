@@ -128,7 +128,7 @@ function AppBlock({ isMobile, isDesktop, isEn }) {
       </p>
       {isDesktop ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <AppQr size={92} alt={APP_PAGE[isEn ? 'en' : 'he'].qrAlt} />
+          <AppQr size={111} alt={APP_PAGE[isEn ? 'en' : 'he'].qrAlt} />
           <StoreBadges height={40} stacked location="footer" />
         </div>
       ) : (

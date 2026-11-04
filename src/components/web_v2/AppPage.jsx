@@ -225,7 +225,7 @@ export default function AppPage() {
                   background:   'rgba(255,255,255,0.06)',
                   border:       '1px solid rgba(255,255,255,0.12)',
                 }}>
-                  <AppQr size={92} title={T.qrTitle} sub={T.qrSub} alt={T.qrAlt} dark />
+                  <AppQr size={148} title={T.qrTitle} sub={T.qrSub} alt={T.qrAlt} dark />
                 </div>
               )}
             </div>
