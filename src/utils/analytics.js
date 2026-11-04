@@ -38,15 +38,25 @@ export function priceToUsd(trip) {
 }
 
 export function trackLead({ source, slug = '', name = '', value = 0 } = {}) {
-  if (typeof window === 'undefined') return;
+  /* Returns a promise that resolves once GTM has run the tags for this event
+     (or after 1.5s), so pages that redirect straight to checkout can wait for
+     the Google Ads conversion to leave the browser first. */
+  if (typeof window === 'undefined') return Promise.resolve();
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event:           'lead',
-    source,
-    expedition_slug: slug || source,
-    expedition:      name,
-    value:           Number(value) || 0,
-    currency:        'USD',
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = () => { if (!done) { done = true; resolve(); } };
+    setTimeout(finish, 1500);
+    window.dataLayer.push({
+      event:           'lead',
+      source,
+      expedition_slug: slug || source,
+      expedition:      name,
+      value:           Number(value) || 0,
+      currency:        'USD',
+      eventCallback:   finish,
+      eventTimeout:    1500,
+    });
   });
 }
 

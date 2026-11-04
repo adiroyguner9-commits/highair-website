@@ -70,7 +70,7 @@ export default function CookieBanner() {
   function accept() {
     localStorage.setItem(STORAGE_KEY, 'accepted');
     if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', { analytics_storage: 'granted' });
+      window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
     }
     setVisible(false);
   }
@@ -78,7 +78,7 @@ export default function CookieBanner() {
   function decline() {
     localStorage.setItem(STORAGE_KEY, 'declined');
     if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', { analytics_storage: 'denied' });
+      window.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     }
     setVisible(false);
   }

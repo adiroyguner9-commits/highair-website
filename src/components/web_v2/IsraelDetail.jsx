@@ -338,7 +338,7 @@ export default function IsraelDetail() {
       }
       if (res.ok) {
         Analytics.leadSubmit({ source: 'israel_page', expedition: trip.name });
-        trackLead({ source: 'israel_page', slug: `israel-${trip.slug}`, name: trip.name });
+        await trackLead({ source: 'israel_page', slug: `israel-${trip.slug}`, name: trip.name });
       }
     } catch (err) {
       console.error('[israel-lead]', err);

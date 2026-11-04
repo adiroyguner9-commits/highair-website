@@ -837,13 +837,14 @@ export default function ExpeditionDetail() {
       }
       /* ── Conversion tracking ── */
       Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
-      trackLead({ source: isWaitlist ? 'waitlist' : 'expedition_page', slug: exp.slug, name: exp.nameHe, value: priceToUsd(exp) });
+      const leadTracked = trackLead({ source: isWaitlist ? 'waitlist' : 'expedition_page', slug: exp.slug, name: exp.nameHe, value: priceToUsd(exp) });
 
       /* Expeditions with a Deposit A link continue straight to checkout instead
          of the consultation calendar. The lead is already saved above, so an
          abandoned checkout still leaves us the record. Status stays 'loading'
          so the button keeps its sending state until the browser navigates. */
       if (exp.paymentUrl && !isWaitlist) {
+        await leadTracked; // let the Ads conversion fire before leaving the page
         window.location.href = exp.paymentUrl;
         return;
       }

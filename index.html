@@ -90,9 +90,9 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+      gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       if (localStorage.getItem('highair_cookie_consent') === 'accepted') {
-        gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+        gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
       }
       gtag('js', new Date());
       gtag('config', 'G-5XBRSD9V1M', { send_page_view: false });

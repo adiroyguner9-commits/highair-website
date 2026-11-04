@@ -42,7 +42,10 @@ describe('marketing tags', () => {
     expect(analytics).not.toMatch(/\bfbq\(/);
   });
   it('consent defaults to denied and follows the visitor\'s banner choice', () => {
-    expect(html).toContain("gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' })");
+    expect(html).toContain("gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })");
+    // accepting the banner must open Ads storage too, or same-session leads lose their gclid
+    const banner = readFileSync(resolve(__dirname, '../src/components/web_v2/CookieBanner.jsx'), 'utf8');
+    expect(banner).toContain("ad_storage: 'granted', ad_user_data: 'granted'");
     expect(html).toContain("localStorage.getItem('highair_cookie_consent') === 'accepted'");
   });
 });
