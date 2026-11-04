@@ -19,7 +19,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, homeText } from './lib/text-layer.mjs';
+import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, homeText, appText } from './lib/text-layer.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
@@ -550,6 +550,17 @@ const ABOUT_JSONLD = { '@context': 'https://schema.org', '@graph': [
 // ── Static pages ─────────────────────────────────────────────────────────────
 
 const ABOUT = await import(path.join(ROOT, 'src/data/aboutData.js'));
+/* The app page's copy, store links and FAQ: the same file AppPage.jsx renders. */
+const APP = await import(path.join(ROOT, 'src/data/appData.js'));
+const APP_HE = APP.APP_PAGE.he;
+const APP_JSONLD = { '@context': 'https://schema.org', '@graph': [
+  { '@type': 'WebPage', '@id': `${BASE_URL}/app`, name: APP_HE.h1, url: `${BASE_URL}/app`, description: APP_HE.metaDesc, inLanguage: 'he', isPartOf: { '@id': `${BASE_URL}/#website` }, about: { '@id': `${BASE_URL}/#organization` } },
+  { '@type': 'FAQPage', mainEntity: APP_HE.faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'בית', item: BASE_URL },
+    { '@type': 'ListItem', position: 2, name: APP_HE.h1, item: `${BASE_URL}/app` },
+  ] },
+] };
 
 const staticPages = [
   {
@@ -585,6 +596,13 @@ const staticPages = [
     textSub: 'בין אם אתם מתכננים את הפסגה הראשונה שלכם ובין אם העשירית, אנחנו כאן לכל שאלה, גדולה כקטנה.',
     title: 'HighAir Expeditions | צרו קשר',
     desc:  'צרו קשר עם צוות HighAir Expeditions לפרטים על משלחות, תאריכים, מחירים ורישום. אנחנו כאן לענות על כל שאלה.',
+  },
+  {
+    path:  'app',
+    textHtml: () => appText(APP_HE, { appStore: APP.APP_STORE_URL, googlePlay: APP.PLAY_STORE_URL }),
+    title: APP_HE.metaTitle,
+    desc:  APP_HE.metaDesc,
+    jsonLd: APP_JSONLD,
   },
   {
     path:  'shop',

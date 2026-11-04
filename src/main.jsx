@@ -99,6 +99,7 @@ const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
 const SafariPage         = lazy(() => import('./components/web_v2/SafariPage.jsx'));
 const BookCall           = lazy(() => import('./components/web_v2/BookCall.jsx'));
+const AppPage            = lazy(() => import('./components/web_v2/AppPage.jsx'));
 const NotFound404        = lazy(() => import('./components/web_v2/NotFound404.jsx'));
 
 /* Prevent the browser from restoring a previous scroll position after
@@ -169,6 +170,7 @@ preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
           <Route path="/blog/:slug"        element={<BlogPost />} />
           <Route path="/shop"              element={<Shop />} />
           <Route path="/contact"           element={<ContactPage />} />
+          <Route path="/app"               element={<AppPage />} />
           <Route path="/safari"            element={<SafariPage />} />
           <Route path="/book"              element={<BookCall />} />
           <Route path="/book/:slug"        element={<BookCall />} />

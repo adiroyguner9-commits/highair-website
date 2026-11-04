@@ -127,6 +127,23 @@ export function aboutText({ h1, sub, caption, story = [], sign, teamTitle, team 
     + '</article>';
 }
 
+/* The app page (/app), in the order it shows: what the app is, the stores,
+   what it does, how to start, the FAQ. `t` is APP_PAGE.he (src/data/appData.js). */
+export function appText(t, { appStore, googlePlay } = {}) {
+  if (!t) return '';
+  const stores = [appStore && link(appStore, 'App Store'), googlePlay && link(googlePlay, 'Google Play')].filter(Boolean);
+  const features = (t.features || []).map(f => `<h3>${esc(f.title)}</h3>${p(f.text)}`).join('');
+  const steps = (t.steps || []).map(s => `<li>${esc(s.title)}: ${esc(s.text)}</li>`).join('');
+  const qa = (t.faq || []).filter(f => f?.q && f?.a).map(f => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join('');
+  return '<article>'
+    + `<h1>${esc(t.h1)}</h1>` + p(t.sub) + p(t.note)
+    + (stores.length ? `<p>${stores.join(' · ')}</p>` : '')
+    + (features ? h2(t.featuresTitle) + features : '')
+    + (steps ? h2(t.stepsTitle) + `<ol>${steps}</ol>` : '')
+    + (qa ? h2('שאלות נפוצות') + qa : '')
+    + '</article>';
+}
+
 /* The homepage: who we are, every trip, and the guides. */
 export function homeText({ description, exps = [], posts = [] }) {
   const group = (title, list) => list.length ? h2(title) + `<ul>${list.map(e =>

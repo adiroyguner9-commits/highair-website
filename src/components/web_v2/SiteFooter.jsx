@@ -11,6 +11,8 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { ISRAEL_TRIPS as ALL_ISRAEL_TRIPS } from '../../data/israelData.js';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { FOOTER_CLIMBS, FOOTER_TREKS } from '../../data/expeditionGroups.js';
+import { APP_PAGE } from '../../data/appData.js';
+import { StoreBadges, AppQr } from './StoreBadges.jsx';
 
 /* Expeditions derived automatically (expeditionGroups.js), continent-ordered:
    Africa → Europe → Asia → South America. Add a destination to mockData and it
@@ -111,6 +113,36 @@ const SOCIALS = [
   { label: 'TikTok', href: 'https://www.tiktok.com/@highair_expeditions', icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg> },
 ];
 
+/* ── The app: official store badges, plus the QR code on a computer ──
+   Under the logo and social icons, in the same column. A phone gets the two
+   badges side by side; a computer the QR beside them, stacked. */
+function AppBlock({ isMobile, isDesktop, isEn }) {
+  const { t } = useTranslation();
+  return (
+    <div style={{ marginTop: '28px', display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'center' : 'flex-start' }}>
+      <p style={{
+        fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 700, color: '#0A0818',
+        letterSpacing: '0.02em', margin: '0 0 14px',
+      }}>
+        {t('footer.appTitle')}
+      </p>
+      {isDesktop ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <AppQr size={92} alt={APP_PAGE[isEn ? 'en' : 'he'].qrAlt} />
+          <StoreBadges height={40} stacked location="footer" />
+        </div>
+      ) : (
+        <StoreBadges height={40} stacked={!isMobile} justify={isMobile ? 'center' : 'flex-start'} location="footer" />
+      )}
+      {isDesktop && (
+        <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', fontWeight: 400, color: '#6B6B8A', margin: '10px 0 0' }}>
+          {t('footer.appScan')}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function SocialIcons({ size = 36, justify = 'flex-start' }) {
   return (
     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: justify }}>
@@ -133,7 +165,7 @@ function SocialIcons({ size = 36, justify = 'flex-start' }) {
 }
 
 export default function SiteFooter() {
-  const { isMobile, isTablet } = useBreakpoint();
+  const { isMobile, isTablet, isDesktop } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
   const dir = isEn ? 'ltr' : 'rtl';
@@ -153,6 +185,7 @@ export default function SiteFooter() {
     // { label: t('footer.shop'), href: '/shop' }, // hidden until shop is ready
     { label: t('footer.blog'),         href: '/blog'          },
     { label: t('footer.contact'),      href: '/contact'       },
+    { label: t('footer.app'),          href: '/app'           },
     { label: t('footer.cancellation'), href: '/cancellation'  },
     { label: t('footer.terms'),        href: '/terms'         },
     { label: t('footer.privacy'),      href: '/privacy'       },
@@ -212,6 +245,7 @@ export default function SiteFooter() {
               {t('footer.tagline')}
             </p>
             <SocialIcons size={44} justify="center" />
+            <AppBlock isMobile isEn={isEn} />
           </div>
 
           {bottomBar}
@@ -243,6 +277,7 @@ export default function SiteFooter() {
               {t('footer.tagline')}
             </p>
             <SocialIcons size={36} justify="flex-start" />
+            <AppBlock isDesktop={isDesktop} isEn={isEn} />
           </div>
 
           <div>
