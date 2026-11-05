@@ -6,6 +6,8 @@
 
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
 import { feetText } from '../../website/units.js';
+import AltitudeProfile from './AltitudeProfile.jsx';
+import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
 import { useParams, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
@@ -1557,6 +1559,9 @@ export default function ExpeditionDetail() {
         </section>
         )}
 
+        {/* Altitude profile, foreign sites only (owner, 6 Nov 2026) */}
+        {!isRtl && !isSafariExp && itinerary && <AltitudeProfile itinerary={itinerary} isMobile={isMobile} />}
+
         {/* ── C. תכנית הטיפוס (Itinerary Accordion) ── */}
         {itinerary && itinerary.length > 0 && (
           <>
@@ -1862,6 +1867,7 @@ export default function ExpeditionDetail() {
         <Separator />
 
         {/* ── F. תאריכי יציאה (Airtable live) ───── */}
+        {!isRtl && !isSafariExp && <BookWithConfidence exp={exp} isMobile={isMobile} />}
         <section style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <h2 style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(22px, 3.5vw, 32px)',
