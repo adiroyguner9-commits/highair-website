@@ -1396,7 +1396,7 @@ export const ISRAEL_TRIPS = [
     live:         true,
     hidden:       true,
     showIntro:    true,
-    img:          '',
+    img:          '/images/cards/ramim.webp',
     grad:         'linear-gradient(135deg, #1f3d1c, #5b7a2e, #142612)',
     diffHe:       'מיטיבי לכת',
     diffEn:       'Experienced Hikers',
