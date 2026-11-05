@@ -22,7 +22,9 @@ describe('en. host routing', () => {
   });
 
   it('only runs on page paths', () => {
-    expect(config.matcher).toEqual(['/', '/expedition/:slug']);
+    expect(config.matcher).toEqual(['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs']);
+    expect(englishShellPath('en.highair-expeditions.com', '/about')).toBe('/en/about/index.html');
+    expect(englishShellPath('en.highair-expeditions.com', '/annual-plan/')).toBe('/en/annual-plan/index.html');
   });
 
   it('the en. host is no longer marked noindex', () => {

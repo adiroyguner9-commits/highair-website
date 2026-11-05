@@ -17,6 +17,7 @@
  *   isRtl         – boolean
  */
 
+import i18n from '../../i18n.js';
 import { useState, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import CarouselDot from './CarouselDot.jsx';
@@ -193,7 +194,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
               <CarouselDot
                 key={i}
                 onClick={() => scrollToIdx(i)}
-                label={`תמונה ${i + 1}`}
+                label={i18n.language === 'en' ? `Photo ${i + 1}` : `תמונה ${i + 1}`}
                 width={activeIdx === i ? '20px' : '7px'}
                 color={activeIdx === i ? '#6D28D9' : '#D1C9F0'}
                 transition="all 0.25s ease"
@@ -210,7 +211,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
               <CarouselDot
                 key={i}
                 onClick={() => scrollToIdx(i)}
-                label={`תמונה ${i + 1}`}
+                label={i18n.language === 'en' ? `Photo ${i + 1}` : `תמונה ${i + 1}`}
                 width={isActive ? '20px' : isEdge ? '5px' : '7px'}
                 height={isActive ? '7px' : isEdge ? '5px' : '7px'}
                 color={isActive ? '#6D28D9' : '#D1C9F0'}

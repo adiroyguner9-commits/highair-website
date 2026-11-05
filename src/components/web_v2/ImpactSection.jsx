@@ -81,7 +81,7 @@ export default function ImpactSection() {
                 src={i <= loadedUpTo.current ? src : undefined}
                 srcSet={i <= loadedUpTo.current ? srcSetOf(src) : undefined}
                 sizes="(max-width: 767.98px) 260px, 46vw"
-                alt="HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים"
+                alt={i18n.language === 'en' ? 'HighAir Expeditions - Travel with purpose, a hospital visit' : 'HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים'}
                 loading="lazy"
                 decoding="async"
                 style={{

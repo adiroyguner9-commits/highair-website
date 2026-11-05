@@ -171,6 +171,7 @@ export default function PressSection() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
+
   const [pressItems, setPressItems] = useState(PRESS_ITEMS);
 
   useEffect(() => {
@@ -196,6 +197,10 @@ export default function PressSection() {
       })
       .catch(() => {}); // silently keep hardcoded fallback
   }, []);
+
+  /* Hebrew-only content (Hebrew videos, Israeli press, the Hebrew WhatsApp
+     community): not shown on the English site (5 Nov 2026). */
+  if (!isRtl) return null;
 
   return (
     <section style={{

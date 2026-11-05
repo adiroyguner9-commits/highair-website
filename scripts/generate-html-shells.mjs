@@ -786,6 +786,29 @@ for (const page of staticPages) {
   }
 }
 
+// ── English static pages (dist/en/<path>/index.html, served on en. by middleware.js) ──
+/* Same titles and descriptions the React pages set on en. (AboutUs, Blog,
+   ContactPage, AppPage, AnnualPlan, WorldExpeditionsPage), so the tab and any
+   crawler see English from the first byte, never the Hebrew shell. */
+const EN_STATIC = [
+  { path: 'about',       title: 'Our Story | HighAir Expeditions',
+    description: 'Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients in Israel.' },
+  { path: 'blog',        title: 'Trekking & Climbing Magazine | HighAir Expeditions',
+    description: 'Guides, tips and stories from the world of trekking and mountaineering, from the HighAir Expeditions team.' },
+  { path: 'contact',     title: 'Contact Us | HighAir Expeditions',
+    description: 'Reach the HighAir Expeditions team by WhatsApp, email or phone. We respond within 24 hours.' },
+  { path: 'app',         title: APP.APP_PAGE.en.metaTitle, description: APP.APP_PAGE.en.metaDesc },
+  { path: 'annual-plan', title: 'International Expedition Schedule | HighAir Expeditions',
+    description: 'Upcoming international HighAir Expeditions departures, run in English with climbers from around the world. Pick a date and join us.' },
+  { path: 'treks',       title: 'World Treks | HighAir Expeditions',
+    description: "All of HighAir's world treks - from the Balkans and Ethiopia to the Himalayas in Nepal. Professional guides, small groups, supporting the fight against cancer. Choose your next trek." },
+  { path: 'climbs',      title: 'Mountain Climbing Expeditions | HighAir Expeditions',
+    description: "All of HighAir's mountain climbing expeditions - Kilimanjaro, Elbrus, Aconcagua, Ama Dablam and more. Certified guides, full support, supporting the fight against cancer." },
+];
+for (const pg of EN_STATIC) {
+  writeShell(pg.path, { en: true, title: pg.title, description: pg.description, canonicalPath: `/${pg.path}`, alternatesPath: `/${pg.path}` }, EN_DIST);
+}
+
 // ── English homepage (dist/en/index.html, served on the en. host by middleware.js) ──
 {
   const enHomeText = '<article><h1>HighAir Expeditions</h1>'

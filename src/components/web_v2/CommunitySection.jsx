@@ -129,6 +129,10 @@ export default function CommunitySection() {
   const { i18n } = useTranslation();
   const isEn = i18n.language === 'en';
 
+  /* Hebrew-only content (Hebrew videos, Israeli press, the Hebrew WhatsApp
+     community): not shown on the English site (5 Nov 2026). */
+  if (isEn) return null;
+
   return (
     <section
       id="community"

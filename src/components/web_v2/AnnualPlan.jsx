@@ -60,7 +60,7 @@ function findExp(eventName) {
      instead of the Hebrew ones; the Hebrew site never matches them. */
   const isEn = i18n.language === 'en';
   return EXPS.find(e => {
-    const events = (isEn && e.airtableEventsEn?.length) ? e.airtableEventsEn : (e.airtableEvents || []);
+    const events = isEn ? (e.airtableEventsEn || []) : (e.airtableEvents || []);
     return events.some(ev => ev.toLowerCase() === lower);
   }) || null;
 }
@@ -317,10 +317,10 @@ export default function AnnualPlan() {
   }
 
   usePageMeta({
-    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'Expedition Schedule 2026 | HighAir Expeditions',
+    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'International Expedition Schedule | HighAir Expeditions',
     description:   isRtl
       ? 'כל המשלחות והטרקים המתוכננים של HighAir Expeditions לשנה הקרובה — קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד. בחרו תאריך והצטרפו אלינו!'
-      : 'All upcoming HighAir Expeditions treks and climbs for 2026 - Kilimanjaro, Everest, Elbrus, Annapurna and more. Pick a date and join us.',
+      : 'Upcoming international HighAir Expeditions departures, run in English with climbers from around the world. Pick a date and join us.',
     canonicalPath: '/annual-plan',
   });
 
@@ -374,6 +374,8 @@ export default function AnnualPlan() {
        Better to show nothing than to show the id. Israel trips are exempt: they
        carry their own name and image on the record itself. */
     function isRenderable(g) {
+      /* English plan: international groups only, no Israel trips */
+      if (i18n.language === 'en') return !g._isIsrael && !!findExp(g.eventName);
       return g._isIsrael || !!findExp(g.eventName);
     }
 

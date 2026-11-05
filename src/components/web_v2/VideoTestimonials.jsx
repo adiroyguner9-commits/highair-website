@@ -170,6 +170,9 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
   const isEn = i18n.language === 'en';
   const { isMobile } = useBreakpoint();
   const [active, setActive] = useState(null);
+  /* Hebrew-only content (Hebrew videos, Israeli press, the Hebrew WhatsApp
+     community): not shown on the English site (5 Nov 2026). */
+  if (isEn) return null;
 
   const videos = limit ? KILI_TESTIMONIALS.slice(0, limit) : KILI_TESTIMONIALS;
   const textColor   = darkBg ? '#FFFFFF' : '#0A0818';

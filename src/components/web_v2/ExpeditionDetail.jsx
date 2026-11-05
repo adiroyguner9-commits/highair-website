@@ -518,8 +518,8 @@ export default function ExpeditionDetail() {
   /* Which Airtable groups this page lists. The English site sells separate
      international groups (5 Nov 2026), so a trip with airtableEventsEn shows only
      those there; the Hebrew site keeps its own groups and never sees them. */
-  const groupEvents = (i18n.language === 'en' && exp?.airtableEventsEn?.length)
-    ? exp.airtableEventsEn
+  const groupEvents = i18n.language === 'en'
+    ? (exp?.airtableEventsEn || [])
     : (exp?.airtableEvents || []);
   const hasAirtable = groupEvents.length > 0;
   const [liveGroups, setLiveGroups]         = useState([]);
@@ -1373,7 +1373,7 @@ export default function ExpeditionDetail() {
               {(exp.introImg || exp.img) ? (
                 <img
                   src={exp.introImg || exp.img}
-                  alt={exp.nameHe}
+                  alt={isRtl ? exp.nameHe : (exp.nameEn || exp.name || exp.nameHe)}
                   fetchpriority="high"
                   decoding="async"
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', borderRadius: RADIUS.xl, display: 'block' }}
@@ -2331,7 +2331,7 @@ export default function ExpeditionDetail() {
                     {/* Photo */}
                     <img
                       src={u.img}
-                      alt={u.name}
+                      alt={isRtl ? u.name : (u.nameEn || u.name)}
                       loading="lazy"
                       decoding="async"
                       style={{

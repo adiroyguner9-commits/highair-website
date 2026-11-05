@@ -12,15 +12,18 @@
    would not. */
 
 export const config = {
-  matcher: ['/', '/expedition/:slug'],
+  matcher: ['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs'],
 };
 
 const SLUG = /^\/expedition\/[a-z0-9-]+\/?$/;
+const STATIC = new Set(['about', 'blog', 'contact', 'app', 'annual-plan', 'treks', 'climbs']);
 
 export function englishShellPath(hostname, pathname) {
   if (!hostname || !hostname.startsWith('en.')) return null;
   if (pathname === '/' || pathname === '') return '/en/index.html';
   if (SLUG.test(pathname)) return `/en${pathname.replace(/\/$/, '')}/index.html`;
+  const page = pathname.replace(/^\/|\/$/g, '');
+  if (STATIC.has(page)) return `/en/${page}/index.html`;
   return null;
 }
 
