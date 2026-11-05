@@ -21,7 +21,7 @@ const STORY_HE = [
 const STORY_EN = [
   'Nice to meet you, I am Chen Shaked, a professional mountain climber and the founder of HighAir together with my childhood friend, Adir Oyguner. I discovered trekking and mountaineering after the army, in Nepal, where I fell in love with the disconnection that only high mountains can provide. Since then I have climbed Kazbek, Kilimanjaro, Gran Paradiso, Ama Dablam, Lobuche Peak and Island Peak, and in September 2025 I reached the summit of Manaslu, the eighth highest mountain in the world.',
   'But my real journey started at home. Five years ago my dear mother, Carol Shaked, passed away after a long battle with cancer, and from that moment I decided to dedicate my life to honouring her memory. At every summit I raise her flag, and the higher I climb, the closer I feel to her.',
-  'Inspired by my mother\'s spirit of giving, part of every trip we run is dedicated to supporting cancer patients in Israel and to making the dreams of children facing the illness come true. That way, every summit you climb also becomes a way to give.',
+  'Inspired by my mother\'s spirit of giving, part of every trip we run is dedicated to supporting cancer patients and to making the dreams of children facing the illness come true. That way, every summit you climb also becomes a way to give.',
 ];
 
 /* German and Spanish (de. / es., 5 Nov 2026) */
@@ -29,12 +29,12 @@ const STORY_I18N = {
   de: [
     'Schön, Sie kennenzulernen, ich bin Chen Shaked, professioneller Bergsteiger und Gründer von HighAir, zusammen mit meinem Freund aus Kindertagen, Adir Oyguner. Trekking und Bergsteigen habe ich nach dem Militärdienst in Nepal entdeckt, wo ich mich in das Abschalten verliebt habe, das nur hohe Berge schenken. Seitdem habe ich den Kasbek, den Kilimandscharo, den Gran Paradiso, die Ama Dablam, den Lobuche Peak und den Island Peak bestiegen, und im September 2025 stand ich auf dem Gipfel des Manaslu, des achthöchsten Bergs der Welt.',
     'Doch meine eigentliche Reise begann zu Hause. Vor fünf Jahren starb meine geliebte Mutter, Carol Shaked, nach langem Kampf gegen den Krebs, und von diesem Moment an habe ich beschlossen, mein Leben ihrem Andenken zu widmen. Auf jedem Gipfel hisse ich ihre Flagge, und je höher ich steige, desto näher fühle ich mich ihr.',
-    'Inspiriert von der Großzügigkeit meiner Mutter widmen wir einen Teil jeder Reise der Unterstützung von Krebspatienten in Israel und der Erfüllung von Träumen krebskranker Kinder. So wird jeder Gipfel, den Sie besteigen, auch zu einer Möglichkeit zu geben.',
+    'Inspiriert von der Großzügigkeit meiner Mutter widmen wir einen Teil jeder Reise der Unterstützung von Krebspatienten und der Erfüllung von Träumen krebskranker Kinder. So wird jeder Gipfel, den Sie besteigen, auch zu einer Möglichkeit zu geben.',
   ],
   es: [
     'Encantado de conocerte, soy Chen Shaked, montañero profesional y fundador de HighAir junto con mi amigo de la infancia, Adir Oyguner. Descubrí el trekking y el montañismo después del servicio militar, en Nepal, donde me enamoré de la desconexión que solo dan las grandes montañas. Desde entonces he subido el Kazbek, el Kilimanjaro, el Gran Paradiso, el Ama Dablam, el Lobuche Peak y el Island Peak, y en septiembre de 2025 llegué a la cumbre del Manaslu, la octava montaña más alta del mundo.',
     'Pero mi verdadero viaje empezó en casa. Hace cinco años, mi querida madre, Carol Shaked, falleció tras una larga lucha contra el cáncer, y desde ese momento decidí dedicar mi vida a honrar su memoria. En cada cumbre levanto su bandera, y cuanto más alto subo, más cerca me siento de ella.',
-    'Inspirados por la generosidad de mi madre, parte de cada viaje que organizamos se dedica a apoyar a pacientes con cáncer en Israel y a cumplir los sueños de niños que se enfrentan a la enfermedad. Así, cada cumbre que subes se convierte también en una forma de dar.',
+    'Inspirados por la generosidad de mi madre, parte de cada viaje que organizamos se dedica a apoyar a pacientes con cáncer y a cumplir los sueños de niños que se enfrentan a la enfermedad. Así, cada cumbre que subes se convierte también en una forma de dar.',
   ],
 };
 

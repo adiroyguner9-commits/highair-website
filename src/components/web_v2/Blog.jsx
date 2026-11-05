@@ -9,6 +9,8 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, CATEGORIES, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
+import { blogLang, postField, postInLang } from '../../data/blogLang.js';
+import { tx } from '../../website/lang.js';
 import { openPost } from '../../data/blogContent.js';
 import { smallOf } from '../../website/imageVariants.js';
 import { useNearView } from '../../website/useInView.js';
@@ -33,11 +35,12 @@ function PostCard({ post }) {
   const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
 
-  const title    = isEn ? (post.titleEn    || post.title)   : post.title;
-  const excerpt  = isEn ? (post.excerptEn  || post.excerpt) : post.excerpt;
-  const category = isEn ? (post.categoryEn || post.category) : post.category;
+  const lang     = blogLang(i18n.language);
+  const title    = postField(post, 'title', lang);
+  const excerpt  = postField(post, 'excerpt', lang);
+  const category = postField(post, 'category', lang);
 
-  function handleNav() { openPost(navigate, post.slug, isEn ? 'en' : 'he'); }
+  function handleNav() { openPost(navigate, post.slug, lang); }
 
   return (
     <div
@@ -168,10 +171,10 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('all');
   usePageMeta({
     title:         isEn
-      ? 'Trekking & Climbing Magazine | HighAir Expeditions'
+      ? tx('Trekking & Climbing Magazine | HighAir Expeditions')
       : 'HighAir Expeditions | מגזין טיפוס הרים וטרקים',
     description:   isEn
-      ? 'Complete guides to all our destinations, and news from the world of climbing and trekking, by HighAir Expeditions.'
+      ? tx('Complete guides to all our destinations, and news from the world of climbing and trekking, by HighAir Expeditions.')
       : 'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים, מבית HighAir Expeditions.',
     canonicalPath: '/blog',
   });
@@ -179,13 +182,15 @@ export default function Blog() {
   const allLabel = t('blog.all');
 
   // Derive unique category keys (raw strings) from live data
-  const posts = SORTED_POSTS;
+  const lang  = blogLang(i18n.language);
+  /* German and Spanish list only the posts written for them (blogLang.js). */
+  const posts = SORTED_POSTS.filter(p => postInLang(p, lang));
   const derivedCats = [...new Set(posts.map(p => p.category).filter(Boolean))];
   const catKeys     = derivedCats.length ? derivedCats : CATEGORIES;
   // Prepend 'all' sentinel — label is translated, key stays 'all'
   const categories  = [{ key: 'all', label: allLabel }, ...catKeys.map(k => ({
     key:   k,
-    label: isEn ? (posts.find(p => p.category === k)?.categoryEn || k) : k,
+    label: postField(posts.find(p => p.category === k), 'category', lang) || k,
   }))];
 
   const filtered = activeCategory === 'all'

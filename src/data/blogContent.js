@@ -17,7 +17,8 @@ const cache = new Map();
 function entry(slug, lang) {
   const key = `${slug}.${lang}`;
   if (!cache.has(key)) {
-    const load = CONTENT[slug]?.[lang === 'en' ? 'en' : 'he'];
+    /* de/es where the post has them, else the English (en/de/es) or Hebrew text. */
+    const load = CONTENT[slug]?.[lang] || CONTENT[slug]?.[lang === 'he' ? 'he' : 'en'];
     const e = { status: load ? 'pending' : 'done', value: [] };
     if (load) {
       e.promise = load().then(

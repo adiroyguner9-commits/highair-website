@@ -10,6 +10,8 @@ import { COLOR, FS, RADIUS, SHADOW, EASING, DUR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useInView } from '../../website/useInView.js';
 import { POSTS, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
+import { blogLang, postField, postInLang, postDate } from '../../data/blogLang.js';
+import { tx } from '../../website/lang.js';
 import { openPost } from '../../data/blogContent.js';
 import { srcSetOf } from '../../website/imageVariants.js';
 
@@ -18,13 +20,15 @@ function BlogCard({ post, isEn, dir }) {
   const navigate   = useNavigate();
   const [imgHover, setImgHover] = useState(false);
   const [cardHover, setCardHover] = useState(false);
+  const { i18n } = useTranslation();
 
-  const title    = isEn ? (post.titleEn    || post.title)    : post.title;
-  const excerpt  = isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt;
-  const date     = !isNewsPost(post) ? null : isEn ? (post.dateEn     || post.dateHe)   : post.dateHe;
-  const category = isEn ? (post.categoryEn || post.category) : post.category;
+  const lang     = blogLang(i18n.language);
+  const title    = postField(post, 'title', lang);
+  const excerpt  = postField(post, 'excerpt', lang);
+  const date     = !isNewsPost(post) ? null : postDate(post, lang);
+  const category = postField(post, 'category', lang);
 
-  const handleClick = () => openPost(navigate, post.slug, isEn ? 'en' : 'he');
+  const handleClick = () => openPost(navigate, post.slug, lang);
 
   return (
     <article
@@ -177,7 +181,7 @@ function BlogCard({ post, isEn, dir }) {
               color:       COLOR.primary,
             }}
           >
-            {isEn ? 'Read more' : 'קרא עוד'}
+            {isEn ? tx('Read more') : 'קרא עוד'}
           </span>
           <svg
             width="14"
@@ -216,12 +220,12 @@ export default function BlogPreview() {
 
   // Only news posts, up to 3, most recent first
   const latestPosts = POSTS.filter(p =>
-    (isEn ? (p.categoryEn || p.category) : p.category) === (isEn ? 'News' : 'חדשות')
+    p.category === 'חדשות' && postInLang(p, blogLang(i18n.language))
   ).slice(0, 3);
 
-  const sectionLabel = isEn ? 'Our Magazine' : 'המגזין שלנו';
-  const heading      = isEn ? 'News & Updates' : 'חדשות ועדכונים';
-  const allPostsText = isEn ? 'All posts' : 'לכל הפוסטים';
+  const sectionLabel = isEn ? tx('Our Magazine') : 'המגזין שלנו';
+  const heading      = isEn ? tx('News & Updates') : 'חדשות ועדכונים';
+  const allPostsText = isEn ? tx('All posts') : 'לכל הפוסטים';
 
   return (
     <section

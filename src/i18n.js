@@ -259,7 +259,7 @@ const en = {
   },
   impact: {
     heading: 'Travel with Purpose!',
-    p1: 'A portion of our profits is dedicated to fulfilling the dreams of cancer patients in Israel. Thanks to each and every one of you who joins us on a journey, we are able to donate and strengthen people who are in the biggest fight of their lives.',
+    p1: 'A portion of our profits is dedicated to fulfilling the dreams of cancer patients. Thanks to each and every one of you who joins us on a journey, we are able to donate and strengthen people who are in the biggest fight of their lives.',
     p2: 'Every month we visit hospital wards, meet families, distribute gifts and support children and adults who fight day by day - creating small moments of joy within their complex reality.',
     p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated over $70,000 to date and helped fulfill the dreams of cancer patients and their families!',
     cta: 'Every expedition makes a difference!',
@@ -384,7 +384,7 @@ const en = {
     moreArticles: 'More articles',
     readMore: 'Read more →',
     ctaTitle: 'Your next summit is waiting',
-    ctaDesc: 'Explore our expeditions — every journey with HighAir also supports cancer patients in Israel',
+    ctaDesc: 'Explore our expeditions — every journey with HighAir also supports cancer patients',
     ctaBtn: 'All Expeditions',
   },
   annualPlan: {

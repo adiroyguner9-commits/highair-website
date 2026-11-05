@@ -12,6 +12,7 @@
                        string (src/i18n/ui-de.json, ui-es.json), else the English.
                        Placeholders {0} {1} take values from the array argument.
    - BASE_URLS         the host each language lives on */
+import { BLOG_LANGS } from './blogLangs.js';
 import i18n from '../i18n.js';
 import DE from '../i18n/ui-de.json';
 import ES from '../i18n/ui-es.json';
@@ -55,7 +56,15 @@ export function tx(english, args) {
    de./es. is kept out of search, out of the menus, and has no de/es hreflang
    pair; it still opens (in English text) if someone has the link. */
 export const CORE_PATHS = new Set(CORE_LIST);
-export const hasPage = (lng, path) => !PARTIAL_LANGS.includes(lng) || CORE_PATHS.has(String(path || '/').replace(/\/$/, '') || '/');
+/* A blog post exists where it was published (src/website/blogLangs.js): German
+   and Spanish carry the translated ones, posts about Israel stay Hebrew. */
+export const hasPage = (lng, path) => {
+  const p = String(path || '/').replace(/\/$/, '') || '/';
+  const post = p.match(/^\/blog\/([^/]+)$/);
+  if (post) return (BLOG_LANGS[post[1]] || ['he', 'en']).includes(lng);
+  if (p === '/blog') return lng === 'he' || lng === 'en' || Object.values(BLOG_LANGS).some(l => l.includes(lng));
+  return !PARTIAL_LANGS.includes(lng) || CORE_PATHS.has(p);
+};
 /* Trips offered on the German and Spanish sites */
 export const CORE_TRIPS = new Set(CORE_TRIP_LIST);
 

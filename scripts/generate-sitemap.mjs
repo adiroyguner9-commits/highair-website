@@ -146,14 +146,17 @@ console.log(`    Israel      : ${israelSlugs.length}`);
    every live trip with English copy (not Sinai), the listing pages and the
    magazine; German and Spanish carry their core pages (src/website/sites.js). */
 const SITES = await import(path.join(ROOT, 'src/website/sites.js'));
+const { BLOG_LANGS } = await import(path.join(ROOT, 'src/website/blogLangs.js'));
 const EN_HIDDEN = new Set(['sinai']);
 const enTrips = EXPS.filter(e => e.live !== false && e.slug && !e.teaser && !EN_HIDDEN.has(e.slug) && e.seoTitleEn && e.descEn).map(e => `/expedition/${e.slug}`);
 const enPages = ['/', '/treks', '/climbs', '/blog', '/about', '/contact', '/app', '/annual-plan', ...enTrips,
-  ...BLOG_POSTS.filter(p => p.slug && p.titleEn).map(p => `/blog/${p.slug}`), ...SITES.LEGAL_PATHS];
+  ...BLOG_POSTS.filter(p => p.slug && p.titleEn && BLOG_LANGS[p.slug]?.includes('en')).map(p => `/blog/${p.slug}`), ...SITES.LEGAL_PATHS];
+/* German and Spanish: their core pages, and the magazine posts written for them. */
+const blogFor = l => { const s = Object.keys(BLOG_LANGS).filter(k => BLOG_LANGS[k].includes(l)); return s.length ? ['/blog', ...s.map(k => `/blog/${k}`)] : []; };
 const foreignPages = {
   en: enPages,
-  de: SITES.CORE_PATHS,
-  es: SITES.CORE_PATHS,
+  de: [...SITES.CORE_PATHS, ...blogFor('de')],
+  es: [...SITES.CORE_PATHS, ...blogFor('es')],
 };
 const prio = p => (p === '/' ? '1.0' : p.startsWith('/expedition/') || p === '/treks' || p === '/climbs' ? '0.9' : SITES.LEGAL_PATHS.includes(p) ? '0.4' : '0.7');
 for (const [lng, pages] of Object.entries(foreignPages)) {

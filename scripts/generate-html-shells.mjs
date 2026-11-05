@@ -843,7 +843,7 @@ for (const page of staticPages) {
    crawler see English from the first byte, never the Hebrew shell. */
 const EN_STATIC = [
   { path: 'about',       title: 'Our Story | HighAir Expeditions',
-    description: 'Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients in Israel.' },
+    description: 'Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients.' },
   { path: 'blog',        title: 'Trekking & Climbing Magazine | HighAir Expeditions',
     description: 'Guides, tips and stories from the world of trekking and mountaineering, from the HighAir Expeditions team.' },
   { path: 'contact',     title: 'Contact Us | HighAir Expeditions',

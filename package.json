@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5175",
-    "prebuild": "node scripts/sync-nav.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-agent-knowledge.mjs",
+    "prebuild": "node scripts/sync-nav.mjs && node scripts/generate-blog-langs.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-agent-knowledge.mjs",
     "build": "vite build",
     "postbuild": "node scripts/generate-html-shells.mjs && node scripts/validate-structured-data.mjs",
     "sync-nav": "node scripts/sync-nav.mjs",

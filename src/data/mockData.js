@@ -1466,7 +1466,7 @@ Kilimanjaro is the most accessible high-altitude mountain in the world. No techn
 
 That number is not accidental. We use the Machame Route over 7 days, allowing for genuine gradual acclimatization. Five distinct climate zones, from tropical rainforest at the base to glaciers near the summit, all on the same mountain. Our team knows every meter of the route.
 
-Part of the proceeds from every expedition supports cancer patients in Israel, because for us, the mountains are also a way to give back.`,
+Part of the proceeds from every expedition supports cancer patients, because for us, the mountains are also a way to give back.`,
     highlightsEn: ['Uhuru Peak 5895m', "Africa's highest mountain", 'Machame Scenic Route', 'Five climate zones'],
     included: [
       'טיפוס לקילימנג׳רו:',

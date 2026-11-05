@@ -11,6 +11,8 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePhoneHero } from '../../website/phoneHero.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
+import { blogLang, postField, postInLang } from '../../data/blogLang.js';
+import { tx } from '../../website/lang.js';
 import { readPostContent, preloadPostContent, openPost } from '../../data/blogContent.js';
 import { authorOf } from '../../data/authors.js';
 import Header from './Header.jsx';
@@ -89,7 +91,9 @@ export default function BlogPost() {
   const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const isEn = i18n.language !== 'he';
-  const post = POSTS.find(p => p.slug === slug);
+  const lang = blogLang(i18n.language);
+  /* A post not published in this site's language is not there (blogLang.js). */
+  const post = POSTS.find(p => p.slug === slug && postInLang(p, lang));
   const heroImg = usePhoneHero(post?.img, 'blog');   // a phone gets the slice it shows
 
   const [copied, setCopied] = useState(false);
@@ -110,8 +114,7 @@ export default function BlogPost() {
   /* The related posts' text, once the browser is idle, so opening one is instant. */
   useEffect(() => {
     if (!post) return undefined;
-    const lang = isEn ? 'en' : 'he';
-    const go = () => POSTS.filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 3)
+    const go = () => POSTS.filter(p => p.slug !== post.slug && p.category === post.category && postInLang(p, lang)).slice(0, 3)
       .forEach(p => preloadPostContent(p.slug, lang));
     const id = 'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 4000 }) : setTimeout(go, 2000);
     return () => ('cancelIdleCallback' in window ? cancelIdleCallback(id) : clearTimeout(id));
@@ -123,15 +126,15 @@ export default function BlogPost() {
      duplicate the shell's and trip Google's Rich Results duplicate-schema flags. */
 
   /* Language-aware fields — must be declared before usePageMeta */
-  const postTitle    = post ? (isEn ? (post.titleEn    || post.title)    : post.title)    : '';
-  const postExcerpt  = post ? (isEn ? (post.excerptEn  || post.excerpt)  : post.excerpt)  : '';
-  const postContent  = post ? readPostContent(post.slug, isEn ? 'en' : 'he') : [];   // waits (Suspense) for the text
-  const postCategory = post ? (isEn ? (post.categoryEn || post.category) : post.category) : '';
+  const postTitle    = postField(post, 'title', lang);
+  const postExcerpt  = postField(post, 'excerpt', lang);
+  const postContent  = post ? readPostContent(post.slug, lang) : [];   // waits (Suspense) for the text
+  const postCategory = postField(post, 'category', lang);
   const author       = authorOf(post);
 
   /* seoTitle — optional shorter version for <title> / og:title (H1 still uses postTitle) */
   const postSeoTitle = post
-    ? (isEn ? (post.seoTitleEn || post.seoTitle || postTitle) : (post.seoTitle || postTitle))
+    ? (lang === 'he' ? (post.seoTitle || postTitle) : (post[{ en: 'seoTitleEn', de: 'seoTitleDe', es: 'seoTitleEs' }[lang]] || postTitle))
     : '';
 
   const BASE = 'https://www.highair-expeditions.com';
@@ -252,7 +255,7 @@ export default function BlogPost() {
                   padding:        '4px 12px',
                   borderRadius:   RADIUS.full,
                 }}>
-                  {isEn ? `By ${author.nameEn}` : `מאת ${author.nameHe}`}
+                  {isEn ? tx('By {0}', [author.nameEn]) : `מאת ${author.nameHe}`}
                 </span>
               )}
               {post.dateIso && isNewsPost(post) && (
@@ -713,7 +716,7 @@ export default function BlogPost() {
         {/* ── Related Posts ── */}
         {(() => {
           /* Related = same category only (e.g. News shows News), newest first */
-          const related = POSTS.filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 3);
+          const related = POSTS.filter(p => p.slug !== post.slug && p.category === post.category && postInLang(p, lang)).slice(0, 3);
           if (!related.length) return null;
           return (
             <div style={{ marginBottom: '56px' }}>
@@ -736,7 +739,7 @@ export default function BlogPost() {
                 {related.map(p => (
                   <div
                     key={p.slug}
-                    onClick={() => openPost(navigate, p.slug, isEn ? 'en' : 'he')}
+                    onClick={() => openPost(navigate, p.slug, lang)}
                     style={{
                       background:   '#FFFFFF',
                       borderRadius: RADIUS.xl,
@@ -774,7 +777,7 @@ export default function BlogPost() {
                         WebkitBoxOrient: 'vertical',
                         overflow:        'hidden',
                       }}>
-                        {isEn ? (p.titleEn || p.title) : p.title}
+                        {postField(p, 'title', lang)}
                       </p>
                       <p style={{
                         fontFamily:      "'Ploni', sans-serif",
@@ -789,7 +792,7 @@ export default function BlogPost() {
                         WebkitBoxOrient: 'vertical',
                         overflow:        'hidden',
                       }}>
-                        {isEn ? (p.excerptEn || p.excerpt) : p.excerpt}
+                        {postField(p, 'excerpt', lang)}
                       </p>
                       <div style={{ color: COLOR.primary, fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700, marginTop: '10px' }}>
                         {t('blogPost.readMore')}
