@@ -162,7 +162,9 @@ function LangSwitcher() {
  </button>
  {open && (
  <div role="menu" style={{
- position: 'absolute', top: '100%', insetInlineEnd: 0, zIndex: 1000,
+ /* The flag sits at the far left on the Hebrew site and the far right on the
+    others, so the menu opens inward from that side (it was cut off on www). */
+ position: 'absolute', top: '100%', ...(i18n.language === 'he' ? { left: 0 } : { right: 0 }), zIndex: 1000,
  background: '#fff', borderRadius: '12px', boxShadow: '0 8px 28px rgba(0,0,0,0.14)',
  padding: '6px', minWidth: '150px', direction: 'ltr',
  }}>
