@@ -25,6 +25,7 @@ import { Analytics, useScrollDepth, trackLead, priceToUsd } from '../../utils/an
 import PhotoGallery from './PhotoGallery.jsx';   // the gallery, shared with the homepage
 import GALLERY from '../../website/galleryManifest.json';
 import VideoTestimonials from './VideoTestimonials.jsx';
+import { HIDDEN_ON_EN } from '../../data/expeditionGroups.js';
 /* Safari-only blocks. Every one is rendered behind an isSafariExp gate, so a
    climb page renders exactly what it rendered before. */
 import {
@@ -429,7 +430,7 @@ export default function ExpeditionDetail() {
     image:         exp.ogImage ? `https://www.highair-expeditions.com${exp.ogImage}` : exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
     jsonLd:        expJsonLd,
     ogType:        'product',
-    noIndex:       !!exp.teaser || exp.live === false,   // a draft (?preview=1) or a hidden trip must never be indexed
+    noIndex:       !!exp.teaser || exp.live === false || (!isRtl && HIDDEN_ON_EN.has(exp.slug)),   // a draft (?preview=1), a hidden trip, or a trip not offered in English must never be indexed
   } : {
     title:       'HighAir Expeditions | משלחות הרים',
     description: 'משלחות טיפוס הרים וטרקים בעולם.',

@@ -268,7 +268,8 @@ const { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } = a
 const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe));
 const faqForEn = exp => (FAQ_BY_SLUG[exp.slug]?.en?.length ? FAQ_BY_SLUG[exp.slug].en : makeDefaultFaqEn(exp.groupCapacity || 15, exp.experienceEn));
 /* A trip has an English page when it is live and its English copy exists */
-const hasEnglish = exp => exp.live !== false && Boolean(exp.seoTitleEn && exp.descEn);
+const EN_HIDDEN = new Set(['sinai']);   /* = HIDDEN_ON_EN in src/data/expeditionGroups.js */
+const hasEnglish = exp => exp.live !== false && !EN_HIDDEN.has(exp.slug) && Boolean(exp.seoTitleEn && exp.descEn);
 let expCount = 0;
 let enCount = 0;
 for (const exp of EXPS) {

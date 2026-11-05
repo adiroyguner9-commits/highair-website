@@ -9,7 +9,19 @@
  * live:false), and coming-soon teasers ride along like any other card — the
  * rendering layer decides they are not clickable.
  */
-import { NAV_EXPS, CARD_EXPS } from './navData.js';
+import { NAV_EXPS as ALL_NAV_EXPS, CARD_EXPS as ALL_CARD_EXPS } from './navData.js';
+import i18n from '../i18n.js';
+
+/* Trips built for travellers from Israel (Sinai: an Israeli border crossing,
+   fees in shekels) are not offered on the English site (owner, 5 Nov 2026).
+   They drop out of the homepage, menus and footer there; their page stays
+   reachable by its link, kept out of search (generate-html-shells.mjs). */
+export const HIDDEN_ON_EN = new Set(['sinai']);
+const forLanguage = list => (i18n.language === 'en'
+  ? list.filter(e => !HIDDEN_ON_EN.has(e.slug))
+  : list);
+const NAV_EXPS  = forLanguage(ALL_NAV_EXPS);
+const CARD_EXPS = forLanguage(ALL_CARD_EXPS);
 
 /* Data continent keys → i18n keys (t('explorer.continents.<key>')). */
 export const CONTINENTS = [
