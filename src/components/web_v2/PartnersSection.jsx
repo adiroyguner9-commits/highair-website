@@ -4,7 +4,7 @@
  * Logos are auto-loaded from src/assets/partners/ (drop a file there to add it).
  */
 
-import { tx } from '../../website/lang.js';
+import { tx, isForeign } from '../../website/lang.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint }  from '../../website/useBreakpoint.js';
 
@@ -14,9 +14,18 @@ const _logoModules = import.meta.glob(
   { eager: true }
 );
 const PARTNER_LOGOS = Object.entries(_logoModules).map(([path, mod]) => ({
+  file: path.split('/').pop().replace(/\.[^.]+$/, ''),
   name: path.split('/').pop().replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
   src:  mod.default,
 }));
+
+/* Israeli partners (a local store, the local satellite-device dealer) show on
+   the Hebrew site only; the foreign sites keep the international brands
+   (owner, 5 Nov 2026). Match by file name in src/assets/partners/. */
+const ISRAEL_ONLY = new Set(['alpine-style', 'magnus']);
+const logosFor = () => (isForeign()
+  ? PARTNER_LOGOS.filter(p => !ISRAEL_ONLY.has(p.file))
+  : PARTNER_LOGOS);
 
 const tickerStyle = `
   @keyframes ticker {
@@ -29,7 +38,8 @@ function PartnersTicker() {
   // 4 identical sets — animation moves exactly one set width (-25% of total).
   // Reset from -25% → 0 is visually seamless.
   // direction:ltr prevents RTL from flipping scroll direction.
-  const items = [...PARTNER_LOGOS, ...PARTNER_LOGOS, ...PARTNER_LOGOS, ...PARTNER_LOGOS];
+  const logos = logosFor();
+  const items = [...logos, ...logos, ...logos, ...logos];
 
   return (
     <div style={{ overflow: 'hidden', position: 'relative', direction: 'ltr' }}>
@@ -82,7 +92,7 @@ export default function PartnersSection() {
   const { isMobile } = useBreakpoint();
   const isEn = i18n.language !== 'he';
 
-  if (!PARTNER_LOGOS.length) return null;
+  if (!logosFor().length) return null;
 
   return (
     <div style={{
