@@ -414,9 +414,7 @@ export default function AnnualPlan() {
         .map(rec => normaliseGroup(rec, false, counts))
         .filter(g => !g.hidden)
         .filter(dateFilter)
-        /* Kosher groups stay off the Hebrew plan; the English plan lists the
-           international kosher departures too (owner, 5 Nov 2026). */
-        .filter(g => i18n.language === 'en' || !g.eventName.toLowerCase().includes('kosher'))
+        /* Kosher departures are listed on both plans (owner, 5 Nov 2026). */
         .filter(g => !g.eventName.toLowerCase().includes('safari'))
         .filter(isRenderable);
 
