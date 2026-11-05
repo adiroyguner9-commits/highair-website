@@ -23,3 +23,12 @@ describe('international groups', () => {
     }
   });
 });
+
+describe('international copy keeps every line', () => {
+  it('included / not-included lists have as many English lines as Hebrew ones', () => {
+    for (const e of EXPS.filter(x => x.airtableEventsEn?.length)) {
+      expect(e.includedEn.length, `${e.slug} included`).toBe(e.included.length);
+      expect(e.notIncludedEn.length, `${e.slug} notIncluded`).toBe(e.notIncluded.length);
+    }
+  });
+});
