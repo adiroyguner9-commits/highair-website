@@ -1,4 +1,5 @@
-import { tx } from '../../website/lang.js';
+import { tx, isForeign } from '../../website/lang.js';
+import { contactFor } from '../../website/contact.js';
 import { useState } from 'react';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
@@ -10,11 +11,13 @@ import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 
+/* Phone and WhatsApp follow the site (website/contact.js): the Israeli line
+   on the Hebrew site, the country's local number abroad once it exists. */
 const COMPANY = {
- phone: '+972 55-563-6975',
- phoneLink: '+972555636975',
+ get phone() { return isForeign() ? contactFor().display : '+972 55-563-6975'; },
+ get phoneLink() { return contactFor().tel; },
  email: 'info@highair-expeditions.com',
- whatsapp: '972555636975',
+ get whatsapp() { return contactFor().wa; },
 };
 
 function IconWA() {

@@ -3,6 +3,7 @@
  * RTL Hebrew primary · LTR English · scroll-triggered fade-in
  */
 
+import { contactFor } from '../../website/contact.js';
 import { tx } from '../../website/lang.js';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -236,7 +237,7 @@ export default function FAQSection() {
         >
           {isEn ? tx("Can't find an answer? ") : 'לא מצאתם תשובה? '}
           <a
-            href="https://api.whatsapp.com/send?phone=972555636975"
+            href={`https://api.whatsapp.com/send?phone=${contactFor().wa}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{

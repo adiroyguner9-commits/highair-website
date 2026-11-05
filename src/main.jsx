@@ -1,8 +1,8 @@
 import { StrictMode, lazy, Suspense } from 'react';
 import './global.css';
-import './i18n.js';
+import i18nInstance from './i18n.js';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { scrubEvent, scrubBreadcrumb, scrubTransaction } from './utils/sentryScrub.js';
 import { Analytics } from '@vercel/analytics/react';
@@ -99,6 +99,12 @@ const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
 const SafariPage         = lazy(() => import('./components/web_v2/SafariPage.jsx'));
 const BookCall           = lazy(() => import('./components/web_v2/BookCall.jsx'));
+/* Call booking is the Hebrew site's sales path. Abroad the sale runs by e-mail
+   and WhatsApp (owner, 5 Nov 2026), so /book on en./de./es. opens the contact
+   form instead. */
+function BookRoute() {
+  return i18nInstance.language !== 'he' ? <Navigate to="/contact" replace /> : <BookCall />;
+}
 const AppPage            = lazy(() => import('./components/web_v2/AppPage.jsx'));
 const NotFound404        = lazy(() => import('./components/web_v2/NotFound404.jsx'));
 
@@ -172,9 +178,9 @@ preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
           <Route path="/contact"           element={<ContactPage />} />
           <Route path="/app"               element={<AppPage />} />
           <Route path="/safari"            element={<SafariPage />} />
-          <Route path="/book"              element={<BookCall />} />
-          <Route path="/book/:slug"        element={<BookCall />} />
-          <Route path="/book/:slug/:code"  element={<BookCall />} />
+          <Route path="/book"              element={<BookRoute />} />
+          <Route path="/book/:slug"        element={<BookRoute />} />
+          <Route path="/book/:slug/:code"  element={<BookRoute />} />
           <Route path="/*"                 element={<NotFound404 />} />
         </Routes>
       </Suspense>

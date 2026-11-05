@@ -3,6 +3,7 @@
  * 4 columns: טרקים בעולם · טיפוסים בעולם · טרקים בארץ · מידע
  */
 
+import { contactFor } from '../../website/contact.js';
 import { tx, loc, PARTIAL_LANGS, currentLang } from '../../website/lang.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +22,8 @@ import { StoreBadges, AppQr } from './StoreBadges.jsx';
 const TREKS  = FOOTER_TREKS;
 const CLIMBS = FOOTER_CLIMBS;
 
-const WA_HREF = 'https://api.whatsapp.com/send?phone=972555636975';
+/* The site's own WhatsApp number (website/contact.js) */
+const WA_HREF = `https://api.whatsapp.com/send?phone=${contactFor().wa}`;
 
 /* ── Single link ── */
 function FooterLink({ label, href, isExternal, comingSoon, teaser }) {

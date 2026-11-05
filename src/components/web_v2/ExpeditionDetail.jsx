@@ -788,7 +788,7 @@ export default function ExpeditionDetail() {
   /* ── Email validation ── */
   function validateEmail(val) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val.trim());
-    setEmailError(ok || !val ? '' : 'כתובת המייל אינה תקינה');
+    setEmailError(ok || !val ? '' : (isRtl ? 'כתובת המייל אינה תקינה' : tx("Please enter a valid email address.")));
     return ok;
   }
 
@@ -855,7 +855,7 @@ export default function ExpeditionDetail() {
       }
       setStatus('success');
     } catch (err) {
-      setErrorMsg(err.message || 'שגיאה. נסו שוב.');
+      setErrorMsg(isRtl ? (err.message || 'שגיאה. נסו שוב.') : tx("Something went wrong. Please try again."));
       setStatus('error');
     }
   }
@@ -1143,7 +1143,7 @@ export default function ExpeditionDetail() {
           >
             {isPayFlow
               ? (isRtl ? 'להרשמה ותשלום מקדמה ←' : tx("Register & Pay Deposit →"))
-              : (isRtl ? 'לתיאום שיחה עם מומחה ←' : tx("Schedule an Expert Call →"))}
+              : (isRtl ? 'לתיאום שיחה עם מומחה ←' : tx("Get Dates & Prices →"))}
           </button>
           </div>
         </div>
@@ -2443,7 +2443,7 @@ export default function ExpeditionDetail() {
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.7)', margin: isPayFlow ? '0 0 16px' : '0 0 40px' }}>
             {isPayFlow
               ? (isRtl ? 'השאירו פרטים והמשיכו לתשלום מקדמה' : tx("Leave your details and continue to the deposit payment"))
-              : (isRtl ? 'השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות' : tx("Leave your details for a no-commitment consultation call"))}
+              : (isRtl ? 'השאירו פרטים לשיחת בדיקת התאמה ללא התחייבות' : tx("Leave your details and we'll email you the dates, prices and the full trip guide"))}
           </p>
 
           {/* Payment policy — shown at the decision point so the split between
@@ -2479,6 +2479,19 @@ export default function ExpeditionDetail() {
                 padding: '28px 24px',
                 border: '1px solid rgba(255,255,255,0.1)',
               }}>
+                {/* Abroad there is no call booking: the sale runs by e-mail and
+                    WhatsApp (owner, 5 Nov 2026). A thank-you instead of the calendar. */}
+                {!isRtl ? (
+                  <div style={{ textAlign: 'center', color: 'white', padding: '8px 4px' }}>
+                    <div style={{ fontSize: '40px', marginBottom: '8px' }}>✓</div>
+                    <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '24px', fontWeight: 700, margin: '0 0 10px' }}>
+                      {tx("Thank you, {0}!", [String(form.name || '').split(' ')[0]])}
+                    </h3>
+                    <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0 }}>
+                      {tx("We've received your details. Our team will email you within a few hours with the dates, prices and everything you need to know.")}
+                    </p>
+                  </div>
+                ) : (
                 <BookingWidget
                   name={form.name}
                   phone={form.phone}
@@ -2488,6 +2501,7 @@ export default function ExpeditionDetail() {
                   expeditionValue={exp?.price}
                   onSkip={() => setShowBooking(false)}
                 />
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ direction: dir }}>
@@ -2620,7 +2634,7 @@ export default function ExpeditionDetail() {
                     <label style={labelStyle}>{isRtl ? 'מייל *' : tx("Email *")}</label>
                     <input
                       type="text" required
-                      placeholder="example@walla.com"
+                      placeholder={isRtl ? 'example@walla.com' : tx("you@example.com")}
                       value={form.email}
                       onFocus={() => trackFieldFocus('email')}
                       onChange={e => {
@@ -2717,7 +2731,7 @@ export default function ExpeditionDetail() {
                       ? (isPayFlow ? (isRtl ? 'מעביר לתשלום...' : tx("Continuing to payment...")) : (isRtl ? 'שולח...' : tx("Sending...")))
                       : isPayFlow
                         ? (isRtl ? 'להרשמה ותשלום מקדמה ←' : tx("Register & Pay Deposit →"))
-                        : (isRtl ? 'לתיאום שיחה עם מומחה ←' : tx("Schedule a Call with an Expert →"))}
+                        : (isRtl ? 'לתיאום שיחה עם מומחה ←' : tx("Send Me the Details →"))}
                   </button>
                 </div>
               </form>

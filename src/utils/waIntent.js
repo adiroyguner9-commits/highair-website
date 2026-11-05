@@ -15,6 +15,7 @@
  * Never awaited and never throws. Nothing about this may delay a person getting
  * to WhatsApp, and a lost attribution is a smaller problem than a slow tap.
  */
+import { OUR_WA_NUMBERS, WA_GREETING, WA_TRIP } from '../website/contact.js';
 import { getAttribution } from './attribution.js';
 import { NAV_EXPS } from '../data/navData.js';
 
@@ -110,19 +111,16 @@ export function reportWaIntent(token = '') {
  * Only on a trip's own pages (/expedition/<slug>, /book/<slug>). Elsewhere every
  * link keeps exactly what it had.
  */
-const WA_OUR_NUMBER = '972555636975';
-const WA_GENERIC = [
-  'היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️',
-  "Hi! I'd love to hear more about HighAir expeditions 🏔️",
-];
+/* Our numbers and greetings live in website/contact.js */
+const WA_GENERIC = Object.values(WA_GREETING);
 
 export function waTripMessage(pathname, lang = 'he') {
   const m = String(pathname || '').match(/^\/(?:expedition|book)\/([^/?#]+)/);
   const exp = m ? NAV_EXPS.find(e => e.slug === m[1]) : null;
   if (!exp) return '';
-  return lang === 'en'
-    ? `Hi! I'd love to hear more about ${exp.nameEn || exp.nameHe} with HighAir 🏔️`
-    : `היי! אני מעוניין/ת לשמוע עוד על ${exp.nameHe} 🏔️`;
+  if (lang === 'he') return WA_TRIP.he(exp.nameHe);
+  const name = (lang === 'de' && exp.nameDe) || (lang === 'es' && exp.nameEs) || exp.nameEn || exp.nameHe;
+  return (WA_TRIP[lang] || WA_TRIP.en)(name);
 }
 
 /* Put the trip into a link to OUR number, unless the link already carries a
@@ -137,9 +135,9 @@ function decorateWaLink(a, token) {
     const url = new URL(orig, window.location.href);
     const isWaMe = url.hostname === 'wa.me';
     const phone = isWaMe ? url.pathname.replace(/\D/g, '') : (url.searchParams.get('phone') || '').replace(/\D/g, '');
-    if (phone !== WA_OUR_NUMBER) return;
+    if (!OUR_WA_NUMBERS.has(phone)) return;
     const current = url.searchParams.get('text') || '';
-    const trip = waTripMessage(window.location.pathname, document.documentElement.lang === 'he' ? 'he' : 'en');
+    const trip = waTripMessage(window.location.pathname, document.documentElement.lang || 'he');
     /* The trip replaces an empty or generic text; a link's own text is kept.
        Either way the invisible marker rides along (withWaMarker). */
     const text = withWaMarker(trip && (!current || WA_GENERIC.includes(current)) ? trip : current, token);

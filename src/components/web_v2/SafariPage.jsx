@@ -672,7 +672,7 @@ function EnquiryBand({ isRtl, isMobile }) {
               color: '#FFFFFF', fontFamily: "'Ploni', sans-serif", fontSize: '16px', fontWeight: 700,
               cursor: (!form.privacy || status === 'loading') ? 'not-allowed' : 'pointer',
               transition: 'background 160ms ease' }}>
-            {status === 'loading' ? (isRtl ? 'שולח…' : 'Sending…') : (isRtl ? 'לתיאום שיחה' : 'Book a call')}
+            {status === 'loading' ? (isRtl ? 'שולח…' : 'Sending…') : (isRtl ? 'לתיאום שיחה' : 'Send')}
           </button>
         </form>
       </div>

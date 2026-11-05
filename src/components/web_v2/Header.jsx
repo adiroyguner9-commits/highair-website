@@ -11,6 +11,7 @@
  * · Desktop: mega menu on "משלחות בעולם" hover
  */
 
+import { contactFor } from '../../website/contact.js';
 import { tx, loc, PARTIAL_LANGS } from '../../website/lang.js';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -38,8 +39,8 @@ const byDeparture = (a, b) => {
 };
 
 
-const WA_NUMBER = '972555636975';
-const WA_HREF = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
+/* The site's own WhatsApp number (website/contact.js) */
+const WA_HREF = `https://api.whatsapp.com/send?phone=${contactFor().wa}`;
 
 function FlagIL({ size = 22 }) {
  return (

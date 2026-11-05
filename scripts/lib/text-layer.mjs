@@ -78,9 +78,9 @@ export function expeditionText(exp, faq = []) {
 /* The same trip in English, for the en. host's shell: the fields the React page
    shows there (exp.*En, falling back as ExpeditionDetail.jsx does). */
 const TRIP_LABELS = {
-  en: { country: 'Country', elev: 'Summit elevation', dur: 'Duration', price: 'Price: from', rate: 'Success rate', seasons: 'Recommended seasons', day: 'Day', acc: 'Accommodation', safariDay: 'Safari, day', details: 'Trip details', hl: 'Highlights', itin: 'Day-by-day itinerary', safari: 'Safari itinerary', inc: "What's included", notInc: "What's not included", note: 'Good to know', faq: 'Frequently asked questions', call: 'Schedule a call with an expedition expert' },
-  de: { country: 'Land', elev: 'Gipfelhöhe', dur: 'Dauer', price: 'Preis: ab', rate: 'Erfolgsquote', seasons: 'Empfohlene Reisezeiten', day: 'Tag', acc: 'Unterkunft', safariDay: 'Safari, Tag', details: 'Reisedetails', hl: 'Highlights', itin: 'Reiseverlauf Tag für Tag', safari: 'Safari-Reiseverlauf', inc: 'Was ist inklusive', notInc: 'Was ist nicht inklusive', note: 'Gut zu wissen', faq: 'Häufige Fragen', call: 'Gespräch mit einem Expeditionsexperten vereinbaren' },
-  es: { country: 'País', elev: 'Altitud de la cumbre', dur: 'Duración', price: 'Precio: desde', rate: 'Tasa de éxito', seasons: 'Temporadas recomendadas', day: 'Día', acc: 'Alojamiento', safariDay: 'Safari, día', details: 'Datos del viaje', hl: 'Lo más destacado', itin: 'Itinerario día a día', safari: 'Itinerario del safari', inc: 'Qué incluye', notInc: 'Qué no incluye', note: 'Importante saber', faq: 'Preguntas frecuentes', call: 'Programa una llamada con un experto en expediciones' },
+  en: { country: 'Country', elev: 'Summit elevation', dur: 'Duration', price: 'Price: from', rate: 'Success rate', seasons: 'Recommended seasons', day: 'Day', acc: 'Accommodation', safariDay: 'Safari, day', details: 'Trip details', hl: 'Highlights', itin: 'Day-by-day itinerary', safari: 'Safari itinerary', inc: "What's included", notInc: "What's not included", note: 'Good to know', faq: 'Frequently asked questions', call: 'Ask us about this trip' },
+  de: { country: 'Land', elev: 'Gipfelhöhe', dur: 'Dauer', price: 'Preis: ab', rate: 'Erfolgsquote', seasons: 'Empfohlene Reisezeiten', day: 'Tag', acc: 'Unterkunft', safariDay: 'Safari, Tag', details: 'Reisedetails', hl: 'Highlights', itin: 'Reiseverlauf Tag für Tag', safari: 'Safari-Reiseverlauf', inc: 'Was ist inklusive', notInc: 'Was ist nicht inklusive', note: 'Gut zu wissen', faq: 'Häufige Fragen', call: 'Fragen Sie uns zu dieser Reise' },
+  es: { country: 'País', elev: 'Altitud de la cumbre', dur: 'Duración', price: 'Precio: desde', rate: 'Tasa de éxito', seasons: 'Temporadas recomendadas', day: 'Día', acc: 'Alojamiento', safariDay: 'Safari, día', details: 'Datos del viaje', hl: 'Lo más destacado', itin: 'Itinerario día a día', safari: 'Itinerario del safari', inc: 'Qué incluye', notInc: 'Qué no incluye', note: 'Importante saber', faq: 'Preguntas frecuentes', call: 'Pregúntanos por este viaje' },
 };
 
 /* The foreign-language trip text: English fields (fooEn), or with lang 'de' /
@@ -114,7 +114,8 @@ export function expeditionTextEn(exp, faq = [], lang = 'en') {
     + (f('notIncluded')?.length ? h2(L.notInc) + ul(f('notIncluded')) : '')
     + (f('importantToNote')?.length ? h2(L.note) + ul(f('importantToNote')) : '')
     + (qa ? h2(L.faq) + qa : '')
-    + `<p>${link(`/book/${exp.slug}`, L.call)}</p>`
+    /* Abroad there is no call booking (owner, 5 Nov 2026): the link leads to the contact form */
+    + `<p>${link('/contact', L.call)}</p>`
     + '</article>';
 }
 

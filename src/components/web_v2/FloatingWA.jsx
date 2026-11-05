@@ -5,19 +5,18 @@
  * button slides up above the banner while it's visible, then slides back
  * down once the user accepts or declines.
  */
+import { contactFor, WA_GREETING } from '../../website/contact.js';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
 
-const WA_PHONE   = '972555636975';
-const WA_MSG_HE  = encodeURIComponent('היי! אני מעוניין/ת לשמוע עוד על המשלחות של HighAir 🏔️');
-const WA_MSG_EN  = encodeURIComponent('Hi! I\'d love to hear more about HighAir expeditions 🏔️');
 
 export default function FloatingWA() {
   const [hovered, setHovered] = useState(false);
   const { i18n } = useTranslation();
   const isEn = i18n.language !== 'he';
-  const href = `https://wa.me/${WA_PHONE}?text=${isEn ? WA_MSG_EN : WA_MSG_HE}`;
+  /* The site's own number and a greeting in its language (website/contact.js) */
+  const href = `https://wa.me/${contactFor(i18n.language).wa}?text=${encodeURIComponent(WA_GREETING[i18n.language] || WA_GREETING.en)}`;
 
   return (
     <a
