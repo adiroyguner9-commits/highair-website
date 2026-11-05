@@ -12,8 +12,11 @@
    Middleware runs before Vercel's static files, which a vercel.json rewrite
    would not. */
 
+import { CORE_PATHS, LEGAL_PATHS } from './src/website/sites.js';
+
 export const config = {
-  matcher: ['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs'],
+  matcher: ['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs',
+    '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*'],
 };
 
 const SLUG = /^\/expedition\/[a-z0-9-]+\/?$/;
@@ -21,8 +24,8 @@ const STATIC = new Set(['about', 'blog', 'contact', 'app', 'annual-plan', 'treks
 
 /* German and Spanish (de. / es.) carry the core pages (src/website/sites.js);
    their other pages fall back to the English shell, since the app shows them
-   in English there. Kept in step with sites.js by tests/de-es-sites.test.js. */
-const PARTIAL_PAGES = new Set(['/', '/expedition/kilimanjaro', '/expedition/kilimanjaro-kosher', '/expedition/everest-base-camp', '/expedition/annapurna', '/expedition/peaks-of-balkan', '/expedition/aconcagua', '/expedition/island-peak', '/treks', '/climbs', '/about', '/contact', '/annual-plan', '/app']);
+   in English there. The page list comes from src/website/sites.js; the legal pages have no shell. */
+const PARTIAL_PAGES = new Set(CORE_PATHS.filter(p => !LEGAL_PATHS.includes(p)));
 
 export function englishShellPath(hostname, pathname) {
   const sub = String(hostname || '').split('.')[0];
@@ -33,8 +36,13 @@ export function englishShellPath(hostname, pathname) {
   if (SLUG.test(pathname)) return `/${dir}${clean}/index.html`;
   const page = clean.replace(/^\//, '');
   if (STATIC.has(page)) return `/${dir}/${page}/index.html`;
+  /* Pages without a static page of their own (magazine posts, legal pages,
+     booking, shop, safari): the app shell in the site's language, so the first
+     byte is never the Hebrew page (found 5 Nov 2026). */
+  if (APP_SHELL.test(clean)) return `/${sub}/spa.html`;
   return null;
 }
+const APP_SHELL = /^\/(blog\/[a-z0-9-]+|terms|privacy|cancellation|accessibility|shop|safari|book(\/.*)?)$/;
 
 export default function middleware(request) {
   const url = new URL(request.url);

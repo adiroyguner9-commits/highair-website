@@ -892,6 +892,22 @@ for (const pg of EN_STATIC) {
   }
 }
 
+// ── App shell per foreign language (dist/<lng>/spa.html) ──
+/* Served by middleware.js for pages with no static page of their own on the
+   en. / de. / es. hosts (magazine posts, legal pages, booking): the plain app
+   shell, in the site's language and direction, so the first byte is not the
+   Hebrew page. React then fills in the page and its title. */
+for (const lng of ['en', ...SITES.PARTIAL_LANGS]) {
+  const shell = injectMeta(template.replace(HOME_HERO_PRELOAD, ''), {
+    en: lng,
+    title: 'HighAir Expeditions',
+    description: uiTx(lng, 'Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.'),
+    canonicalPath: '/',
+  });
+  fs.mkdirSync(path.join(DIST, lng), { recursive: true });
+  fs.writeFileSync(path.join(DIST, lng, 'spa.html'), shell, 'utf8');
+}
+
 // ── English homepage (dist/en/index.html, served on the en. host by middleware.js) ──
 {
   const enHomeText = '<article><h1>HighAir Expeditions</h1>'

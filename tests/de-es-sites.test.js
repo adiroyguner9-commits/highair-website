@@ -4,7 +4,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { englishShellPath } from '../middleware.js';
-import { CORE_PATHS, CORE_TRIPS, PARTIAL_LANGS } from '../src/website/sites.js';
+import { CORE_PATHS, CORE_TRIPS, PARTIAL_LANGS, LEGAL_PATHS } from '../src/website/sites.js';
 import { EXPS } from '../src/data/mockData.js';
 import { FAQ_I18N, defaultFaqI18n } from '../src/data/tripI18n.js';
 import { APP_PAGE } from '../src/data/appData.js';
@@ -29,21 +29,33 @@ describe('de. / es. routing', () => {
   });
 
   it('other pages fall back to the English shell, never the Hebrew one', () => {
-    expect(englishShellPath('de.highair-expeditions.com', '/expedition/manaslu-circuit')).toBe('/en/expedition/manaslu-circuit/index.html');
+    expect(englishShellPath('de.highair-expeditions.com', '/expedition/sinai')).toBe('/en/expedition/sinai/index.html');
     expect(englishShellPath('es.highair-expeditions.com', '/blog')).toBe('/en/blog/index.html');
     expect(englishShellPath('de.highair-expeditions.com', '/api/submit-lead')).toBeNull();
   });
 
-  it('the middleware page list matches sites.js (pages with a shell)', () => {
-    const src = readFileSync('middleware.js', 'utf8');
-    const list = JSON.parse(src.match(/PARTIAL_PAGES = new Set\((\[[^\]]+\])\)/)[1].replace(/'/g, '"'));
-    const shellless = new Set(['/terms', '/privacy', '/cancellation']);
-    expect(list.sort()).toEqual(CORE_PATHS.filter(p => !shellless.has(p)).sort());
+  it('every core page with a shell routes to it', () => {
+    for (const p of CORE_PATHS.filter(x => !LEGAL_PATHS.includes(x))) {
+      expect(englishShellPath('de.highair-expeditions.com', p), p).toBe(p === '/' ? '/de/index.html' : `/de${p}/index.html`);
+    }
   });
 
   it('German and Spanish are allowed API origins', () => {
     const sec = readFileSync('api/_security.js', 'utf8');
     for (const l of PARTIAL_LANGS) expect(sec).toContain(`'https://${l}.highair-expeditions.com'`);
+  });
+});
+
+describe('language of each host', () => {
+  it('the address decides on the real domain; a stored choice only on previews', async () => {
+    const { langForHost } = await import('../src/website/sites.js');
+    expect(langForHost('www.highair-expeditions.com', 'de')).toBe('he');
+    expect(langForHost('highair-expeditions.com', 'en')).toBe('he');
+    expect(langForHost('de.highair-expeditions.com', 'he')).toBe('de');
+    expect(langForHost('es.highair-expeditions.com', null)).toBe('es');
+    expect(langForHost('en.highair-expeditions.com', 'es')).toBe('en');
+    expect(langForHost('highair-website-abc.vercel.app', 'es')).toBe('es');
+    expect(langForHost('localhost', null)).toBe('he');
   });
 });
 
@@ -70,6 +82,9 @@ describe('German and Spanish text', () => {
           expect((e[k + S] || []).length, `${slug} ${k}${S}`).toBe((e[k + 'En'] || []).length);
         }
         expect(JSON.stringify([e['included' + S], e['notIncluded' + S], e['itinerary' + S]])).not.toMatch(HEBREW);
+        for (const k of ['included', 'notIncluded']) expect(e[k + S] || [], `${slug} ${k}${S}`).not.toContain(undefined);
+        e['itinerary' + S].forEach((d, i) => expect(d.title, `${slug} day ${i + 1}`).toBeTruthy());
+        expect(e['country' + S], `${slug} country${S}`).toBeTruthy();
         e['itinerary' + S].forEach((d, i) => expect(d.day).toBe(e.itineraryEn[i].day));
       }
     }

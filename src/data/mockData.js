@@ -2657,7 +2657,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
       'Reserve and climbing permits for Lenin Peak',
       'Magnus satellite device (one per group)',
       'Personal gear checklist and an online gear consultation',
-      'Preparatory climb on Mt Hermon with group members',
+      'Online preparation call with your group and guide before departure',
       'Meaningful donation to the fight against cancer!',
     ],
     notIncluded: [
@@ -2914,7 +2914,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     diff: 'Easy', diffHe: 'קלה', price: 0, priceStr: '[למילוי]', continent: 'africa',
     cardDesc: 'שמורת טרנגירי, מכתש נגורונגורו וביקור אצל שבטי ההדזבה והדטוגה. המסלול הקלאסי, והבחירה הטבעית למסיימי הקילימנג׳רו.',
     cardDescEn: 'Tarangire, the Ngorongoro Crater and a visit to the Hadzabe and Datoga tribes. The classic route, and the natural choice after a Kilimanjaro climb.',
-    reserves: '2 שמורות + 2 שבטים',            // e.g. '3 שמורות' — shown in the safari stats row
+    reserves: '2 שמורות + 2 שבטים', reservesEn: '2 reserves + 2 tribes', reservesDe: '2 Parks + 2 Stämme', reservesEs: '2 reservas + 2 tribus',            // e.g. '3 שמורות' — shown in the safari stats row
     wildlife: 'החמישייה הגדולה', wildlifeEn: 'The Big Five',   // e.g. 'החמישייה הגדולה' / 'The Big Five'
     airtableEvents: ['Safari'],   // confirm the Airtable Event value per length
     img: '/images/cards/safari-3-days.webp',        // TODO: image does not exist yet
@@ -2969,7 +2969,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     diff: 'Easy', diffHe: 'קלה', price: 0, priceStr: '[למילוי]', continent: 'africa',
     cardDesc: 'טרנגירי, מרכז סרנגטי, צפון סרנגטי, מכתש נגורונגורו וביקור אצל שבטי ההדזבה והדטוגה. המסלול המלא, עם לילות בתוך השמורות עצמן.',
     cardDescEn: 'Tarangire, central Serengeti, northern Serengeti, the Ngorongoro Crater and a visit to the Hadzabe and Datoga tribes. The full route, with nights inside the reserves themselves.',
-    reserves: '3 שמורות + 2 שבטים',            // e.g. '3 שמורות' — shown in the safari stats row
+    reserves: '3 שמורות + 2 שבטים', reservesEn: '3 reserves + 2 tribes', reservesDe: '3 Parks + 2 Stämme', reservesEs: '3 reservas + 2 tribus',            // e.g. '3 שמורות' — shown in the safari stats row
     wildlife: 'החמישייה הגדולה והנדידה', wildlifeEn: 'The Big Five and the migration',   // e.g. 'החמישייה הגדולה' / 'The Big Five'
     airtableEvents: ['Safari'],   // confirm the Airtable Event value per length
     img: '/images/cards/safari-5-days.webp',        // TODO: image does not exist yet
@@ -3162,7 +3162,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
       'Satellite device',
       'Walkie-talkies and satellite phone at base camp',
       'Personal gear checklist and an online gear consultation',
-      'Preparatory climb on Mt Hermon with group members',
+      'Online preparation call with your group and guide before departure',
       'Meaningful donation to the fight against cancer!',
     ],
     notIncluded: [
@@ -3470,7 +3470,7 @@ Join us on a journey to your first 7000m peak and take a meaningful part in the 
       'Pulse oximeter (one per group)',
       'Satellite device',
       'Personal gear checklist and an online gear consultation',
-      'Preparatory climb on Mt Hermon with group members',
+      'Online preparation call with your group and guide before departure',
       'Meaningful donation to the fight against cancer!',
     ],
     notIncluded: [

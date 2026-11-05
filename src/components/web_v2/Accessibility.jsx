@@ -2,6 +2,7 @@
  * Accessibility.jsx - הצהרת נגישות / Accessibility Statement
  */
 import { useTranslation } from 'react-i18next';
+import { tx } from '../../website/lang.js';
 import LegalPageLayout, { SECTION, H2, P, LI, UL, CONTACT_BOX, LINK } from './LegalPageLayout.jsx';
 
 export default function Accessibility() {
@@ -9,7 +10,7 @@ export default function Accessibility() {
   const isRtl = i18n.language === 'he';
 
   return (
-    <LegalPageLayout title={isRtl ? 'הצהרת נגישות' : 'Accessibility Statement'} updated="2026-10-19">
+    <LegalPageLayout title={isRtl ? 'הצהרת נגישות' : tx('Accessibility Statement')} updated="2026-10-19">
       {isRtl ? (
         <>
           <div style={SECTION}>

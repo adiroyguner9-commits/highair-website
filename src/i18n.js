@@ -3,23 +3,16 @@ import { initReactI18next } from 'react-i18next';
 
 import de from './i18n/res-de.js';
 import es from './i18n/res-es.js';
+import { langForHost } from './website/sites.js';
 
 /* ── Detect language: Hebrew by default ──
    en. / de. / es. subdomains always serve their language (5 Nov 2026: German
    and Spanish added beside English). */
 const FOREIGN = ['en', 'de', 'es'];
 function detectLang() {
-  // 1. Subdomain (en. / de. / es.highair-expeditions.com) → that language
-  const sub = window.location.hostname.split('.')[0];
-  if (FOREIGN.includes(sub)) return sub;
-
-  // 2. User already made an explicit choice via the language toggle → honour it
-  const stored = localStorage.getItem('HA_lang');
-  if (stored === 'he' || FOREIGN.includes(stored)) return stored;
-
-  // 3. Default → Hebrew (browser language is intentionally ignored;
-  //    the site is Israel-first and visitors switch manually if needed)
-  return 'he';
+  let stored = null;
+  try { stored = localStorage.getItem('HA_lang'); } catch (e) { /* private mode */ }
+  return langForHost(window.location.hostname, stored);
 }
 
 const he = {

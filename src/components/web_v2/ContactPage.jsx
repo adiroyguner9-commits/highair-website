@@ -222,13 +222,13 @@ export default function ContactPage() {
  }}>
  {icon}
  </div>
- <div>
+ <div style={{ minWidth: 0 }}>
  <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', fontWeight: 700,
  color: '#6B6B8A', margin: '0 0 3px', letterSpacing: '0.07em', textTransform: 'uppercase' }}>
  {label}
  </p>
  <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600,
- color: href ? COLOR.primary : '#0A0818', margin: 0, direction: 'ltr', textAlign: 'start' }}>
+ color: href ? COLOR.primary : '#0A0818', margin: 0, direction: 'ltr', textAlign: 'start', overflowWrap: 'anywhere' }}>
  {value}
  </p>
  </div>
@@ -291,7 +291,9 @@ export default function ContactPage() {
    <div style={{ maxWidth: '1160px', margin: '0 auto', padding: isMobile ? '36px 5% 64px' : '60px 5% 80px' }}>
    <div style={{
    display: 'grid',
-   gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr',
+   /* minmax(0,…): the long e-mail address must not widen the column past the
+      screen on a phone (it did, 5 Nov 2026) */
+   gridTemplateColumns: isMobile ? 'minmax(0, 1fr)' : 'minmax(0, 1fr) minmax(0, 1.4fr)',
    gap: isMobile ? '28px' : '40px',
    alignItems: 'start',
    }}>

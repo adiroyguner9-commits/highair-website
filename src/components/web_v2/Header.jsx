@@ -126,14 +126,15 @@ function LangSwitcher() {
  function switchLang(next) {
  setOpen(false);
  if (next === i18n.language) return;
- localStorage.setItem('HA_lang', next);
- /* Each language has its own host on the production domain */
+ /* Each language has its own host on the production domain; the host alone
+    decides the language there (i18n.js), so nothing is stored. */
  const host = window.location.hostname;
- if (host.includes('highair-expeditions.com')) {
+ if (host === 'highair-expeditions.com' || host.endsWith('.highair-expeditions.com')) {
  const target = LANGS.find(l => l.code === next).sub + '.highair-expeditions.com';
  window.location.href = window.location.href.replace(host, target);
  return;
  }
+ localStorage.setItem('HA_lang', next);
  i18n.changeLanguage(next);
  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
  }

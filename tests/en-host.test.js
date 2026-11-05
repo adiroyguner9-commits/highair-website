@@ -16,13 +16,19 @@ describe('en. host routing', () => {
   it('leaves www, assets, api and other paths alone', () => {
     expect(englishShellPath('www.highair-expeditions.com', '/')).toBeNull();
     expect(englishShellPath('www.highair-expeditions.com', '/expedition/kilimanjaro')).toBeNull();
-    for (const p of ['/assets/index-abc.js', '/api/submit-lead', '/book/kilimanjaro', '/expedition/../api', '/expedition/a/b']) {
+    for (const p of ['/assets/index-abc.js', '/api/submit-lead', '/expedition/../api', '/expedition/a/b', '/blog/a/b']) {
       expect(englishShellPath('en.highair-expeditions.com', p), p).toBeNull();
     }
   });
 
   it('only runs on page paths', () => {
-    expect(config.matcher).toEqual(['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs']);
+    expect(config.matcher).toEqual(['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs',
+      '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*']);
+    for (const p of ['/blog/kilimanjaro-climbing-guide', '/terms', '/book/kilimanjaro', '/book/kilimanjaro/ABC123']) {
+      expect(englishShellPath('en.highair-expeditions.com', p), p).toBe('/en/spa.html');
+      expect(englishShellPath('de.highair-expeditions.com', p), p).toBe('/de/spa.html');
+      expect(englishShellPath('www.highair-expeditions.com', p), p).toBeNull();
+    }
     expect(englishShellPath('en.highair-expeditions.com', '/about')).toBe('/en/about/index.html');
     expect(englishShellPath('en.highair-expeditions.com', '/annual-plan/')).toBe('/en/annual-plan/index.html');
   });

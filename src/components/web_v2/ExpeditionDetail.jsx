@@ -939,7 +939,7 @@ export default function ExpeditionDetail() {
   const isSafariExp = exp.type === 'Safari';
   const importantToNote = isRtl
     ? notesWithExperience(exp.importantToNote?.length ? exp.importantToNote : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI : DEFAULT_IMPORTANT), exp.experienceHe)
-    : notesWithExperience(loc(exp, "importantToNote")?.length ? loc(exp, "importantToNote") : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI_EN : DEFAULT_IMPORTANT_EN), loc(exp, "experience"));
+    : notesWithExperience(loc(exp, "importantToNote")?.length ? loc(exp, "importantToNote") : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI_EN : DEFAULT_IMPORTANT_EN).map(x => tx(x)), loc(exp, "experience"));
   const includedItems = isRtl ? (exp.included || []) : (loc(exp, "included") || exp.included || []);
   const seasons = isRtl ? (exp.seasons || []) : ((loc(exp, "seasons") || exp.seasons || []).map(s => translateSeason(s, false)));
   const displayDays = isRtl ? exp.days : (loc(exp, "days") || translateDays(exp.days, false));
@@ -1182,7 +1182,7 @@ export default function ExpeditionDetail() {
                reserves, what wildlife, how much. */
             ? [
               { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : tx("Duration"),  value: isRtl ? filled(exp.days) : (filled(loc(exp, "days")) || filled(exp.days)) },
-              { IconComp: TreeIcon,  label: isRtl ? 'שמורות טבע' : tx("Reserves"),  value: filled(exp.reserves) },
+              { IconComp: TreeIcon,  label: isRtl ? 'שמורות טבע' : tx("Reserves"),  value: filled(isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves)) },
               { IconComp: LionIcon,  label: isRtl ? 'חיות בר' : tx("Wildlife"),     value: filled(isRtl ? exp.wildlife : loc(exp, "wildlife")) },
               { IconComp: TagIcon,   label: isRtl ? 'עלות' : tx("Price"),           value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])) : null },
             ].filter(x => x.value)
@@ -1266,7 +1266,7 @@ export default function ExpeditionDetail() {
                 <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'שמורות טבע' : tx("Reserves")) : (isRtl ? 'רמה' : tx("Level"))}</span>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {isSafari
-                    ? <><TreeIcon size={14} color="#0A0818" /> {exp.reserves || '–'}</>
+                    ? <><TreeIcon size={14} color="#0A0818" /> {filled(isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves)) || '–'}</>
                     : <><StarIcon size={14} color="#0A0818" /> {isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe)}</>}
                 </span>
               </div>

@@ -14,6 +14,7 @@
  * Hebrew for customers, and no invented prices.
  */
 
+import { loc } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import { SAFARI_COLOR as SC } from '../../data/safariData.js';
@@ -85,7 +86,7 @@ export function SafariSummaryCard({ exp, isRtl, isMobile, onEnquire }) {
     { icon: 'clock', label: isRtl ? 'משך המסע' : 'Duration',
       value: isRtl ? exp.days : (exp.daysEn || exp.days) },
     { icon: 'tree', label: isRtl ? 'שמורות במסלול' : 'Reserves on the route',
-      value: isPlaceholder(exp.reserves) ? null : exp.reserves },
+      value: (() => { const v = isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves); return isPlaceholder(v) || /[\u0590-\u05FF]/.test(isRtl ? '' : String(v || '')) ? null : v; })() },
     { icon: 'users', label: isRtl ? 'סוג המסע' : 'Trip type',
       value: isRtl ? 'ספארי פרטי, עד 6 נוסעים בג׳יפ' : 'Private safari, up to 6 in the jeep' },
     { icon: 'calendar', label: isRtl ? 'תאריכי יציאה' : 'Departure dates',

@@ -8,6 +8,13 @@ import ANNAPURNA from './trip-i18n/annapurna.js';
 import BALKAN from './trip-i18n/peaks-of-balkan.js';
 import ACONCAGUA from './trip-i18n/aconcagua.js';
 import ISLAND from './trip-i18n/island-peak.js';
+import OLYMPUS from './trip-i18n/olympus.js';
+import ETHIOPIA from './trip-i18n/ethiopia.js';
+import KAZBEK from './trip-i18n/kazbek.js';
+import MANASLU_CIRCUIT from './trip-i18n/manaslu-circuit.js';
+import ELBRUS from './trip-i18n/elbrus.js';
+import CLIMBS from './trip-i18n/climbs.js';
+import { lineIn } from './trip-i18n/lines.js';
 
 
 const DUR = { de: 'Stunden', es: 'horas' };
@@ -280,12 +287,19 @@ const LIST_ARGS = {
 const MORE = {
   'everest-base-camp': EBC, annapurna: ANNAPURNA, 'peaks-of-balkan': BALKAN,
   aconcagua: ACONCAGUA, 'island-peak': ISLAND,
+  olympus: OLYMPUS, ethiopia: ETHIOPIA, kazbek: KAZBEK, 'manaslu-circuit': MANASLU_CIRCUIT, elbrus: ELBRUS,
+  ...CLIMBS,
 };
 const COUNTRY = {
   Tanzania: { de: 'Tansania', es: 'Tanzania' },
   Nepal: { de: 'Nepal', es: 'Nepal' },
   Albania: { de: 'Albanien', es: 'Albania' },
   Argentina: { de: 'Argentinien', es: 'Argentina' },
+  Greece: { de: 'Griechenland', es: 'Grecia' },
+  Ethiopia: { de: 'Äthiopien', es: 'Etiopía' },
+  Georgia: { de: 'Georgien', es: 'Georgia' },
+  Russia: { de: 'Russland', es: 'Rusia' },
+  Kyrgyzstan: { de: 'Kirgisistan', es: 'Kirguistán' },
 };
 const FIELDS = ['name', 'days', 'seoTitle', 'seoDescription', 'desc', 'highlights', 'seasons', 'importantToNote', 'included', 'notIncluded', 'experience'];
 
@@ -297,7 +311,14 @@ export function applyTripI18n(exp) {
       const t = more[lang];
       if (COUNTRY[exp.country]) exp['country' + S] = COUNTRY[exp.country][lang];
       for (const k of FIELDS) if (t[k] !== undefined) exp[k + S] = t[k];
+      /* Shared lines (./trip-i18n/lines.js): the lists follow the English one */
+      if (t.listsFromLines) {
+        exp['included' + S] = (exp.includedEn || []).map(l => lineIn(lang, l));
+        exp['notIncluded' + S] = (exp.notIncludedEn || []).map(l => lineIn(lang, l));
+      }
       exp['itinerary' + S] = (exp.itineraryEn || []).map((d, i) => ({ ...dayUnits(lang, d), ...(t.itinerary[i] || {}) }));
+      if (t.extensionLabel) { exp['extensionLabel' + S] = t.extensionLabel; exp['extensionBaseLabel' + S] = t.extensionBaseLabel; }
+      if (t.extensionItinerary) exp['extensionItinerary' + S] = (exp.extensionItineraryEn || []).map((d, i) => ({ ...dayUnits(lang, d), ...(t.extensionItinerary[i] || {}) }));
     }
     return exp;
   }
