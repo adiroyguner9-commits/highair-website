@@ -1353,7 +1353,7 @@ export const ISRAEL_TRIPS = [
     departure:       '2026-10-27',
     airtableEvents:  ['Poria'],
     groupCapacity:   12,
-    paymentUrl:      'https://pay.grow.link/ODI3ODY~1cfb46c514925f596e79e5e23e3c96bf-NDA5OTc1Mg',
+    paymentUrl:      '',  /* its Grow link moved to Ramim Ridge (owner, 5 Nov 2026) */
     desc:    'רכס פוריה משתרע דרום-מזרחית לטבריה ומשקיף על הכנרת, בקעת הירדן והגליל התחתון. המסלול המעגלי עובר לאורך הרכס עם תצפיות פתוחות לכנרת ולסביבה, בין חורש ים-תיכוני ומצוקים. מסלול יומי באורך כ-11 ק"מ עם טיפוס מתון, מתאים למיטיבי לכת.',
     descEn:  'The Poria Ridge rises southeast of Tiberias, overlooking the Sea of Galilee, the Jordan Valley and the Lower Galilee. The loop follows the ridge with open views of the Kinneret and its surroundings, through Mediterranean woodland and cliffs. A ~11 km day hike with moderate climbing, for experienced hikers.',
     included: ISRAEL_DAY_INCLUDED,
@@ -1406,7 +1406,7 @@ export const ISRAEL_TRIPS = [
     price:        'From ₪249',
     priceHe:      'החל מ-₪249',
     packageType:  'day',
-    paymentUrl:   '',
+    paymentUrl:   'https://pay.grow.link/ODI3ODY~1cfb46c514925f596e79e5e23e3c96bf-NDA5OTc1Mg',  /* Poria's ₪249 Grow link, reused (owner, 5 Nov 2026) */
     distance:     '12 ק"מ',
     elevGain:     '+460 מ׳',
     tagline:      'הליכה על שפת המצוק מעל עמק החולה\nתצפית פתוחה לרמת הגולן ולחרמון',
