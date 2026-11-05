@@ -75,7 +75,9 @@ export const BLOG_LANGS = {
  ],
  "kosher-kilimanjaro-shabbat-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "tomer-bassan-mera-peak": [
   "he"
