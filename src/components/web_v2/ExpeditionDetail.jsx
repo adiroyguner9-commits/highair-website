@@ -160,16 +160,8 @@ const getWhyCards = (exp, isRtl) => {
     ] : [
       { icon: '📱', title: 'A personal area for every traveler in our app - the whole journey in one place', desc: '' },
       { icon: '🎒', title: 'Safari gear list', desc: '' },
-      { icon: '✈️', title: 'Attractive flight booking', desc: '' },
-      { icon: '🛡️', title: 'Attractive insurance booking', desc: '' },
-      { icon: '🏬', title: '10% discount on gear at Lapidot store', desc: '' },
-      { icon: '🕶️', title: '15% discount on sport glasses at Swift Optics store', desc: '' },
-      { icon: '🏪', title: '20% discount on gear at Gravity store', desc: '' },
-      { icon: '🏪', title: '20% discount on gear at Alpine Style chain', desc: '' },
-      { icon: '🏬', title: '25% discount on gear at Pakal Hagur chain', desc: '' },
-      { icon: '🥤', title: '25% discount on nutrition supplements at Pro Runner store', desc: '' },
+      { icon: '✈️', title: 'Guidance on the best flights and travel insurance from your city', desc: '' },
       { icon: '📋', title: `Visa guide for ${country}`, desc: '' },
-      { icon: '🤝', title: 'Participate in our community treks', desc: '' },
       { icon: '📞', title: '24/7 support from preparation through the whole safari', desc: '' },
     ];
   }
@@ -178,18 +170,9 @@ const getWhyCards = (exp, isRtl) => {
       { icon: '📱', title: 'A personal area for every climber in our app - the whole journey in one place', desc: '' },
       { icon: '🏋️', title: `Training Plan for ${activity}`, desc: '' },
       { icon: '🎒', title: `Gear List for ${activity}`, desc: '' },
-      { icon: '✈️', title: 'Attractive flight booking', desc: '' },
-      { icon: '🛡️', title: 'Attractive insurance booking', desc: '' },
-      { icon: '📡', title: '10% discount on satellite device - Magnus', desc: '' },
-      { icon: '🏬', title: '10% discount on gear at Lapidot store', desc: '' },
-      { icon: '🕶️', title: '15% discount on sport glasses at Swift Optics store', desc: '' },
-      { icon: '🏪', title: '20% discount on gear at Gravity store', desc: '' },
-      { icon: '🏪', title: '20% discount on gear at Alpine Style chain', desc: '' },
-      { icon: '🏬', title: '25% discount on gear at Pakal Hagur chain', desc: '' },
-      { icon: '🥤', title: '25% discount on nutrition supplements at Pro Runner store', desc: '' },
+      { icon: '✈️', title: 'Guidance on the best flights and travel insurance from your city', desc: '' },
       { icon: '🏔️', title: 'Info guide on altitude sickness and coping', desc: '' },
       ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `Visa guide for ${country}`, desc: '' }] : []),
-      { icon: '🤝', title: 'Participate in our community treks', desc: '' },
       { icon: '📞', title: `24/7 support from prep to summit during the ${activity}`, desc: '' },
     ];
   }
