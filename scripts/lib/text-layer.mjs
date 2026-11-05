@@ -75,6 +75,38 @@ export function expeditionText(exp, faq = []) {
     + '</article>';
 }
 
+/* The same trip in English, for the en. host's shell: the fields the React page
+   shows there (exp.*En, falling back as ExpeditionDetail.jsx does). */
+export function expeditionTextEn(exp, faq = []) {
+  if (!exp) return '';
+  const facts = [
+    exp.country && `Country: ${exp.country}`,
+    exp.elev && `Summit elevation: ${exp.elev}`,
+    (exp.daysEn || exp.days) && `Duration: ${exp.daysEn || exp.days}`,
+    exp.priceStr && `Price: from ${exp.priceStr}`,
+    Number.isFinite(exp.successRate) && `Success rate: ${exp.successRate}%`,
+    exp.seasonsEn?.length && `Recommended seasons: ${exp.seasonsEn.join(', ')}`,
+  ].filter(Boolean);
+  const days = (exp.itineraryEn || []).map(d =>
+    `<h3>${esc(`Day ${d.day}: ${d.title || ''}`)}</h3>${p(d.desc)}${d.accommodation ? p(`Accommodation: ${d.accommodation}`) : ''}`).join('');
+  const safari = (exp.safariItineraryEn || []).map(d =>
+    `<h3>${esc(`Safari, day ${d.day}: ${d.title || ''}`)}</h3>${p(d.desc)}`).join('');
+  const qa = (faq || []).filter(f => f?.q && f?.a).map(f => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join('');
+  return '<article>'
+    + `<h1>${esc(exp.nameEn || exp.name)}</h1>`
+    + p(exp.descEn)
+    + (facts.length ? h2('Trip details') + ul(facts) : '')
+    + (exp.highlightsEn?.length ? h2('Highlights') + ul(exp.highlightsEn) : '')
+    + (days ? h2('Day-by-day itinerary') + days : '')
+    + (safari ? h2('Safari itinerary') + safari : '')
+    + (exp.includedEn?.length ? h2("What's included") + ul(exp.includedEn) : '')
+    + (exp.notIncludedEn?.length ? h2("What's not included") + ul(exp.notIncludedEn) : '')
+    + (exp.importantToNoteEn?.length ? h2('Good to know') + ul(exp.importantToNoteEn) : '')
+    + (qa ? h2('Frequently asked questions') + qa : '')
+    + `<p>${link(`/book/${exp.slug}`, 'Schedule a call with an expedition expert')}</p>`
+    + '</article>';
+}
+
 /* A blog post, block by block, as BlogPost.jsx renders them. Only news shows
    its date (isNewsPost in blogData.js), so only news carries it here. */
 export function blogText(post) {

@@ -19,12 +19,26 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { wrapText, expeditionText, blogText, listingText, blogListText, aboutText, homeText, appText } from './lib/text-layer.mjs';
+import { wrapText, expeditionText, expeditionTextEn, blogText, listingText, blogListText, aboutText, homeText, appText } from './lib/text-layer.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, '..');
 const DIST      = path.join(ROOT, 'dist');
 const BASE_URL  = 'https://www.highair-expeditions.com';
+/* The English site (en. host) is the same deployment. Its pages are written to
+   dist/en/<path>/index.html and served on the en. host by middleware.js, each
+   with its own English title, text and canonical. Both versions point at each
+   other with hreflang, so Google lists each language for its own searchers
+   instead of treating them as duplicates (5 Nov 2026: going international). */
+const EN_BASE_URL = 'https://en.highair-expeditions.com';
+const EN_DIST     = path.join(DIST, 'en');
+function hreflangTags(p) {
+  return [
+    `<link rel="alternate" hreflang="he" href="${BASE_URL}${p}" />`,
+    `<link rel="alternate" hreflang="en" href="${EN_BASE_URL}${p}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${BASE_URL}${p}" />`,
+  ].join('\n  ');
+}
 const TODAY_ISO = new Date().toISOString().slice(0, 10);
 
 /* Add n days to a YYYY-MM-DD string, returning YYYY-MM-DD (for Event endDate).
@@ -114,6 +128,7 @@ function preHeroHtml(kind, img, pos) {
     + `<div class="h ${kind}"></div></div>`;
 }
 const EMPTY_ROOT = '<div id="root"></div>';
+if (!template.includes('<html lang="he" dir="rtl">')) throw new Error('generate-html-shells: <html lang="he" dir="rtl"> not found in index.html (the English shells swap it)');
 if (!template.includes(EMPTY_ROOT)) throw new Error('generate-html-shells: <div id="root"></div> not found in index.html');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -132,8 +147,8 @@ function truncate(str, max = 155) {
   return str.length <= max ? str : str.slice(0, max - 1) + '…';
 }
 
-function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta, noIndex }) {
-  const url   = `${BASE_URL}${canonicalPath}`;
+function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta, noIndex, en, alternatesPath }) {
+  const url   = `${en ? EN_BASE_URL : BASE_URL}${canonicalPath}`;
   const img   = image
     ? (image.startsWith('http') ? image : `${BASE_URL}${image}`)
     : `${BASE_URL}/og-image.jpg`;
@@ -165,6 +180,18 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
      search: the same rule the React page applies once it loads. */
   if (noIndex) {
     out = out.replace(/(<meta name="robots"\s+content=")[^"]*(")/, '$1noindex, follow$2');
+  }
+
+  /* English shell: the document's language, direction and locale */
+  if (en) {
+    out = out
+      .replace('<html lang="he" dir="rtl">', '<html lang="en" dir="ltr">')
+      .replace(/(<meta property="og:locale"\s+content=")[^"]*(")/, '$1en_US$2');
+  }
+
+  /* A page that exists in both languages names both (hreflang) */
+  if (alternatesPath && !noIndex) {
+    out = out.replace('</head>', `  ${hreflangTags(alternatesPath)}\n</head>`);
   }
 
   // og:type override (blog posts = "article" for news/social/AI)
@@ -218,8 +245,8 @@ function faqFromContent(content) {
   return pairs;
 }
 
-function writeShell(routePath, meta) {
-  const dir = path.join(DIST, routePath);
+function writeShell(routePath, meta, outRoot = DIST) {
+  const dir = path.join(outRoot, routePath);
   fs.mkdirSync(dir, { recursive: true });
   let html = injectMeta(template, meta).replace(HOME_HERO_PRELOAD, heroPreload(meta.heroImage, meta.heroKind));
   /* #root starts with the pre-hero (what the eye sees first) and the page's text
@@ -237,9 +264,13 @@ function writeShell(routePath, meta) {
 
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
 /* The FAQ the trip page shows: its own list, else the default (ExpeditionDetail.jsx). */
-const { FAQ_BY_SLUG, makeDefaultFaq, notesWithExperience } = await import(path.join(ROOT, 'src/data/faqData.js'));
+const { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } = await import(path.join(ROOT, 'src/data/faqData.js'));
 const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe));
+const faqForEn = exp => (FAQ_BY_SLUG[exp.slug]?.en?.length ? FAQ_BY_SLUG[exp.slug].en : makeDefaultFaqEn(exp.groupCapacity || 15, exp.experienceEn));
+/* A trip has an English page when it is live and its English copy exists */
+const hasEnglish = exp => exp.live !== false && Boolean(exp.seoTitleEn && exp.descEn);
 let expCount = 0;
+let enCount = 0;
 for (const exp of EXPS) {
   if (!exp.slug || exp.teaser) continue;   // teaser cards have no detail page
 
@@ -328,9 +359,43 @@ for (const exp of EXPS) {
     preHero:       preHeroHtml('trip', expHeroImage(exp)),
     text:          wrapText(expeditionText({ ...exp, importantToNote: notesWithExperience(exp.importantToNote, exp.experienceHe) }, faqFor(exp))),
     noIndex:       exp.live === false,
+    alternatesPath: hasEnglish(exp) ? `/expedition/${exp.slug}` : undefined,
     jsonLd,
   });
   expCount++;
+
+  /* Every trip gets an en. shell, since middleware.js sends en. visitors to it.
+     One without English copy (or hidden) is kept out of search. */
+  {
+    const enUrl = `${EN_BASE_URL}/expedition/${exp.slug}`;
+    writeShell(`expedition/${exp.slug}`, {
+      en:            true,
+      noIndex:       !hasEnglish(exp),
+      title:         exp.seoTitleEn || `${exp.nameEn || exp.name} | HighAir Expeditions`,
+      description:   exp.seoDescriptionEn || exp.descEn || '',
+      canonicalPath: `/expedition/${exp.slug}`,
+      alternatesPath: `/expedition/${exp.slug}`,
+      image:         exp.ogImage || exp.img || '',
+      heroImage:     expHeroImage(exp),
+      heroKind:      'trip',
+      preHero:       preHeroHtml('trip', expHeroImage(exp)),
+      text:          wrapText(expeditionTextEn(exp, faqForEn(exp))),
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [{
+          '@type': 'TouristTrip',
+          '@id': `${enUrl}#trip`,
+          name: exp.nameEn || exp.name,
+          description: exp.seoDescriptionEn || exp.descEn,
+          url: enUrl,
+          image: expImage,
+          inLanguage: 'en',
+          provider: { '@type': 'Organization', name: 'HighAir Expeditions', url: EN_BASE_URL },
+        }],
+      },
+    }, EN_DIST);
+    if (hasEnglish(exp)) enCount++;
+  }
 }
 
 // ── Blog posts ───────────────────────────────────────────────────────────────
@@ -696,6 +761,7 @@ for (const page of staticPages) {
     homeHtml = homeHtml
       .replace(HOME_HERO_PRELOAD, heroPreload('/videos/hero-home-poster.jpg', 'home'))
       .replace('</head>', '  <script>if(location.pathname!=="/")document.documentElement.classList.add("ha-nopre")</script>\n</head>')
+      .replace('</head>', `  ${hreflangTags('/')}\n</head>`)
       .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}${homeTextLayer}</div>`);
     fs.writeFileSync(homePath, homeHtml, 'utf8');
   }
@@ -720,6 +786,26 @@ for (const page of staticPages) {
   }
 }
 
+// ── English homepage (dist/en/index.html, served on the en. host by middleware.js) ──
+{
+  const enHomeText = '<article><h1>HighAir Expeditions</h1>'
+    + '<p>Trekking and climbing expeditions around the world. Every expedition supports cancer patients.</p>'
+    + '<h2>Expeditions and treks</h2><ul>'
+    + liveExps.filter(hasEnglish).map(e => `<li><a href="/expedition/${e.slug}">${String(e.nameEn || e.name).replace(/[<>&"]/g, '')}</a></li>`).join('')
+    + '</ul></article>';
+  const enHome = injectMeta(template, {
+    en: true,
+    title: 'Trekking and Climbing Expeditions | HighAir Expeditions',
+    description: 'HighAir Expeditions runs guided trekking and mountaineering expeditions worldwide: Kilimanjaro (including fully kosher climbs), Everest Base Camp, Aconcagua, Elbrus and more. Every expedition supports cancer patients.',
+    canonicalPath: '/',
+    alternatesPath: '/',
+  })
+    .replace(HOME_HERO_PRELOAD, heroPreload('/videos/hero-home-poster.jpg', 'home'))
+    .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}${wrapText(enHomeText)}</div>`);
+  fs.mkdirSync(EN_DIST, { recursive: true });
+  fs.writeFileSync(path.join(EN_DIST, 'index.html'), enHome, 'utf8');
+}
+
 // ── Summary ──────────────────────────────────────────────────────────────────
 
 console.log('HTML shells generated!');
@@ -727,4 +813,5 @@ console.log(`  Expeditions : ${expCount}`);
 console.log(`  Blog posts  : ${blogCount}`);
 console.log(`  Israel      : ${israelCount}`);
 console.log(`  Static      : ${staticPages.length}`);
+console.log(`  English     : ${enCount} expeditions + home`);
 console.log(`  Total       : ${expCount + blogCount + israelCount + staticPages.length}`);

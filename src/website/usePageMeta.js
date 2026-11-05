@@ -9,6 +9,7 @@
 import { useEffect } from 'react';
 
 const BASE_URL    = 'https://www.highair-expeditions.com';
+const EN_BASE_URL = 'https://en.highair-expeditions.com';
 const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
 export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG, jsonLd, ogType = 'website', noIndex = false }) {
@@ -20,30 +21,42 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
       if (el) el.setAttribute(attr, value);
     }
 
+    /* Two indexed languages (5 Nov 2026, going international): Hebrew on www,
+       English on en. Each page's canonical is its own host, and both versions
+       name each other with hreflang, so neither is a duplicate of the other.
+       Until then en. was noindex with its canonical on www. */
+    const isEnHost = typeof window !== 'undefined' && window.location.hostname.startsWith('en.');
+    const ownBase  = isEnHost ? EN_BASE_URL : BASE_URL;
+
     setMeta('meta[name="description"]',        'content', description);
     setMeta('meta[property="og:title"]',       'content', title);
     setMeta('meta[property="og:description"]', 'content', description);
-    setMeta('meta[property="og:url"]',         'content', BASE_URL + canonicalPath);
+    setMeta('meta[property="og:url"]',         'content', ownBase + canonicalPath);
     setMeta('meta[property="og:image"]',       'content', image);
     setMeta('meta[property="og:type"]',        'content', ogType);
-    setMeta('link[rel="canonical"]',           'href',    BASE_URL + canonicalPath);
+    setMeta('meta[property="og:locale"]',      'content', isEnHost ? 'en_US' : 'he_IL');
+    setMeta('link[rel="canonical"]',           'href',    ownBase + canonicalPath);
+    document.documentElement.setAttribute('lang', isEnHost ? 'en' : 'he');
 
-    /* Robots. The Hebrew www site is the single indexed version. The English
-       en. subdomain serves the same pages (canonical already points to www), so
-       we noindex,follow it to consolidate to Hebrew and avoid duplicate-content
-       dilution. 404 / teaser pages pass noIndex explicitly (noindex,nofollow).
-       Any stale hreflang alternates from a previous build are removed - with one
-       indexed language there is no alternate to declare. */
-    const isEnHost = typeof window !== 'undefined' && window.location.hostname.startsWith('en.');
+    /* Robots. 404 / teaser pages pass noIndex explicitly (noindex,nofollow). */
     let robotsMeta = document.querySelector('meta[name="robots"]');
     if (!robotsMeta) {
       robotsMeta = document.createElement('meta');
       robotsMeta.setAttribute('name', 'robots');
       document.head.appendChild(robotsMeta);
     }
-    robotsMeta.setAttribute('content', noIndex ? 'noindex, nofollow' : (isEnHost ? 'noindex, follow' : 'index, follow'));
+    robotsMeta.setAttribute('content', noIndex ? 'noindex, nofollow' : 'index, follow');
 
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
+    if (!noIndex) {
+      [['he', BASE_URL], ['en', EN_BASE_URL], ['x-default', BASE_URL]].forEach(([lang, base]) => {
+        const link = document.createElement('link');
+        link.rel = 'alternate';
+        link.hreflang = lang;
+        link.href = base + canonicalPath;
+        document.head.appendChild(link);
+      });
+    }
 
     /* ── JSON-LD: replace any existing page-level schema script ──
        Each page gets a single <script id="page-jsonld"> that we own. The
