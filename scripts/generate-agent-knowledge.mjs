@@ -56,7 +56,7 @@ const policies = {
 const company = {
   name: 'HighAir Expeditions',
   whatsapp: '+972 55-563-6975',
-  email: 'team@highair-expeditions.com',
+  email: 'team@reply.highair-expeditions.com',
   charity: 'Part of every expedition supports cancer patients.',
 };
 
