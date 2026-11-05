@@ -14,7 +14,7 @@ export default function AltitudeProfile({ itinerary, isMobile }) {
   const pts = profileFromItinerary(itinerary);
   if (pts.length < 4) return null;
   const lang = currentLang();
-  const W = 800, H = isMobile ? 300 : 260, L = isMobile ? 74 : 56, R = 16, T = 28, B = 34;
+  const W = isMobile ? 400 : 800, H = isMobile ? 240 : 260, L = isMobile ? 44 : 56, R = 14, T = 28, B = 34;
   const top = Math.ceil(Math.max(...pts.map(p => p.high)) / 1000) * 1000;
   const bottom = Math.max(0, Math.floor(Math.min(...pts.map(p => p.sleep)) / 1000) * 1000);
   const firstDay = pts[0].day, lastDay = pts[pts.length - 1].day;
@@ -46,7 +46,7 @@ export default function AltitudeProfile({ itinerary, isMobile }) {
           {grid.map(a => (
             <g key={a}>
               <line x1={L} x2={W - R} y1={y(a)} y2={y(a)} stroke="#EEEAF8" strokeWidth="1" />
-              <text x={L - 8} y={y(a) + 4} textAnchor="end" fontSize={isMobile ? 17 : 12} fill="#8A86A3">{fmt(a)}</text>
+              <text x={L - 8} y={y(a) + 4} textAnchor="end" fontSize={12} fill="#8A86A3">{fmt(a)}</text>
             </g>
           ))}
           <path d={area} fill="url(#ha-alt-fill)" />
@@ -60,10 +60,10 @@ export default function AltitudeProfile({ itinerary, isMobile }) {
                 </>
               )}
               <circle cx={x(p.day)} cy={y(p.sleep)} r="4" fill="#6D28D9" />
-              <text x={x(p.day)} y={H - 10} textAnchor="middle" fontSize={isMobile ? 17 : 12} fill="#8A86A3">{p.day}</text>
+              <text x={x(p.day)} y={H - 10} textAnchor="middle" fontSize={12} fill="#8A86A3">{p.day}</text>
             </g>
           ))}
-          <text x={x(peak.day)} y={y(peak.high) - 12} textAnchor={peak.day === lastDay ? 'end' : 'middle'} fontSize={isMobile ? 19 : 14} fontWeight="700" fill="#4C1D95">
+          <text x={x(peak.day)} y={y(peak.high) - 12} textAnchor={peak.day === lastDay ? 'end' : 'middle'} fontSize={14} fontWeight="700" fill="#4C1D95">
             {`${fmt(peak.high)} m${ft ? ` · ${ft}` : ''}`}
           </text>
         </svg>
