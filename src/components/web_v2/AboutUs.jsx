@@ -489,7 +489,7 @@ export default function AboutUs() {
     title:         isEn ? tx("Our Story | HighAir Expeditions") : 'HighAir Expeditions | הסיפור שלנו',
     description:   isEn
       ? tx(
-      "Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients in Israel."
+      "Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients."
     )
       : 'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק — ותורמים מדי חודש לילדים חולי סרטן.',
     canonicalPath: '/about',
