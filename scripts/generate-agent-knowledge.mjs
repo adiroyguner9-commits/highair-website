@@ -31,6 +31,9 @@ const trips = CORE_TRIPS.map(slug => {
     description: e.descEn || '',
     highlights: e.highlightsEn || [],
     included: (e.includedEn || []).filter(Boolean),
+    /* The same list in German and Spanish, line for line, for the agent's
+       first email (the de/es sites carry them, tests check the line count). */
+    includedByLang: Object.fromEntries(['en', 'de', 'es'].map(l => [l, (e['included' + { en: 'En', de: 'De', es: 'Es' }[l]] || e.includedEn || []).filter(Boolean)])),
     notIncluded: (e.notIncludedEn || []).filter(Boolean),
     goodToKnow: e.importantToNoteEn || [],
     itinerary: (e.itineraryEn || []).map(d => ({ day: d.day, title: d.title, stay: d.accommodation || '' })),
