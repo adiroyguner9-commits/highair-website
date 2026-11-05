@@ -515,7 +515,13 @@ export default function ExpeditionDetail() {
   const [resolvedGallery, setResolvedGallery] = useState(null); // null = still probing
 
   /* ── Live groups from Airtable ── */
-  const hasAirtable = !!(exp?.airtableEvents?.length);
+  /* Which Airtable groups this page lists. The English site sells separate
+     international groups (5 Nov 2026), so a trip with airtableEventsEn shows only
+     those there; the Hebrew site keeps its own groups and never sees them. */
+  const groupEvents = (i18n.language === 'en' && exp?.airtableEventsEn?.length)
+    ? exp.airtableEventsEn
+    : (exp?.airtableEvents || []);
+  const hasAirtable = groupEvents.length > 0;
   const [liveGroups, setLiveGroups]         = useState([]);
   const [groupsLoading, setGroupsLoading]   = useState(hasAirtable);
   const [groupsError, setGroupsError]       = useState(null);
@@ -566,7 +572,7 @@ export default function ExpeditionDetail() {
            since the first private climb; this list never even asked Airtable
            for the field (owner, 12 Oct 2026: a private Kilimanjaro group
            "שלא יהיה חשוף לאנשים"). */
-        const events = new Set((exp.airtableEvents || []).map(e => e.toLowerCase()));
+        const events = new Set(groupEvents.map(e => e.toLowerCase()));
         const relevant = (groupsData.records || []).filter(rec => {
           if (rec.fields['Hidden']) return false;
           const ev = (rec.fields['Event'] || '').toLowerCase();
@@ -653,7 +659,7 @@ export default function ExpeditionDetail() {
         console.error('[dates]', err);
         setGroupsError(err.message);
       }).finally(() => setGroupsLoading(false));
-  }, [exp?.airtableEvents?.join(',')]);
+  }, [groupEvents.join(',')]);
 
   /* Event JSON-LD for each upcoming departure (from the live Airtable groups),
      so Google and AI engines can answer "when is the next <expedition>". Kept in

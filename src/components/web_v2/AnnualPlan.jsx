@@ -8,6 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/mockData.js';
@@ -55,9 +56,13 @@ function eventTag(e, isRtl, exp) {
 function findExp(eventName) {
   if (!eventName) return null;
   const lower = eventName.toLowerCase();
-  return EXPS.find(e =>
-    (e.airtableEvents || []).some(ev => ev.toLowerCase() === lower)
-  ) || null;
+  /* The English site lists a trip's international groups (airtableEventsEn)
+     instead of the Hebrew ones; the Hebrew site never matches them. */
+  const isEn = i18n.language === 'en';
+  return EXPS.find(e => {
+    const events = (isEn && e.airtableEventsEn?.length) ? e.airtableEventsEn : (e.airtableEvents || []);
+    return events.some(ev => ev.toLowerCase() === lower);
+  }) || null;
 }
 
 /* Find Israel trip by matching eventName → airtableEvents */
