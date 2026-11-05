@@ -9,8 +9,14 @@ export const BASE_URLS = {
 };
 /* German and Spanish start with the core pages (owner, 5 Nov 2026). */
 export const PARTIAL_LANGS = ['de', 'es'];
+/* Trips the German and Spanish sites offer: Kilimanjaro first, then a few
+   treks and climbs (owner, 5 Nov 2026). Their copy: src/data/tripI18n.js. */
+export const CORE_TRIPS = [
+  'kilimanjaro', 'kilimanjaro-kosher',
+  'everest-base-camp', 'annapurna', 'peaks-of-balkan',
+  'aconcagua', 'island-peak',
+];
 export const CORE_PATHS = [
-  '/', '/expedition/kilimanjaro', '/expedition/kilimanjaro-kosher',
+  '/', ...CORE_TRIPS.map(s => `/expedition/${s}`), '/treks', '/climbs',
   '/about', '/contact', '/annual-plan', '/app', '/terms', '/privacy', '/cancellation',
 ];
-export const CORE_TRIPS = ['kilimanjaro', 'kilimanjaro-kosher'];

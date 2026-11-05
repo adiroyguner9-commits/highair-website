@@ -3,6 +3,12 @@
    records by mockData.js as <field>De / <field>Es, read through loc() in
    src/website/lang.js. Written by Claude from the English copy; have a native
    speaker review before larger campaigns. */
+import EBC from './trip-i18n/everest-base-camp.js';
+import ANNAPURNA from './trip-i18n/annapurna.js';
+import BALKAN from './trip-i18n/peaks-of-balkan.js';
+import ACONCAGUA from './trip-i18n/aconcagua.js';
+import ISLAND from './trip-i18n/island-peak.js';
+
 
 const DUR = { de: 'Stunden', es: 'horas' };
 /* Itinerary days keep distance / time / elevation numbers from the English
@@ -269,7 +275,32 @@ const LIST_ARGS = {
 
 /* Merge into a trip: <field>De / <field>Es, itinerary days keep the English
    record's numbers (day, distance, times) with translated words. */
+/* More trips (owner, 5 Nov 2026): one file each in ./trip-i18n/, with the
+   fields written out in full (name, days, seo, desc, lists, itinerary, faq). */
+const MORE = {
+  'everest-base-camp': EBC, annapurna: ANNAPURNA, 'peaks-of-balkan': BALKAN,
+  aconcagua: ACONCAGUA, 'island-peak': ISLAND,
+};
+const COUNTRY = {
+  Tanzania: { de: 'Tansania', es: 'Tanzania' },
+  Nepal: { de: 'Nepal', es: 'Nepal' },
+  Albania: { de: 'Albanien', es: 'Albania' },
+  Argentina: { de: 'Argentinien', es: 'Argentina' },
+};
+const FIELDS = ['name', 'days', 'seoTitle', 'seoDescription', 'desc', 'highlights', 'seasons', 'importantToNote', 'included', 'notIncluded', 'experience'];
+
 export function applyTripI18n(exp) {
+  const more = MORE[exp.slug];
+  if (more) {
+    for (const lang of ['de', 'es']) {
+      const S = lang === 'de' ? 'De' : 'Es';
+      const t = more[lang];
+      if (COUNTRY[exp.country]) exp['country' + S] = COUNTRY[exp.country][lang];
+      for (const k of FIELDS) if (t[k] !== undefined) exp[k + S] = t[k];
+      exp['itinerary' + S] = (exp.itineraryEn || []).map((d, i) => ({ ...dayUnits(lang, d), ...(t.itinerary[i] || {}) }));
+    }
+    return exp;
+  }
   const src = { kilimanjaro: KILI, 'kilimanjaro-kosher': KOSHER }[exp.slug];
   if (!src) return exp;
   for (const lang of ['de', 'es']) {
@@ -288,6 +319,7 @@ export function applyTripI18n(exp) {
 
 /* ── FAQ ── */
 export const FAQ_I18N = {
+  ...Object.fromEntries(Object.entries(MORE).filter(([, v]) => v.de.faq).map(([slug, v]) => [slug, { de: v.de.faq, es: v.es.faq }])),
   kilimanjaro: {
     de: [
       { q: 'Wie schwer ist die Besteigung des Kilimandscharo?', a: 'Der Kilimandscharo (5895 m) ist der am leichtesten zugängliche hohe Berg der Welt: keine technische Klettererfahrung, keine Seile, keine Steigeisen. Wer einigermaßen fit ist und etwa acht Stunden am Tag gehen kann, kann den Gipfel erreichen. Die eigentliche Herausforderung sind die Höhe und die Kälte in der Gipfelnacht, und genau dafür ist unser Ablauf auf eine gute Akklimatisierung ausgelegt.' },

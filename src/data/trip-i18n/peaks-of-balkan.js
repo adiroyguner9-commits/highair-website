@@ -1,0 +1,132 @@
+/* German and Spanish copy for peaks-of-balkan (5 Nov 2026), merged by ../tripI18n.js */
+export default {
+ "de": {
+  "name": "Peaks of the Balkans",
+  "days": "10 Tage",
+  "seoTitle": "Peaks of the Balkans Trekking | HighAir Expeditions",
+  "seoDescription": "Trekking auf den Peaks of the Balkans (2656 m), 10 Tage. 8 Wandertage durch Albanien, Kosovo und Montenegro mit Übernachtung bei einheimischen Familien. Gruppen bis 14 Personen.",
+  "desc": "Peaks of the Balkans ist eine der spektakulärsten und abgelegensten Trekkingrouten Europas. Der Weg überquert die Grenzen von Albanien, Kosovo und Montenegro und führt durch unberührte Alpentäler, eindrucksvolle Bergpässe und traditionelle Dörfer abseits der Touristenpfade.\n\nIn 8 Tagen wandern Sie durch das Herz des Westbalkans, entdecken reiche Kulturen und übernachten in Gästehäusern, die von einheimischen Familien geführt werden. Eine echte Reise abseits der bekannten Wege, für alle, die Natur, Einfachheit und Ursprünglichkeit suchen.\n\nDer Trek ist nicht nur eine körperliche Reise, sondern auch ein geistiges und kulturelles Erlebnis. Schneebedeckte Gipfel, frische Luft, Stille und Erhabenheit hinterlassen einen tiefen Eindruck, der Sie noch Jahre begleiten wird.\n\nKommen Sie mit auf ein Abenteuer, das man nur einmal im Leben erlebt, und leisten Sie einen wertvollen Beitrag zum Kampf gegen Krebs!",
+  "highlights": ["Gjeravica 2656 m", "Bootsfahrt auf dem Komani-See", "Grenzen von Albanien, Kosovo und Montenegro", "Gästehäuser einheimischer Familien"],
+  "seasons": ["Juni–Oktober"],
+  "importantToNote": [
+   "Der Trek führt durch 3 Länder: Sie brauchen einen gültigen Reisepass und dürfen keine Einreisebeschränkungen für Albanien, Kosovo oder Montenegro haben.",
+   "Übernachtet wird in Gästehäusern von Familien: Die Zimmer sind einfach, das Essen hausgemacht und ehrlich. Nicht empfehlenswert, wer Hotelkomfort erwartet.",
+   "Die täglichen Strecken liegen zwischen 13 und 22 km: Gute Wanderfitness ist nötig, mit einem Tagesrucksack für 7–9 Stunden.",
+   "Auf manchen Abschnitten der Route gibt es möglicherweise kein Mobilfunknetz.",
+   "Ein ärztliches Attest und eine Gesundheitserklärung sind vor der Abreise erforderlich!",
+   "Keine Klettererfahrung nötig: Es ist eine Trekkingroute ohne technisches Klettern, aber die Summe der Tage verlangt eine solide Fitness.",
+   "Sicherheit zuerst: Die Sicherheit hat immer Vorrang.",
+   "Bei einem vorzeitigen Abstieg, aus welchem Grund auch immer, trägt der Reisende alle zusätzlichen Kosten, etwa weitere Hotelnächte, Mahlzeiten und nötige Flugänderungen."
+  ],
+  "included": [
+   "Geschenkset: Kappe und Funktionsshirt!",
+   "Ein persönlicher Bereich für jeden Kunden in der HighAir-App",
+   "Transfers vom/zum Flughafen Tirana und Hotel in Shkodra",
+   "2 Nächte in einem 3-Sterne-Hotel mit Frühstück in Shkodra",
+   "Übernachtung in Gästehäusern (Mehrbettzimmer) während des Treks",
+   "3 Mahlzeiten pro Tag während des Treks",
+   "Professionelle, englischsprachige einheimische Guides",
+   "Gepäcktransport während des Treks",
+   "Bootsfahrt auf dem Komani-See",
+   "Genehmigungen für die Grenzübertritte",
+   "Live-Updates per WhatsApp für Angehörige während des Treks",
+   "Persönliche Ausrüstungsliste und Online-Ausrüstungsberatung",
+   "Online-Vorbereitungsgespräch mit Ihrer Gruppe und dem Guide vor der Abreise",
+   "Eine bedeutende Spende für den Kampf gegen Krebs!"
+  ],
+  "notIncluded": [
+   "Internationale Flüge (wir empfehlen die besten Verbindungen ab Ihrer Stadt)",
+   "Reise- und Krankenversicherung inklusive Rettung (Pflicht)",
+   "Mittag- und Abendessen im Hotel in Shkodra",
+   "Persönliche Ausrüstung: Kleidung und Schuhe",
+   "Trinkgeld für die Guides: 50 € pro Person",
+   "Alles, was nicht unter „Inklusive“ aufgeführt ist",
+   "Optionale Extras:",
+   "Einzelzimmer im Hotel in Shkodra: 40 € pro Nacht"
+  ],
+  "itinerary": [
+   {"title": "Willkommen in Albanien!", "desc": "Nach der Landung am Flughafen Tirana fahren wir nach Norden nach Shkodra, eine der ältesten und faszinierendsten Städte Albaniens mit über 2500 Jahren Geschichte. Nach dem Check-in und einer kurzen Pause bummeln wir am Abend über die belebte Hauptstraße voller Cafés, Restaurants und lebendiger Kultur. Am Abend lernen wir bei einem festlichen Eröffnungsessen das Team und die Gruppe kennen.", "travelTime": "Rund 2 Stunden Fahrt vom Flughafen Tirana zum Hotel in Shkodra", "accommodation": "Hotel Tradita in Shkodra oder ähnlich"},
+   {"title": "Shkodra - Fähre über den Komani-See - Valbona (927 m)", "desc": "Die Reise beginnt mit einer Fahrt von Shkodra zum Komani-See, dem Ausgangspunkt einer der schönsten Fährfahrten Europas. Wir gleiten über türkisfarbenes Wasser zwischen eindrucksvollen Schluchten, steilen Felswänden und unberührter Wildnis.\n\nNach dem Anlegen fahren wir weiter in einen Ort zu einem traditionellen Mittagessen im Restaurant und dann zum Dorf Dragobia, dem Startpunkt der heutigen Wanderung. Von hier folgen wir dem kristallklaren Valbona-Fluss durch unberührte Natur und atemberaubende Berglandschaft bis zum Dorf Valbona, dem Herzen des Nationalparks.", "accommodation": "Gästehaus in Valbona"},
+   {"title": "Valbona - Prosllopi-Pass (2030 m) - Çerem (1150 m)", "desc": "Nach dem Frühstück beginnt der Aufstieg auf einem herrlichen Pfad zum abgelegenen Prosllopi-Pass. In steilen Serpentinen geht es mehrere Stunden bergauf bis zum höchsten Punkt des Tages auf rund 2030 m, mit atemberaubendem Blick auf die Albanischen Alpen in alle Richtungen.\n\nNach dem Grenzübertritt nach Montenegro gibt es Mittagessen am Buri-Pass, einer offenen Wiese, auf der Hirten aus Çerem und Vuthaj ihre Herden weiden. Eine halbe Stunde weiter rasten wir in einer Hirtenhütte bei Kaffee und Bergtee. Von hier ist Çerem schon zu sehen; noch zwei Stunden geht es durch dichten Wald hinab bis zu unserer Unterkunft.", "accommodation": "Gästehaus in Çerem"},
+   {"title": "Çerem - Dobërdol (1800 m)", "desc": "Nach dem Frühstück im Gästehaus geht es weiter nach Dobërdol. Ein Übergangstag von Çerem nach Dobërdol, einem abgelegenen Hirtendorf, das nur über Maultierpfade erreichbar ist und im Sommer nur von Hirten bewohnt wird.\n\nVon Çerem steigen wir gemächlich zur Grenze Montenegros auf, durchqueren den schönen Hirtenweiler Balqin und wandern durch das Gashi-Tal, ein für seine wilde Schönheit bekanntes Schutzgebiet. Der Weg schlängelt sich hinauf bis nach Dobërdol, einem der abgelegensten und idyllischsten Orte Albaniens, wo wir übernachten.", "accommodation": "Gästehaus in Dobërdol"},
+   {"title": "Dobërdol - Gipfel der Gjeravica (2656 m) - Gacafar (1840 m)", "desc": "Heute verlassen wir Albanien und wechseln in den Kosovo. Nach einigen Stunden gleichmäßigen Aufstiegs erreichen wir einen hohen Pass an der Grenze zwischen Albanien und Kosovo. Von dort geht es weiter auf den Gipfel der Gjeravica (2656 m), einen der höchsten Berge des Kosovo. Der Blick ist besonders eindrucksvoll: scharfe Grate, tiefe Täler und endlose Gipfel in alle Richtungen.\n\nAm Ende des Tages steigen wir nach Gacafar nahe dem Dreiländereck ab. Das Gästehaus führt die Familie Gacafari, bekannt für ihre herzliche Gastfreundschaft, ausgezeichnete Bergküche und wunderbare Atmosphäre.", "accommodation": "Gästehaus in Gacafar"},
+   {"title": "Gacafar - Dreiländergipfel (2366 m) - Babino Polje (1550 m)", "desc": "Erstes Ziel heute ist der Dreiländergipfel auf 2366 m, der symbolische Punkt, an dem sich die Grenzen von Kosovo, Albanien und Montenegro treffen. Ein kleines Denkmal markiert die Stelle, und viele lassen sich hier in drei Ländern zugleich fotografieren!\n\nNach einer kurzen Pause steigen wir über den Grat zwischen Kosovo und Montenegro zu den saftigen Almwiesen des Kosovo ab. Wir wechseln nach Montenegro und wandern zum Hrid-See, einem magischen, kristallklaren Bergsee. Weiter geht es hinab ins idyllische Tal von Babino Polje, einem malerischen Bergdorf in Montenegro zwischen grünen Wiesen und eindrucksvoller Alpenlandschaft.", "accommodation": "Gästehaus in Babino Polje"},
+   {"title": "Babino Polje - Taljanka (2056 m) - Vusanje (953 m)", "desc": "Wir erwachen an einem klaren, frischen Morgen, genießen ein warmes Getränk und das Frühstück mit herrlichem Ausblick und fahren dann kurz ins Grbaja-Tal, eines der schönsten und eindrucksvollsten Täler Montenegros, umschlossen von den gewaltigen Felswänden des Karanfili-Massivs.\n\nVon hier steigen wir durch Bergwald zum Gipfel der Volušnica auf, dem ersten von zwei Gipfeln des Tages, mit weitem Blick über das Tal und die zackigen Gipfel der Verwunschenen Berge. Über einen schmalen, eindrucksvollen Grat geht es weiter zum Hauptgipfel des Tages, der Taljanka (2056 m). Zum Schluss steigen wir ins Grbaja-Tal ab und fahren zurück ins Dorf Vusanje.", "accommodation": "Gästehaus in Vusanje"},
+   {"title": "Vusanje - Peja-Pass (1740 m) - Theth (750 m)", "desc": "Die heutige Wanderung durch das Prokletije-Schutzgebiet wird einer der eindrucksvollsten Tage der ganzen Reise. Ein recht langer Trekkingtag über die Grenze von Montenegro nach Albanien, durch den wildesten und dramatischsten Abschnitt des Prokletije-Gebirges. Fast den ganzen Weg gehen wir zwischen steilen Gipfeln mit grenzenlosem Blick in alle Richtungen.\n\nUnterwegs begegnet uns die Geschichte der Region: ein alter Grenzposten, Bunker aus kommunistischer Zeit und ein Grenzstein, Überreste einer Zeit, als dieses Gebiet Sperrzone war. Picknick auf einer Wiese voller bunter Wildblumen und Schmetterlinge in der Stille des wilden Balkans. Zum Abschluss steigen wir ins Dorf Theth ab, zur letzten Nacht in den Bergen.", "accommodation": "Gästehaus in Theth"},
+   {"title": "Theth - Grunas-Wasserfall - Blaues Auge - Shkodra", "desc": "Der letzte Tag verbindet eine kurze, zauberhafte Wanderung zum Grunas-Wasserfall mit einem Besuch des „Blauen Auges“ von Theth, zwei der schönsten Naturorte der Albanischen Alpen. Theth gehört zu den bekanntesten Zielen Albaniens, ein Ort, an dem die Zeit stillsteht.\n\nUnterwegs genießen wir den Blick auf die Gipfel und das Rauschen eines Flusses in einer tiefen Schlucht neben dem Weg. Je näher wir dem Wasserfall kommen, desto dichter wird der Wald, desto kühler die Luft und desto lauter das Tosen des Wassers, das rund 30 Meter in ein kristallklares Becken stürzt.\n\nDanach fahren wir zum „Blauen Auge“, einem türkisfarbenen Becken, gespeist von einer tiefen Quelle mitten im Wald, perfekt für eine Pause und letzte Fotos der Reise. Am Ende des Tages Rückfahrt nach Shkodra, wo wir das Abenteuer ausklingen lassen.", "accommodation": "Hotel Tradita in Shkodra oder ähnlich"},
+   {"title": "Heimflug!", "desc": "Der Tag beginnt mit dem Frühstück im Hotel, dann packen wir und checken aus. Transfer zum Flughafen Tirana für den Heimflug, voller Fotos und Geschichten von einer wunderbaren Reise :)"}
+  ],
+  "faq": [
+   {"q": "Wie schwer ist der Peaks-of-the-Balkans-Trek?", "a": "Der Trek ist mittelschwer. Die Wandertage reichen von 13 bis 22 km mit bis zu 1100 m Aufstieg; nötig sind gute Fitness und die Fähigkeit, 7–9 Stunden einen Tagesrucksack zu tragen. Technisches Klettern gibt es nicht: Trekking vom Feinsten durch Albanien, Kosovo und Montenegro."},
+   {"q": "Wie groß ist die Gruppe?", "a": "Unsere Gruppen sind auf höchstens 14 Teilnehmer begrenzt, für persönliche Betreuung, Flexibilität unterwegs und ein hochwertiges Erlebnis."},
+   {"q": "Gibt es ein Einzelzimmer?", "a": "Ein Einzelzimmer gibt es nur für die Hotelnächte in Shkodra vor und nach dem Trek. Während des Treks übernachten wir in Gästehäusern von Familien in Mehrbettzimmern ohne Einzelzimmer, und genau das gehört zum Reiz der Route."},
+   {"q": "Brauche ich Klettererfahrung?", "a": "Technische Erfahrung ist nicht nötig, es ist ein Trek ohne Klettern. Die Summe der Wandertage verlangt aber eine solide Fitness und etwas Erfahrung mit langen Wanderungen im Gebirge."},
+   {"q": "Was passiert, wenn ich mitten im Trek umkehren muss?", "a": "Die Sicherheit geht vor. Wenn Sie aus irgendeinem Grund früher absteigen müssen, begleitet Sie der Guide sicher zurück und organisiert das Weitere. Zusätzliche Kosten durch einen vorzeitigen Abstieg trägt der Reisende."}
+  ]
+ },
+ "es": {
+  "name": "Peaks of the Balkans",
+  "days": "10 días",
+  "seoTitle": "Trek Peaks of the Balkans | HighAir Expeditions",
+  "seoDescription": "Trek Peaks of the Balkans (2656 m), 10 días. 8 días de caminata por Albania, Kosovo y Montenegro, durmiendo en casas de familias locales. Grupos de hasta 14.",
+  "desc": "Peaks of the Balkans es una de las rutas de trekking más espectaculares y remotas de Europa. El sendero cruza las fronteras de Albania, Kosovo y Montenegro, por valles alpinos vírgenes, pasos de montaña impresionantes y pueblos tradicionales lejos de las rutas turísticas.\n\nDurante 8 días caminarás por el corazón de los Balcanes occidentales, descubrirás culturas ricas y dormirás en casas de huéspedes gestionadas por familias locales. Un viaje de verdad fuera del camino conocido, para quien busca naturaleza, sencillez y autenticidad.\n\nEl trek no es solo un viaje físico: es una experiencia espiritual y cultural. Las cumbres nevadas, el aire limpio, el silencio y la grandeza dejan una huella profunda que te acompañará durante años.\n\nÚnete a una aventura única en la vida y contribuye de verdad a la lucha contra el cáncer.",
+  "highlights": ["Gjeravica 2656 m", "Paseo en barco por el lago Komani", "Fronteras de Albania, Kosovo y Montenegro", "Casas de familias locales"],
+  "seasons": ["junio–octubre"],
+  "importantToNote": [
+   "El trek cruza 3 países: necesitas un pasaporte válido y no tener restricciones de entrada a Albania, Kosovo ni Montenegro.",
+   "El alojamiento es en casas de familias: habitaciones sencillas y comida casera de verdad. No se recomienda a quien espere la comodidad de un hotel.",
+   "Las etapas diarias van de 13 a 22 km: hace falta buena forma para caminar, con una mochila pequeña durante 7–9 horas.",
+   "En algunos tramos de la ruta puede no haber cobertura móvil.",
+   "¡Se requiere un certificado médico y una declaración de salud antes de salir!",
+   "No hace falta experiencia en escalada: es una ruta de trekking sin escalada técnica, pero la suma de días exige una forma física razonable.",
+   "La seguridad primero: la seguridad siempre tiene prioridad.",
+   "En caso de descenso anticipado, por cualquier motivo, todos los costes adicionales corren a cargo del viajero, como noches extra de hotel, comidas y cambios de vuelo."
+  ],
+  "included": [
+   "Kit de regalo: gorra y camiseta técnica",
+   "Un área personal para cada cliente en la app de HighAir",
+   "Traslados desde/hacia el aeropuerto de Tirana y el hotel de Shkodra",
+   "2 noches en un hotel de 3 estrellas con desayuno en Shkodra",
+   "Alojamiento en casas de huéspedes (habitaciones compartidas) durante el trek",
+   "3 comidas al día durante el trek",
+   "Guías locales profesionales de habla inglesa",
+   "Transporte del equipaje durante el trek",
+   "Paseo en barco por el lago Komani",
+   "Permisos para cruzar las fronteras",
+   "Actualizaciones en directo por WhatsApp para las familias durante el trek",
+   "Lista de equipo personal y asesoramiento de equipo en línea",
+   "Llamada de preparación en línea con tu grupo y el guía antes de salir",
+   "¡Una donación significativa a la lucha contra el cáncer!"
+  ],
+  "notIncluded": [
+   "Vuelos internacionales (te recomendamos las mejores rutas desde tu ciudad)",
+   "Seguro de viaje y médico con cobertura de evacuación (obligatorio)",
+   "Comida y cena en el hotel de Shkodra",
+   "Equipo personal: ropa y calzado",
+   "Propinas para los guías: 50 € por persona",
+   "Todo lo que no aparece en el apartado de incluido",
+   "Extras opcionales:",
+   "Habitación individual en el hotel de Shkodra: 40 € por noche"
+  ],
+  "itinerary": [
+   {"title": "¡Bienvenido a Albania!", "desc": "Tras aterrizar en el aeropuerto de Tirana, vamos hacia el norte, a Shkodra, una de las ciudades más antiguas y fascinantes de Albania, con más de 2500 años de historia. Check-in en el hotel y, tras un breve descanso, paseo por la animada calle principal, llena de cafés, restaurantes y vida local. Por la noche, cena de bienvenida para conocer al equipo y al grupo.", "travelTime": "Unas 2 horas en coche del aeropuerto de Tirana al hotel de Shkodra", "accommodation": "Hotel Tradita en Shkodra o similar"},
+   {"title": "Shkodra - Ferry del lago Komani - Valbona (927 m)", "desc": "El viaje empieza con un trayecto de Shkodra al lago Komani, punto de partida de una de las travesías en ferry más bonitas de Europa. Navegamos por aguas turquesa entre gargantas impresionantes, acantilados y naturaleza virgen.\n\nAl desembarcar seguimos en coche hasta un pueblo para comer en un restaurante tradicional y luego hasta Dragobia, inicio de la caminata del día. Desde allí seguimos el cristalino río Valbona por una naturaleza intacta y paisajes de montaña impresionantes hasta el pueblo de Valbona, el corazón del parque nacional.", "accommodation": "Casa de huéspedes en Valbona"},
+   {"title": "Valbona - Paso Prosllopi (2030 m) - Çerem (1150 m)", "desc": "Después del desayuno empezamos a subir por un sendero precioso hacia el remoto paso de Prosllopi. Subimos en zigzags empinados durante varias horas hasta el punto más alto del día, a unos 2030 m, con vistas impresionantes de los Alpes albaneses en todas direcciones.\n\nTras cruzar a Montenegro, comemos en el paso de Buri, una pradera abierta donde pastan los rebaños de Çerem y Vuthaj. Media hora más allá descansamos en una cabaña de pastores con café y té de montaña. Desde aquí ya se ve Çerem; bajamos otras dos horas por un bosque denso hasta el alojamiento.", "accommodation": "Casa de huéspedes en Çerem"},
+   {"title": "Çerem - Dobërdol (1800 m)", "desc": "Tras el desayuno en la casa de huéspedes seguimos hacia Dobërdol. Un día de transición de Çerem a Dobërdol, un remoto pueblo de pastores al que solo se llega por caminos de mulas y que en verano solo habitan los pastores.\n\nDesde Çerem subimos poco a poco hasta la frontera de Montenegro, cruzamos la bonita aldea de pastores de Balqin y seguimos por el valle de Gashi, un espacio protegido famoso por su belleza salvaje. El sendero sube por el valle hasta Dobërdol, uno de los rincones más remotos y bucólicos de Albania, donde pasamos la noche.", "accommodation": "Casa de huéspedes en Dobërdol"},
+   {"title": "Dobërdol - Cumbre del Gjeravica (2656 m) - Gacafar (1840 m)", "desc": "Hoy salimos de Albania y entramos en Kosovo. Tras unas horas de subida constante llegamos a un paso alto en la frontera entre Albania y Kosovo. Desde allí seguimos hasta la cumbre del Gjeravica (2656 m), una de las montañas más altas de Kosovo. La vista es especialmente impresionante: crestas afiladas, valles profundos y cumbres sin fin en todas direcciones.\n\nAl final del día bajamos a Gacafar, cerca del punto de las tres fronteras. La casa de huéspedes la lleva la familia Gacafari, conocida por su hospitalidad, su excelente cocina de montaña y su ambiente maravilloso.", "accommodation": "Casa de huéspedes en Gacafar"},
+   {"title": "Gacafar - Pico de las Tres Fronteras (2366 m) - Babino Polje (1550 m)", "desc": "El primer objetivo de hoy es el Pico de las Tres Fronteras, a 2366 m, el punto simbólico donde se unen las fronteras de Kosovo, Albania y Montenegro. Un pequeño monumento marca el lugar, y muchos se hacen aquí la foto de pie en tres países a la vez.\n\nTras un breve descanso bajamos por la cresta que separa Kosovo y Montenegro hasta los verdes prados alpinos de Kosovo. Pasamos a Montenegro y caminamos hasta el lago Hrid, un lago de montaña mágico y cristalino. Luego bajamos al bucólico valle de Babino Polje, un pintoresco pueblo de montaña de Montenegro entre prados verdes y paisajes alpinos impresionantes.", "accommodation": "Casa de huéspedes en Babino Polje"},
+   {"title": "Babino Polje - Taljanka (2056 m) - Vusanje (953 m)", "desc": "Nos despertamos en una mañana fresca y despejada, disfrutamos de una bebida caliente y del desayuno con vistas y salimos en un trayecto corto al valle de Grbaja, uno de los más bonitos e impresionantes de Montenegro, rodeado por las enormes paredes del macizo de Karanfili.\n\nDesde aquí subimos por un bosque de montaña hasta la cumbre del Volušnica, la primera de las dos del día, con amplias vistas del valle y de los picos dentados de las Montañas Malditas. Seguimos por una cresta estrecha e impresionante hasta la cumbre principal, el Taljanka (2056 m). Terminamos bajando al valle de Grbaja y volviendo en coche al pueblo de Vusanje.", "accommodation": "Casa de huéspedes en Vusanje"},
+   {"title": "Vusanje - Paso de Peja (1740 m) - Theth (750 m)", "desc": "La caminata de hoy por la reserva de Prokletije será uno de los días más memorables del viaje. Un día de trek bastante largo que cruza la frontera de Montenegro a Albania por el tramo más salvaje e impresionante de la cordillera de Prokletije. Casi todo el camino vamos entre picos escarpados, con vistas infinitas en todas direcciones.\n\nPor el camino vemos la historia de la zona: un antiguo puesto fronterizo, búnkeres de la época comunista y un mojón fronterizo, restos de cuando esta zona estaba prohibida. Picnic en un prado lleno de flores silvestres de colores y mariposas, en el silencio de los Balcanes salvajes. Terminamos bajando al pueblo de Theth, para la última noche en la montaña.", "accommodation": "Casa de huéspedes en Theth"},
+   {"title": "Theth - Cascada de Grunas - Ojo Azul - Shkodra", "desc": "El último día combina una caminata corta y mágica a la cascada de Grunas con una visita al «Ojo Azul» de Theth, dos de los lugares naturales más bonitos de los Alpes albaneses. Theth es uno de los destinos más emblemáticos de Albania, un lugar donde el tiempo se detiene.\n\nPor el camino disfrutamos de las vistas de las cumbres y del sonido de un río que corre por un cañón profundo junto al sendero. Al acercarnos a la cascada el bosque se espesa, el aire se enfría y crece el estruendo del agua que cae unos 30 metros a una poza cristalina.\n\nDespués vamos al «Ojo Azul», una poza turquesa alimentada por un manantial profundo en medio del bosque, perfecta para descansar y hacer las últimas fotos del viaje. Al final del día volvemos a Shkodra, donde cerramos la aventura.", "accommodation": "Hotel Tradita en Shkodra o similar"},
+   {"title": "¡Vuelo de regreso a casa!", "desc": "Empezamos el día con el desayuno en el hotel, hacemos la maleta y el check-out. Traslado al aeropuerto de Tirana para el vuelo de regreso, con fotos e historias de un viaje maravilloso :)"}
+  ],
+  "faq": [
+   {"q": "¿Qué dificultad tiene el trek Peaks of the Balkans?", "a": "Es un trek de dificultad media. Las etapas van de 13 a 22 km con subidas de hasta 1100 m, y hace falta buena forma y poder llevar una mochila pequeña durante 7–9 horas. No hay escalada técnica: es trekking en estado puro por Albania, Kosovo y Montenegro."},
+   {"q": "¿De cuántas personas es el grupo?", "a": "Nuestros grupos tienen un máximo de 14 participantes, para mantener una atención personal, flexibilidad en el camino y una experiencia de calidad."},
+   {"q": "¿Hay habitación individual?", "a": "Solo para las noches de hotel en Shkodra, antes y después del trek. Durante el trek dormimos en casas de familias, en habitaciones compartidas y sin opción individual, y eso forma parte del encanto de la ruta."},
+   {"q": "¿Necesito experiencia en escalada?", "a": "No hace falta experiencia técnica: es un trek sin escalada. Aun así, la suma de días de caminata exige una forma física razonable y algo de experiencia en caminatas largas por montaña."},
+   {"q": "¿Qué pasa si tengo que volver a mitad del trek?", "a": "La seguridad es lo primero. Si por cualquier motivo tienes que bajar antes, el guía te acompaña de vuelta con seguridad y organiza lo siguiente. Los costes extra de un descenso anticipado corren a cargo del viajero."}
+  ]
+ }
+}
+;

@@ -180,10 +180,8 @@ export default function HomeV2() {
           <Divider />
           <FadeIn><ExpeditionExplorer type="climbs" /></FadeIn>
 
-          {!PARTIAL && (<>
           <Divider />
           <FadeIn><ExpeditionExplorer type="treks" /></FadeIn>
-          </>)}
 
           {ISRAEL_TREKS_LIVE && (<>
           <Divider />
@@ -203,7 +201,7 @@ export default function HomeV2() {
           <Divider />
           <FadeIn><PressSection /></FadeIn>
 
-          {/* German and Spanish: core pages only, no treks and no magazine (lang.js) */}
+          {/* German and Spanish: no magazine (core pages only, lang.js) */}
           {!PARTIAL && (<>
           <Divider />
           <FadeIn><BlogPreview /></FadeIn>

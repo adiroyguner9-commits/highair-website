@@ -11,6 +11,7 @@
  */
 import { NAV_EXPS as ALL_NAV_EXPS, CARD_EXPS as ALL_CARD_EXPS } from './navData.js';
 import i18n from '../i18n.js';
+import { PARTIAL_LANGS, CORE_TRIPS as CORE_TRIP_LIST } from '../website/sites.js';
 
 /* Trips built for travellers from Israel (Sinai: an Israeli border crossing,
    fees in shekels) are not offered on the English site (owner, 5 Nov 2026).
@@ -18,8 +19,8 @@ import i18n from '../i18n.js';
    reachable by its link, kept out of search (generate-html-shells.mjs). */
 export const HIDDEN_ON_EN = new Set(['sinai']);
 /* German and Spanish carry the core trips only (src/website/lang.js). */
-const CORE_ONLY = ['de', 'es'];
-const CORE_TRIPS = new Set(['kilimanjaro', 'kilimanjaro-kosher']);
+const CORE_ONLY = PARTIAL_LANGS;
+const CORE_TRIPS = new Set(CORE_TRIP_LIST);
 const forLanguage = list => (CORE_ONLY.includes(i18n.language)
   ? list.filter(e => CORE_TRIPS.has(e.slug))
   : i18n.language !== 'he'

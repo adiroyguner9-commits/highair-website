@@ -970,12 +970,11 @@ export default function Header() {
     /blog and /contact, and the floating WhatsApp button covers urgent contact. */
  // { key: 'shop', href: '/shop', isPage: true }, // hidden until shop is ready
  ];
- /* German and Spanish carry the core pages only (lang.js): no treks, no
-    magazine; Expeditions opens Kilimanjaro, and Contact gets the spare room. */
+ /* German and Spanish carry the core pages only (lang.js): no magazine,
+    and Contact takes its place in the menu. */
  const PARTIAL = PARTIAL_LANGS.includes(i18n.language);
  const LINKS = (PARTIAL
-   ? LINK_DEFS.filter(d => d.key !== 'treks' && d.key !== 'news' && d.key !== 'israelTrips')
-       .map(d => (d.key === 'climbs' ? { ...d, href: '/expedition/kilimanjaro' } : d))
+   ? LINK_DEFS.filter(d => d.key !== 'news' && d.key !== 'israelTrips')
        .concat([{ key: 'contact', href: '/contact', isPage: true }])
    : LINK_DEFS).map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 

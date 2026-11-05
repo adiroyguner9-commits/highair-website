@@ -22,7 +22,7 @@ const STATIC = new Set(['about', 'blog', 'contact', 'app', 'annual-plan', 'treks
 /* German and Spanish (de. / es.) carry the core pages (src/website/sites.js);
    their other pages fall back to the English shell, since the app shows them
    in English there. Kept in step with sites.js by tests/de-es-sites.test.js. */
-const PARTIAL_PAGES = new Set(['/', '/expedition/kilimanjaro', '/expedition/kilimanjaro-kosher', '/about', '/contact', '/annual-plan', '/app']);
+const PARTIAL_PAGES = new Set(['/', '/expedition/kilimanjaro', '/expedition/kilimanjaro-kosher', '/expedition/everest-base-camp', '/expedition/annapurna', '/expedition/peaks-of-balkan', '/expedition/aconcagua', '/expedition/island-peak', '/treks', '/climbs', '/about', '/contact', '/annual-plan', '/app']);
 
 export function englishShellPath(hostname, pathname) {
   const sub = String(hostname || '').split('.')[0];

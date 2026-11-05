@@ -56,14 +56,14 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
   /* SEO + Schema.org (canonical, OG, hreflang, JSON-LD) via the shared hook. */
   const list = (type === 'climbs' ? HOME_CLIMBS : HOME_TREKS).filter(e => e.slug && !e.teaser);
   usePageMeta({
-    title:         isRtl ? cfg.seoTitleHe : loc(cfg, "seoTitle"),
-    description:   isRtl ? cfg.seoDescHe  : loc(cfg, "seoDesc"),
+    title:         isRtl ? cfg.seoTitleHe : tx(cfg.seoTitleEn),
+    description:   isRtl ? cfg.seoDescHe  : tx(cfg.seoDescEn),
     canonicalPath: `/${type}`,
     image:         cfg.heroImg,
     jsonLd: [
       breadcrumbList([
         { name: isRtl ? 'בית' : tx("Home"), url: '/' },
-        { name: isRtl ? cfg.h1He : loc(cfg, "h1"), url: `/${type}` },
+        { name: isRtl ? cfg.h1He : tx(cfg.h1En), url: `/${type}` },
       ]),
       itemList(list.map(e => ({
         name: isRtl ? (e.nameHe || e.name) : (loc(e, "name") || e.name || e.nameHe),
@@ -93,14 +93,14 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
             color: '#FFFFFF', margin: '0 0 18px', letterSpacing: '-0.02em', lineHeight: 1.08,
             textShadow: '0 2px 24px rgba(0,0,0,0.5)',
           }}>
-            {isRtl ? cfg.h1He : loc(cfg, "h1")}
+            {isRtl ? cfg.h1He : tx(cfg.h1En)}
           </h1>
           <p style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(16px,2.5vw,20px)', fontWeight: 400,
             color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1.6,
             textShadow: '0 1px 10px rgba(0,0,0,0.5)',
           }}>
-            {isRtl ? cfg.subHe : loc(cfg, "sub")}
+            {isRtl ? cfg.subHe : tx(cfg.subEn)}
           </p>
         </div>
       </section>

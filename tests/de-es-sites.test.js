@@ -29,7 +29,7 @@ describe('de. / es. routing', () => {
   });
 
   it('other pages fall back to the English shell, never the Hebrew one', () => {
-    expect(englishShellPath('de.highair-expeditions.com', '/expedition/everest-base-camp')).toBe('/en/expedition/everest-base-camp/index.html');
+    expect(englishShellPath('de.highair-expeditions.com', '/expedition/manaslu-circuit')).toBe('/en/expedition/manaslu-circuit/index.html');
     expect(englishShellPath('es.highair-expeditions.com', '/blog')).toBe('/en/blog/index.html');
     expect(englishShellPath('de.highair-expeditions.com', '/api/submit-lead')).toBeNull();
   });
@@ -67,7 +67,7 @@ describe('German and Spanish text', () => {
       for (const S of ['De', 'Es']) {
         for (const k of ['name', 'days', 'seoTitle', 'seoDescription', 'desc']) expect(e[k + S], `${slug} ${k}${S}`).toBeTruthy();
         for (const k of ['included', 'notIncluded', 'itinerary', 'safariItinerary', 'highlights', 'importantToNote']) {
-          expect(e[k + S]?.length, `${slug} ${k}${S}`).toBe(e[k + 'En'].length);
+          expect((e[k + S] || []).length, `${slug} ${k}${S}`).toBe((e[k + 'En'] || []).length);
         }
         expect(JSON.stringify([e['included' + S], e['notIncluded' + S], e['itinerary' + S]])).not.toMatch(HEBREW);
         e['itinerary' + S].forEach((d, i) => expect(d.day).toBe(e.itineraryEn[i].day));
@@ -78,6 +78,7 @@ describe('German and Spanish text', () => {
   it('trip FAQs, app page and about page exist in both languages', () => {
     for (const l of ['de', 'es']) {
       expect(FAQ_I18N.kilimanjaro[l]).toHaveLength(6);
+      for (const s of ['everest-base-camp', 'annapurna', 'peaks-of-balkan', 'aconcagua']) expect(FAQ_I18N[s][l].length, s).toBeGreaterThan(3);
       expect(defaultFaqI18n(l, 12)[1].a).toContain('12');
       expect(APP_PAGE[l].faq).toHaveLength(APP_PAGE.en.faq.length);
       expect(APP_PAGE[l].features).toHaveLength(APP_PAGE.en.features.length);

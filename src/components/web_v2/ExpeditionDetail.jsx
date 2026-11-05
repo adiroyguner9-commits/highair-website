@@ -171,12 +171,12 @@ const getWhyCards = (exp, isRtl) => {
   if (!isRtl && PARTIAL_LANGS.includes(currentLang())) {
     return [
       { icon: '📱', title: tx('A personal area for every climber in our app - the whole journey in one place'), desc: '' },
-      { icon: '🏋️', title: tx('A training plan for the climb'), desc: '' },
-      { icon: '🎒', title: tx('A gear list for the climb'), desc: '' },
+      { icon: '🏋️', title: tx(exp?.type === 'Trekking' ? 'A training plan for the trek' : 'A training plan for the climb'), desc: '' },
+      { icon: '🎒', title: tx(exp?.type === 'Trekking' ? 'A gear list for the trek' : 'A gear list for the climb'), desc: '' },
       { icon: '✈️', title: tx('Guidance on the best flights and travel insurance from your city'), desc: '' },
       { icon: '🏔️', title: tx('Info guide on altitude sickness and coping'), desc: '' },
       ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: tx('Visa guide for {0}', [country]), desc: '' }] : []),
-      { icon: '📞', title: tx('24/7 support from preparation to the summit'), desc: '' },
+      { icon: '📞', title: tx(exp?.type === 'Trekking' ? '24/7 support from preparation to the end of the trek' : '24/7 support from preparation to the summit'), desc: '' },
     ];
   }
   if (!isRtl) {

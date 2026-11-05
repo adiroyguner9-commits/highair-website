@@ -865,6 +865,8 @@ for (const pg of EN_STATIC) {
     { path: 'about',       title: 'Our Story | HighAir Expeditions', description: EN_STATIC[0].description },
     { path: 'contact',     title: 'Contact Us | HighAir Expeditions', description: EN_STATIC[2].description },
     { path: 'annual-plan', title: 'International Expedition Schedule | HighAir Expeditions', description: EN_STATIC[4].description },
+    { path: 'treks',       title: EN_STATIC[5].title, description: EN_STATIC[5].description },
+    { path: 'climbs',      title: EN_STATIC[6].title, description: EN_STATIC[6].description },
   ];
   for (const lng of SITES.PARTIAL_LANGS) {
     for (const pg of pages) {
@@ -918,5 +920,5 @@ console.log(`  Blog posts  : ${blogCount}`);
 console.log(`  Israel      : ${israelCount}`);
 console.log(`  Static      : ${staticPages.length}`);
 console.log(`  English     : ${enCount} expeditions + home`);
-console.log(`  German/Span.: ${foreignCount} expedition shells + home, about, contact, annual plan, app`);
+console.log(`  German/Span.: ${foreignCount} expedition shells + home, treks, climbs, about, contact, annual plan, app`);
 console.log(`  Total       : ${expCount + blogCount + israelCount + staticPages.length}`);
