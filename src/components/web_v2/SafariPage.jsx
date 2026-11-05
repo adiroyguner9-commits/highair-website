@@ -24,7 +24,7 @@ import SiteFooter from './SiteFooter.jsx';
 import { EXPS } from '../../data/mockData.js';
 import { SAFARI_SEASONS, SAFARI_RESERVES, SAFARI_DAY_TRIPS, SAFARI_LODGING,
          SAFARI_HOW_IT_WORKS, SAFARI_FAQ, SAFARI_COLOR as SC } from '../../data/safariData.js';
-import PhoneField, { formatFullPhone, validatePhone } from './PhoneField.jsx';
+import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';
 import { UsersIcon, ClockIcon, GpsIcon, CheckIcon, StarIcon, LionIcon } from '../Icons.jsx';
 
 /* SVG only — no emoji anywhere on this site (standing owner rule). Data files
@@ -527,7 +527,7 @@ function Faq({ isRtl, isMobile }) {
    /api/submit-lead contract, tagged Source="Safari Page" so these leads are
    identifiable in the pipeline. */
 function EnquiryBand({ isRtl, isMobile }) {
-  const [form, setForm] = useState({ name: '', days: '', month: '', people: '', dial: '+972', phone: '', email: '', privacy: false });
+  const [form, setForm] = useState({ name: '', days: '', month: '', people: '', dial: defaultDial(), phone: '', email: '', privacy: false });
   const [status, setStatus] = useState('idle');
   const [phoneErr, setPhoneErr] = useState('');
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));

@@ -8,7 +8,7 @@ import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import PhoneField, { formatFullPhone, validatePhone } from './PhoneField.jsx';
+import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 
 /* ── Submit lead ── */
@@ -61,7 +61,7 @@ export default function CTASection() {
   const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const INPUT_STYLE = { ...INPUT_STYLE_BASE, direction: dir };
-  const [form,       setForm]       = useState({ name: '', dial: '+972', phone: '', message: '', privacy: false });
+  const [form,       setForm]       = useState({ name: '', dial: defaultDial(), phone: '', message: '', privacy: false });
   const [focused,    setFocused]    = useState(null);
   const [submitted,  setSubmitted]  = useState(false);
   const [loading,    setLoading]    = useState(false);

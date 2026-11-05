@@ -17,7 +17,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePhoneHero } from '../../website/phoneHero.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
+import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
 import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon, TreeIcon, LionIcon } from '../Icons.jsx';
@@ -764,7 +764,7 @@ export default function ExpeditionDetail() {
   const [copied, setCopied] = useState(false);
 
   /* ── Form state ── */
-  const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', dial: '+972', phone: '', email: '', experience: '', privacy: false });
+  const [form, setForm] = useState({ name: '', month: '', age: '', groupSize: '1', dial: defaultDial(), phone: '', email: '', experience: '', privacy: false });
 
   /* Origin travels with the lead — see utils/attribution.js. */
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'

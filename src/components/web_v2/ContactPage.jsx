@@ -7,7 +7,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { COLOR, RADIUS, FS, EASING } from '../../website/theme.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
+import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 
 const COMPANY = {
  phone: '+972 55-563-6975',
@@ -94,7 +94,7 @@ export default function ContactPage() {
  const dir = isEn ? 'ltr' : 'rtl';
  const { isMobile } = useBreakpoint();
 
- const [form, setForm] = useState({ name: '', dial: '+972', phone: '', email: '', message: '' });
+ const [form, setForm] = useState({ name: '', dial: defaultDial(), phone: '', email: '', message: '' });
  const [phoneError, setPhoneError] = useState('');
  const [nameError, setNameError] = useState('');
  const [sent, setSent] = useState(false);
@@ -350,7 +350,7 @@ export default function ContactPage() {
  color: '#6B6B8A', lineHeight: 1.7, margin: '0 0 24px' }}>
  {T.sentBody}
  </p>
- <button onClick={() => { setSent(false); setForm({ name:'', dial:'+972', phone:'', email:'', message:'' }); setServerError(''); setNameError(''); setPhoneError(''); }}
+ <button onClick={() => { setSent(false); setForm({ name:'', dial: defaultDial(), phone:'', email:'', message:'' }); setServerError(''); setNameError(''); setPhoneError(''); }}
  style={{
  fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600,
  color: COLOR.primary, background: 'none', border: `1.5px solid ${COLOR.primary}`,

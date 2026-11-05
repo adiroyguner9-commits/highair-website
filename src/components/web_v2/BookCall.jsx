@@ -15,7 +15,7 @@ import { COLOR, RADIUS, EASING } from '../../website/theme.js';
 import { NAV_EXPS } from '../../data/navData.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
+import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import BookingWidget from './BookingWidget.jsx';
 
 function Field({ label, id, type = 'text', value, onChange, placeholder, required, error, errorMsg }) {
@@ -70,7 +70,7 @@ export default function BookCall() {
   const bookingExpedition = exp ? (isEn ? exp.nameEn || exp.name : exp.nameHe)
                                 : (isRtl ? 'שיחת ייעוץ' : 'Consultation call');
 
-  const [form, setForm]           = useState({ name: '', dial: '+972', phone: '', email: '' });
+  const [form, setForm]           = useState({ name: '', dial: defaultDial(), phone: '', email: '' });
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [step, setStep]           = useState(leadToken ? 'booking' : 'details'); // 'details' | 'booking'

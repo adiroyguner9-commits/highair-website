@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import i18n from '../../i18n.js';
 /* The same module the lead endpoints validate with, so the field can never
    accept a number the server will refuse (or the other way round). */
 import { phoneIsValid } from '../../../api/_lib/phone.js';
@@ -121,6 +122,13 @@ export function validatePhone(dial, local) {
  * @param {boolean}  [props.dark]
  * @param {string}   [props.label]
  */
+/* The English site serves visitors abroad (5 Nov 2026): its forms open on
+   US +1 and list Israel last; the Hebrew site keeps Israel first. */
+export const defaultDial = () => (i18n.language === 'en' ? '+1' : '+972');
+const countriesFor = isEn => (isEn
+  ? [...COUNTRIES.filter(c => c.code !== 'IL'), ...COUNTRIES.filter(c => c.code === 'IL')]
+  : COUNTRIES);
+
 export default function PhoneField({
   dial, onDialChange,
   local, onLocalChange,
@@ -192,7 +200,7 @@ export default function PhoneField({
               boxSizing: 'border-box',
             }}
           >
-            {COUNTRIES.map(c => (
+            {countriesFor(i18n.language === 'en').map(c => (
               <option key={c.code} value={c.dial}>{c.label}</option>
             ))}
           </select>
