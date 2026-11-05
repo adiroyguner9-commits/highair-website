@@ -12,3 +12,11 @@
  * Hidden by the owner, 23 Oct 2026.
  */
 export const ISRAEL_TREKS_LIVE = false;
+
+/**
+ * Community day treks shared by direct link (the community WhatsApp) that must
+ * open even while the section above is hidden. Only the trek page itself opens
+ * (plus its SEO shell, for the WhatsApp link preview): the /israel listing, the
+ * menu, the footer, the homepage and the sitemap stay hidden.
+ */
+export const ISRAEL_DIRECT_LINK_SLUGS = ['ramim'];

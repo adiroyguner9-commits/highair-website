@@ -2,7 +2,7 @@ import { StrictMode, lazy, Suspense } from 'react';
 import './global.css';
 import i18nInstance from './i18n.js';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { scrubEvent, scrubBreadcrumb, scrubTransaction } from './utils/sentryScrub.js';
 import { Analytics } from '@vercel/analytics/react';
@@ -13,7 +13,7 @@ import RouteTracker  from './components/RouteTracker.jsx';
 import CookieBanner        from './components/web_v2/CookieBanner.jsx';
 import FloatingWA          from './components/web_v2/FloatingWA.jsx';
 import SocialProofTicker   from './components/web_v2/SocialProofTicker.jsx';
-import { ISRAEL_TREKS_LIVE } from './data/israelFlag.js';
+import { ISRAEL_TREKS_LIVE, ISRAEL_DIRECT_LINK_SLUGS } from './data/israelFlag.js';
 /* Scroll depth is now tracked per-page via useScrollDepth() hook in each component */
 
 /* ── Where this visitor came from ──
@@ -108,6 +108,15 @@ function BookRoute() {
 const AppPage            = lazy(() => import('./components/web_v2/AppPage.jsx'));
 const NotFound404        = lazy(() => import('./components/web_v2/NotFound404.jsx'));
 
+/* /israel/:slug: every trek while the Israel section is live; while it is hidden
+   only the community treks shared by direct link, on the Hebrew site only (they
+   are Hebrew community days); the rest fall through to 404. */
+function IsraelTripRoute() {
+  const { slug } = useParams();
+  const direct = i18nInstance.language === 'he' && ISRAEL_DIRECT_LINK_SLUGS.includes(slug);
+  return (ISRAEL_TREKS_LIVE || direct) ? <IsraelDetail /> : <NotFound404 />;
+}
+
 /* Prevent the browser from restoring a previous scroll position after
    a same-domain redirect (e.g. en.highair-expeditions.com → highair-expeditions.com).
    RouteTracker handles scroll-to-top manually on every navigation. */
@@ -168,7 +177,8 @@ preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
           {/* Israel treks hidden by the owner (23 Oct 2026): routes fall through
               to 404 until ISRAEL_TREKS_LIVE is flipped back on in src/data/israelFlag.js */}
           {ISRAEL_TREKS_LIVE && <Route path="/israel"       element={<IsraelTreksPage />} />}
-          {ISRAEL_TREKS_LIVE && <Route path="/israel/:slug" element={<IsraelDetail />} />}
+          {/* While hidden, a community trek in ISRAEL_DIRECT_LINK_SLUGS still opens by its direct link */}
+          <Route path="/israel/:slug" element={<IsraelTripRoute />} />
           <Route path="/treks"             element={<WorldExpeditionsPage type="treks" />} />
           <Route path="/climbs"            element={<WorldExpeditionsPage type="climbs" />} />
           <Route path="/about"             element={<AboutUs />} />

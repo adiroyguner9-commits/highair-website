@@ -523,10 +523,11 @@ for (const post of POSTS) {
 // ── Israel trip pages ────────────────────────────────────────────────────────
 
 const { ISRAEL_TRIPS } = await import(path.join(ROOT, 'src/data/israelData.js'));
-const { ISRAEL_TREKS_LIVE } = await import(path.join(ROOT, 'src/data/israelFlag.js'));
+const { ISRAEL_TREKS_LIVE, ISRAEL_DIRECT_LINK_SLUGS } = await import(path.join(ROOT, 'src/data/israelFlag.js'));
 let israelCount = 0;
-/* Israel treks hidden by the owner (23 Oct 2026): emit no /israel/:slug shells when off */
-for (const trip of (ISRAEL_TREKS_LIVE ? ISRAEL_TRIPS : [])) {
+/* Israel treks hidden by the owner (23 Oct 2026): when off, only the community
+   treks shared by direct link get a shell (their WhatsApp link preview reads it) */
+for (const trip of (ISRAEL_TREKS_LIVE ? ISRAEL_TRIPS : ISRAEL_TRIPS.filter(t => ISRAEL_DIRECT_LINK_SLUGS.includes(t.slug)))) {
   if (!trip.slug || !trip.live) continue;
 
   const tripUrl   = `${BASE_URL}/israel/${trip.slug}`;
