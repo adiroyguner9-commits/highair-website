@@ -2,7 +2,9 @@
 export const BLOG_LANGS = {
  "kilimanjaro-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "annapurna-circuit-trek-guide": [
   "he",
@@ -88,11 +90,15 @@ export const BLOG_LANGS = {
  ],
  "tanzania-currency-money-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "tanzania-vaccinations-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "tanzania-visa-guide": [
   "he",
