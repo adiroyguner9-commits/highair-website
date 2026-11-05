@@ -176,7 +176,7 @@ export default function TermsOfService() {
           <div style={SECTION}>
             <p style={P}>
               Welcome to the HighAir Expeditions website and app (hereinafter: "the Site" and "the App"). These terms apply to the use of both.
-              The site is operated by HighAir Expeditions (היי אייר - טרקים וטיפוסי הרים בע״מ), company no. 517393542. The site serves as a brand and e-commerce site offering, among other things, information and services relating to trips, treks, mountain climbing, and the sale of related products. HighAir Expeditions acts as an intermediary and connector for all organized and approved events or services including mountain climbing, rock climbing, high-altitude stays, extreme cold conditions, extensive walking, running, treks of all kinds, swimming, climbing, cycling, camping, hot springs, cultural activities, and transportation services to desired destinations in Israel and abroad.
+              The site is operated by HighAir Expeditions (registered in Israel), company no. 517393542. The site serves as a brand and e-commerce site offering, among other things, information and services relating to trips, treks, mountain climbing, and the sale of related products. HighAir Expeditions acts as an intermediary and connector for all organized and approved events or services including mountain climbing, rock climbing, high-altitude stays, extreme cold conditions, extensive walking, running, treks of all kinds, swimming, climbing, cycling, camping, hot springs, cultural activities, and transportation services to desired destinations in Israel and abroad.
             </p>
           </div>
 

@@ -26,7 +26,7 @@ const SLUG_MAP = {
    registered name, the trade name and the company number. */
 export const COMPANY = {
   he: 'היי אייר - טרקים וטיפוסי הרים בע״מ (HighAir Expeditions)',
-  en: 'HighAir Expeditions (היי אייר - טרקים וטיפוסי הרים בע״מ)',
+  en: 'HighAir Expeditions (registered in Israel)',
   number: '517393542',
 };
 
