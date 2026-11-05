@@ -112,7 +112,7 @@ function FlagES({ size = 22 }) {
 /* Four sites (5 Nov 2026): Hebrew on www, English / German / Spanish on their
    own subdomain. The switcher opens a small menu of the other languages. */
 const LANGS = [
- { code: 'he', Flag: FlagIL, label: 'עברית',  /* shown as "Hebrew" on the foreign sites (owner, 5 Nov 2026) */ sub: 'www' },
+ { code: 'he', Flag: FlagIL, label: 'Hebrew',  /* "Hebrew" on every site, never עברית (owner, 5 Nov 2026) */ sub: 'www' },
  { code: 'en', Flag: FlagUS, label: 'English', sub: 'en' },
  { code: 'de', Flag: FlagDE, label: 'Deutsch', sub: 'de' },
  { code: 'es', Flag: FlagES, label: 'Español', sub: 'es' },
@@ -177,7 +177,7 @@ function LangSwitcher() {
  fontWeight: l.code === current.code ? 700 : 500, textAlign: 'left',
  }}>
  <l.Flag size={20} />
- <span>{l.code === 'he' && i18n.language !== 'he' ? 'Hebrew' : l.label}</span>
+ <span>{l.label}</span>
  </button>
  ))}
  </div>
