@@ -4,13 +4,17 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { POSTS, isNewsPost } from '../src/data/blogData.js';
-import { authorOf } from '../src/data/authors.js';
+import { authorOf, AUTHORS, SHOW_AUTHORS } from '../src/data/authors.js';
 import { blogText } from '../scripts/lib/text-layer.mjs';
 
 describe('authors', () => {
-  it('every authorId names a real author with a bio and a photo that exists', () => {
+  it('no byline anywhere (owner, 6 Nov 2026)', () => {
+    expect(SHOW_AUTHORS).toBe(false);
+    for (const p of POSTS) expect(authorOf(p), p.slug).toBeNull();
+  });
+  it('the kept author data is complete, should bylines come back', () => {
     for (const p of POSTS.filter(x => x.authorId)) {
-      const a = authorOf(p);
+      const a = AUTHORS[p.authorId];
       expect(a, p.slug).toBeTruthy();
       expect(a.bioHe.length, a.id).toBeGreaterThan(80);
       expect(() => readFileSync(`public${a.photo}`), a.photo).not.toThrow();
@@ -30,9 +34,9 @@ describe('authors', () => {
 });
 
 describe('dates on news only', () => {
-  it('a guide\'s text carries its author and no date; news carries its date', () => {
+  it('a guide\'s text carries no author and no date; news carries its date', () => {
     const guide = POSTS.find(p => !isNewsPost(p)), news = POSTS.find(isNewsPost);
-    expect(blogText(guide)).toContain(guide.author);
+    expect(blogText(guide)).not.toContain(guide.author);
     expect(blogText(guide)).not.toContain(guide.dateHe);
     expect(blogText(news)).toContain(news.dateHe);
   });

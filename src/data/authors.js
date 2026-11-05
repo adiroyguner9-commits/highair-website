@@ -25,4 +25,9 @@ export const AUTHORS = {
   },
 };
 
-export const authorOf = post => AUTHORS[post?.authorId] || null;
+/* Owner, 6 Nov 2026: take Chen Shaked's name off the articles. Bylines and
+   the schema.org Person are off on every site (the post is then the
+   company's, as news already is). The data stays: true brings them back. */
+export const SHOW_AUTHORS = false;
+
+export const authorOf = post => (SHOW_AUTHORS && AUTHORS[post?.authorId]) || null;

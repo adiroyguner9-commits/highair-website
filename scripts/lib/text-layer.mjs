@@ -139,7 +139,7 @@ export function blogText(post) {
   }).join('');
   return '<article>'
     + `<h1>${esc(post.title)}</h1>`
-    + p([post.author, isNewsPost(post) && post.dateHe].filter(Boolean).join(', '))
+    + p([isNewsPost(post) && post.dateHe].filter(Boolean).join(', '))
     + p(post.excerpt)
     + blocks
     + '</article>';
