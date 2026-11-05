@@ -3,6 +3,8 @@
    language as its own chunk. Before, the homepage downloaded every article
    (307KB compressed) to show three cards. */
 import { describe, it, expect } from 'vitest';
+import { readIntl } from '../scripts/lib/vite-blog-split.mjs';
+const INTL = readIntl();
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import blogSplit from '../scripts/lib/vite-blog-split.mjs';
@@ -36,7 +38,14 @@ describe('blog split', () => {
       const he = (await evalModule(await load(`virtual:blog-content/${p.slug}.he`))).default;
       const en = (await evalModule(await load(`virtual:blog-content/${p.slug}.en`))).default;
       expect(he, p.slug).toEqual(p.content);
-      expect(en, p.slug).toEqual(p.contentEn || p.content);
+      /* English: the version written for international readers where there is
+         one (src/data/blog-intl/en), else blogData.js's contentEn. */
+      expect(en, p.slug).toEqual(INTL.en[p.slug]?.content || p.contentEn || p.content);
+      for (const l of ['de', 'es']) {
+        if (!INTL[l][p.slug]) continue;
+        const t = (await evalModule(await load(`virtual:blog-content/${p.slug}.${l}`))).default;
+        expect(t, `${l} ${p.slug}`).toEqual(INTL[l][p.slug].content);
+      }
     }
   });
 
@@ -48,10 +57,10 @@ describe('blog split', () => {
 
   it('the post page waits for its text, and links open posts as transitions', () => {
     const post = readFileSync(join(root, 'src/components/web_v2/BlogPost.jsx'), 'utf8');
-    expect(post).toContain("readPostContent(post.slug, isEn ? 'en' : 'he')");
-    expect(post).toContain("openPost(navigate, p.slug, isEn ? 'en' : 'he')");
+    expect(post).toContain("readPostContent(post.slug, lang)");
+    expect(post).toContain("openPost(navigate, p.slug, lang)");
     for (const f of ['Blog.jsx', 'BlogPreview.jsx']) {
-      expect(readFileSync(join(root, 'src/components/web_v2', f), 'utf8'), f).toContain("openPost(navigate, post.slug, isEn ? 'en' : 'he')");
+      expect(readFileSync(join(root, 'src/components/web_v2', f), 'utf8'), f).toContain("openPost(navigate, post.slug, lang)");
     }
     expect(readFileSync(join(root, 'vite.config.js'), 'utf8')).toContain('plugins: [react(), blogSplit()]');
   });

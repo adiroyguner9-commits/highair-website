@@ -4,7 +4,7 @@
  */
 
 import { contactFor } from '../../website/contact.js';
-import { tx, loc, PARTIAL_LANGS, currentLang } from '../../website/lang.js';
+import { tx, loc, PARTIAL_LANGS, currentLang, hasPage } from '../../website/lang.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -187,7 +187,7 @@ export default function SiteFooter() {
   const INFO_LINKS = [
     // { label: t('footer.shop'), href: '/shop' }, // hidden until shop is ready
     /* No magazine on the German and Spanish sites (core pages only, lang.js) */
-    ...(PARTIAL_LANGS.includes(i18n.language) ? [] : [{ label: t('footer.blog'), href: '/blog' }]),
+    ...(PARTIAL_LANGS.includes(i18n.language) && !hasPage(i18n.language, '/blog') ? [] : [{ label: t('footer.blog'), href: '/blog' }]),
     { label: t('footer.contact'),      href: '/contact'       },
     { label: t('footer.app'),          href: '/app'           },
     { label: t('footer.cancellation'), href: '/cancellation'  },
