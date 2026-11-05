@@ -206,7 +206,7 @@ function TripCard({ group, exp, months, isRtl }) {
           {trip ? (
             <><FlagImg emoji="🇮🇱" />{isRtl ? 'ישראל' : tx("Israel")}</>
           ) : (
-            <><FlagImg emoji={exp?.flag} />{isRtl ? (exp?.countryHe || '') : (exp?.country || exp?.countryHe || '')}</>
+            <><FlagImg emoji={exp?.flag} />{isRtl ? (exp?.countryHe || '') : (loc(exp, 'country') || exp?.country || exp?.countryHe || '')}</>
           )}
         </div>
 
