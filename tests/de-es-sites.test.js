@@ -40,6 +40,14 @@ describe('de. / es. routing', () => {
     }
   });
 
+  it('each foreign host serves its own sitemap and robots.txt', () => {
+    for (const l of ['en', 'de', 'es']) {
+      expect(englishShellPath(`${l}.highair-expeditions.com`, '/sitemap.xml')).toBe(`/sitemap-${l}.xml`);
+      expect(englishShellPath(`${l}.highair-expeditions.com`, '/robots.txt')).toBe(`/robots-${l}.txt`);
+    }
+    expect(englishShellPath('www.highair-expeditions.com', '/sitemap.xml')).toBeNull();
+  });
+
   it('German and Spanish are allowed API origins', () => {
     const sec = readFileSync('api/_security.js', 'utf8');
     for (const l of PARTIAL_LANGS) expect(sec).toContain(`'https://${l}.highair-expeditions.com'`);

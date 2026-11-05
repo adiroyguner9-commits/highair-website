@@ -16,7 +16,8 @@ import { CORE_PATHS, LEGAL_PATHS } from './src/website/sites.js';
 
 export const config = {
   matcher: ['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs',
-    '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*'],
+    '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*',
+    '/sitemap.xml', '/robots.txt'],
 };
 
 const SLUG = /^\/expedition\/[a-z0-9-]+\/?$/;
@@ -31,6 +32,9 @@ export function englishShellPath(hostname, pathname) {
   const sub = String(hostname || '').split('.')[0];
   if (!['en', 'de', 'es'].includes(sub)) return null;
   const clean = pathname === '' ? '/' : (pathname.replace(/\/$/, '') || '/');
+  /* Each foreign host has its own sitemap and robots.txt (generate-sitemap.mjs) */
+  if (clean === '/sitemap.xml') return `/sitemap-${sub}.xml`;
+  if (clean === '/robots.txt') return `/robots-${sub}.txt`;
   const dir = sub !== 'en' && PARTIAL_PAGES.has(clean) ? sub : 'en';
   if (clean === '/') return `/${dir}/index.html`;
   if (SLUG.test(pathname)) return `/${dir}${clean}/index.html`;

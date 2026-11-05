@@ -23,7 +23,8 @@ describe('en. host routing', () => {
 
   it('only runs on page paths', () => {
     expect(config.matcher).toEqual(['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs',
-      '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*']);
+      '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*',
+      '/sitemap.xml', '/robots.txt']);
     for (const p of ['/blog/kilimanjaro-climbing-guide', '/terms', '/book/kilimanjaro', '/book/kilimanjaro/ABC123']) {
       expect(englishShellPath('en.highair-expeditions.com', p), p).toBe('/en/spa.html');
       expect(englishShellPath('de.highair-expeditions.com', p), p).toBe('/de/spa.html');

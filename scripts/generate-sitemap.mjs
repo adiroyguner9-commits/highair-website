@@ -138,3 +138,28 @@ console.log(`    Static      : ${staticRoutes.length}`);
 console.log(`    Expeditions : ${expeditionSlugs.length}`);
 console.log(`    Blog posts  : ${BLOG_POSTS.filter(p => p.slug).length}`);
 console.log(`    Israel      : ${israelSlugs.length}`);
+
+// ── Sitemaps for the foreign sites (5 Nov 2026) ──────────────────────────────
+/* en. / de. / es. are the same deployment, so each host needs its own list of
+   its own URLs. middleware.js serves /sitemap.xml and /robots.txt on those hosts
+   from public/sitemap-<lng>.xml and public/robots-<lng>.txt. English carries
+   every live trip with English copy (not Sinai), the listing pages and the
+   magazine; German and Spanish carry their core pages (src/website/sites.js). */
+const SITES = await import(path.join(ROOT, 'src/website/sites.js'));
+const EN_HIDDEN = new Set(['sinai']);
+const enTrips = EXPS.filter(e => e.live !== false && e.slug && !e.teaser && !EN_HIDDEN.has(e.slug) && e.seoTitleEn && e.descEn).map(e => `/expedition/${e.slug}`);
+const enPages = ['/', '/treks', '/climbs', '/blog', '/about', '/contact', '/app', '/annual-plan', ...enTrips,
+  ...BLOG_POSTS.filter(p => p.slug && p.titleEn).map(p => `/blog/${p.slug}`), ...SITES.LEGAL_PATHS];
+const foreignPages = {
+  en: enPages,
+  de: SITES.CORE_PATHS,
+  es: SITES.CORE_PATHS,
+};
+const prio = p => (p === '/' ? '1.0' : p.startsWith('/expedition/') || p === '/treks' || p === '/climbs' ? '0.9' : SITES.LEGAL_PATHS.includes(p) ? '0.4' : '0.7');
+for (const [lng, pages] of Object.entries(foreignPages)) {
+  const base = SITES.BASE_URLS[lng];
+  const body = [...new Set(pages)].map(p => urlEntry({ loc: `${base}${p}`, priority: prio(p), changefreq: SITES.LEGAL_PATHS.includes(p) ? 'yearly' : 'monthly' }));
+  fs.writeFileSync(path.join(ROOT, `public/sitemap-${lng}.xml`), ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', ...body, '</urlset>'].join('\n'), 'utf8');
+  fs.writeFileSync(path.join(ROOT, `public/robots-${lng}.txt`), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${base}/sitemap.xml\n`, 'utf8');
+  console.log(`  sitemap-${lng}.xml: ${body.length} URLs`);
+}
