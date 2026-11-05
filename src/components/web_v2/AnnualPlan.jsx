@@ -5,6 +5,7 @@
  * Trips are removed automatically once their Return date passes.
  */
 
+import { tx, loc } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -39,12 +40,12 @@ function monthLabel(key, months) {
 /* Tag for safari variants */
 function eventTag(e, isRtl, exp) {
   const n = (typeof e === 'string' ? e : e?.slug || e?.eventName || '').toLowerCase();
-  if (n.includes('safari')) return isRtl ? '+ ספארי' : '+ Safari';
+  if (n.includes('safari')) return isRtl ? '+ ספארי' : tx("+ Safari");
   if (n.includes('tribes')) return isRtl ? (exp?.extensionLabelHe || 'טרק ושבטים')
-                                         : (exp?.extensionLabelEn || 'Trek + Tribes');
+                                         : (loc(exp, "extensionLabel") || 'Trek + Tribes');
   /* The short one, named only where the long one sits beside it. */
   if (exp?.extensionItinerary?.length) return isRtl ? (exp.extensionBaseLabelHe || 'טרק בלבד')
-                                                    : (exp.extensionBaseLabelEn || 'Trek only');
+                                                    : (loc(exp, "extensionBaseLabel") || 'Trek only');
   /* Ethiopia is sold in two lengths like Kilimanjaro — the trek, and the trek
      plus five days through the tribes of the south. Both are the same
      expedition page, so without a tag the two departures come out as one card
@@ -58,9 +59,9 @@ function findExp(eventName) {
   const lower = eventName.toLowerCase();
   /* The English site lists a trip's international groups (airtableEventsEn)
      instead of the Hebrew ones; the Hebrew site never matches them. */
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   return EXPS.find(e => {
-    const events = isEn ? (e.airtableEventsEn || []) : (e.airtableEvents || []);
+    const events = isEn ? (loc(e, "airtableEvents") || []) : (e.airtableEvents || []);
     return events.some(ev => ev.toLowerCase() === lower);
   }) || null;
 }
@@ -108,10 +109,10 @@ function TripCard({ group, exp, months, isRtl }) {
   const isFull    = spotsLeft <= 0;
   const isLow     = !isFull && spotsLeft <= 6;
   const spotsBadge = isFull
-    ? { bg: 'rgba(220,38,38,0.85)',  color: '#fff', text: isRtl ? 'קבוצה מלאה' : 'Full' }
+    ? { bg: 'rgba(220,38,38,0.85)',  color: '#fff', text: isRtl ? 'קבוצה מלאה' : tx("Full") }
     : isLow
-    ? { bg: 'rgba(217,119,6,0.85)',  color: '#fff', text: isRtl ? `נשארו ${spotsLeft} מקומות` : `${spotsLeft} spots left` }
-    : { bg: 'rgba(5,150,105,0.85)',  color: '#fff', text: isRtl ? 'הרשמה פתוחה' : 'Open' };
+    ? { bg: 'rgba(217,119,6,0.85)',  color: '#fff', text: isRtl ? `נשארו ${spotsLeft} מקומות` : tx("{0} spots left", [spotsLeft]) }
+    : { bg: 'rgba(5,150,105,0.85)',  color: '#fff', text: isRtl ? 'הרשמה פתוחה' : tx("Open") };
   const tag = group._showLengthTag ? eventTag(group.eventName, isRtl, exp) : null;
 
   /* Lazy-load image */
@@ -139,7 +140,7 @@ function TripCard({ group, exp, months, isRtl }) {
   const isClickable = !!(exp?.slug || trip?.slug);
   const cardLabel   = isRtl
     ? (trip?.name || exp?.nameHe || group.eventName || '')
-    : (trip?.nameEn || exp?.name || group.eventName || '');
+    : (loc(trip, "name") || exp?.name || group.eventName || '');
 
   return (
     <div
@@ -203,7 +204,7 @@ function TripCard({ group, exp, months, isRtl }) {
           direction:            'ltr',
         }}>
           {trip ? (
-            <><FlagImg emoji="🇮🇱" />{isRtl ? 'ישראל' : 'Israel'}</>
+            <><FlagImg emoji="🇮🇱" />{isRtl ? 'ישראל' : tx("Israel")}</>
           ) : (
             <><FlagImg emoji={exp?.flag} />{isRtl ? (exp?.countryHe || '') : (exp?.country || exp?.countryHe || '')}</>
           )}
@@ -240,8 +241,8 @@ function TripCard({ group, exp, months, isRtl }) {
           lineHeight:    1.2,
         }}>
           {trip
-            ? (isRtl ? trip.name : (trip.nameEn || trip.name))
-            : (isRtl ? (exp?.nameHe || group.eventName) : (exp?.nameEn || exp?.name || exp?.nameHe || group.eventName))
+            ? (isRtl ? trip.name : (loc(trip, "name") || trip.name))
+            : (isRtl ? (exp?.nameHe || group.eventName) : (loc(exp, "name") || exp?.name || exp?.nameHe || group.eventName))
           }
           {/* Which LENGTH of the product this is. The tag was computed here and
               never rendered, which was survivable while the two lengths were
@@ -281,7 +282,7 @@ function TripCard({ group, exp, months, isRtl }) {
 export default function AnnualPlan() {
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const tabsRef = useRef(null);
   const monthNames = t('annualPlan.months', { returnObjects: true });
@@ -317,10 +318,12 @@ export default function AnnualPlan() {
   }
 
   usePageMeta({
-    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : 'International Expedition Schedule | HighAir Expeditions',
+    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : tx("International Expedition Schedule | HighAir Expeditions"),
     description:   isRtl
       ? 'כל המשלחות והטרקים המתוכננים של HighAir Expeditions לשנה הקרובה — קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד. בחרו תאריך והצטרפו אלינו!'
-      : 'Upcoming international HighAir Expeditions departures, run in English with climbers from around the world. Pick a date and join us.',
+      : tx(
+      "Upcoming international HighAir Expeditions departures, run in English with climbers from around the world. Pick a date and join us."
+    ),
     canonicalPath: '/annual-plan',
   });
 
@@ -375,7 +378,7 @@ export default function AnnualPlan() {
        carry their own name and image on the record itself. */
     function isRenderable(g) {
       /* English plan: international groups only, no Israel trips */
-      if (i18n.language === 'en') return !g._isIsrael && !!findExp(g.eventName);
+      if (i18n.language !== 'he') return !g._isIsrael && !!findExp(g.eventName);
       return g._isIsrael || !!findExp(g.eventName);
     }
 
@@ -862,10 +865,10 @@ export default function AnnualPlan() {
             <div style={{ textAlign: 'center', padding: '80px 24px', fontFamily: "'Ploni', sans-serif" }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>🗓️</div>
               <p style={{ fontSize: '18px', fontWeight: 700, color: '#0A0818', margin: '0 0 8px' }}>
-                {isRtl ? 'אין טיולים מתוכננים בקטגוריה זו' : 'No trips in this category'}
+                {isRtl ? 'אין טיולים מתוכננים בקטגוריה זו' : tx("No trips in this category")}
               </p>
               <p style={{ fontSize: FS.body, color: '#6B6B8A', margin: 0 }}>
-                {isRtl ? 'נסו לבחור "הכל" כדי לראות את כל הטיולים' : 'Try selecting "All" to see all trips'}
+                {isRtl ? 'נסו לבחור "הכל" כדי לראות את כל הטיולים' : tx("Try selecting \"All\" to see all trips")}
               </p>
             </div>
           )}
@@ -908,7 +911,7 @@ export default function AnnualPlan() {
                   padding:    '3px 10px',
                   borderRadius: RADIUS.full,
                 }}>
-                  {byMonth[key].length} {isRtl ? 'יציאות' : 'departures'}
+                  {byMonth[key].length} {isRtl ? 'יציאות' : tx("departures")}
                 </span>
               </div>
 

@@ -45,7 +45,7 @@ function Badge({ store, lang, height, location }) {
 
 export function StoreBadges({ height = 40, stacked = false, justify = 'flex-start', location = 'app_page' }) {
   const { i18n } = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'he';
+  const lang = i18n.language !== 'he' ? 'en' : 'he';
   return (
     <div style={{
       display:        'flex',

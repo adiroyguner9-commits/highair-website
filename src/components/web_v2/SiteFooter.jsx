@@ -3,6 +3,7 @@
  * 4 columns: טרקים בעולם · טיפוסים בעולם · טרקים בארץ · מידע
  */
 
+import { tx, loc, PARTIAL_LANGS, currentLang } from '../../website/lang.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +80,7 @@ function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
           fontWeight:   700,
           color:        '#92400E',
         }}>
-          {i18n.language === 'en' ? 'Coming soon' : 'בקרוב'}
+          {i18n.language !== 'he' ? tx("Coming soon") : 'בקרוב'}
         </span>
       )}
     </Tag>
@@ -128,7 +129,7 @@ function AppBlock({ isMobile, isDesktop, isEn }) {
       </p>
       {isDesktop ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <AppQr size={111} alt={APP_PAGE[isEn ? 'en' : 'he'].qrAlt} />
+          <AppQr size={111} alt={(APP_PAGE[currentLang()] || APP_PAGE[isEn ? 'en' : 'he']).qrAlt} />
           <StoreBadges height={40} stacked location="footer" />
         </div>
       ) : (
@@ -167,7 +168,7 @@ function SocialIcons({ size = 36, justify = 'flex-start' }) {
 export default function SiteFooter() {
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const dir = isEn ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
@@ -179,11 +180,12 @@ export default function SiteFooter() {
     .sort((a, b) =>
       (a.departure ? new Date(a.departure).getTime() : Infinity) -
       (b.departure ? new Date(b.departure).getTime() : Infinity))
-    .map(trip => ({ label: isEn ? (trip.nameEn || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
+    .map(trip => ({ label: isEn ? (loc(trip, "name") || trip.name) : trip.name, href: `/israel/${trip.slug}` }));
 
   const INFO_LINKS = [
     // { label: t('footer.shop'), href: '/shop' }, // hidden until shop is ready
-    { label: t('footer.blog'),         href: '/blog'          },
+    /* No magazine on the German and Spanish sites (core pages only, lang.js) */
+    ...(PARTIAL_LANGS.includes(i18n.language) ? [] : [{ label: t('footer.blog'), href: '/blog' }]),
     { label: t('footer.contact'),      href: '/contact'       },
     { label: t('footer.app'),          href: '/app'           },
     { label: t('footer.cancellation'), href: '/cancellation'  },
@@ -217,12 +219,12 @@ export default function SiteFooter() {
             direction: dir, textAlign: 'start',
           }}>
             <div>
-              <ColHeading>{t('footer.worldTreks')}</ColHeading>
-              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+              {TREKS.length > 0 && <ColHeading>{t('footer.worldTreks')}</ColHeading>}
+              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
             </div>
             <div>
               <ColHeading>{t('footer.worldClimbs')}</ColHeading>
-              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
             </div>
             {ISRAEL_TREKS_LIVE && (
             <div>
@@ -282,12 +284,12 @@ export default function SiteFooter() {
 
           <div>
             <ColHeading>{t('footer.worldClimbs')}</ColHeading>
-            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
           </div>
 
           <div>
-            <ColHeading>{t('footer.worldTreks')}</ColHeading>
-            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (e.nameEn || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+            {TREKS.length > 0 && <ColHeading>{t('footer.worldTreks')}</ColHeading>}
+            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
           </div>
 
           {ISRAEL_TREKS_LIVE && (

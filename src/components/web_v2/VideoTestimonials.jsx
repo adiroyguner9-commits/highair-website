@@ -167,7 +167,7 @@ function Modal({ video, onClose }) {
  */
 export default function VideoTestimonials({ limit, seeAllHref, darkBg = false }) {
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const { isMobile } = useBreakpoint();
   const [active, setActive] = useState(null);
   /* Hebrew-only content (Hebrew videos, Israeli press, the Hebrew WhatsApp

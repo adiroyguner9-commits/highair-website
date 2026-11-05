@@ -102,7 +102,7 @@ export default function IsraelDetail() {
   };
   const tripPackages = trip?.free ? [] : (trip?.packages || PACKAGES[trip?.packageType] || []);
   const { i18n }   = useTranslation();
-  const dir        = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir        = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl      = dir === 'rtl';
   const isEn       = !isRtl;
 

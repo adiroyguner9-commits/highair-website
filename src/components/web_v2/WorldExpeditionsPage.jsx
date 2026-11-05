@@ -8,6 +8,7 @@
  * same altitude filter), so nothing is duplicated.
  */
 
+import { tx, loc } from '../../website/lang.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePhoneHero } from '../../website/phoneHero.js';
@@ -47,7 +48,7 @@ const CONFIG = {
 
 export default function WorldExpeditionsPage({ type = 'treks' }) {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
   const { isMobile } = useBreakpoint();
   const cfg = CONFIG[type] || CONFIG.treks;
   const heroImg = usePhoneHero(cfg.heroImg, 'list');   // a phone gets the slice it shows
@@ -55,17 +56,17 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
   /* SEO + Schema.org (canonical, OG, hreflang, JSON-LD) via the shared hook. */
   const list = (type === 'climbs' ? HOME_CLIMBS : HOME_TREKS).filter(e => e.slug && !e.teaser);
   usePageMeta({
-    title:         isRtl ? cfg.seoTitleHe : cfg.seoTitleEn,
-    description:   isRtl ? cfg.seoDescHe  : cfg.seoDescEn,
+    title:         isRtl ? cfg.seoTitleHe : loc(cfg, "seoTitle"),
+    description:   isRtl ? cfg.seoDescHe  : loc(cfg, "seoDesc"),
     canonicalPath: `/${type}`,
     image:         cfg.heroImg,
     jsonLd: [
       breadcrumbList([
-        { name: isRtl ? 'בית' : 'Home', url: '/' },
-        { name: isRtl ? cfg.h1He : cfg.h1En, url: `/${type}` },
+        { name: isRtl ? 'בית' : tx("Home"), url: '/' },
+        { name: isRtl ? cfg.h1He : loc(cfg, "h1"), url: `/${type}` },
       ]),
       itemList(list.map(e => ({
-        name: isRtl ? (e.nameHe || e.name) : (e.nameEn || e.name || e.nameHe),
+        name: isRtl ? (e.nameHe || e.name) : (loc(e, "name") || e.name || e.nameHe),
         url:  `/expedition/${e.slug}`,
       }))),
     ],
@@ -92,14 +93,14 @@ export default function WorldExpeditionsPage({ type = 'treks' }) {
             color: '#FFFFFF', margin: '0 0 18px', letterSpacing: '-0.02em', lineHeight: 1.08,
             textShadow: '0 2px 24px rgba(0,0,0,0.5)',
           }}>
-            {isRtl ? cfg.h1He : cfg.h1En}
+            {isRtl ? cfg.h1He : loc(cfg, "h1")}
           </h1>
           <p style={{
             fontFamily: "'Ploni', sans-serif", fontSize: 'clamp(16px,2.5vw,20px)', fontWeight: 400,
             color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1.6,
             textShadow: '0 1px 10px rgba(0,0,0,0.5)',
           }}>
-            {isRtl ? cfg.subHe : cfg.subEn}
+            {isRtl ? cfg.subHe : loc(cfg, "sub")}
           </p>
         </div>
       </section>

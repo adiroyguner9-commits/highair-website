@@ -77,33 +77,44 @@ export function expeditionText(exp, faq = []) {
 
 /* The same trip in English, for the en. host's shell: the fields the React page
    shows there (exp.*En, falling back as ExpeditionDetail.jsx does). */
-export function expeditionTextEn(exp, faq = []) {
+const TRIP_LABELS = {
+  en: { country: 'Country', elev: 'Summit elevation', dur: 'Duration', price: 'Price: from', rate: 'Success rate', seasons: 'Recommended seasons', day: 'Day', acc: 'Accommodation', safariDay: 'Safari, day', details: 'Trip details', hl: 'Highlights', itin: 'Day-by-day itinerary', safari: 'Safari itinerary', inc: "What's included", notInc: "What's not included", note: 'Good to know', faq: 'Frequently asked questions', call: 'Schedule a call with an expedition expert' },
+  de: { country: 'Land', elev: 'Gipfelhöhe', dur: 'Dauer', price: 'Preis: ab', rate: 'Erfolgsquote', seasons: 'Empfohlene Reisezeiten', day: 'Tag', acc: 'Unterkunft', safariDay: 'Safari, Tag', details: 'Reisedetails', hl: 'Highlights', itin: 'Reiseverlauf Tag für Tag', safari: 'Safari-Reiseverlauf', inc: 'Was ist inklusive', notInc: 'Was ist nicht inklusive', note: 'Gut zu wissen', faq: 'Häufige Fragen', call: 'Gespräch mit einem Expeditionsexperten vereinbaren' },
+  es: { country: 'País', elev: 'Altitud de la cumbre', dur: 'Duración', price: 'Precio: desde', rate: 'Tasa de éxito', seasons: 'Temporadas recomendadas', day: 'Día', acc: 'Alojamiento', safariDay: 'Safari, día', details: 'Datos del viaje', hl: 'Lo más destacado', itin: 'Itinerario día a día', safari: 'Itinerario del safari', inc: 'Qué incluye', notInc: 'Qué no incluye', note: 'Importante saber', faq: 'Preguntas frecuentes', call: 'Programa una llamada con un experto en expediciones' },
+};
+
+/* The foreign-language trip text: English fields (fooEn), or with lang 'de' /
+   'es' the fooDe / fooEs fields (src/data/tripI18n.js), falling back to English. */
+export function expeditionTextEn(exp, faq = [], lang = 'en') {
   if (!exp) return '';
+  const L = TRIP_LABELS[lang] || TRIP_LABELS.en;
+  const S = { de: 'De', es: 'Es' }[lang];
+  const f = k => (S && exp[k + S]) || exp[k + 'En'];
   const facts = [
-    exp.country && `Country: ${exp.country}`,
-    exp.elev && `Summit elevation: ${exp.elev}`,
-    (exp.daysEn || exp.days) && `Duration: ${exp.daysEn || exp.days}`,
-    exp.priceStr && `Price: from ${exp.priceStr}`,
-    Number.isFinite(exp.successRate) && `Success rate: ${exp.successRate}%`,
-    exp.seasonsEn?.length && `Recommended seasons: ${exp.seasonsEn.join(', ')}`,
+    exp.country && `${L.country}: ${exp.country}`,
+    exp.elev && `${L.elev}: ${exp.elev}`,
+    (f('days') || exp.days) && `${L.dur}: ${f('days') || exp.days}`,
+    exp.priceStr && `${L.price} ${exp.priceStr}`,
+    Number.isFinite(exp.successRate) && `${L.rate}: ${exp.successRate}%`,
+    f('seasons')?.length && `${L.seasons}: ${f('seasons').join(', ')}`,
   ].filter(Boolean);
-  const days = (exp.itineraryEn || []).map(d =>
-    `<h3>${esc(`Day ${d.day}: ${d.title || ''}`)}</h3>${p(d.desc)}${d.accommodation ? p(`Accommodation: ${d.accommodation}`) : ''}`).join('');
-  const safari = (exp.safariItineraryEn || []).map(d =>
-    `<h3>${esc(`Safari, day ${d.day}: ${d.title || ''}`)}</h3>${p(d.desc)}`).join('');
-  const qa = (faq || []).filter(f => f?.q && f?.a).map(f => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join('');
+  const days = (f('itinerary') || []).map(d =>
+    `<h3>${esc(`${L.day} ${d.day}: ${d.title || ''}`)}</h3>${p(d.desc)}${d.accommodation ? p(`${L.acc}: ${d.accommodation}`) : ''}`).join('');
+  const safari = (f('safariItinerary') || []).map(d =>
+    `<h3>${esc(`${L.safariDay} ${d.day}: ${d.title || ''}`)}</h3>${p(d.desc)}`).join('');
+  const qa = (faq || []).filter(x => x?.q && x?.a).map(x => `<h3>${esc(x.q)}</h3>${p(x.a)}`).join('');
   return '<article>'
-    + `<h1>${esc(exp.nameEn || exp.name)}</h1>`
-    + p(exp.descEn)
-    + (facts.length ? h2('Trip details') + ul(facts) : '')
-    + (exp.highlightsEn?.length ? h2('Highlights') + ul(exp.highlightsEn) : '')
-    + (days ? h2('Day-by-day itinerary') + days : '')
-    + (safari ? h2('Safari itinerary') + safari : '')
-    + (exp.includedEn?.length ? h2("What's included") + ul(exp.includedEn) : '')
-    + (exp.notIncludedEn?.length ? h2("What's not included") + ul(exp.notIncludedEn) : '')
-    + (exp.importantToNoteEn?.length ? h2('Good to know') + ul(exp.importantToNoteEn) : '')
-    + (qa ? h2('Frequently asked questions') + qa : '')
-    + `<p>${link(`/book/${exp.slug}`, 'Schedule a call with an expedition expert')}</p>`
+    + `<h1>${esc(f('name') || exp.name)}</h1>`
+    + p(f('desc'))
+    + (facts.length ? h2(L.details) + ul(facts) : '')
+    + (f('highlights')?.length ? h2(L.hl) + ul(f('highlights')) : '')
+    + (days ? h2(L.itin) + days : '')
+    + (safari ? h2(L.safari) + safari : '')
+    + (f('included')?.length ? h2(L.inc) + ul(f('included')) : '')
+    + (f('notIncluded')?.length ? h2(L.notInc) + ul(f('notIncluded')) : '')
+    + (f('importantToNote')?.length ? h2(L.note) + ul(f('importantToNote')) : '')
+    + (qa ? h2(L.faq) + qa : '')
+    + `<p>${link(`/book/${exp.slug}`, L.call)}</p>`
     + '</article>';
 }
 

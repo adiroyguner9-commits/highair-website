@@ -30,7 +30,7 @@ function PostCard({ post }) {
   const [photoRef, photoNear] = useNearView();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
 
   const title    = isEn ? (post.titleEn    || post.title)   : post.title;
@@ -161,7 +161,7 @@ function PostCard({ post }) {
 export default function Blog() {
   const { isMobile, isTablet } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
   /* Use a stable key ('all' or the category string) rather than a
      translated label so the filter survives language switches. */

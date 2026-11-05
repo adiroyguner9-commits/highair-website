@@ -32,10 +32,21 @@ const BASE_URL  = 'https://www.highair-expeditions.com';
    instead of treating them as duplicates (5 Nov 2026: going international). */
 const EN_BASE_URL = 'https://en.highair-expeditions.com';
 const EN_DIST     = path.join(DIST, 'en');
+/* German and Spanish (de. / es., 5 Nov 2026) work the same way, from
+   dist/de and dist/es, for the core pages only (src/website/sites.js). */
+const SITES = await import(path.join(ROOT, 'src/website/sites.js'));
+const CORE = new Set(SITES.CORE_PATHS);
+const LANG_BASE = SITES.BASE_URLS;
+const LOCALE = { he: 'he_IL', en: 'en_US', de: 'de_DE', es: 'es_ES' };
+const UI = {
+  de: JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/ui-de.json'), 'utf8')),
+  es: JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/ui-es.json'), 'utf8')),
+};
+const uiTx = (lng, english) => (UI[lng] && UI[lng][english]) || english;
 function hreflangTags(p) {
+  const langs = ['he', 'en', ...(CORE.has(p) ? SITES.PARTIAL_LANGS : [])];
   return [
-    `<link rel="alternate" hreflang="he" href="${BASE_URL}${p}" />`,
-    `<link rel="alternate" hreflang="en" href="${EN_BASE_URL}${p}" />`,
+    ...langs.map(l => `<link rel="alternate" hreflang="${l}" href="${LANG_BASE[l]}${p}" />`),
     `<link rel="alternate" hreflang="x-default" href="${BASE_URL}${p}" />`,
   ].join('\n  ');
 }
@@ -148,7 +159,9 @@ function truncate(str, max = 155) {
 }
 
 function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta, noIndex, en, alternatesPath }) {
-  const url   = `${en ? EN_BASE_URL : BASE_URL}${canonicalPath}`;
+  /* en: true for English, or a language code ('de', 'es') */
+  const lng   = en === true ? 'en' : (en || 'he');
+  const url   = `${LANG_BASE[lng] || BASE_URL}${canonicalPath}`;
   const img   = image
     ? (image.startsWith('http') ? image : `${BASE_URL}${image}`)
     : `${BASE_URL}/og-image.jpg`;
@@ -185,8 +198,8 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
   /* English shell: the document's language, direction and locale */
   if (en) {
     out = out
-      .replace('<html lang="he" dir="rtl">', '<html lang="en" dir="ltr">')
-      .replace(/(<meta property="og:locale"\s+content=")[^"]*(")/, '$1en_US$2');
+      .replace('<html lang="he" dir="rtl">', `<html lang="${lng}" dir="ltr">`)
+      .replace(/(<meta property="og:locale"\s+content=")[^"]*(")/, `$1${LOCALE[lng]}$2`);
   }
 
   /* A page that exists in both languages names both (hreflang) */
@@ -272,6 +285,7 @@ const EN_HIDDEN = new Set(['sinai']);   /* = HIDDEN_ON_EN in src/data/expedition
 const hasEnglish = exp => exp.live !== false && !EN_HIDDEN.has(exp.slug) && Boolean(exp.seoTitleEn && exp.descEn);
 let expCount = 0;
 let enCount = 0;
+let foreignCount = 0;
 for (const exp of EXPS) {
   if (!exp.slug || exp.teaser) continue;   // teaser cards have no detail page
 
@@ -396,6 +410,41 @@ for (const exp of EXPS) {
       },
     }, EN_DIST);
     if (hasEnglish(exp)) enCount++;
+  }
+
+  /* German and Spanish shells for the trips those sites offer */
+  if (SITES.CORE_TRIPS.includes(exp.slug) && exp.live !== false) {
+    const { FAQ_I18N, defaultFaqI18n } = await import(path.join(ROOT, 'src/data/tripI18n.js'));
+    for (const lng of SITES.PARTIAL_LANGS) {
+      const S = lng === 'de' ? 'De' : 'Es';
+      const url = `${LANG_BASE[lng]}/expedition/${exp.slug}`;
+      writeShell(`expedition/${exp.slug}`, {
+        en:            lng,
+        title:         exp['seoTitle' + S] || exp.seoTitleEn,
+        description:   exp['seoDescription' + S] || exp.seoDescriptionEn || '',
+        canonicalPath: `/expedition/${exp.slug}`,
+        alternatesPath: `/expedition/${exp.slug}`,
+        image:         exp.ogImage || exp.img || '',
+        heroImage:     expHeroImage(exp),
+        heroKind:      'trip',
+        preHero:       preHeroHtml('trip', expHeroImage(exp)),
+        text:          wrapText(expeditionTextEn(exp, FAQ_I18N[exp.slug]?.[lng] || defaultFaqI18n(lng, exp.groupCapacity || 15), lng)),
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@graph': [{
+            '@type': 'TouristTrip',
+            '@id': `${url}#trip`,
+            name: exp['name' + S] || exp.nameEn,
+            description: exp['seoDescription' + S] || exp.seoDescriptionEn,
+            url,
+            image: expImage,
+            inLanguage: lng,
+            provider: { '@type': 'Organization', name: 'HighAir Expeditions', url: LANG_BASE[lng] },
+          }],
+        },
+      }, path.join(DIST, lng));
+      foreignCount++;
+    }
   }
 }
 
@@ -810,6 +859,37 @@ for (const pg of EN_STATIC) {
   writeShell(pg.path, { en: true, title: pg.title, description: pg.description, canonicalPath: `/${pg.path}`, alternatesPath: `/${pg.path}` }, EN_DIST);
 }
 
+// ── German and Spanish static pages and homepages (dist/de, dist/es) ──
+{
+  const pages = [
+    { path: 'about',       title: 'Our Story | HighAir Expeditions', description: EN_STATIC[0].description },
+    { path: 'contact',     title: 'Contact Us | HighAir Expeditions', description: EN_STATIC[2].description },
+    { path: 'annual-plan', title: 'International Expedition Schedule | HighAir Expeditions', description: EN_STATIC[4].description },
+  ];
+  for (const lng of SITES.PARTIAL_LANGS) {
+    for (const pg of pages) {
+      writeShell(pg.path, { en: lng, title: uiTx(lng, pg.title), description: uiTx(lng, pg.description), canonicalPath: `/${pg.path}`, alternatesPath: `/${pg.path}` }, path.join(DIST, lng));
+    }
+    writeShell('app', { en: lng, title: APP.APP_PAGE[lng].metaTitle, description: APP.APP_PAGE[lng].metaDesc, canonicalPath: '/app', alternatesPath: '/app' }, path.join(DIST, lng));
+    const S = lng === 'de' ? 'De' : 'Es';
+    const trips = liveExps.filter(e => SITES.CORE_TRIPS.includes(e.slug));
+    const homeText = `<article><h1>HighAir Expeditions</h1><p>${uiTx(lng, 'Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.').replace(/[<>&"]/g, '')}</p><ul>`
+      + trips.map(e => `<li><a href="/expedition/${e.slug}">${String(e['name' + S] || e.nameEn).replace(/[<>&"]/g, '')}</a></li>`).join('')
+      + '</ul></article>';
+    const home = injectMeta(template, {
+      en: lng,
+      title: uiTx(lng, 'Trekking and Climbing Expeditions | HighAir Expeditions'),
+      description: uiTx(lng, 'Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.'),
+      canonicalPath: '/',
+      alternatesPath: '/',
+    })
+      .replace(HOME_HERO_PRELOAD, heroPreload('/videos/hero-home-poster.jpg', 'home'))
+      .replace(EMPTY_ROOT, `<div id="root">${preHeroHtml('home', '/videos/hero-home-poster.jpg')}${wrapText(homeText)}</div>`);
+    fs.mkdirSync(path.join(DIST, lng), { recursive: true });
+    fs.writeFileSync(path.join(DIST, lng, 'index.html'), home, 'utf8');
+  }
+}
+
 // ── English homepage (dist/en/index.html, served on the en. host by middleware.js) ──
 {
   const enHomeText = '<article><h1>HighAir Expeditions</h1>'
@@ -838,4 +918,5 @@ console.log(`  Blog posts  : ${blogCount}`);
 console.log(`  Israel      : ${israelCount}`);
 console.log(`  Static      : ${staticPages.length}`);
 console.log(`  English     : ${enCount} expeditions + home`);
+console.log(`  German/Span.: ${foreignCount} expedition shells + home, about, contact, annual plan, app`);
 console.log(`  Total       : ${expCount + blogCount + israelCount + staticPages.length}`);

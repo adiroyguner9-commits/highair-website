@@ -6,6 +6,7 @@
  * query strings), Step 2 shows the shared BookingWidget calendar.
  */
 
+import { tx, loc } from '../../website/lang.js';
 import { useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -50,7 +51,7 @@ function Field({ label, id, type = 'text', value, onChange, placeholder, require
 
 export default function BookCall() {
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const isRtl = !isEn;
   const dir = isEn ? 'ltr' : 'rtl';
   const { isMobile } = useBreakpoint();
@@ -66,9 +67,9 @@ export default function BookCall() {
   const [sp] = useSearchParams();
   const rawTok = code || sp.get('l') || '';   // path code (clean) or legacy ?l= token
   const leadToken = /^(rec[A-Za-z0-9]{14}|[a-z0-9]{4,12})$/.test(rawTok) ? rawTok : '';
-  const destHe = exp ? (isEn ? exp.nameEn || exp.name : exp.nameHe) : '';
-  const bookingExpedition = exp ? (isEn ? exp.nameEn || exp.name : exp.nameHe)
-                                : (isRtl ? 'שיחת ייעוץ' : 'Consultation call');
+  const destHe = exp ? (isEn ? loc(exp, "name") || exp.name : exp.nameHe) : '';
+  const bookingExpedition = exp ? (isEn ? loc(exp, "name") || exp.name : exp.nameHe)
+                                : (isRtl ? 'שיחת ייעוץ' : tx("Consultation call"));
 
   const [form, setForm]           = useState({ name: '', dial: defaultDial(), phone: '', email: '' });
   const [nameError, setNameError] = useState('');
@@ -78,10 +79,12 @@ export default function BookCall() {
 
   usePageMeta({
     title: exp
-      ? (isEn ? `Book a Call · ${destHe} | HighAir Expeditions` : `קביעת שיחה · ${destHe} | HighAir Expeditions`)
-      : (isEn ? 'Book a Call | HighAir Expeditions' : 'קביעת שיחה | HighAir Expeditions'),
+      ? (isEn ? tx("Book a Call · {0} | HighAir Expeditions", [destHe]) : `קביעת שיחה · ${destHe} | HighAir Expeditions`)
+      : (isEn ? tx("Book a Call | HighAir Expeditions") : 'קביעת שיחה | HighAir Expeditions'),
     description: isEn
-      ? 'Pick a time that works for you and our team will call to answer every question about your expedition.'
+      ? tx(
+      "Pick a time that works for you and our team will call to answer every question about your expedition."
+    )
       : 'בחרו זמן שנוח לכם והצוות שלנו יחזור אליכם בשיחה לענות על כל שאלה לגבי המשלחת.',
     canonicalPath: exp ? `/book/${exp.slug}` : '/book',
   });
@@ -90,30 +93,37 @@ export default function BookCall() {
     e.preventDefault();
     const nameOk  = form.name.trim().length >= 2;
     const phoneOk = checkPhone(form.dial, form.phone);
-    if (!nameOk)  setNameError(isEn ? 'Please enter your name' : 'נא להזין שם');
-    if (!phoneOk) setPhoneError(isEn ? 'Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567' : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
+    if (!nameOk)  setNameError(isEn ? tx("Please enter your name") : 'נא להזין שם');
+    if (!phoneOk) setPhoneError(isEn ? tx(
+      "Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567"
+    ) : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
     if (!nameOk || !phoneOk) return;
     setStep('booking');
   }
 
   const T = {
-    heroTitle: isEn ? 'Book a Call' : 'בואו נקבע שיחה',
+    heroTitle: isEn ? tx("Book a Call") : 'בואו נקבע שיחה',
     heroSub: exp
       ? (isEn
-          ? `Interested in ${destHe}? Pick a time and we'll call to answer every question and help you plan.`
+          ? tx(
+      "Interested in {0}? Pick a time and we'll call to answer every question and help you plan.",
+      [destHe]
+    )
           : `התעניינת ב${destHe}? בחרו זמן שנוח לכם, נחזור אליכם בשיחה לענות על כל שאלה ולעזור לתכנן.`)
       : (isEn
-          ? "Pick a time that suits you. We'll call to answer every question and help you plan."
+          ? tx(
+      "Pick a time that suits you. We'll call to answer every question and help you plan."
+    )
           : 'בחרו זמן שנוח לכם, נחזור אליכם בשיחה כדי לענות על כל שאלה ולעזור לתכנן.'),
-    detailsTitle: isEn ? 'Your details' : 'הפרטים שלכם',
-    detailsSub: isEn ? "First, who are we calling?" : 'קודם כל, למי אנחנו מתקשרים?',
-    name: isEn ? 'Full name' : 'שם מלא',
-    phone: isEn ? 'Phone number' : 'מספר טלפון',
-    email: isEn ? 'Email address' : 'כתובת מייל',
-    namePH: isEn ? 'Your name' : 'השם שלכם',
-    emailPH: isEn ? 'you@example.com' : 'כתובת המייל שלכם',
-    cont: isEn ? 'Choose a time →' : 'לבחירת מועד ←',
-    back: isEn ? '← Edit details' : 'עריכת הפרטים →',
+    detailsTitle: isEn ? tx("Your details") : 'הפרטים שלכם',
+    detailsSub: isEn ? tx("First, who are we calling?") : 'קודם כל, למי אנחנו מתקשרים?',
+    name: isEn ? tx("Full name") : 'שם מלא',
+    phone: isEn ? tx("Phone number") : 'מספר טלפון',
+    email: isEn ? tx("Email address") : 'כתובת מייל',
+    namePH: isEn ? tx("Your name") : 'השם שלכם',
+    emailPH: isEn ? tx("you@example.com") : 'כתובת המייל שלכם',
+    cont: isEn ? tx("Choose a time →") : 'לבחירת מועד ←',
+    back: isEn ? tx("← Edit details") : 'עריכת הפרטים →',
   };
 
   return (

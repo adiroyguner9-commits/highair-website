@@ -17,7 +17,7 @@ import IsraelTrips from './IsraelTrips.jsx';
 
 export default function IsraelTreksPage() {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
   const { isMobile } = useBreakpoint();
 
   /* SEO + Schema.org (canonical, OG, hreflang, JSON-LD) via the shared hook. */

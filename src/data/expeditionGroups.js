@@ -17,9 +17,14 @@ import i18n from '../i18n.js';
    They drop out of the homepage, menus and footer there; their page stays
    reachable by its link, kept out of search (generate-html-shells.mjs). */
 export const HIDDEN_ON_EN = new Set(['sinai']);
-const forLanguage = list => (i18n.language === 'en'
-  ? list.filter(e => !HIDDEN_ON_EN.has(e.slug))
-  : list);
+/* German and Spanish carry the core trips only (src/website/lang.js). */
+const CORE_ONLY = ['de', 'es'];
+const CORE_TRIPS = new Set(['kilimanjaro', 'kilimanjaro-kosher']);
+const forLanguage = list => (CORE_ONLY.includes(i18n.language)
+  ? list.filter(e => CORE_TRIPS.has(e.slug))
+  : i18n.language !== 'he'
+    ? list.filter(e => !HIDDEN_ON_EN.has(e.slug))
+    : list);
 const NAV_EXPS  = forLanguage(ALL_NAV_EXPS);
 const CARD_EXPS = forLanguage(ALL_CARD_EXPS);
 

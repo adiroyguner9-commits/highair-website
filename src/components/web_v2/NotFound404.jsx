@@ -10,7 +10,7 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 
 export default function NotFound404() {
   const { t, i18n } = useTranslation();
-  const dir  = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir  = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isEn = dir === 'ltr';
   usePageMeta({
     title:       isEn ? '404 - Page Not Found | HighAir Expeditions' : '404 - הדף לא נמצא | HighAir Expeditions',

@@ -124,7 +124,8 @@ export function validatePhone(dial, local) {
  */
 /* The English site serves visitors abroad (5 Nov 2026): its forms open on
    US +1 and list Israel last; the Hebrew site keeps Israel first. */
-export const defaultDial = () => (i18n.language === 'en' ? '+1' : '+972');
+/* The site's own country first: Israel on www, the US on en., Germany on de., Spain on es. */
+export const defaultDial = () => ({ he: '+972', de: '+49', es: '+34' }[i18n.language] || '+1');
 const countriesFor = isEn => (isEn
   ? [...COUNTRIES.filter(c => c.code !== 'IL'), ...COUNTRIES.filter(c => c.code === 'IL')]
   : COUNTRIES);
@@ -200,7 +201,7 @@ export default function PhoneField({
               boxSizing: 'border-box',
             }}
           >
-            {countriesFor(i18n.language === 'en').map(c => (
+            {countriesFor(i18n.language !== 'he').map(c => (
               <option key={c.code} value={c.dial}>{c.label}</option>
             ))}
           </select>

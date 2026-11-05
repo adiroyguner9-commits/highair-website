@@ -7,9 +7,9 @@
  * results for our pages.
  */
 import { useEffect } from 'react';
+import { BASE_URLS, LANGS, currentLang, hasPage } from './lang.js';
 
 const BASE_URL    = 'https://www.highair-expeditions.com';
-const EN_BASE_URL = 'https://en.highair-expeditions.com';
 const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
 export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG, jsonLd, ogType = 'website', noIndex = false }) {
@@ -21,12 +21,15 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
       if (el) el.setAttribute(attr, value);
     }
 
-    /* Two indexed languages (5 Nov 2026, going international): Hebrew on www,
-       English on en. Each page's canonical is its own host, and both versions
-       name each other with hreflang, so neither is a duplicate of the other.
-       Until then en. was noindex with its canonical on www. */
-    const isEnHost = typeof window !== 'undefined' && window.location.hostname.startsWith('en.');
-    const ownBase  = isEnHost ? EN_BASE_URL : BASE_URL;
+    /* Four sites (Hebrew www, English en., German de., Spanish es.; 5 Nov
+       2026). Each page's canonical is its own host, and every language that
+       has the page names the others with hreflang. German and Spanish carry
+       the core pages only (lang.js); any other page there is noindex. */
+    const lng      = currentLang();
+    const ownBase  = BASE_URLS[lng] || BASE_URL;
+    const exists   = hasPage(lng, canonicalPath);
+    const LOCALE   = { he: 'he_IL', en: 'en_US', de: 'de_DE', es: 'es_ES' };
+    noIndex = noIndex || !exists;
 
     setMeta('meta[name="description"]',        'content', description);
     setMeta('meta[property="og:title"]',       'content', title);
@@ -34,9 +37,9 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
     setMeta('meta[property="og:url"]',         'content', ownBase + canonicalPath);
     setMeta('meta[property="og:image"]',       'content', image);
     setMeta('meta[property="og:type"]',        'content', ogType);
-    setMeta('meta[property="og:locale"]',      'content', isEnHost ? 'en_US' : 'he_IL');
+    setMeta('meta[property="og:locale"]',      'content', LOCALE[lng] || 'he_IL');
     setMeta('link[rel="canonical"]',           'href',    ownBase + canonicalPath);
-    document.documentElement.setAttribute('lang', isEnHost ? 'en' : 'he');
+    document.documentElement.setAttribute('lang', lng);
 
     /* Robots. 404 / teaser pages pass noIndex explicitly (noindex,nofollow). */
     let robotsMeta = document.querySelector('meta[name="robots"]');
@@ -49,7 +52,7 @@ export function usePageMeta({ title, description, canonicalPath = '/', image = D
 
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
     if (!noIndex) {
-      [['he', BASE_URL], ['en', EN_BASE_URL], ['x-default', BASE_URL]].forEach(([lang, base]) => {
+      [...LANGS.filter(l => hasPage(l, canonicalPath)).map(l => [l, BASE_URLS[l]]), ['x-default', BASE_URL]].forEach(([lang, base]) => {
         const link = document.createElement('link');
         link.rel = 'alternate';
         link.hreflang = lang;

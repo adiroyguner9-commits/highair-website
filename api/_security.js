@@ -133,6 +133,8 @@ const ALLOWED_ORIGINS = new Set([
   'https://highair-expeditions.com',
   'https://www.highair-expeditions.com',
   'https://en.highair-expeditions.com',
+  'https://de.highair-expeditions.com',
+  'https://es.highair-expeditions.com',
   'https://app.highair-expeditions.com',   // member/admin webapp — Lead Center agent-booked calls
   'https://highair-website.vercel.app',
 ]);

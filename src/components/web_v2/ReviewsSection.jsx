@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { currentLang } from '../../website/lang.js';
 import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
@@ -105,13 +106,25 @@ function GoogleG() {
   );
 }
 
+/* "3 months ago" in German / Spanish; the review text itself stays as written */
+function relDate(str) {
+  const lng = currentLang();
+  const m = /^(\d+|a|an)\s+(day|week|month|year)s?\s+ago$/i.exec(String(str || '').trim());
+  if (!m || (lng !== 'de' && lng !== 'es')) return str;
+  const n = /^\d+$/.test(m[1]) ? Number(m[1]) : 1;
+  const W = { de: { day: ['Tag', 'Tagen'], week: ['Woche', 'Wochen'], month: ['Monat', 'Monaten'], year: ['Jahr', 'Jahren'] },
+              es: { day: ['día', 'días'], week: ['semana', 'semanas'], month: ['mes', 'meses'], year: ['año', 'años'] } }[lng][m[2].toLowerCase()];
+  const w = W[n === 1 ? 0 : 1];
+  return lng === 'de' ? `vor ${n === 1 ? (m[2].toLowerCase() === 'week' ? 'einer' : 'einem') : n} ${w}` : `hace ${n === 1 ? (m[2].toLowerCase() === 'week' ? 'una' : 'un') : n} ${w}`;
+}
+
 function ReviewCard({ name, nameEn, initials, initialsEn, date, dateEn, text, textEn, idx }) {
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
   const displayName     = isEn ? (nameEn     || name)     : name;
   const displayInitials = isEn ? (initialsEn || initials) : initials;
-  const displayDate     = isEn ? (dateEn     || date)     : date;
+  const displayDate     = isEn ? relDate(dateEn     || date)     : date;
   const displayText     = isEn ? (textEn     || text)     : text;
   return (
     <div style={{
@@ -212,7 +225,7 @@ function ReviewCard({ name, nameEn, initials, initialsEn, date, dateEn, text, te
 export default function ReviewsSection() {
   const { isMobile, isTablet } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
   const [reviews, setReviews] = useState(REVIEWS);

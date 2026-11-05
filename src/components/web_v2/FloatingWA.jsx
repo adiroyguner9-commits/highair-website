@@ -16,7 +16,7 @@ const WA_MSG_EN  = encodeURIComponent('Hi! I\'d love to hear more about HighAir 
 export default function FloatingWA() {
   const [hovered, setHovered] = useState(false);
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const href = `https://wa.me/${WA_PHONE}?text=${isEn ? WA_MSG_EN : WA_MSG_HE}`;
 
   return (

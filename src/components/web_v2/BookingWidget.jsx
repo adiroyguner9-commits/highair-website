@@ -4,8 +4,10 @@
  * Fetches available slots from /api/slots and books via /api/book-slot.
  */
 
+import { tx } from '../../website/lang.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n.js';
 import { RADIUS, FS, COLOR, EASING } from '../../website/theme.js';
 import { Analytics } from '../../utils/analytics.js';
 
@@ -29,8 +31,14 @@ function formatDateHe(dateStr, isRtl = true) {
   if (isRtl) {
     return `יום ${HE_DAYS_FULL[d.getDay()]}, ${d.getDate()} ב${HE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
   }
+  const loc = FOREIGN_LOCALE[i18n.language];
+  if (loc) return d.toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   return `${EN_DAYS_FULL[d.getDay()]}, ${EN_MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
+/* German and Spanish calendars: day and month names from the browser (Intl) */
+const FOREIGN_LOCALE = { de: 'de-DE', es: 'es-ES' };
+const intlMonths = loc => Array.from({ length: 12 }, (_, m) => new Date(2026, m, 1).toLocaleDateString(loc, { month: 'long' }));
+const intlDaysShort = loc => Array.from({ length: 7 }, (_, w) => new Date(2026, 0, 4 + w).toLocaleDateString(loc, { weekday: 'short' }));
 
 /* ── SVG icons (stroke-based, matches site style) ── */
 const IC = {
@@ -87,9 +95,10 @@ const NAV_BTN = {
 
 export default function BookingWidget({ name, phone, email, expedition, expeditionSlug, expeditionValue, leadToken, onSkip }) {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
-  const DAY_SHORT = isRtl ? HE_DAY_SHORT : EN_DAY_SHORT;
-  const MONTHS    = isRtl ? HE_MONTHS    : EN_MONTHS;
+  const isRtl = i18n.language === 'he';
+  const fLoc      = FOREIGN_LOCALE[i18n.language];
+  const DAY_SHORT = isRtl ? HE_DAY_SHORT : fLoc ? intlDaysShort(fLoc) : EN_DAY_SHORT;
+  const MONTHS    = isRtl ? HE_MONTHS    : fLoc ? intlMonths(fLoc)    : EN_MONTHS;
 
   const today = new Date(); today.setHours(0,0,0,0);
 
@@ -218,10 +227,10 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
              "try again" would be wrong advice for a day that is simply shut. */
           setError(
             data.error === 'slot_closed'
-              ? (isRtl ? 'אנחנו סגורים בתאריך הזה - נשמח לקבוע ליום אחר' : 'We are closed on this date - please choose another day')
+              ? (isRtl ? 'אנחנו סגורים בתאריך הזה - נשמח לקבוע ליום אחר' : tx("We are closed on this date - please choose another day"))
             : data.error === 'slot_past'
-              ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : 'This time has passed or is too soon - please pick a later slot')
-              : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : 'This slot was just taken - please choose another time'));
+              ? (isRtl ? 'השעה הזו כבר עברה או קרובה מדי - בחרו שעה מאוחרת יותר' : tx("This time has passed or is too soon - please pick a later slot"))
+              : (isRtl ? 'הסלוט הזה נתפס זה עתה - בחרו שעה אחרת' : tx("This slot was just taken - please choose another time")));
           setSlotsLoad(true);
           fetchSlots(selDate)
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -229,7 +238,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             .catch(() => { setSlotsLoad(false); });
         } else {
           Analytics.bookingError(data.error || `http_${res.status}`);
-          setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : 'Booking error - please try again');
+          setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : tx("Booking error - please try again"));
         }
         setSubmitting(false);
         return;
@@ -237,7 +246,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
       setBooked({ date: selDate, time: selSlot });
     } catch {
       Analytics.bookingError('network');
-      setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : 'Booking error - please try again');
+      setError(isRtl ? 'שגיאה בתיאום - נסו שוב' : tx("Booking error - please try again"));
       setSubmitting(false);
     }
   }
@@ -253,7 +262,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
           fontFamily: 'Ploni, sans-serif', fontSize: FS.h3, fontWeight: 700,
           color: '#fff', margin: '0 0 8px',
         }}>
-          {isRtl ? 'השיחה נקבעה!' : 'Call Scheduled!'}
+          {isRtl ? 'השיחה נקבעה!' : tx("Call Scheduled!")}
         </h3>
         <p style={{
           fontFamily: 'Ploni, sans-serif', fontSize: '16px', fontWeight: 600,
@@ -274,7 +283,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
               fontFamily: 'Ploni, sans-serif', fontSize: '13px',
               color: 'rgba(255,255,255,0.45)',
             }}>
-              {isRtl ? 'אישור נשלח למייל שלך' : 'Confirmation sent to your email'}
+              {isRtl ? 'אישור נשלח למייל שלך' : tx("Confirmation sent to your email")}
             </span>
           </div>
         )}
@@ -289,13 +298,13 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
         fontFamily: 'Ploni, sans-serif', fontSize: FS.h3, fontWeight: 700,
         color: '#fff', margin: '0 0 6px', textAlign: 'center',
       }}>
-        {isRtl ? 'תאמו שיחה עם הצוות שלנו' : 'Schedule a Call with Our Team'}
+        {isRtl ? 'תאמו שיחה עם הצוות שלנו' : tx("Schedule a Call with Our Team")}
       </h3>
       <p style={{
         fontFamily: 'Ploni, sans-serif', fontSize: '14px',
         color: 'rgba(255,255,255,0.45)', margin: '0 0 22px', textAlign: 'center',
       }}>
-        {isRtl ? 'בחרו תאריך ושעה שמתאימים לכם' : 'Choose a date and time that works for you'}
+        {isRtl ? 'בחרו תאריך ושעה שמתאימים לכם' : tx("Choose a date and time that works for you")}
       </p>
 
       {/* ── Calendar ── */}
@@ -311,7 +320,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
           display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', marginBottom: '14px',
         }}>
-          <button onClick={nextMonth} aria-label={isRtl ? 'חודש הבא' : 'Next month'} style={NAV_BTN}>{IC.chevronRight}</button>
+          <button onClick={nextMonth} aria-label={isRtl ? 'חודש הבא' : tx("Next month")} style={NAV_BTN}>{IC.chevronRight}</button>
           <span style={{
             fontFamily: 'Ploni, sans-serif', fontWeight: 700,
             color: '#fff', fontSize: '15px',
@@ -319,7 +328,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             {MONTHS[viewMonth]} {viewYear}
           </span>
           <button onClick={prevMonth} disabled={atMinMonth}
-            aria-label={isRtl ? 'חודש קודם' : 'Previous month'}
+            aria-label={isRtl ? 'חודש קודם' : tx("Previous month")}
             style={{ ...NAV_BTN, opacity: atMinMonth ? 0.2 : 1, cursor: atMinMonth ? 'default' : 'pointer' }}>
             {IC.chevronLeft}
           </button>
@@ -391,21 +400,21 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
               textAlign: 'center', fontFamily: 'Ploni, sans-serif',
               color: 'rgba(255,255,255,0.35)', fontSize: '14px', margin: '12px 0',
             }}>
-              {isRtl ? 'טוען שעות...' : 'Loading times...'}
+              {isRtl ? 'טוען שעות...' : tx("Loading times...")}
             </p>
           ) : slots.length === 0 ? (
             <p style={{
               textAlign: 'center', fontFamily: 'Ploni, sans-serif',
               color: 'rgba(255,255,255,0.35)', fontSize: '14px', margin: '12px 0',
             }}>
-              {isRtl ? 'אין שעות פנויות ביום זה - בחרו יום אחר' : 'No available times on this day - please choose another'}
+              {isRtl ? 'אין שעות פנויות ביום זה - בחרו יום אחר' : tx("No available times on this day - please choose another")}
             </p>
           ) : (
             <>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', margin: '0 0 10px' }}>
                 {IC.clock}
                 <span style={{ fontFamily: 'Ploni, sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
-                  {isRtl ? 'בחרו שעה' : 'Choose a time'}
+                  {isRtl ? 'בחרו שעה' : tx("Choose a time")}
                 </span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '8px' }}>
@@ -473,10 +482,10 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             }}
           >
             {submitting
-              ? (isRtl ? 'שולח...' : 'Sending...')
+              ? (isRtl ? 'שולח...' : tx("Sending..."))
               : isRtl
                 ? `אשר שיחה - ${formatDateHe(selDate, true)} ב-${selSlot}`
-                : `Confirm Call - ${formatDateHe(selDate, false)} at ${selSlot}`
+                : tx("Confirm Call - {0} at {1}", [formatDateHe(selDate, false), selSlot])
             }
           </button>
         )}
@@ -493,7 +502,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             cursor:       'pointer',
           }}
         >
-          {isRtl ? 'אולי מאוחר יותר' : 'Maybe later'}
+          {isRtl ? 'אולי מאוחר יותר' : tx("Maybe later")}
         </button>
       </div>
     </div>

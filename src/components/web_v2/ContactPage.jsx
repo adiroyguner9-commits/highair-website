@@ -1,3 +1,4 @@
+import { tx } from '../../website/lang.js';
 import { useState } from 'react';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
@@ -90,7 +91,7 @@ function Field({ label, id, type = 'text', value, onChange, placeholder, multili
 
 export default function ContactPage() {
  const { i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const isEn = i18n.language !== 'he';
  const dir = isEn ? 'ltr' : 'rtl';
  const { isMobile } = useBreakpoint();
 
@@ -103,9 +104,11 @@ export default function ContactPage() {
  const [btnHov, setBtnHov] = useState(false);
 
  usePageMeta({
- title: isEn ? 'Contact Us | HighAir Expeditions' : 'יצירת קשר | HighAir Expeditions',
+ title: isEn ? tx("Contact Us | HighAir Expeditions") : 'יצירת קשר | HighAir Expeditions',
  description: isEn
- ? 'Reach the HighAir Expeditions team by WhatsApp, email or phone. We respond within 24 hours.'
+ ? tx(
+  "Reach the HighAir Expeditions team by WhatsApp, email or phone. We respond within 24 hours."
+ )
  : 'צרו קשר עם צוות HighAir Expeditions — וואטסאפ, מייל או טלפון. מענה תוך 24 שעות.',
  canonicalPath: '/contact',
  });
@@ -114,7 +117,9 @@ export default function ContactPage() {
 
  function validatePhoneField(val) {
  const ok = checkPhone(form.dial, val);
- setPhoneError(ok ? '' : (isEn ? 'Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567' : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567'));
+ setPhoneError(ok ? '' : (isEn ? tx(
+  "Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567"
+ ) : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567'));
  return ok;
  }
 
@@ -125,8 +130,10 @@ export default function ContactPage() {
  const nameOk = form.name.trim().length >= 2;
  const phoneOk = checkPhone(form.dial, form.phone);
 
- if (!nameOk) setNameError(isEn ? 'Please enter your name' : 'נא להזין שם');
- if (!phoneOk) setPhoneError(isEn ? 'Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567' : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
+ if (!nameOk) setNameError(isEn ? tx("Please enter your name") : 'נא להזין שם');
+ if (!phoneOk) setPhoneError(isEn ? tx(
+  "Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567"
+ ) : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
  if (!nameOk || !phoneOk) return;
 
  setSubmitting(true);
@@ -152,35 +159,39 @@ export default function ContactPage() {
  setSent(true);
  } catch (err) {
  console.error('[contact] submit error:', err);
- setServerError(isEn ? 'Something went wrong. Please try again.' : 'שגיאה בשליחה — נסו שוב.');
+ setServerError(isEn ? tx("Something went wrong. Please try again.") : 'שגיאה בשליחה — נסו שוב.');
  } finally {
  setSubmitting(false);
  }
  }
 
  const T = {
- heroTitle: isEn ? "Let's Talk" : 'דברו איתנו',
+ heroTitle: isEn ? tx("Let's Talk") : 'דברו איתנו',
  heroSub: isEn
- ? 'Whether you\'re planning your first summit or your tenth — we\'re here for every question, big or small.'
+ ? tx(
+  "Whether you're planning your first summit or your tenth — we're here for every question, big or small."
+ )
  : 'בין אם אתם מתכננים את הפסגה הראשונה שלכם ובין אם העשירית, אנחנו כאן לכל שאלה, גדולה כקטנה.',
- infoTitle: isEn ? 'Reach us directly' : 'דרכים ליצור קשר',
+ infoTitle: isEn ? tx("Reach us directly") : 'דרכים ליצור קשר',
  infoBody: isEn
- ? 'The fastest way to reach us is WhatsApp — we usually respond within minutes during business hours. You can also email us and we\'ll get back to you within 24 hours.'
+ ? tx(
+  "The fastest way to reach us is WhatsApp — we usually respond within minutes during business hours. You can also email us and we'll get back to you within 24 hours."
+ )
  : 'הדרך המהירה ביותר להגיע אלינו היא וואטסאפ. בדרך כלל אנחנו עונים תוך דקות בשעות העסקים. אפשר גם לשלוח מייל ואנחנו נחזור אליכם תוך 24 שעות.',
- formTitle: isEn ? 'Send us a message' : 'שלחו לנו הודעה',
- formSub: isEn ? 'Fill in your details and we\'ll respond within 24 hours.' : 'מלאו פרטים ונחזור אליכם תוך 24 שעות.',
- name: isEn ? 'Full name' : 'שם מלא',
- phone: isEn ? 'Phone number' : 'מספר טלפון',
- email: isEn ? 'Email address' : 'כתובת מייל',
- message: isEn ? 'Your message' : 'ספרו לנו על החלום שלכם',
- namePH: isEn ? 'Your name' : 'השם שלכם',
+ formTitle: isEn ? tx("Send us a message") : 'שלחו לנו הודעה',
+ formSub: isEn ? tx("Fill in your details and we'll respond within 24 hours.") : 'מלאו פרטים ונחזור אליכם תוך 24 שעות.',
+ name: isEn ? tx("Full name") : 'שם מלא',
+ phone: isEn ? tx("Phone number") : 'מספר טלפון',
+ email: isEn ? tx("Email address") : 'כתובת מייל',
+ message: isEn ? tx("Your message") : 'ספרו לנו על החלום שלכם',
+ namePH: isEn ? tx("Your name") : 'השם שלכם',
  phonePH: isEn ? '+972...' : '05x-xxxxxxx',
- emailPH: isEn ? 'you@example.com' : 'כתובת המייל שלכם',
- messagePH: isEn ? 'Which expedition are you interested in? Any dates in mind?' : 'איזו משלחת מעניינת אתכם? יש לכם תאריכים? כל פרט שתוסיפו יעזור לנו לתת לכם מענה טוב יותר.',
- submit: isEn ? 'Send Message' : 'שלח הודעה',
- sentTitle: isEn ? 'Message sent!' : 'ההודעה נשלחה!',
- sentBody: isEn ? 'We got your message and will get back to you within 24 hours.' : 'קיבלנו את הפנייה שלכם ונחזור אליכם תוך 24 שעות.',
- another: isEn ? 'Send another message' : 'שלח הודעה נוספת',
+ emailPH: isEn ? tx("you@example.com") : 'כתובת המייל שלכם',
+ messagePH: isEn ? tx("Which expedition are you interested in? Any dates in mind?") : 'איזו משלחת מעניינת אתכם? יש לכם תאריכים? כל פרט שתוסיפו יעזור לנו לתת לכם מענה טוב יותר.',
+ submit: isEn ? tx("Send Message") : 'שלח הודעה',
+ sentTitle: isEn ? tx("Message sent!") : 'ההודעה נשלחה!',
+ sentBody: isEn ? tx("We got your message and will get back to you within 24 hours.") : 'קיבלנו את הפנייה שלכם ונחזור אליכם תוך 24 שעות.',
+ another: isEn ? tx("Send another message") : 'שלח הודעה נוספת',
  };
 
  /* contact method row */
@@ -234,212 +245,212 @@ export default function ContactPage() {
  };
 
  return (
- <>
- <Header />
- <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: isMobile ? '80px' : '124px', direction: dir }}>
+  <>
+   <Header />
+   <main id="main-content" style={{ background: '#FAFAF8', minHeight: '100vh', paddingTop: isMobile ? '80px' : '124px', direction: dir }}>
 
- <div style={{
- background: 'linear-gradient(135deg, #0f0c29 0%, #1e1b4b 50%, #2d1b69 100%)',
- padding: isMobile ? '52px 6% 48px' : '72px 8% 64px',
- textAlign: 'center',
- position: 'relative',
- overflow: 'hidden',
- }}>
- {/* decorative blobs */}
- <div style={{ position:'absolute', top:'-60px', left:'-60px', width:'280px', height:'280px',
- borderRadius:'50%', background:'rgba(109,40,217,0.18)', filter:'blur(60px)', pointerEvents:'none' }} />
- <div style={{ position:'absolute', bottom:'-40px', right:'-40px', width:'220px', height:'220px',
- borderRadius:'50%', background:'rgba(139,92,246,0.14)', filter:'blur(50px)', pointerEvents:'none' }} />
+   <div style={{
+   background: 'linear-gradient(135deg, #0f0c29 0%, #1e1b4b 50%, #2d1b69 100%)',
+   padding: isMobile ? '52px 6% 48px' : '72px 8% 64px',
+   textAlign: 'center',
+   position: 'relative',
+   overflow: 'hidden',
+   }}>
+   {/* decorative blobs */}
+   <div style={{ position:'absolute', top:'-60px', left:'-60px', width:'280px', height:'280px',
+   borderRadius:'50%', background:'rgba(109,40,217,0.18)', filter:'blur(60px)', pointerEvents:'none' }} />
+   <div style={{ position:'absolute', bottom:'-40px', right:'-40px', width:'220px', height:'220px',
+   borderRadius:'50%', background:'rgba(139,92,246,0.14)', filter:'blur(50px)', pointerEvents:'none' }} />
 
- <h1 style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: isMobile ? '36px' : '56px',
- fontWeight: 700,
- color: '#FFFFFF',
- margin: '0 0 16px',
- letterSpacing: '-0.03em',
- lineHeight: 1.1,
- position: 'relative',
- }}>
- {T.heroTitle}
- </h1>
- <p style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: isMobile ? '16px' : '18px',
- fontWeight: 300,
- color: 'rgba(255,255,255,0.72)',
- margin: '0 auto',
- lineHeight: 1.75,
- maxWidth: '580px',
- position: 'relative',
- }}>
- {T.heroSub}
- </p>
- </div>
+   <h1 style={{
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: isMobile ? '36px' : '56px',
+   fontWeight: 700,
+   color: '#FFFFFF',
+   margin: '0 0 16px',
+   letterSpacing: '-0.03em',
+   lineHeight: 1.1,
+   position: 'relative',
+   }}>
+   {T.heroTitle}
+   </h1>
+   <p style={{
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: isMobile ? '16px' : '18px',
+   fontWeight: 300,
+   color: 'rgba(255,255,255,0.72)',
+   margin: '0 auto',
+   lineHeight: 1.75,
+   maxWidth: '580px',
+   position: 'relative',
+   }}>
+   {T.heroSub}
+   </p>
+   </div>
 
- <div style={{ maxWidth: '1160px', margin: '0 auto', padding: isMobile ? '36px 5% 64px' : '60px 5% 80px' }}>
- <div style={{
- display: 'grid',
- gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr',
- gap: isMobile ? '28px' : '40px',
- alignItems: 'start',
- }}>
+   <div style={{ maxWidth: '1160px', margin: '0 auto', padding: isMobile ? '36px 5% 64px' : '60px 5% 80px' }}>
+   <div style={{
+   display: 'grid',
+   gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr',
+   gap: isMobile ? '28px' : '40px',
+   alignItems: 'start',
+   }}>
 
- <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
- <div>
- <h2 style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: isMobile ? '22px' : '26px',
- fontWeight: 700,
- color: '#0A0818',
- margin: '0 0 12px',
- letterSpacing: '-0.02em',
- }}>
- {T.infoTitle}
- </h2>
- <p style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: '15px',
- fontWeight: 300,
- color: '#6B6B8A',
- lineHeight: 1.8,
- margin: 0,
- }}>
- {T.infoBody}
- </p>
- </div>
+   <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+   <div>
+   <h2 style={{
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: isMobile ? '22px' : '26px',
+   fontWeight: 700,
+   color: '#0A0818',
+   margin: '0 0 12px',
+   letterSpacing: '-0.02em',
+   }}>
+   {T.infoTitle}
+   </h2>
+   <p style={{
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: '15px',
+   fontWeight: 300,
+   color: '#6B6B8A',
+   lineHeight: 1.8,
+   margin: 0,
+   }}>
+   {T.infoBody}
+   </p>
+   </div>
 
- <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
- <Method
- icon={<IconWA />}
- label="WhatsApp"
- value={COMPANY.phone}
- href={`https://wa.me/${COMPANY.whatsapp}`}
- external
- />
- <Method
- icon={<IconMail />}
- label={isEn ? 'Email' : 'מייל'}
- value={COMPANY.email}
- href={`mailto:${COMPANY.email}`}
- />
- <Method
- icon={<IconPhone />}
- label={isEn ? 'Phone' : 'טלפון'}
- value={COMPANY.phone}
- href={`tel:${COMPANY.phoneLink}`}
- />
- </div>
- </div>
+   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+   <Method
+   icon={<IconWA />}
+   label="WhatsApp"
+   value={COMPANY.phone}
+   href={`https://wa.me/${COMPANY.whatsapp}`}
+   external
+   />
+   <Method
+   icon={<IconMail />}
+   label={isEn ? tx("Email") : 'מייל'}
+   value={COMPANY.email}
+   href={`mailto:${COMPANY.email}`}
+   />
+   <Method
+   icon={<IconPhone />}
+   label={isEn ? tx("Phone") : 'טלפון'}
+   value={COMPANY.phone}
+   href={`tel:${COMPANY.phoneLink}`}
+   />
+   </div>
+   </div>
 
- <div style={{
- background: '#FFFFFF',
- border: '1px solid #ECEAF8',
- borderRadius: RADIUS.xl,
- padding: isMobile ? '28px 22px' : '40px 36px',
- boxShadow: '0 4px 24px rgba(15,15,40,0.06)',
- }}>
- {sent ? (
- <div style={{ textAlign: 'center', padding: '24px 0' }}>
- <div style={{ fontSize: '52px', marginBottom: '16px' }}>✅</div>
- <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
- color: '#0A0818', margin: '0 0 10px' }}>
- {T.sentTitle}
- </h3>
- <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 300,
- color: '#6B6B8A', lineHeight: 1.7, margin: '0 0 24px' }}>
- {T.sentBody}
- </p>
- <button onClick={() => { setSent(false); setForm({ name:'', dial: defaultDial(), phone:'', email:'', message:'' }); setServerError(''); setNameError(''); setPhoneError(''); }}
- style={{
- fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600,
- color: COLOR.primary, background: 'none', border: `1.5px solid ${COLOR.primary}`,
- borderRadius: '999px', padding: '10px 24px', cursor: 'pointer',
- }}>
- {T.another}
- </button>
- </div>
- ) : (
- <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
- <div>
- <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
- color: '#0A0818', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
- {T.formTitle}
- </h2>
- <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 300,
- color: '#6B6B8A', margin: 0 }}>
- {T.formSub}
- </p>
- </div>
+   <div style={{
+   background: '#FFFFFF',
+   border: '1px solid #ECEAF8',
+   borderRadius: RADIUS.xl,
+   padding: isMobile ? '28px 22px' : '40px 36px',
+   boxShadow: '0 4px 24px rgba(15,15,40,0.06)',
+   }}>
+   {sent ? (
+   <div style={{ textAlign: 'center', padding: '24px 0' }}>
+   <div style={{ fontSize: '52px', marginBottom: '16px' }}>✅</div>
+   <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
+   color: '#0A0818', margin: '0 0 10px' }}>
+   {T.sentTitle}
+   </h3>
+   <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 300,
+   color: '#6B6B8A', lineHeight: 1.7, margin: '0 0 24px' }}>
+   {T.sentBody}
+   </p>
+   <button onClick={() => { setSent(false); setForm({ name:'', dial: defaultDial(), phone:'', email:'', message:'' }); setServerError(''); setNameError(''); setPhoneError(''); }}
+   style={{
+   fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600,
+   color: COLOR.primary, background: 'none', border: `1.5px solid ${COLOR.primary}`,
+   borderRadius: '999px', padding: '10px 24px', cursor: 'pointer',
+   }}>
+   {T.another}
+   </button>
+   </div>
+   ) : (
+   <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+   <div>
+   <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
+   color: '#0A0818', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
+   {T.formTitle}
+   </h2>
+   <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 300,
+   color: '#6B6B8A', margin: 0 }}>
+   {T.formSub}
+   </p>
+   </div>
 
- <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' }}>
- <Field id="name" label={T.name} value={form.name}
- onChange={e => { setForm(f => ({ ...f, name: e.target.value })); if (nameError) setNameError(''); }}
- placeholder={T.namePH} required error={!!nameError} errorMsg={nameError} />
+   <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' }}>
+   <Field id="name" label={T.name} value={form.name}
+   onChange={e => { setForm(f => ({ ...f, name: e.target.value })); if (nameError) setNameError(''); }}
+   placeholder={T.namePH} required error={!!nameError} errorMsg={nameError} />
 
- <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
- <PhoneField
- label={<>{T.phone}<span style={{ color: COLOR.primary }}> *</span></>}
- dial={form.dial}
- onDialChange={v => setForm(f => ({ ...f, dial: v }))}
- local={form.phone}
- onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhoneField(v); }}
- error={!!phoneError}
- errorMsg={phoneError}
- />
- </div>
- </div>
+   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+   <PhoneField
+   label={<>{T.phone}<span style={{ color: COLOR.primary }}> *</span></>}
+   dial={form.dial}
+   onDialChange={v => setForm(f => ({ ...f, dial: v }))}
+   local={form.phone}
+   onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhoneField(v); }}
+   error={!!phoneError}
+   errorMsg={phoneError}
+   />
+   </div>
+   </div>
 
- <Field id="email" label={T.email} type="email" value={form.email} onChange={set('email')}
- placeholder={T.emailPH} />
+   <Field id="email" label={T.email} type="email" value={form.email} onChange={set('email')}
+   placeholder={T.emailPH} />
 
- <Field id="message" label={T.message} value={form.message} onChange={set('message')}
- placeholder={T.messagePH} multiline />
+   <Field id="message" label={T.message} value={form.message} onChange={set('message')}
+   placeholder={T.messagePH} multiline />
 
- {serverError && (
- <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626',
- margin: 0, textAlign: 'center' }}>
- {serverError}
- </p>
- )}
+   {serverError && (
+   <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626',
+   margin: 0, textAlign: 'center' }}>
+   {serverError}
+   </p>
+   )}
 
- <button
- type="submit"
- disabled={submitting}
- onMouseEnter={() => setBtnHov(true)}
- onMouseLeave={() => setBtnHov(false)}
- style={{
- display: 'flex',
- alignItems: 'center',
- justifyContent: 'center',
- gap: '10px',
- padding: '15px 28px',
- borderRadius: '999px',
- background: submitting ? '#9B8EC4' : btnHov ? '#5B21B6' : COLOR.primary,
- color: '#FFFFFF',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '16px',
- fontWeight: 700,
- border: 'none',
- cursor: submitting ? 'not-allowed' : 'pointer',
- boxShadow: btnHov && !submitting ? '0 8px 28px rgba(109,40,217,0.45)' : '0 4px 16px rgba(109,40,217,0.3)',
- transform: btnHov && !submitting ? 'translateY(-1px)' : 'none',
- transition: `all 0.18s ${EASING.out}`,
- letterSpacing: '0.01em',
- }}
- >
- <IconMail />
- {submitting ? (isEn ? 'Sending…' : 'שולח…') : T.submit}
- </button>
- </form>
- )}
- </div>
+   <button
+   type="submit"
+   disabled={submitting}
+   onMouseEnter={() => setBtnHov(true)}
+   onMouseLeave={() => setBtnHov(false)}
+   style={{
+   display: 'flex',
+   alignItems: 'center',
+   justifyContent: 'center',
+   gap: '10px',
+   padding: '15px 28px',
+   borderRadius: '999px',
+   background: submitting ? '#9B8EC4' : btnHov ? '#5B21B6' : COLOR.primary,
+   color: '#FFFFFF',
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: '16px',
+   fontWeight: 700,
+   border: 'none',
+   cursor: submitting ? 'not-allowed' : 'pointer',
+   boxShadow: btnHov && !submitting ? '0 8px 28px rgba(109,40,217,0.45)' : '0 4px 16px rgba(109,40,217,0.3)',
+   transform: btnHov && !submitting ? 'translateY(-1px)' : 'none',
+   transition: `all 0.18s ${EASING.out}`,
+   letterSpacing: '0.01em',
+   }}
+   >
+   <IconMail />
+   {submitting ? (isEn ? tx("Sending…") : 'שולח…') : T.submit}
+   </button>
+   </form>
+   )}
+   </div>
 
- </div>
- </div>
+   </div>
+   </div>
 
- </main>
- <SiteFooter />
- </>
+   </main>
+   <SiteFooter />
+  </>
  );
 }

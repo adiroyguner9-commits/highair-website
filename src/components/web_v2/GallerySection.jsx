@@ -7,6 +7,7 @@
  * Photos and sizes come from galleryManifest.json ('home'); the grid shows the
  * 800px copies (imageVariants), the lightbox the originals.
  */
+import { tx } from '../../website/lang.js';
 import { useTranslation } from 'react-i18next';
 import { FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -21,7 +22,7 @@ const ORIENTATIONS = Object.fromEntries(HOME.map((x, i) => [i, x.w >= x.h ? 'lan
 export default function GallerySection() {
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const captions = t('gallery.captions', { returnObjects: true });
   const altOf = i => (Array.isArray(captions) && captions[i]) || t('gallery.sectionTitle');
@@ -67,7 +68,7 @@ export default function GallerySection() {
         thumbOf={smallOf}
         altPrefix={t('gallery.sectionTitle')}
         altOf={altOf}
-        hint={isRtl ? 'לחץ להגדלה' : 'Tap to zoom'}
+        hint={isRtl ? 'לחץ להגדלה' : tx("Tap to zoom")}
         isRtl={isRtl}
         isMobile={isMobile}
       />

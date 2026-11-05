@@ -1,15 +1,16 @@
 /**
  * CancellationPolicy.jsx - מדיניות ביטול / Cancellation Policy
  */
+import { tx } from '../../website/lang.js';
 import { useTranslation } from 'react-i18next';
 import LegalPageLayout, { SECTION, H2, P, LI, UL } from './LegalPageLayout.jsx';
 
 export default function CancellationPolicy() {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
 
   return (
-    <LegalPageLayout title={isRtl ? 'מדיניות ביטולים' : 'Cancellation Policy'} updated="2026-10-19">
+    <LegalPageLayout title={isRtl ? 'מדיניות ביטולים' : tx("Cancellation Policy")} updated="2026-10-19">
       {isRtl ? (
         <>
           <div style={SECTION}>

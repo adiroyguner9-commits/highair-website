@@ -2,6 +2,7 @@
  * LegalPageLayout.jsx - shared wrapper for all legal/info pages
  * Usage: <LegalPageLayout title="..." updated="YYYY-MM-DD">…sections…</LegalPageLayout>
  */
+import { tx } from '../../website/lang.js';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header          from './Header.jsx';
@@ -86,20 +87,27 @@ export const LINK = {
    always claimed to be fresh. Change it together with the text. */
 export default function LegalPageLayout({ title, subtitle, updated, children, pageMeta }) {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
   const when = updated ? new Date(`${updated}T12:00:00Z`) : null;
   const updatedLine = when
     ? (isRtl
       ? `עודכן לאחרונה: ${when.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' })}`
-      : `Last updated: ${when.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`)
+      : tx(
+    "Last updated: {0}",
+    [when.toLocaleDateString({ de: 'de-DE', es: 'es-ES' }[i18n.language] || 'en-US', { month: 'long', year: 'numeric' })]
+  ))
     : '';
   const resolvedSubtitle = subtitle || updatedLine;
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   usePageMeta(pageMeta || {
     title:         `${title} | HighAir Expeditions`,
-    description:   isRtl ? `${title} - HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.` : `${title} - HighAir Expeditions. Trekking and climbing expeditions worldwide.`,
-    canonicalPath: SLUG_MAP[title] || '/',
+    description:   isRtl ? `${title} - HighAir Expeditions. משלחות טיפוס הרים וטרקים בעולם.` : tx(
+      "{0} - HighAir Expeditions. Trekking and climbing expeditions worldwide.",
+      [title]
+    ),
+    /* Titles arrive translated on de./es.; the path follows the page, not its title */
+    canonicalPath: SLUG_MAP[title] || SLUG_MAP[Object.keys(SLUG_MAP).find(k => tx(k) === title)] || window.location.pathname || '/',
   });
 
   const dir = isRtl ? 'rtl' : 'ltr';
@@ -122,12 +130,19 @@ export default function LegalPageLayout({ title, subtitle, updated, children, pa
         </h1>
 
         <p style={{ ...P, color: '#6B6B8A', margin: '0 0 4px' }}>
-          {isRtl ? `${COMPANY.he}, ח.פ. ${COMPANY.number}` : `${COMPANY.en}, company no. ${COMPANY.number}`}
+          {isRtl ? `${COMPANY.he}, ח.פ. ${COMPANY.number}` : tx("{0}, company no. {1}", [COMPANY.en, COMPANY.number])}
         </p>
 
         <p style={{ ...P, color: '#6B6B8A', marginBottom: '48px' }}>
           {resolvedSubtitle || '\u00a0'}
         </p>
+
+        {/* German and Spanish: the legal text stays in English, the binding version */}
+        {!isRtl && i18n.language !== 'en' && (
+          <p style={{ ...P, background: '#F5F3FF', borderRadius: '12px', padding: '14px 18px', marginBottom: '32px' }}>
+            {tx("This page is available in English, which is the binding version.")}
+          </p>
+        )}
 
         {children}
       </div>

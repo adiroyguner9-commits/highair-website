@@ -139,7 +139,7 @@ function decorateWaLink(a, token) {
     const phone = isWaMe ? url.pathname.replace(/\D/g, '') : (url.searchParams.get('phone') || '').replace(/\D/g, '');
     if (phone !== WA_OUR_NUMBER) return;
     const current = url.searchParams.get('text') || '';
-    const trip = waTripMessage(window.location.pathname, document.documentElement.lang === 'en' ? 'en' : 'he');
+    const trip = waTripMessage(window.location.pathname, document.documentElement.lang === 'he' ? 'he' : 'en');
     /* The trip replaces an empty or generic text; a link's own text is kept.
        Either way the invisible marker rides along (withWaMarker). */
     const text = withWaMarker(trip && (!current || WA_GENERIC.includes(current)) ? trip : current, token);

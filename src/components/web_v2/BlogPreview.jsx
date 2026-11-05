@@ -207,7 +207,7 @@ function BlogCard({ post, isEn, dir }) {
 export default function BlogPreview() {
   const navigate  = useNavigate();
   const { i18n }  = useTranslation();
-  const isEn      = i18n.language === 'en';
+  const isEn      = i18n.language !== 'he';
   const dir       = isEn ? 'ltr' : 'rtl';
   const { isMobile } = useBreakpoint();
   const [sectionRef, inView] = useInView(0.1);

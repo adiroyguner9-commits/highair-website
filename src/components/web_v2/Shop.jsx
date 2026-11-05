@@ -422,7 +422,7 @@ function ProductModal({ product, isRtl, isMobile, onClose }) {
 /* ─── Main page ──────────────────────────────────────────── */
 export default function Shop() {
   const { i18n } = useTranslation();
-  const isRtl    = i18n.language !== 'en';
+  const isRtl    = i18n.language === 'he';
   const { isMobile, isTablet } = useBreakpoint();
   const dir = isRtl ? 'rtl' : 'ltr';
   const [selectedProduct, setSelectedProduct] = useState(null);

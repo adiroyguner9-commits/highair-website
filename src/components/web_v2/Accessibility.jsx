@@ -6,7 +6,7 @@ import LegalPageLayout, { SECTION, H2, P, LI, UL, CONTACT_BOX, LINK } from './Le
 
 export default function Accessibility() {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
 
   return (
     <LegalPageLayout title={isRtl ? 'הצהרת נגישות' : 'Accessibility Statement'} updated="2026-10-19">

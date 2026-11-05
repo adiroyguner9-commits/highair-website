@@ -11,6 +11,7 @@
  * · Desktop: mega menu on "משלחות בעולם" hover
  */
 
+import { tx, loc, PARTIAL_LANGS } from '../../website/lang.js';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -82,41 +83,69 @@ function FlagUS({ size = 22 }) {
  );
 }
 
+function FlagDE({ size = 22 }) {
+ return (
+ <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display:'block', flexShrink:0 }}>
+ <defs><clipPath id="cl-de"><circle cx="50" cy="50" r="50"/></clipPath></defs>
+ <g clipPath="url(#cl-de)">
+ <rect width="100" height="34" y="0" fill="#000"/>
+ <rect width="100" height="33" y="33" fill="#DD0000"/>
+ <rect width="100" height="34" y="66" fill="#FFCE00"/>
+ </g>
+ </svg>
+ );
+}
+
+function FlagES({ size = 22 }) {
+ return (
+ <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display:'block', flexShrink:0 }}>
+ <defs><clipPath id="cl-es"><circle cx="50" cy="50" r="50"/></clipPath></defs>
+ <g clipPath="url(#cl-es)">
+ <rect width="100" height="25" y="0" fill="#AA151B"/>
+ <rect width="100" height="50" y="25" fill="#F1BF00"/>
+ <rect width="100" height="25" y="75" fill="#AA151B"/>
+ </g>
+ </svg>
+ );
+}
+
+/* Four sites (5 Nov 2026): Hebrew on www, English / German / Spanish on their
+   own subdomain. The switcher opens a small menu of the other languages. */
 const LANGS = [
- { code: 'he', Flag: FlagIL, label: 'Hebrew' },
- { code: 'en', Flag: FlagUS, label: 'English' },
+ { code: 'he', Flag: FlagIL, label: 'עברית', sub: 'www' },
+ { code: 'en', Flag: FlagUS, label: 'English', sub: 'en' },
+ { code: 'de', Flag: FlagDE, label: 'Deutsch', sub: 'de' },
+ { code: 'es', Flag: FlagES, label: 'Español', sub: 'es' },
 ];
 
 function LangSwitcher() {
  const { i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const [open, setOpen] = useState(false);
+ const current = LANGS.find(l => l.code === i18n.language) || LANGS[0];
 
- function switchLang() {
- const next = isEn ? 'he' : 'en';
- i18n.changeLanguage(next);
+ function switchLang(next) {
+ setOpen(false);
+ if (next === i18n.language) return;
  localStorage.setItem('HA_lang', next);
- /* Subdomain redirect only on the production custom domain */
+ /* Each language has its own host on the production domain */
  const host = window.location.hostname;
  if (host.includes('highair-expeditions.com')) {
- if (next === 'en' && !host.startsWith('en.')) {
- window.location.href = window.location.href.replace(host, 'en.' + host.replace('www.', ''));
- return;
- } else if (next === 'he' && host.startsWith('en.')) {
- window.location.href = window.location.href.replace('en.', '');
+ const target = LANGS.find(l => l.code === next).sub + '.highair-expeditions.com';
+ window.location.href = window.location.href.replace(host, target);
  return;
  }
- }
+ i18n.changeLanguage(next);
  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
  }
 
- /* Show the flag of the OTHER language — tap to switch to it */
- const TargetFlag = isEn ? FlagIL : FlagUS;
- const label = isEn ? 'Switch to Hebrew' : 'Switch to English';
-
+ const Flag = current.Flag;
  return (
+ <div style={{ position: 'relative' }} onMouseLeave={() => setOpen(false)}>
  <button
- onClick={switchLang}
- aria-label={label}
+ onClick={() => setOpen(o => !o)}
+ aria-label="Language"
+ aria-haspopup="true"
+ aria-expanded={open}
  style={{
  display: 'flex',
  alignItems: 'center',
@@ -126,14 +155,32 @@ function LangSwitcher() {
  padding: '8px',
  margin: '-4px',   // 40px to tap, same place in the row
  cursor: 'pointer',
- opacity: 0.85,
- transition: 'opacity 0.15s ease',
+ opacity: 0.9,
  }}
- onMouseEnter={e => e.currentTarget.style.opacity = '1'}
- onMouseLeave={e => e.currentTarget.style.opacity = '0.85'}
  >
- <TargetFlag size={24} />
+ <Flag size={24} />
  </button>
+ {open && (
+ <div role="menu" style={{
+ position: 'absolute', top: '100%', insetInlineEnd: 0, zIndex: 1000,
+ background: '#fff', borderRadius: '12px', boxShadow: '0 8px 28px rgba(0,0,0,0.14)',
+ padding: '6px', minWidth: '150px', direction: 'ltr',
+ }}>
+ {LANGS.map(l => (
+ <button key={l.code} role="menuitem" onClick={() => switchLang(l.code)} style={{
+ display: 'flex', alignItems: 'center', gap: '10px', width: '100%',
+ padding: '9px 10px', border: 'none', borderRadius: '8px', cursor: 'pointer',
+ background: l.code === current.code ? '#F3F0FF' : 'transparent',
+ fontFamily: "'Mazzard', 'Ploni', sans-serif", fontSize: '14px', color: '#0A0818',
+ fontWeight: l.code === current.code ? 700 : 500, textAlign: 'left',
+ }}>
+ <l.Flag size={20} />
+ <span>{l.label}</span>
+ </button>
+ ))}
+ </div>
+ )}
+ </div>
  );
 }
 
@@ -148,7 +195,7 @@ function scrollToSection(href, offset = 124) {
 function MegaMenu({ type, onClose, onKeepOpen }) {
  const navigate = useNavigate();
  const { t, i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const isEn = i18n.language !== 'he';
  const dir = isEn ? 'ltr' : 'rtl';
 
  /* Derived automatically from the expedition data (expeditionGroups.js): add a
@@ -161,7 +208,7 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
     links to /safari — on desktop a CLICK opens the hub page and a HOVER opens
     this menu, which is why the nav entry carries both isPage and hasMega. */
  const MEGA_SAFARI = [
- { label: isEn ? 'Tanzania' : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
+ { label: isEn ? tx("Tanzania") : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
  ];
 
 
@@ -169,57 +216,57 @@ function MegaMenu({ type, onClose, onKeepOpen }) {
  if (type === 'israel') {
  const liveTrips = ISRAEL_TRIPS.filter(isNavTripCurrent).sort(byDeparture);
  return (
- <div
- onMouseEnter={onKeepOpen}
- onMouseLeave={onClose}
- style={{
- position: 'fixed',
- top: '124px',
- left: 0,
- right: 0,
- zIndex: 998,
- background: '#FFFFFF',
- boxShadow: '0 12px 40px rgba(0,0,0,0.10)',
- borderTop: '1px solid #F0F0F0',
- padding: '32px 5% 28px',
- direction: dir,
- }}
- >
- <div style={{
- maxWidth: '1280px',
- margin: '0 auto',
- display: 'grid',
- gridTemplateColumns: 'repeat(4, 1fr)',
- gap: '0',
- }}>
- <div style={{
- padding: '0 24px',
- borderRight: '1px solid #EDE9FE',
- }}>
- {/* Column header — identical style to international */}
- <div style={{
- marginBottom: '10px',
- paddingBottom: '10px',
- borderBottom: '1px solid #EEEEEE',
- }}>
- <span style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 800,
- color: '#6D28D9',
- letterSpacing: '0.01em',
- }}>
- {isEn ? 'Israel' : 'ישראל'}
- </span>
- </div>
- <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
- {liveTrips.map(trip => (
- <IsraelMegaItem key={trip.id || trip.slug} trip={trip} onClose={onClose} />
- ))}
- </div>
- </div>
- </div>
- </div>
+  <div
+  onMouseEnter={onKeepOpen}
+  onMouseLeave={onClose}
+  style={{
+  position: 'fixed',
+  top: '124px',
+  left: 0,
+  right: 0,
+  zIndex: 998,
+  background: '#FFFFFF',
+  boxShadow: '0 12px 40px rgba(0,0,0,0.10)',
+  borderTop: '1px solid #F0F0F0',
+  padding: '32px 5% 28px',
+  direction: dir,
+  }}
+  >
+   <div style={{
+   maxWidth: '1280px',
+   margin: '0 auto',
+   display: 'grid',
+   gridTemplateColumns: 'repeat(4, 1fr)',
+   gap: '0',
+   }}>
+   <div style={{
+   padding: '0 24px',
+   borderRight: '1px solid #EDE9FE',
+   }}>
+   {/* Column header — identical style to international */}
+   <div style={{
+   marginBottom: '10px',
+   paddingBottom: '10px',
+   borderBottom: '1px solid #EEEEEE',
+   }}>
+   <span style={{
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: '14px',
+   fontWeight: 800,
+   color: '#6D28D9',
+   letterSpacing: '0.01em',
+   }}>
+   {isEn ? tx("Israel") : 'ישראל'}
+   </span>
+   </div>
+   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+   {liveTrips.map(trip => (
+   <IsraelMegaItem key={trip.id || trip.slug} trip={trip} onClose={onClose} />
+   ))}
+   </div>
+   </div>
+   </div>
+  </div>
  );
  }
 
@@ -291,36 +338,36 @@ function MegaItem({ exp, onClose }) {
  const [hovered, setHovered] = useState(false);
  const navigate = useNavigate();
  const { i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const isEn = i18n.language !== 'he';
  const isTeaser = !!exp.teaser;   // "בקרוב" item with no page — not clickable
 
  return (
- <button
- className="nav-menu-item"
- onMouseEnter={() => !isTeaser && setHovered(true)}
- onMouseLeave={() => setHovered(false)}
- onMouseDown={e => e.preventDefault()}
- onClick={isTeaser ? undefined : () => { navigate(`/expedition/${exp.slug}`); onClose(); }}
- style={{
- display: 'block',
- padding: '8px 10px',
- borderRadius: '8px',
- border: 'none',
- background: hovered ? '#F5F3FF' : 'transparent',
- cursor: isTeaser ? 'default' : 'pointer',
- textAlign: isEn ? 'left' : 'right',
- direction: isEn ? 'ltr' : 'rtl',
- width: '100%',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 500,
- color: hovered ? '#4C1D95' : '#3D3B5A',
- transition: 'background 0.15s ease, color 0.15s ease',
- }}
- >
- {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
- {exp.comingSoon && <ComingSoonTag />}
- </button>
+  <button
+  className="nav-menu-item"
+  onMouseEnter={() => !isTeaser && setHovered(true)}
+  onMouseLeave={() => setHovered(false)}
+  onMouseDown={e => e.preventDefault()}
+  onClick={isTeaser ? undefined : () => { navigate(`/expedition/${exp.slug}`); onClose(); }}
+  style={{
+  display: 'block',
+  padding: '8px 10px',
+  borderRadius: '8px',
+  border: 'none',
+  background: hovered ? '#F5F3FF' : 'transparent',
+  cursor: isTeaser ? 'default' : 'pointer',
+  textAlign: isEn ? 'left' : 'right',
+  direction: isEn ? 'ltr' : 'rtl',
+  width: '100%',
+  fontFamily: "'Ploni', sans-serif",
+  fontSize: '14px',
+  fontWeight: 500,
+  color: hovered ? '#4C1D95' : '#3D3B5A',
+  transition: 'background 0.15s ease, color 0.15s ease',
+  }}
+  >
+   {isEn ? (loc(exp, "name") || exp.name) : exp.nameHe}
+   {exp.comingSoon && <ComingSoonTag />}
+  </button>
  );
 }
 
@@ -330,20 +377,20 @@ function MegaItem({ exp, onClose }) {
 function ComingSoonTag() {
  const { i18n } = useTranslation();
  return (
- <span style={{
- display: 'inline-block',
- margin: i18n.language === 'en' ? '0 0 0 8px' : '0 8px 0 0',
- padding: '1px 7px',
- borderRadius: '999px',
- background: '#FEF3C7',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '10px',
- fontWeight: 700,
- color: '#92400E',
- verticalAlign: '2px',
- }}>
- {i18n.language === 'en' ? 'Coming soon' : 'בקרוב'}
- </span>
+  <span style={{
+  display: 'inline-block',
+  margin: i18n.language !== 'he' ? '0 0 0 8px' : '0 8px 0 0',
+  padding: '1px 7px',
+  borderRadius: '999px',
+  background: '#FEF3C7',
+  fontFamily: "'Ploni', sans-serif",
+  fontSize: '10px',
+  fontWeight: 700,
+  color: '#92400E',
+  verticalAlign: '2px',
+  }}>
+   {i18n.language !== 'he' ? tx("Coming soon") : 'בקרוב'}
+  </span>
  );
 }
 
@@ -351,34 +398,34 @@ function IsraelMegaItem({ trip, onClose }) {
  const [hovered, setHovered] = useState(false);
  const navigate = useNavigate();
  const { i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const isEn = i18n.language !== 'he';
 
  return (
- <button
- className="nav-menu-item"
- onMouseEnter={() => setHovered(true)}
- onMouseLeave={() => setHovered(false)}
- onMouseDown={e => e.preventDefault()}
- onClick={() => { navigate(`/israel/${trip.slug}`); onClose(); }}
- style={{
- display: 'block',
- padding: '8px 10px',
- borderRadius: '8px',
- border: 'none',
- background: hovered ? '#F5F3FF' : 'transparent',
- cursor: 'pointer',
- textAlign: isEn ? 'left' : 'right',
- direction: isEn ? 'ltr' : 'rtl',
- width: '100%',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 500,
- color: hovered ? '#4C1D95' : '#3D3B5A',
- transition: 'background 0.15s ease, color 0.15s ease',
- }}
- >
- {isEn ? (trip.nameEn || trip.name) : trip.name}
- </button>
+  <button
+  className="nav-menu-item"
+  onMouseEnter={() => setHovered(true)}
+  onMouseLeave={() => setHovered(false)}
+  onMouseDown={e => e.preventDefault()}
+  onClick={() => { navigate(`/israel/${trip.slug}`); onClose(); }}
+  style={{
+  display: 'block',
+  padding: '8px 10px',
+  borderRadius: '8px',
+  border: 'none',
+  background: hovered ? '#F5F3FF' : 'transparent',
+  cursor: 'pointer',
+  textAlign: isEn ? 'left' : 'right',
+  direction: isEn ? 'ltr' : 'rtl',
+  width: '100%',
+  fontFamily: "'Ploni', sans-serif",
+  fontSize: '14px',
+  fontWeight: 500,
+  color: hovered ? '#4C1D95' : '#3D3B5A',
+  transition: 'background 0.15s ease, color 0.15s ease',
+  }}
+  >
+   {isEn ? (loc(trip, "name") || trip.name) : trip.name}
+  </button>
  );
 }
 
@@ -492,253 +539,253 @@ function MenuToggle({ open, onClick, isEn }) {
 function MobileMenu({ navigate, closeMenu, handleNavigation, links }) {
  const [openMegaKey, setOpenMegaKey] = useState(null);
  const { t, i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const isEn = i18n.language !== 'he';
 
  const MEGA_BY_TYPE = {
  treks:  MENU_TREKS.map(g  => ({ label: t('explorer.continents.' + g.i18n), flag: g.flag, exps: g.exps })),
  climbs: MENU_CLIMBS.map(g => ({ label: t('explorer.continents.' + g.i18n), flag: g.flag, exps: g.exps })),
  safari: [
- { label: isEn ? 'Tanzania' : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
+ { label: isEn ? tx("Tanzania") : 'טנזניה', flag: '🌍', expIds: [18, 19, 20] },
  ],
  israel: [
- { label: isEn ? 'Israel' : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(isNavTripCurrent).sort(byDeparture) },
+ { label: isEn ? tx("Israel") : 'ישראל', isIsrael: true, trips: ISRAEL_TRIPS.filter(isNavTripCurrent).sort(byDeparture) },
  ],
  };
 
  return (
- <div
- role="dialog"
- aria-modal="true"
- aria-label={isEn ? 'Navigation menu' : 'תפריט ניווט'}
- style={{
- position: 'fixed',
- top: '80px',
- left: 0,
- right: 0,
- background: '#FFFFFF',
- boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
- zIndex: 999,
- padding: '8px 5% 20px',
- direction: isEn ? 'ltr' : 'rtl',
- borderTop: '1px solid #F0EEF8',
- maxHeight: 'calc(100vh - 80px)',
- overflowY: 'auto',
- }}>
+  <div
+  role="dialog"
+  aria-modal="true"
+  aria-label={isEn ? tx("Navigation menu") : 'תפריט ניווט'}
+  style={{
+  position: 'fixed',
+  top: '80px',
+  left: 0,
+  right: 0,
+  background: '#FFFFFF',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+  zIndex: 999,
+  padding: '8px 5% 20px',
+  direction: isEn ? 'ltr' : 'rtl',
+  borderTop: '1px solid #F0EEF8',
+  maxHeight: 'calc(100vh - 80px)',
+  overflowY: 'auto',
+  }}>
 
- {links.map(link => {
- if (link.hasMega) {
- const isOpen = openMegaKey === link.key;
- const continents = MEGA_BY_TYPE[link.megaType] || [];
- return (
- <div key={link.key}>
- {/* Accordion row */}
- <button
- onClick={() => setOpenMegaKey(prev => prev === link.key ? null : link.key)}
- style={{
- display: 'flex',
- alignItems: 'center',
- justifyContent: 'space-between',
- width: '100%',
- background: 'none',
- border: 'none',
- borderBottom: '1px solid #F0EEF8',
- padding: '14px 0',
- fontFamily: "'Ploni', sans-serif",
- fontSize: FS.btn,
- fontWeight: 500,
- color: '#0A0818',
- cursor: 'pointer',
- textAlign: isEn ? 'left' : 'right',
- direction: isEn ? 'ltr' : 'rtl',
- }}
- >
- {link.label}
- <span style={{
- fontSize: '13px',
- color: '#6D28D9',
- transition: 'transform 0.2s ease',
- transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
- display: 'inline-block',
- }}>▾</span>
- </button>
+   {links.map(link => {
+   if (link.hasMega) {
+   const isOpen = openMegaKey === link.key;
+   const continents = MEGA_BY_TYPE[link.megaType] || [];
+   return (
+    <div key={link.key}>
+     {/* Accordion row */}
+     <button
+     onClick={() => setOpenMegaKey(prev => prev === link.key ? null : link.key)}
+     style={{
+     display: 'flex',
+     alignItems: 'center',
+     justifyContent: 'space-between',
+     width: '100%',
+     background: 'none',
+     border: 'none',
+     borderBottom: '1px solid #F0EEF8',
+     padding: '14px 0',
+     fontFamily: "'Ploni', sans-serif",
+     fontSize: FS.btn,
+     fontWeight: 500,
+     color: '#0A0818',
+     cursor: 'pointer',
+     textAlign: isEn ? 'left' : 'right',
+     direction: isEn ? 'ltr' : 'rtl',
+     }}
+     >
+     {link.label}
+     <span style={{
+     fontSize: '13px',
+     color: '#6D28D9',
+     transition: 'transform 0.2s ease',
+     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+     display: 'inline-block',
+     }}>▾</span>
+     </button>
 
- {/* Accordion content */}
- {isOpen && (
- <div style={{ paddingBottom: '8px', paddingRight: isEn ? 0 : '8px', paddingLeft: isEn ? '8px' : 0 }}>
- {/* Page-backed section: a shortcut to the dedicated landing page, above the list */}
- {link.isPage && link.href && (
- <a
- href={link.href}
- onClick={e => { e.preventDefault(); navigate(link.href); closeMenu(); }}
- style={{
- display: 'block',
- padding: '10px 10px',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 700,
- color: '#6D28D9',
- textDecoration: 'none',
- borderRadius: '8px',
- }}
- >
- {link.megaType === 'israel'
-   ? (isEn ? 'View all treks in Israel' : 'צפו בכל הטרקים בארץ')
-   : link.megaType === 'climbs'
-     ? (isEn ? 'View all expeditions' : 'צפו בכל המשלחות')
-     : (isEn ? 'View all world treks' : 'צפו בכל הטרקים בעולם')}
- </a>
- )}
- {continents.map(cont => {
- if (cont.isIsrael) {
- return (
- <div key={cont.label} style={{ marginTop: '12px' }}>
- <div style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: '11px',
- fontWeight: 800,
- color: '#6D28D9',
- letterSpacing: '0.05em',
- padding: '4px 10px',
- marginBottom: '4px',
- }}>
- {cont.label}
- </div>
- {cont.trips.map(trip => (
- <a
- key={trip.slug}
- className="nav-menu-link"
- href={`/israel/${trip.slug}`}
- onClick={e => { e.preventDefault(); navigate(`/israel/${trip.slug}`); closeMenu(); }}
- style={{
- display: 'block',
- padding: '8px 10px',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 400,
- color: '#3D3B5A',
- textDecoration: 'none',
- borderRadius: '8px',
- }}
- >
- {isEn ? (trip.nameEn || trip.name) : trip.name}
- </a>
- ))}
- </div>
- );
- }
- const exps = cont.exps || cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
- return (
- <div key={cont.label} style={{ marginTop: '12px' }}>
- <div style={{
- fontFamily: "'Ploni', sans-serif",
- fontSize: '11px',
- fontWeight: 800,
- color: '#6D28D9',
- letterSpacing: '0.05em',
- padding: '4px 10px',
- marginBottom: '4px',
- }}>
- {cont.label}
- </div>
- {exps.map(exp => {
- const linkStyle = {
- display: 'block',
- padding: '8px 10px',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 400,
- color: '#3D3B5A',
- textDecoration: 'none',
- borderRadius: '8px',
- };
- const label = (<>{isEn ? (exp.nameEn || exp.name) : exp.nameHe}{exp.comingSoon && <ComingSoonTag />}</>);
- /* teaser = "בקרוב" with no page — render a non-clickable row */
- return exp.teaser ? (
- <div key={exp.id} className="nav-menu-link" style={{ ...linkStyle, cursor: 'default' }}>
- {label}
- </div>
- ) : (
- <a
- key={exp.id}
- className="nav-menu-link"
- href={`/expedition/${exp.slug}`}
- onClick={e => { e.preventDefault(); navigate(`/expedition/${exp.slug}`); closeMenu(); }}
- style={linkStyle}
- >
- {label}
- </a>
- );
- })}
- </div>
- );
- })}
- </div>
- )}
- </div>
- );
- }
+     {/* Accordion content */}
+     {isOpen && (
+     <div style={{ paddingBottom: '8px', paddingRight: isEn ? 0 : '8px', paddingLeft: isEn ? '8px' : 0 }}>
+     {/* Page-backed section: a shortcut to the dedicated landing page, above the list */}
+     {link.isPage && link.href && (
+     <a
+     href={link.href}
+     onClick={e => { e.preventDefault(); navigate(link.href); closeMenu(); }}
+     style={{
+     display: 'block',
+     padding: '10px 10px',
+     fontFamily: "'Ploni', sans-serif",
+     fontSize: '14px',
+     fontWeight: 700,
+     color: '#6D28D9',
+     textDecoration: 'none',
+     borderRadius: '8px',
+     }}
+     >
+     {link.megaType === 'israel'
+       ? (isEn ? tx("View all treks in Israel") : 'צפו בכל הטרקים בארץ')
+       : link.megaType === 'climbs'
+         ? (isEn ? tx("View all expeditions") : 'צפו בכל המשלחות')
+         : (isEn ? tx("View all world treks") : 'צפו בכל הטרקים בעולם')}
+     </a>
+     )}
+     {continents.map(cont => {
+     if (cont.isIsrael) {
+     return (
+      <div key={cont.label} style={{ marginTop: '12px' }}>
+       <div style={{
+       fontFamily: "'Ploni', sans-serif",
+       fontSize: '11px',
+       fontWeight: 800,
+       color: '#6D28D9',
+       letterSpacing: '0.05em',
+       padding: '4px 10px',
+       marginBottom: '4px',
+       }}>
+       {cont.label}
+       </div>
+       {cont.trips.map(trip => (
+       <a
+       key={trip.slug}
+       className="nav-menu-link"
+       href={`/israel/${trip.slug}`}
+       onClick={e => { e.preventDefault(); navigate(`/israel/${trip.slug}`); closeMenu(); }}
+       style={{
+       display: 'block',
+       padding: '8px 10px',
+       fontFamily: "'Ploni', sans-serif",
+       fontSize: '14px',
+       fontWeight: 400,
+       color: '#3D3B5A',
+       textDecoration: 'none',
+       borderRadius: '8px',
+       }}
+       >
+       {isEn ? (loc(trip, "name") || trip.name) : trip.name}
+       </a>
+       ))}
+      </div>
+     );
+     }
+     const exps = cont.exps || cont.expIds.map(id => EXPS.find(e => e.id === id)).filter(Boolean);
+     return (
+      <div key={cont.label} style={{ marginTop: '12px' }}>
+       <div style={{
+       fontFamily: "'Ploni', sans-serif",
+       fontSize: '11px',
+       fontWeight: 800,
+       color: '#6D28D9',
+       letterSpacing: '0.05em',
+       padding: '4px 10px',
+       marginBottom: '4px',
+       }}>
+       {cont.label}
+       </div>
+       {exps.map(exp => {
+       const linkStyle = {
+       display: 'block',
+       padding: '8px 10px',
+       fontFamily: "'Ploni', sans-serif",
+       fontSize: '14px',
+       fontWeight: 400,
+       color: '#3D3B5A',
+       textDecoration: 'none',
+       borderRadius: '8px',
+       };
+       const label = (<>{isEn ? (loc(exp, "name") || exp.name) : exp.nameHe}{exp.comingSoon && <ComingSoonTag />}</>);
+       /* teaser = "בקרוב" with no page — render a non-clickable row */
+       return exp.teaser ? (
+       <div key={exp.id} className="nav-menu-link" style={{ ...linkStyle, cursor: 'default' }}>
+       {label}
+       </div>
+       ) : (
+       <a
+       key={exp.id}
+       className="nav-menu-link"
+       href={`/expedition/${exp.slug}`}
+       onClick={e => { e.preventDefault(); navigate(`/expedition/${exp.slug}`); closeMenu(); }}
+       style={linkStyle}
+       >
+       {label}
+       </a>
+       );
+       })}
+      </div>
+     );
+     })}
+     </div>
+     )}
+    </div>
+   );
+   }
 
- return (
- <a
- key={link.key}
- href={link.href}
- onClick={e => {
- e.preventDefault();
- if (link.isPage) { navigate(link.href); }
- else { handleNavigation(link.href); }
- closeMenu();
- }}
- style={{
- display: 'block',
- fontFamily: "'Ploni', sans-serif",
- fontSize: FS.btn,
- fontWeight: 500,
- color: '#0A0818',
- textDecoration: 'none',
- padding: '14px 0',
- borderBottom: '1px solid #F0EEF8',
- letterSpacing: '0.01em',
- }}
- >
- {link.label}
- </a>
- );
- })}
+   return (
+   <a
+   key={link.key}
+   href={link.href}
+   onClick={e => {
+   e.preventDefault();
+   if (link.isPage) { navigate(link.href); }
+   else { handleNavigation(link.href); }
+   closeMenu();
+   }}
+   style={{
+   display: 'block',
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: FS.btn,
+   fontWeight: 500,
+   color: '#0A0818',
+   textDecoration: 'none',
+   padding: '14px 0',
+   borderBottom: '1px solid #F0EEF8',
+   letterSpacing: '0.01em',
+   }}
+   >
+   {link.label}
+   </a>
+   );
+   })}
 
- {/* App login button */}
- <a
- href="https://app.highair-expeditions.com"
- target="_blank"
- rel="noopener noreferrer"
- onClick={closeMenu}
- style={{
- display: 'inline-flex',
- alignItems: 'center',
- justifyContent: 'center',
- gap: '8px',
- marginTop: '16px',
- padding: '12px 24px',
- borderRadius: '50px',
- background: '#6D28D9',
- color: '#FFFFFF',
- fontFamily: "'Ploni', sans-serif",
- fontSize: FS.btn,
- fontWeight: 600,
- textDecoration: 'none',
- width: '100%',
- direction: isEn ? 'ltr' : 'rtl',
- }}
- >
- {isEn ? 'My Account →' : 'כניסה לאזור אישי ←'}
- </a>
- </div>
+   {/* App login button */}
+   <a
+   href="https://app.highair-expeditions.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   onClick={closeMenu}
+   style={{
+   display: 'inline-flex',
+   alignItems: 'center',
+   justifyContent: 'center',
+   gap: '8px',
+   marginTop: '16px',
+   padding: '12px 24px',
+   borderRadius: '50px',
+   background: '#6D28D9',
+   color: '#FFFFFF',
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: FS.btn,
+   fontWeight: 600,
+   textDecoration: 'none',
+   width: '100%',
+   direction: isEn ? 'ltr' : 'rtl',
+   }}
+   >
+   {isEn ? tx("My Account →") : 'כניסה לאזור אישי ←'}
+   </a>
+  </div>
  );
 }
 
 function SearchModal({ onClose }) {
  const [query, setQuery] = useState('');
  const { i18n } = useTranslation();
- const isRtl = i18n.language !== 'en';
+ const isRtl = i18n.language === 'he';
  const navigate = useNavigate();
  const inputRef = useRef(null);
 
@@ -751,10 +798,7 @@ function SearchModal({ onClose }) {
 
  const israelResults = query.trim().length < 1 ? [] : ISRAEL_TRIPS.filter(isNavTripCurrent).filter(trip => {
  const q = query.toLowerCase();
- return (
- trip.name?.includes(query) ||
- trip.nameEn?.toLowerCase().includes(q)
- );
+ return (trip.name?.includes(query) || loc(trip, "name")?.toLowerCase().includes(q));
  }).map(trip => ({
  ...trip,
  slug: trip.slug,
@@ -771,127 +815,124 @@ function SearchModal({ onClose }) {
  const results = query.trim().length < 1 ? [] : [
  ...EXPS.filter(exp => {
  const q = query.toLowerCase();
- return (
- exp.name?.toLowerCase().includes(q) ||
+ return (exp.name?.toLowerCase().includes(q) ||
  exp.nameHe?.includes(query) ||
- exp.nameEn?.toLowerCase().includes(q) ||
- exp.country?.toLowerCase().includes(q) ||
- exp.countryHe?.includes(query)
- );
+ loc(exp, "name")?.toLowerCase().includes(q) ||
+ exp.country?.toLowerCase().includes(q) || exp.countryHe?.includes(query));
  }),
  ...israelResults,
  ].slice(0, 7);
 
  return (
- <div
- onClick={onClose}
- style={{
- position: 'fixed', inset: 0, zIndex: 3000,
- background: 'rgba(10,8,24,0.82)',
- backdropFilter: 'blur(10px)',
- WebkitBackdropFilter: 'blur(10px)',
- display: 'flex', flexDirection: 'column',
- alignItems: 'center', paddingTop: '100px',
- }}
- >
- <div
- onClick={e => e.stopPropagation()}
- style={{ width: '100%', maxWidth: '620px', padding: '0 20px' }}
- >
- {/* Input row */}
- <div style={{
- display: 'flex', alignItems: 'center', gap: '12px',
- background: '#FFFFFF', borderRadius: '16px',
- padding: '14px 18px',
- boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
- }}>
- <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
- <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
- </svg>
- <input
- ref={inputRef}
- value={query}
- onChange={e => setQuery(e.target.value)}
- placeholder={isRtl ? 'חפשו הר, מדינה, יעד...' : 'Search mountain, country, destination...'}
- style={{
- flex: 1, border: 'none', outline: 'none',
- fontSize: '17px', fontFamily: "'Ploni', sans-serif",
- color: '#0A0818', background: 'transparent',
- direction: 'auto',
- }}
- />
- {query && (
- <button onClick={() => setQuery('')} style={{
- background: 'none', border: 'none', cursor: 'pointer',
- color: '#9CA3AF', fontSize: '18px', padding: '0 2px',
- }}>✕</button>
- )}
- </div>
+  <div
+  onClick={onClose}
+  style={{
+  position: 'fixed', inset: 0, zIndex: 3000,
+  background: 'rgba(10,8,24,0.82)',
+  backdropFilter: 'blur(10px)',
+  WebkitBackdropFilter: 'blur(10px)',
+  display: 'flex', flexDirection: 'column',
+  alignItems: 'center', paddingTop: '100px',
+  }}
+  >
+   <div
+   onClick={e => e.stopPropagation()}
+   style={{ width: '100%', maxWidth: '620px', padding: '0 20px' }}
+   >
+   {/* Input row */}
+   <div style={{
+   display: 'flex', alignItems: 'center', gap: '12px',
+   background: '#FFFFFF', borderRadius: '16px',
+   padding: '14px 18px',
+   boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+   }}>
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+   <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+   </svg>
+   <input
+   ref={inputRef}
+   value={query}
+   onChange={e => setQuery(e.target.value)}
+   placeholder={isRtl ? 'חפשו הר, מדינה, יעד...' : tx("Search mountain, country, destination...")}
+   style={{
+   flex: 1, border: 'none', outline: 'none',
+   fontSize: '17px', fontFamily: "'Ploni', sans-serif",
+   color: '#0A0818', background: 'transparent',
+   direction: 'auto',
+   }}
+   />
+   {query && (
+   <button onClick={() => setQuery('')} style={{
+   background: 'none', border: 'none', cursor: 'pointer',
+   color: '#9CA3AF', fontSize: '18px', padding: '0 2px',
+   }}>✕</button>
+   )}
+   </div>
 
- {/* Results */}
- {results.length > 0 && (
- <div style={{
- marginTop: '8px', background: '#FFFFFF',
- borderRadius: '16px', overflow: 'hidden',
- boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
- }}>
- {results.map((exp, idx) => (
- <button
- key={exp.id}
- onClick={() => { navigate(exp._isIsrael ? `/israel/${exp.slug}` : `/expedition/${exp.slug}`); onClose(); }}
- style={{
- display: 'flex', alignItems: 'center', gap: '14px',
- width: '100%', padding: '13px 18px',
- background: 'transparent', border: 'none',
- borderTop: idx > 0 ? '1px solid #F5F3FF' : 'none',
- cursor: 'pointer', textAlign: isRtl ? 'right' : 'left',
- transition: 'background 0.12s',
- }}
- onMouseEnter={e => e.currentTarget.style.background = '#F8F6FF'}
- onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
- >
- <FlagImg emoji={exp.flag} size={22} />
- <div style={{ flex: 1 }}>
- <div style={{
- fontSize: '15px', fontWeight: 600,
- color: '#0A0818', fontFamily: "'Ploni', sans-serif",
- }}>
- {isRtl ? exp.nameHe : (exp.nameEn || exp.name)}
- </div>
- <div style={{
- fontSize: '13px', color: '#6B6B8A',
- fontFamily: "'Ploni', sans-serif", marginTop: '1px',
- }}>
- {isRtl ? exp.countryHe : exp.country} · {exp.elev}
- </div>
- </div>
- <span style={{ fontSize: '13px', color: '#A78BFA', flexShrink: 0 }}>
- {isRtl ? exp.typeHe : exp.type}
- </span>
- </button>
- ))}
- </div>
- )}
+   {/* Results */}
+   {results.length > 0 && (
+   <div style={{
+   marginTop: '8px', background: '#FFFFFF',
+   borderRadius: '16px', overflow: 'hidden',
+   boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+   }}>
+   {results.map((exp, idx) => (
+   <button
+   key={exp.id}
+   onClick={() => { navigate(exp._isIsrael ? `/israel/${exp.slug}` : `/expedition/${exp.slug}`); onClose(); }}
+   style={{
+   display: 'flex', alignItems: 'center', gap: '14px',
+   width: '100%', padding: '13px 18px',
+   background: 'transparent', border: 'none',
+   borderTop: idx > 0 ? '1px solid #F5F3FF' : 'none',
+   cursor: 'pointer', textAlign: isRtl ? 'right' : 'left',
+   transition: 'background 0.12s',
+   }}
+   onMouseEnter={e => e.currentTarget.style.background = '#F8F6FF'}
+   onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+   >
+   <FlagImg emoji={exp.flag} size={22} />
+   <div style={{ flex: 1 }}>
+   <div style={{
+   fontSize: '15px', fontWeight: 600,
+   color: '#0A0818', fontFamily: "'Ploni', sans-serif",
+   }}>
+   {isRtl ? exp.nameHe : (loc(exp, "name") || exp.name)}
+   </div>
+   <div style={{
+   fontSize: '13px', color: '#6B6B8A',
+   fontFamily: "'Ploni', sans-serif", marginTop: '1px',
+   }}>
+   {isRtl ? exp.countryHe : (loc(exp, 'country') || exp.country)} · {exp.elev}
+   </div>
+   </div>
+   <span style={{ fontSize: '13px', color: '#A78BFA', flexShrink: 0 }}>
+   {isRtl ? exp.typeHe : exp.type}
+   </span>
+   </button>
+   ))}
+   </div>
+   )}
 
- {query.trim().length > 0 && results.length === 0 && (
- <p style={{
- textAlign: 'center', marginTop: '28px',
- color: 'rgba(255,255,255,0.55)', fontFamily: "'Ploni', sans-serif",
- fontSize: '16px',
- }}>
- {isRtl ? 'לא נמצאו תוצאות' : 'No results found'}
- </p>
- )}
+   {query.trim().length > 0 && results.length === 0 && (
+   <p style={{
+   textAlign: 'center', marginTop: '28px',
+   color: 'rgba(255,255,255,0.55)', fontFamily: "'Ploni', sans-serif",
+   fontSize: '16px',
+   }}>
+   {isRtl ? 'לא נמצאו תוצאות' : tx("No results found")}
+   </p>
+   )}
 
- <p style={{
- textAlign: 'center', marginTop: '20px',
- color: 'rgba(255,255,255,0.3)', fontFamily: "'Ploni', sans-serif",
- fontSize: '13px',
- }}>
- {isRtl ? 'לחצו ESC לסגירה' : 'Press ESC to close'}
- </p>
- </div>
- </div>
+   <p style={{
+   textAlign: 'center', marginTop: '20px',
+   color: 'rgba(255,255,255,0.3)', fontFamily: "'Ploni', sans-serif",
+   fontSize: '13px',
+   }}>
+   {isRtl ? 'לחצו ESC לסגירה' : tx("Press ESC to close")}
+   </p>
+   </div>
+  </div>
  );
 }
 
@@ -903,7 +944,7 @@ export default function Header() {
  const { isMobile } = useBreakpoint();
  const navigate = useNavigate();
  const { t, i18n } = useTranslation();
- const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+ const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
  const isRtl = dir === 'rtl';
  const isEn = !isRtl;
  const isTransparent = false;
@@ -927,7 +968,14 @@ export default function Header() {
     /blog and /contact, and the floating WhatsApp button covers urgent contact. */
  // { key: 'shop', href: '/shop', isPage: true }, // hidden until shop is ready
  ];
- const LINKS = LINK_DEFS.map(def => ({ ...def, label: t(`nav.${def.key}`) }));
+ /* German and Spanish carry the core pages only (lang.js): no treks, no
+    magazine; Expeditions opens Kilimanjaro, and Contact gets the spare room. */
+ const PARTIAL = PARTIAL_LANGS.includes(i18n.language);
+ const LINKS = (PARTIAL
+   ? LINK_DEFS.filter(d => d.key !== 'treks' && d.key !== 'news' && d.key !== 'israelTrips')
+       .map(d => (d.key === 'climbs' ? { ...d, href: '/expedition/kilimanjaro' } : d))
+       .concat([{ key: 'contact', href: '/contact', isPage: true }])
+   : LINK_DEFS).map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 
  const closeMenu = () => setMenuOpen(false);
 
@@ -1003,244 +1051,244 @@ export default function Header() {
  }
 
  return (
- <>
- {/* ── Utility top bar (desktop only) ── */}
- {!isMobile && (
- <div style={{
-  position: 'fixed',
-  top: 0, left: 0, right: 0,
-  height: '44px',
-  background: '#F5F4FB',
-  borderBottom: '1px solid #E8E5F2',
-  zIndex: 1001,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '0 5%',
-  boxSizing: 'border-box',
-  direction: dir,
- }}>
-  {/* Google rating (visual right in RTL) */}
-  <div style={{
-   display: 'flex', alignItems: 'center', gap: '6px',
-   fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#4A4770',
-  }}>
-   <span style={{ color: '#FBBC04', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span>
-   <span style={{ fontWeight: 700 }}>5.0</span>
-   <span style={{ color: '#6B6B8A' }}>{isEn ? 'Rated #1 on Google' : 'מדורגים #1 ב-Google'}</span>
-  </div>
-  {/* Search + Language switcher (visual left in RTL) */}
-  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-   <button
-    onClick={() => setSearchOpen(true)}
-    aria-label={isEn ? 'Search' : 'חיפוש'}
-    style={{
-     display: 'flex', alignItems: 'center', justifyContent: 'center',
-     background: 'transparent', border: 'none', padding: '8px', margin: '-4px',
-     cursor: 'pointer', color: '#5B5788', opacity: 0.85,
-     transition: 'opacity 0.15s ease',
-    }}
-    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
-    onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; }}
+  <>
+   {/* ── Utility top bar (desktop only) ── */}
+   {!isMobile && (
+   <div style={{
+    position: 'fixed',
+    top: 0, left: 0, right: 0,
+    height: '44px',
+    background: '#F5F4FB',
+    borderBottom: '1px solid #E8E5F2',
+    zIndex: 1001,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 5%',
+    boxSizing: 'border-box',
+    direction: dir,
+   }}>
+    {/* Google rating (visual right in RTL) */}
+    <div style={{
+     display: 'flex', alignItems: 'center', gap: '6px',
+     fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#4A4770',
+    }}>
+     <span style={{ color: '#FBBC04', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span>
+     <span style={{ fontWeight: 700 }}>5.0</span>
+     <span style={{ color: '#6B6B8A' }}>{isEn ? tx("Rated #1 on Google") : 'מדורגים #1 ב-Google'}</span>
+    </div>
+    {/* Search + Language switcher (visual left in RTL) */}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+     <button
+      onClick={() => setSearchOpen(true)}
+      aria-label={isEn ? tx("Search") : 'חיפוש'}
+      style={{
+       display: 'flex', alignItems: 'center', justifyContent: 'center',
+       background: 'transparent', border: 'none', padding: '8px', margin: '-4px',
+       cursor: 'pointer', color: '#5B5788', opacity: 0.85,
+       transition: 'opacity 0.15s ease',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
+      onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; }}
+     >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+     </button>
+     <LangSwitcher />
+    </div>
+   </div>
+   )}
+
+   <header ref={headerRef} style={{
+   position: 'fixed',
+   top: isMobile ? 0 : '44px',
+   left: 0,
+   right: 0,
+   zIndex: 1000,
+   width: '100%',
+   boxSizing: 'border-box',
+   height: '80px',
+   padding: '0 5%',
+   background: '#FFFFFF',
+   boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+   display: 'grid',
+   gridTemplateColumns: isMobile ? '1fr auto 1fr' : 'auto 1fr auto',
+   columnGap: isMobile ? 0 : `${navSize.side}px`,
+   alignItems: 'center',
+   direction: dir,
+   }}>
+
+   <a
+   href="#main-content"
+   style={{
+   position: 'absolute',
+   top: '-100px',
+   right: 0,
+   background: '#6D28D9',
+   color: '#fff',
+   padding: '8px 16px',
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: '14px',
+   fontWeight: 700,
+   textDecoration: 'none',
+   zIndex: 9999,
+   transition: 'top 0.2s',
+   }}
+   onFocus={e => { e.currentTarget.style.top = '0'; }}
+   onBlur={e => { e.currentTarget.style.top = '-100px'; }}
    >
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </svg>
+   {t('nav.skipToContent')}
+   </a>
+
+   {isMobile ? (
+   <>
+   <div style={{ justifySelf: 'start' }}>
+   <MenuToggle open={menuOpen} isEn={isEn} onClick={() => setMenuOpen(prev => !prev)} />
+   </div>
+   <div style={{ justifySelf: 'center' }}>
+   <button
+   onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
+   aria-label="HighAir Expeditions - Home"
+   style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
+   >
+   <img
+   src="/Logo.png"
+   alt="HighAir Expeditions"
+   style={{ height: '60px', width: '60px', display: 'block', objectFit: 'contain' }}
+   />
    </button>
+   </div>
+
+   {/* Mobile right-side icons: Search + WhatsApp */}
+   <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '6px' }}>
+   {/* Search */}
+   <button
+   onClick={() => setSearchOpen(true)}
+   aria-label={isEn ? tx("Search") : 'חיפוש'}
+   className="nav-menu-item"
+   style={{
+   display: 'flex', alignItems: 'center', justifyContent: 'center',
+   width: '40px', height: '40px', margin: '-2px',
+   background: 'transparent', border: 'none',
+   cursor: 'pointer',
+   color: '#3D3D3D',
+   opacity: 0.85,
+   }}
+   >
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+   <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+   </svg>
+   </button>
+
+   {/* Language switcher */}
    <LangSwitcher />
-  </div>
- </div>
- )}
+   </div>
+   </>
+   ) : (
+   <>
+   <div ref={logoRef} style={{ justifySelf: 'start' }}>
+   <button
+   onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
+   aria-label="HighAir Expeditions - Home"
+   style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
+   >
+   <img
+   src="/Logo.png"
+   alt="HighAir Expeditions"
+   style={{
+   height: '64px',
+   /* Fixed width (the logo is square): no reflow while the 2000px PNG decodes,
+      so the fit-to-width nav measures the real row from the first paint */
+   width: '64px',
+   display: 'block',
+   objectFit: 'contain',
+   filter: isTransparent ? 'brightness(0) invert(1)' : 'none',
+   transition: 'filter 0.35s ease',
+   }}
+   />
+   </button>
+   </div>
+   <nav
+   onMouseLeave={closeMega}
+   style={{ justifySelf: 'center', display: 'flex', gap: `${navSize.gap}px`, alignItems: 'center', justifyContent: 'center' }}
+   >
+   {LINKS.map(link => (
+   <NavLink
+   key={link.key}
+   label={link.label}
+   href={link.href}
+   isPage={link.isPage}
+   hasMega={link.hasMega}
+   onNavigate={handleNavigation}
+   onMegaEnter={link.hasMega ? () => openMega(link.megaType) : undefined}
+   isTransparent={isTransparent}
+   fontSize={`${navSize.font}px`}
+   />
+   ))}
+   </nav>
+   <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
+   {/* Personal area login button */}
+   <a
+   href="https://app.highair-expeditions.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   style={{
+   display: 'inline-flex',
+   alignItems: 'center',
+   gap: '6px',
+   padding: `9px ${navSize.ctaPadX}px`,
+   borderRadius: '50px',
+   border: '1.5px solid #6D28D9',
+   color: '#FFFFFF',
+   background: '#6D28D9',
+   fontFamily: "'Ploni', sans-serif",
+   fontSize: `${navSize.ctaFont}px`,
+   fontWeight: 600,
+   textDecoration: 'none',
+   whiteSpace: 'nowrap',
+   transition: 'background 0.2s ease, box-shadow 0.2s ease',
+   direction: isEn ? 'ltr' : 'rtl',
+   }}
+   onMouseEnter={e => { e.currentTarget.style.background = '#5B21B6'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(109,40,217,0.35)'; }}
+   onMouseLeave={e => { e.currentTarget.style.background = '#6D28D9'; e.currentTarget.style.boxShadow = 'none'; }}
+   >
+   {isEn ? tx("My Account") : 'כניסה לאזור אישי'}
+   </a>
+   </div>
+   {/* Hidden copies of the labels at full size, measured by the fit (never visible) */}
+   <div aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, visibility: 'hidden', pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+   <div ref={measureRef} style={{ display: 'inline-flex' }}>
+   {LINKS.map(link => (
+   <span key={link.key} style={{ fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.font}px`, fontWeight: 500, letterSpacing: '0.01em' }}>
+   {link.label}
+   {link.hasMega && <span style={{ fontSize: '10px', marginRight: '3px', display: 'inline-block' }}>▾</span>}
+   </span>
+   ))}
+   </div>
+   <span ref={ctaMeasureRef} style={{ display: 'inline-block', fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.ctaFont}px`, fontWeight: 600 }}>
+   {isEn ? tx("My Account") : 'כניסה לאזור אישי'}
+   </span>
+   </div>
+   </>
+   )}
 
- <header ref={headerRef} style={{
- position: 'fixed',
- top: isMobile ? 0 : '44px',
- left: 0,
- right: 0,
- zIndex: 1000,
- width: '100%',
- boxSizing: 'border-box',
- height: '80px',
- padding: '0 5%',
- background: '#FFFFFF',
- boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
- display: 'grid',
- gridTemplateColumns: isMobile ? '1fr auto 1fr' : 'auto 1fr auto',
- columnGap: isMobile ? 0 : `${navSize.side}px`,
- alignItems: 'center',
- direction: dir,
- }}>
+   {!isMobile && megaType && (
+   <MegaMenu type={megaType} onClose={closeMega} onKeepOpen={keepMegaOpen} />
+   )}
 
- <a
- href="#main-content"
- style={{
- position: 'absolute',
- top: '-100px',
- right: 0,
- background: '#6D28D9',
- color: '#fff',
- padding: '8px 16px',
- fontFamily: "'Ploni', sans-serif",
- fontSize: '14px',
- fontWeight: 700,
- textDecoration: 'none',
- zIndex: 9999,
- transition: 'top 0.2s',
- }}
- onFocus={e => { e.currentTarget.style.top = '0'; }}
- onBlur={e => { e.currentTarget.style.top = '-100px'; }}
- >
- {t('nav.skipToContent')}
- </a>
+   {isMobile && menuOpen && (
+   <MobileMenu
+   navigate={navigate}
+   closeMenu={closeMenu}
+   handleNavigation={handleNavigation}
+   links={LINKS}
+   />
+   )}
 
- {isMobile ? (
- <>
- <div style={{ justifySelf: 'start' }}>
- <MenuToggle open={menuOpen} isEn={isEn} onClick={() => setMenuOpen(prev => !prev)} />
- </div>
- <div style={{ justifySelf: 'center' }}>
- <button
- onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
- aria-label="HighAir Expeditions - Home"
- style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
- >
- <img
- src="/Logo.png"
- alt="HighAir Expeditions"
- style={{ height: '60px', width: '60px', display: 'block', objectFit: 'contain' }}
- />
- </button>
- </div>
+   </header>
 
- {/* Mobile right-side icons: Search + WhatsApp */}
- <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '6px' }}>
- {/* Search */}
- <button
- onClick={() => setSearchOpen(true)}
- aria-label={isEn ? 'Search' : 'חיפוש'}
- className="nav-menu-item"
- style={{
- display: 'flex', alignItems: 'center', justifyContent: 'center',
- width: '40px', height: '40px', margin: '-2px',
- background: 'transparent', border: 'none',
- cursor: 'pointer',
- color: '#3D3D3D',
- opacity: 0.85,
- }}
- >
- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
- <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
- </svg>
- </button>
-
- {/* Language switcher */}
- <LangSwitcher />
- </div>
- </>
- ) : (
- <>
- <div ref={logoRef} style={{ justifySelf: 'start' }}>
- <button
- onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
- aria-label="HighAir Expeditions - Home"
- style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
- >
- <img
- src="/Logo.png"
- alt="HighAir Expeditions"
- style={{
- height: '64px',
- /* Fixed width (the logo is square): no reflow while the 2000px PNG decodes,
-    so the fit-to-width nav measures the real row from the first paint */
- width: '64px',
- display: 'block',
- objectFit: 'contain',
- filter: isTransparent ? 'brightness(0) invert(1)' : 'none',
- transition: 'filter 0.35s ease',
- }}
- />
- </button>
- </div>
- <nav
- onMouseLeave={closeMega}
- style={{ justifySelf: 'center', display: 'flex', gap: `${navSize.gap}px`, alignItems: 'center', justifyContent: 'center' }}
- >
- {LINKS.map(link => (
- <NavLink
- key={link.key}
- label={link.label}
- href={link.href}
- isPage={link.isPage}
- hasMega={link.hasMega}
- onNavigate={handleNavigation}
- onMegaEnter={link.hasMega ? () => openMega(link.megaType) : undefined}
- isTransparent={isTransparent}
- fontSize={`${navSize.font}px`}
- />
- ))}
- </nav>
- <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
- {/* Personal area login button */}
- <a
- href="https://app.highair-expeditions.com"
- target="_blank"
- rel="noopener noreferrer"
- style={{
- display: 'inline-flex',
- alignItems: 'center',
- gap: '6px',
- padding: `9px ${navSize.ctaPadX}px`,
- borderRadius: '50px',
- border: '1.5px solid #6D28D9',
- color: '#FFFFFF',
- background: '#6D28D9',
- fontFamily: "'Ploni', sans-serif",
- fontSize: `${navSize.ctaFont}px`,
- fontWeight: 600,
- textDecoration: 'none',
- whiteSpace: 'nowrap',
- transition: 'background 0.2s ease, box-shadow 0.2s ease',
- direction: isEn ? 'ltr' : 'rtl',
- }}
- onMouseEnter={e => { e.currentTarget.style.background = '#5B21B6'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(109,40,217,0.35)'; }}
- onMouseLeave={e => { e.currentTarget.style.background = '#6D28D9'; e.currentTarget.style.boxShadow = 'none'; }}
- >
- {isEn ? 'My Account' : 'כניסה לאזור אישי'}
- </a>
- </div>
- {/* Hidden copies of the labels at full size, measured by the fit (never visible) */}
- <div aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, visibility: 'hidden', pointerEvents: 'none', whiteSpace: 'nowrap' }}>
- <div ref={measureRef} style={{ display: 'inline-flex' }}>
- {LINKS.map(link => (
- <span key={link.key} style={{ fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.font}px`, fontWeight: 500, letterSpacing: '0.01em' }}>
- {link.label}
- {link.hasMega && <span style={{ fontSize: '10px', marginRight: '3px', display: 'inline-block' }}>▾</span>}
- </span>
- ))}
- </div>
- <span ref={ctaMeasureRef} style={{ display: 'inline-block', fontFamily: "'Ploni', sans-serif", fontSize: `${NAV_MAX.ctaFont}px`, fontWeight: 600 }}>
- {isEn ? 'My Account' : 'כניסה לאזור אישי'}
- </span>
- </div>
- </>
- )}
-
- {!isMobile && megaType && (
- <MegaMenu type={megaType} onClose={closeMega} onKeepOpen={keepMegaOpen} />
- )}
-
- {isMobile && menuOpen && (
- <MobileMenu
- navigate={navigate}
- closeMenu={closeMenu}
- handleNavigation={handleNavigation}
- links={LINKS}
- />
- )}
-
- </header>
-
- {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
- </>
+   {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
+  </>
  );
 }

@@ -3,6 +3,7 @@
  * RTL Hebrew primary · LTR English · scroll-triggered fade-in
  */
 
+import { tx } from '../../website/lang.js';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, FS, RADIUS, SHADOW, EASING, DUR } from '../../website/theme.js';
@@ -154,7 +155,7 @@ function AccordionItem({ question, answer, isOpen, onToggle, isLast, dir }) {
 /* ─────────────── FAQSection ─────────────── */
 export default function FAQSection() {
   const { i18n } = useTranslation();
-  const isEn    = i18n.language === 'en';
+  const isEn    = i18n.language !== 'he';
   const dir     = isEn ? 'ltr' : 'rtl';
   const { isMobile } = useBreakpoint();
   const [sectionRef, inView] = useInView(0.1);
@@ -164,10 +165,10 @@ export default function FAQSection() {
     setOpenIdx(prev => (prev === idx ? null : idx));
   };
 
-  const sectionLabel = isEn ? 'FAQ' : 'שאלות נפוצות';
-  const heading      = isEn ? 'Everything You Wanted to Know' : 'כל מה שרצית לדעת';
+  const sectionLabel = isEn ? tx("FAQ") : 'שאלות נפוצות';
+  const heading      = isEn ? tx("Everything You Wanted to Know") : 'כל מה שרצית לדעת';
   const subtext      = isEn
-    ? 'Can\'t find an answer? Chat with us on WhatsApp'
+    ? tx("Can't find an answer? Chat with us on WhatsApp")
     : 'לא מצאתם תשובה? דברו איתנו ב-WhatsApp';
 
   return (
@@ -233,7 +234,7 @@ export default function FAQSection() {
             textAlign:    dir === 'rtl' ? 'right' : 'left',
           }}
         >
-          {isEn ? "Can't find an answer? " : 'לא מצאתם תשובה? '}
+          {isEn ? tx("Can't find an answer? ") : 'לא מצאתם תשובה? '}
           <a
             href="https://api.whatsapp.com/send?phone=972555636975"
             target="_blank"
@@ -246,7 +247,7 @@ export default function FAQSection() {
             onMouseEnter={e => { e.currentTarget.style.textDecoration = 'underline'; }}
             onMouseLeave={e => { e.currentTarget.style.textDecoration = 'none'; }}
           >
-            {isEn ? 'Chat with us on WhatsApp' : 'דברו איתנו ב-WhatsApp'}
+            {isEn ? tx("Chat with us on WhatsApp") : 'דברו איתנו ב-WhatsApp'}
           </a>
         </p>
 

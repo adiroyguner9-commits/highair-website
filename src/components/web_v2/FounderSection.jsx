@@ -4,6 +4,7 @@
  * Chen is a professional mountain climber (NOT a "guide").
  */
 
+import { tx, currentLang } from '../../website/lang.js';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, COLOR, FS, EASING } from '../../website/theme.js';
@@ -23,13 +24,27 @@ const STORY_EN = [
   'Inspired by my mother\'s spirit of giving, part of every trip we run is dedicated to supporting cancer patients in Israel and to making the dreams of children facing the illness come true. That way, every summit you climb also becomes a way to give.',
 ];
 
+/* German and Spanish (de. / es., 5 Nov 2026) */
+const STORY_I18N = {
+  de: [
+    'Schön, Sie kennenzulernen, ich bin Chen Shaked, professioneller Bergsteiger und Gründer von HighAir, zusammen mit meinem Freund aus Kindertagen, Adir Oyguner. Trekking und Bergsteigen habe ich nach dem Militärdienst in Nepal entdeckt, wo ich mich in das Abschalten verliebt habe, das nur hohe Berge schenken. Seitdem habe ich den Kasbek, den Kilimandscharo, den Gran Paradiso, die Ama Dablam, den Lobuche Peak und den Island Peak bestiegen, und im September 2025 stand ich auf dem Gipfel des Manaslu, des achthöchsten Bergs der Welt.',
+    'Doch meine eigentliche Reise begann zu Hause. Vor fünf Jahren starb meine geliebte Mutter, Carol Shaked, nach langem Kampf gegen den Krebs, und von diesem Moment an habe ich beschlossen, mein Leben ihrem Andenken zu widmen. Auf jedem Gipfel hisse ich ihre Flagge, und je höher ich steige, desto näher fühle ich mich ihr.',
+    'Inspiriert von der Großzügigkeit meiner Mutter widmen wir einen Teil jeder Reise der Unterstützung von Krebspatienten in Israel und der Erfüllung von Träumen krebskranker Kinder. So wird jeder Gipfel, den Sie besteigen, auch zu einer Möglichkeit zu geben.',
+  ],
+  es: [
+    'Encantado de conocerte, soy Chen Shaked, montañero profesional y fundador de HighAir junto con mi amigo de la infancia, Adir Oyguner. Descubrí el trekking y el montañismo después del servicio militar, en Nepal, donde me enamoré de la desconexión que solo dan las grandes montañas. Desde entonces he subido el Kazbek, el Kilimanjaro, el Gran Paradiso, el Ama Dablam, el Lobuche Peak y el Island Peak, y en septiembre de 2025 llegué a la cumbre del Manaslu, la octava montaña más alta del mundo.',
+    'Pero mi verdadero viaje empezó en casa. Hace cinco años, mi querida madre, Carol Shaked, falleció tras una larga lucha contra el cáncer, y desde ese momento decidí dedicar mi vida a honrar su memoria. En cada cumbre levanto su bandera, y cuanto más alto subo, más cerca me siento de ella.',
+    'Inspirados por la generosidad de mi madre, parte de cada viaje que organizamos se dedica a apoyar a pacientes con cáncer en Israel y a cumplir los sueños de niños que se enfrentan a la enfermedad. Así, cada cumbre que subes se convierte también en una forma de dar.',
+  ],
+};
+
 export default function FounderSection() {
   const { i18n } = useTranslation();
   const { isMobile } = useBreakpoint();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const dir = isEn ? 'ltr' : 'rtl';
 
-  const story = isEn ? STORY_EN : STORY_HE;
+  const story = isEn ? (STORY_I18N[currentLang()] || STORY_EN) : STORY_HE;
   const [ctaHover, setCtaHover] = useState(false);
 
   return (
@@ -67,7 +82,7 @@ export default function FounderSection() {
           }}>
             <img
               src={MANASLU_IMG}
-              alt={isEn ? 'Chen Shaked at the summit of Manaslu, 8163m' : 'חן שקד בפסגת הר מנסלו, 8,163 מ׳'}
+              alt={isEn ? tx("Chen Shaked at the summit of Manaslu, 8163m") : 'חן שקד בפסגת הר מנסלו, 8,163 מ׳'}
               loading="lazy"
               decoding="async"
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
@@ -81,7 +96,9 @@ export default function FounderSection() {
             margin:     0,
             textAlign:  'center',
           }}>
-            {isEn ? 'Chen Shaked at the summit of Manaslu, 8,163m, the world\'s 8th highest peak' : 'חן שקד בפסגת המנסלו, 8,163 מ׳, ההר השמיני בגובהו בעולם'}
+            {isEn ? tx(
+              "Chen Shaked at the summit of Manaslu, 8,163m, the world's 8th highest peak"
+            ) : 'חן שקד בפסגת המנסלו, 8,163 מ׳, ההר השמיני בגובהו בעולם'}
           </p>
         </div>
 
@@ -99,7 +116,7 @@ export default function FounderSection() {
             lineHeight:    1.15,
             textAlign:     'start',
           }}>
-            {isEn ? 'Our Story' : 'הסיפור שלנו'}
+            {isEn ? tx("Our Story") : 'הסיפור שלנו'}
           </h2>
 
           {/* Intro */}
@@ -142,7 +159,7 @@ export default function FounderSection() {
               transition:    `all 0.22s ${EASING.out}`,
             }}
           >
-            {isEn ? 'Meet our team' : 'הכירו את הצוות שלנו'}
+            {isEn ? tx("Meet our team") : 'הכירו את הצוות שלנו'}
           </a>
 
         </div>

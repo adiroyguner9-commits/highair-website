@@ -39,14 +39,14 @@ const { ISRAEL_TREKS_LIVE } = await import(path.join(ROOT, 'src/data/israelFlag.
 
 /** Fields needed by Header mega-menu and search bar */
 const NAV_EXP_FIELDS = [
-  'id', 'slug', 'name', 'nameHe', 'nameEn',
-  'country', 'countryHe', 'elev', 'elevNum', 'continent', 'type', 'typeHe', 'comingSoon', 'teaser',
+  'id', 'slug', 'name', 'nameHe', 'nameEn', 'nameDe', 'nameEs',
+  'country', 'countryHe', 'countryDe', 'countryEs', 'elev', 'elevNum', 'continent', 'type', 'typeHe', 'comingSoon', 'teaser',
 ];
 
 /** Fields needed by ExpeditionExplorer cards on the homepage */
 const CARD_EXP_FIELDS = [
-  'id', 'slug', 'name', 'nameHe', 'nameEn',
-  'country', 'countryHe', 'flag', 'img', 'grad',
+  'id', 'slug', 'name', 'nameHe', 'nameEn', 'nameDe', 'nameEs',
+  'country', 'countryHe', 'countryDe', 'countryEs', 'flag', 'img', 'grad',
   'soldOut', 'elevNum', 'type', 'typeHe', 'diff', 'diffHe',
   'price', 'priceStr', 'continent', 'airtableEvents', 'groupCapacity', 'comingSoon', 'teaser',
 ];

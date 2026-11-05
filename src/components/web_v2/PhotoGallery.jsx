@@ -15,6 +15,7 @@
  *   hint          – badge on the first phone card ("לחץ להגדלה")
  *   isRtl, isMobile
  */
+import { tx } from '../../website/lang.js';
 import { useState, useEffect } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
@@ -131,7 +132,7 @@ export default function PhotoGallery({ images, orientations = {}, thumbOf = src 
           >
             {showLeft && (
               <button onClick={e => { e.stopPropagation(); leftAction(); }}
-                aria-label={isRtl ? 'התמונה הבאה' : 'Previous photo'}
+                aria-label={isRtl ? 'התמונה הבאה' : tx("Previous photo")}
                 style={{ ...btnStyle, left: isMobile ? '8px' : '24px' }}>
                 {leftArrow}
               </button>
@@ -149,13 +150,13 @@ export default function PhotoGallery({ images, orientations = {}, thumbOf = src 
             />
             {showRight && (
               <button onClick={e => { e.stopPropagation(); rightAction(); }}
-                aria-label={isRtl ? 'התמונה הקודמת' : 'Next photo'}
+                aria-label={isRtl ? 'התמונה הקודמת' : tx("Next photo")}
                 style={{ ...btnStyle, right: isMobile ? '8px' : '24px' }}>
                 {rightArrow}
               </button>
             )}
             {/* Close */}
-            <button onClick={() => setLightboxIdx(null)} aria-label={isRtl ? 'סגירה' : 'Close'} style={{
+            <button onClick={() => setLightboxIdx(null)} aria-label={isRtl ? 'סגירה' : tx("Close")} style={{
               ...btnStyle, width: '40px', height: '40px', fontSize: '18px',
               top: '16px', right: '16px',
             }}>✕</button>

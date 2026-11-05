@@ -5,6 +5,7 @@
  * they emit is backed by visible on-page content (Google's FAQ policy) and so
  * AI engines can cite the Q&A directly. Matches the itinerary accordion styling.
  */
+import { tx } from '../../website/lang.js';
 import { useState } from 'react';
 import { COLOR, RADIUS, EASING } from '../../website/theme.js';
 
@@ -21,7 +22,7 @@ export default function FaqAccordion({ items, isRtl = true, isMobile = false }) 
         fontWeight: 700, color: '#0A0818', letterSpacing: '-0.02em', margin: '0 0 28px',
         textAlign: 'start', direction: dir,
       }}>
-        {isRtl ? 'שאלות נפוצות' : 'Frequently Asked Questions'}
+        {isRtl ? 'שאלות נפוצות' : tx("Frequently Asked Questions")}
       </h2>
       <div style={{ border: '1px solid #ECEAF8', borderRadius: RADIUS.xl, overflow: 'hidden' }}>
         {items.map((item, idx) => {

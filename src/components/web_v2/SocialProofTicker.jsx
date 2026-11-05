@@ -13,6 +13,7 @@
  *  - Image error fallback: broken images fall back to the mountain emoji
  */
 
+import { tx } from '../../website/lang.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
@@ -247,7 +248,7 @@ const LAST_ITEM_KEY = 'highair_sp_last'; // persists across sessions
 /* ── Component ── */
 export default function SocialProofTicker() {
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const location = useLocation();
   ensureStyles();
 
@@ -407,7 +408,7 @@ export default function SocialProofTicker() {
         {/* X dismiss button */}
         <button
           onClick={handleDismiss}
-          aria-label={isEn ? 'Close' : 'סגור'}
+          aria-label={isEn ? tx("Close") : 'סגור'}
           style={{
             position:       'absolute',
             top:            '7px',
@@ -474,7 +475,7 @@ export default function SocialProofTicker() {
             direction:    isEn ? 'ltr' : 'rtl',
             textAlign:    'start',
           }}>
-            {isEn ? 'New registration!' : 'הרשמה חדשה!'}
+            {isEn ? tx("New registration!") : 'הרשמה חדשה!'}
           </div>
           <div style={{
             fontFamily: "'Ploni', Arial, sans-serif",
@@ -486,7 +487,7 @@ export default function SocialProofTicker() {
             textAlign:  'start',
           }}>
             {isEn
-              ? `${item.name} registered for ${item.exp} · ${item.time}`
+              ? tx("{0} registered for {1} · {2}", [item.name, item.exp, item.time])
               : `${item.name} ${item.female ? 'נרשמה' : 'נרשם'} ל${item.exp} · ${item.time}`
             }
           </div>

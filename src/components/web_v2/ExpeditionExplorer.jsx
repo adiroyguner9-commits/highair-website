@@ -4,6 +4,7 @@
  * Cards sorted low→high elevation, horizontal native-scroll slider with snap.
  */
 
+import { tx, loc, currentLang, PARTIAL_LANGS } from '../../website/lang.js';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -22,8 +23,8 @@ function NavArrow({ direction, disabled, onClick, isRtl }) {
     ? (isRtl ? '→' : '←')
     : (isRtl ? '←' : '→');
   const ariaLabel = direction === 'prev'
-    ? (isRtl ? 'הבא' : 'Previous')
-    : (isRtl ? 'הקודם' : 'Next');
+    ? (isRtl ? 'הבא' : tx("Previous"))
+    : (isRtl ? 'הקודם' : tx("Next"));
   return (
     <button
       onClick={onClick}
@@ -92,7 +93,7 @@ function ExpCard({ exp }) {
   const navigate = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const isTeaser = !!exp.teaser;   // a "בקרוב" card with no page — not clickable
 
   const handleNav = () => navigate(`/expedition/${exp.slug}`);
@@ -171,7 +172,7 @@ function ExpCard({ exp }) {
           fontFamily: 'Ploni, sans-serif', fontSize: FS.sm, fontWeight: 600,
           color: 'rgba(255,255,255,0.95)', letterSpacing: '0.02em', direction: 'ltr',
         }}>
-          <FlagImg emoji={exp.flag} size={18} />{isEn ? exp.country : exp.countryHe}
+          <FlagImg emoji={exp.flag} size={18} />{isEn ? (loc(exp, 'country') || exp.country) : exp.countryHe}
         </div>
         {exp.soldOut && (
           <div style={{ padding: '4px 10px', borderRadius: RADIUS.full, background: '#DC2626', fontFamily: 'Ploni, sans-serif', fontSize: '11px', fontWeight: 700, color: '#FFFFFF' }}>
@@ -183,7 +184,7 @@ function ExpCard({ exp }) {
             than red because it invites rather than closes the door. */}
         {!exp.soldOut && exp.comingSoon && (
           <div style={{ padding: '4px 10px', borderRadius: RADIUS.full, background: '#D97706', fontFamily: 'Ploni, sans-serif', fontSize: '11px', fontWeight: 700, color: '#FFFFFF' }}>
-            {isEn ? 'Coming soon' : 'בקרוב'}
+            {isEn ? tx("Coming soon") : 'בקרוב'}
           </div>
         )}
       </div>
@@ -193,7 +194,7 @@ function ExpCard({ exp }) {
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px' }}>
           <div>
             <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.h3, fontWeight: 700, color: '#FFFFFF', margin: '0 0 6px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-              {isEn ? (exp.nameEn || exp.name) : exp.nameHe}
+              {isEn ? (loc(exp, "name") || exp.name) : exp.nameHe}
             </h3>
             {exp.elevNum > 0 && (
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em', direction: 'ltr', textAlign: isEn ? 'left' : 'right' }}>
@@ -230,7 +231,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
   const [tier,        setTier]        = useState(null);   // climbs altitude filter (null = all)
   const { isMobile }  = useBreakpoint();
   const { t, i18n }   = useTranslation();
-  const textDir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const textDir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl   = textDir === 'rtl';
   const stacked = stackOnMobile && isMobile;
 
@@ -343,15 +344,22 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
   /* Labels */
   const sectionId = type === 'climbs' ? 'expeditions' : type === 'safari' ? 'safari' : 'treks';
   const heading   = type === 'safari'
-    ? (isRtl ? 'ספארי בטנזניה' : 'Tanzania Safari')
+    ? (isRtl ? 'ספארי בטנזניה' : tx("Tanzania Safari"))
     : type === 'climbs'
-      ? (isRtl ? 'טיפוס הרים בעולם'   : 'Expeditions')
-      : (isRtl ? 'טרקים בעולם'        : 'Trekking');
+      ? (isRtl ? 'טיפוס הרים בעולם'   : tx("Expeditions"))
+      : (isRtl ? 'טרקים בעולם'        : tx("Trekking"));
   const subtitle  = type === 'safari'
-    ? (isRtl ? 'שלושה אורכים, אותן שמורות מהמרהיבות באפריקה - בחרו כמה ימים בטבע' : 'Three lengths, the same spectacular African reserves - choose how many days in the wild')
+    ? (isRtl ? 'שלושה אורכים, אותן שמורות מהמרהיבות באפריקה - בחרו כמה ימים בטבע' : tx(
+    "Three lengths, the same spectacular African reserves - choose how many days in the wild"
+  ))
     : type === 'climbs'
-      ? (isRtl ? 'מקילימנג\'רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים' : 'From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives')
-      : (isRtl ? 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס'    : 'From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss');
+      ? (isRtl ? 'מקילימנג\'רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים'
+          : PARTIAL_LANGS.includes(currentLang())
+            ? tx("Kilimanjaro, the roof of Africa: our classic climb and a fully kosher expedition")
+            : tx("From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives"))
+      : (isRtl ? 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס'    : tx(
+    "From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss"
+  ));
 
   return (
     <section id={sectionId} style={{
@@ -407,11 +415,11 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
         {/* ── Altitude filter (climbs + treks) ── */}
         {(fullPage || !hideHeading) && filterable && TIERS.length > 1 && (
           <div className="tier-scroll" style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: fullPage && isMobile ? '8px' : '-16px', marginBottom: '30px', paddingBottom: '2px', direction: textDir }}>
-            <TierChip label={isRtl ? 'הכל' : 'All'} active={!tier} onClick={() => setTier(null)} />
+            <TierChip label={isRtl ? 'הכל' : tx("All")} active={!tier} onClick={() => setTier(null)} />
             {TIERS.map(m => (
               <TierChip
                 key={m}
-                label={`${m}${isRtl ? ' מ׳' : ' m'}`}
+                label={`${m}${isRtl ? ' מ׳' : tx(" m")}`}
                 active={tier === m}
                 onClick={() => setTier(m)}
               />

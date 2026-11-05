@@ -31,7 +31,7 @@ export default function HeroSection() {
  const videoRef = useRef(null);
  const playTracked = useRef(false);
  const { t, i18n } = useTranslation();
- const isEn = i18n.language === 'en';
+ const isEn = i18n.language !== 'he';
  const poster = usePhoneHero(POSTER_SRC, 'home');   // a phone gets the slice it shows
 
  /* Load the hero video OFF the critical path, and never on mobile — a phone on

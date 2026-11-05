@@ -3,6 +3,7 @@
  * Bilingual HE/EN · matches site design
  * Saves preference to localStorage and enables GA on accept
  */
+import { tx } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
@@ -12,7 +13,7 @@ const STORAGE_KEY = 'highair_cookie_consent';
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const { i18n } = useTranslation();
-  const isEn  = i18n.language === 'en';
+  const isEn  = i18n.language !== 'he';
   const dir   = isEn ? 'ltr' : 'rtl';
 
   const bannerRef = useRef(null);
@@ -89,7 +90,7 @@ export default function CookieBanner() {
     <div
       ref={bannerRef}
       role="dialog"
-      aria-label={isEn ? 'Cookie consent' : 'הסכמה לעוגיות'}
+      aria-label={isEn ? tx("Cookie consent") : 'הסכמה לעוגיות'}
       style={{
         position:     'fixed',
         bottom:       '24px',
@@ -125,7 +126,7 @@ export default function CookieBanner() {
           margin:        0,
           letterSpacing: '-0.01em',
         }}>
-          {isEn ? 'Cookie Usage' : 'שימוש בעוגיות'}
+          {isEn ? tx("Cookie Usage") : 'שימוש בעוגיות'}
         </h3>
       </div>
 
@@ -139,13 +140,15 @@ export default function CookieBanner() {
         lineHeight: 1.7,
       }}>
         {isEn
-          ? 'We use cookies to improve your browsing experience and analyse site usage. '
+          ? tx(
+          "We use cookies to improve your browsing experience and analyse site usage. "
+        )
           : 'אנחנו משתמשים בעוגיות כדי לשפר את החוויה באתר ולנתח את השימוש בו. '}
         <a
           href="/privacy"
           style={{ color: COLOR.primary, fontWeight: 600, textDecoration: 'none' }}
         >
-          {isEn ? 'Privacy Policy' : 'מדיניות הפרטיות'}
+          {isEn ? tx("Privacy Policy") : 'מדיניות הפרטיות'}
         </a>
       </p>
 
@@ -169,7 +172,7 @@ export default function CookieBanner() {
           onMouseEnter={e => { e.currentTarget.style.background = '#7C3AED'; }}
           onMouseLeave={e => { e.currentTarget.style.background = COLOR.primary; }}
         >
-          {isEn ? 'Accept ✓' : 'אני מסכים/ה ✓'}
+          {isEn ? tx("Accept ✓") : 'אני מסכים/ה ✓'}
         </button>
         <button
           onClick={decline}
@@ -188,7 +191,7 @@ export default function CookieBanner() {
           onMouseEnter={e => { e.currentTarget.style.borderColor = COLOR.primary; e.currentTarget.style.color = COLOR.primary; }}
           onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E3F0'; e.currentTarget.style.color = '#6B6B8A'; }}
         >
-          {isEn ? 'Decline' : 'דחה'}
+          {isEn ? tx("Decline") : 'דחה'}
         </button>
       </div>
     </div>

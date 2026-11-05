@@ -62,7 +62,7 @@ function PressCard({ item, isMobile }) {
   const { outlet, outletEn, color, date, headline, headlineEn, excerpt, excerptEn, href, isVideo } = item;
   const [hovered, setHovered] = useState(false);
   const { i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const videoId = isVideo ? getYouTubeId(href) : null;
   const embedSrc = videoId
@@ -168,7 +168,7 @@ function PressCard({ item, isMobile }) {
 export default function PressSection() {
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
 

@@ -7,6 +7,7 @@
  * start, a short FAQ. Copy, store links and screens live in src/data/appData.js,
  * which the page's static shell reads too. Badges and QR: StoreBadges.jsx.
  */
+import { tx, currentLang } from '../../website/lang.js';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, FS } from '../../website/theme.js';
@@ -124,8 +125,8 @@ function answerWithLink({ a, link }) {
 
 export default function AppPage() {
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
-  const T = APP_PAGE[isEn ? 'en' : 'he'];
+  const isEn = i18n.language !== 'he';
+  const T = APP_PAGE[currentLang()] || APP_PAGE[isEn ? 'en' : 'he'];
   const dir = isEn ? 'ltr' : 'rtl';
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
 
@@ -135,7 +136,7 @@ export default function AppPage() {
     canonicalPath: '/app',
     jsonLd: [
       breadcrumbList([
-        { name: isEn ? 'Home' : 'בית', url: '/' },
+        { name: isEn ? tx("Home") : 'בית', url: '/' },
         { name: T.h1, url: '/app' },
       ]),
       faqPage(T.faq.map(({ q, a }) => ({ q, a }))),
@@ -278,9 +279,9 @@ export default function AppPage() {
             }}>
               {APP_SCREENS.map(s => (
                 <figure key={s.src} style={{ margin: 0, flexShrink: 0, scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-                  <PhoneFrame src={s.src} alt={isEn ? s.en : s.he} width={shotPhone} shadow="0 14px 36px rgba(10,8,24,0.16)" />
+                  <PhoneFrame src={s.src} alt={isEn ? (s[currentLang()] || s.en) : s.he} width={shotPhone} shadow="0 14px 36px rgba(10,8,24,0.16)" />
                   <figcaption style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600, color: '#3D3B52' }}>
-                    {isEn ? s.en : s.he}
+                    {isEn ? (s[currentLang()] || s.en) : s.he}
                   </figcaption>
                 </figure>
               ))}

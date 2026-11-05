@@ -83,7 +83,7 @@ function IsraelCard({ trip }) {
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
 
   useEffect(() => {
     if (!trip.img) return;
@@ -242,7 +242,7 @@ export default function IsraelTrips({ fullPage = false }) {
   const [month,   setMonth]   = useState(null);   // month filter (null = all)
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
   const HIDDEN_SLUGS = new Set(ISRAEL_TRIPS.filter(t => t.hidden).map(t => t.slug));

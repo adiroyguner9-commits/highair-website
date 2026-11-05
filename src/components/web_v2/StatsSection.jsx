@@ -98,7 +98,7 @@ function StatCell({ raw, label, isMobile, idx }) {
 export default function StatsSection() {
   const { isMobile } = useBreakpoint();
   const { t, i18n }  = useTranslation();
-  const dir   = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir   = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
   const STATS = [

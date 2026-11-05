@@ -3,6 +3,7 @@
  * תמונה משמאל · טקסט מימין · רקע לבן
  */
 
+import { tx } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
@@ -29,7 +30,7 @@ export default function ImpactSection() {
   loadedUpTo.current = Math.max(loadedUpTo.current, active + 1);
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
 
   const PARAGRAPHS = [
@@ -81,7 +82,7 @@ export default function ImpactSection() {
                 src={i <= loadedUpTo.current ? src : undefined}
                 srcSet={i <= loadedUpTo.current ? srcSetOf(src) : undefined}
                 sizes="(max-width: 767.98px) 260px, 46vw"
-                alt={i18n.language === 'en' ? 'HighAir Expeditions - Travel with purpose, a hospital visit' : 'HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים'}
+                alt={i18n.language !== 'he' ? tx("HighAir Expeditions - Travel with purpose, a hospital visit") : 'HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים'}
                 loading="lazy"
                 decoding="async"
                 style={{

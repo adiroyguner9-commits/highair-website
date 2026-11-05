@@ -1,15 +1,16 @@
 /**
  * TermsOfService.jsx - תקנון ותנאי שימוש / Terms & Conditions
  */
+import { tx } from '../../website/lang.js';
 import { useTranslation } from 'react-i18next';
 import LegalPageLayout, { SECTION, H2, P, LI, UL, CONTACT_BOX, LINK } from './LegalPageLayout.jsx';
 
 export default function TermsOfService() {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
 
   return (
-    <LegalPageLayout title={isRtl ? 'תקנון ותנאי שימוש' : 'Terms & Conditions'} updated="2026-10-19">
+    <LegalPageLayout title={isRtl ? 'תקנון ותנאי שימוש' : tx("Terms & Conditions")} updated="2026-10-19">
       {isRtl ? (
         <>
           <div style={SECTION}>

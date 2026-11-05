@@ -86,9 +86,9 @@ export default function BlogPost() {
   const navigate   = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const post = POSTS.find(p => p.slug === slug);
   const heroImg = usePhoneHero(post?.img, 'blog');   // a phone gets the slice it shows
 

@@ -17,6 +17,7 @@
  *   isRtl         – boolean
  */
 
+import { tx } from '../../website/lang.js';
 import i18n from '../../i18n.js';
 import { useState, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
@@ -33,7 +34,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
   const [reach, setReach]                     = useState(1);
   const carouselRef = useRef(null);
 
-  const hintLabel = hint !== undefined ? hint : (isRtl ? 'לחץ להגדלה' : 'Tap to zoom');
+  const hintLabel = hint !== undefined ? hint : (isRtl ? 'לחץ להגדלה' : tx("Tap to zoom"));
 
   const handleScroll = e => {
     const el  = e.currentTarget;
@@ -194,7 +195,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
               <CarouselDot
                 key={i}
                 onClick={() => scrollToIdx(i)}
-                label={i18n.language === 'en' ? `Photo ${i + 1}` : `תמונה ${i + 1}`}
+                label={i18n.language !== 'he' ? tx("Photo {0}", [i + 1]) : `תמונה ${i + 1}`}
                 width={activeIdx === i ? '20px' : '7px'}
                 color={activeIdx === i ? '#6D28D9' : '#D1C9F0'}
                 transition="all 0.25s ease"
@@ -211,7 +212,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
               <CarouselDot
                 key={i}
                 onClick={() => scrollToIdx(i)}
-                label={i18n.language === 'en' ? `Photo ${i + 1}` : `תמונה ${i + 1}`}
+                label={i18n.language !== 'he' ? tx("Photo {0}", [i + 1]) : `תמונה ${i + 1}`}
                 width={isActive ? '20px' : isEdge ? '5px' : '7px'}
                 height={isActive ? '7px' : isEdge ? '5px' : '7px'}
                 color={isActive ? '#6D28D9' : '#D1C9F0'}

@@ -127,7 +127,7 @@ function BannerCard({ platform, Icon, bg, fadeColor, ctaColor, headline, cta, hr
 
 export default function CommunitySection() {
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
 
   /* Hebrew-only content (Hebrew videos, Israeli press, the Hebrew WhatsApp
      community): not shown on the English site (5 Nov 2026). */

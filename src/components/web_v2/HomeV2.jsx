@@ -3,6 +3,7 @@
  * Active route: /test
  */
 
+import { tx, currentLang, PARTIAL_LANGS } from '../../website/lang.js';
 import { lazy, Suspense, useEffect, useRef } from 'react';
 import { useTranslation }  from 'react-i18next';
 import { useInView }      from '../../website/useInView.js';
@@ -119,7 +120,7 @@ const ORG_SCHEMA = {
 /* ── Page ── */
 export default function HomeV2() {
   const { i18n } = useTranslation();
-  const isRtl = i18n.language !== 'en';
+  const isRtl = i18n.language === 'he';
   const { isMobile } = useBreakpoint();
 
   /* Inject Organization JSON-LD into <head> */
@@ -142,13 +143,16 @@ export default function HomeV2() {
   usePageMeta({
     title:         isRtl
       ? 'HighAir Expeditions | טרקים ומשלחות טיפוס הרים בארץ ובעולם'
-      : 'Trekking and Climbing Expeditions | HighAir Expeditions',
+      : tx("Trekking and Climbing Expeditions | HighAir Expeditions"),
     description:   isRtl
       ? 'HighAir Expeditions מארגנת טרקים ומשלחות טיפוס הרים בארץ ובעולם. קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד — עם תרומה לחולי סרטן בכל מסע.'
-      : 'Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.',
+      : tx(
+      "Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients."
+    ),
     canonicalPath: '/',
   });
 
+  const PARTIAL = PARTIAL_LANGS.includes(currentLang());
   return (
     <div style={{ position: 'relative', background: 'transparent' }}>
 
@@ -176,8 +180,10 @@ export default function HomeV2() {
           <Divider />
           <FadeIn><ExpeditionExplorer type="climbs" /></FadeIn>
 
+          {!PARTIAL && (<>
           <Divider />
           <FadeIn><ExpeditionExplorer type="treks" /></FadeIn>
+          </>)}
 
           {ISRAEL_TREKS_LIVE && (<>
           <Divider />
@@ -197,8 +203,11 @@ export default function HomeV2() {
           <Divider />
           <FadeIn><PressSection /></FadeIn>
 
+          {/* German and Spanish: core pages only, no treks and no magazine (lang.js) */}
+          {!PARTIAL && (<>
           <Divider />
           <FadeIn><BlogPreview /></FadeIn>
+          </>)}
 
           <FadeIn><CommunitySection /></FadeIn>
 

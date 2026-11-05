@@ -3,6 +3,7 @@
  * Route: /about
  */
 
+import { tx, loc, currentLang } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS } from '../../website/theme.js';
@@ -11,7 +12,7 @@ import { usePageMeta } from '../../website/usePageMeta.js';
 import Header       from './Header.jsx';
 import SiteFooter   from './SiteFooter.jsx';
 import PressSection from './PressSection.jsx';
-import { STORY_HE, STORY_SIGN_HE, STORY_EN, STORY_SIGN_EN, TEAM_HE, TEAM_EN } from '../../data/aboutData.js';
+import { STORY_HE, STORY_SIGN_HE, STORY_EN, STORY_SIGN_EN, TEAM_HE, TEAM_EN, ABOUT_I18N } from '../../data/aboutData.js';
 
 /* ── Auto-load team photos from src/assets/team/ ── */
 const _teamGlob = import.meta.glob('../../assets/team/*', { eager: true });
@@ -125,11 +126,11 @@ function TeamCard({ member }) {
 
 /* ── Real gift photos ── */
 const GIFT_PHOTOS = [
-  { name: 'דובי',   nameEn: 'Dubi',    age: 6,  ageLabel: 'בן', ageLabelEn: 'age', gift: 'כיסא גיימינג',  giftEn: 'Gaming chair',   photo: '/images/gifts/dubi-gaming-chair.jpg' },
-  { name: 'חנה',    nameEn: 'Hana',    age: 8,  ageLabel: 'בת', ageLabelEn: 'age', gift: 'בית בובות',     giftEn: 'Dollhouse',      photo: '/images/gifts/hani-dollhouse.jpg' },
-  { name: 'נעם',    nameEn: 'Noam',    age: 25, ageLabel: 'בן', ageLabelEn: 'age', gift: 'לגו פרארי',     giftEn: 'Ferrari Lego',   photo: '/images/gifts/noam-lego-ferrari.jpg' },
-  { name: 'אפרים', nameEn: 'Efraim', age: 9,  ageLabel: 'בן', ageLabelEn: 'age', gift: 'אופני הרים',       giftEn: 'Mountain bike',  photo: '/images/gifts/efraim-mountain-bike.jpg' },
-  { name: 'רועי',  nameEn: 'Roei',   age: 20, ageLabel: 'בן', ageLabelEn: 'age', gift: 'נעלי אייר ג׳ורדן', giftEn: 'Air Jordan shoes', photo: '/images/gifts/roei-air-jordan.jpg' },
+  { name: 'דובי',   nameEn: 'Dubi',    age: 6,  ageLabel: 'בן', ageLabelEn: 'age', ageLabelDe: 'Alter', ageLabelEs: 'edad', gift: 'כיסא גיימינג',  giftEn: 'Gaming chair', giftDe: 'Gaming-Stuhl', giftEs: 'Silla gaming',   photo: '/images/gifts/dubi-gaming-chair.jpg' },
+  { name: 'חנה',    nameEn: 'Hana',    age: 8,  ageLabel: 'בת', ageLabelEn: 'age', ageLabelDe: 'Alter', ageLabelEs: 'edad', gift: 'בית בובות',     giftEn: 'Dollhouse', giftDe: 'Puppenhaus', giftEs: 'Casa de muñecas',      photo: '/images/gifts/hani-dollhouse.jpg' },
+  { name: 'נעם',    nameEn: 'Noam',    age: 25, ageLabel: 'בן', ageLabelEn: 'age', ageLabelDe: 'Alter', ageLabelEs: 'edad', gift: 'לגו פרארי',     giftEn: 'Ferrari Lego', giftDe: 'Lego-Ferrari', giftEs: 'Ferrari de Lego',   photo: '/images/gifts/noam-lego-ferrari.jpg' },
+  { name: 'אפרים', nameEn: 'Efraim', age: 9,  ageLabel: 'בן', ageLabelEn: 'age', ageLabelDe: 'Alter', ageLabelEs: 'edad', gift: 'אופני הרים',       giftEn: 'Mountain bike', giftDe: 'Mountainbike', giftEs: 'Bicicleta de montaña',  photo: '/images/gifts/efraim-mountain-bike.jpg' },
+  { name: 'רועי',  nameEn: 'Roei',   age: 20, ageLabel: 'בן', ageLabelEn: 'age', ageLabelDe: 'Alter', ageLabelEs: 'edad', gift: 'נעלי אייר ג׳ורדן', giftEn: 'Air Jordan shoes', giftDe: 'Air-Jordan-Schuhe', giftEs: 'Zapatillas Air Jordan', photo: '/images/gifts/roei-air-jordan.jpg' },
 ];
 
 function GiftPhotoGrid({ isEn }) {
@@ -152,13 +153,13 @@ function GiftPhotoGrid({ isEn }) {
       }} />
       <div style={{ padding: '16px 18px', textAlign: 'center' }}>
         <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700, color: '#0A0818' }}>
-          {isEn ? g.nameEn : g.name}
+          {isEn ? loc(g, "name") : g.name}
           <span style={{ fontWeight: 400, color: '#7C3AED', fontSize: '14px', marginRight: '6px', marginLeft: '6px' }}>
-            {isEn ? `${g.ageLabelEn} ${g.age}` : `${g.ageLabel} ${g.age}`}
+            {isEn ? `${loc(g, "ageLabel")} ${g.age}` : `${g.ageLabel} ${g.age}`}
           </span>
         </div>
         <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', marginTop: '4px' }}>
-          {isEn ? g.giftEn : g.gift}
+          {isEn ? loc(g, "gift") : g.gift}
         </div>
       </div>
     </div>
@@ -278,7 +279,7 @@ function GiftsSlider({ gifts, isEn }) {
               fontWeight: 600,
               marginBottom: '10px',
             }}>
-              {isEn ? `Age ${g.age}` : `בת/בן ${g.age}`}
+              {isEn ? tx("Age {0}", [g.age]) : `בת/בן ${g.age}`}
             </div>
             <div style={{
               fontFamily:  "'Ploni', sans-serif",
@@ -323,9 +324,9 @@ const PEAKS = [
   { id:6,  he:'מרה פיק',         en:'Mera Peak',        cHe:'נפאל',      cEn:'Nepal',     alt:6476, done:true  },
   { id:7,  he:'אמא דאבלם',       en:'Ama Dablam',       cHe:'נפאל',      cEn:'Nepal',     alt:6812, done:true  },
   { id:8,  he:'מנסלו',           en:'Manaslu',          cHe:'נפאל',      cEn:'Nepal',     alt:8163, done:true  },
-  { id:9,  he:'אלברוס',          en:'Elbrus',           cHe:'רוסיה',     cEn:'Russia',    alt:5642, done:false, dHe:'יוני 2026',   dEn:'Jun 2026'  },
-  { id:10, he:'אקונקגואה',       en:'Aconcagua',        cHe:'ארגנטינה',  cEn:'Argentina', alt:6962, done:false, dHe:'ינואר 2027',  dEn:'Jan 2027'  },
-  { id:11, he:'אוורסט + להוצה',  en:'Everest + Lhotse', cHe:'נפאל',      cEn:'Nepal',     alt:8849, done:false, dHe:'אפריל 2027',  dEn:'Apr 2027'  },
+  { id:9,  he:'אלברוס',          en:'Elbrus',           cHe:'רוסיה',     cEn:'Russia',    alt:5642, done:false, dHe:'יוני 2026',   dEn:'Jun 2026', dDe:'Juni 2026', dEs:'junio 2026'  },
+  { id:10, he:'אקונקגואה',       en:'Aconcagua',        cHe:'ארגנטינה',  cEn:'Argentina', alt:6962, done:false, dHe:'ינואר 2027',  dEn:'Jan 2027', dDe:'Jan. 2027', dEs:'enero 2027'  },
+  { id:11, he:'אוורסט + להוצה',  en:'Everest + Lhotse', cHe:'נפאל',      cEn:'Nepal',     alt:8849, done:false, dHe:'אפריל 2027',  dEn:'Apr 2027', dDe:'Apr. 2027', dEs:'abril 2027'  },
 ];
 
 /* ── Journey SVG Chart ── */
@@ -388,7 +389,7 @@ function JourneyChart({ isEn }) {
         <rect x={PX} y={PT} width={W-2*PX} height={DZ_Y-PT} fill="rgba(239,68,68,0.04)"/>
         <text x={W-PX-6} y={DZ_Y-6} textAnchor="end" fontSize="9" fontFamily="sans-serif"
           fontWeight="700" fill="rgba(239,68,68,0.45)" letterSpacing="1.2">
-          {isEn ? '▲ DEATH ZONE' : '▲ אזור המוות'}
+          {isEn ? tx("▲ DEATH ZONE") : '▲ אזור המוות'}
         </text>
 
         {/* Grid lines */}
@@ -416,11 +417,11 @@ function JourneyChart({ isEn }) {
         {/* Zone labels */}
         <text x={(PX+MID_X)/2} y={PT-28} textAnchor="middle" fontSize="10" fontFamily="sans-serif"
           fontWeight="700" fill="rgba(167,139,250,0.75)" letterSpacing="1.5">
-          {isEn ? '✓  COMPLETED' : '✓  הושלמו'}
+          {isEn ? tx("✓  COMPLETED") : '✓  הושלמו'}
         </text>
         <text x={(MID_X+W-PX)/2} y={PT-28} textAnchor="middle" fontSize="10" fontFamily="sans-serif"
           fontWeight="700" fill="rgba(251,191,36,0.82)" letterSpacing="1.5">
-          {isEn ? 'UPCOMING  →' : 'הבא בתור  →'}
+          {isEn ? tx("UPCOMING  →") : 'הבא בתור  →'}
         </text>
 
         {/* Area fills */}
@@ -455,7 +456,7 @@ function JourneyChart({ isEn }) {
               {!p.done && (
                 <text x={p.x} y={p.y-(r+14)} textAnchor="middle" fontSize="9"
                   fontFamily="sans-serif" fill="rgba(253,230,138,0.72)" fontWeight="500">
-                  {isEn ? p.dEn : p.dHe}
+                  {isEn ? loc(p, "d") : p.dHe}
                 </text>
               )}
             </g>
@@ -481,20 +482,22 @@ function JourneyChart({ isEn }) {
 export default function AboutUs() {
   const { i18n }    = useTranslation();
   const { isMobile, isTablet } = useBreakpoint();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
 
   usePageMeta({
-    title:         isEn ? 'Our Story | HighAir Expeditions' : 'HighAir Expeditions | הסיפור שלנו',
+    title:         isEn ? tx("Our Story | HighAir Expeditions") : 'HighAir Expeditions | הסיפור שלנו',
     description:   isEn
-      ? 'Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients in Israel.'
+      ? tx(
+      "Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients in Israel."
+    )
       : 'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק — ותורמים מדי חודש לילדים חולי סרטן.',
     canonicalPath: '/about',
   });
 
-  const team        = isEn ? TEAM_EN : TEAM_HE;
-  const storyParagraphs = isEn ? STORY_EN : STORY_HE;
-  const storySign   = isEn ? STORY_SIGN_EN : STORY_SIGN_HE;
+  const team        = isEn ? (ABOUT_I18N[currentLang()]?.team || TEAM_EN) : TEAM_HE;
+  const storyParagraphs = isEn ? (ABOUT_I18N[currentLang()]?.story || STORY_EN) : STORY_HE;
+  const storySign   = isEn ? (ABOUT_I18N[currentLang()]?.sign || STORY_SIGN_EN) : STORY_SIGN_HE;
   const teamCols    = isMobile ? 1 : isTablet ? 3 : 4;
 
   return (
@@ -518,7 +521,7 @@ export default function AboutUs() {
             letterSpacing: '-0.03em',
             lineHeight:    1.1,
           }}>
-            {isEn ? 'Our Story' : 'הסיפור שלנו'}
+            {isEn ? tx("Our Story") : 'הסיפור שלנו'}
           </h1>
           <p style={{
             fontFamily: "'Ploni', sans-serif",
@@ -528,7 +531,7 @@ export default function AboutUs() {
             margin:     0,
             lineHeight: 1.7,
           }}>
-            {isEn ? 'Who We Are and Why We Do It?' : 'מי אנחנו ולמה אנחנו עושים את זה?'}
+            {isEn ? tx("Who We Are and Why We Do It?") : 'מי אנחנו ולמה אנחנו עושים את זה?'}
           </p>
         </div>
 
@@ -561,7 +564,7 @@ export default function AboutUs() {
               }}>
                 <img
                   src="/images/about-story.avif"
-                  alt={isEn ? 'Chen Shaked at the summit of Manaslu 8163m' : 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם'}
+                  alt={isEn ? tx("Chen Shaked at the summit of Manaslu 8163m") : 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם'}
                   loading="lazy"
                   decoding="async"
                   style={{
@@ -584,7 +587,7 @@ export default function AboutUs() {
                 textAlign:   'center',
                 letterSpacing: '0.01em',
               }}>
-                {isEn ? 'Chen Shaked at the summit of Manaslu, 8163m' : 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם'}
+                {isEn ? tx("Chen Shaked at the summit of Manaslu, 8163m") : 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם'}
               </p>
             </div>
 
@@ -646,7 +649,7 @@ export default function AboutUs() {
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}>
-                {isEn ? 'The people behind every summit' : 'האנשים מאחורי כל פסגה'}
+                {isEn ? tx("The people behind every summit") : 'האנשים מאחורי כל פסגה'}
               </p>
               <h2 style={{
                 fontFamily:    "'Ploni', sans-serif",
@@ -657,7 +660,7 @@ export default function AboutUs() {
                 letterSpacing: '-0.03em',
                 lineHeight:    1.1,
               }}>
-                {isEn ? 'Meet Our Team' : 'הכירו את הצוות שלנו'}
+                {isEn ? tx("Meet Our Team") : 'הכירו את הצוות שלנו'}
               </h2>
             </div>
 
@@ -695,7 +698,7 @@ export default function AboutUs() {
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}>
-                {isEn ? 'Giving back' : 'נותנים בחזרה'}
+                {isEn ? tx("Giving back") : 'נותנים בחזרה'}
               </p>
               <h2 style={{
                 fontFamily:    "'Ploni', sans-serif",
@@ -706,7 +709,7 @@ export default function AboutUs() {
                 letterSpacing: '-0.03em',
                 lineHeight:    1.2,
               }}>
-                {isEn ? 'Because Every Child Deserves to Celebrate' : 'כי כל ילד ראוי לחגוג'}
+                {isEn ? tx("Because Every Child Deserves to Celebrate") : 'כי כל ילד ראוי לחגוג'}
               </h2>
               <p style={{
                 fontFamily: "'Ploni', sans-serif",
@@ -719,7 +722,9 @@ export default function AboutUs() {
                 direction:  isEn ? 'ltr' : 'rtl',
               }}>
                 {isEn
-                  ? 'A child fighting cancer shouldn\'t have to give up their birthday. Every month we receive wishes directly from the children and make sure every one of them gets exactly what they dreamed of.'
+                  ? tx(
+                  "A child fighting cancer shouldn't have to give up their birthday. Every month we receive wishes directly from the children and make sure every one of them gets exactly what they dreamed of."
+                )
                   : 'ילד שנלחם בסרטן לא צריך לוותר על יום ההולדת שלו. כל חודש אנחנו מקבלים משאלות ישירות מהילדים ומוודאים שכל אחד מקבל בדיוק את מה שחלם עליו.'}
               </p>
             </div>

@@ -1,3 +1,4 @@
+import { applyTripI18n } from './tripI18n.js';
 export const EXPS = [
   {
     id: 2, slug: 'olympus', name: 'Olympus', nameHe: 'טיפוס לאולימפוס', nameEn: 'Olympus', country: 'Greece', countryHe: 'יוון', flag: '🇬🇷',
@@ -3670,3 +3671,6 @@ export const P = {
 export function diffColor(d) {
   return d === 'Easy' ? P.green : d === 'Moderate' ? P.gold : d === 'Hard' ? '#EA580C' : P.red;
 }
+
+/* German / Spanish copy for the trips on de./es. (tripI18n.js) */
+EXPS.forEach(applyTripI18n);

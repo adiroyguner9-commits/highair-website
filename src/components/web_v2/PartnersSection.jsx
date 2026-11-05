@@ -4,6 +4,7 @@
  * Logos are auto-loaded from src/assets/partners/ (drop a file there to add it).
  */
 
+import { tx } from '../../website/lang.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint }  from '../../website/useBreakpoint.js';
 
@@ -79,7 +80,7 @@ function PartnersTicker() {
 export default function PartnersSection() {
   const { i18n }    = useTranslation();
   const { isMobile } = useBreakpoint();
-  const isEn = i18n.language === 'en';
+  const isEn = i18n.language !== 'he';
 
   if (!PARTNER_LOGOS.length) return null;
 
@@ -100,7 +101,7 @@ export default function PartnersSection() {
         textTransform: 'uppercase',
         margin:        '0 0 20px',
       }}>
-        {isEn ? 'Our partners on the road' : 'השותפים שלנו לדרך'}
+        {isEn ? tx('Our partners on the road') : 'השותפים שלנו לדרך'}
       </p>
       <PartnersTicker />
     </div>

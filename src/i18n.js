@@ -1,15 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-/* ── Detect language: Hebrew by default, English only if user switched ── */
+import de from './i18n/res-de.js';
+import es from './i18n/res-es.js';
+
+/* ── Detect language: Hebrew by default ──
+   en. / de. / es. subdomains always serve their language (5 Nov 2026: German
+   and Spanish added beside English). */
+const FOREIGN = ['en', 'de', 'es'];
 function detectLang() {
-  // 1. Subdomain (en.highair-expeditions.com) → always English
-  const hostname = window.location.hostname;
-  if (hostname.startsWith('en.')) return 'en';
+  // 1. Subdomain (en. / de. / es.highair-expeditions.com) → that language
+  const sub = window.location.hostname.split('.')[0];
+  if (FOREIGN.includes(sub)) return sub;
 
   // 2. User already made an explicit choice via the language toggle → honour it
   const stored = localStorage.getItem('HA_lang');
-  if (stored === 'en' || stored === 'he') return stored;
+  if (stored === 'he' || FOREIGN.includes(stored)) return stored;
 
   // 3. Default → Hebrew (browser language is intentionally ignored;
   //    the site is Israel-first and visitors switch manually if needed)
@@ -295,7 +301,7 @@ const en = {
     nameLabel: 'Full Name *',
     phoneLabel: 'Phone *',
     phonePlaceholder: '050-1234567',
-    phoneError: 'Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567',
+    phoneError: 'Please enter a valid phone number.',
     messageLabel: 'What would you like to tell us? *',
     messagePlaceholder: 'Tell us about your dream expedition',
     sendError: 'Error sending, please try again or contact us directly',
@@ -411,21 +417,21 @@ const lng = detectLang();
 i18n
   .use(initReactI18next)
   .init({
-    resources: { he: { translation: he }, en: { translation: en } },
+    resources: { he: { translation: he }, en: { translation: en }, de: { translation: de }, es: { translation: es } },
     lng,
-    fallbackLng: 'he',
+    fallbackLng: { de: ['en'], es: ['en'], default: ['he'] },
     interpolation: { escapeValue: false },
   });
 
 /* Sync dir + lang attribute + font */
 function applyDir(language) {
-  document.documentElement.dir  = language === 'en' ? 'ltr' : 'rtl';
+  document.documentElement.dir  = language === 'he' ? 'rtl' : 'ltr';
   document.documentElement.lang = language;
 
   /* Swap base font: Mazzard for English, Ploni for Hebrew */
   const STYLE_ID = 'ha-font-override';
   let el = document.getElementById(STYLE_ID);
-  if (language === 'en') {
+  if (language !== 'he') {
     if (!el) {
       el = document.createElement('style');
       el.id = STYLE_ID;

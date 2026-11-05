@@ -58,7 +58,7 @@ const LABEL_STYLE = {
 export default function CTASection() {
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'en' ? 'ltr' : 'rtl';
+  const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const INPUT_STYLE = { ...INPUT_STYLE_BASE, direction: dir };
   const [form,       setForm]       = useState({ name: '', dial: defaultDial(), phone: '', message: '', privacy: false });
