@@ -12,7 +12,7 @@
  */
 
 import { contactFor } from '../../website/contact.js';
-import { tx, loc, PARTIAL_LANGS } from '../../website/lang.js';
+import { tx, loc, PARTIAL_LANGS, hasPage } from '../../website/lang.js';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -121,22 +121,30 @@ const LANGS = [
 
 function LangSwitcher() {
  const { i18n } = useTranslation();
+ const navigate = useNavigate();
  const [open, setOpen] = useState(false);
  const current = LANGS.find(l => l.code === i18n.language) || LANGS[0];
 
  function switchLang(next) {
  setOpen(false);
  if (next === i18n.language) return;
+ /* The same page in the other language when it has one, otherwise that
+    language's home page, never a missing page (owner, 5 Nov 2026: "תמיד
+    שהברירת מחדל תעבור לדף בית באותה השפה שנבחרה ולא 404"). German and
+    Spanish carry the core pages only (hasPage). */
+ const { pathname, search } = window.location;
+ const keep = hasPage(next, pathname);
  /* Each language has its own host on the production domain; the host alone
     decides the language there (i18n.js), so nothing is stored. */
  const host = window.location.hostname;
  if (host === 'highair-expeditions.com' || host.endsWith('.highair-expeditions.com')) {
  const target = LANGS.find(l => l.code === next).sub + '.highair-expeditions.com';
- window.location.href = window.location.href.replace(host, target);
+ window.location.href = `https://${target}${keep ? pathname + search : '/'}`;
  return;
  }
- localStorage.setItem('HA_lang', next);
+ try { localStorage.setItem('HA_lang', next); } catch {}
  i18n.changeLanguage(next);
+ if (!keep) navigate('/');
  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
  }
 

@@ -234,7 +234,7 @@ export default function PhoneField({
           onBlur={() => setFocused(false)}
           placeholder={country.ph}
           style={{
-            flex: 1,
+            flex: 1, minWidth: 0,   // shrink on a narrow phone; without it the field ran 18px off a 375px screen (5 Nov 2026)
             height: '100%',
             padding: '0 16px',
             background: bg,

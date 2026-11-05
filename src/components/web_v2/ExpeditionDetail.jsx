@@ -7,7 +7,7 @@
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/mockData.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
@@ -899,28 +899,13 @@ export default function ExpeditionDetail() {
     textAlign: 'start',
   };
 
-  /* ─────────────── 404 ─────────────────── */
-  if (!exp) {
-    return (
-      <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif" }}>
-        <Header />
-        <div style={{
-          minHeight: '100vh', display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', gap: '24px',
-          fontFamily: "'Ploni', sans-serif", direction: dir,
-        }}>
-          <div style={{ fontSize: '64px' }}>⛰️</div>
-          <h1 style={{ color: '#0A0818', fontWeight: 700, fontFamily: "'Ploni', sans-serif" }}>המשלחת לא נמצאה</h1>
-          <button
-            onClick={() => navigate('/')}
-            style={{ ...BTN.primary, fontFamily: "'Ploni', sans-serif" }}
-          >
-            חזרה לדף הבית ←
-          </button>
-        </div>
-      </div>
-    );
-  }
+  /* ─────────────── unknown trip ─────────────────── */
+  /* A trip this site does not have (an old link, a page not open yet) goes to
+     the home page in the same language instead of a dead end (owner, 5 Nov
+     2026: "תמיד שהברירת מחדל תעבור לדף בית באותה השפה... ולא 404"). It used to
+     print "המשלחת לא נמצאה" in Hebrew on every site. */
+  if (!exp) return <Navigate to="/" replace />;
+
 
   /* ── Derived data ── */
   const reviews = exp.reviews?.length ? exp.reviews : (isRtl ? DEFAULT_REVIEWS : DEFAULT_REVIEWS_EN);

@@ -2,7 +2,7 @@
  * BlogPost.jsx - /blog/:slug
  * Individual blog post page - Hebrew RTL
  */
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '../../utils/analytics.js';
@@ -150,20 +150,9 @@ export default function BlogPost() {
     noIndex:       true,
   });
 
-  if (!post) {
-    return (
-      <div style={{ direction: dir, fontFamily: "'Ploni', sans-serif" }}>
-        <Header />
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
-          <div style={{ fontSize: '64px' }}>📄</div>
-          <h1 style={{ color: '#0A0818', fontWeight: 700 }}>{t('blogPost.notFound')}</h1>
-          <button onClick={() => navigate('/blog')} style={{ padding: '12px 28px', borderRadius: RADIUS.full, border: 'none', background: COLOR.primary, color: '#fff', fontFamily: "'Ploni', sans-serif", fontSize: FS.btn, fontWeight: 700, cursor: 'pointer' }}>
-            {t('blogPost.back')}
-          </button>
-        </div>
-      </div>
-    );
-  }
+  /* An article that does not exist goes to the magazine, in the same language
+     (owner, 5 Nov 2026: no dead ends). */
+  if (!post) return <Navigate to="/blog" replace />;
 
   const pageUrl     = `https://www.highair-expeditions.com/blog/${post.slug}`;
   const readingTime = calcReadingTime(postContent);

@@ -125,6 +125,10 @@ export default function LegalPageLayout({ title, subtitle, updated, children, pa
           color:         '#0A0818',
           margin:        '0 0 8px',
           letterSpacing: '-0.02em',
+          /* "Stornierungsbedingungen" is wider than a 375px phone: break it at
+             a syllable (the page's lang is set, so the browser knows German). */
+          hyphens:       'auto',
+          overflowWrap:  'break-word',
         }}>
           {title}
         </h1>

@@ -106,7 +106,6 @@ function BookRoute() {
   return i18nInstance.language !== 'he' ? <Navigate to="/contact" replace /> : <BookCall />;
 }
 const AppPage            = lazy(() => import('./components/web_v2/AppPage.jsx'));
-const NotFound404        = lazy(() => import('./components/web_v2/NotFound404.jsx'));
 
 /* /israel/:slug: every trek while the Israel section is live; while it is hidden
    only the community treks shared by direct link, on the Hebrew site only (they
@@ -114,7 +113,7 @@ const NotFound404        = lazy(() => import('./components/web_v2/NotFound404.js
 function IsraelTripRoute() {
   const { slug } = useParams();
   const direct = i18nInstance.language === 'he' && ISRAEL_DIRECT_LINK_SLUGS.includes(slug);
-  return (ISRAEL_TREKS_LIVE || direct) ? <IsraelDetail /> : <NotFound404 />;
+  return (ISRAEL_TREKS_LIVE || direct) ? <IsraelDetail /> : <Navigate to="/" replace />;
 }
 
 /* Prevent the browser from restoring a previous scroll position after
@@ -191,7 +190,7 @@ preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
           <Route path="/book"              element={<BookRoute />} />
           <Route path="/book/:slug"        element={<BookRoute />} />
           <Route path="/book/:slug/:code"  element={<BookRoute />} />
-          <Route path="/*"                 element={<NotFound404 />} />
+          <Route path="/*"                 element={<Navigate to="/" replace />} />  {/* never a dead end: home, same language (owner, 5 Nov 2026) */}
         </Routes>
       </Suspense>
     </BrowserRouter>

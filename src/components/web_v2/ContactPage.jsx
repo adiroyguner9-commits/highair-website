@@ -388,7 +388,7 @@ export default function ContactPage() {
    </p>
    </div>
 
-   <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' }}>
+   <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'minmax(0, 1fr)' : 'minmax(0, 1fr) minmax(0, 1fr)', gap: '14px' }}>
    <Field id="name" label={T.name} value={form.name}
    onChange={e => { setForm(f => ({ ...f, name: e.target.value })); if (nameError) setNameError(''); }}
    placeholder={T.namePH} required error={!!nameError} errorMsg={nameError} />
