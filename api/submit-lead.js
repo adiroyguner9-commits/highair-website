@@ -27,8 +27,20 @@ const AIRTABLE_FIELDS = new Set([
   'Preferred Month', 'Age', 'Group Size', 'Experience', 'Source',
   'Message', 'Created Time',
   'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Content', 'UTM Term',
-  'Attribution',
+  'Attribution', 'Language',
 ]);
+
+/* The language of the site the form was sent from (5 Nov 2026): the team
+   answers in it. Read from the request's Origin / Referer, never trusted from
+   the body: en. / de. / es. → English / German / Spanish, anything else on our
+   domain → Hebrew. Unknown origin (previews, local) → left empty. */
+export function leadLanguage(headers = {}) {
+  const src = String(headers.origin || headers.referer || '');
+  let host = '';
+  try { host = new URL(src).hostname; } catch { return null; }
+  if (!(host === 'highair-expeditions.com' || host.endsWith('.highair-expeditions.com'))) return null;
+  return { en: 'English', de: 'German', es: 'Spanish' }[host.split('.')[0]] || 'Hebrew';
+}
 
 /* The company phone format, shared with the webapp: "+972501234567".
    This used to normalise to the LOCAL "0XXXXXXXXX" form, the exact opposite of
@@ -156,6 +168,11 @@ export default async function handler(req, res) {
   const hh = parts.hour === '24' ? '00' : parts.hour;
   const israelTime = `${parts.year}-${parts.month}-${parts.day}T${hh}:${parts.minute}:${parts.second}+0${off}:00`;
   airtableFields['Created Time'] = israelTime;
+
+  /* Which site the lead came from, so the team answers in that language */
+  const language = leadLanguage(req.headers);
+  if (language) airtableFields['Language'] = language;
+  else delete airtableFields['Language'];   // never from the form body
 
   /* ── Attach UTM fields to Airtable payload ── */
   if (utm.source)   airtableFields['UTM Source']   = utm.source;
@@ -300,12 +317,14 @@ export default async function handler(req, res) {
     const f = sanitised;
     // All values HTML-escaped before insertion into email template
     const emailHtml = emailShell({
-      title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',
+      title: language && language !== 'Hebrew' ? `ליד חדש מהאתר ב${{ English: 'אנגלית', German: 'גרמנית', Spanish: 'ספרדית' }[language]}` : 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',
       body: [
         details(shown([
           ['שם מלא', f['Name']], ['טלפון', f['Phone']], ['מייל', f['Email']],
           ['חודש מועדף', f['Preferred Month']], ['גיל', f['Age']], ['גודל קבוצה', f['Group Size']],
           ['ניסיון', f['Experience']], ['מקור', f['Source']],
+          /* A lead from a foreign site: say so first thing, the reply goes in that language */
+          ...(language && language !== 'Hebrew' ? [['שפה', { English: 'אנגלית', German: 'גרמנית', Spanish: 'ספרדית' }[language]]] : []),
         ])),
         (utm.source || utm.campaign) ? heading('UTM, מקור המודעה') + details([
           ['Source', utm.source && escapeHtml(utm.source)],
