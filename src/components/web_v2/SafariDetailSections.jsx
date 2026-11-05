@@ -476,7 +476,7 @@ export function SafariPricing({ exp, isRtl, isMobile }) {
                     ? (isRtl ? '6 נוסעים ומעלה' : '6 travellers or more')
                     : isRtl
                       ? (g === 1 ? 'נוסע אחד' : `${g} נוסעים`)
-                      : (g === 1 ? '1 traveller' : `${g} travellers`)}
+                      : (g === 1 ? '1 traveler' : `${g} travelers`)}
                 </td>
                 {SAFARI_SEASONS_PRICING.map(s => (
                   <td key={s.key} style={{ ...cell, fontWeight: 600, color: SC.ink,

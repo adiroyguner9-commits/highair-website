@@ -144,7 +144,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
   }, [selDate]);
 
   /* Which days of the month on view are shut. Re-asked on every month change;
-     a failed request simply leaves them all enabled, which is the behaviour
+     a failed request simply leaves them all enabled, which is the behavior
      before this existed — the day then opens and shows "no available times". */
   useEffect(() => {
     let live = true;

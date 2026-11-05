@@ -266,7 +266,7 @@ const en = {
   },
   reviews: {
     heading: 'What our travelers say',
-    subtitle: 'Hikers who came back from the journey - exactly as they told Google',
+    subtitle: 'What our climbers wrote on Google, translated from the original reviews',
     basedOn: 'Based on 296 reviews',
     allReviews: 'All Google Reviews',
   },
@@ -320,7 +320,7 @@ const en = {
     privacy: 'Privacy Policy',
     accessibility: 'Accessibility',
     app: 'The App',
-    appTitle: 'The app for our travellers',
+    appTitle: 'The app for our travelers',
     appScan: 'Scan to download',
     tagline: 'Trekking and Climbing Expeditions\nEvery Expedition Supports Cancer Patients',
     copyright: 'HighAir Expeditions © {{year}}. All rights reserved.',

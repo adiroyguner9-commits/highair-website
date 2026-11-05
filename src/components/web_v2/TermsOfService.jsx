@@ -283,9 +283,9 @@ export default function TermsOfService() {
               Any cancellation and/or change of order will be made after official written notice from the traveler via email.
             </p>
             <p style={P}>
-              An order cancelled within 14 days of placement - and not within 7 business days before the departure date - will not be subject to cancellation fees.
+              An order canceled within 14 days of placement - and not within 7 business days before the departure date - will not be subject to cancellation fees.
             </p>
-            <p style={P}>For orders cancelled outside these conditions, the cancellation fees are:</p>
+            <p style={P}>For orders canceled outside these conditions, the cancellation fees are:</p>
             <ul style={UL}>
               {[
                 <>60 days before departure - refund of advance payment minus <strong>15% of the total trip cost</strong>.</>,

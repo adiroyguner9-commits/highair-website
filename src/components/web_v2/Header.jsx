@@ -994,7 +994,7 @@ export default function Header() {
     Logo, links and the login button always share one row, with the links
     centred between the logo and the button (equal space on both sides). Wide
     screens get the full sizes (NAV_MAX: 16px links, 40px gaps). As the window
-    narrows, gaps, link type and button shrink together towards NAV_MIN, which
+    narrows, gaps, link type and button shrink together toward NAV_MIN, which
     still fits the Hebrew menu at the 768px tablet edge. The amount is solved
     from hidden copies of the labels, so it holds in both languages and after
     menu changes; below NAV_MIN it may shrink a little further rather than wrap. */
@@ -1086,7 +1086,7 @@ export default function Header() {
     }}>
      <span style={{ color: '#FBBC04', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span>
      <span style={{ fontWeight: 700 }}>5.0</span>
-     <span style={{ color: '#6B6B8A' }}>{isEn ? tx("Rated #1 on Google") : 'מדורגים #1 ב-Google'}</span>
+     <span style={{ color: '#6B6B8A' }}>{isEn ? tx("296 reviews on Google") : 'מדורגים #1 ב-Google'}</span>
     </div>
     {/* Search + Language switcher (visual left in RTL) */}
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

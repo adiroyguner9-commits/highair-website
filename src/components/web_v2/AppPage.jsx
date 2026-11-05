@@ -2,7 +2,7 @@
  * AppPage.jsx - האפליקציה של HighAir / The HighAir App
  * Route: /app
  *
- * The store app is for travellers who have booked (they log in with their
+ * The store app is for travelers who have booked (they log in with their
  * booking's details), so the page speaks to them: what the app does, how to
  * start, a short FAQ. Copy, store links and screens live in src/data/appData.js,
  * which the page's static shell reads too. Badges and QR: StoreBadges.jsx.

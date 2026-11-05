@@ -87,7 +87,7 @@ export const TEAM_EN = [
     initials: 'CS',
     name:     'Chen Shaked',
     role:     'Founder & Owner',
-    bio:      'The founder, visionary and soul of HighAir. A professional mountain climber who turned his passion into a mission: to honour his mother Carol Shaked and prove that every summit is an opportunity to do good. Chen leads expeditions in the field, builds the community, and inspires everyone who joins the journey. With dozens of summits across the world, he proves that athletic achievement and human purpose can go hand in hand.',
+    bio:      'The founder, visionary and soul of HighAir. A professional mountain climber who turned his passion into a mission: to honor his mother Carol Shaked and prove that every summit is an opportunity to do good. Chen leads expeditions in the field, builds the community, and inspires everyone who joins the journey. With dozens of summits across the world, he proves that athletic achievement and human purpose can go hand in hand.',
   },
   {
     key:      'adir',
@@ -115,7 +115,7 @@ export const TEAM_EN = [
     initials: 'LS',
     name:     'Liad Shopen',
     role:     'Flight Agent',
-    bio:      'Our expert at connecting the dots on the map. Liad specialises in planning and coordinating the flight logistics for all our expedition destinations, ensuring every aspect of your travel runs smoothly, efficiently and stress-free.',
+    bio:      'Our expert at connecting the dots on the map. Liad specializes in planning and coordinating the flight logistics for all our expedition destinations, ensuring every aspect of your travel runs smoothly, efficiently and stress-free.',
   },
   {
     key:      'koral',

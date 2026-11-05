@@ -5,6 +5,7 @@
  */
 
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
+import { feetText } from '../../website/units.js';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
 import { useParams, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
@@ -66,7 +67,7 @@ const DEFAULT_REVIEWS = [
 
 const DEFAULT_REVIEWS_EN = [
   { name: 'Yoni Levi', date: 'January 2025', rating: 5, text: 'A once-in-a-lifetime experience. The HighAir team was professional at the highest level, always there for support. I didn\'t believe I could reach the summit, but they believed in me.', initial: 'Y' },
-  { name: 'Michal Sharon', date: 'March 2025', rating: 5, text: 'Everything was perfect from the organisation to the moment we stood on the summit. Our guide was incredible — patient, professional, and great company.', initial: 'M' },
+  { name: 'Michal Sharon', date: 'March 2025', rating: 5, text: 'Everything was perfect from the organization to the moment we stood on the summit. Our guide was incredible — patient, professional, and great company.', initial: 'M' },
   { name: 'Roi Abraham', date: 'February 2025', rating: 5, text: 'I arrived with no experience and came back with a summit and lifelong friends. HighAir is more than a travel company — they\'re family.', initial: 'R' },
 ];
 
@@ -103,7 +104,7 @@ const DEFAULT_IMPORTANT_SAFARI_EN = [
   'The safari runs in a jeep with up to 6 seats only!',
   'Game drives are in open-roof 4X4 jeeps, allowing unobstructed viewing and photography!',
   'An experienced local team of English-speaking driver-guides who know the reserves and the animals\' habits deeply!',
-  'Wildlife viewing happens in open nature - no specific animal can be guaranteed, but the route is built to maximise the chances!',
+  'Wildlife viewing happens in open nature - no specific animal can be guaranteed, but the route is built to maximize the chances!',
   'Throughout the reserve you must follow the driver-guide\'s instructions and the safety rules, including never leaving the vehicle!',
   'A passport valid for at least six months and a Tanzania visa are required for entry!',
   'Consult a doctor about vaccinations and malaria prophylaxis before departure!',
@@ -143,7 +144,7 @@ const getWhyCards = (exp, isRtl) => {
      make sense on a mountain (owner, Jul 30 2026): no training plan, no
      satellite device, no altitude-sickness guide. The gear list stays but points
      at SAFARI gear, and the store discounts stay because they apply to every
-     HighAir traveller. */
+     HighAir traveler. */
   if (exp?.type === 'Safari') {
     return isRtl ? [
       { icon: '📱', title: 'אזור אישי לכל מטייל באפליקציה שלנו - כל המסע במקום אחד', desc: '' },
@@ -1055,7 +1056,9 @@ export default function ExpeditionDetail() {
             }}>
               {isRtl
                 ? exp.nameHe
-                : tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum])
+                : (currentLang() === 'en' && exp.elevNum
+                    ? <>{`${loc(exp, "name") || exp.name || exp.nameHe} in ${loc(exp, "country") || exp.country} `}<span style={{ whiteSpace: 'nowrap' }}>{`(${exp.elevNum}m · ${feetText(exp.elevNum, 'en')})`}</span></>
+                    : tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum]))
               }
             </h1>
           </div>
@@ -1094,7 +1097,7 @@ export default function ExpeditionDetail() {
             }}>
               {isRtl
                 ? 'המסלול בהכנה · התוכנית המלאה תפורסם בקרוב'
-                : tx("Itinerary in preparation · full programme coming soon")}
+                : tx("Itinerary in preparation · full program coming soon")}
             </div>
           )}
 
@@ -1174,10 +1177,10 @@ export default function ExpeditionDetail() {
             : [
             /* A draft with no altitude yet has elevNum 0, and `${0}m` renders
                "0m" — a wrong fact, not a blank. null hides the row instead. */
-            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null },
+            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null, sub: feetText(exp.elevNum, currentLang()) },
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe) },
             /* Every trip shows its duration, except Kilimanjaro — its 94% summit
-               success rate is a signature selling point we keep front and centre. */
+               success rate is a signature selling point we keep front and center. */
             (exp.slug === 'kilimanjaro' || exp.slug === 'kilimanjaro-kosher')
               ? { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : tx("Success Rate"), value: exp.successRate ? `${exp.successRate}%` : '-' }
               : { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : tx("Duration"), value: isRtl ? filled(exp.days) : (filled(loc(exp, "days")) || filled(exp.days)) },
@@ -1203,6 +1206,11 @@ export default function ExpeditionDetail() {
               }}>
                 {s.value}
               </div>
+              {s.sub && (
+                <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700, color: '#6D28D9', opacity: 0.75, marginTop: '4px', direction: 'ltr' }}>
+                  {s.sub}
+                </div>
+              )}
               <div style={{
                 fontFamily: "'Ploni', sans-serif",
                 fontSize:   FS.sm,
@@ -1383,7 +1391,7 @@ export default function ExpeditionDetail() {
             sub={isRtl
               ? 'הספארי שלנו הוא פרטי, ולכן כמעט כל דבר בו נקבע לפי מי שנוסע.'
               : tx(
-              "Our safaris are private, so almost everything about them is set by who is travelling."
+              "Our safaris are private, so almost everything about them is set by who is traveling."
             )}>
             <SafariForMe exp={exp} isRtl={isRtl} isMobile={isMobile} />
           </SafariSection>
@@ -1758,7 +1766,7 @@ export default function ExpeditionDetail() {
               sub={isRtl
                 ? 'רשימה קצרה ומעשית. לספארי אורזים אחרת מטיפוס, ושני הדברים שמשנים הכי הרבה הם צבע הבגדים ומשקפת טובה.'
                 : tx(
-                "A short, practical list. Packing for a safari differs from packing for a climb, and the two things that matter most are the colour of your clothes and a good pair of binoculars."
+                "A short, practical list. Packing for a safari differs from packing for a climb, and the two things that matter most are the color of your clothes and a good pair of binoculars."
               )}>
               <SafariPacking isRtl={isRtl} isMobile={isMobile} />
             </SafariSection>
@@ -2242,7 +2250,7 @@ export default function ExpeditionDetail() {
                 {isRtl
                   ? 'המשתתפים שמדברים כאן יצאו איתנו לקילימנג׳רו. הספארי בטנזניה מופעל על ידי אותו צוות ואותם שותפים בשטח.'
                   : tx(
-                  "The travellers speaking here climbed Kilimanjaro with us. The Tanzania safari is run by the same team and the same partners on the ground."
+                  "The travelers speaking here climbed Kilimanjaro with us. The Tanzania safari is run by the same team and the same partners on the ground."
                 )}
               </p>
             )}

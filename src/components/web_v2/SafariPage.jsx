@@ -464,7 +464,7 @@ function Lodging({ isRtl, isMobile }) {
 function TrustBar({ isRtl, isMobile }) {
   const items = isRtl
     ? [['5.0', 'דירוג בגוגל', true], ['1,200+', 'מטיילים איתנו'], ['פרטי', 'ג׳יפ ומדריך משלכם'], ['תרומה', 'בכל מסע, לחולי סרטן']]
-    : [['5.0', 'Google rating', true], ['1,200+', 'travellers with us'], ['Private', 'your own jeep and guide'], ['Donation', 'to cancer patients, every journey']];
+    : [['5.0', 'Google rating', true], ['1,200+', 'travelers with us'], ['Private', 'your own jeep and guide'], ['Donation', 'to cancer patients, every journey']];
   return (
     <section style={{ padding: isMobile ? '28px 5%' : '40px 5%', maxWidth: '1280px', margin: '0 auto' }}>
       <div style={{ background: '#FFFFFF', border: `1px solid ${SC.sandLine}`, borderRadius: '18px',

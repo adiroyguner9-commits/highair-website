@@ -141,7 +141,7 @@ export default function CookieBanner() {
       }}>
         {isEn
           ? tx(
-          "We use cookies to improve your browsing experience and analyse site usage. "
+          "We use cookies to improve your browsing experience and analyze site usage. "
         )
           : 'אנחנו משתמשים בעוגיות כדי לשפר את החוויה באתר ולנתח את השימוש בו. '}
         <a

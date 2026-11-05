@@ -56,7 +56,7 @@ const de = {
   },
   reviews: {
     heading: 'Das sagen unsere Reisenden',
-    subtitle: 'Wanderer nach ihrer Rückkehr, genau so, wie sie es Google erzählt haben',
+    subtitle: 'Was unsere Bergsteiger auf Google geschrieben haben, übersetzt aus den Originalbewertungen',
     basedOn: 'Basierend auf 296 Bewertungen',
     allReviews: 'Alle Google-Bewertungen',
   },
