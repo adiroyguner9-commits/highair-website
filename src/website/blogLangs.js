@@ -149,11 +149,15 @@ export const BLOG_LANGS = {
  ],
  "kristin-harila-everest-triple-crown": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "kami-rita-32-everest-summit-2026": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "seven-summits-guide": [
   "he",
