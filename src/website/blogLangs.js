@@ -119,7 +119,9 @@ export const BLOG_LANGS = {
  ],
  "nimsdai-purja-broad-peak-tragedy": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "tanzania-currency-money-guide": [
   "he",
@@ -141,7 +143,9 @@ export const BLOG_LANGS = {
  ],
  "rustam-nabiev-everest-arms-only": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "kristin-harila-everest-triple-crown": [
   "he",
