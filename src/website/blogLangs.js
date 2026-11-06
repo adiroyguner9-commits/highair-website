@@ -14,7 +14,9 @@ export const BLOG_LANGS = {
  ],
  "mera-peak-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "elbrus-climbing-guide": [
   "he"
