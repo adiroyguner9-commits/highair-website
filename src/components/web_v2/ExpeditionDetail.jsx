@@ -1064,7 +1064,9 @@ export default function ExpeditionDetail() {
                 ? exp.nameHe
                 : (currentLang() === 'en' && exp.elevNum
                     ? <>{`${loc(exp, "name") || exp.name || exp.nameHe} in ${loc(exp, "country") || exp.country} `}<span style={{ whiteSpace: 'nowrap' }}>{`(${exp.elevNum}m · ${feetText(exp.elevNum, 'en')})`}</span></>
-                    : tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum]))
+                    : exp.elevNum
+                      ? tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum])
+                      : tx("{0} in {1}", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country]))
               }
             </h1>
           </div>
