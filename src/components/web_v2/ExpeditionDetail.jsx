@@ -12,7 +12,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
 import { useParams, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { EXPS } from '../../data/mockData.js';
+import { EXPS } from '../../data/trips.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
 import FaqAccordion from './FaqAccordion.jsx';
 import { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } from '../../data/faqData.js';
@@ -1187,7 +1187,7 @@ export default function ExpeditionDetail() {
             : [
             /* A draft with no altitude yet has elevNum 0, and `${0}m` renders
                "0m" — a wrong fact, not a blank. null hides the row instead. */
-            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null, sub: feetText(exp.elevNum, currentLang()) },
+            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null },   /* metres only up top; feet may appear in the text (owner, 6 Nov 2026) */
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe) },
             /* Every trip shows its duration, except Kilimanjaro — its 94% summit
                success rate is a signature selling point we keep front and center. */
@@ -1216,11 +1216,6 @@ export default function ExpeditionDetail() {
               }}>
                 {s.value}
               </div>
-              {s.sub && (
-                <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700, color: '#6D28D9', opacity: 0.75, marginTop: '4px', direction: 'ltr' }}>
-                  {s.sub}
-                </div>
-              )}
               <div style={{
                 fontFamily: "'Ploni', sans-serif",
                 fontSize:   FS.sm,
@@ -1439,7 +1434,7 @@ export default function ExpeditionDetail() {
             }}>
               <div style={{
                 fontFamily: "'Ploni', sans-serif", fontSize: '18px',
-                fontWeight: 700, color: '#059669', marginBottom: '20px',
+                fontWeight: 700, color: isRtl ? '#059669' : '#047857', marginBottom: '20px',   /* foreign: WCAG contrast (6 Nov 2026) */
               }}>
                 {isRtl ? 'מה כלול בתכנית?' : tx("What's Included?")}
               </div>
@@ -1486,7 +1481,7 @@ export default function ExpeditionDetail() {
               }}>
                 <div style={{
                   fontFamily: "'Ploni', sans-serif", fontSize: '18px',
-                  fontWeight: 700, color: '#DC2626', marginBottom: '20px',
+                  fontWeight: 700, color: isRtl ? '#DC2626' : '#B91C1C', marginBottom: '20px',
                 }}>
                   {isRtl ? 'מה לא כלול בתכנית?' : tx("What's Not Included?")}
                 </div>
@@ -1676,7 +1671,7 @@ export default function ExpeditionDetail() {
                         }}
                       >
                         <span style={{
-                          background: isSafariDay ? '#F59E0B' : COLOR.primary,
+                          background: isSafariDay ? (isRtl ? '#F59E0B' : '#B45309') : COLOR.primary,
                           color: 'white',
                           borderRadius: RADIUS.full, padding: '4px 12px',
                           fontSize: '13px', fontWeight: 700,

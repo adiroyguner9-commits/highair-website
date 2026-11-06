@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { EXPS } from '../../data/mockData.js';
+import { EXPS } from '../../data/trips.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { usePageMeta } from '../../website/usePageMeta.js';

@@ -22,7 +22,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePageMeta, itemList, breadcrumbList } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
-import { EXPS } from '../../data/mockData.js';
+import { EXPS } from '../../data/trips.js';
 import { SAFARI_SEASONS, SAFARI_RESERVES, SAFARI_DAY_TRIPS, SAFARI_LODGING,
          SAFARI_HOW_IT_WORKS, SAFARI_FAQ, SAFARI_COLOR as SC } from '../../data/safariData.js';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';

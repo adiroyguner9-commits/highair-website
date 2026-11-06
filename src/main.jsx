@@ -1,4 +1,5 @@
 import { StrictMode, lazy, Suspense } from 'react';
+import { loadTrips } from './data/trips.js';
 import './global.css';
 import i18nInstance from './i18n.js';
 import { createRoot } from 'react-dom/client';
@@ -83,8 +84,11 @@ if (import.meta.env.VITE_SENTRY_DSN) {
 }
 
 const HomeV2             = lazy(() => import('./components/web_v2/HomeV2.jsx'));
-const ExpeditionDetail   = lazy(() => import('./components/web_v2/ExpeditionDetail.jsx'));
-const AnnualPlan         = lazy(() => import('./components/web_v2/AnnualPlan.jsx'));
+/* Pages that read the trip records wait for this site's copy of them
+   (src/data/trips.js), fetched alongside the page's own code. */
+const withTrips = page => Promise.all([page, loadTrips()]).then(([m]) => m);
+const ExpeditionDetail   = lazy(() => withTrips(import('./components/web_v2/ExpeditionDetail.jsx')));
+const AnnualPlan         = lazy(() => withTrips(import('./components/web_v2/AnnualPlan.jsx')));
 const CancellationPolicy = lazy(() => import('./components/web_v2/CancellationPolicy.jsx'));
 const TermsOfService     = lazy(() => import('./components/web_v2/TermsOfService.jsx'));
 const PrivacyPolicy      = lazy(() => import('./components/web_v2/PrivacyPolicy.jsx'));
@@ -97,7 +101,7 @@ const BlogPost           = lazy(() => import('./components/web_v2/BlogPost.jsx')
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
 const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
-const SafariPage         = lazy(() => import('./components/web_v2/SafariPage.jsx'));
+const SafariPage         = lazy(() => withTrips(import('./components/web_v2/SafariPage.jsx')));
 const BookCall           = lazy(() => import('./components/web_v2/BookCall.jsx'));
 /* Call booking is the Hebrew site's sales path. Abroad the sale runs by e-mail
    and WhatsApp (owner, 5 Nov 2026), so /book on en./de./es. opens the contact
