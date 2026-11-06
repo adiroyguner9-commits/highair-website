@@ -1460,7 +1460,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
 הצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אוהורו 5895מ׳', '5 אזורי אקלים ייחודיים', 'ללא טיפוס טכני', 'זריחה מעל העננים'],
     nameEn: 'Kilimanjaro',
-    descEn: `At midnight you leave Barafu Camp at 15,331 ft (4,673 m). About eight hours later you watch the sun rise from Uhuru Peak, 19,341 ft (5,895 m), the highest point in Africa and one of the Seven Summits.
+    descEn: `At midnight you leave Barafu Camp at 4,673 m (15,331 ft). About eight hours later you watch the sun rise from Uhuru Peak, 5,895 m (19,341 ft), the highest point in Africa and one of the Seven Summits.
 
 No technical climbing, no ropes, no crampons. If you can hike six to eight hours a day and train for about three months, you can do this. 94% of HighAir climbers reach the summit.
 
