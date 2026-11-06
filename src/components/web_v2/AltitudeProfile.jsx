@@ -6,7 +6,6 @@
    are added on the English site. Nothing is drawn with fewer than 4 days of
    data, so a trip without altitudes simply shows no chart. */
 import { tx, currentLang } from '../../website/lang.js';
-import { feetText } from '../../website/units.js';
 import { profileFromItinerary } from '../../website/altitudeProfile.js';
 export { profileFromItinerary };
 
@@ -24,7 +23,6 @@ export default function AltitudeProfile({ itinerary, isMobile }) {
   const line = pts.map((p, i) => `${i ? 'L' : 'M'}${x(p.day).toFixed(1)},${y(p.sleep).toFixed(1)}`).join(' ');
   const area = `${line} L${x(lastDay).toFixed(1)},${y(bottom)} L${x(firstDay).toFixed(1)},${y(bottom)} Z`;
   const peak = pts.reduce((a, b) => (b.high > a.high ? b : a));
-  const ft = feetText(peak.high, lang);
   const fmt = n => n.toLocaleString(lang === 'de' ? 'de-DE' : lang === 'es' ? 'es-ES' : 'en-US');
 
   return (
@@ -64,7 +62,7 @@ export default function AltitudeProfile({ itinerary, isMobile }) {
             </g>
           ))}
           <text x={x(peak.day)} y={y(peak.high) - 12} textAnchor={peak.day === lastDay ? 'end' : 'middle'} fontSize={14} fontWeight="700" fill="#4C1D95">
-            {`${fmt(peak.high)} m${ft ? ` · ${ft}` : ''}`}
+            {`${fmt(peak.high)} m`}{/* metres only (owner, 6 Nov 2026) */}
           </text>
         </svg>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px 16px', padding: '4px 8px 0', fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#6B6B8A' }}>

@@ -4,7 +4,6 @@
  * Cards sorted low→high elevation, horizontal native-scroll slider with snap.
  */
 
-import { feetText } from '../../website/units.js';
 import { tx, loc, currentLang, PARTIAL_LANGS } from '../../website/lang.js';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -199,7 +198,7 @@ function ExpCard({ exp }) {
             </h3>
             {exp.elevNum > 0 && (
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em', direction: 'ltr', textAlign: isEn ? 'left' : 'right' }}>
-                {exp.elevNum}m{feetText(exp.elevNum, currentLang()) ? ` · ${feetText(exp.elevNum, currentLang())}` : ''}
+                {exp.elevNum}m{/* metres only on the cards (owner, 6 Nov 2026) */}
               </p>
             )}
           </div>
