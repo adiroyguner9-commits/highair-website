@@ -30,7 +30,9 @@ export const BLOG_LANGS = {
  ],
  "manaslu-circuit-trek-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "island-peak-climbing-guide": [
   "he",
