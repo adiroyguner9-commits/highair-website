@@ -8,7 +8,9 @@ export const BLOG_LANGS = {
  ],
  "annapurna-circuit-trek-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "mera-peak-climbing-guide": [
   "he",
