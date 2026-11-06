@@ -172,22 +172,25 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
   const t = esc(title);
   const d = esc(truncate(description));
 
+  /* Replacements are functions, never strings: a string replacement reads "$2"
+     in "$2,900" as a capture group, which cut the Kilimanjaro description off at
+     "From " (found 6 Nov 2026). */
   let out = html
     // <title>
-    .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
+    .replace(/<title>[^<]*<\/title>/, () => `<title>${t}</title>`)
     // meta description
-    .replace(/(<meta name="description"\s+content=")[^"]*(")/,     `$1${d}$2`)
+    .replace(/(<meta name="description"\s+content=")[^"]*(")/,     (_, a, b) => `${a}${d}${b}`)
     // og tags
-    .replace(/(<meta property="og:title"\s+content=")[^"]*(")/,       `$1${t}$2`)
-    .replace(/(<meta property="og:description"\s+content=")[^"]*(")/,  `$1${d}$2`)
-    .replace(/(<meta property="og:url"\s+content=")[^"]*(")/,          `$1${esc(url)}$2`)
-    .replace(/(<meta property="og:image"\s+content=")[^"]*(")/,        `$1${esc(social)}$2`)
+    .replace(/(<meta property="og:title"\s+content=")[^"]*(")/,       (_, a, b) => `${a}${t}${b}`)
+    .replace(/(<meta property="og:description"\s+content=")[^"]*(")/,  (_, a, b) => `${a}${d}${b}`)
+    .replace(/(<meta property="og:url"\s+content=")[^"]*(")/,          (_, a, b) => `${a}${esc(url)}${b}`)
+    .replace(/(<meta property="og:image"\s+content=")[^"]*(")/,        (_, a, b) => `${a}${esc(social)}${b}`)
     // twitter tags
-    .replace(/(<meta name="twitter:title"\s+content=")[^"]*(")/,       `$1${t}$2`)
-    .replace(/(<meta name="twitter:description"\s+content=")[^"]*(")/,  `$1${d}$2`)
-    .replace(/(<meta name="twitter:image"\s+content=")[^"]*(")/,        `$1${esc(social)}$2`)
+    .replace(/(<meta name="twitter:title"\s+content=")[^"]*(")/,       (_, a, b) => `${a}${t}${b}`)
+    .replace(/(<meta name="twitter:description"\s+content=")[^"]*(")/,  (_, a, b) => `${a}${d}${b}`)
+    .replace(/(<meta name="twitter:image"\s+content=")[^"]*(")/,        (_, a, b) => `${a}${esc(social)}${b}`)
     // canonical
-    .replace(/(<link rel="canonical"\s+href=")[^"]*(")/,               `$1${esc(url)}$2`);
+    .replace(/(<link rel="canonical"\s+href=")[^"]*(")/,               (_, a, b) => `${a}${esc(url)}${b}`);
 
   /* A hidden page (a trip with live:false) stays reachable by its link but out of
      search: the same rule the React page applies once it loads. */
@@ -199,7 +202,7 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
   if (en) {
     out = out
       .replace('<html lang="he" dir="rtl">', `<html lang="${lng}" dir="ltr">`)
-      .replace(/(<meta property="og:locale"\s+content=")[^"]*(")/, `$1${LOCALE[lng]}$2`);
+      .replace(/(<meta property="og:locale"\s+content=")[^"]*(")/, (_, a, b) => `${a}${LOCALE[lng]}${b}`);
   }
 
   /* A page that exists in both languages names both (hreflang) */
@@ -209,7 +212,7 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
 
   // og:type override (blog posts = "article" for news/social/AI)
   if (ogType) {
-    out = out.replace(/(<meta property="og:type"\s+content=")[^"]*(")/, `$1${esc(ogType)}$2`);
+    out = out.replace(/(<meta property="og:type"\s+content=")[^"]*(")/, (_, a, b) => `${a}${esc(ogType)}${b}`);
   }
 
   // Correct the OG image dimensions to landscape when a dedicated share image is used

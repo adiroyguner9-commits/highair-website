@@ -1445,7 +1445,7 @@ This is a non-technical climb requiring crampons and ice axes, but no prior moun
     seoTitle:       'HighAir Expeditions | טיפוס לקילימנג׳רו',
     seoTitleEn:     'Climb Kilimanjaro: Machame Route, 94% Summit Success | HighAir',
     seoDescription: 'טיפוס לקילימנג׳רו, הפסגה הגבוהה באפריקה, 5895 מ׳. מסלול מצ׳אמה 7 ימים, 5 אזורי אקלים, יציאה לפסגה בחצות. שיעור הצלחה 94%. ספארי אופציונלי.',
-    seoDescriptionEn: 'Climb Kilimanjaro (19,341 ft) on the Machame Route: 9 days, 7 on the mountain, small guided groups, 94% summit success. From $2,900, add a 3-day safari.',
+    seoDescriptionEn: 'Climb Kilimanjaro (5895m) on the Machame Route: 9 days, 7 on the mountain, small guided groups, 94% summit success. From $2,900, add a 3-day safari.',
     airtableEvents: ['Kilimanjaro', 'Kilimanjaro_with_Safari'],
     airtableEventsEn: ['Kilimanjaro_International', 'Kilimanjaro_International_with_Safari'],
     groupCapacity: 15,
