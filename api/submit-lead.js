@@ -15,7 +15,7 @@ import {
   setSecurityHeaders,
 } from './_security.js';
 import { fetchActiveLead, tripKey, OPEN_STAGES } from './_lib/active-lead.js';
-import { destKey } from './_lib/dest.js';
+import { destKey, destEn } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { googleCampaignName } from './_lib/googleCampaigns.js';
 import { emailShell, p, heading, details } from './_lib/email-shell.js';
@@ -315,27 +315,10 @@ export default async function handler(req, res) {
   const RESEND_KEY = process.env.RESEND_API_KEY;
   if (RESEND_KEY) {
     const f = sanitised;
-    // All values HTML-escaped before insertion into email template
-    const emailHtml = emailShell({
-      title: language && language !== 'Hebrew' ? `ליד חדש מהאתר ב${{ English: 'אנגלית', German: 'גרמנית', Spanish: 'ספרדית' }[language]}` : 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',
-      body: [
-        details(shown([
-          ['שם מלא', f['Name']], ['טלפון', f['Phone']], ['מייל', f['Email']],
-          ['חודש מועדף', f['Preferred Month']], ['גיל', f['Age']], ['גודל קבוצה', f['Group Size']],
-          ['ניסיון', f['Experience']], ['מקור', f['Source']],
-          /* A lead from a foreign site: say so first thing, the reply goes in that language */
-          ...(language && language !== 'Hebrew' ? [['שפה', { English: 'אנגלית', German: 'גרמנית', Spanish: 'ספרדית' }[language]]] : []),
-        ])),
-        (utm.source || utm.campaign) ? heading('UTM, מקור המודעה') + details([
-          ['Source', utm.source && escapeHtml(utm.source)],
-          ['Medium', utm.medium && escapeHtml(utm.medium)],
-          ['Campaign', utm.campaign && escapeHtml(googleCampaignName(utm.campaign))],
-          ['Ad', utm.content && escapeHtml(utm.content)],
-          ['Audience', utm.term && escapeHtml(utm.term)],
-        ].filter(([, v]) => v)) : '',
-        f['Message'] ? heading('הודעה') + p(escapeHtml(f['Message']), 0) : '',
-      ].join(''),
-    });
+    /* A lead from abroad: the whole email in English, the destination in the
+       subject, and which site (so the reply goes out in that language). Leads
+       from the Hebrew site keep the Hebrew email (owner, 6 Nov 2026). */
+    const mail = FOREIGN_LANGS.includes(language) ? foreignLeadEmail(f, language, utm) : hebrewLeadEmail(f, utm);
 
     try {
       const emailRes = await fetch('https://api.resend.com/emails', {
@@ -347,8 +330,8 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: withFlag(`ליד חדש: ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')}`, f['Expedition']),
-          html:    emailHtml,
+          subject: mail.subject,
+          html:    mail.html,
         }),
       });
       if (!emailRes.ok) {
@@ -360,6 +343,64 @@ export default async function handler(req, res) {
   }
 
   return res.status(200).json({ ok: true });
+}
+
+const FOREIGN_LANGS = ['English', 'German', 'Spanish'];
+
+/* The staff email for a lead from the Hebrew site (unchanged wording). */
+export function hebrewLeadEmail(f, utm = {}) {
+  const html = emailShell({
+      title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',
+      body: [
+        details(shown([
+          ['שם מלא', f['Name']], ['טלפון', f['Phone']], ['מייל', f['Email']],
+          ['חודש מועדף', f['Preferred Month']], ['גיל', f['Age']], ['גודל קבוצה', f['Group Size']],
+          ['ניסיון', f['Experience']], ['מקור', f['Source']],
+        ])),
+        (utm.source || utm.campaign) ? heading('UTM, מקור המודעה') + details([
+          ['Source', utm.source && escapeHtml(utm.source)],
+          ['Medium', utm.medium && escapeHtml(utm.medium)],
+          ['Campaign', utm.campaign && escapeHtml(googleCampaignName(utm.campaign))],
+          ['Ad', utm.content && escapeHtml(utm.content)],
+          ['Audience', utm.term && escapeHtml(utm.term)],
+        ].filter(([, v]) => v)) : '',
+        f['Message'] ? heading('הודעה') + p(escapeHtml(f['Message']), 0) : '',
+      ].join(''),
+    });
+  return { subject: withFlag(`ליד חדש: ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')}`, f['Expedition']), html };
+}
+
+/* The staff email for a lead from the English, German or Spanish site: all in
+   English, the destination named in the subject and the header, or "No
+   destination given" when the form had none. */
+export function foreignLeadEmail(f, language, utm = {}) {
+  const dest = destEn(f['Expedition']) || 'No destination given';
+  const name = f['Name'] || 'New lead';
+  const html = emailShell({
+    lang: 'en',
+    title: `New lead from the ${language} site`,
+    subtitle: f['Expedition'] ? withFlag(escapeHtml(dest), f['Expedition']) : escapeHtml(dest),
+    preheader: escapeHtml(`${name} · ${dest} · reply in ${language}`),
+    body: [
+      details(shown([
+        ['Reply in', language],
+        ['Destination', dest],
+        ['Full name', f['Name']], ['Phone', f['Phone']], ['Email', f['Email']],
+        ['Preferred month', f['Preferred Month']], ['Age', f['Age']], ['Group size', f['Group Size']],
+        ['Experience', f['Experience']], ['Source', f['Source']],
+      ])),
+      (utm.source || utm.campaign) ? heading('UTM (ad source)') + details([
+        ['Source', utm.source && escapeHtml(utm.source)],
+        ['Medium', utm.medium && escapeHtml(utm.medium)],
+        ['Campaign', utm.campaign && escapeHtml(googleCampaignName(utm.campaign))],
+        ['Ad', utm.content && escapeHtml(utm.content)],
+        ['Audience', utm.term && escapeHtml(utm.term)],
+      ].filter(([, v]) => v)) : '',
+      f['Message'] ? heading('Message') + p(escapeHtml(f['Message']), 0) : '',
+    ].join(''),
+  });
+  const subject = `${withFlag(`New lead: ${escapeHtml(dest)}`, f['Expedition'] || '')} · ${escapeHtml(name)} (${language} site)`;
+  return { subject, html };
 }
 
 /* Label and value rows for the shell, without the empty ones. */

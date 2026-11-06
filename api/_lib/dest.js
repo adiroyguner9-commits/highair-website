@@ -7,37 +7,37 @@
  * drift between messages again.
  */
 export const DEST = {
-  'Kilimanjaro':       { he: 'טיפוס לקילימנג׳רו',            slug: 'kilimanjaro' },
-  'Kilimanjaro Kosher':{ he: 'קילימנג׳רו לשומרי מסורת',      slug: 'kilimanjaro-kosher' },
-  'Elbrus':            { he: 'טיפוס לאלברוס',                slug: 'elbrus' },
-  'Aconcagua':         { he: 'טיפוס לאקונקגואה',             slug: 'aconcagua' },
-  'Kazbek':            { he: 'טיפוס לקזבק',                  slug: 'kazbek' },
-  'Olympus':           { he: 'טיפוס לאולימפוס',              slug: 'olympus' },
-  'Peaks of Balkan':   { he: 'טרק פסגות הבלקן',              slug: 'peaks-of-balkan' },
-  'Scardus':           { he: 'טרק רכס הסקארדוס',             slug: 'scardus' },
-  'Annapurna':         { he: 'טרק סובב אנאפורנה',            slug: 'annapurna' },
-  'Manaslu':           { he: 'טרק סובב מנסלו',               slug: 'manaslu-circuit' },
-  'Manaslu Climb':     { he: 'טיפוס למנסלו',                 slug: 'manaslu' },
-  'Everest Base Camp': { he: 'טרק אוורסט בייס קמפ וגוקיו',   slug: 'everest-base-camp' },
-  'Lobuche Peak':      { he: 'טיפוס ללובוצ׳ה פיק',           slug: 'lobuche-peak' },
-  'Island Peak':       { he: 'טיפוס לאיילנד פיק',            slug: 'island-peak' },
-  'Mera Peak':         { he: 'טיפוס למרה פיק',               slug: 'mera-peak' },
-  'Lenin Peak':        { he: 'טיפוס ללנין פיק',              slug: 'lenin-peak' },
-  'Ama Dablam':        { he: 'טיפוס לאמא דאבלם',             slug: 'ama-dablam' },
-  'Himlung':           { he: 'טיפוס להימלונג הימאל',         slug: 'himlung-himal' },
-  'Mount Kenya':       { he: 'טיפוס להר קניה',               slug: 'mount-kenya' },
-  'Rwenzori':          { he: 'טיפוס להרי הרוונזורי',         slug: 'rwenzori' },
-  'Ethiopia':          { he: 'טרק הרי סימיאן ומדבר דנקיל',   slug: 'ethiopia' },
+  'Kilimanjaro':       { he: 'טיפוס לקילימנג׳רו',            en: 'Kilimanjaro', slug: 'kilimanjaro' },
+  'Kilimanjaro Kosher':{ he: 'קילימנג׳רו לשומרי מסורת',      en: 'Kilimanjaro (kosher)', slug: 'kilimanjaro-kosher' },
+  'Elbrus':            { he: 'טיפוס לאלברוס',                en: 'Elbrus', slug: 'elbrus' },
+  'Aconcagua':         { he: 'טיפוס לאקונקגואה',             en: 'Aconcagua', slug: 'aconcagua' },
+  'Kazbek':            { he: 'טיפוס לקזבק',                  en: 'Kazbek', slug: 'kazbek' },
+  'Olympus':           { he: 'טיפוס לאולימפוס',              en: 'Mount Olympus', slug: 'olympus' },
+  'Peaks of Balkan':   { he: 'טרק פסגות הבלקן',              en: 'Peaks of the Balkans trek', slug: 'peaks-of-balkan' },
+  'Scardus':           { he: 'טרק רכס הסקארדוס',             en: 'Scardus Ridge trek', slug: 'scardus' },
+  'Annapurna':         { he: 'טרק סובב אנאפורנה',            en: 'Annapurna Circuit trek', slug: 'annapurna' },
+  'Manaslu':           { he: 'טרק סובב מנסלו',               en: 'Manaslu Circuit trek', slug: 'manaslu-circuit' },
+  'Manaslu Climb':     { he: 'טיפוס למנסלו',                 en: 'Manaslu expedition', slug: 'manaslu' },
+  'Everest Base Camp': { he: 'טרק אוורסט בייס קמפ וגוקיו',   en: 'Everest Base Camp & Gokyo trek', slug: 'everest-base-camp' },
+  'Lobuche Peak':      { he: 'טיפוס ללובוצ׳ה פיק',           en: 'Lobuche Peak', slug: 'lobuche-peak' },
+  'Island Peak':       { he: 'טיפוס לאיילנד פיק',            en: 'Island Peak', slug: 'island-peak' },
+  'Mera Peak':         { he: 'טיפוס למרה פיק',               en: 'Mera Peak', slug: 'mera-peak' },
+  'Lenin Peak':        { he: 'טיפוס ללנין פיק',              en: 'Lenin Peak', slug: 'lenin-peak' },
+  'Ama Dablam':        { he: 'טיפוס לאמא דאבלם',             en: 'Ama Dablam', slug: 'ama-dablam' },
+  'Himlung':           { he: 'טיפוס להימלונג הימאל',         en: 'Himlung Himal', slug: 'himlung-himal' },
+  'Mount Kenya':       { he: 'טיפוס להר קניה',               en: 'Mount Kenya', slug: 'mount-kenya' },
+  'Rwenzori':          { he: 'טיפוס להרי הרוונזורי',         en: 'Rwenzori', slug: 'rwenzori' },
+  'Ethiopia':          { he: 'טרק הרי סימיאן ומדבר דנקיל',   en: 'Ethiopia (Simien & Danakil)', slug: 'ethiopia' },
   // Canonical destinations without a classic expedition page — mapped so the
   // customer messages + staff pushes always show Hebrew, never "Sinai"/"Israel".
   // /book/sinai is a real pinned booking page (navData has the slug); the other
   // three slugs fall back to the generic /book behavior, same as before.
-  'Sinai':             { he: 'טרק להר הגבוה בסיני',          slug: 'sinai' },
-  'Israel':            { he: 'טיולים בישראל',                slug: 'israel' },
-  'Safari':            { he: 'ספארי בטנזניה',                slug: 'safari' },
-  'Safari 3 Days':     { he: 'ספארי 3 ימים',                 slug: 'safari-3-days' },
-  'Safari 5 Days':     { he: 'ספארי 5 ימים',                 slug: 'safari-5-days' },
-  'Safari 7 Days':     { he: 'ספארי 7 ימים',                 slug: 'safari-7-days' },
+  'Sinai':             { he: 'טרק להר הגבוה בסיני',          en: 'Sinai', slug: 'sinai' },
+  'Israel':            { he: 'טיולים בישראל',                en: 'Israel tours', slug: 'israel' },
+  'Safari':            { he: 'ספארי בטנזניה',                en: 'Tanzania safari', slug: 'safari' },
+  'Safari 3 Days':     { he: 'ספארי 3 ימים',                 en: 'Safari (3 days)', slug: 'safari-3-days' },
+  'Safari 5 Days':     { he: 'ספארי 5 ימים',                 en: 'Safari (5 days)', slug: 'safari-5-days' },
+  'Safari 7 Days':     { he: 'ספארי 7 ימים',                 en: 'Safari (7 days)', slug: 'safari-7-days' },
 };
 
 // Keyword fallback shared by destKey/destInfo (e.g. "Climb to Kilimanjaro", "קילימנג׳רו קיץ").
@@ -84,4 +84,14 @@ export function destInfo(expedition) {
 export function destHe(expedition) {
   const info = destInfo(expedition);
   return info.slug === 'call' ? (String(expedition || '').trim() || 'HighAir Expeditions') : info.he;
+}
+
+/* English name, for the staff email about a lead from abroad (owner, 6 Nov
+   2026: "רק לידים מחו״ל באנגלית"). '' when nothing names a known destination
+   and the value is Hebrew; an unmapped English value is shown as is. */
+export function destEn(expedition) {
+  const raw = String(expedition || '').trim();
+  const d = DEST[destKey(raw)];
+  if (d) return d.en;
+  return /[\u0590-\u05FF]/.test(raw) ? '' : raw;
 }
