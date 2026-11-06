@@ -15,7 +15,7 @@ import {
   setSecurityHeaders,
 } from './_security.js';
 import { fetchActiveLead, tripKey, OPEN_STAGES } from './_lib/active-lead.js';
-import { destKey, destEn } from './_lib/dest.js';
+import { destKey, destEn, DEST } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { googleCampaignName } from './_lib/googleCampaigns.js';
 import { emailShell, p, heading, details } from './_lib/email-shell.js';
@@ -370,6 +370,26 @@ export function hebrewLeadEmail(f, utm = {}) {
   return { subject: withFlag(`ליד חדש: ${escapeHtml(f['Expedition'] || f['Source'] || 'לא צוין')}`, f['Expedition']), html };
 }
 
+/* The forms on the foreign sites still send a few fixed Hebrew values: the
+   trip's Hebrew name inside {Source}, "flexible", the women's-group suffix,
+   the safari page's own message, Hebrew month names. The English email shows
+   them in English; anything the customer typed is left as written. */
+const HE_MONTHS = { 'ינואר': 'January', 'פברואר': 'February', 'מרץ': 'March', 'אפריל': 'April', 'מאי': 'May', 'יוני': 'June', 'יולי': 'July', 'אוגוסט': 'August', 'ספטמבר': 'September', 'אוקטובר': 'October', 'נובמבר': 'November', 'דצמבר': 'December' };
+export function heFixedToEn(v) {
+  if (v === undefined || v === null || v === '') return v;
+  let t = String(v)
+    .replace(/ספארי, עוד לא הוחלט על מספר הימים/g, 'Safari, number of days not decided yet')
+    .replace(/ספארי (\d+) ימים/g, 'Safari, $1 days')
+    .replace(/גמיש \/ טרם החלטתי/g, 'Flexible / not decided yet')
+    .replace(/קבוצת נשים \(עדי טנא\)/g, "women's group (Adi Tene)")
+    .replace(/\(נשים\)/g, '(women)');
+  /* Longest Hebrew trip names first, so "קילימנג׳רו לשומרי מסורת" is not cut
+     short by a shorter name inside it. */
+  for (const d of Object.values(DEST).sort((a, b) => b.he.length - a.he.length)) t = t.split(d.he).join(d.en);
+  for (const [he, en] of Object.entries(HE_MONTHS)) t = t.split(he).join(en);
+  return t;
+}
+
 /* The staff email for a lead from the English, German or Spanish site: all in
    English, the destination named in the subject and the header, or "No
    destination given" when the form had none. */
@@ -386,8 +406,8 @@ export function foreignLeadEmail(f, language, utm = {}) {
         ['Reply in', language],
         ['Destination', dest],
         ['Full name', f['Name']], ['Phone', f['Phone']], ['Email', f['Email']],
-        ['Preferred month', f['Preferred Month']], ['Age', f['Age']], ['Group size', f['Group Size']],
-        ['Experience', f['Experience']], ['Source', f['Source']],
+        ['Preferred month', heFixedToEn(f['Preferred Month'])], ['Age', f['Age']], ['Group size', f['Group Size']],
+        ['Experience', heFixedToEn(f['Experience'])], ['Source', heFixedToEn(f['Source'])],
       ])),
       (utm.source || utm.campaign) ? heading('UTM (ad source)') + details([
         ['Source', utm.source && escapeHtml(utm.source)],
@@ -396,7 +416,7 @@ export function foreignLeadEmail(f, language, utm = {}) {
         ['Ad', utm.content && escapeHtml(utm.content)],
         ['Audience', utm.term && escapeHtml(utm.term)],
       ].filter(([, v]) => v)) : '',
-      f['Message'] ? heading('Message') + p(escapeHtml(f['Message']), 0) : '',
+      f['Message'] ? heading('Message') + p(escapeHtml(heFixedToEn(f['Message'])), 0) : '',
     ].join(''),
   });
   const subject = `${withFlag(`New lead: ${escapeHtml(dest)}`, f['Expedition'] || '')} · ${escapeHtml(name)} (${language} site)`;
