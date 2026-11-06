@@ -153,6 +153,8 @@ export const BLOG_LANGS = {
  ],
  "seven-summits-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ]
 };
