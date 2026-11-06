@@ -34,7 +34,9 @@ export const BLOG_LANGS = {
  ],
  "island-peak-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "olympus-climbing-guide": [
   "he",
