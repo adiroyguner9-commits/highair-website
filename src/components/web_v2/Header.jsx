@@ -20,7 +20,7 @@ import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
-import { MENU_CLIMBS, MENU_TREKS } from '../../data/expeditionGroups.js';
+import { MENU_CLIMBS, MENU_TREKS, SITE_EXPS } from '../../data/expeditionGroups.js';
 import FlagImg from './FlagImg.jsx';
 
 /* Date-bound Israel trips (e.g. community trips) disappear from the nav
@@ -808,7 +808,8 @@ function SearchModal({ onClose }) {
  return () => window.removeEventListener('keydown', h);
  }, [onClose]);
 
- const israelResults = query.trim().length < 1 ? [] : ISRAEL_TRIPS.filter(isNavTripCurrent).filter(trip => {
+ /* Israel treks are for the Hebrew site only. */
+ const israelResults = (query.trim().length < 1 || i18n.language !== 'he') ? [] : ISRAEL_TRIPS.filter(isNavTripCurrent).filter(trip => {
  const q = query.toLowerCase();
  return (trip.name?.includes(query) || loc(trip, "name")?.toLowerCase().includes(q));
  }).map(trip => ({
@@ -825,7 +826,7 @@ function SearchModal({ onClose }) {
  }));
 
  const results = query.trim().length < 1 ? [] : [
- ...EXPS.filter(exp => {
+ ...(i18n.language === 'he' ? EXPS : SITE_EXPS).filter(exp => {
  const q = query.toLowerCase();
  return (exp.name?.toLowerCase().includes(q) ||
  exp.nameHe?.includes(query) ||

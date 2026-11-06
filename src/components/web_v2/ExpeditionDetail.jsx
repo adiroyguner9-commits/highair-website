@@ -908,6 +908,10 @@ export default function ExpeditionDetail() {
      2026: "תמיד שהברירת מחדל תעבור לדף בית באותה השפה... ולא 404"). It used to
      print "המשלחת לא נמצאה" in Hebrew on every site. */
   if (!exp) return <Navigate to="/" replace />;
+  /* A trip not offered abroad (Sinai: starts at the Israeli border, prices in
+     shekels) goes home on the foreign sites instead of showing its page
+     (owner, 6 Nov 2026: Israel-related pages are not for the foreign sites). */
+  if (!isRtl && !isPreview && HIDDEN_ON_EN.has(exp.slug)) return <Navigate to="/" replace />;
 
 
   /* ── Derived data ── */
