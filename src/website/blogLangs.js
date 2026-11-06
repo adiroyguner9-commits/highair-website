@@ -67,7 +67,9 @@ export const BLOG_LANGS = {
  ],
  "aconcagua-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "everest-base-camp-trek-guide": [
   "he",
