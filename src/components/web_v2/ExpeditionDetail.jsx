@@ -5,7 +5,6 @@
  */
 
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
-import { feetText } from '../../website/units.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -1065,7 +1064,7 @@ export default function ExpeditionDetail() {
               {isRtl
                 ? exp.nameHe
                 : (currentLang() === 'en' && exp.elevNum
-                    ? <>{`${loc(exp, "name") || exp.name || exp.nameHe} in ${loc(exp, "country") || exp.country} `}<span style={{ whiteSpace: 'nowrap' }}>{`(${exp.elevNum}m · ${feetText(exp.elevNum, 'en')})`}</span></>
+                    ? <>{`${loc(exp, "name") || exp.name || exp.nameHe} in ${loc(exp, "country") || exp.country} `}<span style={{ whiteSpace: 'nowrap' }}>{`(${exp.elevNum}m)`}{/* metres only in the heading too (owner, 6 Nov 2026) */}</span></>
                     : exp.elevNum
                       ? tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum])
                       : tx("{0} in {1}", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country]))
