@@ -73,6 +73,10 @@ export default function CookieBanner() {
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
     }
+    /* An event GTM can trigger on: the Meta pixel waits for ad_storage consent, and
+       fires its PageView on this event when the visitor accepts mid-page
+       (6 Nov 2026, GDPR fix in GTM). */
+    (window.dataLayer = window.dataLayer || []).push({ event: 'cookie_consent_granted' });
     setVisible(false);
   }
 
