@@ -64,7 +64,9 @@ export const BLOG_LANGS = {
  ],
  "himlung-himal-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "lenin-peak-climbing-guide": [
   "he",
