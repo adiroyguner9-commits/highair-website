@@ -70,7 +70,9 @@ export const BLOG_LANGS = {
  ],
  "lenin-peak-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "manaslu-expedition-guide": [
   "he",
