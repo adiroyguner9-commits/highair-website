@@ -135,7 +135,7 @@ export default function CookieBanner() {
           margin:        0,
           letterSpacing: '-0.01em',
         }}>
-          {isEn ? tx("Cookie Usage") : 'שימוש בעוגיות'}
+          {isEn ? tx("Cookies on our site") : 'שימוש בעוגיות'}
         </h3>
       </div>
 
@@ -150,7 +150,7 @@ export default function CookieBanner() {
       }}>
         {isEn
           ? tx(
-          "We use cookies to improve your browsing experience and analyze site usage. "
+          "With your consent, we use cookies to see which content helps visitors and to show you relevant offers on other sites. "
         )
           : 'אנחנו משתמשים בעוגיות כדי לשפר את החוויה באתר ולנתח את השימוש בו. '}
         <a
