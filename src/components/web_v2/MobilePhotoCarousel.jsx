@@ -17,6 +17,7 @@
  *   isRtl         – boolean
  */
 
+import { scrollerProps } from '../../website/a11y.js';
 import { tx } from '../../website/lang.js';
 import i18n from '../../i18n.js';
 import { useState, useRef } from 'react';
@@ -59,6 +60,7 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
       {/* ── Scrollable track ── */}
       <div
         ref={carouselRef}
+        {...scrollerProps('Photos')}
         onScroll={handleScroll}
         style={{
           display:                 'flex',

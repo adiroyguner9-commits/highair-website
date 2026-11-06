@@ -3,6 +3,7 @@
  * Portrait cards (9:16) · horizontal scroll · YouTube modal
  */
 
+import { scrollerProps } from '../../website/a11y.js';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING } from '../../website/theme.js';
@@ -228,7 +229,7 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
       </div>
 
       {/* Horizontal scroll */}
-      <div style={{
+      <div {...scrollerProps('Video testimonials')} style={{
         display: 'flex',
         gap: '14px',
         overflowX: 'auto',

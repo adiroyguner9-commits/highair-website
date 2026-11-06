@@ -13,6 +13,7 @@
  * the home page uses, so a safari card and a Kilimanjaro card stay identical and
  * a future card restyle lands in both places at once.
  */
+import { scrollerProps } from '../../website/a11y.js';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { tx, loc } from '../../website/lang.js';
 import { Analytics, trackLead } from '../../utils/analytics.js';
@@ -275,7 +276,7 @@ function CardSlider({ items, renderCard, isRtl, isMobile, perView = 3 }) {
 
   return (
     <>
-      <div ref={trackRef} style={{
+      <div ref={trackRef} {...scrollerProps('Safari options')} style={{
         display: 'flex', alignItems: 'stretch', gap: '16px', overflowX: 'auto',
         scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none',
         paddingBottom: '4px',
@@ -619,12 +620,14 @@ function EnquiryBand({ isRtl, isMobile }) {
           padding: isMobile ? '18px' : '22px 24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
             <label style={label}>{isRtl ? 'שם מלא *' : tx('Full name *')}</label>
-            <input required value={form.name} onChange={e => set('name', e.target.value)} style={input} />
+            <input required value={form.name} onChange={e => set('name', e.target.value)} style={input}
+              aria-label={isRtl ? undefined : tx('Full name *').replace(' *', '')} />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '14px' }}>
             <div>
               <label style={label}>{isRtl ? 'כמה ימים? *' : tx('How many days? *')}</label>
               <select required value={form.days} onChange={e => set('days', e.target.value)}
+                aria-label={isRtl ? undefined : tx('How many days? *').replace(' *', '')}
                 style={{ ...input, cursor: 'pointer', color: form.days ? SC.deep : '#9CA3AF' }}>
                 <option value="" disabled>{isRtl ? 'בחרו' : tx('Select')}</option>
                 <option value="3">{isRtl ? '3 ימים' : tx('3 days')}</option>
@@ -636,11 +639,13 @@ function EnquiryBand({ isRtl, isMobile }) {
             <div>
               <label style={label}>{isRtl ? 'באיזה חודש תרצו לצאת? *' : tx('Which month? *')}</label>
               <input required value={form.month} onChange={e => set('month', e.target.value)} style={input}
+                aria-label={isRtl ? undefined : tx('Which month? *').replace(' *', '')}
                 placeholder={isRtl ? 'לדוגמה: אוגוסט' : tx('E.g. August')} />
             </div>
             <div>
               <label style={label}>{isRtl ? 'כמות אנשים *' : tx('Number of people *')}</label>
               <input required type="number" min="1" max="20" value={form.people}
+                aria-label={isRtl ? undefined : tx('Number of people *').replace(' *', '')}
                 onChange={e => set('people', e.target.value.replace(/\D/g, '').slice(0, 2))} style={input} placeholder="2" />
             </div>
           </div>
@@ -652,7 +657,8 @@ function EnquiryBand({ isRtl, isMobile }) {
           />
           <div>
             <label style={label}>{isRtl ? 'מייל *' : tx('Email *')}</label>
-            <input required type="email" value={form.email} onChange={e => set('email', e.target.value)} style={input} />
+            <input required type="email" value={form.email} onChange={e => set('email', e.target.value)} style={input}
+              aria-label={isRtl ? undefined : tx('Email *').replace(' *', '')} />
           </div>
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: '9px', cursor: 'pointer',
             fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: SC.ink, textAlign: 'start', lineHeight: 1.5 }}>

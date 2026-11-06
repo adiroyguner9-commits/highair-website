@@ -4,6 +4,7 @@
  * RTL Hebrew · Ploni font · inline styles only · React 18
  */
 
+import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
@@ -2326,7 +2327,7 @@ export default function ExpeditionDetail() {
               </p>
 
               {/* Horizontal scroll slider - mobile & desktop */}
-              <div style={{
+              <div {...scrollerProps('Our climbers who reached the summit')} style={{
                 display: 'flex',
                 gap: '16px',
                 overflowX: 'auto',

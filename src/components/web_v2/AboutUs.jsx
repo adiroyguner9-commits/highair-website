@@ -3,6 +3,7 @@
  * Route: /about
  */
 
+import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -167,7 +168,7 @@ function GiftPhotoGrid({ isEn }) {
 
   if (isMobile) {
     return (
-      <div style={{
+      <div {...scrollerProps('Our team')} style={{
         display:                'flex',
         gap:                    '16px',
         overflowX:              'auto',

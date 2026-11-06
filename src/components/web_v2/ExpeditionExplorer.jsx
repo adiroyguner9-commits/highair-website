@@ -4,6 +4,7 @@
  * Cards sorted low→high elevation, horizontal native-scroll slider with snap.
  */
 
+import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS } from '../../website/lang.js';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -448,6 +449,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
         ) : (
         <div
           ref={trackRef}
+          {...scrollerProps('Expeditions')}
           style={stacked ? {
             display:        'flex',
             flexDirection:  'column',
