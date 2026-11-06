@@ -21,7 +21,7 @@ const COUNTRIES = [
   { code: 'IL', dial: '+972',  label: 'IL +972',  max: 14, ph: '050-0000000',     minD: 9,  maxD: 10, il: true },
   { code: 'US', dial: '+1',    label: 'US +1',    max: 12, ph: '201-555-0123',    minD: 10, maxD: 10 },
   { code: 'GB', dial: '+44',   label: 'GB +44',   max: 12, ph: '07911 123456',    minD: 10, maxD: 11 },
-  { code: 'DE', dial: '+49',   label: 'DE +49',   max: 15, ph: '0151 23456789',   minD: 10, maxD: 11 },
+  { code: 'DE', dial: '+49',   label: 'DE +49',   max: 15, ph: '0151 23456789',   minD: 10, maxD: 12 },
   { code: 'FR', dial: '+33',   label: 'FR +33',   max: 14, ph: '06 12 34 56 78',  minD: 10, maxD: 10 },
   { code: 'IT', dial: '+39',   label: 'IT +39',   max: 14, ph: '312 345 6789',    minD: 9,  maxD: 11 },
   { code: 'ES', dial: '+34',   label: 'ES +34',   max: 13, ph: '612 345 678',     minD: 9,  maxD: 9  },
@@ -49,7 +49,7 @@ const COUNTRIES = [
   { code: 'TR', dial: '+90',   label: 'TR +90',   max: 13, ph: '0532 123 4567',   minD: 10, maxD: 11 },
   { code: 'PL', dial: '+48',   label: 'PL +48',   max: 11, ph: '512 345 678',     minD: 9,  maxD: 9  },
   { code: 'CH', dial: '+41',   label: 'CH +41',   max: 13, ph: '079 123 45 67',   minD: 9,  maxD: 10 },
-  { code: 'AT', dial: '+43',   label: 'AT +43',   max: 13, ph: '0664 123456',     minD: 10, maxD: 11 },
+  { code: 'AT', dial: '+43',   label: 'AT +43',   max: 15, ph: '0664 123456',     minD: 10, maxD: 13 },
   { code: 'SE', dial: '+46',   label: 'SE +46',   max: 13, ph: '070-123 45 67',   minD: 9,  maxD: 10 },
   { code: 'NO', dial: '+47',   label: 'NO +47',   max: 10, ph: '406 12 345',      minD: 8,  maxD: 8  },
   { code: 'DK', dial: '+45',   label: 'DK +45',   max: 10, ph: '20 12 34 56',     minD: 8,  maxD: 8  },
@@ -108,7 +108,11 @@ export function validatePhone(dial, local) {
     const n = d.replace(/^0+/, '');
     return /^[57]/.test(n) ? n.length === 9 : n.length === 8;
   }
-  return d.length >= country.minD && d.length <= country.maxD;
+  /* Counted with or without the trunk zero: a German mobile typed as
+     0151 23456789 is 12 digits with it and 11 without, and the placeholder
+     itself used to fail this check (6 Nov 2026). */
+  const inRange = n => n >= country.minD && n <= country.maxD;
+  return inRange(d.length) || inRange(d.replace(/^0+/, '').length);
 }
 
 /**
