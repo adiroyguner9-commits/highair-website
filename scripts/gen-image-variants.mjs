@@ -53,7 +53,10 @@ for (const dir of DIRS) {
 }
 /* A guide whose cover is an expedition card image (/images/cards/...) already
    has a 760px copy from scripts/gen-card-thumbs.mjs: point at it, no new file. */
-for (const src of blogCardImages) {
+/* Every expedition card image too: the detail page's intro photo on the
+   foreign sites takes the 760px copy on a phone (PageSpeed, 6 Nov 2026). */
+const cardImages = fs.readdirSync('public/images/cards').filter(f => /\.(webp|jpe?g)$/i.test(f)).map(f => `/images/cards/${f}`);
+for (const src of new Set([...blogCardImages, ...cardImages])) {
   if (manifest[src] || !src.startsWith('/images/cards/')) continue;
   const thumb = src.replace('/images/cards/', '/images/cards/thumbs/');
   if (!fs.existsSync('public' + thumb) || !fs.existsSync('public' + src)) continue;

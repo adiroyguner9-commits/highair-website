@@ -241,5 +241,173 @@
   "h": 1400,
   "s": "/images/cards/thumbs/kilimanjaroKosher.webp",
   "sw": 760
+ },
+ "/images/cards/Avindav.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/cards/thumbs/Avindav.webp",
+  "sw": 760
+ },
+ "/images/cards/EBC.jpg": {
+  "w": 1200,
+  "h": 1200,
+  "s": "/images/cards/thumbs/EBC.jpg",
+  "sw": 760
+ },
+ "/images/cards/GalimTraining.webp": {
+  "w": 1600,
+  "h": 900,
+  "s": "/images/cards/thumbs/GalimTraining.webp",
+  "sw": 760
+ },
+ "/images/cards/Hermon.webp": {
+  "w": 1600,
+  "h": 1066,
+  "s": "/images/cards/thumbs/Hermon.webp",
+  "sw": 760
+ },
+ "/images/cards/KezivTraining.jpg": {
+  "w": 1600,
+  "h": 1200,
+  "s": "/images/cards/thumbs/KezivTraining.jpg",
+  "sw": 760
+ },
+ "/images/cards/arbel.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/cards/thumbs/arbel.webp",
+  "sw": 760
+ },
+ "/images/cards/arugot.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/arugot.webp",
+  "sw": 760
+ },
+ "/images/cards/avnat.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/avnat.webp",
+  "sw": 760
+ },
+ "/images/cards/elal.webp": {
+  "w": 1400,
+  "h": 934,
+  "s": "/images/cards/thumbs/elal.webp",
+  "sw": 760
+ },
+ "/images/cards/elbrus-intro.webp": {
+  "w": 1200,
+  "h": 900,
+  "s": "/images/cards/thumbs/elbrus-intro.webp",
+  "sw": 760
+ },
+ "/images/cards/great-fin.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/great-fin.webp",
+  "sw": 760
+ },
+ "/images/cards/masada.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/masada.webp",
+  "sw": 760
+ },
+ "/images/cards/mestia-ushguli.webp": {
+  "w": 1000,
+  "h": 563,
+  "s": "/images/cards/thumbs/mestia-ushguli.webp",
+  "sw": 760
+ },
+ "/images/cards/mont-blanc.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/cards/thumbs/mont-blanc.webp",
+  "sw": 760
+ },
+ "/images/cards/mount-kenya.webp": {
+  "w": 1024,
+  "h": 768,
+  "s": "/images/cards/thumbs/mount-kenya.webp",
+  "sw": 760
+ },
+ "/images/cards/olympus.webp": {
+  "w": 1400,
+  "h": 607,
+  "s": "/images/cards/thumbs/olympus.webp",
+  "sw": 760
+ },
+ "/images/cards/peaks-of-balkan.jpg": {
+  "w": 1600,
+  "h": 900,
+  "s": "/images/cards/thumbs/peaks-of-balkan.jpg",
+  "sw": 760
+ },
+ "/images/cards/poria.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/poria.webp",
+  "sw": 760
+ },
+ "/images/cards/ramim.webp": {
+  "w": 1206,
+  "h": 838,
+  "s": "/images/cards/thumbs/ramim.webp",
+  "sw": 760
+ },
+ "/images/cards/rwenzori.webp": {
+  "w": 1200,
+  "h": 800,
+  "s": "/images/cards/thumbs/rwenzori.webp",
+  "sw": 760
+ },
+ "/images/cards/safari-3-days.webp": {
+  "w": 900,
+  "h": 541,
+  "s": "/images/cards/thumbs/safari-3-days.webp",
+  "sw": 760
+ },
+ "/images/cards/safari-5-days.webp": {
+  "w": 900,
+  "h": 600,
+  "s": "/images/cards/thumbs/safari-5-days.webp",
+  "sw": 760
+ },
+ "/images/cards/safari-7-days.webp": {
+  "w": 900,
+  "h": 600,
+  "s": "/images/cards/thumbs/safari-7-days.webp",
+  "sw": 760
+ },
+ "/images/cards/scardus.webp": {
+  "w": 1600,
+  "h": 1200,
+  "s": "/images/cards/thumbs/scardus.webp",
+  "sw": 760
+ },
+ "/images/cards/sodom.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/sodom.webp",
+  "sw": 760
+ },
+ "/images/cards/toubkal.webp": {
+  "w": 1300,
+  "h": 757,
+  "s": "/images/cards/thumbs/toubkal.webp",
+  "sw": 760
+ },
+ "/images/cards/tzeelim-harduf.webp": {
+  "w": 1300,
+  "h": 717,
+  "s": "/images/cards/thumbs/tzeelim-harduf.webp",
+  "sw": 760
+ },
+ "/images/cards/tzeelim-mishmar.webp": {
+  "w": 1300,
+  "h": 903,
+  "s": "/images/cards/thumbs/tzeelim-mishmar.webp",
+  "sw": 760
  }
 }

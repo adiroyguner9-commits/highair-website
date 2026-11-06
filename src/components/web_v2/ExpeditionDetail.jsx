@@ -25,6 +25,7 @@ import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import StatsSection from './StatsSection.jsx';
 import BookingWidget from './BookingWidget.jsx';
+import { srcSetOf } from '../../website/imageVariants.js';
 import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, ShareIcon, TreeIcon, LionIcon } from '../Icons.jsx';
 import { Analytics, useScrollDepth, trackLead, priceToUsd } from '../../utils/analytics.js';
 import PhotoGallery from './PhotoGallery.jsx';   // the gallery, shared with the homepage
@@ -1380,6 +1381,11 @@ export default function ExpeditionDetail() {
               {(exp.introImg || exp.img) ? (
                 <img
                   src={exp.introImg || exp.img}
+                  /* Foreign sites: the phone takes the 760px copy, the page's
+                     largest paint (PageSpeed, 6 Nov 2026: 180 KB where 60 KB
+                     will do). The Hebrew site is left as it is. */
+                  srcSet={!isRtl ? srcSetOf(exp.introImg || exp.img) : undefined}
+                  sizes={!isRtl ? '(max-width: 900px) 100vw, 560px' : undefined}
                   alt={isRtl ? exp.nameHe : (loc(exp, "name") || exp.name || exp.nameHe)}
                   fetchpriority="high"
                   decoding="async"
@@ -2537,6 +2543,7 @@ export default function ExpeditionDetail() {
                     {noDates ? (
                       <select
                         required value={form.month}
+                        aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
                         onChange={e => { setWomenGroup(false); setForm(f => ({ ...f, month: e.target.value })); }}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
@@ -2549,6 +2556,7 @@ export default function ExpeditionDetail() {
                     ) : (
                       <select
                         required value={form.month}
+                        aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
                         onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setForm(f => ({ ...f, month: e.target.value })); }}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
