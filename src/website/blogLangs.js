@@ -44,7 +44,9 @@ export const BLOG_LANGS = {
  ],
  "olympus-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "peaks-of-the-balkans-trek-guide": [
   "he",
