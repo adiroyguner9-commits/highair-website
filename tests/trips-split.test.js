@@ -28,3 +28,14 @@ describe('trip files per site language', () => {
     expect(src).toContain("!prod ? import('./mockData.js')");
   });
 });
+
+describe('the German and Spanish FAQ ride in the trip files', () => {
+  it('every trip has faqDe / faqEs, and the trip page does not import tripI18n', async () => {
+    const { FAQ_I18N } = await import('../src/data/tripI18n.js');
+    const de = read('de'), es = read('es');
+    for (const e of de) expect(e.faqDe?.length, e.slug).toBeGreaterThan(0);
+    for (const e of es) expect(e.faqEs?.length, e.slug).toBeGreaterThan(0);
+    expect(de.find(e => e.slug === 'kilimanjaro').faqDe).toEqual(FAQ_I18N.kilimanjaro.de);
+    expect(fs.readFileSync('src/components/web_v2/ExpeditionDetail.jsx', 'utf8')).not.toContain("from '../../data/tripI18n.js'");
+  });
+});

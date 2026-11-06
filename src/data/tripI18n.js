@@ -307,7 +307,18 @@ import { bake } from './safariI18n.js';
 import SDE from '../i18n/safari-de.js';
 import SES from '../i18n/safari-es.js';
 
+/* The German / Spanish FAQ goes onto the record itself (faqDe / faqEs), so it
+   ships inside trips/de.json and es.json and the trip page no longer imports
+   this whole file (80 KB gzipped on every trip page, every site; 6 Nov 2026). */
 export function applyTripI18n(exp) {
+  applyCopy(exp);
+  for (const lang of ['de', 'es']) {
+    exp['faq' + (lang === 'de' ? 'De' : 'Es')] = FAQ_I18N[exp.slug]?.[lang] || defaultFaqI18n(lang, exp.groupCapacity || 15);
+  }
+  return exp;
+}
+
+function applyCopy(exp) {
   /* Safari pages: every English field gets its German / Spanish twin (safariI18n.js). */
   if (String(exp.slug || '').startsWith('safari')) {
     bake(exp, { de: SDE, es: SES });   // written into trips/de.json, es.json at build time

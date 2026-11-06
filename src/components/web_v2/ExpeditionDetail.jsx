@@ -15,7 +15,6 @@ import { EXPS } from '../../data/trips.js';
 import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/usePageMeta.js';
 import FaqAccordion from './FaqAccordion.jsx';
 import { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } from '../../data/faqData.js';
-import { FAQ_I18N, defaultFaqI18n } from '../../data/tripI18n.js';
 import { COLOR, RADIUS, EASING, FS, SHADOW, BTN, glass } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePhoneHero } from '../../website/phoneHero.js';
@@ -393,7 +392,7 @@ export default function ExpeditionDetail() {
   const expFaqItems = exp
     ? (isRtl
         ? (faqEntry?.he?.length ? faqEntry.he : makeDefaultFaq(exp?.groupCapacity || 15, exp?.experienceHe))
-        : (FAQ_I18N[exp.slug]?.[currentLang()] || defaultFaqI18n(currentLang(), exp?.groupCapacity || 15)
+        : (loc(exp, 'faq')   /* faqDe / faqEs, baked into the site's trip file (tripI18n.js) */
            || (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15, loc(exp, "experience")))))
     : [];
 
