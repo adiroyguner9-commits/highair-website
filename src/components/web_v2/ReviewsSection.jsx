@@ -9,74 +9,39 @@ import { currentLang } from '../../website/lang.js';
 import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
+/* The real reviews (Airtable "Reviews", 7 May 2026), used when the live
+   fetch fails. The old fallback was six generic placeholder reviews with
+   frozen "1 month ago" dates (one about a Patagonia trek we don't run);
+   replaced 6 Nov 2026 so nothing invented can ever show. */
 const REVIEWS = [
-  {
-    name:     'יובל כהן',
-    nameEn:   'Yuval Cohen',
-    initials: 'י',
-    initialsEn: 'Y',
-    rating:   5,
-    date:     'לפני חודש',
-    dateEn:   '1 month ago',
-    text:     "חוויה מדהימה מהרגע הראשון ועד האחרון. הצוות של HighAir היה מקצועי, קשוב ואכפתי. הטרק לקילימנג'רו היה חלום שהפך למציאות.",
-    textEn:   "An incredible experience from start to finish. The HighAir team was professional, attentive and caring. The Kilimanjaro trek was a dream come true.",
-  },
-  {
-    name:     'מיכל לוי',
-    nameEn:   'Michal Levy',
-    initials: 'מ',
-    initialsEn: 'M',
-    rating:   5,
-    date:     'לפני חודשיים',
-    dateEn:   '2 months ago',
-    text:     'לא האמנתי שאגיע לפסגה אבל עם המדריכים של HighAir הכל נראה אפשרי. שירות אישי, ליווי צמוד ותשומת לב לכל פרט.',
-    textEn:   "I never believed I'd reach the summit, but with HighAir's guides everything felt possible. Personal service, close support and attention to every detail.",
-  },
-  {
-    name:     'אורן שמיר',
-    nameEn:   'Oren Shamir',
-    initials: 'א',
-    initialsEn: 'O',
-    rating:   5,
-    date:     'לפני 3 חודשים',
-    dateEn:   '3 months ago',
-    text:     'HighAir זה לא רק טרק - זו קהילה שלמה. יצאתי עם חברים לכל החיים ועם זיכרונות שלא ישכחו לעולם. ממליץ בחום!',
-    textEn:   "HighAir is not just a trek - it's a whole community. I left with lifelong friends and memories that will never fade. Highly recommended!",
-  },
-  {
-    name:     'דנה ברק',
-    nameEn:   'Dana Barak',
-    initials: 'ד',
-    initialsEn: 'D',
-    rating:   5,
-    date:     'לפני 4 חודשים',
-    dateEn:   '4 months ago',
-    text:     'הארגון המושלם לטיולי הרים. כל הלוגיסטיקה מסודרת, הציוד מעולה והמדריכים - ברמה אחרת לגמרי. 10 מתוך 10.',
-    textEn:   'The perfect organization for mountain trips. All logistics sorted, top-notch gear and guides on a completely different level. 10 out of 10.',
-  },
-  {
-    name:     'רן אברהם',
-    nameEn:   'Ran Avraham',
-    initials: 'ר',
-    initialsEn: 'R',
-    rating:   5,
-    date:     'לפני 5 חודשים',
-    dateEn:   '5 months ago',
-    text:     'עשינו את טרק האנפורנה עם HighAir - מסע שינה אותי. בטיחות מקסימלית, אווירה משפחתית וידיעה שיש מי שדואג לך בכל רגע.',
-    textEn:   "We did the Annapurna trek with HighAir - a journey that changed me. Maximum safety, a family atmosphere and the knowledge that someone is looking out for you at every moment.",
-  },
-  {
-    name:     'שיר נוי',
-    nameEn:   'Shir Noy',
-    initials: 'ש',
-    initialsEn: 'S',
-    rating:   5,
-    date:     'לפני 6 חודשים',
-    dateEn:   '6 months ago',
-    text:     'הכי טוב שעשיתי לעצמי. הטרק בפטגוניה היה פנטסטי ופגשתי אנשים מדהימים. HighAir יודעים לבנות חוויה שלמה.',
-    textEn:   "The best thing I ever did for myself. The Patagonia trek was fantastic and I met amazing people. HighAir knows how to build a complete experience.",
-  },
+  { id: 'recP8AdwnpVvWjstb', name: 'שירה בן שושן', nameEn: 'Shira Ben Shushan', initials: 'ש.ב', initialsEn: 'S.B.', rating: 5, date: 'פברואר 2026', dateEn: 'February 2026',
+    text: 'לפני כשבוע חזרתי מטיפוס על הקילימנג׳רו, הליווי של חן ואדיר לכל אורך תקופת ההכנה ולאורך המסע עצמו היו מדוייקים ותרמו לחוויה להיות חיובית ומשמעותית.\nלכל שאלה הם ענו בסבלנות ומקצועיות, הירידה לפרטים הקטנים עשתה את המסע לכל כך מוצלח. המדריכים והצוות בטנזניה היו קשובים ובעלי נסיון רב בטיפוס על ההר דבר שמאוד הקל על ההתנהלות.\nממליצה מאוד, חוויה של פעם בחיים!!!',
+    textEn: 'About a week ago I returned from climbing Kilimanjaro. The guidance of Chen and Adir throughout the preparation period and the trip itself was precise and made the experience positive and meaningful.\nEvery question was answered with patience and professionalism, the attention to small details made the trip so successful. The guides and staff in Tanzania were attentive and highly experienced in climbing the mountain, which made everything run smoothly.\nHighly recommend, a once-in-a-lifetime experience!!!' },
+  { id: 'recsQ8946JQdIobN3', name: 'שירלי אביר', nameEn: 'Shirly Abir', initials: 'ש.א', initialsEn: 'S.A.', rating: 5, date: 'ינואר 2026', dateEn: 'January 2026',
+    text: 'חוויה מאתגרת ועוצמתית!\nתודה להיי אייר - חן ואדיר - על ארגון מקצועי, מתוקתק, עם חשיבה לפרטים והמון אכפתיות.\nהארגון וההכנה היו מצויינים - החל מרמת הטפסים הנדרשים, דרך האימונים והחיסונים ועד לרמת הציוד הנדרשת.\nחייבת לציין לטובה גם את ליעד, סוכן הנסיעות המקצועי והשירותי, ואת קורל - סוכנת הביטוח.\nהמקצועיות והאכפתיות הורגשו בכל שלב במסע, הצוות המקומי התנהל ברוח היי אייר, ועטף אותנו בפינוקים, בהרבה שמחה ובסיוע מתמיד.\nתודה לכם!',
+    textEn: 'A challenging and powerful experience!\nThank you to HighAir - Chen and Adir - for professional, meticulous organization with attention to detail and so much care.\nThe organization and preparation were excellent - from the required forms, through the training and vaccinations, to the required gear level.\nI must also mention Liad, the professional and service-oriented travel agent, and Coral - the insurance agent.\nThe professionalism and care were felt at every stage of the journey. The local team operated in the spirit of HighAir, and wrapped us in treats, lots of joy and constant support.\nThank you!' },
+  { id: 'recNXJz3CKXbRLiFY', name: 'מוטי פאר', nameEn: 'Moti Peer', initials: 'מ.פ', initialsEn: 'M.P.', rating: 5, date: 'ינואר 2026', dateEn: 'January 2026',
+    text: 'טיפסתי את הקילימנג׳רו עם קבוצה של היי אייר. עברתי חוויה חיובית מאוד שתחרת אצלי עד יומי האחרון. המעטפת שסיפקה לנו החברה בהכנות לנסיעה לא תסולה בפז. הרכב הקבוצה שבנו חן ואדיר, היה נפלא. זכיתי בחברים לכל החיים. אני ממליץ בחום לכל מי שרוצה לטפס את הקילימנג׳רו ולדעת שהכל מטופל לעילה ולעילה. גם בארץ וגם באפריקה.',
+    textEn: 'I climbed Kilimanjaro with a HighAir group. It was an incredibly positive experience that will stay with me for the rest of my life. The support the company provided during the preparations was invaluable. The group that Chen and Adir put together was wonderful. I made friends for life. I highly recommend it to anyone who wants to climb Kilimanjaro and know that everything is taken care of to the highest standard, both in Israel and in Africa.' },
 ];
+
+/* German and Spanish translations of the real reviews, by Airtable record id.
+   A review without one shows its English translation. */
+const REVIEW_I18N = {
+  recP8AdwnpVvWjstb: {
+    de: 'Vor etwa einer Woche bin ich von der Kilimandscharo-Besteigung zurückgekommen. Die Begleitung durch Chen und Adir während der ganzen Vorbereitung und auf der Reise selbst war genau und hat das Erlebnis positiv und bedeutsam gemacht.\nJede Frage wurde geduldig und professionell beantwortet, und die Liebe zum Detail hat die Reise so erfolgreich gemacht. Die Guides und das Team in Tansania waren aufmerksam und sehr erfahren am Berg, was alles sehr erleichtert hat.\nSehr zu empfehlen, ein Erlebnis fürs Leben!!!',
+    es: 'Hace una semana volví de subir el Kilimanjaro. El acompañamiento de Chen y Adir durante toda la preparación y durante el viaje fue preciso e hizo que la experiencia fuera positiva y significativa.\nRespondieron cada pregunta con paciencia y profesionalidad, y la atención a los pequeños detalles hizo que el viaje saliera tan bien. Los guías y el equipo en Tanzania fueron atentos y tenían mucha experiencia en la montaña, lo que facilitó mucho todo.\n¡Muy recomendable, una experiencia única en la vida!',
+  },
+  recsQ8946JQdIobN3: {
+    de: 'Ein herausforderndes und kraftvolles Erlebnis!\nDanke an HighAir, Chen und Adir, für eine professionelle, perfekt durchdachte Organisation mit Blick fürs Detail und viel Fürsorge.\nOrganisation und Vorbereitung waren hervorragend, von den nötigen Formularen über Training und Impfungen bis zur richtigen Ausrüstung.\nBesonders erwähnen möchte ich auch Liad, den professionellen und hilfsbereiten Reiseagenten, und Coral, die Versicherungsagentin.\nProfessionalität und Fürsorge waren in jeder Phase der Reise spürbar. Das lokale Team arbeitete ganz im Sinne von HighAir und hat uns mit Verwöhnung, viel Freude und ständiger Unterstützung umsorgt.\nDanke!',
+    es: '¡Una experiencia exigente y muy intensa!\nGracias a HighAir, a Chen y Adir, por una organización profesional y muy cuidada, con atención al detalle y mucho cariño.\nLa organización y la preparación fueron excelentes, desde los formularios necesarios, pasando por el entrenamiento y las vacunas, hasta el nivel de equipo necesario.\nTambién quiero destacar a Liad, el agente de viajes, profesional y muy servicial, y a Coral, la agente de seguros.\nLa profesionalidad y el cuidado se notaron en cada etapa del viaje. El equipo local trabajó con el espíritu de HighAir y nos llenó de mimos, alegría y apoyo constante.\n¡Gracias!',
+  },
+  recNXJz3CKXbRLiFY: {
+    de: 'Ich habe den Kilimandscharo mit einer HighAir-Gruppe bestiegen. Es war ein sehr positives Erlebnis, das mir für den Rest meines Lebens bleiben wird. Die Unterstützung des Unternehmens bei der Vorbereitung war unbezahlbar. Die Gruppe, die Chen und Adir zusammengestellt haben, war wunderbar. Ich habe Freunde fürs Leben gewonnen. Ich empfehle es allen, die den Kilimandscharo besteigen und sicher sein wollen, dass alles bestens organisiert ist, in Israel wie in Afrika.',
+    es: 'Subí el Kilimanjaro con un grupo de HighAir. Fue una experiencia muy positiva que me acompañará el resto de mi vida. El apoyo que nos dio la empresa durante la preparación no tiene precio. El grupo que formaron Chen y Adir fue maravilloso. Hice amigos para toda la vida. Lo recomiendo a cualquiera que quiera subir el Kilimanjaro y saber que todo está organizado al más alto nivel, tanto en Israel como en África.',
+  },
+};
+export { REVIEW_I18N };
 
 /* Avatar colors */
 const AVATAR_COLORS = [
@@ -109,6 +74,12 @@ function GoogleG() {
 /* "3 months ago" in German / Spanish; the review text itself stays as written */
 function relDate(str) {
   const lng = currentLang();
+  /* "January 2026" -> "Januar 2026" / "enero de 2026" */
+  const my = /^([A-Za-z]+)\s+(\d{4})$/.exec(String(str || '').trim());
+  if (my && (lng === 'de' || lng === 'es')) {
+    const d = new Date(`${my[1]} 1, ${my[2]}`);
+    if (!isNaN(d)) return d.toLocaleDateString(lng === 'de' ? 'de-DE' : 'es-ES', { month: 'long', year: 'numeric' });
+  }
   const m = /^(\d+|a|an)\s+(day|week|month|year)s?\s+ago$/i.exec(String(str || '').trim());
   if (!m || (lng !== 'de' && lng !== 'es')) return str;
   const n = /^\d+$/.test(m[1]) ? Number(m[1]) : 1;
@@ -118,14 +89,14 @@ function relDate(str) {
   return lng === 'de' ? `vor ${n === 1 ? (m[2].toLowerCase() === 'week' ? 'einer' : 'einem') : n} ${w}` : `hace ${n === 1 ? (m[2].toLowerCase() === 'week' ? 'una' : 'un') : n} ${w}`;
 }
 
-function ReviewCard({ name, nameEn, initials, initialsEn, date, dateEn, text, textEn, idx }) {
+function ReviewCard({ id, name, nameEn, initials, initialsEn, date, dateEn, text, textEn, idx }) {
   const { i18n } = useTranslation();
   const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
   const displayName     = isEn ? (nameEn     || name)     : name;
   const displayInitials = isEn ? (initialsEn || initials) : initials;
   const displayDate     = isEn ? relDate(dateEn     || date)     : date;
-  const displayText     = isEn ? (textEn     || text)     : text;
+  const displayText     = isEn ? (REVIEW_I18N[id]?.[currentLang()] || textEn || text) : text;
   return (
     <div style={{
       background:    '#FFFFFF',
@@ -235,9 +206,9 @@ export default function ReviewsSection() {
       .then(r => r.json())
       .then(data => {
         const loaded = (data.records || [])
-          .map(r => r.fields)
-          .filter(f => f.Active)
-          .map(f => ({
+          .filter(r => r.fields?.Active)
+          .map(({ id, fields: f }) => ({
+            id,
             name:       f.Name,
             nameEn:     f.Name_En,
             initials:   f.Initials,

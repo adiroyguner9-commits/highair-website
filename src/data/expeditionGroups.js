@@ -21,12 +21,18 @@ export const HIDDEN_ON_EN = new Set(['sinai']);
 /* German and Spanish carry the core trips only (src/website/lang.js). */
 const CORE_ONLY = PARTIAL_LANGS;
 const CORE_TRIPS = new Set(CORE_TRIP_LIST);
+/* Foreign sites show only destinations that are open now: no "coming soon"
+   teasers anywhere, not in the menus, the footer or the homepage (owner,
+   6 Nov 2026). The Hebrew site keeps them. */
+export const isOpenNow = e => !e.teaser && !e.comingSoon;
 const forLanguage = list => (CORE_ONLY.includes(i18n.language)
-  ? list.filter(e => CORE_TRIPS.has(e.slug))
+  ? list.filter(e => CORE_TRIPS.has(e.slug) && isOpenNow(e))
   : i18n.language !== 'he'
-    ? list.filter(e => !HIDDEN_ON_EN.has(e.slug))
+    ? list.filter(e => !HIDDEN_ON_EN.has(e.slug) && isOpenNow(e))
     : list);
 const NAV_EXPS  = forLanguage(ALL_NAV_EXPS);
+/* Every trip this site's language offers (search box). */
+export const SITE_EXPS = NAV_EXPS;
 const CARD_EXPS = forLanguage(ALL_CARD_EXPS);
 
 /* Data continent keys → i18n keys (t('explorer.continents.<key>')). */

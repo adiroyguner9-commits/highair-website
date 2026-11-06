@@ -9,11 +9,15 @@ import { FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useInView } from '../../website/useInView.js';
 import { CARD_EXPS } from '../../data/navData.js';
+import { isOpenNow, HIDDEN_ON_EN } from '../../data/expeditionGroups.js';
 
 /* Destinations stat = number of expeditions and treks actually shown on the
    site (climbs + treks; safaris are live:false and excluded from CARD_EXPS),
    so the number tracks the cards automatically as trips are added or removed. */
 const DEST_COUNT = CARD_EXPS.filter(e => !String(e.slug || '').startsWith('safari')).length;
+/* Foreign sites count only the destinations open now, the same ones their
+   cards and menus show (owner, 6 Nov 2026: no "coming soon" abroad). */
+const OPEN_DEST_COUNT = CARD_EXPS.filter(e => !String(e.slug || '').startsWith('safari') && isOpenNow(e) && !HIDDEN_ON_EN.has(e.slug)).length;
 
 /* ── Count-up hook ─────────────────────────────────────────────
    Counts from 0 → `to` over `duration`ms using easeOutCubic.
@@ -102,7 +106,7 @@ export default function StatsSection() {
   const isRtl = dir === 'rtl';
 
   const STATS = [
-    { value: String(DEST_COUNT), label: t('stats.destinations') },
+    { value: String(i18n.language === 'he' ? DEST_COUNT : OPEN_DEST_COUNT), label: t('stats.destinations') },
     { value: '1000+',  label: t('stats.climbers')     },
     { value: isRtl ? '₪240K+' : '$70K+', label: t('stats.donated') },
     { value: '94%',   label: t('stats.successRate')  },
