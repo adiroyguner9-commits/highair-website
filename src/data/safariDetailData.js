@@ -1,3 +1,4 @@
+import { localize } from './safariI18n.js';
 /* ═══════════════════════════════════════════════════════════════════════════
    SAFARI EXPEDITION PAGE — content for the sections that exist only on a
    safari page (/expedition/safari-3-days | -5-days | -7-days).
@@ -51,7 +52,7 @@ export const SAFARI_TRIP_TYPE = {
 
 /* ── Packing list ─────────────────────────────────────────────────────────
    A safari list, not the Kilimanjaro one: no layers for altitude, and the
-   colour rule and the optics matter far more than the boots. */
+   color rule and the optics matter far more than the boots. */
 export const SAFARI_PACKING = [
   {
     icon: 'shopping', title: 'ביגוד', titleEn: 'Clothing',
@@ -66,7 +67,7 @@ export const SAFARI_PACKING = [
       'בגד ים, בכל הלודג׳ים יש בריכה',
     ],
     itemsEn: [
-      'Neutral tones: beige, khaki, olive or grey',
+      'Neutral tones: beige, khaki, olive or gray',
       'Avoid blue and black, which attract tsetse flies',
       'Light long-sleeved shirts for the day, better than short sleeves against sun and dust',
       'One warm layer for early mornings and open-roof driving, even in summer',
@@ -266,7 +267,7 @@ export const SAFARI_VISA = {
   intro:
     'אזרחי ישראל נדרשים בוויזה לטנזניה. את הבקשה מגישים מראש באתר הרשות הרשמית להגירה, ולא בשדה התעופה.',
   introEn:
-    'Israeli citizens require a visa for Tanzania. The application is submitted in advance on the official immigration portal, not at the airport.',
+    'Most visitors, including UK, EU and US citizens, need a visa for Tanzania. Apply in advance on the official immigration portal rather than at the airport.',
   portal: 'https://visa.immigration.go.tz',
   items: [
     { icon: 'passport', title: 'דרכון',
@@ -280,7 +281,7 @@ export const SAFARI_VISA = {
     { icon: 'syringe', title: 'קדחת צהובה',
       titleEn: 'Yellow fever',
       desc: 'אישור חיסון נדרש למי שמגיע ממדינה שבה יש סיכון להדבקה, או שעבר בה בדרך. בטיסה ישירה מישראל בדרך כלל אין דרישה, אך כדאי לבדוק את מסלול הטיסה המדויק שלכם.',
-      descEn: 'A certificate is required for anyone arriving from, or transiting, a country with risk of transmission. On a direct flight from Israel it is usually not required, but check your exact routing.' },
+      descEn: 'A certificate is required for anyone arriving from, or transiting, a country with risk of transmission. If you fly in from Europe or North America without a long layover in such a country it is usually not required, but check your exact routing.' },
     { icon: 'shield', title: 'ביטוח נסיעות',
       titleEn: 'Travel insurance',
       desc: 'חובה מצידנו. יש לוודא שהפוליסה מכסה טיולי ספארי ופינוי רפואי.',
@@ -289,7 +290,7 @@ export const SAFARI_VISA = {
   disclaimer:
     'המידע נכון למועד כתיבתו ואינו מחליף את ההנחיות הרשמיות. תמיד כדאי לוודא את הדרישות באתר הרשות להגירה ובמשרד החוץ לפני הנסיעה, ואנחנו כמובן נלווה אתכם בתהליך.',
   disclaimerEn:
-    'This information is correct as written and does not replace the official guidance. Always confirm the requirements on the immigration portal and with your foreign ministry before travelling, and we will of course walk you through it.',
+    'This information is correct as written and does not replace the official guidance. Always confirm the requirements on the immigration portal and with your foreign ministry before traveling, and we will of course walk you through it.',
 };
 
 /* ── Route map ────────────────────────────────────────────────────────────
@@ -324,3 +325,16 @@ export const SAFARI_ROUTES = {
     { node: 'ngorongoro', day: 4 }, { node: 'eyasi', day: 5 },
   ],
 };
+
+/* German / Spanish beside every English field (safariI18n.js). */
+localize(SAFARI_TRIP_TYPE);
+localize(SAFARI_PACKING);
+localize(SAFARI_SEASONS_PRICING);
+localize(SAFARI_GROUP_SIZES);
+localize(SAFARI_PRICES);
+localize(SAFARI_PRICE_NOTES);
+localize(SAFARI_INCLUDED);
+localize(SAFARI_NOT_INCLUDED);
+localize(SAFARI_VISA);
+localize(SAFARI_MAP_NODES);
+localize(SAFARI_ROUTES);

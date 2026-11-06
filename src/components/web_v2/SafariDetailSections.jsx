@@ -14,7 +14,7 @@
  * Hebrew for customers, and no invented prices.
  */
 
-import { loc } from '../../website/lang.js';
+import { loc, tx } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import { SAFARI_COLOR as SC } from '../../data/safariData.js';
@@ -50,7 +50,7 @@ const FONT = "'Ploni', sans-serif";
 /* ExpeditionDetail renders a 1px marker with this id right below the summary
    card. The nav appears exactly when that marker leaves the top of the view. */
 export const NAV_SENTINEL_ID = 'sf-nav-sentinel';
-const isPlaceholder = v => !v || /\[למילוי\]/.test(String(v));
+const isPlaceholder = v => !v || /\[(למילוי|TO FILL)\]/.test(String(v));
 
 /* ─── Shared section heading, so every new block lines up with the others ── */
 function Head({ title, sub, isMobile }) {
@@ -83,14 +83,14 @@ const card = {
    ══════════════════════════════════════════════════════════════════════════ */
 export function SafariSummaryCard({ exp, isRtl, isMobile, onEnquire }) {
   const rows = [
-    { icon: 'clock', label: isRtl ? 'משך המסע' : 'Duration',
-      value: isRtl ? exp.days : (exp.daysEn || exp.days) },
-    { icon: 'tree', label: isRtl ? 'שמורות במסלול' : 'Reserves on the route',
+    { icon: 'clock', label: isRtl ? 'משך המסע' : tx('Duration'),
+      value: isRtl ? exp.days : (loc(exp, 'days') || exp.days) },
+    { icon: 'tree', label: isRtl ? 'שמורות במסלול' : tx('Reserves on the route'),
       value: (() => { const v = isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves); return isPlaceholder(v) || /[\u0590-\u05FF]/.test(isRtl ? '' : String(v || '')) ? null : v; })() },
-    { icon: 'users', label: isRtl ? 'סוג המסע' : 'Trip type',
-      value: isRtl ? 'ספארי פרטי, עד 6 נוסעים בג׳יפ' : 'Private safari, up to 6 in the jeep' },
-    { icon: 'calendar', label: isRtl ? 'תאריכי יציאה' : 'Departure dates',
-      value: isRtl ? 'בכל תאריך, לפי היומן שלכם' : 'Any date, to suit your calendar' },
+    { icon: 'users', label: isRtl ? 'סוג המסע' : tx('Trip type'),
+      value: isRtl ? 'ספארי פרטי, עד 6 נוסעים בג׳יפ' : tx('Private safari, up to 6 in the jeep') },
+    { icon: 'calendar', label: isRtl ? 'תאריכי יציאה' : tx('Departure dates'),
+      value: isRtl ? 'בכל תאריך, לפי היומן שלכם' : tx('Any date, to suit your calendar') },
   ].filter(r => r.value);
 
   const priceKnown = !isPlaceholder(exp.priceStr);
@@ -117,17 +117,17 @@ export function SafariSummaryCard({ exp, isRtl, isMobile, onEnquire }) {
         display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '14px' }}>
         <div>
           <span style={{ display: 'block', fontFamily: FONT, fontSize: '12px', color: '#6B6B8A' }}>
-            {isRtl ? 'מחיר לאדם' : 'Price per person'}
+            {isRtl ? 'מחיר לאדם' : tx('Price per person')}
           </span>
           <span style={{ display: 'block', fontFamily: FONT, fontWeight: 900, color: SC.earth,
             fontSize: isMobile ? '24px' : '28px', letterSpacing: '-0.02em' }}>
             {priceKnown
-              ? (isRtl ? `החל מ-${exp.priceStr}` : `From ${exp.priceStr}`)
-              : (isRtl ? 'לפי גודל הקבוצה' : 'By group size')}
+              ? (isRtl ? `החל מ-${exp.priceStr}` : tx('From {0}', [exp.priceStr]))
+              : (isRtl ? 'לפי גודל הקבוצה' : tx('By group size'))}
           </span>
           {!priceKnown && (
             <span style={{ display: 'block', fontFamily: FONT, fontSize: '12.5px', color: '#6B6B8A', marginTop: '2px' }}>
-              {isRtl ? 'נשלח הצעה מדויקת לפי מספר הנוסעים והחודש' : 'We send an exact quote by party size and month'}
+              {isRtl ? 'נשלח הצעה מדויקת לפי מספר הנוסעים והחודש' : tx('We send an exact quote by party size and month')}
             </span>
           )}
         </div>
@@ -135,7 +135,7 @@ export function SafariSummaryCard({ exp, isRtl, isMobile, onEnquire }) {
           background: SC.earth, color: '#FFFFFF', border: 'none', borderRadius: RADIUS.full,
           padding: isMobile ? '13px 26px' : '14px 34px', fontFamily: FONT, fontSize: '15px',
           fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>
-          {isRtl ? 'קבלת הצעה' : 'Request a quote'}
+          {isRtl ? 'קבלת הצעה' : tx('Request a quote')}
         </button>
       </div>
     </div>
@@ -227,7 +227,7 @@ export function SafariSectionNav({ sections: all, isRtl, isMobile }) {
             borderBottom: `2px solid ${active === s.id ? SC.earth : 'transparent'}`,
             whiteSpace: 'nowrap',
           }}>
-            {isRtl ? s.label : s.labelEn}
+            {isRtl ? s.label : loc(s, 'label')}
           </button>
         ))}
       </div>
@@ -243,15 +243,15 @@ export function SafariSectionNav({ sections: all, isRtl, isMobile }) {
 export function SafariForMe({ exp, isRtl, isMobile }) {
   const T = SAFARI_TRIP_TYPE;
   const blocks = [
-    { icon: 'users', title: isRtl ? T.privateTitle : T.privateTitleEn,
-      desc: isRtl ? T.private : T.privateEn,
-      note: isRtl ? T.groupNote : T.groupNoteEn },
-    { icon: 'medical', title: isRtl ? T.ageTitle : T.ageTitleEn,
-      desc: isRtl ? T.age : T.ageEn },
-    { icon: 'jeep', title: isRtl ? T.jeepTitle : T.jeepTitleEn,
-      desc: isRtl ? T.jeep : T.jeepEn },
+    { icon: 'users', title: isRtl ? T.privateTitle : loc(T, 'privateTitle'),
+      desc: isRtl ? T.private : loc(T, 'private'),
+      note: isRtl ? T.groupNote : loc(T, 'groupNote') },
+    { icon: 'medical', title: isRtl ? T.ageTitle : loc(T, 'ageTitle'),
+      desc: isRtl ? T.age : loc(T, 'age') },
+    { icon: 'jeep', title: isRtl ? T.jeepTitle : loc(T, 'jeepTitle'),
+      desc: isRtl ? T.jeep : loc(T, 'jeep') },
   ];
-  const visits = (isRtl ? exp.highlights : (exp.highlightsEn || exp.highlights)) || [];
+  const visits = (isRtl ? exp.highlights : (loc(exp, 'highlights') || exp.highlights)) || [];
   const realVisits = visits.filter(v => !isPlaceholder(v));
 
   return (
@@ -278,7 +278,7 @@ export function SafariForMe({ exp, isRtl, isMobile }) {
       {realVisits.length > 0 && (
         <div style={{ ...card, background: '#FFFDF9' }}>
           <h3 style={{ fontFamily: FONT, fontSize: '17px', fontWeight: 700, color: SC.deep, margin: '0 0 14px' }}>
-            {isRtl ? 'מה תראו במסע' : "What you will visit"}
+            {isRtl ? 'מה תראו במסע' : tx("What you will visit")}
           </h3>
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '11px' }}>
             {realVisits.map(v => (
@@ -306,7 +306,7 @@ export function SafariRouteMap({ exp, isRtl, isMobile }) {
       <div style={{ ...card, display: 'flex', alignItems: 'center', gap: '12px', background: '#FFFDF9' }}>
         <Ico name="info" size={20} />
         <span style={{ fontFamily: FONT, fontSize: '14.5px', color: SC.ink, lineHeight: 1.6 }}>
-          {isRtl ? 'מפת המסלול תתפרסם עם פרסום המסלול המלא.' : 'The route map will be published with the full itinerary.'}
+          {isRtl ? 'מפת המסלול תתפרסם עם פרסום המסלול המלא.' : tx('The route map will be published with the full itinerary.')}
         </span>
       </div>
     );
@@ -320,7 +320,7 @@ export function SafariRouteMap({ exp, isRtl, isMobile }) {
       {/* dir ltr: the map is geography, so it must not mirror in Hebrew. */}
       <div style={{ direction: 'ltr', width: '100%', maxWidth: '720px', margin: '0 auto' }}>
         <svg viewBox="20 80 650 550" style={{ width: '100%', height: 'auto', display: 'block' }}
-          role="img" aria-label={isRtl ? 'מפת המסלול בצפון טנזניה' : 'Route map of northern Tanzania'}>
+          role="img" aria-label={isRtl ? 'מפת המסלול בצפון טנזניה' : tx('Route map of northern Tanzania')}>
           <defs>
             <linearGradient id="safari-map-bg" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#FFF8EA" />
@@ -365,7 +365,7 @@ export function SafariRouteMap({ exp, isRtl, isMobile }) {
               <text x={p.x} y={p.y + (p.day ? 34 : 24)} textAnchor="middle"
                 style={{ fontFamily: FONT, fontSize: isMobile ? '15px' : '14px', fontWeight: 600,
                   fill: SC.deep, direction: isRtl ? 'rtl' : 'ltr' }}>
-                {isRtl ? p.label : p.labelEn}
+                {isRtl ? p.label : loc(p, 'label')}
               </text>
             </g>
           ))}
@@ -375,7 +375,7 @@ export function SafariRouteMap({ exp, isRtl, isMobile }) {
         textAlign: 'start', direction: isRtl ? 'rtl' : 'ltr' }}>
         {isRtl
           ? 'המספרים הם ימי הספארי. מיקומי הנקודות לפי הקואורדינטות בפועל, גבולות השמורות מסורטטים להמחשה.'
-          : 'The numbers are safari days. Points sit at real coordinates; reserve outlines are indicative.'}
+          : tx('The numbers are safari days. Points sit at real coordinates; reserve outlines are indicative.')}
       </p>
     </div>
   );
@@ -391,7 +391,7 @@ export function SafariPacking({ isRtl, isMobile }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px', alignItems: 'start' }}>
       {SAFARI_PACKING.map((g, i) => {
-        const items = isRtl ? g.items : (g.itemsEn || g.items);
+        const items = isRtl ? g.items : (loc(g, 'items') || g.items);
         return (
           <div key={g.title} style={{ ...card, padding: 0, overflow: 'hidden' }}>
             <button onClick={() => toggle(i)} aria-expanded={open[i]} style={{
@@ -404,7 +404,7 @@ export function SafariPacking({ isRtl, isMobile }) {
                 <Ico name={g.icon} size={18} />
               </span>
               <span style={{ flex: 1, fontFamily: FONT, fontSize: '16px', fontWeight: 700, color: SC.deep }}>
-                {isRtl ? g.title : g.titleEn}
+                {isRtl ? g.title : loc(g, 'title')}
               </span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9A8B76"
                 strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
@@ -439,7 +439,7 @@ export function SafariPacking({ isRtl, isMobile }) {
    ══════════════════════════════════════════════════════════════════════════ */
 export function SafariPricing({ exp, isRtl, isMobile }) {
   const table = SAFARI_PRICES[exp.slug] || {};
-  const notes = isRtl ? SAFARI_PRICE_NOTES : SAFARI_PRICE_NOTES_EN;
+  const notes = isRtl ? SAFARI_PRICE_NOTES : SAFARI_PRICE_NOTES_EN.map(n => tx(n));
   const anyPrice = SAFARI_SEASONS_PRICING.some(s =>
     SAFARI_GROUP_SIZES.some(g => typeof table[s.key]?.[g] === 'number'));
 
@@ -447,7 +447,7 @@ export function SafariPricing({ exp, isRtl, isMobile }) {
     textAlign: 'center', borderTop: `1px solid ${SC.sandLine}` };
   const price = v => (typeof v === 'number'
     ? `$${v.toLocaleString('en-US')}`
-    : (isRtl ? 'לפי בקשה' : 'On request'));
+    : (isRtl ? 'לפי בקשה' : tx('On request')));
 
   return (
     <>
@@ -456,13 +456,13 @@ export function SafariPricing({ exp, isRtl, isMobile }) {
           <thead>
             <tr style={{ background: '#FFFCF4' }}>
               <th style={{ ...cell, borderTop: 'none', textAlign: 'start', fontWeight: 700, color: SC.deep }}>
-                {isRtl ? 'מספר נוסעים' : 'Travellers'}
+                {isRtl ? 'מספר נוסעים' : tx('Travelers')}
               </th>
               {SAFARI_SEASONS_PRICING.map(s => (
                 <th key={s.key} style={{ ...cell, borderTop: 'none', fontWeight: 700, color: SC.deep }}>
-                  <span style={{ display: 'block' }}>{isRtl ? s.label : s.labelEn}</span>
+                  <span style={{ display: 'block' }}>{isRtl ? s.label : loc(s, 'label')}</span>
                   <span style={{ display: 'block', fontSize: '11.5px', fontWeight: 400, color: '#8A7A66', marginTop: '3px' }}>
-                    {isRtl ? s.when : s.whenEn}
+                    {isRtl ? s.when : loc(s, 'when')}
                   </span>
                 </th>
               ))}
@@ -473,10 +473,10 @@ export function SafariPricing({ exp, isRtl, isMobile }) {
               <tr key={g}>
                 <td style={{ ...cell, textAlign: 'start', fontWeight: 700, color: SC.deep }}>
                   {g === '6+'
-                    ? (isRtl ? '6 נוסעים ומעלה' : '6 travellers or more')
+                    ? (isRtl ? '6 נוסעים ומעלה' : tx('6 travelers or more'))
                     : isRtl
                       ? (g === 1 ? 'נוסע אחד' : `${g} נוסעים`)
-                      : (g === 1 ? '1 traveler' : `${g} travelers`)}
+                      : (g === 1 ? tx('1 traveler') : tx('{0} travelers', [g]))}
                 </td>
                 {SAFARI_SEASONS_PRICING.map(s => (
                   <td key={s.key} style={{ ...cell, fontWeight: 600, color: SC.ink,
@@ -496,7 +496,7 @@ export function SafariPricing({ exp, isRtl, isMobile }) {
           <p style={{ fontFamily: FONT, fontSize: '14.5px', fontWeight: 400, color: SC.ink, margin: 0, lineHeight: 1.65 }}>
             {isRtl
               ? 'המחיר לספארי פרטי נגזר ממספר הנוסעים, מהחודש ומהלודג׳ים, ולכן אנחנו מוציאים הצעה אישית ולא מפרסמים מחירון אחד. השאירו פרטים ונחזור עם מחיר מדויק.'
-              : 'A private safari is priced by party size, month and lodges, so we quote personally rather than publish one price list. Leave your details and we will come back with an exact figure.'}
+              : tx('A private safari is priced by party size, month and lodges, so we quote personally rather than publish one price list. Leave your details and we will come back with an exact figure.')}
           </p>
         </div>
       )}
@@ -518,7 +518,7 @@ export function SafariPricing({ exp, isRtl, isMobile }) {
    ══════════════════════════════════════════════════════════════════════════ */
 export function SafariInclusions({ isRtl, isMobile }) {
   const [open, setOpen] = useState(null);
-  const notIncluded = isRtl ? SAFARI_NOT_INCLUDED : SAFARI_NOT_INCLUDED_EN;
+  const notIncluded = isRtl ? SAFARI_NOT_INCLUDED : SAFARI_NOT_INCLUDED_EN.map(n => tx(n));
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr', gap: isMobile ? '16px' : '24px', alignItems: 'start' }}>
@@ -533,7 +533,7 @@ export function SafariInclusions({ isRtl, isMobile }) {
               }}>
                 <span style={{ flexShrink: 0 }}><Ico name="check" size={18} color={SC.green} /></span>
                 <span style={{ flex: 1, fontFamily: FONT, fontSize: '15px', fontWeight: 600, color: SC.deep }}>
-                  {isRtl ? it.title : it.titleEn}
+                  {isRtl ? it.title : loc(it, 'title')}
                 </span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A8B76"
                   strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
@@ -544,7 +544,7 @@ export function SafariInclusions({ isRtl, isMobile }) {
               <div style={{ maxHeight: isOpen ? '260px' : '0', overflow: 'hidden', transition: 'max-height .3s ease' }}>
                 <p style={{ fontFamily: FONT, fontSize: '14px', fontWeight: 300, color: SC.ink,
                   margin: 0, padding: '0 18px 16px 48px', lineHeight: 1.65 }}>
-                  {isRtl ? it.desc : it.descEn}
+                  {isRtl ? it.desc : loc(it, 'desc')}
                 </p>
               </div>
             </div>
@@ -554,7 +554,7 @@ export function SafariInclusions({ isRtl, isMobile }) {
 
       <div style={{ ...card, background: '#FFFDF9' }}>
         <h3 style={{ fontFamily: FONT, fontSize: '16px', fontWeight: 700, color: SC.deep, margin: '0 0 13px' }}>
-          {isRtl ? 'מה לא כלול' : 'Not included'}
+          {isRtl ? 'מה לא כלול' : tx('Not included')}
         </h3>
         <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {notIncluded.map(n => (
@@ -581,7 +581,7 @@ export function SafariVisa({ isRtl, isMobile }) {
     <>
       <p style={{ fontFamily: FONT, fontSize: isMobile ? '15px' : '16px', fontWeight: 400, color: SC.ink,
         margin: '0 0 18px', lineHeight: 1.7, textAlign: 'start', maxWidth: '780px' }}>
-        {isRtl ? V.intro : V.introEn}
+        {isRtl ? V.intro : loc(V, 'intro')}
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' }}>
         {V.items.map(it => (
@@ -592,10 +592,10 @@ export function SafariVisa({ isRtl, isMobile }) {
             </span>
             <div style={{ minWidth: 0 }}>
               <h3 style={{ fontFamily: FONT, fontSize: '16px', fontWeight: 700, color: SC.deep, margin: '0 0 4px' }}>
-                {isRtl ? it.title : it.titleEn}
+                {isRtl ? it.title : loc(it, 'title')}
               </h3>
               <p style={{ fontFamily: FONT, fontSize: '14px', fontWeight: 300, color: SC.ink, margin: 0, lineHeight: 1.6 }}>
-                {isRtl ? it.desc : it.descEn}
+                {isRtl ? it.desc : loc(it, 'desc')}
               </p>
             </div>
           </div>
@@ -607,13 +607,13 @@ export function SafariVisa({ isRtl, isMobile }) {
         fontFamily: FONT, fontSize: '14.5px', fontWeight: 700, color: SC.earth, textDecoration: 'none',
       }}>
         <Ico name="globe" size={17} />
-        {isRtl ? 'לאתר הרשמי להגשת הוויזה' : 'The official visa portal'}
+        {isRtl ? 'לאתר הרשמי להגשת הוויזה' : tx('The official visa portal')}
       </a>
 
       <div style={{ ...card, marginTop: '16px', background: '#FFFCF4', display: 'flex', gap: '12px' }}>
         <span style={{ flexShrink: 0, marginTop: '1px' }}><WarningIcon size={18} color="#B98A6A" /></span>
         <p style={{ fontFamily: FONT, fontSize: '13.5px', fontWeight: 300, color: SC.ink, margin: 0, lineHeight: 1.65 }}>
-          {isRtl ? V.disclaimer : V.disclaimerEn}
+          {isRtl ? V.disclaimer : loc(V, 'disclaimer')}
         </p>
       </div>
     </>

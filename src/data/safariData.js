@@ -1,3 +1,4 @@
+import { localize } from './safariI18n.js';
 /**
  * safariData.js — content for the /safari hub page.
  *
@@ -23,7 +24,7 @@
 
 /* ── When to go ──────────────────────────────────────────────────────────
    Rendered as an INTERACTIVE guide: 12 month chips plus a detail panel.
-   rating drives the chip colour:
+   rating drives the chip color:
      'best' = prime · 'good' = very good · 'ok' = shoulder / green season     */
 export const SAFARI_SEASONS = [
   { month: 'ינואר', monthEn: 'January', rating: 'best',
@@ -316,11 +317,11 @@ export const SAFARI_FAQ = [
     q: 'מה לובשים ומה מביאים?',
     a: 'בגדים בגוונים ניטרליים, שכבה חמה לבוקר ולערב, כובע, משקפי שמש וקרם הגנה. מצלמה עם זום ומשקפת משפרות מאוד את החוויה. רשימת ציוד מלאה נשלחת לכל נרשם.',
     qEn: 'What do I wear and what do I bring?',
-    aEn: 'Neutral-coloured clothing, a warm layer for mornings and evenings, a hat, sunglasses and sunscreen. A camera with a zoom and a pair of binoculars improve the experience a great deal. A full gear list is sent to every participant.',
+    aEn: 'Neutral-colored clothing, a warm layer for mornings and evenings, a hat, sunglasses and sunscreen. A camera with a zoom and a pair of binoculars improve the experience a great deal. A full gear list is sent to every participant.',
   },
 ];
 
-/* Savanna palette — the one place safari colours are defined, so the hub page
+/* Savanna palette — the one place safari colors are defined, so the hub page
    and anything added later stay in step. The rest of the site keeps its purple.
    Lightened Jul 30 2026 (owner: "too dark"): the band moved off near-black
    earth onto warm ochre → gold. White heading text still clears 4.5:1 on the
@@ -335,3 +336,11 @@ export const SAFARI_COLOR = {
   sandLine: '#F0E7DA', // hairline on sand
   ink:    '#6B5540',   // body text, warm mid-brown
 };
+
+/* German / Spanish beside every English field (safariI18n.js). */
+localize(SAFARI_SEASONS);
+localize(SAFARI_RESERVES);
+localize(SAFARI_LODGING);
+localize(SAFARI_DAY_TRIPS);
+localize(SAFARI_HOW_IT_WORKS);
+localize(SAFARI_FAQ);

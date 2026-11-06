@@ -163,11 +163,11 @@ const getWhyCards = (exp, isRtl) => {
       { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
       { icon: '📞', title: 'ליווי 24/7 משלב ההכנה ולאורך כל הספארי', desc: '' },
     ] : [
-      { icon: '📱', title: 'A personal area for every traveler in our app - the whole journey in one place', desc: '' },
-      { icon: '🎒', title: 'Safari gear list', desc: '' },
-      { icon: '✈️', title: 'Guidance on the best flights and travel insurance from your city', desc: '' },
-      { icon: '📋', title: `Visa guide for ${country}`, desc: '' },
-      { icon: '📞', title: '24/7 support from preparation through the whole safari', desc: '' },
+      { icon: '📱', title: tx('A personal area for every traveler in our app - the whole journey in one place'), desc: '' },
+      { icon: '🎒', title: tx('Safari gear list'), desc: '' },
+      { icon: '✈️', title: tx('Guidance on the best flights and travel insurance from your city'), desc: '' },
+      { icon: '📋', title: tx('Visa guide for {0}', [country]), desc: '' },
+      { icon: '📞', title: tx('24/7 support from preparation through the whole safari'), desc: '' },
     ];
   }
   /* German and Spanish: the same list, in the reader's words (lang.js) */
@@ -217,7 +217,7 @@ const getWhyCards = (exp, isRtl) => {
 /* A draft record's unfilled fields hold "[למילוי]". Nothing that still holds
    that marker may render, so both price displays and the meta description read
    through here. */
-const filled = v => (v && !/\[למילוי\]/.test(String(v)) ? v : null);
+const filled = v => (v && !/\[(למילוי|TO FILL)\]/.test(String(v)) ? v : null);
 
 /* The safari page's in-page nav. Ids must match the SafariSection ids below. */
 const SAFARI_NAV = [

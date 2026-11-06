@@ -16,6 +16,8 @@ import { BLOG_LANGS } from './blogLangs.js';
 import i18n from '../i18n.js';
 import DE from '../i18n/ui-de.json';
 import ES from '../i18n/ui-es.json';
+import SDE from '../i18n/safari-de.js';
+import SES from '../i18n/safari-es.js';
 
 export const LANGS = ['he', 'en', 'de', 'es'];
 export const FOREIGN_LANGS = ['en', 'de', 'es'];
@@ -33,7 +35,7 @@ export const currentLang = () => i18n.language || 'he';
 export const isForeign = () => currentLang() !== 'he';
 
 const SUFFIX = { de: 'De', es: 'Es' };
-const DICT = { de: DE, es: ES };
+const DICT = { de: { ...SDE, ...DE }, es: { ...SES, ...ES } };
 
 export function loc(obj, key) {
   if (!obj) return undefined;

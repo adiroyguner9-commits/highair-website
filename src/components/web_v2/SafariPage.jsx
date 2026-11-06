@@ -14,6 +14,7 @@
  * a future card restyle lands in both places at once.
  */
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { tx, loc } from '../../website/lang.js';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
@@ -39,9 +40,9 @@ const SAFARI_ICONS = { users: UsersIcon, clock: ClockIcon, gps: GpsIcon, check: 
    year-at-a-glance view, coloured by season quality. */
 function SeasonGuide({ isRtl, isMobile }) {
   const CHIP = {
-    best: { bg: '#FEF3C7', border: '#F59E0B', dot: '#D97706', label: isRtl ? 'העונה הטובה ביותר' : 'Prime season' },
-    good: { bg: '#ECFCCB', border: '#A3E635', dot: '#7BA23F', label: isRtl ? 'מצוין' : 'Very good' },
-    ok:   { bg: '#F5F5F4', border: '#E7E5E4', dot: '#A8A29E', label: isRtl ? 'עונת ביניים' : 'Shoulder season' },
+    best: { bg: '#FEF3C7', border: '#F59E0B', dot: '#D97706', label: isRtl ? 'העונה הטובה ביותר' : tx('Prime season') },
+    good: { bg: '#ECFCCB', border: '#A3E635', dot: '#7BA23F', label: isRtl ? 'מצוין' : tx('Very good') },
+    ok:   { bg: '#F5F5F4', border: '#E7E5E4', dot: '#A8A29E', label: isRtl ? 'עונת ביניים' : tx('Shoulder season') },
   };
   /* Opens on the current month, so the guide answers "and right now?" first. */
   const [sel, setSel] = useState(new Date().getMonth());
@@ -61,13 +62,13 @@ function SeasonGuide({ isRtl, isMobile }) {
     <section style={{ padding: isMobile ? '44px 5% 8px' : '72px 5% 16px', maxWidth: '1280px', margin: '0 auto' }}>
       <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '26px' : '38px', fontWeight: 700,
         color: SC.deep, margin: '0 0 8px', letterSpacing: '-0.02em', textAlign: 'start' }}>
-        {isRtl ? 'מתי הכי כדאי לצאת לספארי' : 'When to go on safari'}
+        {isRtl ? 'מתי הכי כדאי לצאת לספארי' : tx('When to go on safari')}
       </h2>
       <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '15px' : '17px', fontWeight: 300,
         color: SC.ink, margin: '0 0 22px', maxWidth: '640px', lineHeight: 1.6, textAlign: 'start' }}>
         {isRtl
           ? 'לכל חודש אופי משלו. בחרו חודש כדי לראות מזג אוויר, מה קורה עם החיות וכמה עמוס בשמורות.'
-          : 'Every month has its own character. Pick one to see the weather, what the wildlife is doing and how busy the reserves are.'}
+          : tx('Every month has its own character. Pick one to see the weather, what the wildlife is doing and how busy the reserves are.')}
       </p>
 
       {/* Month chips — the whole year at a glance */}
@@ -89,7 +90,7 @@ function SeasonGuide({ isRtl, isMobile }) {
               }}>
               <span style={{ width: '7px', height: '7px', borderRadius: '50%',
                 background: active ? 'rgba(255,255,255,0.85)' : mc.dot, flexShrink: 0 }} />
-              {isRtl ? mo.month : mo.monthEn}
+              {isRtl ? mo.month : loc(mo, 'month')}
             </button>
           );
         })}
@@ -100,22 +101,22 @@ function SeasonGuide({ isRtl, isMobile }) {
         borderRadius: '18px', padding: isMobile ? '18px' : '24px 28px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px', flexWrap: 'wrap' }}>
           <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
-            color: SC.deep, margin: 0 }}>{isRtl ? m.month : m.monthEn}</h3>
+            color: SC.deep, margin: 0 }}>{isRtl ? m.month : loc(m, 'month')}</h3>
           <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 800,
             color: SC.deep, background: c.bg, border: `1px solid ${c.border}`,
             borderRadius: '999px', padding: '3px 10px' }}>{c.label}</span>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px 28px' }}>
-          {fact(isRtl ? 'טמפרטורה' : 'Temperature', m.temp)}
-          {fact(isRtl ? 'מזג אוויר' : 'Weather',     isRtl ? m.weather  : m.weatherEn)}
-          {fact(isRtl ? 'חיות הבר' : 'Wildlife',     isRtl ? m.wildlife : m.wildlifeEn)}
-          {fact(isRtl ? 'עומס בשמורות' : 'Crowds',   isRtl ? m.crowds   : m.crowdsEn)}
+          {fact(isRtl ? 'טמפרטורה' : tx('Temperature'), m.temp)}
+          {fact(isRtl ? 'מזג אוויר' : tx('Weather'),     isRtl ? m.weather  : loc(m, 'weather'))}
+          {fact(isRtl ? 'חיות הבר' : tx('Wildlife'),     isRtl ? m.wildlife : loc(m, 'wildlife'))}
+          {fact(isRtl ? 'עומס בשמורות' : tx('Crowds'),   isRtl ? m.crowds   : loc(m, 'crowds'))}
         </div>
-        {(isRtl ? m.note : m.noteEn) && (
+        {(isRtl ? m.note : loc(m, 'note')) && (
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 300,
             color: SC.ink, margin: '18px 0 0', paddingTop: '16px',
             borderTop: `1px solid ${SC.sandLine}`, lineHeight: 1.6 }}>
-            {isRtl ? m.note : m.noteEn}
+            {isRtl ? m.note : loc(m, 'note')}
           </p>
         )}
       </div>
@@ -131,21 +132,21 @@ function ReservesStrip({ isRtl, isMobile }) {
     <section style={{ padding: isMobile ? '36px 5% 8px' : '56px 5% 16px', maxWidth: '1280px', margin: '0 auto' }}>
       <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '26px' : '38px', fontWeight: 700,
         color: SC.deep, margin: '0 0 8px', letterSpacing: '-0.02em', textAlign: 'start' }}>
-        {isRtl ? 'השמורות והשבטים' : 'The reserves and the tribes'}
+        {isRtl ? 'השמורות והשבטים' : tx('The reserves and the tribes')}
       </h2>
       <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '15px' : '17px', fontWeight: 300,
         color: SC.ink, margin: '0 0 28px', maxWidth: '640px', lineHeight: 1.6, textAlign: 'start' }}>
         {isRtl
           ? 'שלוש מהשמורות המרהיבות באפריקה, ומפגש עם השבטים שחיים בהן.'
-          : "Three of Africa's most spectacular reserves, and a meeting with the peoples who live among them."}
+          : tx("Three of Africa's most spectacular reserves, and a meeting with the peoples who live among them.")}
       </p>
       {/* Same PhotoCard as the lodging row, so both rows share one card and one
           set of height rules. It used to have its own inline markup, which is why
           the equal-height and line-clamp treatment missed it. */}
       <CardSlider items={SAFARI_RESERVES} isRtl={isRtl} isMobile={isMobile}
         renderCard={r => (
-          <PhotoCard key={r.slug} img={r.img} title={isRtl ? r.name : r.nameEn}
-            desc={isRtl ? r.desc : r.descEn}
+          <PhotoCard key={r.slug} img={r.img} title={isRtl ? r.name : loc(r, 'name')}
+            desc={isRtl ? r.desc : loc(r, 'desc')}
             gradient={`linear-gradient(135deg, ${SC.earth}, ${SC.ochre})`} />
         )} />
     </section>
@@ -163,13 +164,13 @@ function DayTrips({ isRtl, isMobile }) {
     <section style={{ padding: isMobile ? '36px 5% 8px' : '56px 5% 16px', maxWidth: '1280px', margin: '0 auto' }}>
       <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '26px' : '38px', fontWeight: 700,
         color: SC.deep, margin: '0 0 8px', letterSpacing: '-0.02em', textAlign: 'start' }}>
-        {isRtl ? 'טיולי יום בטנזניה' : 'Day trips in Tanzania'}
+        {isRtl ? 'טיולי יום בטנזניה' : tx('Day trips in Tanzania')}
       </h2>
       <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '15px' : '17px', fontWeight: 300,
         color: SC.ink, margin: '0 0 28px', maxWidth: '640px', lineHeight: 1.6, textAlign: 'start' }}>
         {isRtl
           ? 'אפשר להוסיף למסע יום או יומיים של אטרקציות באזור, לפני הספארי או אחריו.'
-          : 'Add a day or two of local attractions to the journey, before the safari or after it.'}
+          : tx('Add a day or two of local attractions to the journey, before the safari or after it.')}
       </p>
       <div style={{ display: 'grid',
         gridTemplateColumns: isMobile ? '1fr' : `repeat(${Math.min(SAFARI_DAY_TRIPS.length, 4)}, 1fr)`, gap: '16px' }}>
@@ -181,13 +182,13 @@ function DayTrips({ isRtl, isMobile }) {
             <div style={{ padding: '14px 16px 18px', textAlign: 'start' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
                 <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700,
-                  color: SC.deep, margin: 0 }}>{isRtl ? d.name : d.nameEn}</h3>
+                  color: SC.deep, margin: 0 }}>{isRtl ? d.name : loc(d, 'name')}</h3>
                 <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '10.5px', fontWeight: 700,
                   color: SC.ink, background: '#FEF3C7', border: '1px solid #F59E0B',
-                  borderRadius: '999px', padding: '2px 8px' }}>{isRtl ? d.duration : d.durationEn}</span>
+                  borderRadius: '999px', padding: '2px 8px' }}>{isRtl ? d.duration : loc(d, 'duration')}</span>
               </div>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13.5px', fontWeight: 300,
-                color: SC.ink, margin: 0, lineHeight: 1.55 }}>{isRtl ? d.desc : d.descEn}</p>
+                color: SC.ink, margin: 0, lineHeight: 1.55 }}>{isRtl ? d.desc : loc(d, 'desc')}</p>
             </div>
           </article>
         ))}
@@ -218,7 +219,7 @@ function SliderArrow({ dir, disabled, onClick, isRtl }) {
   const glyph = isRtl ? (dir === 'next' ? 'prev' : 'next') : dir;
   return (
     <button onClick={onClick} disabled={disabled}
-      aria-label={dir === 'prev' ? (isRtl ? 'הקודם' : 'Previous') : (isRtl ? 'הבא' : 'Next')}
+      aria-label={dir === 'prev' ? (isRtl ? 'הקודם' : tx('Previous')) : (isRtl ? 'הבא' : tx('Next'))}
       style={{
         width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0,
         border: `1px solid ${disabled ? SC.sandLine : SC.earth}`,
@@ -316,7 +317,7 @@ function SectionHead({ title, sub, isMobile }) {
    uniform): the tile fills its slider cell, the image keeps a fixed 4:3 ratio,
    the title reserves two lines whether or not it needs them, and the body is
    clamped to four lines. A longer description therefore cannot make one card
-   taller than its neighbours. */
+   taller than its neighbors. */
 function PhotoCard({ img, title, desc, chip, gradient, href, cta, rtl }) {
   const [hover, setHover] = useState(false);
   const clamp = (lines) => ({
@@ -389,8 +390,8 @@ function PackageCards({ isRtl, isMobile }) {
             href={`/expedition/${exp.slug}`}
             img={exp.img}
             title={isRtl ? exp.nameHe : (exp.nameEn || exp.name)}
-            desc={isRtl ? exp.cardDesc : exp.cardDescEn}
-            cta={isRtl ? 'לפרטי המסלול' : 'See the route'}
+            desc={isRtl ? exp.cardDesc : loc(exp, 'cardDesc')}
+            cta={isRtl ? 'לפרטי המסלול' : tx('See the route')}
             gradient={`linear-gradient(135deg, ${SC.earth}, ${SC.ochre})`} />
         ))}
       </div>
@@ -404,10 +405,10 @@ function HowItWorks({ isRtl, isMobile }) {
   return (
     <section style={{ padding: isMobile ? '36px 5% 8px' : '56px 5% 16px', maxWidth: '1280px', margin: '0 auto' }}>
       <SectionHead isMobile={isMobile}
-        title={isRtl ? 'איך נראה ספארי איתנו' : 'What a safari with us looks like'}
+        title={isRtl ? 'איך נראה ספארי איתנו' : tx('What a safari with us looks like')}
         sub={isRtl
           ? 'ספארי הוא לא טיול מאורגן. זה הג׳יפ שלכם, הקצב שלכם, והמדריך שמכיר את השטח.'
-          : 'A safari is not a packaged tour. It is your jeep, your pace, and a guide who knows the ground.'} />
+          : tx('A safari is not a packaged tour. It is your jeep, your pace, and a guide who knows the ground.')} />
       <div style={{ display: 'grid',
         gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '16px' }}>
         {SAFARI_HOW_IT_WORKS.map((it, i) => (
@@ -425,11 +426,11 @@ function HowItWorks({ isRtl, isMobile }) {
             })()}
             <div style={{ minWidth: 0 }}>
               <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '17px', fontWeight: 700,
-                color: SC.deep, margin: '0 0 6px' }}>{isRtl ? it.title : it.titleEn}</h3>
+                color: SC.deep, margin: '0 0 6px' }}>{isRtl ? it.title : loc(it, 'title')}</h3>
               <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 300,
                 color: SC.ink, margin: 0, lineHeight: 1.6, display: '-webkit-box',
                 WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {isRtl ? it.desc : it.descEn}</p>
+                {isRtl ? it.desc : loc(it, 'desc')}</p>
             </div>
           </div>
         ))}
@@ -443,15 +444,15 @@ function Lodging({ isRtl, isMobile }) {
   return (
     <section style={{ padding: isMobile ? '36px 5% 8px' : '56px 5% 16px', maxWidth: '1280px', margin: '0 auto' }}>
       <SectionHead isMobile={isMobile}
-        title={isRtl ? 'איפה ישנים' : 'Where you sleep'}
+        title={isRtl ? 'איפה ישנים' : tx('Where you sleep')}
         sub={isRtl
           ? 'בספארי הלינה היא חצי מהחוויה. אלה הקמפים והלודג׳ים שאנחנו עובדים איתם.'
-          : 'On a safari the accommodation is half the experience. These are the camps and lodges we work with.'} />
+          : tx('On a safari the accommodation is half the experience. These are the camps and lodges we work with.')} />
       <CardSlider items={SAFARI_LODGING} isRtl={isRtl} isMobile={isMobile}
         renderCard={l => (
-          <PhotoCard key={l.slug} img={l.img} title={isRtl ? l.name : l.nameEn}
-            chip={isRtl ? l.area : l.areaEn}
-            desc={isRtl ? l.desc : l.descEn}
+          <PhotoCard key={l.slug} img={l.img} title={isRtl ? l.name : loc(l, 'name')}
+            chip={isRtl ? l.area : loc(l, 'area')}
+            desc={isRtl ? l.desc : loc(l, 'desc')}
             gradient={`linear-gradient(135deg, ${SC.green}, ${SC.gold})`} />
         )} />
     </section>
@@ -464,7 +465,7 @@ function Lodging({ isRtl, isMobile }) {
 function TrustBar({ isRtl, isMobile }) {
   const items = isRtl
     ? [['5.0', 'דירוג בגוגל', true], ['1,200+', 'מטיילים איתנו'], ['פרטי', 'ג׳יפ ומדריך משלכם'], ['תרומה', 'בכל מסע, לחולי סרטן']]
-    : [['5.0', 'Google rating', true], ['1,200+', 'travelers with us'], ['Private', 'your own jeep and guide'], ['Donation', 'to cancer patients, every journey']];
+    : [['5.0', tx('Google rating'), true], ['1,200+', tx('travelers with us')], [tx('Private'), tx('your own jeep and guide')], [tx('Donation'), tx('to cancer patients, every journey')]];
   return (
     <section style={{ padding: isMobile ? '28px 5%' : '40px 5%', maxWidth: '1280px', margin: '0 auto' }}>
       <div style={{ background: '#FFFFFF', border: `1px solid ${SC.sandLine}`, borderRadius: '18px',
@@ -491,7 +492,7 @@ function Faq({ isRtl, isMobile }) {
   return (
     <section style={{ padding: isMobile ? '36px 5% 8px' : '56px 5% 16px', maxWidth: '900px', margin: '0 auto' }}>
       <SectionHead isMobile={isMobile}
-        title={isRtl ? 'שאלות נפוצות' : 'Frequently asked questions'} />
+        title={isRtl ? 'שאלות נפוצות' : tx('Frequently asked questions')} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {SAFARI_FAQ.map((f, i) => {
           const isOpen = open === i;
@@ -502,14 +503,14 @@ function Faq({ isRtl, isMobile }) {
                   padding: '15px 18px', display: 'flex', alignItems: 'center', gap: '12px',
                   textAlign: 'start', fontFamily: "'Ploni', sans-serif", fontSize: '16px',
                   fontWeight: 600, color: SC.deep }}>
-                <span style={{ flex: 1 }}>{isRtl ? f.q : f.qEn}</span>
+                <span style={{ flex: 1 }}>{isRtl ? f.q : loc(f, 'q')}</span>
                 <span aria-hidden style={{ flexShrink: 0, color: SC.earth, fontSize: '20px', lineHeight: 1,
                   transform: isOpen ? 'rotate(45deg)' : 'none', transition: 'transform 160ms ease' }}>+</span>
               </button>
               {isOpen && (
                 <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14.5px', fontWeight: 300,
                   color: SC.ink, margin: 0, padding: '0 18px 16px', lineHeight: 1.65, textAlign: 'start' }}>
-                  {isRtl ? f.a : f.aEn}
+                  {isRtl ? f.a : loc(f, 'a')}
                 </p>
               )}
             </div>
@@ -536,7 +537,7 @@ function EnquiryBand({ isRtl, isMobile }) {
     e.preventDefault();
     if (!form.privacy || status === 'loading') return;
     if (!validatePhone(form.dial, form.phone)) {
-      setPhoneErr(isRtl ? 'מספר טלפון לא תקין' : 'Invalid phone number');
+      setPhoneErr(isRtl ? 'מספר טלפון לא תקין' : tx('Invalid phone number'));
       return;
     }
     setPhoneErr(''); setStatus('loading');
@@ -589,11 +590,11 @@ function EnquiryBand({ isRtl, isMobile }) {
             </span>
           </div>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '24px', fontWeight: 700,
-            color: SC.deep, margin: '0 0 8px' }}>{isRtl ? 'קיבלנו, תודה!' : 'Got it, thank you!'}</h2>
+            color: SC.deep, margin: '0 0 8px' }}>{isRtl ? 'קיבלנו, תודה!' : tx('Got it, thank you!')}</h2>
           <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 300,
             color: SC.ink, margin: 0, lineHeight: 1.6 }}>
             {isRtl ? 'ניצור אתכם קשר בהקדם כדי לבנות יחד את הספארי שלכם.'
-                   : 'We will be in touch shortly to build your safari together.'}
+                   : tx('We will be in touch shortly to build your safari together.')}
           </p>
         </div>
       </section>
@@ -606,51 +607,51 @@ function EnquiryBand({ isRtl, isMobile }) {
         borderRadius: '22px', padding: isMobile ? '24px 20px' : '36px 40px' }}>
         <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '24px' : '32px', fontWeight: 700,
           color: '#FFFFFF', margin: '0 0 8px', letterSpacing: '-0.02em', textAlign: 'center' }}>
-          {isRtl ? 'מתכננים ספארי בטנזניה?' : 'Planning a safari in Tanzania?'}
+          {isRtl ? 'מתכננים ספארי בטנזניה?' : tx('Planning a safari in Tanzania?')}
         </h2>
         <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '14.5px' : '16px', fontWeight: 300,
           color: 'rgba(255,255,255,0.92)', margin: '0 0 22px', textAlign: 'center', lineHeight: 1.6 }}>
           {isRtl ? 'השאירו פרטים ונחזור אליכם עם מסלול שמתאים בדיוק לכם.'
-                 : 'Leave your details and we will come back with an itinerary built around you.'}
+                 : tx('Leave your details and we will come back with an itinerary built around you.')}
         </p>
 
         <form onSubmit={submit} style={{ background: '#FFFFFF', borderRadius: '16px',
           padding: isMobile ? '18px' : '22px 24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <label style={label}>{isRtl ? 'שם מלא *' : 'Full name *'}</label>
+            <label style={label}>{isRtl ? 'שם מלא *' : tx('Full name *')}</label>
             <input required value={form.name} onChange={e => set('name', e.target.value)} style={input} />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '14px' }}>
             <div>
-              <label style={label}>{isRtl ? 'כמה ימים? *' : 'How many days? *'}</label>
+              <label style={label}>{isRtl ? 'כמה ימים? *' : tx('How many days? *')}</label>
               <select required value={form.days} onChange={e => set('days', e.target.value)}
                 style={{ ...input, cursor: 'pointer', color: form.days ? SC.deep : '#9CA3AF' }}>
-                <option value="" disabled>{isRtl ? 'בחרו' : 'Select'}</option>
-                <option value="3">{isRtl ? '3 ימים' : '3 days'}</option>
-                <option value="5">{isRtl ? '5 ימים' : '5 days'}</option>
-                <option value="7">{isRtl ? '7 ימים' : '7 days'}</option>
-                <option value="unsure">{isRtl ? 'עוד לא החלטנו' : 'Not decided yet'}</option>
+                <option value="" disabled>{isRtl ? 'בחרו' : tx('Select')}</option>
+                <option value="3">{isRtl ? '3 ימים' : tx('3 days')}</option>
+                <option value="5">{isRtl ? '5 ימים' : tx('5 days')}</option>
+                <option value="7">{isRtl ? '7 ימים' : tx('7 days')}</option>
+                <option value="unsure">{isRtl ? 'עוד לא החלטנו' : tx('Not decided yet')}</option>
               </select>
             </div>
             <div>
-              <label style={label}>{isRtl ? 'באיזה חודש תרצו לצאת? *' : 'Which month? *'}</label>
+              <label style={label}>{isRtl ? 'באיזה חודש תרצו לצאת? *' : tx('Which month? *')}</label>
               <input required value={form.month} onChange={e => set('month', e.target.value)} style={input}
-                placeholder={isRtl ? 'לדוגמה: אוגוסט' : 'E.g. August'} />
+                placeholder={isRtl ? 'לדוגמה: אוגוסט' : tx('E.g. August')} />
             </div>
             <div>
-              <label style={label}>{isRtl ? 'כמות אנשים *' : 'Number of people *'}</label>
+              <label style={label}>{isRtl ? 'כמות אנשים *' : tx('Number of people *')}</label>
               <input required type="number" min="1" max="20" value={form.people}
                 onChange={e => set('people', e.target.value.replace(/\D/g, '').slice(0, 2))} style={input} placeholder="2" />
             </div>
           </div>
           <PhoneField
-            label={<span style={{ ...label, marginBottom: 0 }}>{isRtl ? 'מספר טלפון *' : 'Phone *'}</span>}
+            label={<span style={{ ...label, marginBottom: 0 }}>{isRtl ? 'מספר טלפון *' : tx('Phone *')}</span>}
             dial={form.dial} onDialChange={v => set('dial', v)}
             local={form.phone} onLocalChange={v => { set('phone', v); if (phoneErr) setPhoneErr(''); }}
             error={!!phoneErr} errorMsg={phoneErr}
           />
           <div>
-            <label style={label}>{isRtl ? 'מייל *' : 'Email *'}</label>
+            <label style={label}>{isRtl ? 'מייל *' : tx('Email *')}</label>
             <input required type="email" value={form.email} onChange={e => set('email', e.target.value)} style={input} />
           </div>
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: '9px', cursor: 'pointer',
@@ -659,11 +660,11 @@ function EnquiryBand({ isRtl, isMobile }) {
               style={{ marginTop: '3px', width: '16px', height: '16px', accentColor: SC.earth, flexShrink: 0 }} />
             <span>{isRtl
               ? 'אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי'
-              : 'I agree to the privacy policy and to receiving marketing communications'}</span>
+              : tx('I agree to the privacy policy and to receiving marketing communications')}</span>
           </label>
           {status === 'error' && (
             <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: 0, textAlign: 'start' }}>
-              {isRtl ? 'משהו השתבש, נסו שוב או פנו אלינו בוואטסאפ.' : 'Something went wrong. Please try again or reach us on WhatsApp.'}
+              {isRtl ? 'משהו השתבש, נסו שוב או פנו אלינו בוואטסאפ.' : tx('Something went wrong. Please try again or reach us on WhatsApp.')}
             </p>
           )}
           <button type="submit" disabled={!form.privacy || status === 'loading'}
@@ -672,7 +673,7 @@ function EnquiryBand({ isRtl, isMobile }) {
               color: '#FFFFFF', fontFamily: "'Ploni', sans-serif", fontSize: '16px', fontWeight: 700,
               cursor: (!form.privacy || status === 'loading') ? 'not-allowed' : 'pointer',
               transition: 'background 160ms ease' }}>
-            {status === 'loading' ? (isRtl ? 'שולח…' : 'Sending…') : (isRtl ? 'לתיאום שיחה' : 'Send')}
+            {status === 'loading' ? (isRtl ? 'שולח…' : tx('Sending…')) : (isRtl ? 'לתיאום שיחה' : tx('Send'))}
           </button>
         </form>
       </div>
@@ -690,16 +691,16 @@ export default function SafariPage() {
   usePageMeta({
     title: isRtl
       ? 'ספארי בטנזניה | HighAir Expeditions'
-      : 'Tanzania Safari | HighAir Expeditions',
+      : tx('Tanzania Safari | HighAir Expeditions'),
     description: isRtl
       ? 'ספארי בטנזניה עם HighAir - שלושה אורכים לבחירה, 3, 5 ו-7 ימים, בשמורות המרהיבות של אפריקה.'
-      : "Tanzania safari with HighAir - three lengths to choose from: 3, 5 and 7 days across Africa's most spectacular reserves.",
+      : tx("Tanzania safari with HighAir - three lengths to choose from: 3, 5 and 7 days across Africa's most spectacular reserves."),
     canonicalPath: '/safari',
     image: '/images/hero/safari-5-days.webp',
     jsonLd: [
       breadcrumbList([
-        { name: isRtl ? 'בית' : 'Home', url: '/' },
-        { name: isRtl ? 'ספארי בטנזניה' : 'Tanzania Safari', url: '/safari' },
+        { name: isRtl ? 'בית' : tx('Home'), url: '/' },
+        { name: isRtl ? 'ספארי בטנזניה' : tx('Tanzania Safari'), url: '/safari' },
       ]),
       itemList(safariExps.map(e => ({
         name: isRtl ? (e.nameHe || e.name) : (e.nameEn || e.name || e.nameHe),
@@ -739,7 +740,7 @@ export default function SafariPage() {
             lineHeight: 1.1,
             position: 'relative',
           }}>
-            {isRtl ? 'ספארי בטנזניה' : 'Tanzania Safari'}
+            {isRtl ? 'ספארי בטנזניה' : tx('Tanzania Safari')}
           </h1>
 
           <p style={{
@@ -754,7 +755,7 @@ export default function SafariPage() {
           }}>
             {isRtl
               ? 'שלושה אורכים, אותן שמורות מהמרהיבות באפריקה. בחרו כמה ימים אתם רוצים בטבע, ואנחנו נדאג לכל השאר.'
-              : 'Three lengths, the same spectacular African reserves. Choose how many days you want in the wild, and we will handle everything else.'}
+              : tx('Three lengths, the same spectacular African reserves. Choose how many days you want in the wild, and we will handle everything else.')}
           </p>
         </div>
 

@@ -303,7 +303,15 @@ const COUNTRY = {
 };
 const FIELDS = ['name', 'days', 'seoTitle', 'seoDescription', 'desc', 'highlights', 'seasons', 'importantToNote', 'included', 'notIncluded', 'experience'];
 
+import { localize } from './safariI18n.js';
+
 export function applyTripI18n(exp) {
+  /* Safari pages: every English field gets its German / Spanish twin (safariI18n.js). */
+  if (String(exp.slug || '').startsWith('safari')) {
+    localize(exp);
+    if (exp.country === 'Tanzania') { exp.countryDe = 'Tansania'; exp.countryEs = 'Tanzania'; }
+    return exp;
+  }
   const more = MORE[exp.slug];
   if (more) {
     for (const lang of ['de', 'es']) {
