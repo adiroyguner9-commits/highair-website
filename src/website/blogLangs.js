@@ -76,7 +76,9 @@ export const BLOG_LANGS = {
  ],
  "manaslu-expedition-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "aconcagua-climbing-guide": [
   "he",
