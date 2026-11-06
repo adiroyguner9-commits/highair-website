@@ -56,7 +56,9 @@ export const BLOG_LANGS = {
  ],
  "ethiopia-simien-trek-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "lobuche-peak-climbing-guide": [
   "he",
