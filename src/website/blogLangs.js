@@ -105,7 +105,9 @@ export const BLOG_LANGS = {
  ],
  "nepal-flood-2026-trekking-season": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "nimsdai-purja-broad-peak-tragedy": [
   "he",
