@@ -13,6 +13,7 @@
    would not. */
 
 import { CORE_PATHS, LEGAL_PATHS } from './src/website/sites.js';
+import { BLOG_LANGS } from './src/website/blogLangs.js';
 
 export const config = {
   matcher: ['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs',
@@ -39,6 +40,11 @@ export function englishShellPath(hostname, pathname) {
   if (clean === '/') return `/${dir}/index.html`;
   if (SLUG.test(pathname)) return `/${dir}${clean}/index.html`;
   const page = clean.replace(/^\//, '');
+  /* The magazine: each site's own index, and a static page for every post
+     published in the site's language (scripts/generate-html-shells.mjs) */
+  if (page === 'blog') return `/${sub}/blog/index.html`;
+  const post = /^blog\/([a-z0-9-]+)$/.exec(page);
+  if (post && (BLOG_LANGS[post[1]] || []).includes(sub)) return `/${sub}/blog/${post[1]}/index.html`;
   if (STATIC.has(page)) return `/${dir}/${page}/index.html`;
   /* Pages without a static page of their own (magazine posts, legal pages,
      booking, shop, safari): the app shell in the site's language, so the first

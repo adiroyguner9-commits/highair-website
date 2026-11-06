@@ -30,7 +30,7 @@ describe('de. / es. routing', () => {
 
   it('other pages fall back to the English shell, never the Hebrew one', () => {
     expect(englishShellPath('de.highair-expeditions.com', '/expedition/sinai')).toBe('/en/expedition/sinai/index.html');
-    expect(englishShellPath('es.highair-expeditions.com', '/blog')).toBe('/en/blog/index.html');
+    expect(englishShellPath('es.highair-expeditions.com', '/blog')).toBe('/es/blog/index.html');   // its own index since 6 Nov 2026
     expect(englishShellPath('de.highair-expeditions.com', '/api/submit-lead')).toBeNull();
   });
 
@@ -109,5 +109,22 @@ describe('German and Spanish text', () => {
       expect(ABOUT_I18N[l].story).toHaveLength(STORY_EN.length);
     }
     expect(defaultFaqI18n('en')).toBeNull();
+  });
+});
+
+describe('the magazine on the foreign sites gets its own static pages', async () => {
+  const { BLOG_LANGS } = await import('../src/website/blogLangs.js');
+  it('each site serves its own magazine index', () => {
+    for (const l of ['en', 'de', 'es']) expect(englishShellPath(`${l}.highair-expeditions.com`, '/blog')).toBe(`/${l}/blog/index.html`);
+  });
+  it('a post published in the language gets its page, others the app shell', () => {
+    const slug = Object.keys(BLOG_LANGS).find(s => BLOG_LANGS[s].includes('de'));
+    expect(englishShellPath('de.highair-expeditions.com', `/blog/${slug}`)).toBe(`/de/blog/${slug}/index.html`);
+    const heOnly = Object.keys(BLOG_LANGS).find(s => !BLOG_LANGS[s].includes('es'));
+    if (heOnly) expect(englishShellPath('es.highair-expeditions.com', `/blog/${heOnly}`)).toBe('/es/spa.html');
+    expect(englishShellPath('es.highair-expeditions.com', '/blog/no-such-post')).toBe('/es/spa.html');
+  });
+  it('the Hebrew site is not routed by this', () => {
+    expect(englishShellPath('www.highair-expeditions.com', '/blog')).toBe(null);
   });
 });

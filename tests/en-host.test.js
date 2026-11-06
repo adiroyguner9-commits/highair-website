@@ -25,7 +25,8 @@ describe('en. host routing', () => {
     expect(config.matcher).toEqual(['/', '/expedition/:slug', '/about', '/blog', '/contact', '/app', '/annual-plan', '/treks', '/climbs',
       '/blog/:slug', '/terms', '/privacy', '/cancellation', '/accessibility', '/shop', '/safari', '/book', '/book/:path*',
       '/sitemap.xml', '/robots.txt']);
-    for (const p of ['/blog/kilimanjaro-climbing-guide', '/terms', '/book/kilimanjaro', '/book/kilimanjaro/ABC123']) {
+    /* a translated post has its own page now (de-es-sites.test.js); an unknown one still gets the app shell */
+    for (const p of ['/blog/no-such-post', '/terms', '/book/kilimanjaro', '/book/kilimanjaro/ABC123']) {
       expect(englishShellPath('en.highair-expeditions.com', p), p).toBe('/en/spa.html');
       expect(englishShellPath('de.highair-expeditions.com', p), p).toBe('/de/spa.html');
       expect(englishShellPath('www.highair-expeditions.com', p), p).toBeNull();

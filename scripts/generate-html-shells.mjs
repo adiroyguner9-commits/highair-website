@@ -43,8 +43,9 @@ const UI = {
   es: JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/ui-es.json'), 'utf8')),
 };
 const uiTx = (lng, english) => (UI[lng] && UI[lng][english]) || english;
-function hreflangTags(p) {
-  const langs = ['he', 'en', ...(CORE.has(p) ? SITES.PARTIAL_LANGS : [])];
+function hreflangTags(p, only) {
+  /* The magazine index exists on every site */
+  const langs = only || ['he', 'en', ...(CORE.has(p) || p === '/blog' ? SITES.PARTIAL_LANGS : [])];
   return [
     ...langs.map(l => `<link rel="alternate" hreflang="${l}" href="${LANG_BASE[l]}${p}" />`),
     `<link rel="alternate" hreflang="x-default" href="${BASE_URL}${p}" />`,
@@ -158,7 +159,7 @@ function truncate(str, max = 155) {
   return str.length <= max ? str : str.slice(0, max - 1) + '…';
 }
 
-function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta, noIndex, en, alternatesPath }) {
+function injectMeta(html, { title, description, canonicalPath, image, ogImage, ogType, articleMeta, noIndex, en, alternatesPath, alternateLangs }) {
   /* en: true for English, or a language code ('de', 'es') */
   const lng   = en === true ? 'en' : (en || 'he');
   const url   = `${LANG_BASE[lng] || BASE_URL}${canonicalPath}`;
@@ -207,7 +208,7 @@ function injectMeta(html, { title, description, canonicalPath, image, ogImage, o
 
   /* A page that exists in both languages names both (hreflang) */
   if (alternatesPath && !noIndex) {
-    out = out.replace('</head>', `  ${hreflangTags(alternatesPath)}\n</head>`);
+    out = out.replace('</head>', `  ${hreflangTags(alternatesPath, alternateLangs)}\n</head>`);
   }
 
   // og:type override (blog posts = "article" for news/social/AI)
@@ -521,6 +522,92 @@ for (const post of POSTS) {
     jsonLd,
   });
   blogCount++;
+}
+
+// ── Blog posts on en. / de. / es. (dist/<lng>/blog/<slug>/index.html) ──────────
+/* Each translated post gets its own static page on its site: its own title,
+   description, canonical, hreflang to every language it exists in, article
+   meta and BlogPosting data, and the post's text for readers without
+   JavaScript. Before 6 Nov 2026 all 78 were served the one generic app shell.
+   middleware.js routes /blog/<slug> here when BLOG_LANGS lists the language. */
+let intlBlogCount = 0;
+{
+  const { readIntl } = await import(path.join(ROOT, 'scripts/lib/vite-blog-split.mjs'));
+  const { BLOG_LANGS } = await import(path.join(ROOT, 'src/website/blogLangs.js'));
+  const INTL = readIntl(ROOT);
+  const CRUMB = { en: 'Magazine', de: 'Magazin', es: 'Revista' };
+  for (const post of POSTS) {
+    const langs = BLOG_LANGS[post.slug] || ['he'];
+    for (const lng of ['en', 'de', 'es']) {
+      const tr = INTL[lng]?.[post.slug];
+      if (!tr || !langs.includes(lng)) continue;
+      const base = LANG_BASE[lng];
+      const url = `${base}/blog/${post.slug}`;
+      const img = post.img ? (post.img.startsWith('http') ? post.img : `${BASE_URL}${post.img}`) : `${BASE_URL}/og-image.jpg`;
+      const author = authorOf(post);
+      const headline = tr.title || '';
+      const graph = [{
+        '@type': isNewsPost(post) ? 'NewsArticle' : 'BlogPosting',
+        headline,
+        description: tr.excerpt || '',
+        image: img,
+        datePublished: post.dateIso || '',
+        dateModified: post.dateModified || post.dateIso || '',
+        author: author
+          ? { '@type': 'Person', name: author.nameEn || author.nameHe, url: `${base}/about` }
+          : { '@type': 'Organization', name: 'HighAir Expeditions', url: base },
+        publisher: { '@type': 'Organization', name: 'HighAir Expeditions', logo: { '@type': 'ImageObject', url: `${BASE_URL}/Logo.png` } },
+        mainEntityOfPage: url,
+        inLanguage: lng,
+        articleSection: tr.category || undefined,
+      }, {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: base },
+          { '@type': 'ListItem', position: 2, name: CRUMB[lng], item: `${base}/blog` },
+          { '@type': 'ListItem', position: 3, name: headline, item: url },
+        ],
+      }];
+      const faq = faqFromContent(tr.content);
+      if (faq.length) graph.push({ '@type': 'FAQPage', mainEntity: faq });
+      writeShell(`blog/${post.slug}`, {
+        en:             lng,
+        title:          tr.seoTitle || (headline ? `${headline} | HighAir Expeditions` : 'HighAir Expeditions'),
+        description:    tr.excerpt || '',
+        canonicalPath:  `/blog/${post.slug}`,
+        alternatesPath: `/blog/${post.slug}`,
+        alternateLangs: langs,
+        image:          post.img || '',
+        ogImage:        post.ogImg || '',
+        heroImage:      localImg(post.img),
+        heroKind:       'blog',
+        preHero:        preHeroHtml('blog', localImg(post.img), post.imgPosition),
+        text:           wrapText(blogText({ ...post, ...tr, content: tr.content })),
+        ogType:         'article',
+        articleMeta: {
+          publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
+          modifiedTime:  (post.dateModified || post.dateIso) ? `${post.dateModified || post.dateIso}T12:00:00+03:00` : undefined,
+          section:       tr.category || undefined,
+          author:        author?.nameEn,
+          tags:          [],
+        },
+        jsonLd: { '@context': 'https://schema.org', '@graph': graph },
+      }, path.join(DIST, lng));
+      intlBlogCount++;
+    }
+  }
+  /* The magazine index on de. and es., in their language (en. has its own below) */
+  for (const lng of SITES.PARTIAL_LANGS) {
+    writeShell('blog', {
+      en: lng,
+      title: uiTx(lng, 'Trekking & Climbing Magazine | HighAir Expeditions'),
+      description: {
+        de: 'Ratgeber, Tipps und Geschichten aus der Welt des Trekkings und Bergsteigens, vom Team von HighAir Expeditions.',
+        es: 'Guías, consejos e historias del mundo del trekking y el montañismo, del equipo de HighAir Expeditions.',
+      }[lng],
+      canonicalPath: '/blog', alternatesPath: '/blog', alternateLangs: ['he', 'en', ...SITES.PARTIAL_LANGS],
+    }, path.join(DIST, lng));
+  }
 }
 
 // ── Israel trip pages ────────────────────────────────────────────────────────
@@ -937,6 +1024,7 @@ for (const lng of ['en', ...SITES.PARTIAL_LANGS]) {
 console.log('HTML shells generated!');
 console.log(`  Expeditions : ${expCount}`);
 console.log(`  Blog posts  : ${blogCount}`);
+console.log(`  Blog abroad : ${intlBlogCount}`);
 console.log(`  Israel      : ${israelCount}`);
 console.log(`  Static      : ${staticPages.length}`);
 console.log(`  English     : ${enCount} expeditions + home`);
