@@ -390,7 +390,7 @@ function PackageCards({ isRtl, isMobile }) {
           <PhotoCard key={exp.slug} rtl={isRtl}
             href={`/expedition/${exp.slug}`}
             img={exp.img}
-            title={isRtl ? exp.nameHe : (exp.nameEn || exp.name)}
+            title={isRtl ? exp.nameHe : (loc(exp, 'name') || exp.name)}
             desc={isRtl ? exp.cardDesc : loc(exp, 'cardDesc')}
             cta={isRtl ? 'לפרטי המסלול' : tx('See the route')}
             gradient={`linear-gradient(135deg, ${SC.earth}, ${SC.ochre})`} />
@@ -709,7 +709,7 @@ export default function SafariPage() {
         { name: isRtl ? 'ספארי בטנזניה' : tx('Tanzania Safari'), url: '/safari' },
       ]),
       itemList(safariExps.map(e => ({
-        name: isRtl ? (e.nameHe || e.name) : (e.nameEn || e.name || e.nameHe),
+        name: isRtl ? (e.nameHe || e.name) : (loc(e, 'name') || e.name || e.nameHe),
         url:  `/expedition/${e.slug}`,
       }))),
     ],

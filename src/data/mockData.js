@@ -1629,7 +1629,7 @@ Small groups of up to 15 climbers from around the world, guided in English. Part
     summitUpdates: [
       { name: 'נעמי ואורן שנקר', nameEn: 'Naomi & Oren Shenker', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/1.webp' },
       { name: 'אור דובינסקי', nameEn: 'Or Dubinsky', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/2.webp' },
-      { name: 'משפחת זוהר', nameEn: 'The Zohar Family', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'משפחת זוהר', nameEn: 'The Zohar Family', nameDe: 'Familie Zohar', nameEs: 'Familia Zohar', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/3.webp' },
       { name: 'חגי ויואב זילברמן', nameEn: 'Hagai & Yoav Zilberman', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/4.webp' },
       { name: 'נדב עוזרי', nameEn: 'Nadav Ozeri', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/5.webp' },
       { name: 'עידן מרזוק', nameEn: 'Idan Marzouk', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/6.webp' },
@@ -1836,7 +1836,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
     summitUpdates: [
       { name: 'נעמי ואורן שנקר', nameEn: 'Naomi & Oren Shenker', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/1.webp' },
       { name: 'אור דובינסקי', nameEn: 'Or Dubinsky', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/2.webp' },
-      { name: 'משפחת זוהר', nameEn: 'The Zohar Family', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/3.webp' },
+      { name: 'משפחת זוהר', nameEn: 'The Zohar Family', nameDe: 'Familie Zohar', nameEs: 'Familia Zohar', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/3.webp' },
       { name: 'חגי ויואב זילברמן', nameEn: 'Hagai & Yoav Zilberman', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/4.webp' },
       { name: 'נדב עוזרי', nameEn: 'Nadav Ozeri', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/5.webp' },
       { name: 'עידן מרזוק', nameEn: 'Idan Marzouk', date: 'אוקטובר 2026', dateEn: 'October 2026', img: '/images/summit/kilimanjaro/6.webp' },

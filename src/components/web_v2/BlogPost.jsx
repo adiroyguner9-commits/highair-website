@@ -694,7 +694,9 @@ export default function BlogPost() {
           gap:        '8px',
           margin:     '72px 0 40px',
           overflowX:  'auto',
-          flexWrap:   'nowrap',
+          /* Foreign sites: the longer label ("Gefällt es Ihnen? Teilen:") was squeezed
+             and cut at the left edge on a phone, so the row wraps there (6 Nov 2026). */
+          flexWrap:   isRtl ? 'nowrap' : 'wrap',
         }}>
           <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', fontWeight: 600 }}>
             {t('blogPost.share')}

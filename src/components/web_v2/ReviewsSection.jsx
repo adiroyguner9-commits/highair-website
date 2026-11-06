@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { currentLang } from '../../website/lang.js';
+import { currentLang, loc } from '../../website/lang.js';
 import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 
@@ -89,11 +89,11 @@ function relDate(str) {
   return lng === 'de' ? `vor ${n === 1 ? (m[2].toLowerCase() === 'week' ? 'einer' : 'einem') : n} ${w}` : `hace ${n === 1 ? (m[2].toLowerCase() === 'week' ? 'una' : 'un') : n} ${w}`;
 }
 
-function ReviewCard({ id, name, nameEn, initials, initialsEn, date, dateEn, text, textEn, idx }) {
+function ReviewCard({ id, name, nameEn, nameDe, nameEs, initials, initialsEn, date, dateEn, text, textEn, idx }) {
   const { i18n } = useTranslation();
   const isEn = i18n.language !== 'he';
   const dir  = isEn ? 'ltr' : 'rtl';
-  const displayName     = isEn ? (nameEn     || name)     : name;
+  const displayName     = isEn ? (loc({ nameEn, nameDe, nameEs }, 'name') || name) : name;   /* "Familie Zohar" on de. */
   const displayInitials = isEn ? (initialsEn || initials) : initials;
   const displayDate     = isEn ? relDate(dateEn     || date)     : date;
   const displayText     = isEn ? (REVIEW_I18N[id]?.[currentLang()] || textEn || text) : text;
