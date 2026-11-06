@@ -2511,10 +2511,10 @@ export default function ExpeditionDetail() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ direction: dir }}>
-                {/* Foreign sites: an implicit grid column grows to its widest child, so on a
-                    375px phone every field ran 46px past the form, off the right edge of the
-                    screen (6 Nov 2026). minmax(0, 1fr) holds the column to the form. */}
-                <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: isRtl ? undefined : 'minmax(0, 1fr)' }}>
+                {/* An implicit grid column grows to its widest child, so on a 375px phone every
+                    field ran 46px past the form: off the screen in LTR, into the card's margin
+                    in Hebrew (6 Nov 2026). minmax(0, 1fr) holds the column to the form. */}
+                <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'minmax(0, 1fr)' }}>
 
                   {/* שם מלא */}
                   <div>

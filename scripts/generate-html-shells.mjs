@@ -455,6 +455,7 @@ for (const exp of EXPS) {
 // ── Blog posts ───────────────────────────────────────────────────────────────
 
 const { POSTS, isNewsPost } = await import(path.join(ROOT, 'src/data/blogData.js'));
+const { BLOG_LANGS: POST_LANGS } = await import(path.join(ROOT, 'src/website/blogLangs.js'));
 const { authorOf } = await import(path.join(ROOT, 'src/data/authors.js'));
 /* A guide signed by a person names them as a Person (their bio is on the About
    page); news and unsigned posts stay the company's. */
@@ -505,6 +506,9 @@ for (const post of POSTS) {
     title:         postTitle ? `HighAir Expeditions | ${postTitle}` : 'HighAir Expeditions | מגזין',
     description:   post.excerpt  || post.excerptEn  || '',
     canonicalPath: `/blog/${post.slug}`,
+    /* hreflang back to its translations: Google trusts the pair only when both
+       pages name each other (owner approved, 6 Nov 2026) */
+    ...((POST_LANGS[post.slug] || []).length > 1 ? { alternatesPath: `/blog/${post.slug}`, alternateLangs: POST_LANGS[post.slug] } : {}),
     image:         post.img      || '',
     ogImage:       post.ogImg    || '',
     heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
