@@ -37,6 +37,16 @@ export function priceToUsd(trip) {
   return n;
 }
 
+/* Which site a lead came from: 'de' on de.highair-expeditions.com, and so on.
+   Added to the lead events on the foreign sites only (6 Nov 2026), so GA4 and
+   GTM can tell a German lead from an Israeli one; the Hebrew site sends what it
+   always sent. */
+export function siteLanguage() {
+  if (typeof window === 'undefined') return '';
+  const sub = window.location.hostname.split('.')[0];
+  return ['en', 'de', 'es'].includes(sub) ? sub : '';
+}
+
 export function trackLead({ source, slug = '', name = '', value = 0 } = {}) {
   /* Returns a promise that resolves once GTM has run the tags for this event
      (or after 1.5s), so pages that redirect straight to checkout can wait for
@@ -54,6 +64,7 @@ export function trackLead({ source, slug = '', name = '', value = 0 } = {}) {
       expedition:      name,
       value:           Number(value) || 0,
       currency:        'USD',
+      ...(siteLanguage() ? { site_language: siteLanguage() } : {}),
       eventCallback:   finish,
       eventTimeout:    1500,
     });
@@ -85,7 +96,7 @@ export const Analytics = {
      the event carries no parameters ("No event parameters were detected"), and
      that is fixed by turning automatic detection OFF and firing explicitly —
      one deliberate change, not a second event layered on the first. */
-  leadSubmit:       (params = {}) => trackEvent('generate_lead', { currency: 'ILS', ...params }),
+  leadSubmit:       (params = {}) => trackEvent('generate_lead', { currency: 'ILS', ...params, ...(siteLanguage() ? { site_language: siteLanguage() } : {}) }),
   leadSubmitError:  (reason) => trackEvent('lead_submit_error', { error: reason }),
 
   // Booking funnel — wired into BookingWidget.jsx
