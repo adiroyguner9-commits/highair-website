@@ -52,7 +52,9 @@ export const BLOG_LANGS = {
  ],
  "lobuche-peak-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "ama-dablam-climbing-guide": [
   "he",
