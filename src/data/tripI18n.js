@@ -303,12 +303,14 @@ const COUNTRY = {
 };
 const FIELDS = ['name', 'days', 'seoTitle', 'seoDescription', 'desc', 'highlights', 'seasons', 'importantToNote', 'included', 'notIncluded', 'experience'];
 
-import { localize } from './safariI18n.js';
+import { bake } from './safariI18n.js';
+import SDE from '../i18n/safari-de.js';
+import SES from '../i18n/safari-es.js';
 
 export function applyTripI18n(exp) {
   /* Safari pages: every English field gets its German / Spanish twin (safariI18n.js). */
   if (String(exp.slug || '').startsWith('safari')) {
-    localize(exp);
+    bake(exp, { de: SDE, es: SES });   // written into trips/de.json, es.json at build time
     if (exp.country === 'Tanzania') { exp.countryDe = 'Tansania'; exp.countryEs = 'Tanzania'; }
     return exp;
   }

@@ -1,4 +1,5 @@
 import { StrictMode, lazy, Suspense } from 'react';
+import { loadForeign } from './i18n/foreign.js';
 import { loadTrips } from './data/trips.js';
 import './global.css';
 import i18nInstance from './i18n.js';
@@ -160,7 +161,20 @@ function preHeroOnScreen() {
   return Promise.race([painted, new Promise(r => setTimeout(r, 800))]);
 }
 
-preHeroOnScreen().then(() => createRoot(document.getElementById('root')).render(
+/* The German / Spanish texts (src/i18n/foreign.js): only de. and es. wait for
+   theirs; www and en. render without them. Preview and local hosts take both,
+   since their language toggle switches without a reload. A failed load still
+   renders, in English. */
+function foreignTexts() {
+  const host = window.location.hostname;
+  const prod = host === 'highair-expeditions.com' || host.endsWith('.highair-expeditions.com');
+  const langs = prod ? ['de', 'es'].filter(l => l === i18nInstance.language) : ['de', 'es'];
+  return Promise.all(langs.map(l => loadForeign(l)
+    .then(f => i18nInstance.addResourceBundle(l, 'translation', f.res, true, true))
+    .catch(e => console.warn('[i18n] foreign texts', l, e?.message))));
+}
+
+Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
     <BrowserRouter>

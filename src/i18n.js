@@ -1,8 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import de from './i18n/res-de.js';
-import es from './i18n/res-es.js';
 import { langForHost } from './website/sites.js';
 
 /* ── Detect language: Hebrew by default ──
@@ -410,7 +408,8 @@ const lng = detectLang();
 i18n
   .use(initReactI18next)
   .init({
-    resources: { he: { translation: he }, en: { translation: en }, de: { translation: de }, es: { translation: es } },
+    /* German and Spanish arrive with their own site (src/i18n/foreign.js, added in main.jsx) */
+    resources: { he: { translation: he }, en: { translation: en } },
     lng,
     fallbackLng: { de: ['en'], es: ['en'], default: ['he'] },
     interpolation: { escapeValue: false },

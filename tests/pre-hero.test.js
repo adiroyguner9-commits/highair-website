@@ -72,7 +72,7 @@ describe('pre-hero lifecycle', () => {
   });
 
   it('the first render waits for the pre-hero image to be on screen, never longer than 800ms', () => {
-    has('src/main.jsx', 'preHeroOnScreen().then(() => createRoot(', 'setTimeout(r, 800)', "const box = BOOT_HTML && bootPre.querySelector('.h')");
+    has('src/main.jsx', 'Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(', 'setTimeout(r, 800)', "const box = BOOT_HTML && bootPre.querySelector('.h')");
   });
 
   it('the homepage copy hides itself before the body on every other route', () => {
