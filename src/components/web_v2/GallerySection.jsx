@@ -7,7 +7,8 @@
  * Photos and sizes come from galleryManifest.json ('home'); the grid shows the
  * 800px copies (imageVariants), the lightbox the originals.
  */
-import { tx } from '../../website/lang.js';
+import { tx, currentLang } from '../../website/lang.js';
+import { galleryFor } from '../../website/galleryAbroad.js';
 import { useTranslation } from 'react-i18next';
 import { FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
@@ -15,15 +16,18 @@ import { smallOf } from '../../website/imageVariants.js';
 import GALLERY from '../../website/galleryManifest.json';
 import PhotoGallery from './PhotoGallery.jsx';
 
-const HOME = GALLERY.home || [];
-const IMAGES = HOME.map(x => x.src);
-const ORIENTATIONS = Object.fromEntries(HOME.map((x, i) => [i, x.w >= x.h ? 'landscape' : 'portrait']));
+/* Worked out per render, not at load: the site language is only known once i18n starts. */
+const homeGallery = lang => {
+  const list = galleryFor(GALLERY.home || [], lang);
+  return { images: list.map(x => x.src), orientations: Object.fromEntries(list.map((x, i) => [i, x.w >= x.h ? 'landscape' : 'portrait'])) };
+};
 
 export default function GallerySection() {
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
+  const { images: IMAGES, orientations: ORIENTATIONS } = homeGallery(i18n.language || currentLang());
   const captions = t('gallery.captions', { returnObjects: true });
   const altOf = i => (Array.isArray(captions) && captions[i]) || t('gallery.sectionTitle');
 

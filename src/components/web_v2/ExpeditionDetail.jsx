@@ -29,6 +29,7 @@ import { MountainIcon, StarIcon, MedalIcon, ClockIcon, TagIcon, CalendarIcon, Sh
 import { Analytics, useScrollDepth, trackLead, priceToUsd } from '../../utils/analytics.js';
 import PhotoGallery from './PhotoGallery.jsx';   // the gallery, shared with the homepage
 import GALLERY from '../../website/galleryManifest.json';
+import { galleryFor } from '../../website/galleryAbroad.js';
 import VideoTestimonials from './VideoTestimonials.jsx';
 import { HIDDEN_ON_EN } from '../../data/expeditionGroups.js';
 /* Safari-only blocks. Every one is rendered behind an isSafariExp gate, so a
@@ -486,7 +487,7 @@ export default function ExpeditionDetail() {
      19 Oct 2026). The list already knows each photo's size, landscape first. */
   useEffect(() => {
     if (!exp) return;
-    const list = GALLERY[exp.slug] || [];
+    const list = galleryFor(GALLERY[exp.slug], currentLang());
     setResolvedGallery(list.map(x => x.src));
     setImgOrientations(Object.fromEntries(list.map((x, i) => [i, x.w >= x.h ? 'landscape' : 'portrait'])));
   }, [exp?.slug]);
