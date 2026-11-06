@@ -51,7 +51,9 @@ function extractTOC(content) {
     .filter(Boolean);
 }
 
-function ShareBtn({ color, onClick, children }) {
+/* text: a darker shade for the label where the brand colour is too light on
+   white (foreign sites, WCAG AA; owner approved the mockup, 6 Nov 2026). */
+function ShareBtn({ color, text, onClick, children }) {
   const [hovered, setHovered] = useState(false);
   return (
     <button
@@ -66,7 +68,7 @@ function ShareBtn({ color, onClick, children }) {
         borderRadius: '999px',
         border:       `1.5px solid ${color}`,
         background:   hovered ? color : 'transparent',
-        color:        hovered ? '#fff' : color,
+        color:        hovered ? '#fff' : (text || color),
         fontFamily:   "'Ploni', sans-serif",
         fontSize:     '12px',
         fontWeight:   600,
@@ -701,10 +703,10 @@ export default function BlogPost() {
           <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14px', color: '#6B6B8A', fontWeight: 600 }}>
             {t('blogPost.share')}
           </span>
-          <ShareBtn color="#25D366" onClick={shareWA}>
+          <ShareBtn color="#25D366" text={isRtl ? undefined : '#0F7B5F'} onClick={shareWA}>
             <WhatsAppIcon /> WhatsApp
           </ShareBtn>
-          <ShareBtn color="#1877F2" onClick={shareFB}>
+          <ShareBtn color="#1877F2" text={isRtl ? undefined : '#1466D6'} onClick={shareFB}>
             <FacebookIcon /> Facebook
           </ShareBtn>
           <ShareBtn color={copied ? '#059669' : '#6B6B8A'} onClick={copyLink}>

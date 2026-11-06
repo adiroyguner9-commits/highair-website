@@ -15,7 +15,7 @@
  */
 import { scrollerProps } from '../../website/a11y.js';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { tx, loc } from '../../website/lang.js';
+import { tx, loc, currentLang } from '../../website/lang.js';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,12 @@ import { SAFARI_SEASONS, SAFARI_RESERVES, SAFARI_DAY_TRIPS, SAFARI_LODGING,
          SAFARI_HOW_IT_WORKS, SAFARI_FAQ, SAFARI_COLOR as SC } from '../../data/safariData.js';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';
 import { UsersIcon, ClockIcon, GpsIcon, CheckIcon, StarIcon, LionIcon } from '../Icons.jsx';
+
+/* The safari orange on the foreign sites is a shade darker, for WCAG AA contrast
+   on white (4.19 -> 5.38; owner approved the mockup, 6 Nov 2026). Gradients and
+   the Hebrew site keep SC.earth. */
+const EARTH = () => (currentLang() === 'he' ? SC.earth : '#A8530A');
+
 
 /* SVG only — no emoji anywhere on this site (standing owner rule). Data files
    carry an icon NAME; this map is the single place a name becomes a component. */
@@ -53,7 +59,7 @@ function SeasonGuide({ isRtl, isMobile }) {
   const fact = (label, value) => (
     <div style={{ flex: '1 1 140px', minWidth: 0 }}>
       <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '10.5px', fontWeight: 800,
-        color: SC.ink, opacity: 0.6, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>{label}</div>
+        color: SC.ink, opacity: currentLang() === 'he' ? 0.6 : 1, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>{label}</div>
       <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 600,
         color: SC.deep, lineHeight: 1.4, wordBreak: 'break-word' }}>{value}</div>
     </div>
@@ -83,8 +89,8 @@ function SeasonGuide({ isRtl, isMobile }) {
               style={{
                 fontFamily: "'Ploni', sans-serif", fontSize: '13.5px', fontWeight: 700,
                 color: active ? '#FFFFFF' : SC.deep,
-                background: active ? SC.earth : mc.bg,
-                border: `1px solid ${active ? SC.earth : mc.border}`,
+                background: active ? EARTH() : mc.bg,
+                border: `1px solid ${active ? EARTH() : mc.border}`,
                 borderRadius: '999px', padding: '7px 14px', cursor: 'pointer',
                 display: 'inline-flex', alignItems: 'center', gap: '7px',
                 transition: 'background 150ms ease, color 150ms ease, border-color 150ms ease',
@@ -223,8 +229,8 @@ function SliderArrow({ dir, disabled, onClick, isRtl }) {
       aria-label={dir === 'prev' ? (isRtl ? 'הקודם' : tx('Previous')) : (isRtl ? 'הבא' : tx('Next'))}
       style={{
         width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0,
-        border: `1px solid ${disabled ? SC.sandLine : SC.earth}`,
-        background: '#FFFFFF', color: disabled ? '#C9BCA8' : SC.earth,
+        border: `1px solid ${disabled ? SC.sandLine : EARTH()}`,
+        background: '#FFFFFF', color: disabled ? '#C9BCA8' : EARTH(),
         cursor: disabled ? 'default' : 'pointer',
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         transition: 'color 150ms ease, border-color 150ms ease',
@@ -355,12 +361,12 @@ function PhotoCard({ img, title, desc, chip, gradient, href, cta, rtl }) {
           color: SC.ink, margin: 0, lineHeight: 1.55, ...clamp(3) }}>{desc}</p>
         {cta && (
           <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 700,
-            color: SC.earth, marginTop: 'auto', paddingTop: '14px',
+            color: EARTH(), marginTop: 'auto', paddingTop: '14px',
             display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             {cta}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"
               style={{ transform: rtl ? 'scaleX(-1)' : 'none' }}>
-              <path d="M5 12h14M13 6l6 6-6 6" stroke={SC.earth} strokeWidth="2"
+              <path d="M5 12h14M13 6l6 6-6 6" stroke={EARTH()} strokeWidth="2"
                 strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
@@ -421,7 +427,7 @@ function HowItWorks({ isRtl, isMobile }) {
                 <span style={{ flexShrink: 0, width: '44px', height: '44px', borderRadius: '12px',
                   background: '#FEF6E7', border: `1px solid ${SC.sandLine}`,
                   display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Ico size={22} color={SC.earth} />
+                  <Ico size={22} color={EARTH()} />
                 </span>
               );
             })()}
@@ -475,7 +481,7 @@ function TrustBar({ isRtl, isMobile }) {
         {items.map(([big, small, withStar], i) => (
           <div key={i} style={{ textAlign: 'center' }}>
             <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '20px' : '24px',
-              fontWeight: 800, color: SC.earth, lineHeight: 1.1,
+              fontWeight: 800, color: EARTH(), lineHeight: 1.1,
               display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
               {withStar && <StarIcon size={isMobile ? 17 : 20} color={SC.gold} />}{big}</div>
             <div style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12.5px', fontWeight: 400,
@@ -505,7 +511,7 @@ function Faq({ isRtl, isMobile }) {
                   textAlign: 'start', fontFamily: "'Ploni', sans-serif", fontSize: '16px',
                   fontWeight: 600, color: SC.deep }}>
                 <span style={{ flex: 1 }}>{isRtl ? f.q : loc(f, 'q')}</span>
-                <span aria-hidden style={{ flexShrink: 0, color: SC.earth, fontSize: '20px', lineHeight: 1,
+                <span aria-hidden style={{ flexShrink: 0, color: EARTH(), fontSize: '20px', lineHeight: 1,
                   transform: isOpen ? 'rotate(45deg)' : 'none', transition: 'transform 160ms ease' }}>+</span>
               </button>
               {isOpen && (
@@ -587,7 +593,7 @@ function EnquiryBand({ isRtl, isMobile }) {
           <div style={{ marginBottom: '12px', display: 'flex', justifyContent: 'center' }}>
             <span style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#FEF6E7',
               border: `1px solid ${SC.sandLine}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-              <LionIcon size={30} color={SC.earth} />
+              <LionIcon size={30} color={EARTH()} />
             </span>
           </div>
           <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '24px', fontWeight: 700,
@@ -628,7 +634,7 @@ function EnquiryBand({ isRtl, isMobile }) {
               <label style={label}>{isRtl ? 'כמה ימים? *' : tx('How many days? *')}</label>
               <select required value={form.days} onChange={e => set('days', e.target.value)}
                 aria-label={isRtl ? undefined : tx('How many days? *').replace(' *', '')}
-                style={{ ...input, cursor: 'pointer', color: form.days ? SC.deep : '#9CA3AF' }}>
+                style={{ ...input, cursor: 'pointer', color: form.days ? SC.deep : (isRtl ? '#9CA3AF' : '#6B7280') }}>
                 <option value="" disabled>{isRtl ? 'בחרו' : tx('Select')}</option>
                 <option value="3">{isRtl ? '3 ימים' : tx('3 days')}</option>
                 <option value="5">{isRtl ? '5 ימים' : tx('5 days')}</option>
@@ -663,7 +669,7 @@ function EnquiryBand({ isRtl, isMobile }) {
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: '9px', cursor: 'pointer',
             fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: SC.ink, textAlign: 'start', lineHeight: 1.5 }}>
             <input type="checkbox" checked={form.privacy} onChange={e => set('privacy', e.target.checked)}
-              style={{ marginTop: '3px', width: '16px', height: '16px', accentColor: SC.earth, flexShrink: 0 }} />
+              style={{ marginTop: '3px', width: '16px', height: '16px', accentColor: EARTH(), flexShrink: 0 }} />
             <span>{isRtl
               ? 'אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי'
               : tx('I agree to the privacy policy and to receiving marketing communications')}</span>
@@ -675,7 +681,7 @@ function EnquiryBand({ isRtl, isMobile }) {
           )}
           <button type="submit" disabled={!form.privacy || status === 'loading'}
             style={{ width: '100%', padding: '14px', borderRadius: '999px', border: 'none',
-              background: (!form.privacy || status === 'loading') ? '#D8C7B0' : SC.earth,
+              background: (!form.privacy || status === 'loading') ? '#D8C7B0' : EARTH(),
               color: '#FFFFFF', fontFamily: "'Ploni', sans-serif", fontSize: '16px', fontWeight: 700,
               cursor: (!form.privacy || status === 'loading') ? 'not-allowed' : 'pointer',
               transition: 'background 160ms ease' }}>

@@ -14,10 +14,16 @@
  * Hebrew for customers, and no invented prices.
  */
 
-import { loc, tx } from '../../website/lang.js';
+import { loc, tx, currentLang } from '../../website/lang.js';
 import { useState, useEffect, useRef } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import { SAFARI_COLOR as SC } from '../../data/safariData.js';
+
+/* The safari orange on the foreign sites is a shade darker, for WCAG AA contrast
+   on white (4.19 -> 5.38; owner approved the mockup, 6 Nov 2026). Gradients and
+   the Hebrew site keep SC.earth. */
+const EARTH = () => (currentLang() === 'he' ? SC.earth : '#A8530A');
+
 import {
   SAFARI_TRIP_TYPE, SAFARI_PACKING, SAFARI_SEASONS_PRICING, SAFARI_GROUP_SIZES,
   SAFARI_PRICES, SAFARI_PRICE_NOTES, SAFARI_PRICE_NOTES_EN,
@@ -41,7 +47,7 @@ const ICONS = {
   plane: PlaneIcon, tag: TagIcon, tent: TentIcon, dining: DiningIcon,
   jeep: GpsIcon, sun: EyeIcon, pin: PinIcon, info: InfoIcon,
 };
-const Ico = ({ name, size = 20, color = SC.earth }) => {
+const Ico = ({ name, size = 20, color = EARTH() }) => {
   const C = ICONS[name] || InfoIcon;
   return <C size={size} color={color} />;
 };
@@ -119,7 +125,7 @@ export function SafariSummaryCard({ exp, isRtl, isMobile, onEnquire }) {
           <span style={{ display: 'block', fontFamily: FONT, fontSize: '12px', color: '#6B6B8A' }}>
             {isRtl ? 'מחיר לאדם' : tx('Price per person')}
           </span>
-          <span style={{ display: 'block', fontFamily: FONT, fontWeight: 900, color: SC.earth,
+          <span style={{ display: 'block', fontFamily: FONT, fontWeight: 900, color: EARTH(),
             fontSize: isMobile ? '24px' : '28px', letterSpacing: '-0.02em' }}>
             {priceKnown
               ? (isRtl ? `החל מ-${exp.priceStr}` : tx('From {0}', [exp.priceStr]))
@@ -132,7 +138,7 @@ export function SafariSummaryCard({ exp, isRtl, isMobile, onEnquire }) {
           )}
         </div>
         <button onClick={onEnquire} style={{
-          background: SC.earth, color: '#FFFFFF', border: 'none', borderRadius: RADIUS.full,
+          background: EARTH(), color: '#FFFFFF', border: 'none', borderRadius: RADIUS.full,
           padding: isMobile ? '13px 26px' : '14px 34px', fontFamily: FONT, fontSize: '15px',
           fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>
           {isRtl ? 'קבלת הצעה' : tx('Request a quote')}
@@ -223,8 +229,8 @@ export function SafariSectionNav({ sections: all, isRtl, isMobile }) {
             flexShrink: 0, background: 'transparent', border: 'none', cursor: 'pointer',
             padding: '13px 14px', fontFamily: FONT, fontSize: '14px',
             fontWeight: active === s.id ? 700 : 500,
-            color: active === s.id ? SC.earth : '#6B6B8A',
-            borderBottom: `2px solid ${active === s.id ? SC.earth : 'transparent'}`,
+            color: active === s.id ? EARTH() : '#6B6B8A',
+            borderBottom: `2px solid ${active === s.id ? EARTH() : 'transparent'}`,
             whiteSpace: 'nowrap',
           }}>
             {isRtl ? s.label : loc(s, 'label')}
@@ -267,7 +273,7 @@ export function SafariForMe({ exp, isRtl, isMobile }) {
               <h3 style={{ fontFamily: FONT, fontSize: '17px', fontWeight: 700, color: SC.deep, margin: '0 0 5px' }}>{b.title}</h3>
               <p style={{ fontFamily: FONT, fontSize: '14.5px', fontWeight: 300, color: SC.ink, margin: 0, lineHeight: 1.65 }}>{b.desc}</p>
               {b.note && (
-                <p style={{ fontFamily: FONT, fontSize: '13.5px', fontWeight: 400, color: SC.earth,
+                <p style={{ fontFamily: FONT, fontSize: '13.5px', fontWeight: 400, color: EARTH(),
                   margin: '9px 0 0', lineHeight: 1.6 }}>{b.note}</p>
               )}
             </div>
@@ -346,14 +352,14 @@ export function SafariRouteMap({ exp, isRtl, isMobile }) {
           </g>
 
           {/* The route itself */}
-          <path d={line} fill="none" stroke={SC.earth} strokeWidth="3.2"
+          <path d={line} fill="none" stroke={EARTH()} strokeWidth="3.2"
             strokeDasharray="9 7" strokeLinecap="round" opacity="0.85" />
 
           {pts.map(p => (
             <g key={p.key}>
               {p.day ? (
                 <>
-                  <circle cx={p.x} cy={p.y} r="17" fill={SC.earth} />
+                  <circle cx={p.x} cy={p.y} r="17" fill={EARTH()} />
                   <text x={p.x} y={p.y + 5} textAnchor="middle"
                     style={{ fontFamily: FONT, fontSize: '15px', fontWeight: 800, fill: '#FFFFFF' }}>
                     {p.day}
@@ -604,7 +610,7 @@ export function SafariVisa({ isRtl, isMobile }) {
 
       <a href={V.portal} target="_blank" rel="noopener noreferrer" style={{
         display: 'inline-flex', alignItems: 'center', gap: '9px', marginTop: '16px',
-        fontFamily: FONT, fontSize: '14.5px', fontWeight: 700, color: SC.earth, textDecoration: 'none',
+        fontFamily: FONT, fontSize: '14.5px', fontWeight: 700, color: EARTH(), textDecoration: 'none',
       }}>
         <Ico name="globe" size={17} />
         {isRtl ? 'לאתר הרשמי להגשת הוויזה' : tx('The official visa portal')}
