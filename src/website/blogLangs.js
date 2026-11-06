@@ -15,8 +15,7 @@ export const BLOG_LANGS = {
   "en"
  ],
  "elbrus-climbing-guide": [
-  "he",
-  "en"
+  "he"
  ],
  "kazbek-climbing-guide": [
   "he",

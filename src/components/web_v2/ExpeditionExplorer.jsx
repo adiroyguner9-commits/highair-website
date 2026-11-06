@@ -357,7 +357,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
       ? (isRtl ? 'מקילימנג\'רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים'
           : PARTIAL_LANGS.includes(currentLang())
             ? tx("From Kilimanjaro to Aconcagua and the Himalayas - climbs that change lives")
-            : tx("From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives"))
+            : tx("From Kilimanjaro through the Himalayas to Aconcagua - climbs that change lives"))
       : (isRtl ? 'מהבלקן דרך אתיופיה ועד להימלאיה בנפאל - הטרקים שאסור לפספס'
           : PARTIAL_LANGS.includes(currentLang())
             ? tx("From the Balkans to the Himalayas in Nepal - treks you cannot miss")

@@ -15,7 +15,7 @@ export const CORE_TRIPS = [
   'kilimanjaro', 'kilimanjaro-kosher',
   'everest-base-camp', 'annapurna', 'peaks-of-balkan', 'manaslu-circuit', 'ethiopia',
   'aconcagua', 'island-peak', 'lobuche-peak', 'mera-peak', 'olympus', 'kazbek',
-  'elbrus', 'lenin-peak', 'manaslu', 'ama-dablam', 'himlung-himal',
+  'lenin-peak', 'manaslu', 'ama-dablam', 'himlung-himal',
 ];
 /* Legal pages: in English on every foreign site (the binding version), served
    by the app shell, so they have no static page of their own. */

@@ -147,7 +147,7 @@ console.log(`    Israel      : ${israelSlugs.length}`);
    magazine; German and Spanish carry their core pages (src/website/sites.js). */
 const SITES = await import(path.join(ROOT, 'src/website/sites.js'));
 const { BLOG_LANGS } = await import(path.join(ROOT, 'src/website/blogLangs.js'));
-const EN_HIDDEN = new Set(['sinai']);
+const EN_HIDDEN = new Set(['sinai', 'elbrus']);
 const enTrips = EXPS.filter(e => e.live !== false && e.slug && !e.teaser && !EN_HIDDEN.has(e.slug) && e.seoTitleEn && e.descEn).map(e => `/expedition/${e.slug}`);
 const enPages = ['/', '/treks', '/climbs', '/blog', '/about', '/contact', '/app', '/annual-plan', ...enTrips,
   ...BLOG_POSTS.filter(p => p.slug && p.titleEn && BLOG_LANGS[p.slug]?.includes('en')).map(p => `/blog/${p.slug}`), ...SITES.LEGAL_PATHS];

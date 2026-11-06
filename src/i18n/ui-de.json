@@ -50,7 +50,6 @@
  "First, who are we calling?": "Zuerst: Wen rufen wir an?",
  "Flexible / Not decided yet": "Flexibel / Noch nicht entschieden",
  "Frequently Asked Questions": "Häufige Fragen",
- "From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives": "Vom Kilimandscharo über den Elbrus bis zum Aconcagua – Besteigungen, die Leben verändern",
  "From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss": "Vom Balkan über Äthiopien bis in den Himalaya Nepals – Trekkings, die man erlebt haben muss",
  "From {0}": "Ab {0}",
  "Full": "Ausgebucht",
@@ -58,7 +57,6 @@
  "Full name": "Vollständiger Name",
  "Giving back": "Etwas zurückgeben",
  "Group Full": "Gruppe ausgebucht",
- "Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.": "Geführte Trekking- und Bergexpeditionen weltweit. Kilimandscharo, Everest, Elbrus, Aconcagua und mehr. Erfahrene Bergführer, 94 % Erfolgsquote. Jede Expedition unterstützt Krebspatienten.",
  "HighAir Expeditions - Travel with purpose, a hospital visit": "HighAir Expeditions – Reisen mit Sinn, ein Krankenhausbesuch",
  "Home": "Startseite",
  "I agree to the privacy policy and marketing communications": "Ich stimme der Datenschutzerklärung und Marketing-Mitteilungen zu",
@@ -221,9 +219,7 @@
  "World Treks | HighAir Expeditions": "Trekkings weltweit | HighAir Expeditions",
  "All of HighAir's world treks - from the Balkans and Ethiopia to the Himalayas in Nepal. Professional guides, small groups, supporting the fight against cancer. Choose your next trek.": "Die Trekkings von HighAir weltweit, vom Balkan bis in den Himalaya Nepals. Professionelle Guides, kleine Gruppen und Unterstützung im Kampf gegen Krebs. Wählen Sie Ihr nächstes Trekking.",
  "Mountain Climbing Expeditions": "Bergexpeditionen",
- "From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives.": "Vom Kilimandscharo bis zum Aconcagua und in den Himalaya – Besteigungen, die Leben verändern.",
  "Mountain Climbing Expeditions | HighAir Expeditions": "Bergexpeditionen | HighAir Expeditions",
- "All of HighAir's mountain climbing expeditions - Kilimanjaro, Elbrus, Aconcagua, Ama Dablam and more. Certified guides, full support, supporting the fight against cancer.": "Die Bergexpeditionen von HighAir: Kilimandscharo, Aconcagua, Island Peak und mehr. Zertifizierte Bergführer, volle Betreuung und Unterstützung im Kampf gegen Krebs.",
  "A training plan for the trek": "Ein Trainingsplan für das Trekking",
  "A gear list for the trek": "Eine Ausrüstungsliste für das Trekking",
  "24/7 support from preparation to the end of the trek": "Betreuung rund um die Uhr, von der Vorbereitung bis zum Ende des Trekkings",
@@ -290,5 +286,9 @@
  "to cancer patients, every journey": "für Krebspatienten, bei jeder Reise",
  "1 traveler": "1 Person",
  "{0} travelers": "{0} Personen",
- "{0} in {1}": "{0} in {1}"
+ "{0} in {1}": "{0} in {1}",
+ "From Kilimanjaro through the Himalayas to Aconcagua - climbs that change lives": "Vom Kilimandscharo über den Himalaya bis zum Aconcagua – Besteigungen, die Leben verändern",
+ "From Kilimanjaro through the Himalayas to Aconcagua - climbs that change lives.": "Vom Kilimandscharo über den Himalaya bis zum Aconcagua – Besteigungen, die Leben verändern.",
+ "Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest Base Camp, Aconcagua, Ama Dablam & more. Small groups, experienced local guides, 94% summit success on Kilimanjaro. Every expedition supports cancer patients.": "Geführte Trekking- und Bergexpeditionen weltweit. Kilimandscharo, Everest Base Camp, Aconcagua, Ama Dablam und mehr. Kleine Gruppen, erfahrene lokale Guides, 94 % Gipfelerfolg am Kilimandscharo. Jede Expedition unterstützt Krebspatienten.",
+ "All of HighAir's mountain climbing expeditions - Kilimanjaro, Aconcagua, Ama Dablam, Island Peak and more. Experienced local guides, full support, supporting the fight against cancer.": "Alle Bergexpeditionen von HighAir: Kilimandscharo, Aconcagua, Ama Dablam, Island Peak und mehr. Erfahrene lokale Guides, volle Betreuung, Unterstützung im Kampf gegen Krebs."
 }

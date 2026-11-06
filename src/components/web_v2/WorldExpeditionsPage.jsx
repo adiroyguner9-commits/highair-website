@@ -38,11 +38,11 @@ const CONFIG = {
     h1He:      'משלחות טיפוס הרים בעולם',
     h1En:      'Mountain Climbing Expeditions',
     subHe:     'מקילימנג׳רו דרך אלברוס ועד לאקונקגואה - הטיפוסים שמשנים חיים.',
-    subEn:     'From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives.',
+    subEn:     'From Kilimanjaro through the Himalayas to Aconcagua - climbs that change lives.',
     seoTitleHe: 'HighAir Expeditions | משלחות טיפוס הרים',
     seoTitleEn: 'Mountain Climbing Expeditions | HighAir Expeditions',
     seoDescHe:  'כל משלחות טיפוס ההרים של HighAir - קילימנג׳רו, אלברוס, אקונקגואה, אמה דבלאם ועוד. מדריכים מוסמכים, ליווי מלא ותרומה למאבק במחלת הסרטן. מעפילים לכל פסגה.',
-    seoDescEn:  "All of HighAir's mountain climbing expeditions - Kilimanjaro, Elbrus, Aconcagua, Ama Dablam and more. Certified guides, full support, supporting the fight against cancer.",
+    seoDescEn:  "All of HighAir's mountain climbing expeditions - Kilimanjaro, Aconcagua, Ama Dablam, Island Peak and more. Experienced local guides, full support, supporting the fight against cancer.",
   },
 };
 

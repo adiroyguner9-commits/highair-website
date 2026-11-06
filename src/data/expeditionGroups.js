@@ -17,7 +17,10 @@ import { PARTIAL_LANGS, CORE_TRIPS as CORE_TRIP_LIST } from '../website/sites.js
    fees in shekels) are not offered on the English site (owner, 5 Nov 2026).
    They drop out of the homepage, menus and footer there; their page stays
    reachable by its link, kept out of search (generate-html-shells.mjs). */
-export const HIDDEN_ON_EN = new Set(['sinai']);
+/* Not offered abroad: Sinai (Israeli border crossing) and Elbrus (Russia: the US,
+   UK and German governments advise against travel, so standard travel insurance
+   does not cover it; owner, 6 Nov 2026). Hebrew site only. */
+export const HIDDEN_ON_EN = new Set(['sinai', 'elbrus']);
 /* German and Spanish carry the core trips only (src/website/lang.js). */
 const CORE_ONLY = PARTIAL_LANGS;
 const CORE_TRIPS = new Set(CORE_TRIP_LIST);

@@ -51,7 +51,7 @@ export function readIntl(root = process.cwd()) {
 }
 
 /* Posts about Israel stay on the Hebrew site only (owner, 6 Nov 2026). */
-export const HEBREW_ONLY_POSTS = new Set(['sinai-high-mountain-trek-guide', 'tomer-bassan-mera-peak']);
+export const HEBREW_ONLY_POSTS = new Set(['sinai-high-mountain-trek-guide', 'tomer-bassan-mera-peak', 'elbrus-climbing-guide']);
 
 /** Which languages a post is published in. */
 export function postLangs(slug, intl) {

@@ -50,7 +50,6 @@
  "First, who are we calling?": "Primero, ¿a quién llamamos?",
  "Flexible / Not decided yet": "Flexible / Aún no lo sé",
  "Frequently Asked Questions": "Preguntas frecuentes",
- "From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives": "Del Kilimanjaro al Elbrus y al Aconcagua: ascensos que cambian vidas",
  "From the Balkans through Ethiopia to the Himalayas in Nepal - treks you cannot miss": "De los Balcanes a Etiopía y el Himalaya en Nepal: treks que no te puedes perder",
  "From {0}": "Desde {0}",
  "Full": "Completo",
@@ -58,7 +57,6 @@
  "Full name": "Nombre completo",
  "Giving back": "Devolver algo",
  "Group Full": "Grupo completo",
- "Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest, Elbrus, Aconcagua & more. Expert guides, 94% success rate. Every expedition supports cancer patients.": "Expediciones guiadas de trekking y montañismo en todo el mundo. Kilimanjaro, Everest, Elbrus, Aconcagua y más. Guías expertos, 94 % de éxito. Cada expedición apoya a pacientes con cáncer.",
  "HighAir Expeditions - Travel with purpose, a hospital visit": "HighAir Expeditions: viajar con propósito, una visita al hospital",
  "Home": "Inicio",
  "I agree to the privacy policy and marketing communications": "Acepto la política de privacidad y recibir comunicaciones comerciales",
@@ -221,9 +219,7 @@
  "World Treks | HighAir Expeditions": "Treks por el mundo | HighAir Expeditions",
  "All of HighAir's world treks - from the Balkans and Ethiopia to the Himalayas in Nepal. Professional guides, small groups, supporting the fight against cancer. Choose your next trek.": "Los treks de HighAir por el mundo, de los Balcanes al Himalaya en Nepal. Guías profesionales, grupos pequeños y apoyo a la lucha contra el cáncer. Elige tu próximo trek.",
  "Mountain Climbing Expeditions": "Expediciones de montaña",
- "From Kilimanjaro through Elbrus to Aconcagua - climbs that change lives.": "Del Kilimanjaro al Aconcagua y el Himalaya: ascensos que cambian vidas.",
  "Mountain Climbing Expeditions | HighAir Expeditions": "Expediciones de montaña | HighAir Expeditions",
- "All of HighAir's mountain climbing expeditions - Kilimanjaro, Elbrus, Aconcagua, Ama Dablam and more. Certified guides, full support, supporting the fight against cancer.": "Las expediciones de montaña de HighAir: Kilimanjaro, Aconcagua, Island Peak y más. Guías certificados, apoyo completo y ayuda a la lucha contra el cáncer.",
  "A training plan for the trek": "Un plan de entrenamiento para el trek",
  "A gear list for the trek": "Una lista de equipo para el trek",
  "24/7 support from preparation to the end of the trek": "Asistencia 24/7, de la preparación al final del trek",
@@ -290,5 +286,9 @@
  "to cancer patients, every journey": "para pacientes con cáncer, en cada viaje",
  "1 traveler": "1 viajero",
  "{0} travelers": "{0} viajeros",
- "{0} in {1}": "{0} en {1}"
+ "{0} in {1}": "{0} en {1}",
+ "From Kilimanjaro through the Himalayas to Aconcagua - climbs that change lives": "Del Kilimanjaro al Himalaya y al Aconcagua: ascensos que cambian vidas",
+ "From Kilimanjaro through the Himalayas to Aconcagua - climbs that change lives.": "Del Kilimanjaro al Himalaya y al Aconcagua: ascensos que cambian vidas.",
+ "Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest Base Camp, Aconcagua, Ama Dablam & more. Small groups, experienced local guides, 94% summit success on Kilimanjaro. Every expedition supports cancer patients.": "Expediciones guiadas de trekking y montañismo en todo el mundo. Kilimanjaro, campo base del Everest, Aconcagua, Ama Dablam y más. Grupos pequeños, guías locales con experiencia, 94 % de cumbre en el Kilimanjaro. Cada expedición apoya a pacientes con cáncer.",
+ "All of HighAir's mountain climbing expeditions - Kilimanjaro, Aconcagua, Ama Dablam, Island Peak and more. Experienced local guides, full support, supporting the fight against cancer.": "Todas las expediciones de montaña de HighAir: Kilimanjaro, Aconcagua, Ama Dablam, Island Peak y más. Guías locales con experiencia, acompañamiento completo y apoyo a la lucha contra el cáncer."
 }

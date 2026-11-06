@@ -91,12 +91,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://en.highair-expeditions.com/expedition/elbrus</loc>
-    <lastmod>2026-11-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://en.highair-expeditions.com/expedition/kilimanjaro</loc>
     <lastmod>2026-11-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -170,12 +164,6 @@
   </url>
   <url>
     <loc>https://en.highair-expeditions.com/blog/mera-peak-climbing-guide</loc>
-    <lastmod>2026-11-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://en.highair-expeditions.com/blog/elbrus-climbing-guide</loc>
     <lastmod>2026-11-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
