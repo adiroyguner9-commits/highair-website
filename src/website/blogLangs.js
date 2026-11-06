@@ -71,7 +71,9 @@ export const BLOG_LANGS = {
  ],
  "everest-base-camp-trek-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "kosher-kilimanjaro-shabbat-guide": [
   "he",
