@@ -58,7 +58,9 @@ export const BLOG_LANGS = {
  ],
  "ama-dablam-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "himlung-himal-climbing-guide": [
   "he",
