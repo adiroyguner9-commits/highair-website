@@ -50,7 +50,9 @@ export const BLOG_LANGS = {
  ],
  "peaks-of-the-balkans-trek-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "ethiopia-simien-trek-guide": [
   "he",
