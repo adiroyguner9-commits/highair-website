@@ -23,7 +23,9 @@ export const BLOG_LANGS = {
  ],
  "kazbek-climbing-guide": [
   "he",
-  "en"
+  "en",
+  "de",
+  "es"
  ],
  "sinai-high-mountain-trek-guide": [
   "he"
