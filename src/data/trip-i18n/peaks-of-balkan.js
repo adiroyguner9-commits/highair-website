@@ -18,34 +18,9 @@ export default {
    "Sicherheit zuerst: Die Sicherheit hat immer Vorrang.",
    "Bei einem vorzeitigen Abstieg, aus welchem Grund auch immer, trägt der Reisende alle zusätzlichen Kosten, etwa weitere Hotelnächte, Mahlzeiten und nötige Flugänderungen."
   ],
-  "included": [
-   "Geschenkset: Kappe und Funktionsshirt!",
-   "Ein persönlicher Bereich für jeden Kunden in der HighAir-App",
-   "Transfers vom/zum Flughafen Tirana und Hotel in Shkodra",
-   "2 Nächte in einem 3-Sterne-Hotel mit Frühstück in Shkodra",
-   "Übernachtung in Gästehäusern (Mehrbettzimmer) während des Treks",
-   "3 Mahlzeiten pro Tag während des Treks",
-   "Professionelle, englischsprachige einheimische Guides",
-   "Gepäcktransport während des Treks",
-   "Bootsfahrt auf dem Komani-See",
-   "Genehmigungen für die Grenzübertritte",
-   "Live-Updates per WhatsApp für Angehörige während des Treks",
-   "Persönliche Ausrüstungsliste und Online-Ausrüstungsberatung",
-   "Online-Vorbereitungsgespräch mit Ihrer Gruppe und dem Guide vor der Abreise",
-   "Eine bedeutende Spende für den Kampf gegen Krebs!"
-  ],
-  "notIncluded": [
-   "Internationale Flüge (wir empfehlen die besten Verbindungen ab Ihrer Stadt)",
-   "Reise- und Krankenversicherung inklusive Rettung (Pflicht)",
-   "Mittag- und Abendessen im Hotel in Shkodra",
-   "Persönliche Ausrüstung: Kleidung und Schuhe",
-   "Trinkgeld für die Guides: 50 € pro Person",
-   "Alles, was nicht unter „Inklusive“ aufgeführt ist",
-   "Optionale Extras:",
-   "Einzelzimmer im Hotel in Shkodra: 40 € pro Nacht"
-  ],
+  "listsFromLines": true,
   "itinerary": [
-   {"title": "Willkommen in Albanien!", "desc": "Nach der Landung am Flughafen Tirana fahren wir nach Norden nach Shkodra, eine der ältesten und faszinierendsten Städte Albaniens mit über 2500 Jahren Geschichte. Nach dem Check-in und einer kurzen Pause bummeln wir am Abend über die belebte Hauptstraße voller Cafés, Restaurants und lebendiger Kultur. Am Abend lernen wir bei einem festlichen Eröffnungsessen das Team und die Gruppe kennen.", "travelTime": "Rund 2 Stunden Fahrt vom Flughafen Tirana zum Hotel in Shkodra", "accommodation": "Hotel Tradita in Shkodra oder ähnlich"},
+   {"title": "Willkommen in Albanien!", "desc": "Nach der Landung am Flughafen Tirana fahren wir nach Norden nach Shkodra, eine der ältesten und faszinierendsten Städte Albaniens mit über 2500 Jahren Geschichte. Nach dem Check-in und einer kurzen Pause bummeln wir am Abend über die belebte Hauptstraße voller Cafés, Restaurants und lebendiger Kultur.", "travelTime": "Rund 2 Stunden Fahrt vom Flughafen Tirana zum Hotel in Shkodra", "accommodation": "Hotel Tradita in Shkodra oder ähnlich"},
    {"title": "Shkodra - Fähre über den Komani-See - Valbona (927 m)", "desc": "Die Reise beginnt mit einer Fahrt von Shkodra zum Komani-See, dem Ausgangspunkt einer der schönsten Fährfahrten Europas. Wir gleiten über türkisfarbenes Wasser zwischen eindrucksvollen Schluchten, steilen Felswänden und unberührter Wildnis.\n\nNach dem Anlegen fahren wir weiter in einen Ort zu einem traditionellen Mittagessen im Restaurant und dann zum Dorf Dragobia, dem Startpunkt der heutigen Wanderung. Von hier folgen wir dem kristallklaren Valbona-Fluss durch unberührte Natur und atemberaubende Berglandschaft bis zum Dorf Valbona, dem Herzen des Nationalparks.", "accommodation": "Gästehaus in Valbona"},
    {"title": "Valbona - Prosllopi-Pass (2030 m) - Çerem (1150 m)", "desc": "Nach dem Frühstück beginnt der Aufstieg auf einem herrlichen Pfad zum abgelegenen Prosllopi-Pass. In steilen Serpentinen geht es mehrere Stunden bergauf bis zum höchsten Punkt des Tages auf rund 2030 m, mit atemberaubendem Blick auf die Albanischen Alpen in alle Richtungen.\n\nNach dem Grenzübertritt nach Montenegro gibt es Mittagessen am Buri-Pass, einer offenen Wiese, auf der Hirten aus Çerem und Vuthaj ihre Herden weiden. Eine halbe Stunde weiter rasten wir in einer Hirtenhütte bei Kaffee und Bergtee. Von hier ist Çerem schon zu sehen; noch zwei Stunden geht es durch dichten Wald hinab bis zu unserer Unterkunft.", "accommodation": "Gästehaus in Çerem"},
    {"title": "Çerem - Dobërdol (1800 m)", "desc": "Nach dem Frühstück im Gästehaus geht es weiter nach Dobërdol. Ein Übergangstag von Çerem nach Dobërdol, einem abgelegenen Hirtendorf, das nur über Maultierpfade erreichbar ist und im Sommer nur von Hirten bewohnt wird.\n\nVon Çerem steigen wir gemächlich zur Grenze Montenegros auf, durchqueren den schönen Hirtenweiler Balqin und wandern durch das Gashi-Tal, ein für seine wilde Schönheit bekanntes Schutzgebiet. Der Weg schlängelt sich hinauf bis nach Dobërdol, einem der abgelegensten und idyllischsten Orte Albaniens, wo wir übernachten.", "accommodation": "Gästehaus in Dobërdol"},
@@ -82,34 +57,9 @@ export default {
    "La seguridad primero: la seguridad siempre tiene prioridad.",
    "En caso de descenso anticipado, por cualquier motivo, todos los costes adicionales corren a cargo del viajero, como noches extra de hotel, comidas y cambios de vuelo."
   ],
-  "included": [
-   "Kit de regalo: gorra y camiseta técnica",
-   "Un área personal para cada cliente en la app de HighAir",
-   "Traslados desde/hacia el aeropuerto de Tirana y el hotel de Shkodra",
-   "2 noches en un hotel de 3 estrellas con desayuno en Shkodra",
-   "Alojamiento en casas de huéspedes (habitaciones compartidas) durante el trek",
-   "3 comidas al día durante el trek",
-   "Guías locales profesionales de habla inglesa",
-   "Transporte del equipaje durante el trek",
-   "Paseo en barco por el lago Komani",
-   "Permisos para cruzar las fronteras",
-   "Actualizaciones en directo por WhatsApp para las familias durante el trek",
-   "Lista de equipo personal y asesoramiento de equipo en línea",
-   "Llamada de preparación en línea con tu grupo y el guía antes de salir",
-   "¡Una donación significativa a la lucha contra el cáncer!"
-  ],
-  "notIncluded": [
-   "Vuelos internacionales (te recomendamos las mejores rutas desde tu ciudad)",
-   "Seguro de viaje y médico con cobertura de evacuación (obligatorio)",
-   "Comida y cena en el hotel de Shkodra",
-   "Equipo personal: ropa y calzado",
-   "Propinas para los guías: 50 € por persona",
-   "Todo lo que no aparece en el apartado de incluido",
-   "Extras opcionales:",
-   "Habitación individual en el hotel de Shkodra: 40 € por noche"
-  ],
+  "listsFromLines": true,
   "itinerary": [
-   {"title": "¡Bienvenido a Albania!", "desc": "Tras aterrizar en el aeropuerto de Tirana, vamos hacia el norte, a Shkodra, una de las ciudades más antiguas y fascinantes de Albania, con más de 2500 años de historia. Check-in en el hotel y, tras un breve descanso, paseo por la animada calle principal, llena de cafés, restaurantes y vida local. Por la noche, cena de bienvenida para conocer al equipo y al grupo.", "travelTime": "Unas 2 horas en coche del aeropuerto de Tirana al hotel de Shkodra", "accommodation": "Hotel Tradita en Shkodra o similar"},
+   {"title": "¡Bienvenido a Albania!", "desc": "Tras aterrizar en el aeropuerto de Tirana, vamos hacia el norte, a Shkodra, una de las ciudades más antiguas y fascinantes de Albania, con más de 2500 años de historia. Check-in en el hotel y, tras un breve descanso, paseo por la animada calle principal, llena de cafés, restaurantes y vida local.", "travelTime": "Unas 2 horas en coche del aeropuerto de Tirana al hotel de Shkodra", "accommodation": "Hotel Tradita en Shkodra o similar"},
    {"title": "Shkodra - Ferry del lago Komani - Valbona (927 m)", "desc": "El viaje empieza con un trayecto de Shkodra al lago Komani, punto de partida de una de las travesías en ferry más bonitas de Europa. Navegamos por aguas turquesa entre gargantas impresionantes, acantilados y naturaleza virgen.\n\nAl desembarcar seguimos en coche hasta un pueblo para comer en un restaurante tradicional y luego hasta Dragobia, inicio de la caminata del día. Desde allí seguimos el cristalino río Valbona por una naturaleza intacta y paisajes de montaña impresionantes hasta el pueblo de Valbona, el corazón del parque nacional.", "accommodation": "Casa de huéspedes en Valbona"},
    {"title": "Valbona - Paso Prosllopi (2030 m) - Çerem (1150 m)", "desc": "Después del desayuno empezamos a subir por un sendero precioso hacia el remoto paso de Prosllopi. Subimos en zigzags empinados durante varias horas hasta el punto más alto del día, a unos 2030 m, con vistas impresionantes de los Alpes albaneses en todas direcciones.\n\nTras cruzar a Montenegro, comemos en el paso de Buri, una pradera abierta donde pastan los rebaños de Çerem y Vuthaj. Media hora más allá descansamos en una cabaña de pastores con café y té de montaña. Desde aquí ya se ve Çerem; bajamos otras dos horas por un bosque denso hasta el alojamiento.", "accommodation": "Casa de huéspedes en Çerem"},
    {"title": "Çerem - Dobërdol (1800 m)", "desc": "Tras el desayuno en la casa de huéspedes seguimos hacia Dobërdol. Un día de transición de Çerem a Dobërdol, un remoto pueblo de pastores al que solo se llega por caminos de mulas y que en verano solo habitan los pastores.\n\nDesde Çerem subimos poco a poco hasta la frontera de Montenegro, cruzamos la bonita aldea de pastores de Balqin y seguimos por el valle de Gashi, un espacio protegido famoso por su belleza salvaje. El sendero sube por el valle hasta Dobërdol, uno de los rincones más remotos y bucólicos de Albania, donde pasamos la noche.", "accommodation": "Casa de huéspedes en Dobërdol"},

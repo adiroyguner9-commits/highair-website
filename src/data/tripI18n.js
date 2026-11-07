@@ -48,7 +48,7 @@ const L = {
     climb: 'Kilimandscharo-Besteigung:', safari: 'Safari:', extras: 'Optionale Extras:',
     gift: 'Geschenkset: Kappe und Funktionsshirt!',
     app: 'Ein persönlicher Bereich für jeden Kunden in der HighAir-App',
-    tents: n => `${n} Nächte in Doppelzelten mit Isomatten während der Besteigung`,
+    tents: 'Übernachtung in Doppelzelten mit Isomatten während der Besteigung',
     guides: 'Professionelle, englischsprachige einheimische Bergführer',
     porters: 'Träger für das persönliche Gepäck (bis 15 kg pro Person)',
     portersLog: 'Träger für die Logistik, Küchenteam und Service',
@@ -56,7 +56,8 @@ const L = {
     wa: 'Live-Updates per WhatsApp für Angehörige während der Besteigung',
     permits: 'Eintritts- und Besteigungsgenehmigungen für den Kilimandscharo-Nationalpark',
     firstAid: 'Erste-Hilfe-Set inklusive Notfall-Sauerstoffflaschen',
-    gear: 'Persönliche Ausrüstungsliste und Online-Ausrüstungsberatung',
+    gearList: 'Ausführliche Ausrüstungsliste und Trainingsplan für die Besteigung',
+    gear: 'Online-Ausrüstungsberatung',
     prep: 'Online-Vorbereitungsgespräch mit Ihrer Gruppe und dem Bergführer vor der Abreise',
     support: 'Unterstützung bei Fragen zu Flug und Reiseversicherung vor der Abreise',
     donation: 'Eine bedeutende Spende für den Kampf gegen Krebs!',
@@ -76,15 +77,16 @@ const L = {
     notListed: 'Alles, was nicht unter „Inklusive“ aufgeführt ist',
     safariTips: 'Trinkgeld für den Safari-Guide: 45 $ pro Person',
     safariPersonal: 'Persönliche Ausgaben während der Safari',
+    personal: 'Persönliche Ausgaben, etwa Getränke, Alkohol, Wäsche, Geschenke, Internet und mehr',
     soloTent: 'Einzelzelt während der Besteigung: 100 $ für die gesamte Besteigung',
     standTent: 'Stehzelt während der Besteigung, höher und geräumiger für dieselben zwei Personen: 150 $ für die gesamte Besteigung',
     lodgeSingle: 'Einzelzimmer in der Safari-Lodge: 200 $ pro Nacht',
   },
   es: {
     climb: 'Ascenso al Kilimanjaro:', safari: 'Safari:', extras: 'Extras opcionales:',
-    gift: 'Kit de regalo: gorra y camiseta técnica',
+    gift: '¡Kit de regalo: gorra y camiseta técnica!',
     app: 'Un área personal para cada cliente en la app de HighAir',
-    tents: n => `${n} noches en tiendas dobles con colchonetas durante el ascenso`,
+    tents: 'Alojamiento en tiendas dobles con colchonetas durante el ascenso',
     guides: 'Guías locales profesionales de habla inglesa',
     porters: 'Porteadores para el equipaje personal (hasta 15 kg por persona)',
     portersLog: 'Porteadores para la logística, equipo de cocina y camareros',
@@ -92,7 +94,8 @@ const L = {
     wa: 'Actualizaciones en directo por WhatsApp para las familias durante el ascenso',
     permits: 'Permisos de entrada y de ascenso al Parque Nacional del Kilimanjaro',
     firstAid: 'Botiquín de primeros auxilios con botellas de oxígeno de emergencia',
-    gear: 'Lista de equipo personal y asesoramiento de equipo en línea',
+    gearList: 'Lista de equipo detallada y plan de entrenamiento para el ascenso',
+    gear: 'Asesoramiento de equipo en línea',
     prep: 'Llamada de preparación en línea con tu grupo y el guía antes de salir',
     support: 'Ayuda con dudas sobre vuelos y seguro de viaje antes de salir',
     donation: '¡Una donación significativa a la lucha contra el cáncer!',
@@ -112,25 +115,27 @@ const L = {
     notListed: 'Todo lo que no aparece en el apartado de incluido',
     safariTips: 'Propina para el guía de safari: 45 $ por persona',
     safariPersonal: 'Gastos personales durante el safari',
+    personal: 'Gastos personales, como bebidas, alcohol, lavandería, regalos, internet y más',
     soloTent: 'Tienda individual durante el ascenso: 100 $ por todo el ascenso',
     standTent: 'Tienda alta durante el ascenso, más amplia para las mismas dos personas: 150 $ por todo el ascenso',
     lodgeSingle: 'Habitación individual en el lodge del safari: 200 $ por noche',
   },
 };
 
-function lists(lang, { town, hotelNights, tentNights, meals, tips, extraNight, singleRoom, lunchDinner }) {
+function lists(lang, { town, hotelNights, meals, tips, extraNight, singleRoom, lunchDinner }) {
   const t = L[lang];
   return {
     included: [
       t.climb, t.gift, t.app,
-      lang === 'de' ? `Flughafentransfers von/nach ${town} und Transfers zum Park` : `Traslados al aeropuerto desde/hacia ${town} y traslados al parque`,
+      lang === 'de' ? `Flughafentransfers zum Hotel in ${town} und zurück` : `Traslados del aeropuerto al hotel en ${town} y de vuelta`,
+      lang === 'de' ? 'Interne Transfers zum Start der Route und zurück' : 'Traslados internos al inicio de la ruta y de vuelta',
       lang === 'de' ? `${hotelNights} Nächte in einem 4-Sterne-Hotel mit Frühstück in ${town}` : `${hotelNights} noches en un hotel de 4 estrellas con desayuno en ${town}`,
-      t.tents(tentNights), meals, t.guides, t.porters, t.portersLog, t.toilets, t.wa, t.permits, t.firstAid,
-      t.gear, t.prep, t.support, t.donation,
+      t.tents, meals, t.guides, t.porters, t.portersLog, t.toilets, t.wa, t.permits, t.firstAid,
+      t.gearList, t.gear, t.prep, t.support, t.donation,
       t.safari, t.jeep, t.fridge, t.safariGuide, t.lodge, t.safariMeals, t.safariPermits,
     ],
     notIncluded: [
-      t.climb, t.flights, t.insurance, lunchDinner, t.ownGear, t.tips(tips), t.visa, t.govIns, extraNight, t.vacc, t.notListed,
+      t.climb, t.flights, t.insurance, lunchDinner, t.ownGear, t.tips(tips), t.visa, t.govIns, extraNight, t.personal, t.vacc, t.notListed,
       t.safari, t.safariTips, t.safariPersonal,
       t.extras, singleRoom, t.soloTent, t.standTent, t.lodgeSingle,
     ],
@@ -271,12 +276,12 @@ const KOSHER = {
 
 const LIST_ARGS = {
   kilimanjaro: {
-    de: { town: 'Moshi', hotelNights: 2, tentNights: 6, meals: '3 volle Mahlzeiten pro Tag (Frühstück, Mittag- und Abendessen) während der Besteigung', tips: 350, lunchDinner: 'Mittag- und Abendessen im Hotel in Moshi', extraNight: 'Zusätzliche Hotelnacht in Moshi: 60 $ pro Person im Doppelzimmer (falls nötig)', singleRoom: 'Einzelzimmer im Hotel in Moshi: 90 $ pro Nacht' },
-    es: { town: 'Moshi', hotelNights: 2, tentNights: 6, meals: '3 comidas completas al día (desayuno, comida y cena) durante el ascenso', tips: 350, lunchDinner: 'Comida y cena en el hotel de Moshi', extraNight: 'Noche extra de hotel en Moshi: 60 $ por persona en habitación doble (si hace falta)', singleRoom: 'Habitación individual en el hotel de Moshi: 90 $ por noche' },
+    de: { town: 'Moshi', hotelNights: 2, meals: '3 volle Mahlzeiten pro Tag (Frühstück, Mittag- und Abendessen) während der Besteigung', tips: 350, lunchDinner: 'Mittag- und Abendessen im Hotel in Moshi', extraNight: 'Eine zusätzliche Hotelnacht (falls nötig)', singleRoom: 'Einzelzimmer im Hotel in Moshi: 90 $ pro Nacht' },
+    es: { town: 'Moshi', hotelNights: 2, meals: '3 comidas completas al día (desayuno, comida y cena) durante el ascenso', tips: 350, lunchDinner: 'Comida y cena en el hotel de Moshi', extraNight: 'Una noche extra de hotel (si hace falta)', singleRoom: 'Habitación individual en el hotel de Moshi: 90 $ por noche' },
   },
   'kilimanjaro-kosher': {
-    de: { town: 'Arusha', hotelNights: 4, tentNights: 5, meals: '3 volle Mahlzeiten pro Tag während der Besteigung (in Abstimmung mit Chabad Arusha)', tips: 300, lunchDinner: 'Mittag- und Abendessen im Hotel in Arusha', extraNight: 'Zusätzliche Hotelnacht in Arusha: 65 $ pro Person im Doppelzimmer (falls nötig)', singleRoom: 'Einzelzimmer im Hotel in Arusha: 90 $ pro Nacht' },
-    es: { town: 'Arusha', hotelNights: 4, tentNights: 5, meals: '3 comidas completas al día durante el ascenso (en coordinación con Jabad Arusha)', tips: 300, lunchDinner: 'Comida y cena en el hotel de Arusha', extraNight: 'Noche extra de hotel en Arusha: 65 $ por persona en habitación doble (si hace falta)', singleRoom: 'Habitación individual en el hotel de Arusha: 90 $ por noche' },
+    de: { town: 'Arusha', hotelNights: 4, meals: '3 volle Mahlzeiten pro Tag während der Besteigung (in Abstimmung mit Chabad Arusha)', tips: 300, lunchDinner: 'Mittag- und Abendessen im Hotel in Arusha', extraNight: 'Eine zusätzliche Hotelnacht (falls nötig)', singleRoom: 'Einzelzimmer im Hotel in Arusha: 90 $ pro Nacht' },
+    es: { town: 'Arusha', hotelNights: 4, meals: '3 comidas completas al día durante el ascenso (en coordinación con Jabad Arusha)', tips: 300, lunchDinner: 'Comida y cena en el hotel de Arusha', extraNight: 'Una noche extra de hotel (si hace falta)', singleRoom: 'Habitación individual en el hotel de Arusha: 90 $ por noche' },
   },
 };
 
