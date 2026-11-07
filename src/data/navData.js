@@ -127,7 +127,7 @@ export const NAV_EXPS = [
     "countryHe": "נפאל",
     "countryDe": "Nepal",
     "countryEs": "Nepal",
-    "elev": "5364m",
+    "elev": "5545m",
     "elevNum": 5545,
     "continent": "asia",
     "type": "Trekking",
@@ -765,7 +765,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Lobuche_Peak"
     ],
-    "groupCapacity": 12
+    "groupCapacity": 10
   },
   {
     "id": 13,
@@ -793,7 +793,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Island_Peak"
     ],
-    "groupCapacity": 12
+    "groupCapacity": 10
   },
   {
     "id": 14,
@@ -821,7 +821,7 @@ export const CARD_EXPS = [
     "airtableEvents": [
       "Mera_Peak"
     ],
-    "groupCapacity": 12
+    "groupCapacity": 10
   },
   {
     "id": 15,
