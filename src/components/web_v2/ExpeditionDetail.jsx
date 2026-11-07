@@ -10,6 +10,7 @@ import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
+import { fetchDepartures } from '../../utils/departures.js';
 import { useParams, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EXPS } from '../../data/trips.js';
@@ -545,22 +546,12 @@ export default function ExpeditionDetail() {
        that the international expeditions need for flights and visas. */
     if (exp?.slug !== 'sinai') cutoff.setDate(cutoff.getDate() + 14);
 
-    /* Step 1: fetch ALL Groups pages for this expedition */
-    const fetchAllGroups = async () => {
-      const base = `/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden`;
-      let allRecords = [];
-      let offset = null;
-      do {
-        const url = offset ? `${base}&offset=${encodeURIComponent(offset)}` : base;
-        const data = await fetch(url).then(r => r.json());
-        if (data.error) throw new Error(JSON.stringify(data.error));
-        allRecords = allRecords.concat(data.records || []);
-        offset = data.offset || null;
-      } while (offset);
-      return allRecords;
-    };
-
-    fetchAllGroups()
+    /* All public departures with their seat counts, in one cached call
+       (7 Nov 2026). This page used to page through Groups and then through
+       every Customers row itself, eight calls a page, and the proxy's 30 a
+       minute ran out by the fourth trip page: the dates vanished and, worse,
+       a count cut short could show a full group as open. */
+    fetchDepartures()
       .then(async allRecords => {
         const groupsData = { records: allRecords };
 
@@ -582,26 +573,12 @@ export default function ExpeditionDetail() {
           return events.has(ev);
         });
 
-        /* Extract the exact Group Name values we need to count */
-        const groupNames = relevant
-          .map(rec => rec.fields['Group Name'])
-          .filter(Boolean);
-
-        /* Step 2: fetch ALL customers with pagination, count by group name client-side */
-        const groupNameSet = new Set(groupNames);
-        let counts = {};
-        let custOffset = null;
-        do {
-          const custUrl = custOffset
-            ? `/api/airtable/Customers?fields[]=Group%20Name&offset=${encodeURIComponent(custOffset)}`
-            : `/api/airtable/Customers?fields[]=Group%20Name`;
-          const custData = await fetch(custUrl).then(r => r.json());
-          (custData.records || []).forEach(rec => {
-            const gn = rec.fields['Group Name'] || rec.fields['group name'];
-            if (gn && groupNameSet.has(gn)) counts[gn] = (counts[gn] || 0) + 1;
-          });
-          custOffset = custData.offset || null;
-        } while (custOffset);
+        /* Seats taken: counted on the server, per Group Name */
+        const counts = {};
+        relevant.forEach(rec => {
+          const gn = rec.fields['Group Name'];
+          if (gn) counts[gn] = rec.count || 0;
+        });
 
         /* Build enriched group list */
         const enriched = relevant

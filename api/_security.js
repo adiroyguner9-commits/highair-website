@@ -90,6 +90,9 @@ const RATE_LIMITS = {
   'submit-lead':{ max:  5, windowMs: 300_000 },   // 5 submissions per 5 min
   'book-slot':  { max:  5, windowMs: 300_000 },   // 5 bookings per 5 min
   'wa-intent':  { max: 20, windowMs: 60_000  },   // WhatsApp button taps
+  /* One call a page, mostly answered by the CDN; generous so a visitor going
+     through trip pages never loses the dates (7 Nov 2026). */
+  departures:   { max: 120, windowMs: 60_000 },
 };
 
 function clientIp(req) {

@@ -15,6 +15,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { EXPS } from '../../data/trips.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
+import { fetchDepartures } from '../../utils/departures.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -397,12 +398,18 @@ export default function AnnualPlan() {
       return new Date(g.departure) >= weekFromNow;
     }
 
+    /* World departures come with their seat counts from /api/departures, one
+       cached call (7 Nov 2026), instead of paging Groups and every Customers
+       row here. Israel treks still count from Customers, and only while they
+       are live. */
     Promise.all([
-      fetchAllRecords(`/api/airtable/Groups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&pageSize=100`),
+      fetchDepartures(),
       ISRAEL_TREKS_LIVE
         ? fetchAllRecords(`/api/airtable/IsraelGroups?fields[]=Event&fields[]=Group%20Name&fields[]=Departure&fields[]=Return&fields[]=Capacity&fields[]=Hidden&fields[]=Name&fields[]=Name_En&fields[]=Slug&fields[]=Image_URL&fields[]=Gradient&pageSize=100`)
         : Promise.resolve([]),
-      fetchAllRecords(`/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`),
+      ISRAEL_TREKS_LIVE
+        ? fetchAllRecords(`/api/airtable/Customers?fields[]=Group%20Name&pageSize=100`)
+        : Promise.resolve([]),
     ]).then(([worldRecords, israelRecords, custRecords]) => {
 
       /* Build group-name → customer count map */
@@ -410,6 +417,10 @@ export default function AnnualPlan() {
       custRecords.forEach(rec => {
         const gn = rec.fields['Group Name'] || rec.fields['group name'];
         if (gn) counts[gn] = (counts[gn] || 0) + 1;
+      });
+      worldRecords.forEach(rec => {
+        const gn = rec.fields['Group Name'];
+        if (gn) counts[gn] = rec.count || 0;
       });
 
       /* Process world groups */
