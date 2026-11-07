@@ -2,9 +2,9 @@
 export default {
  de: {
   name: 'Elbrus',
-  days: '8 Tage',
+  days: '10 Tage',
   seoTitle: 'Elbrus besteigen | HighAir Expeditions',
-  seoDescription: 'Besteigen Sie den Elbrus (5642 m), den höchsten Berg Europas und einen der Seven Summits. 8 Tage, Seilbahn bis 3850 m, Gipfeltag 10–14 Stunden. Erfahrene Bergführer. Unterstützt Krebspatienten.',
+  seoDescription: 'Besteigen Sie den Elbrus (5642 m), den höchsten Berg Europas und einen der Seven Summits. 10 Tage, Seilbahn bis 3850 m, Gipfeltag 10–14 Stunden. Erfahrene Bergführer. Unterstützt Krebspatienten.',
   desc: 'Der Elbrus ist mit 5642 Metern der höchste Berg Europas, ein ruhender Doppelgipfel-Vulkan im russischen Kaukasus und einer der Seven Summits. Diese Expedition ist der ideale Einstieg ins Höhenbergsteigen, mit hoher Erfolgsquote.\n\nModerne Seilbahnen und Pistenraupen bringen uns zu den Hochlagern, das spart Kraft und erhöht die Gipfelchance. Vom Gipfel sieht man an klaren Tagen den ganzen Kaukasus bis zum Horizont.\n\nEine nicht technische Besteigung mit Steigeisen und Eispickel, ohne Vorerfahrung im Bergsteigen: Es braucht gute Fitness und den Willen, auf dem Dach Europas zu stehen.',
   highlights: ['Gipfel des Elbrus 5642 m', 'Höchster Berg Europas', 'Panoramen des Kaukasus', 'Aufstieg mit der Seilbahn'],
   seasons: ['Juni–September'],
@@ -21,6 +21,7 @@ export default {
   ],
   listsFromLines: true,
   itinerary: [
+   { title: 'Flug nach Mineralnyje Wody', desc: 'Reisetag: der Flug nach Mineralnyje Wody, auf Russisch „Mineralwasser“, der Stadt am Nordrand des Kaukasus. Steigen Sie mit Wanderschuhen an Bord und nehmen Sie die wichtigste Ausrüstung ins Handgepäck. Ruhen Sie sich unterwegs aus, trinken Sie viel Wasser und kommen Sie erholt zu den ersten Tagen der Expedition an.' },
    { title: 'Ankunft in Mineralnyje Wody, Transfer nach Tscheget (2100 m)', desc: 'Nach der Ankunft am Flughafen Mineralnyje Wody fahren wir als Gruppe rund drei Stunden ins Gletschertal von Tscheget auf 2100 m. Nach dem Check-in im Hotel ruhen wir uns von der Anreise aus und erhalten eine ausführliche Einweisung zu Ablauf und Route.', travelTime: 'Rund 3 Stunden Fahrt vom Flughafen nach Tscheget (185 km)', accommodation: 'Hotel „Snezhny Bars“ in Tscheget oder ähnlich' },
    { title: 'Akklimatisierungswanderung von Tscheget zur Station Tscheget-2 (2750 m)', desc: 'Nach dem Frühstück eine Akklimatisierungswanderung zur Station Tscheget-2 auf 2750 m. Unterwegs zeigt uns der Bergführer die richtige Gehtechnik und die Grundlagen des Atmens in der Höhe. Am Abend eine spannende Theorieeinheit zu den Grundlagen des Bergsteigens und der alpinen Sicherheit.', accommodation: 'Hotel „Snezhny Bars“ in Tscheget oder ähnlich' },
    { title: 'Transfer nach Cheeper Azau, Akklimatisierung bis Gara-Baschi (3850 m)', desc: 'Heute geht es tiefer in den Berg. Mit der Seilbahn zur Station „Stary Krugozor“ und Check-in in der Hütte „Cheeper-Azau“ auf 3000 m. Nach dem Mittagessen Akklimatisierungswanderung vorbei am malerischen Wasserfall „Sarykaya-Su“ zur Station „Mir“ (3450 m). Je nach Wetter weiter bis zur Station „Gara-Baschi“ (3850 m) oder zu einem schönen Gletschersee.', accommodation: 'Hütte „Cheeper-Azau“' },
@@ -29,6 +30,7 @@ export default {
    { title: 'Gipfeltag am Elbrus (5642 m)', desc: 'Der Höhepunkt der Expedition: der Aufstieg auf den höchsten Gipfel Europas. Sie können von der Hütte zu Fuß aufsteigen (rund 4 Stunden früher) oder mit der Pistenraupe bis 4800 m fahren, um Kraft zu sparen (Aufpreis). Nach der Querung „Kosaya Polka“ und einer Teepause im Sattel (5300 m) folgt der letzte Anstieg zum Gipfel auf 5642 m. Auf dem Dach Europas erleben Sie einen Moment persönlichen Erfolgs vor dem endlosen Panorama des Kaukasus. Danach kontrollierter Abstieg ins Hochlager zu Abendessen und Ruhe.', accommodation: 'Hütte „Leaprus“' },
    { title: 'Reservetag für schlechtes Wetter / Abstieg nach Tscheget (2100 m)', desc: 'Dieser Tag ist ein zusätzliches Wetterfenster, falls der Gipfel am Vortag verschoben werden musste. War der Gipfel erfolgreich, steigen wir nach Tscheget ab, zum Ausruhen und Feiern, mit der ausgezeichneten kaukasischen Küche. Möglich sind Reiten, Angeln oder eine traditionelle russische Banja.', accommodation: 'Hotel „Snezhny Bars“ in Tscheget oder ähnlich' },
    { title: 'Freier Tag im Baksan-Tal, nächtlicher Transfer zum Flughafen', desc: 'Ein freier Tag, um das Baksan-Tal in Ruhe zu erkunden: Reiten, ein Besuch der malerischen Tschegem-Wasserfälle oder ein Bad in natürlichen Mineralquellen. Am Abend nächtlicher Transfer zum Flughafen Mineralnyje Wody für den Heimflug am frühen Morgen.' },
+   { title: 'Rückflug nach Hause', desc: 'Der Morgenflug startet in Mineralnyje Wody in Richtung Heimat. Sie kehren mit unvergesslichen Erinnerungen zurück, mit neuen Freundschaften vom Berg und mit dem Stolz, auf dem höchsten Gipfel Europas gestanden zu haben.' },
   ],
   faq: [
    { q: 'Ist der Elbrus schwerer als der Kilimandscharo?', a: 'Der Elbrus ist technischer. Bei ähnlicher Höhe (5642 m) braucht man Steigeisen und Eispickel, die Kälte ist härter, und es drohen plötzliche Stürme. Unsere Gipfelerfolgsquote liegt bei 85 %, am Kilimandscharo bei 94 %. Unsere Empfehlung: Wenn es Ihr erster hoher Berg ist, beginnen Sie mit dem Kilimandscharo.' },
@@ -40,9 +42,9 @@ export default {
  },
  es: {
   name: 'Elbrus',
-  days: '8 días',
+  days: '10 días',
   seoTitle: 'Subir al Elbrus | HighAir Expeditions',
-  seoDescription: 'Sube al Elbrus (5642 m), la montaña más alta de Europa y una de las Siete Cumbres. 8 días, teleférico hasta 3850 m, día de cumbre de 10–14 horas. Guías expertos. Apoya a pacientes con cáncer.',
+  seoDescription: 'Sube al Elbrus (5642 m), la montaña más alta de Europa y una de las Siete Cumbres. 10 días, teleférico hasta 3850 m, día de cumbre de 10–14 horas. Guías expertos. Apoya a pacientes con cáncer.',
   desc: 'El Elbrus es la montaña más alta de Europa, con 5642 metros: un volcán dormido de dos cumbres en el Cáucaso ruso y una de las Siete Cumbres. Esta expedición es la introducción perfecta al montañismo de altura, con una alta tasa de éxito.\n\nUsamos teleféricos modernos y máquinas pisanieves para llegar a los campos altos, lo que ahorra esfuerzo y aumenta las opciones de cumbre. Desde arriba, en un día despejado, se ve toda la cordillera del Cáucaso hasta el horizonte.\n\nEs un ascenso no técnico con crampones y piolet, sin necesidad de experiencia previa en montañismo: basta una buena forma física y las ganas de estar en el techo de Europa.',
   highlights: ['Cumbre del Elbrus 5642 m', 'La montaña más alta de Europa', 'Panorámicas del Cáucaso', 'Subida en teleférico'],
   seasons: ['junio–septiembre'],
@@ -59,6 +61,7 @@ export default {
   ],
   listsFromLines: true,
   itinerary: [
+   { title: 'Vuelo a Mineralnye Vody', desc: 'Día de viaje: el vuelo a Mineralnye Vody, «aguas minerales» en ruso, la ciudad al pie norte del Cáucaso. Sube al avión con las botas de montaña puestas y el equipo esencial en el equipaje de mano, descansa y bebe mucha agua durante el viaje, y llega con energía a los primeros días de la expedición.' },
    { title: 'Llegada a Mineralnye Vody, traslado a Cheget (2100 m)', desc: 'Al llegar al aeropuerto de Mineralnye Vody salimos en grupo, unas tres horas de carretera, hacia el valle glaciar de Cheget, a 2100 m. Tras el check-in en el hotel, descanso del viaje y una sesión informativa detallada sobre el programa y la ruta.', travelTime: 'Unas 3 horas en coche del aeropuerto a Cheget (185 km)', accommodation: 'Hotel «Snezhny Bars» en Cheget o similar' },
    { title: 'Caminata de aclimatación de Cheget a la estación Cheget-2 (2750 m)', desc: 'Después del desayuno, caminata de aclimatación hasta la estación Cheget-2, a 2750 m. Por el camino el guía nos enseña la técnica correcta de marcha y lo básico de la respiración en altura. Por la noche, una sesión teórica muy interesante sobre los fundamentos del montañismo y la seguridad alpina.', accommodation: 'Hotel «Snezhny Bars» en Cheget o similar' },
    { title: 'Traslado a Cheeper Azau, aclimatación hasta Gara-Bashi (3850 m)', desc: 'Hoy nos adentramos en la montaña. Subimos en teleférico a la estación «Stary Krugozor» y nos instalamos en el refugio «Cheeper-Azau», a 3000 m. Después de comer, caminata de aclimatación junto a la bonita cascada «Sarykaya-Su» hasta la estación «Mir» (3450 m). Según el tiempo, seguimos hasta la estación «Gara-Bashi» (3850 m) o visitamos un precioso lago glaciar.', accommodation: 'Refugio «Cheeper-Azau»' },
@@ -67,6 +70,7 @@ export default {
    { title: 'Ataque a la cumbre del Elbrus (5642 m)', desc: 'El momento cumbre de la expedición: subir a la montaña más alta de Europa. Puedes subir a pie desde el refugio (unas 4 horas antes) o en máquina pisanieves hasta 4800 m para ahorrar energía (con suplemento). Tras cruzar la «Kosaya Polka» y una pausa para el té en el collado (5300 m), llega el último tramo hasta la cumbre, a 5642 m. En el techo de Europa vivirás un momento de logro personal frente a la panorámica infinita del Cáucaso. Después, descenso controlado al campo alto para cenar y descansar.', accommodation: 'Refugio «Leaprus»' },
    { title: 'Día de reserva por mal tiempo / bajada a Cheget (2100 m)', desc: 'Este día es una ventana de tiempo adicional si hubo que aplazar la cumbre. Si se hizo cumbre, bajamos a Cheget a descansar y celebrarlo con la excelente cocina caucásica. Se puede montar a caballo, pescar o probar una banya rusa tradicional.', accommodation: 'Hotel «Snezhny Bars» en Cheget o similar' },
    { title: 'Día libre en el valle del Baksan, traslado nocturno al aeropuerto', desc: 'Un día libre para recorrer el valle del Baksan con calma: montar a caballo, visitar las cascadas de Chegem o bañarse en manantiales minerales naturales. Por la noche, traslado nocturno al aeropuerto de Mineralnye Vody para el vuelo de primera hora.' },
+   { title: 'Vuelo de regreso a casa', desc: 'El vuelo de la mañana sale de Mineralnye Vody de regreso a casa. Vuelves con recuerdos inolvidables, nuevas amistades nacidas en la montaña y el orgullo de haber estado en la cumbre más alta de Europa.' },
   ],
   faq: [
    { q: '¿El Elbrus es más difícil que el Kilimanjaro?', a: 'El Elbrus es más técnico. Con una altura parecida (5642 m), exige crampones y piolet, el frío es más duro y hay riesgo de tormentas repentinas. Nuestra tasa de éxito es del 85 %, frente al 94 % del Kilimanjaro. Nuestra recomendación: si es tu primera gran montaña, empieza por el Kilimanjaro.' },
