@@ -47,7 +47,9 @@ describe('blog split', () => {
         expect(t, `${l} ${p.slug}`).toEqual(INTL[l][p.slug].content);
       }
     }
-  });
+  /* about 1s alone; the pre-push hook runs every file at once, and on this
+     8GB Mac under load it passed 5s and stopped two pushes (8 Nov 2026) */
+  }, 20000);
 
   it('no page in the app imports blogData.js itself', () => {
     const offenders = files(join(root, 'src')).filter(f => /\.(jsx?|tsx?)$/.test(f))
