@@ -5324,7 +5324,7 @@ export const POSTS = [
 
       { type: 'section', value: 'זנזיבר, הביטוח הממשלתי וטופס הבריאות' },
       { type: 'text', value: 'זנזיבר היא חלק מטנזניה, ולכן אין ויזה נפרדת לזנזיבר. הוויזה הרגילה שמוציאים לפני הטיפוס תקפה גם באיים, בין שממשיכים אליהם אחרי ההר ובין שנוחתים בהם ישירות.' },
-      { type: 'text', value: 'בנוסף לוויזה, כל מבקר זר בטנזניה נדרש בביטוח ממשלתי מקומי, 44 דולר לאדם (נכון ל-2026). הביטוח הזה אינו מחליף ביטוח נסיעות ורפואי, שצריך לכסות גם טיפוס בגובה וחילוץ. בזנזיבר נהוג ביטוח ממשלתי משלה, ומי שנכנס דרך היבשה עם הביטוח הממשלתי יכול להמשיך לזנזיבר בלי לקנות פוליסה נוספת. כדאי לרכוש את הביטוח אונליין לפני הטיסה, ולבדוק את הכללים העדכניים סמוך ליציאה.' },
+      { type: 'text', value: 'בנוסף לוויזה, מאז 1 באוקטובר 2026 כל מבקר זר בטנזניה נדרש בביטוח ממשלתי מקומי, 44 דולר למבוגר. הביטוח הזה אינו מחליף ביטוח נסיעות ורפואי, שצריך לכסות גם טיפוס בגובה וחילוץ. בזנזיבר יש ביטוח ממשלתי משלה, ומי שנכנס דרך היבשה עם הביטוח הממשלתי יכול להמשיך לזנזיבר בלי לקנות פוליסה נוספת. רוכשים אותו אונליין לפני הטיסה, באתר הרשמי inbound.nicinsurance.co.tz, ומשלמים בכרטיס אשראי. כדאי לבדוק את הכללים העדכניים סמוך ליציאה.' },
       { type: 'text', value: 'ומעבר לוויזה ולביטוח, מאז 17 באוקטובר 2026 כל מי שנכנס לטנזניה היבשתית ממלא גם טופס בריאות מקוון באתר משרד הבריאות הטנזני, afyamsafiri.moh.go.tz. הטופס בחינם, ממלאים טופס נפרד לכל נוסע, גם לילדים, עד 24 שעות לפני הנחיתה, ומקבלים קוד QR שמציגים בבדיקה בשדה התעופה. מי שנוחת ישירות בזנזיבר ממלא את הטופס של משרד הבריאות של זנזיבר.' },
 
       { type: 'section', value: 'מה צריך להכין לפני שמתחילים' },
@@ -5370,7 +5370,7 @@ export const POSTS = [
       { type: 'heading', value: 'צריך ויזה נפרדת לזנזיבר?' },
       { type: 'text', value: 'לא. זנזיבר היא חלק מטנזניה, ואותה ויזה רגילה תקפה גם בה. היא מאפשרת לשלב חופשת חוף אחרי הטיפוס בלי בקשה נוספת.' },
       { type: 'heading', value: 'צריך ביטוח כדי להיכנס לטנזניה?' },
-      { type: 'text', value: 'כן. כל מבקר זר נדרש בביטוח ממשלתי מקומי, 44 דולר לאדם (נכון ל-2026), בנוסף לביטוח נסיעות ורפואי שמכסה טיפוס בגובה וחילוץ. את הביטוח הממשלתי כדאי לרכוש אונליין לפני הטיסה.' },
+      { type: 'text', value: 'כן. מאז 1 באוקטובר 2026 כל מבקר זר נדרש בביטוח ממשלתי מקומי, 44 דולר למבוגר, בנוסף לביטוח נסיעות ורפואי שמכסה טיפוס בגובה וחילוץ. את הביטוח הממשלתי רוכשים אונליין לפני הטיסה, באתר הרשמי inbound.nicinsurance.co.tz.' },
       { type: 'heading', value: 'צריך למלא טופס בריאות לפני הטיסה לטנזניה?' },
       { type: 'text', value: 'כן. מאז 17 באוקטובר 2026 כל נוסע שנכנס לטנזניה היבשתית ממלא טופס בריאות מקוון, בחינם, באתר afyamsafiri.moh.go.tz, עד 24 שעות לפני הנחיתה, ומציג בשדה את קוד ה-QR שמקבלים.' },
       { type: 'heading', value: 'מה צריך להכין לבקשה?' },
@@ -5395,7 +5395,7 @@ export const POSTS = [
 
       { type: 'section', value: 'Zanzibar, the government insurance and the health form' },
       { type: 'text', value: 'Zanzibar is part of Tanzania, so there is no separate Zanzibar visa. The Ordinary Visa you get before the climb is valid on the islands too, whether you continue there after the mountain or land there directly.' },
-      { type: 'text', value: 'On top of the visa, every foreign visitor to Tanzania needs the local government insurance, 44 US dollars per person (as of 2026). It does not replace travel and medical insurance, which also needs to cover climbing at altitude and evacuation. Zanzibar runs its own government insurance, and anyone entering through the mainland with the government cover can continue to Zanzibar without buying another policy. Buy the cover online before you fly, and check the current rules close to departure.' },
+      { type: 'text', value: 'On top of the visa, since 1 October 2026 every foreign visitor to Tanzania needs the local government insurance, 44 US dollars per adult. It does not replace travel and medical insurance, which also needs to cover climbing at altitude and evacuation. Zanzibar runs its own government insurance, and anyone entering through the mainland with the government cover can continue to Zanzibar without buying another policy. Buy it online before you fly, on the official site inbound.nicinsurance.co.tz, and pay by card. Check the current rules close to departure.' },
       { type: 'text', value: 'Beyond the visa and the insurance, since 17 October 2026 everyone entering mainland Tanzania also fills in an online health form on the Tanzanian Ministry of Health website, afyamsafiri.moh.go.tz. It is free, each traveller fills in a separate form, children included, up to 24 hours before landing, and you get a QR code to show at the airport health check. Anyone landing directly in Zanzibar fills in the Zanzibar Ministry of Health form instead.' },
 
       { type: 'section', value: 'What to prepare before you start' },
@@ -5441,7 +5441,7 @@ export const POSTS = [
       { type: 'heading', value: 'Do I need a separate visa for Zanzibar?' },
       { type: 'text', value: 'No. Zanzibar is part of Tanzania, and the same Ordinary Visa is valid there. It lets you add a beach break after the climb without another application.' },
       { type: 'heading', value: 'Do I need insurance to enter Tanzania?' },
-      { type: 'text', value: 'Yes. Every foreign visitor needs the local government insurance, 44 US dollars per person (as of 2026), in addition to travel and medical insurance that covers climbing at altitude and evacuation. Buy the government cover online before you fly.' },
+      { type: 'text', value: 'Yes. Since 1 October 2026 every foreign visitor needs the local government insurance, 44 US dollars per adult, in addition to travel and medical insurance that covers climbing at altitude and evacuation. Buy the government cover online before you fly, on the official site inbound.nicinsurance.co.tz.' },
       { type: 'heading', value: 'Do I need to fill in a health form before flying to Tanzania?' },
       { type: 'text', value: 'Yes. Since 17 October 2026 every traveller entering mainland Tanzania fills in a free online health form on afyamsafiri.moh.go.tz, up to 24 hours before landing, and shows the QR code it gives at the airport.' },
       { type: 'heading', value: 'What documents do I need for the application?' },
