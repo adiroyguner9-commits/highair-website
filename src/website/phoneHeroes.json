@@ -27,7 +27,9 @@
   "/images/cards/kilimanjaro.webp": "/images/phone/list/cards/kilimanjaro.webp"
  },
  "blog": {
+  "/images/gallery/kilimanjaro/12.webp": "/images/phone/blog/gallery/kilimanjaro/12.webp",
   "/images/cards/kilimanjaro.webp": null,
+  "/images/cards/EBC.webp": null,
   "/images/cards/annapurna.webp": null,
   "/images/cards/MeraPeak.webp": "/images/phone/blog/cards/MeraPeak.webp",
   "/images/cards/elbrus.webp": null,
@@ -44,7 +46,6 @@
   "/images/cards/leninPeak.webp": null,
   "/images/cards/manaslu-climb.webp": null,
   "/images/cards/aconcagua.webp": null,
-  "/images/cards/EBC.webp": null,
   "/images/cards/kilimanjaroKosher.webp": "/images/phone/blog/cards/kilimanjaroKosher.webp",
   "/images/blog/tomer-bassan-snow.webp": null,
   "/images/blog/nepal-rasuwa-valley.webp": null,
