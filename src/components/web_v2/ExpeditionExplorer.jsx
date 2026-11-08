@@ -14,6 +14,7 @@ import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { CARD_EXPS as EXPS } from '../../data/navData.js';
 import { HOME_CLIMBS, HOME_TREKS } from '../../data/expeditionGroups.js';
 import { cardThumb } from '../../website/cardThumb.js';
+import { metresText } from '../../website/units.js';
 import { useNearView } from '../../website/useInView.js';
 import FlagImg from './FlagImg.jsx';
 
@@ -198,8 +199,8 @@ function ExpCard({ exp }) {
               {isEn ? (loc(exp, "name") || exp.name) : exp.nameHe}
             </h3>
             {exp.elevNum > 0 && (
-              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em', direction: 'ltr', textAlign: isEn ? 'left' : 'right' }}>
-                {exp.elevNum}m{/* metres only on the cards (owner, 6 Nov 2026) */}
+              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 400, color: 'rgba(255,255,255,0.85)', margin: 0, letterSpacing: '0.02em', direction: isEn ? 'ltr' : 'rtl', textAlign: isEn ? 'left' : 'right' }}>
+                {metresText(exp.elevNum, isEn ? 'en' : 'he')}{/* metres only on the cards (owner, 6 Nov 2026); Hebrew "2918 מ׳" (8 Nov) */}
               </p>
             )}
           </div>

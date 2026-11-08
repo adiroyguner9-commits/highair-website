@@ -16,3 +16,14 @@ describe('feetText', () => {
     expect(feetText(0, 'en')).toBe('');
   });
 });
+import { metresText } from '../src/website/units.js';
+describe('metresText', () => {
+  it('Hebrew writes מ׳ with no comma, the others keep m', () => {
+    expect(metresText(5895, 'he')).toBe('5895 מ׳');
+    expect(metresText('2918m', 'he')).toBe('2918 מ׳');
+    expect(metresText(5895, 'en')).toBe('5895m');
+    expect(metresText('8163m', 'de')).toBe('8163m');
+    expect(metresText(0, 'he')).toBe('');
+    expect(metresText('', 'he')).toBe('');
+  });
+});

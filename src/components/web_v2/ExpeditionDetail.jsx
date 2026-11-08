@@ -6,6 +6,7 @@
 
 import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
+import { metresText } from '../../website/units.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -403,7 +404,7 @@ export default function ExpeditionDetail() {
       name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
       /* Every value guarded: an unfilled draft would otherwise publish
          "[למילוי]" into the search result itself. */
-      description:   `${exp.nameHe} ב${exp.countryHe || ''}${[filled(exp.elev), filled(exp.days)].filter(Boolean).length ? ' — ' + [filled(exp.elev), filled(exp.days)].filter(Boolean).join(', ') : ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`,
+      description:   `${exp.nameHe} ב${exp.countryHe || ''}${[filled(exp.elev), filled(exp.days)].filter(Boolean).length ? ' - ' + [filled(exp.elev) && metresText(exp.elev, 'he'), filled(exp.days)].filter(Boolean).join(', ') : ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`,
       image:         exp.img,
       url:           `/expedition/${exp.slug}`,
       country:       exp.countryHe || exp.country,
@@ -427,7 +428,7 @@ export default function ExpeditionDetail() {
       ? (exp.seoTitle    || `${exp.nameHe} ${exp.countryHe ? '(' + exp.countryHe + ')' : ''} | HighAir Expeditions`)
       : (loc(exp, "seoTitle")  || `${loc(exp, "name") || exp.name} in ${exp.country} | HighAir Expeditions`),
     description:   isRtl
-      ? (exp.seoDescription   || `${exp.nameHe} ב${exp.countryHe || exp.country} - ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. הצטרפו למשלחת מאורגנת עם מדריכים מקצועיים, תרומה למלחמה בסרטן.`)
+      ? (exp.seoDescription   || `${exp.nameHe} ב${exp.countryHe || exp.country} - ${exp.elev ? metresText(exp.elev, 'he') + ', ' : ''}${exp.days || ''}. הצטרפו למשלחת מאורגנת עם מדריכים מקצועיים, תרומה למלחמה בסרטן.`)
       : (loc(exp, "seoDescription") || `${loc(exp, "name") || exp.name} expedition in ${exp.country}. ${exp.elev ? exp.elev + ', ' : ''}${exp.days || ''}. Professional guides, 94% summit success rate. Every expedition supports cancer patients.`),
     canonicalPath: `/expedition/${exp.slug}`,
     image:         exp.ogImage ? `https://www.highair-expeditions.com${exp.ogImage}` : exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
@@ -1163,7 +1164,7 @@ export default function ExpeditionDetail() {
             : [
             /* A draft with no altitude yet has elevNum 0, and `${0}m` renders
                "0m" — a wrong fact, not a blank. null hides the row instead. */
-            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? `${exp.elevNum}m` : null },   /* metres only up top; feet may appear in the text (owner, 6 Nov 2026) */
+            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? metresText(exp.elevNum, isRtl ? 'he' : 'en') : null },   /* metres only up top; feet may appear in the text (owner, 6 Nov 2026) */
             { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe) },
             /* Every trip shows its duration, except Kilimanjaro — its 94% summit
                success rate is a signature selling point we keep front and center. */
@@ -1232,7 +1233,7 @@ export default function ExpeditionDetail() {
               <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
                 {isSafari
                   ? <><ClockIcon size={14} color="#0A0818" /> {isRtl ? exp.days : (loc(exp, "days") || exp.days)}</>
-                  : (exp.elevNum ? <><MountainIcon size={14} color="#0A0818" /> {exp.elevNum}m</> : null)}
+                  : (exp.elevNum ? <><MountainIcon size={14} color="#0A0818" /> {metresText(exp.elevNum, isRtl ? 'he' : 'en')}</> : null)}
               </span>
             </div>
             {!isMobile && (

@@ -13,6 +13,7 @@
 
 import { contactFor } from '../../website/contact.js';
 import { tx, loc, PARTIAL_LANGS, hasPage } from '../../website/lang.js';
+import { metresText } from '../../website/units.js';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -916,7 +917,7 @@ function SearchModal({ onClose }) {
    fontSize: '13px', color: '#6B6B8A',
    fontFamily: "'Ploni', sans-serif", marginTop: '1px',
    }}>
-   {isRtl ? exp.countryHe : (loc(exp, 'country') || exp.country)} · {exp.elev}
+   {isRtl ? exp.countryHe : (loc(exp, 'country') || exp.country)} · {metresText(exp.elev, isRtl ? 'he' : 'en') || exp.elev}
    </div>
    </div>
    <span style={{ fontSize: '13px', color: '#A78BFA', flexShrink: 0 }}>

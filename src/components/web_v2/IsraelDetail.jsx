@@ -627,7 +627,7 @@ export default function IsraelDetail() {
             </>
           ) : (
             <>
-              <StatBox label={isRtl ? 'גובה' : 'Elevation'} value={`${trip.elev}m`}  isMobile={isMobile} first />
+              <StatBox label={isRtl ? 'גובה' : 'Elevation'} value={isRtl ? `${trip.elev} מ׳` : `${trip.elev}m`}  isMobile={isMobile} first />
               <StatBox label={isRtl ? 'דרגת קושי' : 'Level'}    value={diffLabel}    isMobile={isMobile} />
               <StatBox label={isRtl ? 'משך' : 'Duration'}        value={daysLabel}    isMobile={isMobile} />
               <StatBox label={isRtl ? 'עלות' : 'Price'}          value={priceLabel}   isMobile={isMobile} last />
