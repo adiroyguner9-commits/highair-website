@@ -98,6 +98,7 @@ export const LINES = {
  'Mountain hut accommodation in shared rooms throughout the climb': ['Übernachtung in Berghütten in Mehrbettzimmern während der ganzen Besteigung', 'Alojamiento en refugios de montaña en habitaciones compartidas durante todo el ascenso'],
  'Mules to carry personal gear up to base camp (up to 35 kg per person)': ['Maultiere für das persönliche Gepäck bis zum Basislager (bis 35 kg pro Person)', 'Mulas para el equipaje personal hasta el campo base (hasta 35 kg por persona)'],
  'Nepal visa fees - $50 per person': ['Visagebühr für Nepal: 50 $ pro Person', 'Visado de Nepal: 50 $ por persona'],
+ 'Nepal 90-day visa fees - $125 per person': ['Visagebühr für Nepal (90 Tage): 125 $ pro Person', 'Visado de Nepal (90 días): 125 $ por persona'],
  'Online preparation call with your group and guide before departure': ['Online-Vorbereitungsgespräch mit Ihrer Gruppe und dem Guide vor der Abreise', 'Llamada de preparación en línea con tu grupo y el guía antes de salir'],
  'Optional extras:': ['Optionale Extras:', 'Extras opcionales:'],
  'Personal expenses, such as drinks, alcohol, laundry, gifts, internet and more': ['Persönliche Ausgaben, etwa Getränke, Alkohol, Wäsche, Geschenke, Internet und mehr', 'Gastos personales, como bebidas, alcohol, lavandería, regalos, internet y más'],
