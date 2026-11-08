@@ -4366,6 +4366,7 @@ export const POSTS = [
       { type: 'text', value: 'הכסף בטנזניה עובד בשני מסלולים מקבילים: דולר אמריקאי להוצאות התיירות הגדולות, ושילינג טנזני לקטנות. עבור מי שמטפס עם HighAir, ההוצאות הגדולות והאגרות כבר כלולות, כך שצריך להתארגן בעיקר על תשר והוצאות אישיות במזומן. הכלל המנחה: הביאו מספיק מזומן מראש, בשטרות תקינים וקטנים, ואל תסתמכו על כספומטים בדרך.' },
       { type: 'text', value: 'הערה חשובה: שערי החליפין והנהלים המופיעים במאמר נכונים למועד עדכונו (מאי 2026) ועשויים להשתנות. בדקו מידע עדכני סמוך למועד הנסיעה.' },
       { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+      { type: 'cta', text: 'למדריך הוויזה לטנזניה ולזנזיבר', textEn: 'Tanzania and Zanzibar visa guide', href: '/blog/tanzania-visa-guide' },
 
       { type: 'section', value: 'שאלות נפוצות' },
       { type: 'heading', value: 'מהו המטבע של טנזניה?' },
@@ -4426,6 +4427,7 @@ export const POSTS = [
       { type: 'text', value: 'Money in Tanzania runs on two parallel tracks: US dollars for major tourism expenses, and Tanzanian shillings for small daily purchases. For those climbing with HighAir, the big costs and park fees are already covered, so your cash preparation is mainly about tipping and personal spending. The guiding rule: bring enough cash in advance, in clean small bills, and do not rely on ATMs along the way.' },
       { type: 'text', value: 'Important note: exchange rates and procedures in this article are correct as of the publication date (May 2026) and may change. Check current information close to your departure date.' },
       { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+      { type: 'cta', text: 'למדריך הוויזה לטנזניה ולזנזיבר', textEn: 'Tanzania and Zanzibar visa guide', href: '/blog/tanzania-visa-guide' },
 
       { type: 'section', value: 'Frequently asked questions' },
       { type: 'heading', value: 'What is the currency of Tanzania?' },
@@ -4505,6 +4507,7 @@ export const POSTS = [
       { type: 'text', value: 'ההכנה הבריאותית לטיפוס בקילימנג׳רו אינה מסובכת, אך היא דורשת התארגנות מוקדמת. הצעד החשוב ביותר: לקבוע תור למרפאת מטיילים, 4 עד 6 שבועות לפני הטיסה. שם תקבלו את כל ההמלצות המותאמות לכם, חיסונים, טיפול מונע במלריה, וכדורי גובה.' },
       { type: 'text', value: 'הערה חשובה: מאמר זה הוא מידע כללי בלבד ואינו מהווה ייעוץ רפואי. ההמלצות הרפואיות האישיות, לרבות חיסונים וטיפול מונע, ניתנות על ידי רופא במרפאת מטיילים. פרטי מרפאות ונהלים עשויים להשתנות, ודאו מול המרפאה.' },
       { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+      { type: 'cta', text: 'למדריך הוויזה לטנזניה ולזנזיבר', textEn: 'Tanzania and Zanzibar visa guide', href: '/blog/tanzania-visa-guide' },
 
       { type: 'section', value: 'שאלות נפוצות' },
       { type: 'heading', value: 'מתי כדאי לפנות למרפאת מטיילים לפני טיול לטנזניה?' },
@@ -4557,6 +4560,7 @@ export const POSTS = [
       { type: 'text', value: 'Medical preparation for a Kilimanjaro climb is not complicated, but it does require planning ahead. The most important step: book a travel clinic appointment four to six weeks before your flight. That is where you will receive all the recommendations tailored to you, vaccinations, malaria prevention, and altitude medication.' },
       { type: 'text', value: 'Important note: this article is general information only and does not constitute medical advice. Personal medical recommendations, including vaccinations and preventive treatment, are given by a travel clinic doctor. Clinic details and procedures may change, so confirm directly with your clinic.' },
       { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
+      { type: 'cta', text: 'למדריך הוויזה לטנזניה ולזנזיבר', textEn: 'Tanzania and Zanzibar visa guide', href: '/blog/tanzania-visa-guide' },
 
       { type: 'section', value: 'Frequently asked questions' },
       { type: 'heading', value: 'When should I visit a travel clinic before Tanzania?' },
@@ -4581,12 +4585,12 @@ export const POSTS = [
 
     title:    'ויזה לטנזניה: המדריך המלא',
     titleEn:  'Tanzania Visa: Full Guide',
-    seoTitle:   'ויזה לטנזניה: המדריך המלא לפני הטיפוס',
-    seoTitleEn: 'Tanzania Visa Guide for Kilimanjaro Climbers',
+    seoTitle:   'ויזה לטנזניה וזנזיבר לישראלים: מחיר, זמן ושלבים',
+    seoTitleEn: 'Tanzania and Zanzibar Visa for Israelis',
     author:   'חן שקד',
     authorId: 'chen-shaked',
     dateIso:  '2026-05-25',
-    dateModified: '2026-05-25',
+    dateModified: '2026-11-08',
     dateHe:   '25 במאי 2026',
     dateEn:   'May 25, 2026',
     category:   'מדריכים',
@@ -4595,12 +4599,12 @@ export const POSTS = [
     imgPosition:     'center 40%',
     imgPositionCard: 'center 40%',
     imgCredit:       '',
-    excerpt:  'כל מה שצריך לדעת על הוצאת ויזה לטנזניה לקראת טיפוס לקילימנג׳רו: העלות, זמן ההנפקה, סוג הוויזה המתאים, ומילוי הבקשה באתר הרשמי צעד אחר צעד.',
-    excerptEn: 'Everything you need to know about getting a Tanzania visa before your Kilimanjaro climb: cost, processing time, visa type, and a step-by-step application walkthrough.',
+    excerpt:  'ויזה לטנזניה לישראלים עולה 50 דולר, מונפקת אונליין עד 14 יום, ותקפה גם בזנזיבר. כל השלבים באתר הרשמי, המסמכים והביטוח הממשלתי לפני הטיפוס.',
+    excerptEn: 'A Tanzania visa for Israelis costs 50 dollars, is issued online within 14 days and also covers Zanzibar. Every step, the documents and the government insurance.',
 
     content: [
-      { type: 'text', value: 'תכננתם טיפוס לקילימנג׳רו, סגרתם תאריכים, והתחלתם להתכונן. אחד הדברים הראשונים שצריך לסדר, הרבה לפני שאורזים את התרמיל, הוא הויזה. אזרחי ישראל נדרשים בוויזה כדי להיכנס לטנזניה, והחדשות הטובות הן שהתהליך כולו נעשה אונליין, מהבית, והוא פשוט יחסית, אם יודעים מה לעשות.' },
-      { type: 'text', value: 'במדריך הזה נעבור על כל מה שצריך לדעת: כמה זה עולה, כמה זמן זה לוקח, איזו ויזה להוציא, ומתי להגיש. בסוף תמצאו גם סקירה של תהליך מילוי הבקשה עצמו, שלב אחר שלב.' },
+      { type: 'text', value: 'אזרחי ישראל צריכים ויזה כדי להיכנס לטנזניה, ומוציאים אותה מראש, אונליין, באתר הרשמי של רשות ההגירה הטנזנית. ויזה רגילה לתיירות עולה 50 דולר, תקפה לשהייה של עד 90 יום, וזמן ההנפקה הרשמי הוא עד 14 יום. אותה ויזה תקפה גם בזנזיבר, כך שמי שמוסיף כמה ימי חוף אחרי הטיפוס לקילימנג׳רו לא צריך ויזה נוספת.' },
+      { type: 'text', value: 'במדריך הזה נעבור על כל מה שצריך לדעת: איזו ויזה להוציא, מתי להגיש, מה צריך לגבי זנזיבר ומהו הביטוח הממשלתי שנדרש מכל מבקר זר. בסוף תמצאו גם סקירה של תהליך מילוי הבקשה עצמו, שלב אחר שלב, הרבה לפני שאורזים את התרמיל.' },
 
       { type: 'section', value: 'האם אזרח ישראלי צריך ויזה לטנזניה?' },
       { type: 'text', value: 'כן. אזרחי ישראל נדרשים בוויזה כדי להיכנס לטנזניה, כולל לאזור הר קילימנג׳רו. הויזה מונפקת באופן אלקטרוני (eVisa) דרך אתר רשמי של רשות ההגירה הטנזנית, וכל הבקשה מוגשת ומשולמת אונליין.' },
@@ -4612,7 +4616,11 @@ export const POSTS = [
 
       { type: 'section', value: 'כמה זמן לוקח לקבל את הויזה?' },
       { type: 'text', value: 'זמן ההנפקה הרשמי הוא עד 14 ימים מרגע הגשת הבקשה. בפועל, התשובה מגיעה לעיתים מהר יותר, אך אין להסתמך על כך.' },
-      { type: 'text', value: 'המסקנה המעשית: הגישו את הבקשה מוקדם. אנחנו ממליצים להגיש לפחות 3-4 שבועות לפני מועד הטיסה. הגשה מוקדמת מותירה מרווח נשימה למקרה של עיכוב או של בקשה להשלמת פרטים, ומונעת לחץ מיותר בימים שלפני היציאה, ימים שעדיף להקדיש להכנה ולאריזה.' },
+      { type: 'text', value: 'המסקנה המעשית: הגישו את הבקשה מוקדם. אנחנו ממליצים להגיש לפחות 3 עד 4 שבועות לפני מועד הטיסה. הגשה מוקדמת מותירה מרווח נשימה למקרה של עיכוב או של בקשה להשלמת פרטים, ומונעת לחץ מיותר בימים שלפני היציאה, ימים שעדיף להקדיש להכנה ולאריזה.' },
+
+      { type: 'section', value: 'ויזה לזנזיבר והביטוח הממשלתי' },
+      { type: 'text', value: 'זנזיבר היא חלק מטנזניה, ולכן אין ויזה נפרדת לזנזיבר. הוויזה הרגילה שמוציאים לפני הטיפוס תקפה גם באיים, בין שממשיכים אליהם אחרי ההר ובין שנוחתים בהם ישירות.' },
+      { type: 'text', value: 'בנוסף לוויזה, כל מבקר זר בטנזניה נדרש בביטוח ממשלתי מקומי, 44 דולר לאדם (נכון ל-2026). הביטוח הזה אינו מחליף ביטוח נסיעות ורפואי, שצריך לכסות גם טיפוס בגובה וחילוץ. בזנזיבר נהוג ביטוח ממשלתי משלה, ומי שנכנס דרך היבשה עם הביטוח הממשלתי יכול להמשיך לזנזיבר בלי לקנות פוליסה נוספת. כדאי לרכוש את הביטוח אונליין לפני הטיסה, ולבדוק את הכללים העדכניים סמוך ליציאה.' },
 
       { type: 'section', value: 'מה צריך להכין לפני שמתחילים' },
       { type: 'text', value: 'לפני שניגשים למלא את הבקשה, כדאי שיהיו ביד כמה דברים, כדי שהתהליך יזרום ברצף:' },
@@ -4641,26 +4649,30 @@ export const POSTS = [
       { type: 'text', value: 'הוצאת ויזה היא פרט טכני אחד מתוך הכנה שלמה לטיפוס, ובדיוק בגלל זה אנחנו דואגים שהוא לא יהיה מקור לדאגה.' },
 
       { type: 'section', value: 'לסיכום' },
-      { type: 'text', value: 'הוצאת ויזה לטנזניה היא תהליך אונליין פשוט יחסית: ויזה רגילה בעלות 50 דולר, זמן הנפקה של עד 14 יום, וכמה מסמכים שצריך להכין מראש. הכלל החשוב ביותר הוא להגיש מוקדם, לפחות 3-4 שבועות לפני הטיסה.' },
-      { type: 'text', value: 'הערה חשובה: המחירים והנהלים המופיעים במאמר נכונים למועד עדכונו (מאי 2026). נהלי ויזה עשויים להשתנות. לפני הגשת הבקשה, ודאו את הפרטים העדכניים מול האתר הרשמי של רשות ההגירה של טנזניה.' },
+      { type: 'text', value: 'הוצאת ויזה לטנזניה היא תהליך אונליין פשוט יחסית: ויזה רגילה בעלות 50 דולר, זמן הנפקה של עד 14 יום, וכמה מסמכים שצריך להכין מראש. הכלל החשוב ביותר הוא להגיש מוקדם, לפחות 3 עד 4 שבועות לפני הטיסה.' },
+      { type: 'text', value: 'הערה חשובה: המחירים והנהלים המופיעים במאמר נכונים למועד עדכונו (נובמבר 2026). נהלי ויזה עשויים להשתנות. לפני הגשת הבקשה, ודאו את הפרטים העדכניים מול האתר הרשמי של רשות ההגירה של טנזניה.' },
       { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
 
       { type: 'section', value: 'שאלות נפוצות' },
       { type: 'heading', value: 'כמה עולה ויזה לטנזניה?' },
       { type: 'text', value: 'ויזה רגילה (כניסה בודדת) למטרת תיירות עולה 50 דולר לאזרחי ישראל, ותקפה לשהייה של עד 90 יום. אזרחי ארה"ב משלמים 100 דולר עבור אותה ויזה.' },
       { type: 'heading', value: 'כמה זמן לוקח להוציא ויזה לטנזניה?' },
-      { type: 'text', value: 'זמן ההנפקה הרשמי הוא עד 14 ימים מהגשת הבקשה. מומלץ להגיש לפחות 3-4 שבועות לפני הטיסה.' },
+      { type: 'text', value: 'זמן ההנפקה הרשמי הוא עד 14 ימים מהגשת הבקשה. מומלץ להגיש לפחות 3 עד 4 שבועות לפני הטיסה.' },
       { type: 'heading', value: 'אפשר להוציא ויזה בשדה התעופה?' },
       { type: 'text', value: 'קיימת אפשרות של ויזה בשדה התעופה, אך מומלץ להוציא מראש אונליין כדי לחסוך המתנה בתורים ואי-ודאות לאחר טיסה ארוכה.' },
       { type: 'heading', value: 'איזו ויזה צריך לטיפוס לקילימנג׳רו?' },
       { type: 'text', value: 'ויזה רגילה (Ordinary Visa), ויזת כניסה בודדת למטרת תיירות. היא מתאימה לרוב המוחלט של המטפסים, ומאפשרת לבקר גם ביבשת וגם בזנזיבר.' },
+      { type: 'heading', value: 'צריך ויזה נפרדת לזנזיבר?' },
+      { type: 'text', value: 'לא. זנזיבר היא חלק מטנזניה, ואותה ויזה רגילה תקפה גם בה. היא מאפשרת לשלב חופשת חוף אחרי הטיפוס בלי בקשה נוספת.' },
+      { type: 'heading', value: 'צריך ביטוח כדי להיכנס לטנזניה?' },
+      { type: 'text', value: 'כן. כל מבקר זר נדרש בביטוח ממשלתי מקומי, 44 דולר לאדם (נכון ל-2026), בנוסף לביטוח נסיעות ורפואי שמכסה טיפוס בגובה וחילוץ. את הביטוח הממשלתי כדאי לרכוש אונליין לפני הטיסה.' },
       { type: 'heading', value: 'מה צריך להכין לבקשה?' },
       { type: 'text', value: 'דרכון בתוקף, צילום עמוד הדרכון, תמונת פנים, כרטיס טיסה הלוך ושוב בפורמט PDF, וכרטיס אשראי לתשלום.' },
     ],
 
     contentEn: [
-      { type: 'text', value: 'You have planned your Kilimanjaro climb, locked in the dates, and started getting ready. One of the first things to sort out, long before you pack your bag, is the visa. Israeli citizens need a visa to enter Tanzania, and the good news is that the entire process is done online from home and is relatively straightforward if you know what to do.' },
-      { type: 'text', value: 'This guide covers everything you need to know: how much it costs, how long it takes, which visa to apply for, and when to submit. At the end you will find a walkthrough of the application process itself, step by step.' },
+      { type: 'text', value: 'Israeli citizens need a visa to enter Tanzania, and they apply for it in advance, online, on the official website of the Tanzanian Immigration Authority. An Ordinary tourist visa costs 50 US dollars, is valid for a stay of up to 90 days, and the official processing time is up to 14 days. The same visa is valid in Zanzibar, so anyone adding a few beach days after the Kilimanjaro climb does not need another visa.' },
+      { type: 'text', value: 'This guide covers everything you need to know: which visa to apply for, when to submit, what you need for Zanzibar and what the government insurance required of every foreign visitor is. At the end you will find a walkthrough of the application process itself, step by step, long before you pack your bag.' },
 
       { type: 'section', value: 'Do Israeli citizens need a visa for Tanzania?' },
       { type: 'text', value: 'Yes. Israeli citizens require a visa to enter Tanzania, including the Kilimanjaro region. The visa is issued electronically (eVisa) through the official website of the Tanzanian Immigration Authority, and the entire application is submitted and paid for online.' },
@@ -4673,6 +4685,10 @@ export const POSTS = [
       { type: 'section', value: 'How long does the visa take?' },
       { type: 'text', value: 'The official processing time is up to 14 days from the date of submission. In practice, a response sometimes arrives sooner, but you should not count on that.' },
       { type: 'text', value: 'The practical takeaway: apply early. We recommend submitting at least three to four weeks before your flight. Applying early leaves room to handle any delays or requests for additional documents, and removes unnecessary stress in the days before departure, days better spent preparing and packing.' },
+
+      { type: 'section', value: 'A visa for Zanzibar and the government insurance' },
+      { type: 'text', value: 'Zanzibar is part of Tanzania, so there is no separate Zanzibar visa. The Ordinary Visa you get before the climb is valid on the islands too, whether you continue there after the mountain or land there directly.' },
+      { type: 'text', value: 'On top of the visa, every foreign visitor to Tanzania needs the local government insurance, 44 US dollars per person (as of 2026). It does not replace travel and medical insurance, which also needs to cover climbing at altitude and evacuation. Zanzibar runs its own government insurance, and anyone entering through the mainland with the government cover can continue to Zanzibar without buying another policy. Buy the cover online before you fly, and check the current rules close to departure.' },
 
       { type: 'section', value: 'What to prepare before you start' },
       { type: 'text', value: 'Before you sit down to fill in the application, have a few things ready so the process moves without interruption:' },
@@ -4702,7 +4718,7 @@ export const POSTS = [
 
       { type: 'section', value: 'In summary' },
       { type: 'text', value: 'Getting a Tanzania visa is a relatively straightforward online process: an Ordinary Visa for 50 US dollars, processing time of up to 14 days, and a handful of documents to prepare in advance. The most important rule is to apply early, at least three to four weeks before your flight.' },
-      { type: 'text', value: 'Important note: the prices and procedures in this article are correct as of the date of publication (May 2026). Visa procedures can change. Before submitting your application, confirm the latest details on the official website of the Tanzanian Immigration Authority.' },
+      { type: 'text', value: 'Important note: the prices and procedures in this article are correct as of the latest update (November 2026). Visa procedures can change. Before submitting your application, confirm the latest details on the official website of the Tanzanian Immigration Authority.' },
       { type: 'cta', text: 'למשלחות קילימנג׳רו של HighAir', textEn: 'Kilimanjaro Expeditions', href: '/expedition/kilimanjaro' },
 
       { type: 'section', value: 'Frequently asked questions' },
@@ -4714,6 +4730,10 @@ export const POSTS = [
       { type: 'text', value: 'A Visa on Arrival is available, but applying online in advance is strongly recommended to avoid queuing after a long flight and to remove any uncertainty on arrival.' },
       { type: 'heading', value: 'Which visa do I need for Kilimanjaro?' },
       { type: 'text', value: 'An Ordinary Visa, a single-entry tourist visa. It covers the vast majority of climbers and also allows you to visit Zanzibar on the same visa.' },
+      { type: 'heading', value: 'Do I need a separate visa for Zanzibar?' },
+      { type: 'text', value: 'No. Zanzibar is part of Tanzania, and the same Ordinary Visa is valid there. It lets you add a beach break after the climb without another application.' },
+      { type: 'heading', value: 'Do I need insurance to enter Tanzania?' },
+      { type: 'text', value: 'Yes. Every foreign visitor needs the local government insurance, 44 US dollars per person (as of 2026), in addition to travel and medical insurance that covers climbing at altitude and evacuation. Buy the government cover online before you fly.' },
       { type: 'heading', value: 'What documents do I need for the application?' },
       { type: 'text', value: 'A valid passport, a scan of the passport photo page, a passport-style portrait photo, a return flight ticket in PDF format, and a credit card for payment.' },
     ],
