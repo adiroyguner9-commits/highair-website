@@ -798,7 +798,7 @@ const staticPages = [
     textSub: 'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים',   // blog.subtitle
     textPosts: () => POSTS,
     title: 'HighAir Expeditions | מגזין טיפוס הרים וטרקים',
-    desc:  'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים, מבית HighAir Expeditions. קילימנג׳רו, אוורסט, אנאפורנה ועוד.',
+    desc:  'מדריכים מלאים לכל היעדים שלנו, וחדשות מעולם טיפוס ההרים והטרקים, מבית HighAir Expeditions. קילימנג׳רו, אוורסט בייס קמפ, אנאפורנה ועוד.',
   },
   {
     path:  'contact',
@@ -826,7 +826,7 @@ const staticPages = [
     textH1:  'התכנית השנתית',                        // i18n.js annualPlan.title
     textSub: 'כל הטיולים שלנו - מהתאריך הקרוב ועד סוף העונה',   // annualPlan.subtitle (the dates load live)
     title: 'HighAir Expeditions | תכנית שנתית',
-    desc:  'כל תאריכי המשלחות של HighAir Expeditions - קילימנג׳רו, אוורסט, אנאפורנה, אלברוס, אקונקגואה ועוד.',
+    desc:  'כל תאריכי המשלחות של HighAir Expeditions - קילימנג׳רו, אוורסט בייס קמפ, אנאפורנה, אלברוס, אקונקגואה ועוד.',
   },
   /* Israel treks hidden by the owner (23 Oct 2026) via ISRAEL_TREKS_LIVE */
   ...(ISRAEL_TREKS_LIVE ? [{

@@ -145,7 +145,7 @@ export default function HomeV2() {
       ? 'HighAir Expeditions | טרקים ומשלחות טיפוס הרים בארץ ובעולם'
       : tx("Trekking and Climbing Expeditions | HighAir Expeditions"),
     description:   isRtl
-      ? 'HighAir Expeditions מארגנת טרקים ומשלחות טיפוס הרים בארץ ובעולם. קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד — עם תרומה לחולי סרטן בכל מסע.'
+      ? 'HighAir Expeditions מארגנת טרקים ומשלחות טיפוס הרים בארץ ובעולם. קילימנג׳רו, אוורסט בייס קמפ, אלברוס, אנאפורנה ועוד, עם תרומה לחולי סרטן בכל מסע.'
       : tx(
       "Guided trekking and climbing expeditions worldwide. Kilimanjaro, Everest Base Camp, Aconcagua, Ama Dablam & more. Small groups, experienced local guides, 94% summit success on Kilimanjaro. Every expedition supports cancer patients."
     ),

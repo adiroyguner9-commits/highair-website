@@ -19,6 +19,8 @@ import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
 import BookingWidget from './BookingWidget.jsx';
 
+/* What the phone may offer for this field (owner, 8 Nov 2026: autofill) */
+const AUTOFILL = { name: 'name', email: 'email' };
 function Field({ label, id, type = 'text', value, onChange, placeholder, required, error, errorMsg }) {
   const [focused, setFocused] = useState(false);
   const borderColor = error ? '#DC2626' : focused ? COLOR.primary : '#DDD9F3';
@@ -31,7 +33,7 @@ function Field({ label, id, type = 'text', value, onChange, placeholder, require
         {label}{required && <span style={{ color: COLOR.primary }}> *</span>}
       </label>
       <input
-        id={id} type={type} value={value} onChange={onChange} placeholder={placeholder}
+        id={id} name={id} autoComplete={AUTOFILL[id]} type={type} value={value} onChange={onChange} placeholder={placeholder}
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
         style={{
           width: '100%', fontFamily: "'Ploni', sans-serif", fontSize: '15px', fontWeight: 400,
@@ -178,6 +180,7 @@ export default function BookCall() {
                   placeholder={T.namePH} required error={!!nameError} errorMsg={nameError} />
 
                 <PhoneField
+                  id="call-phone"
                   label={<>{T.phone}<span style={{ color: COLOR.primary }}> *</span></>}
                   dial={form.dial}
                   onDialChange={v => setForm(f => ({ ...f, dial: v }))}

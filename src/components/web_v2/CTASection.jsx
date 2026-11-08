@@ -156,8 +156,9 @@ export default function CTASection() {
 
             {/* Name */}
             <div>
-              <label style={LABEL_STYLE}>{t('cta.nameLabel')}</label>
+              <label htmlFor="cta-name" style={LABEL_STYLE}>{t('cta.nameLabel')}</label>
               <input
+                id="cta-name" name="name" autoComplete="name"
                 type="text"
                 placeholder={t('cta.namePlaceholder')}
                 value={form.name}
@@ -171,6 +172,7 @@ export default function CTASection() {
 
             {/* Phone */}
             <PhoneField
+              id="cta-phone"
               dark
               label={t('cta.phoneLabel')}
               dial={form.dial}
@@ -183,8 +185,9 @@ export default function CTASection() {
 
             {/* Message - required */}
             <div>
-              <label style={LABEL_STYLE}>{t('cta.messageLabel')}</label>
+              <label htmlFor="cta-message" style={LABEL_STYLE}>{t('cta.messageLabel')}</label>
               <textarea
+                id="cta-message" name="message"
                 placeholder={t('cta.messagePlaceholder')}
                 value={form.message}
                 rows={3}

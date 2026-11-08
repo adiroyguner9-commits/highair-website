@@ -90,6 +90,32 @@ function maskIsraeli(raw) {
 }
 
 /**
+ * Autofill (owner, 8 Nov 2026: "שהטופס יתמלא אוטומטית"). The phone hands
+ * over the number as saved in the contact card, usually with its country code:
+ * "+972 50-123-4567", "00972501234567", or "972501234567". Read the country
+ * off it and keep the rest for the box, so the dropdown follows the number and
+ * the digit cap below does not throw the whole fill away. Typing a local
+ * number never reaches this: no plus, no 00, and not longer than a local one.
+ * Returns { dial, local } or null when the value is a plain local number.
+ */
+const BY_LONGEST_DIAL = [...COUNTRIES].sort((a, b) => b.dial.length - a.dial.length);
+export function splitInternational(raw, currentDial) {
+  const s = String(raw ?? '').trim();
+  const digits = s.replace(/\D/g, '');
+  const current = COUNTRIES.find(c => c.dial === currentDial) || COUNTRIES[0];
+  const cur = current.dial.slice(1);
+  if (s.startsWith('+') || s.startsWith('00')) {
+    const d = s.startsWith('00') ? digits.slice(2) : digits;
+    /* The open country wins a tie (+1 is both the US and Canada) */
+    const match = d.startsWith(cur) ? current : BY_LONGEST_DIAL.find(c => d.startsWith(c.dial.slice(1)));
+    return match ? { dial: match.dial, local: d.slice(match.dial.length - 1) } : null;
+  }
+  /* No plus, but the open country's code in front and too long to be local */
+  if (digits.startsWith(cur) && digits.length > current.maxD) return { dial: current.dial, local: digits.slice(cur.length) };
+  return null;
+}
+
+/**
  * Validates that the local number has the correct digit count for the dial code.
  * Returns true if valid, false otherwise.
  */
@@ -140,6 +166,7 @@ export default function PhoneField({
   error, errorMsg,
   dark = false,
   label,
+  id,
 }) {
   const [focused, setFocused] = useState(false);
   const country = COUNTRIES.find(c => c.dial === dial) || COUNTRIES[0];
@@ -161,7 +188,7 @@ export default function PhoneField({
   return (
     <div style={{ direction: 'ltr' }}>
       {label && (
-        <label style={{
+        <label htmlFor={id} style={{
           display: 'block',
           fontFamily: "'Ploni', sans-serif",
           fontSize: '14px',
@@ -223,12 +250,26 @@ export default function PhoneField({
 
         {/* Number input */}
         <input
+          id={id}
+          name="tel"
           type="tel"
           inputMode="numeric"
-          maxLength={country.max}
+          /* "tel" lets the phone offer the visitor's own number. Autofill is
+             cut to maxLength before onChange sees it, so the cap leaves room
+             for a country code; the digit count below still holds typing to
+             the country's real length. */
+          autoComplete="tel"
+          maxLength={country.max + 6}
           aria-label={`Phone number (${country.dial})`}
           value={local}
           onChange={e => {
+            const intl = splitInternational(e.target.value, dial);
+            if (intl) {
+              const c = COUNTRIES.find(x => x.dial === intl.dial) || country;
+              if (intl.dial !== dial) onDialChange(intl.dial);
+              onLocalChange(c.il ? maskIsraeli(intl.local) : intl.local.slice(0, c.maxD));
+              return;
+            }
             const raw = e.target.value.replace(/[^\d\s\-]/g, '');
             const digitCount = raw.replace(/\D/g, '').length;
             if (digitCount > country.maxD) return;

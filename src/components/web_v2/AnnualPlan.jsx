@@ -319,9 +319,9 @@ export default function AnnualPlan() {
   }
 
   usePageMeta({
-    title:         isRtl ? 'תוכנית שנתית | HighAir Expeditions' : tx("International Expedition Schedule | HighAir Expeditions"),
+    title:         isRtl ? 'תכנית שנתית | HighAir Expeditions' : tx("International Expedition Schedule | HighAir Expeditions"),
     description:   isRtl
-      ? 'כל המשלחות והטרקים המתוכננים של HighAir Expeditions לשנה הקרובה — קילימנג׳רו, אוורסט, אלברוס, אנאפורנה ועוד. בחרו תאריך והצטרפו אלינו!'
+      ? 'כל המשלחות והטרקים המתוכננים של HighAir Expeditions לשנה הקרובה: קילימנג׳רו, אוורסט בייס קמפ, אלברוס, אנאפורנה ועוד. בחרו תאריך והצטרפו אלינו!'
       : tx(
       "Upcoming international HighAir Expeditions departures, run in English with climbers from around the world. Pick a date and join us."
     ),

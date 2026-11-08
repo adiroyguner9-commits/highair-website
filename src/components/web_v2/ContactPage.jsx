@@ -45,6 +45,8 @@ function IconPhone() {
  );
 }
 
+/* What the phone may offer for this field (owner, 8 Nov 2026: autofill) */
+const AUTOFILL = { name: 'name', email: 'email' };
 function Field({ label, id, type = 'text', value, onChange, placeholder, multiline, required, error, errorMsg }) {
  const [focused, setFocused] = useState(false);
  const borderColor = error ? '#DC2626' : focused ? COLOR.primary : '#DDD9F3';
@@ -79,7 +81,7 @@ function Field({ label, id, type = 'text', value, onChange, placeholder, multili
  ? <textarea id={id} value={value} onChange={onChange} placeholder={placeholder}
  onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
  style={base} />
- : <input id={id} type={type} value={value} onChange={onChange} placeholder={placeholder}
+ : <input id={id} name={id} autoComplete={AUTOFILL[id]} type={type} value={value} onChange={onChange} placeholder={placeholder}
  onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
  style={base} />
  }
@@ -395,6 +397,7 @@ export default function ContactPage() {
 
    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
    <PhoneField
+   id="contact-phone"
    label={<>{T.phone}<span style={{ color: COLOR.primary }}> *</span></>}
    dial={form.dial}
    onDialChange={v => setForm(f => ({ ...f, dial: v }))}

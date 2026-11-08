@@ -209,7 +209,7 @@ const getWhyCards = (exp, isRtl) => {
     { icon: '🏬', title: '25% הנחה על ציוד ברשת ״פקל חגור״', desc: '' },
     { icon: '🥤', title: '25% הנחה על תוספי מזון בחנות ״פרו ראנר״', desc: '' },
     { icon: '🏔️', title: 'דף מידע לגבי מחלת גבהים והתמודדות איתה', desc: '' },
-    ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `מדריך להוצאה ויזה ל${country}`, desc: '' }] : []),
+    ...(exp?.continent !== 'europe' ? [{ icon: '📋', title: `מדריך להוצאת ויזה ל${country}`, desc: '' }] : []),
     { icon: '🤝', title: 'השתתפות בטיולי הקהילה שלנו', desc: '' },
     { icon: '📞', title: `ליווי 24/7 משלב ההכנה ובמהלך ה${activity}`, desc: '' },
   ];
@@ -2495,8 +2495,9 @@ export default function ExpeditionDetail() {
 
                   {/* שם מלא */}
                   <div>
-                    <label style={labelStyle}>{isRtl ? 'שם מלא *' : tx("Full Name *")}</label>
+                    <label htmlFor="lead-name" style={labelStyle}>{isRtl ? 'שם מלא *' : tx("Full Name *")}</label>
                     <input
+                      id="lead-name" name="name" autoComplete="name"
                       type="text" required value={form.name}
                       placeholder={isRtl ? 'ישראל ישראלי' : tx("John Smith")}
                       onFocus={() => trackFieldFocus('name')}
@@ -2513,9 +2514,10 @@ export default function ExpeditionDetail() {
 
                   {/* חודש */}
                   <div>
-                    <label style={labelStyle}>{isRtl ? 'באיזה חודש תרצו לטייל? *' : tx("Which month would you like to travel? *")}</label>
+                    <label htmlFor="lead-month" style={labelStyle}>{isRtl ? 'באיזה חודש תרצו לטייל? *' : tx("Which month would you like to travel? *")}</label>
                     {noDates ? (
                       <select
+                        id="lead-month" name="month"
                         required value={form.month}
                         aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
@@ -2529,6 +2531,7 @@ export default function ExpeditionDetail() {
                       </select>
                     ) : (
                       <select
+                        id="lead-month" name="month"
                         required value={form.month}
                         aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
@@ -2562,8 +2565,9 @@ export default function ExpeditionDetail() {
                   {/* גיל + כמות אנשים — a safari asks only for the number of people */}
                   <div style={{ display: 'grid', gridTemplateColumns: (isNarrow || isSafari) ? '1fr' : '1fr 1fr', gap: '16px' }}>
                     <div style={{ display: isSafari ? 'none' : undefined }}>
-                      <label style={labelStyle}>{isRtl ? 'גיל *' : tx("Age *")}</label>
+                      <label htmlFor="lead-age" style={labelStyle}>{isRtl ? 'גיל *' : tx("Age *")}</label>
                       <input
+                        id="lead-age" name="age" inputMode="numeric"
                         type="number" required={!isSafari} min="16" max="99"
                         placeholder="25"
                         value={form.age}
@@ -2587,8 +2591,9 @@ export default function ExpeditionDetail() {
                       )}
                     </div>
                     <div>
-                      <label style={labelStyle}>{isRtl ? 'כמות אנשים *' : tx("Number of People *")}</label>
+                      <label htmlFor="lead-group" style={labelStyle}>{isRtl ? 'כמות אנשים *' : tx("Number of People *")}</label>
                       <input
+                        id="lead-group" name="group-size" inputMode="numeric"
                         type="number" required min="1" max="10"
                         placeholder="1"
                         value={form.groupSize}
@@ -2607,6 +2612,7 @@ export default function ExpeditionDetail() {
                   {/* טלפון */}
                   <div onFocusCapture={() => trackFieldFocus('phone')}>
                     <PhoneField
+                      id="lead-phone"
                       label={isRtl ? 'מספר טלפון *' : tx("Phone Number *")}
                       dial={form.dial}
                       onDialChange={v => setForm(f => ({ ...f, dial: v }))}
@@ -2619,8 +2625,13 @@ export default function ExpeditionDetail() {
 
                   {/* מייל */}
                   <div>
-                    <label style={labelStyle}>{isRtl ? 'מייל *' : tx("Email *")}</label>
+                    <label htmlFor="lead-email" style={labelStyle}>{isRtl ? 'מייל *' : tx("Email *")}</label>
+                    {/* Kept type="text" so the browser adds no validation bubble of its
+                       own; inputMode brings the keyboard with @, autoComplete lets the
+                       phone offer the visitor's address (owner, 8 Nov 2026) */}
                     <input
+                      id="lead-email" name="email" autoComplete="email" inputMode="email"
+                      autoCapitalize="off" autoCorrect="off" spellCheck={false}
                       type="text" required
                       placeholder={isRtl ? 'example@walla.com' : tx("you@example.com")}
                       value={form.email}
@@ -2650,8 +2661,9 @@ export default function ExpeditionDetail() {
 
                   {/* ניסיון — not asked on a safari */}
                   <div style={{ display: isSafari ? 'none' : undefined }}>
-                    <label style={labelStyle}>{isRtl ? 'מה הניסיון שלכם בטרקים? *' : tx("What is your trekking experience? *")}</label>
+                    <label htmlFor="lead-experience" style={labelStyle}>{isRtl ? 'מה הניסיון שלכם בטרקים? *' : tx("What is your trekking experience? *")}</label>
                     <textarea
+                      id="lead-experience" name="experience"
                       rows={3} required={!isSafari} value={form.experience}
                       onFocus={() => trackFieldFocus('experience')}
                       onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}

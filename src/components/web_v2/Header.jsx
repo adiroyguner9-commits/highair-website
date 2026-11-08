@@ -976,17 +976,17 @@ export default function Header() {
  /* Magazine -> the blog, back in the header now that Israel + Safari are hidden (owner, 23 Oct 2026) */
  { key: 'news', href: '/blog', isPage: true },
  { key: 'about', href: '/about', isPage: true },
- /* Blog and Contact moved to the FOOTER (owner, Jul 30 2026): adding the
-    Safari heading left no room for them in the header. Both still live at
-    /blog and /contact, and the floating WhatsApp button covers urgent contact. */
+ /* Contact back in the header on every site (owner, 8 Nov 2026: "תכניס צור
+    קשר בתפריט"). It had moved to the footer on Jul 30 2026 only because the
+    Safari heading left no room; Safari and Israel are hidden now. */
+ { key: 'contact', href: '/contact', isPage: true },
  // { key: 'shop', href: '/shop', isPage: true }, // hidden until shop is ready
  ];
  /* German and Spanish carry the core pages and the magazine posts written for
-    them (lang.js, blogLangs.js); Contact is added to their menu. */
+    them (lang.js, blogLangs.js). */
  const PARTIAL = PARTIAL_LANGS.includes(i18n.language);
  const LINKS = (PARTIAL
    ? LINK_DEFS.filter(d => (d.key !== 'news' || hasPage(i18n.language, '/blog')) && d.key !== 'israelTrips')
-       .concat([{ key: 'contact', href: '/contact', isPage: true }])
    : LINK_DEFS).map(def => ({ ...def, label: t(`nav.${def.key}`) }));
 
  const closeMenu = () => setMenuOpen(false);
