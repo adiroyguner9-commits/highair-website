@@ -20,7 +20,7 @@ export const LINES = {
  '3 nights in a 4-star hotel in Kathmandu, single room, on B&B basis': ['3 Nächte in einem 4-Sterne-Hotel in Kathmandu, Einzelzimmer mit Frühstück', '3 noches en un hotel de 4 estrellas en Katmandú, habitación individual con desayuno'],
  '3 oxygen bottles per climber including mask': ['3 Sauerstoffflaschen pro Teilnehmer inklusive Maske', '3 botellas de oxígeno por montañero, con mascarilla'],
  '4 nights in a 4-star hotel in Kathmandu, single room, on B&B basis': ['4 Nächte in einem 4-Sterne-Hotel in Kathmandu, Einzelzimmer mit Frühstück', '4 noches en un hotel de 4 estrellas en Katmandú, habitación individual con desayuno'],
- '4x4 jeep with open roof (up to 4 seats)': ['4x4-Jeep mit offenem Dach (bis 4 Plätze)', 'Jeep 4x4 con techo abierto (hasta 4 plazas)'],
+ '4x4 jeep with A/C (up to 4 seats)': ['4x4-Jeep mit Klimaanlage (bis 4 Plätze)', 'Jeep 4x4 con aire acondicionado (hasta 4 plazas)'],
  '6 nights in 4-star hotels on full board': ['6 Nächte in 4-Sterne-Hotels mit Vollpension', '6 noches en hoteles de 4 estrellas con pensión completa'],
  'A boat ride on Lake Komani': ['Eine Bootsfahrt auf dem Komani-See', 'Un paseo en barco por el lago Komani'],
  'A canyoning day at the Orlias River': ['Ein Canyoning-Tag am Fluss Orlias', 'Un día de barranquismo en el río Orlias'],
