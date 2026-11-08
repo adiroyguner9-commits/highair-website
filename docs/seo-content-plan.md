@@ -91,7 +91,7 @@ then the Nepal comparison (#4); #34 added at the end.
 | 32 | ready | טרק רכס הסקארדוס: המדריך המלא | written, waits for the trip to launch (teaser): docs/drafts/scardus-ridge-trek-guide.mjs | scardus |
 | 26 | live | משלחת למנסלו: המדריך המלא | our 8,000 m expedition, no Hebrew guide | manaslu |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
-| 33 | todo | ויזה לנפאל: המדריך המלא | the Tanzania visa guide is our most-seen guide in GSC (147 impressions, week to 5 Nov 2026); Hebrew answers for a Nepal visa are old forum tips; 10 of our trips start in Kathmandu | everest-base-camp, annapurna, manaslu-circuit, mera-peak |
+| 33 | in review (branch seo-nepal-visa) | ויזה לנפאל: המדריך המלא | the Tanzania visa guide is our most-seen guide in GSC (147 impressions, week to 5 Nov 2026); Hebrew answers for a Nepal visa are old forum tips; 10 of our trips start in Kathmandu | everest-base-camp, annapurna, manaslu-circuit, mera-peak |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
 | 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 7 | todo | מתי הכי טוב לטפס על הקילימנג'רו: עונות לפי חודשים | only English season calendars rank | kilimanjaro |
