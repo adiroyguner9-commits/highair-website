@@ -115,7 +115,7 @@ export default async function handler(req, res) {
     fields[F.notes] = `תאריך: ${String(tripDate).slice(0, 50)}`;
   }
 
-  console.log('[israel-lead] Lead:', cleanName, '|', cleanTripName, '|', pkg?.label || 'no package');
+  console.log('[israel-lead] Lead:', cleanTripName, '|', pkg?.label || 'no package');
 
   /* ── 1. Write to Airtable ── */
   let recordId = null;

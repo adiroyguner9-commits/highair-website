@@ -200,7 +200,7 @@ export default async function handler(req, res) {
   if (clean(a.gclid))        lines.push(`gclid: ${clean(a.gclid)}`);
   if (lines.length) airtableFields['Attribution'] = lines.join('\n').slice(0, 2000);
 
-  console.log('[submit-lead] Lead:', sanitised['Name'], '|', sanitised['Expedition'] || sanitised['Source']);
+  console.log('[submit-lead] Lead:', sanitised['Expedition'] || sanitised['Source']);
 
   const LEADS_URL = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Website Leads')}`;
 
@@ -214,7 +214,7 @@ export default async function handler(req, res) {
         succeed (no create, no dedupe-append, no webhooks) so the form still
         shows a normal success to whoever submitted it. ── */
   if (last9.length === 9 && (await blockedLast9(BASE, TOKEN)).has(last9)) {
-    console.log('[submit-lead] blocklisted number, ignored:', airtableFields['Phone']);
+    console.log('[submit-lead] blocklisted number, ignored: …' + String(airtableFields['Phone'] || '').replace(/\D/g, '').slice(-3));
     return res.status(200).json({ ok: true, blocked: true });
   }
 
