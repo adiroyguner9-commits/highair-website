@@ -64,6 +64,8 @@ where HighAir has something nobody else answers well in Hebrew, then where only 
 Reordered 24 Oct 2026 (owner: content on EVERY destination): one full guide per destination first,
 season-led (winter destinations and Nepal spring before summer peaks), then the cross-destination topics.
 The agent takes the first `todo` row in TABLE order (the # column is only an id).
+Reordered 8 Nov 2026 by the keyword planner (GSC email of 08/11): cost first (#3), then the Nepal visa guide (#33, new),
+then the Nepal comparison (#4); #34 added at the end.
 
 | # | Status | Topic (Hebrew working title) | Why | Links to |
 |---|--------|------------------------------|-----|----------|
@@ -88,17 +90,19 @@ The agent takes the first `todo` row in TABLE order (the # column is only an id)
 | 31 | live | טיפוס ללובוצ׳ה פיק: המדריך המלא | technical 6,119 m in the Khumbu, English results only | lobuche-peak |
 | 32 | ready | טרק רכס הסקארדוס: המדריך המלא | written, waits for the trip to launch (teaser): docs/drafts/scardus-ridge-trek-guide.mjs | scardus |
 | 26 | live | משלחת למנסלו: המדריך המלא | our 8,000 m expedition, no Hebrew guide | manaslu |
-| 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 3 | todo | כמה עולה טיפוס לקילימנג'רו ב-2026-27: פירוק מלא של העלויות | Hebrew answers are old forum posts | kilimanjaro, kilimanjaro-kosher |
+| 33 | todo | ויזה לנפאל: המדריך המלא | the Tanzania visa guide is our most-seen guide in GSC (147 impressions, week to 5 Nov 2026); Hebrew answers for a Nepal visa are old forum tips; 10 of our trips start in Kathmandu | everest-base-camp, annapurna, manaslu-circuit, mera-peak |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
+| 2 | todo | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
+| 7 | todo | מתי הכי טוב לטפס על הקילימנג'רו: עונות לפי חודשים | only English season calendars rank | kilimanjaro |
 | 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
 | 15 | todo | אלברוס, קזבק או קילימנג'רו: איזו פסגה ראשונה מתאימה לך | only English comparisons rank | elbrus, kazbek, kilimanjaro |
 | 5 | todo | מחלת גבהים וביטוח מעל 4,000 ו-6,000 מטר: מה חייבים לדעת | no Hebrew source covers insurance at altitude | kilimanjaro, everest-base-camp, mera-peak, aconcagua |
 | 6 | todo | תוכנית אימונים של 12 שבועות לטרק בגובה, במסלולים בישראל | no week-by-week Hebrew plan | kilimanjaro, everest-base-camp |
-| 7 | todo | מתי הכי טוב לטפס על הקילימנג'רו: עונות לפי חודשים | only English season calendars rank | kilimanjaro |
 | 16 | todo | רשימת ציוד לטרק בגובה ולטיפוס לקילימנג'רו | competitors rank with lists | kilimanjaro, everest-base-camp |
 | 17 | todo | הטרק הראשון שלי בחו"ל: איך בוחרים יעד לפי כושר וניסיון | first-trek intent, listicles rank | treks, climbs |
 | 20 | todo | מה לשאול חברת טרקים לפני שנרשמים | "חברת טרקים מומלצת" is listicles | treks, climbs |
+| 34 | todo | חיסונים והכנה רפואית לטרק בנפאל: המדריך המלא | the Tanzania vaccinations guide gets impressions (67, week to 5 Nov 2026); Hebrew results for Nepal are old forum posts | everest-base-camp, annapurna, manaslu-circuit |
 
 ## Keyword targets
 
@@ -107,6 +111,19 @@ One row per query we want to rank for; `GSC` = average position and clicks in th
 
 | Query | Page that should rank | GSC (date) | Next step |
 |-------|-----------------------|------------|-----------|
+| ויזה לטנזניה | /blog/tanzania-visa-guide | 6.8, 0 clicks, 39 impr (08/11) | fix waits for approval: branch seo-fix-tz-visa |
+| ויזה לזנזיבר | /blog/tanzania-visa-guide | 8.5, 0 clicks, 19 impr (08/11) | Zanzibar section in the same fix |
+| אוורסט בייס קמפ | /expedition/everest-base-camp, /blog/everest-base-camp-trek-guide | 7.4, 4 clicks, 38 impr (08/11) | next quick win: guide opening, title and excerpt |
+| טרק האוורסט בייס קמפ | /blog/everest-base-camp-trek-guide | 7.1, 1 click, 11 impr (08/11) | same fix as above |
+| בייס קמפ אוורסט | /blog/everest-base-camp-trek-guide | 6.0, 0 clicks, 11 impr (08/11) | same fix as above |
+| הר לנין | /blog/lenin-peak-climbing-guide, /expedition/lenin-peak | 4.5, 1 click, 110 impr (08/11) | most impressions of any generic query; check in GSC which page ranks, then improve its snippet |
+| טיפוס לקילימנג'רו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 7.5, 0 clicks, 13 impr (08/11) | guide averages 15.6; strengthen its opening and links |
+| טיפוס קילימנג'רו | /expedition/kilimanjaro | 4.3, 0 clicks, 10 impr (08/11) | snippet (title, description) of the trip page |
+| כמה עולה טיפוס לקילימנג'רו | new guide (#3) | "קילימנג רו טרק מחיר": 1.0, 1 click, 3 impr (08/11) | write #3 (first in the queue) |
+| סובב אנאפורנה | /blog/annapurna-circuit-trek-guide | 6.5 (13.0 a week before), 0 clicks, 13 impr (08/11) | watch; rising |
+| מנסלו | /expedition/manaslu, /blog/manaslu-expedition-guide | 11.8, 1 click, 25 impr (08/11) | strengthen the guide's opening |
+| חיסונים לטנזניה | /blog/tanzania-vaccinations-guide | 8.7, 0 clicks, 11 impr (08/11) | watch |
+| הר קזבק | /blog/kazbek-climbing-guide | 9.0, 0 clicks, 7 impr (08/11) | watch |
 
 ## Weekly visibility probe queries
 
