@@ -34,6 +34,7 @@ import {
   YELLOW_BELOW, RED_BELOW, MIN_WEEK_DAYS, OUTAGE_KEY,
   parseHistory, dayEntry, addDay, findRegressions, measurementDown,
   daysThisWeek, weeklyRows, weeklyStatus,
+  FIELD_GOOD, FIELD_POOR, fieldFrom, addField, fieldStatus,
 } from './_lib/speed-trend.js';
 
 const SITE = 'https://www.highair-expeditions.com';
@@ -82,6 +83,9 @@ async function pagespeed(url, strategy, key) {
       cls:   lh.audits?.['cumulative-layout-shift']?.displayValue || 'n/a',
       tbt:   lh.audits?.['total-blocking-time']?.displayValue || 'n/a',
       lcpMs: num('largest-contentful-paint'),
+      /* Real Chrome visitors on this device type (see _lib/speed-trend.js fieldFrom). */
+      field:  fieldFrom(j.loadingExperience),
+      origin: fieldFrom(j.originLoadingExperience),
     };
   } catch (e) {
     return { error: `${e.name}: ${e.message}` };
@@ -166,8 +170,53 @@ const textCell = t => t == null ? blank
   : `<td style="padding:6px 8px;font-size:12px;color:#6B6B8A;direction:ltr;text-align:right;">${esc(t)}</td>`;
 const head = t => `<td style="padding:8px;font-size:12px;color:#6B6B8A;font-weight:700;">${esc(t)}</td>`;
 
-function weeklyHtml(rows, status, dd) {
-  const statusColor = status === 'תקלה' ? '#B91C1C' : status === 'שים לב' ? '#B45309' : '#166534';
+/* Green under Google's good line, orange up to its poor line, red past it. */
+const fieldColor = (v, k) => v == null ? '#9591B0' : v <= FIELD_GOOD[k] ? '#166534' : v <= FIELD_POOR[k] ? '#B45309' : '#B91C1C';
+const secs = ms => `${(ms / 1000).toFixed(1)}s`;
+const FIELD_METRICS = [
+  { k: 'lcp',  label: 'טעינה (LCP)',          show: secs,               line: '≤ 2.5s' },
+  { k: 'inp',  label: 'תגובה ללחיצה (INP)',   show: v => `${v}ms`,      line: '≤ 200ms' },
+  { k: 'cls',  label: 'יציבות העמוד (CLS)',   show: v => v.toFixed(2),  line: '≤ 0.1' },
+  { k: 'fcp',  label: 'תוכן ראשון (FCP)',     show: secs,               line: '≤ 1.8s' },
+  { k: 'ttfb', label: 'תגובת השרת (TTFB)',    show: secs,               line: '≤ 0.8s' },
+];
+const statusColor = st => st === 'תקלה' ? '#B91C1C' : st === 'שים לב' ? '#B45309' : '#166534';
+
+/* The real-visitor section: the whole site on phones and on desktop, last
+   week's phone numbers beside them, then any page Google judges on its own. */
+function fieldHtml(field, prev, dd) {
+  const site = field?.site || {};
+  if (!site.mobile && !site.desktop) {
+    return `<p style="margin:0 0 20px;font-size:12px;color:#6B6B8A;line-height:1.6;">Google עדיין לא החזירה נתוני גולשים אמיתיים בשבוע הזה, אז הסטטוס נקבע לפי הסימולציה שלמטה.</p>`;
+  }
+  const val = (f, m) => {
+    const v = f?.[m.k];
+    return v == null ? blank
+      : `<td style="padding:6px 8px;font-size:13px;color:${fieldColor(v, m.k)};font-weight:700;direction:ltr;text-align:right;">${esc(m.show(v))}</td>`;
+  };
+  const row = m => `<tr style="border-top:1px solid #ECEAF8;">
+    <td style="padding:6px 8px;font-size:13px;color:#1e1b4b;font-weight:600;">${esc(m.label)}</td>
+    ${val(site.mobile, m)}${prev?.mobile ? val(prev.mobile, m) : blank}${val(site.desktop, m)}
+    ${textCell(m.line)}
+  </tr>`;
+  /* Kept from an earlier day when today's run brought none: say from when. */
+  const measured = field.d ? `${field.d.slice(8, 10)}/${field.d.slice(5, 7)}` : '';
+  const asOf = measured && measured !== dd ? ` (נמדד ${measured})` : '';
+  const share = site.mobile?.lcpGood != null ? `${site.mobile.lcpGood}% מהטעינות בטלפון נטענו תוך 2.5 שניות. ` : '';
+  const pages = Object.entries(field.pages || {}).map(([path, f]) => ({ label: PAGES.find(x => x.path === path)?.label || path, f }));
+  const pagesLine = pages.length
+    ? `<p style="margin:8px 0 0;font-size:12px;color:#6B6B8A;line-height:1.6;">עמודים ש-Google מודדת בנפרד, בטלפון: ${pages.map(({ label, f }) => `${esc(label)} ${esc(secs(f.lcp))} (${f.pass ? 'עובר' : 'לא עובר'})`).join(' · ')}</p>`
+    : '';
+  return `
+    <p style="margin:0 0 8px;font-size:14px;color:#1e1b4b;font-weight:700;">אצל גולשים אמיתיים, כל האתר${esc(asOf)}</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
+      <tr style="background:#F5F0FF;">${head('מדד')}${head('טלפון')}${head('טלפון, שבוע קודם')}${head('מחשב')}${head('הקו של Google')}</tr>
+      ${FIELD_METRICS.map(row).join('')}
+    </table>
+    <p style="margin:12px 0 0;font-size:11px;color:#9591B0;line-height:1.6;">${esc(share)}Google מסכמת 28 ימים של ביקורים אמיתיים בכרום, וכל מספר הוא הערך ש-3 מכל 4 ביקורים עמדו בו או טוב ממנו. לפי זה Google מדרגת. ירוק עומד בקו של Google, כתום צריך שיפור, אדום חלש. לכל עמוד לחוד יש עדיין מעט מדי ביקורים כדי ש-Google תמדוד אותו, ולכן המספרים הם של האתר כולו. מקף: אין מספיק נתונים.</p>${pagesLine}`;
+}
+
+function weeklyHtml(rows, status, dd, field, prev, fromField) {
   const row = r => `<tr style="border-top:1px solid #ECEAF8;">
     <td style="padding:6px 8px;font-size:13px;color:#1e1b4b;font-weight:600;">${esc(r.label)}</td>
     ${scoreCell(r.mobile)}${scoreCell(r.prev)}
@@ -176,12 +225,15 @@ function weeklyHtml(rows, status, dd) {
     ${textCell(r.lcp == null ? null : `${(r.lcp / 1000).toFixed(1)}s`)}
   </tr>`;
   return shell('דוח מהירות שבועי', dd, `
-    <div style="text-align:center;margin-bottom:20px;"><span style="display:inline-block;padding:8px 24px;border-radius:999px;background:${statusColor};color:#fff;font-size:16px;font-weight:700;">${esc(status)}</span></div>
+    <div style="text-align:center;margin-bottom:8px;"><span style="display:inline-block;padding:8px 24px;border-radius:999px;background:${statusColor(status)};color:#fff;font-size:16px;font-weight:700;">${esc(status)}</span></div>
+    <p style="margin:0 0 20px;text-align:center;font-size:12px;color:#6B6B8A;">${fromField ? 'לפי Google, מגולשים אמיתיים בטלפון ב-28 הימים האחרונים' : 'לפי הסימולציה של Google (אין עדיין נתוני גולשים)'}</p>
+    ${fieldHtml(field, prev, dd)}
+    <p style="margin:24px 0 8px;font-size:14px;color:#1e1b4b;font-weight:700;">סימולציה של Google לכל עמוד: טלפון איטי ברשת איטית</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ECEAF8;border-radius:12px;overflow:hidden;">
       <tr style="background:#F5F0FF;">${head('עמוד')}${head('מובייל')}${head('שבוע קודם')}${head('טווח')}${head('דסקטופ')}${head('LCP')}</tr>
       ${rows.map(row).join('')}
     </table>
-    <p style="margin:16px 0 0;font-size:11px;color:#9591B0;line-height:1.6;">כל מספר הוא חציון של 7 ימים, כי ריצה בודדת קופצת בכ-20 נקודות על אותו קוד. ירוק 80+, כתום 60-79, אדום מתחת ל-60. הסטטוס נקבע לפי העמוד הנמוך במובייל.</p>`);
+    <p style="margin:12px 0 0;font-size:11px;color:#9591B0;line-height:1.6;">Google טוענת כל עמוד פעם ביום על המחשבים שלה, כאילו מטלפון אנדרואיד בינוני ישן ברשת 4G איטית, ונותנת ציון 0-100. אלה לא גולשים אמיתיים: זה מחמיר הרבה יותר ממה שהגולשים חווים, ומשמש לאיתור עמוד שמשהו בו כבד. כל מספר הוא חציון של 7 ימים, כי ריצה בודדת קופצת בכ-20 נקודות על אותו קוד. ירוק 80+, כתום 60-79, אדום מתחת ל-60.</p>`);
 }
 
 function alertHtml(regressions, dd) {
@@ -247,6 +299,7 @@ export default async function handler(req, res) {
   }
   const { ymd } = israelNow();
   let history = addDay(stored.history, dayEntry(ymd, rows));
+  history = addField(history, ymd, rows);
   const dd = `${ymd.slice(8, 10)}/${ymd.slice(5, 7)}`;
 
   /* An alert goes the day a drop is confirmed. It is marked only after it left,
@@ -279,9 +332,14 @@ export default async function handler(req, res) {
   let status = null;
   if (RESEND_KEY && enough && (forced || (sunday && history.weekly !== ymd))) {
     const table = weeklyRows(history, PAGES, ymd);
-    status = weeklyStatus(table);
-    weekly = await sendMail(RESEND_KEY, `HighAir - דוח מהירות שבועי (${dd}): ${status}`, weeklyHtml(table, status, dd));
-    if (weekly) history = { ...history, weekly: ymd };
+    /* Real visitors decide the status when Google has numbers (owner, 8 Nov
+       2026); the lab median only when it has none. */
+    const real = fieldStatus(history.field);
+    status = real || weeklyStatus(table);
+    weekly = await sendMail(RESEND_KEY, `HighAir - דוח מהירות שבועי (${dd}): ${status}`,
+      weeklyHtml(table, status, dd, history.field, history.fieldSent, !!real));
+    /* Last week's phone numbers for next Sunday's comparison. */
+    if (weekly) history = { ...history, weekly: ymd, ...(history.field?.site && { fieldSent: history.field.site }) };
   }
 
   const saved = await saveHistory(BASE, TOKEN, stored.id, history);

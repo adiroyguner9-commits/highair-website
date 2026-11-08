@@ -47,8 +47,10 @@ export function parseHistory(raw) {
       days: Array.isArray(h?.days) ? h.days : [],
       alerted: h?.alerted && typeof h.alerted === 'object' ? h.alerted : {},
       weekly: typeof h?.weekly === 'string' ? h.weekly : '',
+      field: h?.field && typeof h.field === 'object' ? h.field : null,
+      fieldSent: h?.fieldSent && typeof h.fieldSent === 'object' ? h.fieldSent : null,
     };
-  } catch { return { days: [], alerted: {}, weekly: '' }; }
+  } catch { return { days: [], alerted: {}, weekly: '', field: null, fieldSent: null }; }
 }
 
 /* One day's measurements, the shape kept in AppContent. A page PSI failed on is
@@ -129,4 +131,69 @@ export function weeklyStatus(rows) {
   const worst = Math.min(...known);
   if (worst < RED_BELOW) return 'תקלה';
   return worst < YELLOW_BELOW ? 'שים לב' : 'תקין';
+}
+
+/* ── Real visitors (owner, 8 Nov 2026: "the most correct numbers, in the report") ──
+   The scores above are Lighthouse in a lab: one simulated slow phone on a slow
+   4G line, from Google's servers, and noisy. The same PageSpeed answer also
+   carries Google's own numbers from real Chrome visitors (the Chrome UX Report):
+   the value 3 of every 4 page loads met or beat, over the last 28 days. That is
+   what Google ranks on, so the report leads with it.
+   Measured 8 Nov 2026: Google has too few visits to judge any single page, so
+   the numbers are the whole site (origin). Phones 83% of loads: LCP 1.8 s (85%
+   of loads good), INP 130 ms, CLS 0, FCP 1.5 s, TTFB 0.7 s, "Passed"; desktop
+   LCP 1.6 s. Over 2026 the phone LCP sat at 2.2-2.36 s from May to September and
+   came down to 1.8 s after the October speed work, while the lab gave pages 54
+   to 79 and an LCP of 4 to 13 s. It moves slowly (28 days), so the latest answer
+   is kept, not a median. */
+export const FIELD_GOOD = { lcp: 2500, inp: 200, cls: 0.1, fcp: 1800, ttfb: 800 };   // Google's "good" lines
+export const FIELD_POOR = { lcp: 4000, inp: 500, cls: 0.25, fcp: 3000, ttfb: 1800 }; // and its "poor" lines
+
+/** Real-visitor numbers from a PageSpeed loadingExperience (one page, or the
+    whole site from originLoadingExperience), or null when Google has too few
+    visits for it (a page with no data of its own comes back as the site's,
+    origin_fallback, and is not dressed up as the page). */
+export function fieldFrom(le) {
+  if (!le || typeof le !== 'object' || le.origin_fallback || !le.metrics) return null;
+  const m = le.metrics;
+  const p = k => (typeof m[k]?.percentile === 'number' ? m[k].percentile : null);
+  const lcp = p('LARGEST_CONTENTFUL_PAINT_MS');
+  if (lcp == null) return null;
+  const inp = p('INTERACTION_TO_NEXT_PAINT');
+  const clsX100 = p('CUMULATIVE_LAYOUT_SHIFT_SCORE');   // PageSpeed sends CLS times 100
+  const cls = clsX100 == null ? null : clsX100 / 100;
+  const fcp = p('FIRST_CONTENTFUL_PAINT_MS');
+  const ttfb = p('EXPERIMENTAL_TIME_TO_FIRST_BYTE');
+  /* Share of page loads under the good line, from the first bucket. */
+  const good = m.LARGEST_CONTENTFUL_PAINT_MS?.distributions?.[0]?.proportion;
+  /* Google's test: every Core Web Vital it has data for is under its good line. */
+  const pass = lcp <= FIELD_GOOD.lcp && (inp == null || inp <= FIELD_GOOD.inp) && (cls == null || cls <= FIELD_GOOD.cls);
+  const poor = lcp > FIELD_POOR.lcp || (inp != null && inp > FIELD_POOR.inp) || (cls != null && cls > FIELD_POOR.cls);
+  return { lcp, inp, cls, fcp, ttfb, lcpGood: typeof good === 'number' ? Math.round(good * 100) : null, pass, poor };
+}
+
+/** Today's real-visitor numbers into the history: the whole site on phones and
+    on desktop, and any page Google can judge on its own. A run where PageSpeed
+    gave none (it failed, or had no data) keeps the last ones instead of wiping them. */
+export function addField(history, ymd, rows) {
+  const site = { mobile: null, desktop: null };
+  for (const r of rows) for (const k of ['mobile', 'desktop']) site[k] ||= r[k]?.origin || null;
+  const pages = {};
+  for (const r of rows) if (r.mobile?.field) pages[r.path] = r.mobile.field;
+  if (!site.mobile && !site.desktop && !Object.keys(pages).length) return history;
+  const last = history.field || {};
+  return { ...history, field: {
+    d: ymd,
+    site: { mobile: site.mobile || last.site?.mobile || null, desktop: site.desktop || last.site?.desktop || null },
+    pages,
+  } };
+}
+
+/** The weekly status from real visitors on phones (83% of loads), Google's own
+    verdict: good when it passes, a fault when a metric is in the poor range.
+    null when Google has no numbers, and then the lab status stands. */
+export function fieldStatus(field) {
+  const m = field?.site?.mobile;
+  if (!m) return null;
+  return m.pass ? 'תקין' : m.poor ? 'תקלה' : 'שים לב';
 }

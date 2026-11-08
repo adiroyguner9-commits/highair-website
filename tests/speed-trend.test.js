@@ -4,7 +4,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import {
   median, parseHistory, addDay, dayEntry, findRegressions, measurementDown,
-  weeklyRows, weeklyStatus, KEEP_DAYS,
+  weeklyRows, weeklyStatus, KEEP_DAYS, fieldFrom, addField, fieldStatus,
 } from '../api/_lib/speed-trend.js';
 
 process.env.CRON_SECRET = 'cron-secret';
@@ -106,15 +106,63 @@ describe('storage', () => {
   });
 });
 
+/* What PageSpeed sent on 8 Nov 2026 for the whole site on phones (originLoadingExperience).
+   The home page itself had too few visits: origin_fallback. */
+const SITE_LE = { id: 'https://www.highair-expeditions.com', overall_category: 'FAST', metrics: {
+  LARGEST_CONTENTFUL_PAINT_MS: { percentile: 1800, category: 'FAST', distributions: [{ min: 0, max: 2500, proportion: 0.85 }, { min: 2500, max: 4000, proportion: 0.08 }, { min: 4000, proportion: 0.07 }] },
+  INTERACTION_TO_NEXT_PAINT:   { percentile: 130,  category: 'FAST' },
+  CUMULATIVE_LAYOUT_SHIFT_SCORE: { percentile: 0,  category: 'FAST' },
+  FIRST_CONTENTFUL_PAINT_MS:   { percentile: 1500, category: 'FAST' },
+  EXPERIMENTAL_TIME_TO_FIRST_BYTE: { percentile: 700, category: 'FAST' },
+} };
+const PAGE_LE = { ...SITE_LE, id: 'https://www.highair-expeditions.com/', origin_fallback: true };
+const SITE = { lcp: 1800, inp: 130, cls: 0, fcp: 1500, ttfb: 700, lcpGood: 85, pass: true, poor: false };
+
+describe('real visitors (Chrome UX Report)', () => {
+  it('reads the 75th percentiles, CLS sent times 100, the good share and Google\'s pass', () => {
+    expect(fieldFrom(SITE_LE)).toEqual(SITE);
+    const slow = { metrics: { ...SITE_LE.metrics, LARGEST_CONTENTFUL_PAINT_MS: { percentile: 3100 }, CUMULATIVE_LAYOUT_SHIFT_SCORE: { percentile: 12 } } };
+    expect(fieldFrom(slow)).toMatchObject({ lcp: 3100, cls: 0.12, lcpGood: null, pass: false, poor: false });
+    expect(fieldFrom({ metrics: { LARGEST_CONTENTFUL_PAINT_MS: { percentile: 4200 } } })).toMatchObject({ pass: false, poor: true });
+  });
+  it('a page Google has no visits for is not dressed up as the site', () => {
+    expect(fieldFrom(PAGE_LE)).toBe(null);
+    expect(fieldFrom(undefined)).toBe(null);
+    expect(fieldFrom({ metrics: {} })).toBe(null);
+  });
+  it('passes on what Google has: no INP data does not fail the site', () => {
+    const { INTERACTION_TO_NEXT_PAINT, ...rest } = SITE_LE.metrics;
+    expect(fieldFrom({ metrics: rest })).toMatchObject({ inp: null, pass: true });
+  });
+  it('keeps the whole site per device, and the last numbers when a run brings none', () => {
+    const h = { days: [], alerted: {}, weekly: '', field: null };
+    const rows = [{ path: '/', mobile: { field: null, origin: SITE }, desktop: { field: null, origin: { ...SITE, lcp: 1600 } } }];
+    const one = addField(h, '2026-11-08', rows);
+    expect(one.field).toEqual({ d: '2026-11-08', site: { mobile: SITE, desktop: { ...SITE, lcp: 1600 } }, pages: {} });
+    expect(addField(one, '2026-11-09', [{ path: '/', mobile: { error: 'HTTP 429' }, desktop: { error: 'HTTP 429' } }])).toBe(one);
+    const half = addField(one, '2026-11-10', [{ path: '/', mobile: { origin: { ...SITE, lcp: 1700 } }, desktop: { error: 'x' } }]);
+    expect(half.field.site.desktop.lcp).toBe(1600);
+    expect(half.field.site.mobile.lcp).toBe(1700);
+    expect(parseHistory(JSON.stringify(one)).field).toEqual(one.field);
+  });
+  it('Google\'s verdict on phones is the status', () => {
+    expect(fieldStatus({ site: { mobile: SITE } })).toBe('תקין');
+    expect(fieldStatus({ site: { mobile: { ...SITE, pass: false } } })).toBe('שים לב');
+    expect(fieldStatus({ site: { mobile: { ...SITE, pass: false, poor: true } } })).toBe('תקלה');
+    expect(fieldStatus({ site: { mobile: null, desktop: SITE } })).toBe(null);
+    expect(fieldStatus(null)).toBe(null);
+  });
+});
+
 describe('the cron', () => {
-  let stored, mails, patches, psiScore, readFails;
-  const psi = () => new Response(JSON.stringify({ lighthouseResult: {
+  let stored, mails, patches, psiScore, readFails, siteLE;
+  const psi = () => new Response(JSON.stringify({ loadingExperience: PAGE_LE, originLoadingExperience: siteLE, lighthouseResult: {
     categories: { performance: { score: psiScore / 100 } },
     audits: { 'largest-contentful-paint': { displayValue: '5 s', numericValue: 5000 }, 'cumulative-layout-shift': { displayValue: '0' }, 'total-blocking-time': { displayValue: '200 ms' } },
   } }), { status: 200 });
 
   beforeEach(() => {
-    stored = null; mails = []; patches = []; psiScore = 74; readFails = false;
+    stored = null; mails = []; patches = []; psiScore = 74; readFails = false; siteLE = SITE_LE;
     vi.useFakeTimers({ toFake: ['Date'] });
     vi.stubGlobal('fetch', async (url, init = {}) => {
       const u = String(url);
@@ -151,15 +199,35 @@ describe('the cron', () => {
     expect(JSON.parse(patches[0].fields.Value).days[0].p['/'].m).toBe(74);
   });
 
-  it('Sunday sends the weekly report from stored days', async () => {
+  it('Sunday sends the weekly report, real visitors first and deciding the status', async () => {
+    stored = historyOf('2026-11-07', [70, 72, 74, 76, 78]);
+    const r = await run('2026-11-08T05:00:00Z');
+    expect(r.body).toMatchObject({ weekly: true, status: 'תקין' });
+    expect(mails).toHaveLength(1);
+    expect(mails[0].subject).toBe('HighAir - דוח מהירות שבועי (08/11): תקין');
+    expect(mails[0].to).toEqual(['info@highair-expeditions.com']);
+    expect(patches[0].method).toBe('PATCH');
+    const saved = JSON.parse(patches[0].fields.Value);
+    expect(saved.weekly).toBe('2026-11-08');
+    expect(saved.field.site.mobile).toEqual(SITE);
+    expect(saved.field.pages).toEqual({});             // no page has data of its own
+    expect(saved.fieldSent.mobile).toEqual(SITE);      // next Sunday compares to this
+    const html = mails[0].html;
+    expect(html).toContain('לפי Google, מגולשים אמיתיים בטלפון');
+    expect(html.indexOf('אצל גולשים אמיתיים, כל האתר')).toBeLessThan(html.indexOf('סימולציה של Google לכל עמוד'));
+    expect(html).toContain('1.8s');
+    expect(html).toContain('85% מהטעינות בטלפון');
+    expect(html).not.toContain('נמדד');
+  });
+
+  it('without real-visitor numbers the lab median decides, and says so', async () => {
+    siteLE = undefined;
     stored = historyOf('2026-11-07', [70, 72, 74, 76, 78]);
     const r = await run('2026-11-08T05:00:00Z');
     expect(r.body).toMatchObject({ weekly: true, status: 'שים לב' });
-    expect(mails).toHaveLength(1);
     expect(mails[0].subject).toBe('HighAir - דוח מהירות שבועי (08/11): שים לב');
-    expect(mails[0].to).toEqual(['info@highair-expeditions.com']);
-    expect(patches[0].method).toBe('PATCH');
-    expect(JSON.parse(patches[0].fields.Value).weekly).toBe('2026-11-08');
+    expect(mails[0].html).toContain('לפי הסימולציה של Google');
+    expect(mails[0].html).toContain('Google עדיין לא החזירה נתוני גולשים');
   });
 
   it('Sunday stays quiet with too few days, and never sends twice', async () => {
