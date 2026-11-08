@@ -71,8 +71,11 @@ describe('pre-hero lifecycle', () => {
       '<Suspense fallback={<BootFallback />}>');
   });
 
-  it('the first render waits for the pre-hero image to be on screen, never longer than 800ms', () => {
-    has('src/main.jsx', 'Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(', 'setTimeout(r, 800)', "const box = BOOT_HTML && bootPre.querySelector('.h')");
+  /* 8 Nov 2026: lab Chrome can hold its first frames 1-2s after the image is
+     ready; the swap then waits for the first recorded paint, at most 3s more */
+  it('the first render waits for the pre-hero image (800ms at most), then for its first paint (3s at most)', () => {
+    has('src/main.jsx', 'Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(', 'wait(800)', 'wait(3000)',
+      "type: 'largest-contentful-paint', buffered: true", "document.visibilityState === 'hidden'", "const box = BOOT_HTML && bootPre.querySelector('.h')");
   });
 
   it('the homepage copy hides itself before the body on every other route', () => {

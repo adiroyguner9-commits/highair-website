@@ -149,16 +149,30 @@ function BootFallback() {
    3s in 2 of 3 live runs (24 Oct 2026). On a real phone the 20-130KB image
    beats the ~1.2MB of code by seconds anyway. So the first render waits until
    the pre-hero's image is on screen, at most 800ms; without a visible
-   pre-hero it renders at once. */
+   pre-hero it renders at once.
+   Chrome can also hold its first frames for one or two seconds after the
+   image is ready (Lighthouse traces, 8 Nov 2026: no frame from 0.26s to 1.47s
+   with the image decoded at 0.59s). The 800ms cap then ran out before any
+   frame, React swapped the pre-hero, and /treks measured ~10s on 5 of 8 days.
+   So once the image is ready, the swap waits for the browser to record the
+   first paint, at most 3s more. A hidden tab paints nothing: it renders at once. */
 function preHeroOnScreen() {
   const box = BOOT_HTML && bootPre.querySelector('.h');
   const url = box && (getComputedStyle(box).backgroundImage.match(/url\("?([^")]+)"?\)/) || [])[1];
-  if (!url) return Promise.resolve();
+  if (!url || document.visibilityState === 'hidden') return Promise.resolve();
+  const wait = ms => new Promise(r => setTimeout(r, ms));
   const img = new Image();
   img.src = url;
   const loaded = img.decode ? img.decode().catch(() => {}) : new Promise(r => { img.onload = img.onerror = r; });
-  const painted = loaded.then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
-  return Promise.race([painted, new Promise(r => setTimeout(r, 800))]);
+  const lcp = typeof PerformanceObserver !== 'undefined' && (PerformanceObserver.supportedEntryTypes || []).includes('largest-contentful-paint');
+  if (!lcp) return Promise.race([loaded.then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))), wait(800)]);
+  /* before React, the pre-hero is the only content, so the first recorded paint is it */
+  const painted = new Promise(r => {
+    const po = new PerformanceObserver(list => { if (list.getEntries().length) { po.disconnect(); r(); } });
+    po.observe({ type: 'largest-contentful-paint', buffered: true });
+  });
+  return Promise.race([loaded.then(() => true), wait(800).then(() => false)])
+    .then(ready => ready && Promise.race([painted, wait(3000)]));
 }
 
 /* The German / Spanish texts (src/i18n/foreign.js): only de. and es. wait for
