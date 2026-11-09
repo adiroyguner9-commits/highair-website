@@ -480,6 +480,16 @@ export default function ExpeditionDetail() {
         expedition_slug: exp.slug,
         expedition_name: exp.nameHe,
       });
+      /* Dynamic remarketing: Google Ads reads `items` (id + business vertical)
+         from a view_item event to know WHICH trip this visitor looked at, so
+         dynamic ads can show that trip back to them. The id is the trip slug,
+         the same id a Google Ads business-data feed must use. */
+      window.gtag('event', 'view_item', {
+        send_to:  'AW-16520015098',
+        value:    priceToUsd(exp),
+        currency: 'USD',
+        items:    [{ id: exp.slug, google_business_vertical: 'custom' }],
+      });
     }
   }, [exp?.slug]);
 
