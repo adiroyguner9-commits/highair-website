@@ -37,6 +37,9 @@ export default function CookieBanner() {
     if (!el) return;
 
     const measure = () => {
+      /* A resize can still arrive while the page is being torn down, when the
+         body is already gone (HIGHAIR-WEBSITE-Z, Firefox, 16 Oct 2026). */
+      if (!document.body) return;
       const r = el.getBoundingClientRect();
       if (r.left < 100) {
         // sit the buttons a touch (12px) above the banner's real top edge
@@ -63,7 +66,7 @@ export default function CookieBanner() {
       ro.disconnect();
       el.removeEventListener('animationend', measure);
       window.removeEventListener('resize', measure);
-      document.body.classList.remove('ha-cookie-open');
+      document.body?.classList.remove('ha-cookie-open');
       document.documentElement.style.removeProperty('--ha-cookie-clear');
     };
   }, [visible]);

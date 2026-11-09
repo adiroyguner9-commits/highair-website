@@ -73,7 +73,20 @@ if (import.meta.env.VITE_SENTRY_DSN) {
       'invalid group specifier name',
       // Failed <link>/extension resource thrown as an error object
       '[object HTMLLinkElement]',
+      // The same from injected <script> tags and a third party's XHR (9 Nov 2026)
+      '[object HTMLScriptElement]',
+      '[object XMLHttpRequest]',
+      // Facebook / Instagram in-app browser bridge (HIGHAIR-WEBSITE-14)
+      '_META.IABInnerFrame',
+      // A script the Android in-app WebView evaluates against the page itself,
+      // reported at line 1 of the HTML, where only <!DOCTYPE html> stands
+      // (HIGHAIR-WEBSITE-W/18/19). Our own code ships as built /assets/ files.
+      "Unexpected token 'else'",
     ],
+    // Third-party scripts we load but do not write: the accessibility widget and
+    // the ad and analytics tags. Their own network failures are not our errors
+    // (HIGHAIR-WEBSITE-N/C/15).
+    denyUrls: [/userway\.org/i, /doubleclick\.net/i, /googletagmanager\.com/i, /connect\.facebook\.net/i],
     // Don't send errors in development; scrub everything else
     beforeSend(event) {
       if (import.meta.env.DEV) return null;

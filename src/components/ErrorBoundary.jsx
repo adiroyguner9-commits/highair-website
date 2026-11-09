@@ -35,6 +35,24 @@ function refreshAssetsAndReload(error) {
   Promise.race([refresh, timeout]).finally(() => window.location.reload());
 }
 
+/* A page left open across a deploy asks for chunks that no longer exist. */
+export function isChunkError(error) {
+  const msg = error?.message || '';
+  return error?.name === 'ChunkLoadError' ||
+    /loading chunk \d+ failed/i.test(msg) ||
+    /failed to fetch dynamically imported module/i.test(msg) ||
+    /importing a module script failed/i.test(msg) ||
+    /unable to preload css/i.test(msg);
+}
+
+/* Whether componentDidCatch reports to Sentry. A stale chunk that is being
+   healed by the reload is the deploy working as designed, not a fault (8 such
+   reports a week, HIGHAIR-WEBSITE-K/13, 9 Nov 2026). One the reload could not
+   heal ends on the error screen, and that one still reports. */
+export function shouldReport(error, recovering) {
+  return !(isChunkError(error) && recovering);
+}
+
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
@@ -44,15 +62,7 @@ export default class ErrorBoundary extends Component {
   static getDerivedStateFromError(error) {
     // Stale chunk after a new deployment: refresh the cached chunks and reload
     // so the browser gets the updated index.html and fresh chunk hashes.
-    const msg = error?.message || '';
-    const isChunkError =
-      error?.name === 'ChunkLoadError' ||
-      /loading chunk \d+ failed/i.test(msg) ||
-      /failed to fetch dynamically imported module/i.test(msg) ||
-      /importing a module script failed/i.test(msg) ||
-      /unable to preload css/i.test(msg);
-
-    if (isChunkError && (recoveryStarted || claimRecovery())) {
+    if (isChunkError(error) && (recoveryStarted || claimRecovery())) {
       if (!recoveryStarted) {
         recoveryStarted = true;
         refreshAssetsAndReload(error);
@@ -65,7 +75,8 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     console.error('[ErrorBoundary] Caught error:', error, info);
-    // Report to Sentry (no-op if DSN not configured)
+    // Report to Sentry (no-op if DSN not configured), unless the reload heals it
+    if (!shouldReport(error, recoveryStarted)) return;
     try { Sentry.captureException(error, { extra: info }); } catch (_) {}
   }
 
