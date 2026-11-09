@@ -40,8 +40,9 @@ export function isChunkError(error) {
   const msg = error?.message || '';
   return error?.name === 'ChunkLoadError' ||
     /loading chunk \d+ failed/i.test(msg) ||
-    /failed to fetch dynamically imported module/i.test(msg) ||
-    /importing a module script failed/i.test(msg) ||
+    /failed to fetch dynamically imported module/i.test(msg) ||   // Chrome
+    /error loading dynamically imported module/i.test(msg) ||     // Firefox (HIGHAIR-WEBSITE-17)
+    /importing a module script failed/i.test(msg) ||              // Safari
     /unable to preload css/i.test(msg);
 }
 

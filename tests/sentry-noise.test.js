@@ -12,6 +12,9 @@ describe('stale chunks after a deploy', () => {
   it('are recognised in every browser wording', () => {
     expect(isChunkError(stale)).toBe(true);
     expect(isChunkError(new TypeError('Importing a module script failed.'))).toBe(true);
+    /* Firefox's wording, which the site did not know: a stale chunk there got
+       the error screen instead of the healing reload (HIGHAIR-WEBSITE-17). */
+    expect(isChunkError(new TypeError('error loading dynamically imported module: https://en.highair-expeditions.com/assets/AboutUs-ouAtkb2b.js'))).toBe(true);
     expect(isChunkError(new Error('Unable to preload CSS for /assets/x.css'))).toBe(true);
     expect(isChunkError(new TypeError("Cannot read properties of undefined (reading 'map')"))).toBe(false);
   });
