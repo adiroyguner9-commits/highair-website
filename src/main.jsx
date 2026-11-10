@@ -124,6 +124,13 @@ function BookRoute() {
   return i18nInstance.language !== 'he' ? <Navigate to="/contact" replace /> : <BookCall />;
 }
 const AppPage            = lazy(() => import('./components/web_v2/AppPage.jsx'));
+/* The trek matching tool (owner, 10 Nov 2026): a hidden Hebrew page, reached only by its link.
+   Not in the menu, the sitemap or the shells; noindex. Its lead names the expedition by the
+   site's own name, so it waits for the trips like the expedition pages do. */
+const TrekMatchPage      = lazy(() => withTrips(import('./components/web_v2/TrekMatchPage.jsx')));
+function TrekMatchRoute() {
+  return i18nInstance.language !== 'he' ? <Navigate to="/" replace /> : <TrekMatchPage />;
+}
 
 /* /israel/:slug: every trek while the Israel section is live; while it is hidden
    only the community treks shared by direct link, on the Hebrew site only (they
@@ -232,6 +239,7 @@ Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(document.
           <Route path="/contact"           element={<ContactPage />} />
           <Route path="/app"               element={<AppPage />} />
           <Route path="/safari"            element={<SafariPage />} />
+          <Route path="/trek-match"        element={<TrekMatchRoute />} />
           <Route path="/book"              element={<BookRoute />} />
           <Route path="/book/:slug"        element={<BookRoute />} />
           <Route path="/book/:slug/:code"  element={<BookRoute />} />

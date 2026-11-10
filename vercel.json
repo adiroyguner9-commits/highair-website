@@ -23,7 +23,7 @@
       ]
     },
     {
-      "source": "/(book|book/.*|safari)",
+      "source": "/(book|book/.*|safari|trek-match)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, follow" }
       ]
@@ -88,6 +88,6 @@
     { "source": "/api/contracts", "has": [{ "type": "query", "key": "action", "value": "file" }], "destination": "https://app.highair-expeditions.com/api/contracts" },
     { "source": "/api/airtable/:table/:id", "destination": "/api/at?table=:table&id=:id" },
     { "source": "/api/airtable/:table",     "destination": "/api/at?table=:table"         },
-    { "source": "/(book|book/.*|safari)",   "destination": "/spa.html"                    }
+    { "source": "/(book|book/.*|safari|trek-match)",   "destination": "/spa.html"                    }
   ]
 }
