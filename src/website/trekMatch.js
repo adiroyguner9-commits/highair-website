@@ -7,6 +7,10 @@
    mountTrekMatch() draws into the page's markup (TrekMatchPage.jsx) and returns a cleanup. */
 
 export const ASSETS = '/images/trek-match/';
+/* The home page's hero video (the artifact's own copy was the same file): loaded as the home page
+   loads it, never on a phone, on a wider screen only once the page is idle (QA 10 Nov 2026). */
+export const VIDEO = '/videos/hero-home.mp4';
+export const VIDEO_MIN_WIDTH = 768;
 const SITE = '/expedition/';
 
 /* fit: כושר נדרש 1-5 · tech: רמה טכנית 0-3 · techReq/altReq: ניסיון מינימלי
@@ -16,20 +20,20 @@ export const TRIPS = [
  {id:"sinai",name:"טרק להר הגבוה בסיני",country:"מצרים",alt:2642,days:6,price:950,cur:"$",type:"trek",region:"me",mot:["scenery","culture","combo"],snow:0,stay:"tents",stayL:"לינה בבוסתנים בדואיים",fit:2,tech:0,techReq:0,altReq:0,months:[3,4,5,9,10,11],success:null,blurb:"ג'בל קתרינה, ואדיות אדומות ובריכות בלב המדבר, וסיום בשנורקל בבלו הול בדהב."},
  {id:"olympus",name:"טיפוס לאולימפוס",country:"יוון",alt:2918,days:6,price:1750,cur:"€",type:"summit",region:"eu",mot:["summit","scenery","combo"],snow:0,stay:"huts",stayL:"בקתות הרים",fit:3,tech:0,techReq:0,altReq:0,months:[6,7,8,9,10],success:98,blurb:"פסגת מיטיקאס, יערות פריוניה ויום קניונינג בנהר האורליאס."},
  {id:"peaks-of-balkan",name:"טרק פסגות הבלקן",country:"אלבניה, קוסובו ומונטנגרו",alt:2656,days:10,price:1750,cur:"€",type:"trek",region:"eu",mot:["scenery","culture"],snow:0,stay:"huts",stayL:"גסטהאוסים משפחתיים",fit:3,tech:0,techReq:0,altReq:0,months:[6,7,8,9,10],success:96,blurb:"שלוש מדינות ברגל, שייט באגם קומאני ופסגת ג'רביצה."},
- {id:"ethiopia",name:"הרי סימיאן ומדבר דנקיל",country:"אתיופיה",alt:4430,days:12,price:3000,cur:"$",type:"trek",region:"af",mot:["culture","combo","scenery"],snow:1,stay:"mixed",stayL:"אוהלים ומלונות",fit:3,tech:0,techReq:0,altReq:0,months:[11,12,1,2],success:92,blurb:"קופי ג'לדה, אגם הלבה הפעיל בארטה אלה וכנסיות חצובות בסלע."},
- {id:"kilimanjaro",name:"טיפוס לקילימנג'רו",country:"טנזניה",alt:5895,days:9,price:2900,cur:"$",type:"summit",region:"af",mot:["summit","combo","scenery"],seven:true,snow:1,stay:"tents",stayL:"אוהלים עם פורטרים",fit:3,tech:0,techReq:0,altReq:0,months:[1,2,6,7,8,9,10],success:94,blurb:"מסלול מצ'אמה לפסגת אוהורו, עם אופציה ל־3 ימי ספארי."},
+ {id:"ethiopia",name:"הרי סימיאן ומדבר דנקיל",country:"אתיופיה",alt:4430,days:12,price:3000,cur:"$",type:"trek",region:"af",mot:["culture","combo","scenery"],snow:1,stay:"mixed",stayL:"אוהלים ומלונות",koshers:true,fit:3,tech:0,techReq:0,altReq:0,months:[11,12,1,2],success:92,blurb:"קופי ג'לדה, אגם הלבה הפעיל בארטה אלה וכנסיות חצובות בסלע."},
+ {id:"kilimanjaro",name:"טיפוס לקילימנג'רו",country:"טנזניה",alt:5895,days:9,price:2900,cur:"$",type:"summit",region:"af",mot:["summit","combo","scenery"],seven:true,snow:1,stay:"tents",stayL:"אוהלים עם פורטרים",fit:3,tech:0,techReq:0,altReq:0,months:[1,2,6,7,8,9,10],success:94,blurb:"מסלול מצ'אמה לפסגת אוהורו, עם אופציה ל-3 ימי ספארי."},
  {id:"kilimanjaro-kosher",name:"קילימנג'רו לשומרי מסורת",country:"טנזניה",alt:5895,days:10,price:3100,cur:"$",type:"summit",region:"af",mot:["summit","combo","scenery"],seven:true,snow:1,stay:"tents",stayL:"אוהלים עם פורטרים",fit:3,tech:0,techReq:0,altReq:0,months:[1,2,6,7,8,9,10],success:94,kosher:true,blurb:"הטיפוס כולו בין שתי שבתות עם חב\"ד ארושה, ואוכל כשר על ההר."},
- {id:"annapurna",name:"טרק סובב אנאפורנה",country:"נפאל",alt:5416,days:16,price:2500,cur:"$",type:"trek",region:"hi",mot:["scenery","culture"],snow:1,stay:"huts",stayL:"בקתות (טי־האוסים)",fit:4,tech:0,techReq:0,altReq:0,months:[4,5,9,10],success:90,blurb:"אגם טיליצ'ו ומעבר תורונג לה, הלופ הקלאסי של ההימלאיה."},
- {id:"manaslu-circuit",name:"טרק סובב מנסלו",country:"נפאל",alt:5106,days:16,price:2250,cur:"$",type:"trek",region:"hi",mot:["scenery","culture"],snow:1,stay:"huts",stayL:"בקתות (טי־האוסים)",fit:4,tech:0,techReq:0,altReq:0,months:[4,5,9,10],success:91,blurb:"שבילים שקטים, כפרים טיבטיים ומעבר לרקיה לה."},
- {id:"everest-base-camp",name:"טרק אוורסט בייס קמפ וגוקיו",country:"נפאל",alt:5545,days:19,price:3800,cur:"$",type:"trek",region:"hi",mot:["scenery","culture","summit"],snow:1,stay:"huts",stayL:"בקתות (טי־האוסים)",fit:4,tech:0,techReq:0,altReq:0,months:[4,5,9,10],success:93,blurb:"בייס קמפ, זריחה מקאלה פטאר, מעבר צ'ו לה ואגמי גוקיו."},
+ {id:"annapurna",name:"טרק סובב אנאפורנה",country:"נפאל",alt:5416,days:16,price:2500,cur:"$",type:"trek",region:"hi",mot:["scenery","culture"],snow:1,stay:"huts",stayL:"בקתות (טי-האוסים)",fit:4,tech:0,techReq:0,altReq:0,months:[4,5,9,10],success:90,blurb:"אגם טיליצ'ו ומעבר תורונג לה, הלופ הקלאסי של ההימלאיה."},
+ {id:"manaslu-circuit",name:"טרק סובב מנסלו",country:"נפאל",alt:5106,days:16,price:2250,cur:"$",type:"trek",region:"hi",mot:["scenery","culture"],snow:1,stay:"huts",stayL:"בקתות (טי-האוסים)",fit:4,tech:0,techReq:0,altReq:0,months:[4,5,9,10],success:91,blurb:"שבילים שקטים, כפרים טיבטיים ומעבר לרקיה לה."},
+ {id:"everest-base-camp",name:"טרק אוורסט בייס קמפ וגוקיו",country:"נפאל",alt:5545,days:19,price:3800,cur:"$",type:"trek",region:"hi",mot:["scenery","culture","summit"],snow:1,stay:"huts",stayL:"בקתות (טי-האוסים)",fit:4,tech:0,techReq:0,altReq:0,months:[4,5,9,10],success:93,blurb:"בייס קמפ, זריחה מקאלה פטאר, מעבר צ'ו לה ואגמי גוקיו."},
  {id:"kazbek",name:"טיפוס לקזבק",country:"גאורגיה",alt:5054,days:8,price:2300,cur:"€",type:"summit",region:"eu",mot:["summit","scenery"],snow:2,stay:"mixed",stayL:"בקתה ואוהלים על הקרחון",fit:4,tech:1,techReq:0,altReq:0,months:[6,7,8,9],success:88,blurb:"פסגת הקרחון הראשונה שלכם, בצוותי חבל, עם ציוד כלול."},
  {id:"elbrus",name:"טיפוס לאלברוס",country:"רוסיה",alt:5642,days:10,price:3500,cur:"$",type:"summit",region:"eu",mot:["summit"],seven:true,snow:2,stay:"huts",stayL:"בקתות הרים",fit:4,tech:1,techReq:1,altReq:1,months:[6,7,8,9],success:85,blurb:"ההר הגבוה באירופה, אחת משבע הפסגות."},
  {id:"mera-peak",name:"טיפוס למרה פיק",country:"נפאל",alt:6476,days:19,price:3800,cur:"$",type:"summit",region:"hi",mot:["summit","scenery"],snow:2,stay:"mixed",stayL:"בקתות והיי קמפ",fit:5,tech:1,techReq:0,altReq:1,months:[4,5,9,10],success:80,blurb:"פסגת הטרקינג הגבוהה בנפאל, עם נוף על חמש פסגות 8,000."},
  {id:"island-peak",name:"טיפוס לאיילנד פיק",country:"נפאל",alt:6189,days:20,price:3550,cur:"$",type:"summit",region:"hi",mot:["summit","scenery"],snow:2,stay:"mixed",stayL:"בקתות ואוהלים",fit:5,tech:2,techReq:1,altReq:2,months:[4,5,9,10],success:84,blurb:"בייס קמפ אוורסט ופסגה על חבלים קבועים, עם מדריך טיפוס אישי."},
  {id:"lobuche-peak",name:"טיפוס ללובוצ'ה פיק",country:"נפאל",alt:6119,days:19,price:3550,cur:"$",type:"summit",region:"hi",mot:["summit"],snow:2,stay:"mixed",stayL:"בקתות ואוהלים",fit:5,tech:2,techReq:1,altReq:2,months:[4,5,9,10],success:82,blurb:"6,000 טכני מול הקומבו אייספול."},
- {id:"aconcagua",name:"טיפוס לאקונקגואה",country:"ארגנטינה",alt:6962,days:20,price:10000,cur:"$",type:"summit",region:"far",mot:["summit"],seven:true,snow:2,stay:"tents",stayL:"אוהל יחיד ומחנות גובה",fit:5,tech:1,techReq:0,altReq:2,months:[12,1,2],success:75,blurb:"הפסגה הגבוהה מחוץ לאסיה, שלושה מחנות גובה, יציאה אחת בשנה בינואר."},
- {id:"lenin-peak",name:"טיפוס ללנין פיק",country:"קירגיזסטן",alt:7134,days:20,price:6200,cur:"$",type:"summit",region:"far",mot:["summit"],snow:2,stay:"tents",stayL:"בייס קמפ ביורטות ואוהלים",fit:5,tech:2,techReq:1,altReq:3,months:[7,8],success:68,blurb:"ה־7,000 הנגיש בעולם, מול רכס הפמיר."},
- {id:"himlung-himal",name:"טיפוס להימלונג הימאל",country:"נפאל",alt:7126,days:30,price:8500,cur:"$",type:"summit",region:"hi",mot:["summit"],snow:2,stay:"mixed",stayL:"בקתות ואוהלים",fit:5,tech:2,techReq:2,altReq:3,months:[10],success:80,blurb:"ה־7,000 הראשון שלכם, והכנה לשמיניות."},
+ {id:"aconcagua",name:"טיפוס לאקונקגואה",country:"ארגנטינה",alt:6962,days:20,price:10000,cur:"$",type:"summit",region:"far",mot:["summit"],seven:true,snow:2,stay:"tents",stayL:"אוהלים ומחנות גובה",fit:5,tech:1,techReq:0,altReq:2,months:[12,1,2],success:75,blurb:"הפסגה הגבוהה מחוץ לאסיה, שלושה מחנות גובה, יציאה אחת בשנה בינואר."},
+ {id:"lenin-peak",name:"טיפוס ללנין פיק",country:"קירגיזסטן",alt:7134,days:20,price:6200,cur:"$",type:"summit",region:"far",mot:["summit"],snow:2,stay:"tents",stayL:"אוהלים זוגיים ומחנות גובה",fit:5,tech:2,techReq:1,altReq:3,months:[7,8],success:68,blurb:"ה-7,000 הנגיש בעולם, מול רכס הפמיר."},
+ {id:"himlung-himal",name:"טיפוס להימלונג הימאל",country:"נפאל",alt:7126,days:30,price:8500,cur:"$",type:"summit",region:"hi",mot:["summit"],snow:2,stay:"mixed",stayL:"בקתות ואוהלים",fit:5,tech:2,techReq:2,altReq:3,months:[10],success:80,blurb:"ה-7,000 הראשון שלכם, והכנה לשמיניות."},
  {id:"ama-dablam",name:"טיפוס לאמא דאבלם",country:"נפאל",alt:6812,days:30,price:7000,cur:"$",type:"summit",region:"hi",mot:["summit"],snow:2,stay:"mixed",stayL:"בקתות ואוהלים",fit:5,tech:3,techReq:3,altReq:3,months:[10],success:65,blurb:"סלע, קרח וטיפוס משולב על \"המטרהורן של ההימלאיה\"."},
  {id:"manaslu",name:"משלחת למנסלו",country:"נפאל",alt:8163,days:30,price:15000,cur:"$",type:"summit",region:"hi",mot:["summit"],snow:2,stay:"mixed",stayL:"בקתות ואוהלים",fit:5,tech:2,techReq:2,altReq:4,months:[9],success:null,blurb:"שמינייה עם שרפה אישי וחמצן."}
 ];
@@ -42,7 +46,7 @@ export const Q = [
    ["summit","פסגה","לעלות להר ולעמוד למעלה"],
    ["any","שניהם",""]]},
  {key:"region",title:"לאן תרצו לנסוע?",hint:"אפשר לבחור יותר מאחד",multi:true,any:"any",opts:[
-   ["hi","הימלאיה","נפאל, בין ענקי ה־8,000"],["af","אפריקה","קילימנג'רו ואתיופיה"],
+   ["hi","הימלאיה","נפאל, בין ענקי ה-8,000"],["af","אפריקה","קילימנג'רו ואתיופיה"],
    ["eu","אירופה והקווקז","יוון, הבלקן, גאורגיה ורוסיה"],["far","אנדים ופמיר","ארגנטינה וקירגיזסטן"],
    ["me","סיני","קרוב לבית, 6 ימים"],["any","לא משנה לי",""]]},
  {key:"mot",title:"מה הכי חשוב לכם במסע?",opts:[
@@ -60,23 +64,23 @@ export const Q = [
    [2,"שלג וקרח מתאימים לנו","הליכה עם קרמפונים וגרזן קרח"]]},
  {key:"fit",title:"איך הכושר שלכם כרגע?",opts:[
    [1,"הולכים מדי פעם","כמה ק\"מ בסופי שבוע"],
-   [2,"מטיילים קבועים","מסלול של 3–4 שעות זה כיף"],
-   [3,"מטיילים חזקים","6–8 שעות הליכה, יום אחרי יום"],
+   [2,"מטיילים קבועים","מסלול של 3-4 שעות זה כיף"],
+   [3,"מטיילים חזקים","6-8 שעות הליכה, יום אחרי יום"],
    [4,"מתאמנים ברצינות","4+ אימונים בשבוע, עליות ארוכות עם תיק"],
    [5,"ספורטאי סיבולת","מאמץ של כמה ימים ברצף לא מפחיד אתכם"]]},
  {key:"done",peaks:true,title:"על אילו הרים כבר עליתם?",hint:"סמנו מהרשימה או כתבו בחופשיות. לא נמליץ לכם על הר שכבר הייתם בו.",opts:[]},
  {key:"alt",title:"מה הגובה הכי גבוה שהגעתם אליו?",opts:[
-   [0,"מתחת ל־2,500 מ'","חרמון, רמון, מסלולים בארץ"],[1,"עד 3,500 מ'",""],[2,"עד 5,000 מ'","למשל אנאפורנה או בייס קמפ"],
+   [0,"מתחת ל-2,500 מ'","חרמון, רמון, מסלולים בארץ"],[1,"עד 3,500 מ'",""],[2,"עד 5,000 מ'","למשל אנאפורנה או בייס קמפ"],
    [3,"עד 6,000 מ'","למשל קילימנג'רו או אלברוס"],[4,"מעל 6,000 מ'",""]]},
  {key:"tech",title:"יש לכם ניסיון עם ציוד טיפוס?",opts:[
    [0,"אין",""],[1,"קרמפונים וגרזן קרח","הלכתי על שלג או קרחון עם מדריך"],
    [2,"חבלים קבועים וג'ומאר","עליתי על חבל מקובע"],[3,"טיפוס סלע, קרח או משולב","טיפסתי מסלולים טכניים"]]},
  {key:"days",title:"כמה זמן יש לכם?",opts:[
-   [7,"עד שבוע",""],[12,"8–12 ימים",""],[21,"שבועיים־שלושה",""],[99,"חודש ומעלה",""]]},
+   [7,"עד שבוע",""],[12,"8-12 ימים",""],[21,"שבועיים-שלושה",""],[99,"חודש ומעלה",""]]},
  {key:"season",title:"מתי תרצו לצאת?",hint:"אפשר לבחור יותר מעונה אחת",multi:true,any:"flex",opts:[
-   ["w","דצמבר–פברואר",""],["sp","מרץ–מאי",""],["su","יוני–אוגוסט",""],["au","ספטמבר–נובמבר",""],["flex","גמישים",""]]},
+   ["w","דצמבר-פברואר",""],["sp","מרץ-מאי",""],["su","יוני-אוגוסט",""],["au","ספטמבר-נובמבר",""],["flex","גמישים",""]]},
  {key:"budget",title:"מה התקציב, לאדם ובלי טיסות?",opts:[
-   [1500,"עד $1,500",""],[3000,"$1,500–3,000",""],[5000,"$3,000–5,000",""],[1e9,"מעל $5,000",""],[0,"עוד לא יודעים",""]]}
+   [1500,"עד $1,500",""],[3000,"$1,500-3,000",""],[5000,"$3,000-5,000",""],[1e9,"מעל $5,000",""],[0,"עוד לא יודעים",""]]}
 ];
 const GAL={"sinai":4,"olympus":4,"peaks-of-balkan":4,"ethiopia":4,"kilimanjaro":4,"kilimanjaro-kosher":4,"annapurna":4,"manaslu-circuit":4,"everest-base-camp":4,"kazbek":4,"elbrus":4,"mera-peak":4,"island-peak":4,"lobuche-peak":1,"aconcagua":4,"lenin-peak":0,"himlung-himal":0,"ama-dablam":4,"manaslu":4};
 const TILE={type:{trek:"c/annapurna.webp",summit:"q/hero1.webp"},
@@ -92,14 +96,15 @@ const SHORT={"sinai":"הר גבוה בסיני","olympus":"אולימפוס","pe
 const ALIAS=[
  ["manaslu",["פסגת מנסלו","manaslu summit","manaslu peak"]],
  ["manaslu-circuit",["מנסלו","manaslu"]],
- ["everest-base-camp",["בייס קמפ","בייסקמפ","base camp","ebc","קאלה פטאר","kala patthar","kala pattar","גוקיו","gokyo"]],
+ [8849,["פסגת אוורסט","everest summit"]],
+ ["everest-base-camp",["אוורסט","everest","בייס קמפ","בייסקמפ","base camp","ebc","קאלה פטאר","kala patthar","kala pattar","גוקיו","gokyo"]],
  ["kilimanjaro",["קילימנג","קילימנז","קילי ","kilimanjaro","kili ","אוהורו","uhuru"]],
  ["annapurna",["אנאפורנה","אנפורנה","annapurna","תורונג","thorong"]],
  ["kazbek",["קזבק","kazbek","kazbegi"]],["elbrus",["אלברוס","elbrus"]],["olympus",["אולימפוס","olympus"]],
  ["mera-peak",["מרה פיק","מרה","mera"]],["island-peak",["איילנד","island peak","imja"]],["lobuche-peak",["לובוצ","lobuche"]],
  ["aconcagua",["אקונקגואה","aconcagua"]],["lenin-peak",["לנין","lenin"]],["himlung-himal",["הימלונג","himlung"]],
  ["ama-dablam",["אמא דאבלם","אמה דבלם","ama dablam"]],["sinai",["קתרינה","סיני","sinai"]],["peaks-of-balkan",["בלקן","balkan"]],["ethiopia",["סימיאן","simien","דנקיל"]],
- [8849,["פסגת אוורסט","everest summit"]],[6190,["דנאלי","denali","מקינלי"]],[6263,["צ'ימבורסו","צימבורסו","chimborazo"]],[6153,["סטוק קנגרי","stok kangri"]],
+ [6190,["דנאלי","denali","מקינלי"]],[6263,["צ'ימבורסו","צימבורסו","chimborazo"]],[6153,["סטוק קנגרי","stok kangri"]],
  [6088,["הוואינה פוטוסי","huayna"]],[5897,["קוטופקסי","cotopaxi"]],[5636,["אוריסבה","orizaba"]],[5137,["אררט","ararat"]],
  [5109,["רוונזורי","rwenzori"]],[4985,["הר קניה","mount kenya","לנאנה"]],[4808,["מון בלאן","מונבלאן","mont blanc"]],
  [4478,["מטרהורן","matterhorn"]],[4167,["טובקל","toubkal"]],[4095,["קינבלו","kinabalu"]],[3776,["פוג'י","פוגי","fuji"]],
@@ -186,7 +191,10 @@ export function createQuiz(){
     else if(t.alt>ALT_LEVELS[A.alt]&&t.alt-ALT_LEVELS[A.alt]<1800&&t.techReq<=A.tech){s+=6;reasons.push(`הגובה הבא שלכם: ${fmt(t.alt)} מ'`)}
     if(t.tech===0&&A.tech===0) reasons.push("לא צריך שום ניסיון טכני");
     if(t.kosher){s+=12;reasons.unshift("אוכל כשר ושבת עם חב\"ד ארושה")}
+    else if(lead.kosher&&t.koshers){s+=6;reasons.unshift("יש יציאה לשומרי מסורת")}
+    else if(lead.kosher){s-=10;heads.unshift("אין כרגע יציאה לשומרי מסורת. נשמח לבדוק איתכם")}
     if(t.success) s+=(t.success-85)/5;
+    if(!reasons.length&&!heads.length) reasons.push(`${t.days} ימים, ${t.stayL}`);   // never a card without a line why
     return {t,score:Math.max(40,Math.min(99,Math.round(s))),reasons:reasons.slice(0,4),heads:heads.slice(0,1)};
   }
 
@@ -198,7 +206,7 @@ export function createQuiz(){
     if(!rs.length&&all.length){fallback=true;rs=all.slice(0,1)}
     else if(!rs.length){
       fallback=true;
-      const pick=[lead.kosher?"kilimanjaro-kosher":"peaks-of-balkan","sinai","olympus","peaks-of-balkan","kilimanjaro"].map(id=>TRIPS.find(t=>t.id===id)).find(t=>!isDone(t)&&(!!t.kosher===lead.kosher||t.id!=="kilimanjaro"&&!t.kosher))||TRIPS.filter(t=>!isDone(t)&&!t.kosher).sort((a,b)=>a.alt-b.alt)[0];
+      const pick=[lead.kosher?"kilimanjaro-kosher":(A.fit<=2?"sinai":"peaks-of-balkan"),"sinai","olympus","peaks-of-balkan","kilimanjaro"].map(id=>TRIPS.find(t=>t.id===id)).find(t=>!isDone(t)&&(!!t.kosher===lead.kosher||t.id!=="kilimanjaro"&&!t.kosher))||TRIPS.filter(t=>!isDone(t)&&!t.kosher).sort((a,b)=>a.alt-b.alt)[0];
       rs=!pick?[]:[{t:pick,score:70,reasons:["מסע נגיש בלי שום ניסיון טכני"],heads:["כדאי להתחיל בתוכנית אימונים של 3 חודשים"]}];
     }
     return {rs,fallback};
@@ -228,7 +236,7 @@ export function createQuiz(){
       Experience:experience,
       'Group Size':size,
       Message:lines.join("\n"),
-      Source:"Trek Match Quiz",
+      Source:"Website - Trek Match Quiz",
     };
   }
   return {A,lead,score,getResults,leadFields,syncDone,doneMax,doneNames,isDone};
@@ -253,9 +261,22 @@ export function mountTrekMatch(root,{wa,onLead,checkPhone}={}){
   let step=0;let interacted=false;let tick=null;
   const app=$("app");
   const reduced=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* An answer picked with the mouse or a finger moves on by itself; one picked with the keyboard
+     (arrow keys walk a radio group) waits for Enter or "המשך", or the arrows could not browse. */
+  let viaPointer=false;
+  const onPointer=()=>{viaPointer=true};const onKeyIn=()=>{viaPointer=false};
+  app.addEventListener("pointerdown",onPointer,true);app.addEventListener("keydown",onKeyIn,true);
 
+  /* Every step after the first brings the card back under the sticky header (scroll-margin in the
+     css): the first answer used to leave a phone at the bottom of the old question. Keyboard focus
+     follows to the new question's title. */
   function render(){
-    if(interacted&&step>=0){const r=app.getBoundingClientRect();if(r.top<0||r.top>innerHeight*0.6)app.scrollIntoView({behavior:reduced()?"auto":"smooth",block:"start"})}
+    const keep=app.contains(document.activeElement);
+    if(step>0||interacted){const r=app.getBoundingClientRect();if(r.top<70||r.top>innerHeight*0.6)app.scrollIntoView({behavior:reduced()?"auto":"smooth",block:"start"})}
+    draw();
+    if(keep){const h=app.querySelector("h2");if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true})}}
+  }
+  function draw(){
     if(step<Q.length) return question();
     if(step===Q.length) return contact();
     return results();
@@ -285,9 +306,11 @@ export function mountTrekMatch(root,{wa,onLead,checkPhone}={}){
         if(v===q.any) A[q.key]=inp.checked?[q.any]:[];
         else{A[q.key]=A[q.key].filter(x=>x!==q.any&&x!==v); if(inp.checked)A[q.key].push(v)}
         app.querySelectorAll("input").forEach(i=>i.checked=A[q.key].includes(q.opts[+i.value][0]));
-      } else { A[q.key]=v; setTimeout(()=>{step++;render()},180); }
+      } else { A[q.key]=v; if(viaPointer) setTimeout(()=>{step++;render()},180); }
+      interacted=true;viaPointer=false;
       sync();
     });
+    app.querySelectorAll("input").forEach(inp=>inp.onkeydown=e=>{if(e.key==="Enter"&&!next.disabled){e.preventDefault();next.click()}});
     sync();
     next.onclick=()=>{step++;render()};
     $("back").onclick=()=>{step--;render()};
@@ -350,7 +373,7 @@ export function mountTrekMatch(root,{wa,onLead,checkPhone}={}){
       const err=$("err");
       if(!lead.name) return err.textContent="הוסיפו שם פרטי, כדי שנדע למי לפנות.";
       const phoneErr=checkPhone?checkPhone(lead.phone):(lead.phone.replace(/\D/g,"").length<9?"x":"");
-      if(phoneErr) return err.textContent="הוסיפו מספר וואטסאפ מלא, למשל 050-1234567.";
+      if(phoneErr) return err.textContent="הוסיפו מספר נייד מלא לוואטסאפ, למשל 050-1234567.";
       if(lead.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) return err.textContent="כתובת האימייל לא תקינה. אפשר גם להשאיר אותה ריקה.";
       if(!lead.consent) return err.textContent="כדי להמשיך, סמנו שאתם מסכימים למדיניות הפרטיות.";
       /* The results are shown whatever the network does: the lead goes out on its own. */
@@ -369,15 +392,15 @@ export function mountTrekMatch(root,{wa,onLead,checkPhone}={}){
   function altBar(t){
     const max=8400,pct=v=>Math.min(100,v/max*100).toFixed(1);
     const you=ALT_LEVELS[A.alt];
-    return `<div class="altw" role="img" aria-label="הגובה שלכם עד ${fmt(you)} מ', המסע מגיע ל־${fmt(t.alt)} מ'">
-     <div class="altrow"><span>גובה המסע: <b>${fmt(t.alt)} מ'</b></span><span>הגבוה ביותר שלכם: <b>${A.alt===0?"מתחת ל־2,500":A.alt===4?"מעל 6,000":"עד "+fmt(you)} מ'</b></span></div>
+    return `<div class="altw" role="img" aria-label="הגובה שלכם עד ${fmt(you)} מ', המסע מגיע ל-${fmt(t.alt)} מ'">
+     <div class="altrow"><span>גובה המסע: <b>${fmt(t.alt)} מ'</b></span><span>הגבוה ביותר שלכם: <b>${A.alt===0?"מתחת ל-2,500":A.alt===4?"מעל 6,000":"עד "+fmt(you)} מ'</b></span></div>
      <div class="track" dir="ltr"><div class="fill" style="width:${pct(t.alt)}%"></div><div class="you" style="left:${pct(you)}%"></div><div class="peak" style="left:${pct(t.alt)}%"></div></div>
      <div class="scale" dir="ltr">${[0,2000,4000,6000,8000].map(v=>`<span style="left:${pct(v)}%">${fmt(v)}</span>`).join("")}</div></div>`;
   }
 
   function card(r,top){
     const t=r.t;
-    const dn=quiz.doneNames();const msg=`היי HighAir, יצא לי ${t.name} בהתאמה של ${r.score}%. אשמח לשמוע על הקבוצה הבאה.${dn.length?` כבר עליתי על ${dn.join(", ")}.`:""}${lead.with?` אני יוצא/ת ${lead.with}.`:""} – ${lead.name}`;
+    const dn=quiz.doneNames();const msg=`היי HighAir, יצא לי ${t.name} בהתאמה של ${r.score}%. אשמח לשמוע על הקבוצה הבאה.${dn.length?` כבר עליתי על ${dn.join(", ")}.`:""}${lead.with?` אני יוצא/ת ${lead.with}.`:""} תודה, ${lead.name}`;
     return `<article class="result ${top?"top":""}">
      <div class="cover"><img src="${img(`c/${t.id}.webp`)}" alt="${t.name}" loading="lazy">${top?`<span class="ribbon">ההתאמה הכי טובה</span>`:""}<span class="badge">${r.score}%<small>התאמה</small></span></div>
      <div><h3 style="font-size:${top?"24px":"19px"}">${t.name}</h3><p class="lead" style="font-size:14px">${t.country}</p></div>
@@ -407,13 +430,13 @@ export function mountTrekMatch(root,{wa,onLead,checkPhone}={}){
   }
 
   /* lightbox */
-  let LB={list:[],i:0};
+  let LB={list:[],i:0};let opener=null;
   const lb=$("lb"),lbimg=$("lbimg");
   function showLb(){const n=LB.list.length;LB.i=(LB.i+n)%n;const it=LB.list[LB.i];lbimg.src=it.src;lbimg.alt=it.cap;
     $("lbc").textContent=`${it.cap} · ${LB.i+1}/${n}`}
-  function openList(list,i){LB={list,i};showLb();lb.hidden=false;$("lbx").focus()}
+  function openList(list,i){opener=document.activeElement;LB={list,i};showLb();lb.hidden=false;$("lbx").focus()}
   function openLb(trip,i){const t=TRIPS.find(x=>x.id===trip);openList(Array.from({length:GAL[trip]},(_,k)=>({src:img(`g/${trip}-${k}.webp`),cap:t.name})),i)}
-  const closeLb=()=>{lb.hidden=true};
+  const closeLb=()=>{lb.hidden=true;if(opener&&opener.focus)opener.focus();opener=null};
   $("lbx").onclick=closeLb;
   $("lbn").onclick=()=>{LB.i++;showLb()};
   $("lbp").onclick=()=>{LB.i--;showLb()};
@@ -430,9 +453,13 @@ export function mountTrekMatch(root,{wa,onLead,checkPhone}={}){
   const startQuiz=e=>{e.preventDefault();$("quiz").scrollIntoView({behavior:reduced()?"auto":"smooth",block:"start"})};
   const starts=[...root.querySelectorAll("[data-start]")];
   starts.forEach(b=>b.addEventListener("click",startQuiz));
-  const v=$("herovid");
-  if(v&&reduced()){v.removeAttribute("autoplay");v.pause()}
+  const v=$("herovid");let idle=null;
+  const startVideo=()=>{if(!v||v.getAttribute("src"))return;v.src=VIDEO;const p=v.play&&v.play();if(p&&p.catch)p.catch(()=>{})};
+  const queueVideo=()=>{idle=("requestIdleCallback" in window)?requestIdleCallback(startVideo,{timeout:2000}):setTimeout(startVideo,1200)};
+  if(v&&innerWidth>=VIDEO_MIN_WIDTH&&!reduced()){if(document.readyState==="complete")queueVideo();else addEventListener("load",queueVideo,{once:true})}
   render();
 
-  return ()=>{document.removeEventListener("keydown",onKey);starts.forEach(b=>b.removeEventListener("click",startQuiz));if(tick)clearInterval(tick)};
+  return ()=>{document.removeEventListener("keydown",onKey);starts.forEach(b=>b.removeEventListener("click",startQuiz));if(tick)clearInterval(tick);
+    app.removeEventListener("pointerdown",onPointer,true);app.removeEventListener("keydown",onKeyIn,true);removeEventListener("load",queueVideo);
+    if(idle!==null){(window.cancelIdleCallback||clearTimeout)(idle)}};
 }

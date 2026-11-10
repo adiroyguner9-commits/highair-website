@@ -231,3 +231,7 @@
 .tm footer .in{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
 .tm footer a{color:var(--accent)}
 .tm .phone{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
+/* QA 10 Nov 2026: the card lands under the sticky header, never behind it; the title that takes
+   keyboard focus after each step shows no ring (it is a heading, not a control). */
+.tm #app{scroll-margin-top:84px}
+.tm #app h2:focus{outline:none}

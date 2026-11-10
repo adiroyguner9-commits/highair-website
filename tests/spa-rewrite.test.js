@@ -63,6 +63,7 @@ describe('every page route is served', () => {
   const routes = [...readFileSync('src/main.jsx', 'utf8').matchAll(/<Route path="([^"]+)"/g)].map(m => m[1]);
   const staticShells = new Set([...shells.matchAll(/path:\s+'([a-z-]+)'/g)].map(m => '/' + m[1]));
   for (const [, p] of shells.matchAll(/\['([a-z-]+)',\s+'[^']+'\]/g)) staticShells.add('/' + p);
+  for (const [, p] of shells.matchAll(/writeShell\('([a-z-]+)'/g)) staticShells.add('/' + p);   // a page written on its own (/trek-match)
   const dynamicShells = ['/expedition/:slug', '/blog/:slug', '/israel/:slug'];   // one shell per slug
   const hidden = ['/israel', '/israel/:slug'];   // ISRAEL_TREKS_LIVE off: React shows the 404 page too
 

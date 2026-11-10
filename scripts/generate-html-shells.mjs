@@ -915,6 +915,17 @@ for (const page of staticPages) {
      home text. Before this, those routes got index.html, and a reader without
      JavaScript would have read the homepage's text on the privacy page. */
   fs.writeFileSync(path.join(DIST, 'spa.html'), template.replace(HOME_HERO_PRELOAD, ''), 'utf8');
+  /* The trek matching tool (/trek-match, owner 10 Nov 2026) is a hidden page shared by its link,
+     so a link preview (WhatsApp, Facebook) reads this shell: its own title, text and share image,
+     noindex, no hreflang, never in the sitemap. Hebrew site only (main.jsx). */
+  writeShell('trek-match', {
+    title: 'מה הפסגה הבאה שלכם? | HighAir Expeditions',
+    description: 'שאלון התאמה של שתי דקות: ספרו לנו על הכושר, הניסיון ומה שאתם מחפשים, ונמליץ לכם על המסעות שהכי מתאימים לכם.',
+    canonicalPath: '/trek-match',
+    image: '/images/trek-match/og.jpg',
+    ogImage: '/images/trek-match/og.jpg',
+    noIndex: true,
+  });
   /* Any other path is a 404 with a real 404 status. Until 24 Oct 2026 every
      unknown path (old Wix URLs such as /langtang or /post/magnus) answered 200
      with the homepage's title and no content, and Bing flagged them as pages

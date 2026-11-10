@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { contactFor } from '../../website/contact.js';
 import { getAttribution } from '../../utils/attribution.js';
-import { Analytics, trackLead } from '../../utils/analytics.js';
+import { Analytics, trackLead, priceToUsd } from '../../utils/analytics.js';
 import { EXPS } from '../../data/trips.js';
 import { formatFullPhone, validatePhone, splitInternational } from './PhoneField.jsx';
 import { mountTrekMatch, ASSETS } from '../../website/trekMatch.js';
@@ -19,9 +19,12 @@ export function phoneParts(raw) {
   const s = String(raw || '').trim();
   return splitInternational(s, IL) || { dial: IL, local: s };
 }
+/* The box asks for a WhatsApp number: in Israel that is a mobile (05X), never a landline, which
+   validatePhone accepts for the site's other forms (QA 10 Nov 2026: 02-6789123 went through). */
 export function phoneOk(raw) {
   const { dial, local } = phoneParts(raw);
-  return validatePhone(dial, local);
+  if (!validatePhone(dial, local)) return false;
+  return dial !== IL || /^5/.test(String(local).replace(/\D/g, '').replace(/^0+/, ''));
 }
 
 const WA = contactFor('he');
@@ -33,13 +36,13 @@ const MARKUP = `
 </div></header>
 
 <section class="herob">
-  <video id="herovid" autoplay muted loop playsinline preload="metadata" poster="${ASSETS}hero-poster.webp" aria-hidden="true"><source src="/videos/trek-match-hero.mp4" type="video/mp4"></video>
+  <video id="herovid" muted loop playsinline preload="none" poster="${ASSETS}hero-poster.webp" aria-hidden="true"></video>
   <div class="in">
     <h1>מה הפסגה הבאה שלכם?</h1>
     <p class="sub">ספרו לנו קצת על עצמכם, ונמליץ לכם על המסעות שהכי מתאימים לכם. מטרק של שבוע בסיני ועד פסגות בהימלאיה.</p>
     <div class="cta-row"><a href="#quiz" class="btn primary big" data-start>להתחלת השאלון</a><a href="#ladder-sec" class="btn light big">לכל המסעות</a></div>
     <div class="stats">
-      <div class="stat"><b>19</b><span>מסעות ב־4 יבשות</span></div>
+      <div class="stat"><b>19</b><span>מסעות ב-4 יבשות</span></div>
       <div class="stat"><b>94%</b><span>הגיעו לפסגת קילימנג'רו</span></div>
       <div class="stat"><b>15</b><span>מטיילים לכל היותר בקבוצה</span></div>
       <div class="stat"><b>8,163</b><span>מטר, הפסגה הגבוהה שלנו</span></div>
@@ -69,7 +72,7 @@ const MARKUP = `
 </div></section>
 
 <section class="band alt" id="ladder-sec"><div class="in">
-  <div class="sh"><h2>כל המסעות שלנו</h2><p class="lead">מסודרים מהנמוך לגבוה, מ־2,642 מ' ועד 8,163 מ'.</p></div>
+  <div class="sh"><h2>כל המסעות שלנו</h2><p class="lead">מסודרים מהנמוך לגבוה, מ-2,642 מ' ועד 8,163 מ'.</p></div>
   <div class="ladder-wrap"><div class="ladder" id="ladder"></div></div>
   <p class="ladder-hint">גללו הצידה לעוד מסעות ←</p>
   <p style="margin-top:18px">לא בטוחים במה לבחור? <a href="#quiz" data-start style="color:var(--accent);font-weight:600">השאלון יעזור</a></p>
@@ -78,22 +81,22 @@ const MARKUP = `
 <section class="band"><div class="in">
   <div class="sh"><h2>מה מספרים מי שיצאו איתנו</h2></div>
   <div class="quotes">
-    <figure class="quote"><blockquote>הליווי של חן ואדיר לכל אורך תקופת ההכנה ולאורך המסע עצמו היו מדוייקים ותרמו לחוויה להיות חיובית ומשמעותית. לכל שאלה הם ענו בסבלנות ומקצועיות.</blockquote><figcaption><b>שירה בן שושן</b> · קילימנג'רו, פברואר 2026</figcaption></figure>
+    <figure class="quote"><blockquote>הליווי של חן ואדיר לכל אורך תקופת ההכנה ולאורך המסע עצמו היו מדויקים ותרמו לחוויה להיות חיובית ומשמעותית. לכל שאלה הם ענו בסבלנות ומקצועיות.</blockquote><figcaption><b>שירה בן שושן</b> · קילימנג'רו, פברואר 2026</figcaption></figure>
     <figure class="quote"><blockquote>בלעדיכם לא היינו עושים כלום!! תודה רבה על הליווי המקצועי והלוגיסטי!! 💜</blockquote><figcaption><b>משלחת למרה פיק, נפאל</b> · אוקטובר 2026 · תגובה בפייסבוק</figcaption></figure>
-    <figure class="quote"><blockquote>היתה חוויה מדהימה. הגשמת חלום שמתבשל לו כ־5 שנים. והנה יצא לפועל! […] הכי הכי שלא אפשרנו לרוח לשבור אותנו. אפילו שלרגע היה נדמה שנעוף איתה!</blockquote><figcaption><b>טרק לפסגת החרמון</b> · מאי 2026 · תגובה בפייסבוק</figcaption></figure>
+    <figure class="quote"><blockquote>היתה חוויה מדהימה. הגשמת חלום שמתבשל לו כ-5 שנים. והנה יצא לפועל! […] הכי הכי שלא אפשרנו לרוח לשבור אותנו. אפילו שלרגע היה נדמה שנעוף איתה!</blockquote><figcaption><b>טרק לפסגת החרמון</b> · מאי 2026 · תגובה בפייסבוק</figcaption></figure>
     <figure class="quote"><blockquote>היה מושלם, מאורגן לעילא ולעילא. סידרתם לנו אחלה מזג אוויר ונוף מרהיב ואפילו ארוחה נפלאה. מומלץ בחום, מצפה בכליון עיניים לאתגר הקרוב הבא…</blockquote><figcaption><b>טרק בקרן הכרמל והמוחרקה</b> · מרץ 2026 · תגובה בפייסבוק</figcaption></figure>
-    <figure class="quote"><blockquote>טרק מדהים, מאתגר וכייף. אנשים מקסימים. חוויה מעצימה עם HighAir Expeditions, חן וגיא האלופים.</blockquote><figcaption><b>טרק במעלה צאלים ונחל צאלים</b> · דצמבר 2025 · תגובה בפייסבוק</figcaption></figure>
-    <figure class="quote"><blockquote>הרכב הקבוצה שבנו חן ואדיר היה נפלא. זכיתי בחברים לכל החיים. אני ממליץ בחום לכל מי שרוצה לדעת שהכל מטופל לעילה ולעילה, גם בארץ וגם באפריקה.</blockquote><figcaption><b>מוטי פאר</b> · קילימנג'רו, ינואר 2026</figcaption></figure>
+    <figure class="quote"><blockquote>טרק מדהים, מאתגר וכיף. אנשים מקסימים. חוויה מעצימה עם HighAir Expeditions, חן וגיא האלופים.</blockquote><figcaption><b>טרק במעלה צאלים ונחל צאלים</b> · דצמבר 2025 · תגובה בפייסבוק</figcaption></figure>
+    <figure class="quote"><blockquote>הרכב הקבוצה שבנו חן ואדיר היה נפלא. זכיתי בחברים לכל החיים. אני ממליץ בחום לכל מי שרוצה לדעת שהכל מטופל לעילא ולעילא, גם בארץ וגם באפריקה.</blockquote><figcaption><b>מוטי פאר</b> · קילימנג'רו, ינואר 2026</figcaption></figure>
   </div>
 </div></section>
 
 <section class="band alt"><div class="in">
   <div class="sh"><h2>איך זה עובד אצלנו</h2></div>
   <div class="why-grid">
-    <div class="why-item"><h3>קבוצות קטנות</h3><p>עד 15 מטיילים, ובטיפוסים הטכניים עד 10.</p></div>
+    <div class="why-item"><h3>קבוצות קטנות</h3><p>עד 15 מטיילים, ובטיפוסים הטכניים עד 12.</p></div>
     <div class="why-item"><h3>הכנה מהארץ</h3><p>מפגש ציוד, טרק הכנה עם הקבוצה ותוכנית אימונים לפני היציאה.</p></div>
     <div class="why-item"><h3>עדכונים למשפחה</h3><p>המשפחות מקבלות עדכונים בוואטסאפ לאורך המסע.</p></div>
-    <div class="why-item"><h3>בטיחות קודם</h3><p>מדריכים מקומיים מנוסים, חמצן לחירום ומכשיר לוויני בכל קבוצה.</p></div>
+    <div class="why-item"><h3>בטיחות קודם</h3><p>מדריכים מקומיים מנוסים, חמצן לחירום במסעות לגובה ומכשיר לוויני בטיפוסים הגבוהים.</p></div>
     <div class="why-item"><h3>הכל באפליקציה</h3><p>רשימת ציוד, לו״ז ומסמכים, באזור אישי באפליקציה של HighAir.</p></div>
     <div class="why-item"><h3>תרומה מכל מסע</h3><p>חלק מכל מסע נתרם למאבק במחלת הסרטן.</p></div>
   </div>
@@ -128,8 +131,10 @@ async function sendLead(quiz, rs) {
     });
     if (res.ok) {
       const top = rs[0] && rs[0].t;
+      const exp = top && EXPS.find(e => e.slug === top.id);
       Analytics.leadSubmit({ source: 'trek_match', expedition: fields.Expedition });
-      trackLead({ source: 'trek_match', slug: top ? top.id : 'trek-match', name: fields.Expedition || 'Trek Match' });
+      /* the value of the first recommendation, as the expedition forms send theirs */
+      trackLead({ source: 'trek_match', slug: top ? top.id : 'trek-match', name: fields.Expedition || 'Trek Match', value: exp ? priceToUsd(exp) : 0 });
     } else console.warn('[trek-match] lead', res.status);
   } catch (e) { console.warn('[trek-match] lead', e?.message); }
 }
