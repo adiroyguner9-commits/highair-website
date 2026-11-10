@@ -7,6 +7,7 @@
  * so the two paths can never drift or double-send.
  */
 import { destInfo } from './dest.js';
+import { isForeignLead } from './lead-channel.js';
 import { firstName } from './name.js';
 import { sendWhatsAppVerified } from './followup.js';
 import { normalizePhone } from './phone.js';
@@ -59,6 +60,8 @@ export async function sendNoAnswerNotice(rec) {
   const f = rec.fields || {};
 
   if (f.Stage !== 'No Answer')          return { sent: false, skipped: 'not in No Answer' };
+  /* A lead from abroad is written to by email only (./lead-channel.js). */
+  if (isForeignLead(f))                 return { sent: false, skipped: 'lead from abroad: email only' };
   if (f['No Answer Notified'] === true) return { sent: false, skipped: 'already sent' };
   if (!f.Phone)                         return { sent: false, skipped: 'no phone' };
   const agentFull = String(f['Assigned Agent'] || '').trim();

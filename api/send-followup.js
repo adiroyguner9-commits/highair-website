@@ -14,6 +14,7 @@
  * "how are you?" would be wrong.
  */
 import { setSecurityHeaders } from './_security.js';
+import { isForeignLead } from './_lib/lead-channel.js';
 import { msgFollowUp, sendWhatsAppVerified } from './_lib/followup.js';
 import { hookAllowed } from './_lib/hook-auth.js';
 
@@ -50,6 +51,8 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: false, error: `לא נשלח — הליד בשלב "${f.Stage}"` });
     }
     if (!f.Phone) return res.status(200).json({ ok: false, error: 'אין מספר טלפון לליד' });
+    /* A lead from abroad is written to by email only (./_lib/lead-channel.js). */
+    if (isForeignLead(f)) return res.status(200).json({ ok: false, error: 'ליד מחו״ל: מייל בלבד, בלי וואטסאפ' });
 
     const sent = await sendWhatsAppVerified(f.Phone, msgFollowUp(f.Name, f.Expedition), { kind: 'follow_up_manual', leadId });
     if (!sent.ok) return res.status(200).json({ ok: false, error: sent.error });

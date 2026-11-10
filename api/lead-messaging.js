@@ -28,6 +28,7 @@ import { sendDepositWelcome } from './_lib/deposit-welcome.js';
 import { sendBackupAlert } from './_lib/backup-alert.js';   // a safety-net send means the instant one failed
 import { destInfo } from './_lib/dest.js';   // single source of truth for destination → Hebrew name + slug
 import { tripKey } from './_lib/active-lead.js';   // same-trip test — a call booked for a DIFFERENT destination must not suppress this enquiry's link
+import { isForeignLead, NOT_FOREIGN_FORMULA } from './_lib/lead-channel.js';   // foreign-site leads: email only, no WhatsApp
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
 import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
@@ -238,12 +239,14 @@ export default async function handler(req, res) {
       + `NOT(FIND('WhatsApp',{Source}&'')),`           // WhatsApp leads are handled by the AI
       + `NOT(FIND('GHL import',{Source}&'')),`         // never the imported backlog
       + NOT_A_LEAD                                     // contact forms are not leads
+      + NOT_FOREIGN_FORMULA                            // a lead from abroad gets email only
       + `{Phone}!='',`
       + `IS_AFTER({Created Time},DATETIME_PARSE('${lowerIso}'))`
       + `)`;
     const rows = await queryLeads(formula);
     for (const rec of rows) {
       const f = rec.fields || {};
+      if (isForeignLead(f)) continue;                  // email only (lead-channel.js)
       const ageMin = (nowMs - new Date(f['Created Time']).getTime()) / 60000;
       if (!(ageMin >= 10)) continue;                   // wait the full 10 min before nudging
       // NEVER nudge someone who already booked a call. book-slot advances the
@@ -304,6 +307,7 @@ export default async function handler(req, res) {
            it look like a form lead here (3 got "מתי יהיה לך נוח", 22 Oct 2026). */
         + `{Source}!='Manual',`
         + NOT_A_LEAD
+        + NOT_FOREIGN_FORMULA                          // a lead from abroad gets email only
         + `{Phone}!='',`
         + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
         + `)`;
@@ -311,6 +315,7 @@ export default async function handler(req, res) {
       let n2ThisRun = 0;
       for (const rec of rows2) {
         const f = rec.fields || {};
+        if (isForeignLead(f)) continue;                // email only (lead-channel.js)
         const ageH = (nowMs - new Date(f['Created Time']).getTime()) / 3600000;
         if (!(ageH >= 24)) continue;                     // wait the full day
         if (await hasAppointment(f.Phone, f.Expedition)) {
@@ -345,6 +350,7 @@ export default async function handler(req, res) {
     const rowsNA = await queryLeads(`AND(`
       + `{Stage}='No Answer',`
       + `{No Answer Notified}!=TRUE(),`
+      + NOT_FOREIGN_FORMULA                            // a lead from abroad gets email only
       + `{Phone}!='',`
       + `{Assigned Agent}!='',`
       + `{Stage Changed At}!='',`
@@ -388,7 +394,7 @@ export default async function handler(req, res) {
     const weekend = israelClosedHold();   // Shabbat and festivals
     if (weekend) result.followUpHeldForWeekend = true;
     const dueBy = new Date(nowMs - 4 * 86400000).toISOString();
-    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A')`);
+    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A',${NOT_FOREIGN_FORMULA.slice(0, -1)})`);
     /* A failed send used to count against the cap of three, and the query came
        back in the same order every tick, so three leads whose sends always fail
        (a number not on WhatsApp) would hold every other follow-up back for good.
@@ -399,6 +405,7 @@ export default async function handler(req, res) {
     let fuThisRun = 0, fuTried = 0;
     for (const rec of due) {
       const f = rec.fields || {};
+      if (isForeignLead(f)) continue;                  // email only (lead-channel.js)
       const ageDays = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
       if (!(ageDays >= 4)) continue;
       if (!f.Phone) { result.followUpNoPhone++; continue; }   // nothing to send to — never tick "Sent"

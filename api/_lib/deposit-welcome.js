@@ -10,6 +10,7 @@
  * Purchase carries event_id = record id so Meta dedupes any overlap.
  */
 import crypto from 'crypto';
+import { isForeignLead } from './lead-channel.js';
 import { firstName } from './name.js';   // WhatsApp greeting — first name only
 /* The honest send: it reads Green's answer and only reports success on a real
    idMessage. This file used to assume success, which is how a closing could be
@@ -108,6 +109,11 @@ export async function sendDepositWelcome(rec) {
      for both the instant trigger and the cron safety-net. */
   if (/sinai|israel|סיני|ישראל/i.test(String(f.Expedition || ''))) {
     return { fbFired, waSent: false, skippedWa: 'israel/sinai destination' };
+  }
+  /* A customer from the foreign sites: email only, no WhatsApp (owner, 10 Nov
+     2026; ./lead-channel.js). The flag is claimed, so it stays silent for good. */
+  if (isForeignLead(f)) {
+    return { fbFired, waSent: false, skippedWa: 'lead from abroad: email only' };
   }
 
   /* waSent used to be set right after the request, without reading the reply.
