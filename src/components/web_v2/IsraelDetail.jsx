@@ -314,9 +314,14 @@ export default function IsraelDetail() {
        on to payment immediately, so when the server rejected the details
        (400 on a filler phone like 0555555555) the customer still saw the
        success flow and nobody knew nothing was saved (Aug 2 2026). A 4xx now
-       stops the form and shows why. A network failure or a 5xx still lets
-       the customer through — our backend hiccup must not block a payment. */
+       stops the form and shows why.
+       Since 12 Nov 2026 (audit W30) a 5xx or no answer at all stops it too.
+       They used to let the customer through to payment, which could leave a
+       payment with no registration behind it: no IsraelCustomers row and no
+       email to the office. The form now shows its error line and the customer
+       sends again; nothing typed is lost. Only `saved` opens the way on. */
     const fullPhone = formatFullPhone(form.dial, form.phone);
+    let saved = false;
     try {
       const res = await fetch('/api/israel-lead', {
         method:  'POST',
@@ -332,7 +337,7 @@ export default function IsraelDetail() {
           free:         trip.free || false,
         }),
       });
-      if (res.status >= 400 && res.status < 500) {
+      if (!res.ok) {
         /* Only a refusal about the phone is shown on the phone box. Every
            refusal used to be: a bad email or "too many requests" told the
            customer their phone number was not valid (11 Nov 2026). */
@@ -343,12 +348,18 @@ export default function IsraelDetail() {
         setSubmitting(false);
         return;
       }
-      if (res.ok) {
-        Analytics.leadSubmit({ source: 'israel_page', expedition: trip.name });
-        await trackLead({ source: 'israel_page', slug: `israel-${trip.slug}`, name: trip.name });
-      }
+      saved = true;
+      Analytics.leadSubmit({ source: 'israel_page', expedition: trip.name });
+      await trackLead({ source: 'israel_page', slug: `israel-${trip.slug}`, name: trip.name });
     } catch (err) {
+      /* No answer from the server, or (with `saved` already true) only the
+         tracking after a good save, which must not hold a customer back. */
       console.error('[israel-lead]', err);
+    }
+    if (!saved) {
+      setSubmitError(isRtl ? LEAD_ERROR_HE.general : LEAD_ERROR_EN.general);
+      setSubmitting(false);
+      return;
     }
 
     /* Same-tab navigation — location.href, never window.open, so there is
