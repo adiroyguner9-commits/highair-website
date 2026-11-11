@@ -20,6 +20,7 @@ import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { googleCampaignName } from './_lib/googleCampaigns.js';
 import { emailShell, p, heading, details } from './_lib/email-shell.js';
 import { withFlag } from './_lib/dest-flag.js';
+import { israelStamp } from './_lib/iltime.js';
 
 /* Fields that exist in the Airtable "Website Leads" table */
 const AIRTABLE_FIELDS = new Set([
@@ -155,18 +156,10 @@ export default async function handler(req, res) {
   }
 
   /* ── Timestamp in Israel time, ISO 8601 (sortable + uniform with the whole
-        Website Leads table; DST-aware +03:00 summer / +02:00 winter) ── */
-  const now = new Date();
-  const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
-  }).formatToParts(now).reduce((o, x) => (o[x.type] = x.value, o), {});
-  const yr = +parts.year, mo = +parts.month, dy = +parts.day;
-  const lastSunMar = new Date(yr, 2, 31 - new Date(yr, 2, 31).getDay());
-  const lastSunOct = new Date(yr, 9, 31 - new Date(yr, 9, 31).getDay());
-  const off = (new Date(yr, mo - 1, dy) >= lastSunMar && new Date(yr, mo - 1, dy) < lastSunOct) ? 3 : 2;
-  const hh = parts.hour === '24' ? '00' : parts.hour;
-  const israelTime = `${parts.year}-${parts.month}-${parts.day}T${hh}:${parts.minute}:${parts.second}+0${off}:00`;
+        Website Leads table; +03:00 summer / +02:00 winter). The offset comes
+        from the shared helper: the rule written here was an hour out on the
+        Friday and Saturday before the last Sunday of March (W29). ── */
+  const israelTime = israelStamp(new Date());
   airtableFields['Created Time'] = israelTime;
 
   /* Which site the lead came from, so the team answers in that language */

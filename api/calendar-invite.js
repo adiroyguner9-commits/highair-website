@@ -11,6 +11,7 @@
  */
 
 import { setSecurityHeaders } from './_security.js';
+import { israelCallStamps } from './_lib/iltime.js';
 
 /* RFC 5545 §3.3.11 TEXT escaping. Order matters: escape backslash first. */
 function icsEscape(s, max = 200) {
@@ -32,20 +33,9 @@ export default function handler(req, res) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) return res.status(400).send('Invalid date');
   if (!/^\d{2}:\d{2}$/.test(String(time)))       return res.status(400).send('Invalid time');
 
-  const pad = n => String(n).padStart(2, '0');
-  const [h, m]       = String(time).split(':').map(Number);
-  const [yr, mo, dy] = String(date).split('-').map(Number);
-
-  // Israel UTC offset: IDT (UTC+3) last-Sun-Mar → last-Sun-Oct, else IST (UTC+2)
-  const d0         = new Date(yr, mo - 1, dy);
-  const lastSunMar = new Date(yr, 2,  31 - new Date(yr, 2,  31).getDay());
-  const lastSunOct = new Date(yr, 9,  31 - new Date(yr, 9,  31).getDay());
-  const offset     = (d0 >= lastSunMar && d0 < lastSunOct) ? 3 : 2;
-
-  const startUTC   = h * 60 + m - offset * 60;
-  const endUTC     = startUTC + 30;
-  const toHHMM = min => `${pad(Math.floor(min / 60))}${pad(min % 60)}`;
-  const dateStr    = `${yr}${pad(mo)}${pad(dy)}`;
+  /* Israel's wall clock → UTC through the shared helper. The summer-time rule
+     written here was an hour out two days a year (W29, see api/_lib/iltime.js). */
+  const { dtStart, dtEnd } = israelCallStamps(String(date), String(time));
 
   const safeExpedition = icsEscape(expedition);
   const desc = safeExpedition ? `שיחה לגבי משלחת: ${safeExpedition}` : 'שיחה עם HighAir Expeditions';
@@ -58,8 +48,8 @@ export default function handler(req, res) {
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `DTSTART:${dateStr}T${toHHMM(startUTC)}00Z`,
-    `DTEND:${dateStr}T${toHHMM(endUTC)}00Z`,
+    `DTSTART:${dtStart}`,
+    `DTEND:${dtEnd}`,
     'SUMMARY:שיחה עם HighAir Expeditions',
     `DESCRIPTION:${desc}`,
     `ORGANIZER;CN=HighAir Expeditions:mailto:info@highair-expeditions.com`,

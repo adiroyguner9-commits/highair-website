@@ -20,6 +20,63 @@ export function israelNow() {
   };
 }
 
+/* ── An Israel wall-clock time as the instant it is ──────────────────────────
+ * Three files each carried their own daylight-saving rule: "summer time from
+ * the last Sunday of March". Israel moves its clocks on the FRIDAY before that
+ * Sunday, so on that Friday and Saturday the rule said UTC+2 while Israel was
+ * already on UTC+3: a call booked for 10:00 went into the calendars at 11:00,
+ * and a lead that arrived at 10:00 was stamped an hour late (audit W29, 12 Nov
+ * 2026). No rule is written here. Intl is asked what the offset is at that
+ * moment, so the switch days are whatever Israel's law says they are.
+ *
+ * israelWallTimeToISO is the same function as the webapp's api/_lib/time.js,
+ * which writes the reschedule and cancel invites for the same calls: the two
+ * must give one answer or a moved call lands at a different hour.
+ */
+function israelParts(date) {
+  const p = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Jerusalem', hourCycle: 'h23',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+  }).formatToParts(date).reduce((a, x) => ((a[x.type] = x.value), a), {});
+  return { ...p, hour: p.hour === '24' ? '00' : p.hour };
+}
+/** Minutes Israel is ahead of UTC at this instant: 120 in winter, 180 in summer. */
+export function israelOffsetMinutes(date = new Date()) {
+  const p = israelParts(date);
+  const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+  return Math.round((asUTC - Math.floor(date.getTime() / 1000) * 1000) / 60000);
+}
+/** Israel wall clock ('YYYY-MM-DD', 'HH:mm') → the UTC ISO instant. */
+export function israelWallTimeToISO(dateStr, timeStr = '00:00') {
+  if (!dateStr) return '';
+  const [y, mo, d] = String(dateStr).slice(0, 10).split('-').map(Number);
+  const [h, mi] = String(timeStr || '00:00').split(':').map(Number);
+  const guess = Date.UTC(y, mo - 1, d, h || 0, mi || 0);
+  const off = israelOffsetMinutes(new Date(guess));
+  let utc = guess - off * 60000;
+  const off2 = israelOffsetMinutes(new Date(utc));
+  if (off2 !== off) utc = guess - off2 * 60000;
+  return new Date(utc).toISOString();
+}
+/** A call's start and end as the UTC stamps a calendar file takes
+    ('20270326T070000Z'). A call is half an hour. */
+export function israelCallStamps(dateStr, timeStr, minutes = 30) {
+  const start = new Date(israelWallTimeToISO(dateStr, timeStr));
+  const stamp = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  return { dtStart: stamp(start), dtEnd: stamp(new Date(start.getTime() + minutes * 60000)) };
+}
+/** An instant written the way Israel reads it, with its own offset:
+    '2027-03-26T10:00:00+03:00'. Sortable, and the same instant in any reader. */
+export function israelStamp(date = new Date()) {
+  const p = israelParts(date);
+  const off = israelOffsetMinutes(date);
+  const pad = n => String(n).padStart(2, '0');
+  const sign = off < 0 ? '-' : '+';
+  const abs = Math.abs(off);
+  return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}:${p.second}${sign}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+}
+
 /* The company weekend: no automated message reaches a customer from Friday
  * 15:00 until Sunday 09:00 Israel time (owner, Aug 14 2026 — "זה סופש ואנחנו
  * לא עובדים"). The point is not politeness about the hour, it is that a message

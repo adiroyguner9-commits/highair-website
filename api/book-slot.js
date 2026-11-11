@@ -52,21 +52,12 @@ function icsEscape(s, max = 200) {
 }
 
 /* ── ICS helpers ── */
-function icsDateTimes(date, time) {
-  const pad = n => String(n).padStart(2, '0');
-  const [h, m]       = time.split(':').map(Number);
-  const [yr, mo, dy] = date.split('-').map(Number);
-  const d0           = new Date(yr, mo - 1, dy);
-  const lastSunMar   = new Date(yr, 2, 31 - new Date(yr, 2, 31).getDay());
-  const lastSunOct   = new Date(yr, 9, 31 - new Date(yr, 9, 31).getDay());
-  const offset       = (d0 >= lastSunMar && d0 < lastSunOct) ? 3 : 2;
-  const startUTC     = h * 60 + m - offset * 60;
-  const endUTC       = startUTC + 30;
-  const toHHMM = min => `${pad(Math.floor(min / 60))}${pad(min % 60)}`;
-  const ds = `${yr}${pad(mo)}${pad(dy)}`;
+/* The call's hour is Israel's wall clock; the shared helper turns it into UTC.
+   This used to carry its own summer-time rule, an hour out on the Friday and
+   Saturday before the last Sunday of March (W29, see api/_lib/iltime.js). */
+export function icsDateTimes(date, time) {
   return {
-    dtStart: `${ds}T${toHHMM(startUTC)}00Z`,
-    dtEnd:   `${ds}T${toHHMM(endUTC)}00Z`,
+    ...israelCallStamps(date, time),
     uid:     `${date}T${time.replace(':', '')}@highair-expeditions.com`,
   };
 }
@@ -204,11 +195,11 @@ import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe, destInfo } from './_lib/dest.js';
 import { withFlag } from './_lib/dest-flag.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
-import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
+import { israelNow, yomTovName, halfDayName, HALF_DAY_END, israelCallStamps } from './_lib/iltime.js';
 import { loadAvailability, dayGrid, isDefaultAvailability } from './slots.js';   // same hours and leadMin the slot list uses
 import { hookAllowed } from './_lib/hook-auth.js';
 import { greenFetch } from './_lib/green.js';
-import { emailShell, p, link, details, when, signoff, whatsapp, greeting } from './_lib/email-shell.js';
+import { emailShell, p, link, details, when, signoff, whatsapp, greeting, SITE } from './_lib/email-shell.js';
 
 /* ════════════════════════════════════════════ */
 /* A destination name and nothing else: short, no link, no long number. */
@@ -812,9 +803,10 @@ export default async function handler(req, res) {
     content_type: 'text/calendar; charset=utf-8; method=REQUEST',
   }];
 
-  // Direct ICS link — for iOS/macOS (opens Calendar app directly)
+  // Direct ICS link — for iOS/macOS (opens Calendar app directly). On the
+  // site's own domain: it pointed at the hosting address, vercel.app (W29).
   const icsParams  = new URLSearchParams({ date, time, name: name || '', expedition: expeditionHe || '' });
-  const icsLink    = `https://highair-website.vercel.app/api/calendar-invite?${icsParams}`;
+  const icsLink    = `${SITE}/api/calendar-invite?${icsParams}`;
 
   if (!silent && RESEND_KEY) {
 

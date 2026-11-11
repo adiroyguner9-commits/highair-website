@@ -164,7 +164,7 @@ export const greeting = name => {
   return /[\u0590-\u05FF]/.test(first) ? `שלום ${first},` : 'שלום,';
 };
 
-const SITE = 'https://www.highair-expeditions.com';
+export const SITE = 'https://www.highair-expeditions.com';
 
 /* A staff email in English. Only the frame and the helpers' direction flip: a
    report's own columns keep the alignment they were written with. */
