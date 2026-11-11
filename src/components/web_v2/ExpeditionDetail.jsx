@@ -6,6 +6,7 @@
 
 import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
+import { groupSizeTyped } from '../../website/formRules.js';
 import { metresText } from '../../website/units.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
@@ -808,7 +809,7 @@ export default function ExpeditionDetail() {
             'Expedition': exp.nameHe,
             'Preferred Month': form.month,
             'Age': form.age ? Number(form.age) : undefined,
-            'Group Size': form.groupSize ? Number(form.groupSize) : undefined,
+            'Group Size': Number(form.groupSize) || 1,
             'Experience': form.experience || undefined,
             'Source': (isWaitlist ? 'Waitlist - ' : 'Expedition Page - ') + exp.nameHe + (womenGroup ? ' · קבוצת נשים (עדי טנא)' : ''),
           },
@@ -2598,11 +2599,16 @@ export default function ExpeditionDetail() {
                         type="number" required min="1" max="10"
                         placeholder="1"
                         value={form.groupSize}
-                        onFocus={() => trackFieldFocus('group_size')}
-                        onChange={e => {
-                          const v = Math.min(10, Math.max(1, parseInt(e.target.value) || 1));
-                          setForm(f => ({ ...f, groupSize: String(v) }));
-                        }}
+                        /* The field opens holding "1". It used to clamp on every key:
+                           the 1 could not be deleted, and typing 2 after it made 12,
+                           which became 10. Of 640 leads since August, 82% said one
+                           person and 3% said ten (11 Nov 2026). Now the 1 is selected
+                           on focus, the field may be empty while typing, a second
+                           digit past 10 replaces the first, and leaving it empty puts
+                           the 1 back. */
+                        onFocus={e => { trackFieldFocus('group_size'); try { e.target.select(); } catch { /* not selectable here */ } }}
+                        onChange={e => setForm(f => ({ ...f, groupSize: groupSizeTyped(e.target.value) }))}
+                        onBlur={() => setForm(f => ({ ...f, groupSize: f.groupSize || '1' }))}
                         style={inputStyle}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}

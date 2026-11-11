@@ -200,15 +200,24 @@ import { fetchActiveLead, bookingAgent } from './_lib/active-lead.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey } from './_lib/callAgents.js';
 import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
-import { destHe } from './_lib/dest.js';
+import { destHe, destInfo } from './_lib/dest.js';
 import { withFlag } from './_lib/dest-flag.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { israelNow, yomTovName, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
-import { loadAvailability } from './slots.js';   // same leadMin the slot list uses
+import { loadAvailability, dayGrid, isDefaultAvailability } from './slots.js';   // same hours and leadMin the slot list uses
+import { hookAllowed } from './_lib/hook-auth.js';
 import { greenFetch } from './_lib/green.js';
 import { emailShell, p, link, details, when, signoff, whatsapp, greeting } from './_lib/email-shell.js';
 
 /* ════════════════════════════════════════════ */
+/* A destination name and nothing else: short, no link, no long number. */
+export function safeTopic(v) {
+  const t = String(v || '').trim();
+  if (!t || t.length > 60) return '';
+  if (/https?|www\.|[@/\\:<>]|\.\S|\d{5,}/i.test(t)) return '';
+  return t;
+}
+
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);
 
@@ -222,6 +231,23 @@ export default async function handler(req, res) {
 
   const raw = sanitiseFields(req.body || {});
   let { date, time, name, email, expedition } = raw;
+
+  /* A STAFF booking skips every guard below: any hour, a festival, an occupied
+     slot, no lead time. That is the Lead Center's "any hour", and it was granted
+     to whoever put `staff: true` in the request: this is the public booking
+     endpoint, so that was anybody (11 Nov 2026). The mark now counts only when
+     the request carries the secret our two servers share, which the webapp adds
+     after checking the staff session (its api/lead-action.js). Refused rather
+     than quietly booked as a customer: a customer booking messages the lead. */
+  const isStaffBooking = raw.staff === true || raw.staff === 'true';
+  if (isStaffBooking && !hookAllowed(req)) {
+    console.warn('[book-slot] a staff booking without the server key: refused');
+    return res.status(403).json({ error: 'staff_auth' });
+  }
+  /* Whose words the "expedition" is. A staff booking's and a lead's own (the
+     token lookup below) are ours; a visitor's are echoed in the WhatsApp we send
+     to the number they also typed, so see safeTopic where the message is built. */
+  let topicTrusted = isStaffBooking;
   let phone = canonPhone(raw.phone);   // store every number in the canonical 0XXXXXXXXX format
 
   const TOKEN = process.env.AIRTABLE_TOKEN;
@@ -264,6 +290,7 @@ export default async function handler(req, res) {
         // over whatever the link carried — a generic "call"/"שיחת ייעוץ" slug
         // must never end up in the confirmation. So a Kilimanjaro lead's call
         // reads "…לגבי טיפוס לקילימנג׳רו", an Annapurna lead's "…טרק סובב אנאפורנה".
+        if ((lf.Expedition || '').trim()) topicTrusted = true;
         expedition = (lf.Expedition || '').trim() || expedition;
       }
     } catch (e) { console.warn('[book-slot] lead token lookup non-fatal:', e.message); }
@@ -288,8 +315,6 @@ export default async function handler(req, res) {
   if (email && !isValidEmail(email)) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
-
-  const isStaffBooking = raw.staff === true || raw.staff === 'true';
 
   /* ── Lead-time guard (customer self-bookings only) ─────────────────────
      The slot list alone is not enough: a tab left open serves stale slots,
@@ -325,7 +350,16 @@ export default async function handler(req, res) {
     const [sh, sm] = time.split(':').map(Number);
     const slotMinutes = sh * 60 + sm;
     let leadMin = 120;
-    try { leadMin = Number((await loadAvailability(TOKEN, BASE)).leadMin) || 120; } catch { /* keep default */ }
+    let avail = null;
+    try { avail = await loadAvailability(TOKEN, BASE); leadMin = Number(avail.leadMin) || 120; } catch { /* keep default */ }
+    /* On the grid. A customer could ask for 03:17, or for an hour past closing:
+       the list they are shown never offers it, but nothing here checked. Skipped
+       when the hours in hand are only the built-in defaults (the settings could
+       not be read), so a real evening slot is never refused over a hiccup. */
+    if (avail && !isDefaultAvailability(avail) && !dayGrid(avail, date).includes(time)) {
+      console.warn(`[book-slot] rejected ${date} ${time}: not one of the day's times`);
+      return res.status(409).json({ error: 'slot_closed' });
+    }
     if (date < il.ymd || (date === il.ymd && slotMinutes < il.minutes + leadMin)) {
       console.warn(`[book-slot] rejected too-soon slot ${date} ${time} (IL now ${il.ymd} ${Math.floor(il.minutes/60)}:${String(il.minutes%60).padStart(2,'0')}, leadMin ${leadMin})`);
       return res.status(409).json({ error: 'slot_past' });
@@ -591,7 +625,9 @@ export default async function handler(req, res) {
   }
 
   // Destination in HEBREW for every customer-facing message (never "Kilimanjaro").
-  const expeditionHe = destHe(expedition);
+  /* A name we know is shown as we spell it. An unknown one from a visitor is
+     shown only if it is a plain name: no link, no phone number. */
+  const expeditionHe = destHe(topicTrusted || destInfo(expedition).slug !== 'call' ? expedition : safeTopic(expedition));
 
   // 4. WhatsApp confirmation to client via Green API
   const GA_INSTANCE = process.env.GREENAPI_INSTANCE;

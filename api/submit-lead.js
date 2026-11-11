@@ -254,12 +254,19 @@ export default async function handler(req, res) {
       if (rec && sameTrip && stillOpen) {
         {
           const note = `\n---\n[פנייה נוספת ${israelTime.slice(0, 10)}] ${sanitised['Expedition'] || sanitised['Source'] || ''}${sanitised['Experience'] ? ': ' + sanitised['Experience'] : ''}`;
-          await fetch(`${LEADS_URL}/${rec.id}`, {
+          const linked = await fetch(`${LEADS_URL}/${rec.id}`, {
             method: 'PATCH', headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ fields: { Experience: ((rec.fields?.Experience || '') + note).slice(0, 100000) } }),
+            signal: AbortSignal.timeout(3500),
           });
-          console.log('[submit-lead] returning contact, same trip → linked to existing lead', rec.id);
-          return res.status(200).json({ ok: true, linked: true });
+          /* Only when the note really landed. This answered "ok" whatever Airtable
+             said, so a refused update lost the enquiry with a thank-you on screen.
+             If it did not land, fall through and create a card: when in doubt, CREATE. */
+          if (linked.ok) {
+            console.log('[submit-lead] returning contact, same trip → linked to existing lead', rec.id);
+            return res.status(200).json({ ok: true, linked: true });
+          }
+          console.warn(`[submit-lead] could not add to the existing lead (${linked.status}) → new card`);
         }
       }
       if (rec && sameTrip) console.log(`[submit-lead] returning contact, same trip on a ${rec.fields?.Stage || '?'} card → new card`);
@@ -267,7 +274,13 @@ export default async function handler(req, res) {
     } catch (e) { console.warn('[submit-lead] dedupe check non-fatal:', e.message); }
   }
 
-  /* ── 1. Write to Airtable (new contact) ── */
+  /* ── 1. Write to Airtable (new contact) ──
+     A lead that cannot be saved is NOT dropped here any more: the function goes
+     on to the office email below, which then says so in its subject. The visitor
+     only sees an error if the email could not leave either (11 Nov 2026: one
+     busy answer from Airtable, or one value it refused, used to end in "500" with
+     the enquiry stored nowhere). */
+  let saved = { ok: false, why: '' };
   try {
     /* Stage is stamped HERE, at birth, and deliberately NOT left to the
        assignment cron. It used to arrive blank and stay blank for up to a
@@ -283,24 +296,12 @@ export default async function handler(req, res) {
 
        NOT part of airtableFields on purpose: that object is built from client
        input, and Stage must never be settable from the request body. */
-    const atRes = await fetch(LEADS_URL, {
-      method:  'POST',
-      headers: {
-        Authorization:  `Bearer ${TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ fields: { ...airtableFields, Stage: 'New Lead' } }),
-    });
-    const atData = await atRes.json();
-    if (!atRes.ok) {
-      const msg = atData?.error?.message || JSON.stringify(atData);
-      console.error('[submit-lead] Airtable error:', msg);
-      return res.status(500).json({ error: 'Submission failed' });
-    }
+    saved = await saveLead(LEADS_URL, TOKEN, { ...airtableFields, Stage: 'New Lead' });
   } catch (err) {
-    console.error('[submit-lead] Airtable fetch error:', err.message);
-    return res.status(500).json({ error: 'Submission failed' });
+    saved = { ok: false, why: err.message };
   }
+  if (!saved.ok) console.error('[submit-lead] NOT SAVED to Airtable:', saved.why);
+  else if (saved.partial) console.error('[submit-lead] saved with the core fields only:', saved.why);
 
   /* GoHighLevel is retired (owner, Jul 30 2026) — the outbound lead webhook that
      used to fire here was removed. Leads live in Airtable and are assigned by the
@@ -313,6 +314,7 @@ export default async function handler(req, res) {
 
     /* ── 4. Send email via Resend (HTML-escaped) ── */
   const RESEND_KEY = process.env.RESEND_API_KEY;
+  let emailed = false;
   if (RESEND_KEY) {
     const f = sanitised;
     /* A lead from abroad: the whole email in English, the destination in the
@@ -330,24 +332,78 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from:    'HighAir Website <noreply@highair-expeditions.com>',
           to:      ['info@highair-expeditions.com'],
-          subject: mail.subject,
+          subject: leadMailSubject(mail.subject, saved),
           html:    mail.html,
         }),
       });
       if (!emailRes.ok) {
         console.error('[submit-lead] Resend error:', emailRes.status);
+      } else {
+        emailed = true;
       }
     } catch (emailErr) {
       console.warn('[submit-lead] Resend non-fatal:', emailErr.message);
     }
   }
 
+  /* Saved, or at least in the office inbox: the enquiry exists. Neither: say so,
+     so the visitor tries again or writes on WhatsApp. */
+  if (!saved.ok && !emailed) return res.status(500).json({ error: 'Submission failed' });
   return res.status(200).json({ ok: true });
 }
 
 const FOREIGN_LANGS = ['English', 'German', 'Spanish'];
 
 /* The staff email for a lead from the Hebrew site (unchanged wording). */
+/* Save a new lead, and do not give up on the first refusal.
+   - busy (429), a server error or no answer: once more after a short wait
+   - a field or a value Airtable refuses (422, the "one unknown column loses the
+     whole lead" trap): save the person with the fields that cannot fail, and put
+     everything else in the Experience text so the agent still sees it
+   Returns { ok, partial?, why? }. Never throws for an HTTP answer. */
+const SAFE_LEAD_FIELDS = ['Name', 'Phone', 'Email', 'Stage'];
+export async function saveLead(url, token, fields, { fetchImpl = fetch, wait = 350 } = {}) {
+  const post = async f => {
+    const r = await fetchImpl(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields: f }),
+      signal: AbortSignal.timeout(3500),
+    });
+    let d = null;
+    try { d = await r.json(); } catch { /* no body */ }
+    return { ok: r.ok, status: r.status, msg: String(d?.error?.message || d?.error?.type || d?.error || '').slice(0, 200) };
+  };
+  let last = { ok: false, status: 0, msg: '' };
+  for (let i = 0; i < 2; i++) {
+    try { last = await post(fields); } catch (e) { last = { ok: false, status: 0, msg: e.message }; }
+    if (last.ok) return { ok: true };
+    if (last.status === 422) break;                 // the same body would be refused again
+    if (i === 0) await new Promise(r => setTimeout(r, wait));
+  }
+  if (last.status === 422) {
+    const rest = Object.entries(fields)
+      .filter(([k, v]) => !SAFE_LEAD_FIELDS.includes(k) && k !== 'Experience' && v !== undefined && v !== '')
+      .map(([k, v]) => `${k}: ${String(v).replace(/\s+/g, ' ').slice(0, 300)}`);
+    const core = Object.fromEntries(SAFE_LEAD_FIELDS.filter(k => fields[k] !== undefined && fields[k] !== '').map(k => [k, fields[k]]));
+    core.Experience = [fields.Experience, '[נשמר חלקית: איירטייבל דחה אחד השדות]', ...rest].filter(Boolean).join('\n').slice(0, 5000);
+    try {
+      const r = await post(core);
+      if (r.ok) return { ok: true, partial: true, why: `422 ${last.msg}` };
+      last = r;
+    } catch (e) { last = { ok: false, status: 0, msg: e.message }; }
+  }
+  return { ok: false, why: `${last.status} ${last.msg}`.trim() };
+}
+
+/* The office email's subject says when the lead is NOT (or only partly) in the
+   Lead Center, so somebody enters it by hand instead of assuming it is there. */
+export function leadMailSubject(subject, saved) {
+  if (!saved?.ok) return `לא נשמר ב-Lead Center, להזין ידנית | ${subject}`;
+  if (saved.partial) return `נשמר חלקית ב-Lead Center, לבדוק | ${subject}`;
+  return subject;
+}
+
 export function hebrewLeadEmail(f, utm = {}) {
   const html = emailShell({
       title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',

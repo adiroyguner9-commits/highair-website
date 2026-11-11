@@ -138,7 +138,18 @@ function TrekMatchRoute() {
 function IsraelTripRoute() {
   const { slug } = useParams();
   const direct = i18nInstance.language === 'he' && ISRAEL_DIRECT_LINK_SLUGS.includes(slug);
-  return (ISRAEL_TREKS_LIVE || direct) ? <IsraelDetail /> : <Navigate to="/" replace />;
+  return (ISRAEL_TREKS_LIVE || direct) ? <IsraelDetail key={slug} /> : <Navigate to="/" replace />;
+}
+
+/* One page instance per trip. Going from one trip to another through the menu
+   kept the SAME instance, with everything it had loaded and typed: the
+   Everest Base Camp page showed Kilimanjaro's departure dates and reported them
+   to Google as its own events, the form listed the other trip's months, and
+   after a lead was sent on one trip the next one opened on "thank you" with no
+   form (11 Nov 2026). The key makes React start the page again for each slug. */
+function ExpeditionRoute() {
+  const { slug } = useParams();
+  return <ExpeditionDetail key={slug} />;
 }
 
 /* Prevent the browser from restoring a previous scroll position after
@@ -219,7 +230,7 @@ Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(document.
       <Suspense fallback={<BootFallback />}>
         <Routes>
           <Route path="/"                  element={<HomeV2 />} />
-          <Route path="/expedition/:slug"  element={<ExpeditionDetail />} />
+          <Route path="/expedition/:slug"  element={<ExpeditionRoute />} />
           <Route path="/annual-plan"       element={<AnnualPlan />} />
           <Route path="/cancellation"      element={<CancellationPolicy />} />
           <Route path="/terms"             element={<TermsOfService />} />

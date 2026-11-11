@@ -41,6 +41,32 @@ function hhmmToMin(s, fallback) {
   return Number(m[1]) * 60 + Number(m[2]);
 }
 
+/* True when the hours in hand are the built-in defaults: the settings row is
+   missing, or it could not be read just now. */
+export const isDefaultAvailability = a => a === DEFAULT_AVAILABILITY;
+
+/** The day's grid: every time it offers, before lead time and before anyone's
+ *  calls are taken off. [] on a closed day. One generator for the list a
+ *  customer sees (below) and the check at the moment of booking (book-slot). */
+export function dayGrid(avail, date) {
+  const dow = new Date(`${date}T00:00:00`).getDay(); // 0=Sun … 6=Sat
+  if (!avail.days.includes(dow) || avail.blackout.includes(date) || isYomTov(date)) return [];
+  const startMin = hhmmToMin(avail.start, 540);
+  /* Erev Rosh Hashana and erev Yom Kippur close at 14:00 like a Friday — never
+     LATER than the day would have closed anyway, so this can only shorten.
+     Mirrored in the webapp's computeAvailableSlots. */
+  const endMin   = Math.min(
+    (dow === 5) ? hhmmToMin(avail.friEnd, 780) : hhmmToMin(avail.end, 1080),
+    halfDayName(date) ? hhmmToMin(HALF_DAY_END, 840) : Infinity,
+  );
+  const step = Number(avail.slotMin) > 0 ? Number(avail.slotMin) : 30;
+  const out = [];
+  for (let m = startMin; m < endMin; m += step) {
+    out.push(`${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`);
+  }
+  return out;
+}
+
 export async function loadAvailability(TOKEN, BASE) {
   try {
     const formula = encodeURIComponent(`{Key}="booking_availability"`);
@@ -126,21 +152,8 @@ export default async function handler(req, res) {
   }
 
   // Generate slots for the day
-  const startMin = hhmmToMin(avail.start, 540);
-  /* Erev Rosh Hashana and erev Yom Kippur close at 14:00 like a Friday — never
-     LATER than the day would have closed anyway, so this can only shorten.
-     Mirrored in the webapp's computeAvailableSlots. */
-  const endMin   = Math.min(
-    (dow === 5) ? hhmmToMin(avail.friEnd, 780) : hhmmToMin(avail.end, 1080),
-    halfDayName(date) ? hhmmToMin(HALF_DAY_END, 840) : Infinity,
-  );
-  const step     = Number(avail.slotMin) > 0 ? Number(avail.slotMin) : 30;
+  const allSlots = dayGrid(avail, date);
   const leadMin  = Number.isFinite(Number(avail.leadMin)) ? Number(avail.leadMin) : 120;
-
-  const allSlots = [];
-  for (let m = startMin; m < endMin; m += step) {
-    allSlots.push(`${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`);
-  }
 
   // For today (Israel's today): remove slots within the lead-time buffer.
   // MUST use Israel wall-clock minutes — with UTC `new Date()` this cutoff sat
