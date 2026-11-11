@@ -1962,7 +1962,7 @@ Glatt kosher meals throughout · Shabbat-aware scheduling · Professional Englis
     nameEn: 'Lobuche Peak',
     descEn: `Lobuche East (6119m) is the perfect stepping stone between trekking and technical mountaineering in the Everest region of Nepal. Standing on its summit reveals one of the most spectacular views in the Himalaya - with Everest, Lhotse, Nuptse, and Ama Dablam all visible at once.
 
-The approach follows the classic Everest Base Camp trek, making it possible to combine both objectives in a single 18-day expedition. Technical sections include fixed ropes, crampons, and basic ice axe work.
+The approach follows the classic Everest Base Camp trek, making it possible to combine both objectives in a single 19-day expedition. Technical sections include fixed ropes, crampons, and basic ice axe work.
 
 This peak is considered one of the best entry points into Himalayan mountaineering - challenging enough to be meaningful, achievable with proper training.
 
@@ -2542,7 +2542,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
     nameEn: 'Aconcagua',
     descEn: `Aconcagua (6962m) is the highest mountain in both the Western and Southern Hemispheres - the roof of the Americas and the second of the Seven Summits in terms of both height and prestige.
 
-This 21-day expedition uses the Normal Route via Horcones Valley and high camps at Nido de Condores and Camp 3. While non-technical, the extreme altitude and harsh Andean weather make this a serious mountaineering objective requiring excellent fitness and prior high-altitude experience.
+This 20-day expedition uses the Normal Route via Horcones Valley and high camps at Nido de Condores and Camp 3. While non-technical, the extreme altitude and harsh Andean weather make this a serious mountaineering objective requiring excellent fitness and prior high-altitude experience.
 
 The reward: standing on the highest point in the Americas, with the Andes stretching endlessly in every direction.`,
     highlightsEn: ['Aconcagua 6962m', 'Roof of the Americas', 'Seven Summits', 'Andean wilderness'],
@@ -2861,7 +2861,7 @@ Join us for a once-in-a-lifetime adventure and take part in the fight against ca
     ],
     importantToNoteEn: [
       'Lenin Peak (7134m) is a 7000m summit  -  our most serious objective. Prior experience on peaks of at least 5500m is required.',
-      'The climb includes 3 acclimatization rotations before the final summit day  -  21 days in the field total.',
+      'The climb includes 3 acclimatization rotations before the final summit day  -  20 days in total.',
       'Required equipment: crampons, ice axe, ropes, extreme winter clothing to -40°C. Full gear provided by HighAir.',
       'Visa rules depend on your passport. Many nationalities enter Kyrgyzstan visa-free; check before you travel.',
       'Extended medical clearance required  -  ECG, blood tests, doctor\'s approval for 7000m and documented high-altitude experience.',
