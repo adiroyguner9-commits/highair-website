@@ -24,9 +24,20 @@ const WIDTH = 800;
 const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog'];
 const MANIFEST = 'src/website/imageVariants.json';
 
-/* Blog: only the images posts use as their card / hero picture. */
+/* Blog: the images posts use as their card / hero picture, and the photos INSIDE the posts
+   (audit, 11 Nov 2026: a guide weighed 3.2MB on load, ten photos of 460-590KB with no lighter
+   copy). The in-post photos are read from every language a post is written in. */
 const { POSTS } = await import(path.resolve('src/data/blogData.js'));
 const blogCardImages = new Set(POSTS.map(p => p.img).filter(Boolean));
+const inPost = new Set();
+const takeBlocks = blocks => { for (const b of blocks || []) if (b && b.type === 'image' && typeof b.src === 'string' && b.src.startsWith('/images/')) inPost.add(b.src); };
+for (const p of POSTS) { takeBlocks(p.content); takeBlocks(p.contentEn); }
+const INTL = 'src/data/blog-intl';
+for (const lang of fs.existsSync(INTL) ? fs.readdirSync(INTL) : []) {
+  const dir = path.join(INTL, lang);
+  if (!fs.statSync(dir).isDirectory()) continue;
+  for (const f of fs.readdirSync(dir).filter(x => x.endsWith('.json'))) takeBlocks(JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).content);
+}
 
 const manifest = {};
 let saved = 0;
@@ -34,7 +45,7 @@ for (const dir of DIRS) {
   for (const f of fs.readdirSync(dir)) {
     if (!/\.(webp|jpe?g)$/i.test(f)) continue;
     const src = '/' + path.posix.join(dir.replace(/^public\//, ''), f);
-    if (dir.endsWith('/blog') && !blogCardImages.has(src)) continue;
+    if (dir.endsWith('/blog') && !blogCardImages.has(src) && !inPost.has(src)) continue;
     const buf = fs.readFileSync(path.join(dir, f));
     const { width, height } = await sharp(buf).metadata();
     if (width <= WIDTH * 1.2) continue;   // already small: no copy needed
@@ -63,6 +74,26 @@ for (const src of new Set([...blogCardImages, ...cardImages])) {
   const { width, height } = await sharp(fs.readFileSync('public' + src)).metadata();
   const sw = (await sharp(fs.readFileSync('public' + thumb)).metadata()).width;
   if (sw < width) manifest[src] = { w: width, h: height, s: thumb, sw };
+}
+/* A trip-gallery photo shown inside a post already has its grid copy from scripts/gen-gallery.mjs
+   (1200px on the long side): point at it, no new file. */
+const GALLERY = JSON.parse(fs.readFileSync('src/website/galleryManifest.json', 'utf8'));
+const gridCopy = Object.fromEntries(Object.values(GALLERY).flat().map(x => [x.src, x]));
+for (const src of new Set([...inPost, ...blogCardImages])) {   // a post's cover can be a gallery photo too
+  const g = gridCopy[src];
+  if (manifest[src] || !g || !g.thumb || g.thumb === src || !fs.existsSync('public' + g.thumb)) continue;
+  const sw = (await sharp(fs.readFileSync('public' + g.thumb)).metadata()).width;
+  if (sw < g.w) manifest[src] = { w: g.w, h: g.h, s: g.thumb, sw };
+}
+/* The logo: a 2000x2000 PNG shown at 60-72px in the header and the footer of every page, so
+   each visit decoded four million pixels for a 72px circle (audit, 11 Nov 2026). The small copy is
+   256px, sharp at 72px on a 3x phone, and lossless: flat colour, so it stays exact. /Logo.png
+   itself stays for search engines, emails and anything that links to it by address. */
+{
+  const LOGO = 'public/Logo.png', OUT = 'public/images/logo-256.webp';
+  const { width, height } = await sharp(LOGO).metadata();
+  fs.writeFileSync(OUT, await sharp(LOGO).resize({ width: 256, height: 256 }).webp({ lossless: true, effort: 6 }).toBuffer());
+  manifest['/Logo.png'] = { w: width, h: height, s: '/images/logo-256.webp', sw: 256 };
 }
 fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 1) + '\n');
 stampOwned({ quiet: true });

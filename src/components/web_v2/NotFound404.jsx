@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
+import { LOGO_SRC } from '../../website/imageVariants.js';
 
 export default function NotFound404() {
   const { t, i18n } = useTranslation();
@@ -42,7 +43,7 @@ export default function NotFound404() {
         marginBottom: '40px',
       }}>
         <img
-          src="/Logo.png"
+          src={LOGO_SRC}
           alt="HighAir Expeditions"
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />

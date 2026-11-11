@@ -23,6 +23,7 @@ import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { MENU_CLIMBS, MENU_TREKS, SITE_EXPS } from '../../data/expeditionGroups.js';
 import FlagImg from './FlagImg.jsx';
+import { LOGO_SRC } from '../../website/imageVariants.js';
 
 /* Date-bound Israel trips (e.g. community trips) disappear from the nav
    the day after their departure date; evergreen trips have no departure. */
@@ -1166,7 +1167,7 @@ export default function Header() {
    style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
    >
    <img
-   src="/Logo.png"
+   src={LOGO_SRC}
    alt="HighAir Expeditions"
    style={{ height: '60px', width: '60px', display: 'block', objectFit: 'contain' }}
    />
@@ -1207,12 +1208,12 @@ export default function Header() {
    style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
    >
    <img
-   src="/Logo.png"
+   src={LOGO_SRC}
    alt="HighAir Expeditions"
    style={{
    height: '64px',
    /* Fixed width (the logo is square): no reflow while the 2000px PNG decodes,
-      so the fit-to-width nav measures the real row from the first paint */
+      so the fit-to-width nav measures the real row from the first paint (the file is the 256px copy since 11 Nov 2026) */
    width: '64px',
    display: 'block',
    objectFit: 'contain',

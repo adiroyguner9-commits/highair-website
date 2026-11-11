@@ -15,6 +15,7 @@ import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { FOOTER_CLIMBS, FOOTER_TREKS } from '../../data/expeditionGroups.js';
 import { APP_PAGE } from '../../data/appData.js';
 import { StoreBadges, AppQr } from './StoreBadges.jsx';
+import { LOGO_SRC } from '../../website/imageVariants.js';
 
 /* Expeditions derived automatically (expeditionGroups.js), continent-ordered:
    Africa → Europe → Asia → South America. Add a destination to mockData and it
@@ -243,7 +244,7 @@ export default function SiteFooter() {
           {/* Logo + desc + social - full width, centered */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '52px' }}>
             <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', marginBottom: '16px', border: '2px solid #E2E0F0', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src="/Logo.png" alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={LOGO_SRC} alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, width: '100%', textAlign: 'center', whiteSpace: 'pre-line' }}>
               {t('footer.tagline')}
@@ -275,7 +276,7 @@ export default function SiteFooter() {
           {/* Logo first (rightmost in RTL) */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', marginBottom: '16px', border: '2px solid #E2E0F0', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src="/Logo.png" alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={LOGO_SRC} alt="HighAir Expeditions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 300, color: '#6B6B8A', margin: '0 0 24px', lineHeight: 1.7, width: '100%', textAlign: 'start', whiteSpace: 'pre-line' }}>
               {t('footer.tagline')}

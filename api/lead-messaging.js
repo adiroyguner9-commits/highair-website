@@ -32,7 +32,7 @@ import { isForeignLead, NOT_FOREIGN_FORMULA } from './_lib/lead-channel.js';   /
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
 import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
-import { israelClosedHold } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, and festivals the same way: nobody is here to answer
+import { israelClosedHold, israelNow } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, and festivals the same way: nobody is here to answer
 import { greenFetch } from './_lib/green.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
@@ -137,6 +137,15 @@ function isAuthorizedCron(req) {
   return diff === 0;
 }
 
+/* Is this appointment a call still ahead for the trip `want` (a tripKey)?
+   Confirmed, and dated today (Israel) or later. Pure, for the rule test. */
+export function upcomingCallFor(fields, want, todayYMD) {
+  if (!fields || tripKey(fields.Expedition) !== want) return false;
+  if (String(fields.Status || '').toLowerCase() !== 'confirmed') return false;
+  const date = String(fields.Date || '').slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) && date >= todayYMD;
+}
+
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).end();
@@ -217,15 +226,21 @@ export default async function handler(req, res) {
   // phone alone suppressed the link AND filed the new lead as 'Call Scheduled'
   // with no real call — a Kilimanjaro customer enquiring about EBC was left with
   // his old trip's booking and no way to book the new one.
+  /* ...and only a call that is still AHEAD: confirmed, dated today or later.
+     This counted any appointment the phone ever had for the trip, whatever its
+     date or status. So a customer who had a call in the spring and enquires
+     again in the autumn was stamped "Call Scheduled" with no call booked, and
+     never got the message that offers one (11 Nov 2026). */
   const hasAppointment = async (phone, expedition) => {
     const last9 = String(phone || '').replace(/\D/g, '').slice(-9);
     if (last9.length !== 9) return false;
     const want = tripKey(expedition);
     if (!want) return false;   // an enquiry we cannot classify never suppresses its own link
     const f = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone},"[^0-9]",""),9)="${last9}"`);
-    const r = await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Appointments')}?filterByFormula=${f}&maxRecords=10&fields[]=${encodeURIComponent('Expedition')}`, { headers: authHeaders });
+    const fields = ['Expedition', 'Date', 'Status'].map(x => `fields[]=${encodeURIComponent(x)}`).join('&');
+    const r = await fetch(`https://api.airtable.com/v0/${BASE}/${encodeURIComponent('Appointments')}?filterByFormula=${f}&pageSize=100&${fields}`, { headers: authHeaders });
     const j = await r.json().catch(() => ({}));
-    return (j.records || []).some(a => tripKey(a.fields?.Expedition) === want);
+    return (j.records || []).some(a => upcomingCallFor(a.fields, want, israelNow().ymd));
   };
 
   const result = { nudge: 0, nudgeFailed: 0, nudge2: 0, nudge2Failed: 0, noAnswer: 0, noAnswerFailed: 0, followUp: 0, followUpFailed: 0, followUpNoPhone: 0, callDoneStamped: 0, depositA: 0, fbPurchase: 0, errors: [] };

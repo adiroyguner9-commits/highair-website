@@ -15,3 +15,6 @@ export const srcSetOf = src => {
 };
 
 export const smallOf = src => VARIANTS[src]?.s || src;
+
+/* The logo as the page shows it (60-72px): the 256px copy, not the 2000px file. */
+export const LOGO_SRC = smallOf('/Logo.png');

@@ -9,6 +9,8 @@ import { Analytics } from '../../utils/analytics.js';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { usePhoneHero } from '../../website/phoneHero.js';
+import { useNearView } from '../../website/useInView.js';
+import { srcSetOf, smallOf } from '../../website/imageVariants.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
 import { blogLang, postField, postInLang } from '../../data/blogLang.js';
@@ -20,6 +22,77 @@ import SiteFooter from './SiteFooter.jsx';
 import MountainBackdrop from './MountainBackdrop.jsx';
 
 // ── Helpers ──────────────────────────────────────────────
+
+/* One photo inside a post. The soft blurred fill behind it is a CSS background, and a browser
+   downloads a background with the page wherever it sits: every photo of a guide came down in
+   full before the reader had scrolled to it (audit, 11 Nov 2026: 3.2MB on load, ten photos of
+   460-590KB). The fill now waits until the photo is near the screen and takes the lighter copy
+   (it is blurred, so nothing looks different), and the photo offers that copy to a screen that
+   needs no more. `sizes` is never narrower than the column, so the photo keeps the size it had. */
+function PostImage({ block }) {
+  const [ref, near] = useNearView();
+  const srcSet = srcSetOf(block.src);
+  return (
+    <div ref={ref} style={{
+      position:     'relative',
+      width:        '100%',
+      maxHeight:    '560px',
+      borderRadius: RADIUS.xl,
+      overflow:     'hidden',
+      display:      'flex',
+      alignItems:   'center',
+      justifyContent: 'center',
+      background:   '#000',
+    }}>
+      {/* Blurred background fill */}
+      {near && (
+        <div style={{
+          position:   'absolute',
+          inset:      0,
+          backgroundImage:    `url(${smallOf(block.src)})`,
+          backgroundSize:     'cover',
+          backgroundPosition: 'center',
+          filter:     'blur(18px)',
+          transform:  'scale(1.12)',
+          opacity:    0.7,
+        }} />
+      )}
+      {/* Actual image, full and unclipped */}
+      <img
+        src={block.src}
+        srcSet={srcSet}
+        sizes={srcSet ? '(max-width: 768px) 100vw, 960px' : undefined}
+        alt={block.alt || block.caption || ''}
+        loading="lazy"
+        decoding="async"
+        style={{
+          position:  'relative',
+          zIndex:    1,
+          maxWidth:  '100%',
+          maxHeight: '560px',
+          width:     'auto',
+          height:    'auto',
+          display:   'block',
+        }}
+      />
+    </div>
+  );
+}
+
+/* The cover of a related post, at the foot of the page. It is 140px tall and was the full
+   photo, downloaded with the page: three covers, about half a megabyte, for cards most readers
+   never reach. Now the lighter copy, once the reader is near, the way the blog list does it. */
+function RelatedCover({ post }) {
+  const [ref, near] = useNearView();
+  return (
+    <div ref={ref} style={{
+      height:     '140px',
+      background: post.img && near
+        ? `url(${smallOf(post.img)}) ${post.imgPosition || 'center'}/cover no-repeat`
+        : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
+    }} />
+  );
+}
 
 function fmtDate(iso) {
   if (!iso) return '';
@@ -569,44 +642,7 @@ export default function BlogPost() {
             if (block.type === 'image') return (
               <figure key={i} style={{ margin: '36px 0' }}>
                 {block.src ? (
-                  <div style={{
-                    position:     'relative',
-                    width:        '100%',
-                    maxHeight:    '560px',
-                    borderRadius: RADIUS.xl,
-                    overflow:     'hidden',
-                    display:      'flex',
-                    alignItems:   'center',
-                    justifyContent: 'center',
-                    background:   '#000',
-                  }}>
-                    {/* Blurred background fill */}
-                    <div style={{
-                      position:   'absolute',
-                      inset:      0,
-                      backgroundImage:    `url(${block.src})`,
-                      backgroundSize:     'cover',
-                      backgroundPosition: 'center',
-                      filter:     'blur(18px)',
-                      transform:  'scale(1.12)',
-                      opacity:    0.7,
-                    }} />
-                    {/* Actual image — full, unclipped */}
-                    <img
-                      src={block.src}
-                      alt={block.alt || block.caption || ''}
-                      loading="lazy"
-                      style={{
-                        position:  'relative',
-                        zIndex:    1,
-                        maxWidth:  '100%',
-                        maxHeight: '560px',
-                        width:     'auto',
-                        height:    'auto',
-                        display:   'block',
-                      }}
-                    />
-                  </div>
+                  <PostImage block={block} />
                 ) : (
                   <div style={{
                     width:        '100%',
@@ -761,12 +797,7 @@ export default function BlogPost() {
                       e.currentTarget.style.boxShadow  = 'none';
                     }}
                   >
-                    <div style={{
-                      height:     '140px',
-                      background: p.img
-                        ? `url(${p.img}) ${p.imgPosition || 'center'}/cover no-repeat`
-                        : 'linear-gradient(135deg, #1e1b4b, #4338ca, #7c3aed)',
-                    }} />
+                    <RelatedCover post={p} />
                     <div style={{ padding: '16px 18px 20px', direction: dir }}>
                       <p style={{
                         fontFamily:    "'Ploni', sans-serif",
