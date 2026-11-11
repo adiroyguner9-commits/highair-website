@@ -12,6 +12,14 @@ import { BASE_URLS, LANGS, currentLang, hasPage } from './lang.js';
 const BASE_URL    = 'https://www.highair-expeditions.com';
 const DEFAULT_IMG = `${BASE_URL}/og-image.jpg`;
 
+/* The address of the site the visitor is on (audit W21, 12 Nov 2026). The
+   schema builders below wrote every page address on www, so the English,
+   German and Spanish pages handed search engines the Hebrew site's addresses
+   for their own breadcrumbs, trip lists and trips. Photos and the logo stay on
+   www on every site, as in the static pages (scripts/generate-html-shells.mjs). */
+const siteBase = () => BASE_URLS[currentLang()] || BASE_URL;
+const onSite   = url => (url.startsWith('http') ? url : siteBase() + url);
+
 export function usePageMeta({ title, description, canonicalPath = '/', image = DEFAULT_IMG, jsonLd, ogType = 'website', noIndex = false }) {
   useEffect(() => {
     document.title = title;
@@ -96,7 +104,7 @@ export function breadcrumbList(items) {
       '@type':    'ListItem',
       position:   i + 1,
       name:       it.name,
-      item:       it.url.startsWith('http') ? it.url : (BASE_URL + it.url),
+      item:       onSite(it.url),
     })),
   };
 }
@@ -111,7 +119,7 @@ export function itemList(items) {
       '@type':   'ListItem',
       position:  i + 1,
       name:      it.name,
-      url:       it.url.startsWith('http') ? it.url : (BASE_URL + it.url),
+      url:       onSite(it.url),
     })),
   };
 }
@@ -132,22 +140,25 @@ export function tourSchema({
   name, description, image, url, country, priceFrom, priceCurrency = 'USD',
   durationDays, ratingValue, reviewCount, reviews,
 }) {
+  const pageUrl = onSite(url);
   const schema = {
     '@context': 'https://schema.org',
     '@type':    ['TouristTrip', 'Product'],
     // Same @id the static shell uses for this trip, so Google MERGES the shell
-    // and runtime TouristTrip into one entity instead of seeing two.
-    '@id':      url.startsWith('http') ? url : BASE_URL + url,
+    // and runtime TouristTrip into one entity instead of seeing two. The
+    // Hebrew shell names the trip by its address, the English, German and
+    // Spanish shells by address + "#trip".
+    '@id':      currentLang() === 'he' ? pageUrl : `${pageUrl}#trip`,
     name,
     description,
-    url:        url.startsWith('http') ? url : BASE_URL + url,
+    url:        pageUrl,
     image:      image
                   ? (image.startsWith('http') ? image : BASE_URL + image)
                   : DEFAULT_IMG,
     provider: {
       '@type':    'TravelAgency',
       name:       'HighAir Expeditions',
-      url:        BASE_URL,
+      url:        siteBase(),
       telephone:  '+972555636975',
       image:      BASE_URL + '/Logo.png',
       priceRange: '$$$',
@@ -179,7 +190,7 @@ export function tourSchema({
         '@type':              'MerchantReturnPolicy',
         applicableCountry:    'IL',
         returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-        merchantReturnLink:   'https://www.highair-expeditions.com/cancellation',
+        merchantReturnLink:   siteBase() + '/cancellation',
       },
     };
   }
@@ -216,6 +227,6 @@ export function blogPostSchema({ headline, image, datePublished, dateModified, a
     author:         { '@type': 'Person',       name: authorName || 'HighAir Expeditions' },
     publisher:      { '@type': 'Organization', name: 'HighAir Expeditions',
                       logo: { '@type': 'ImageObject', url: BASE_URL + '/Logo.png' } },
-    mainEntityOfPage: url.startsWith('http') ? url : BASE_URL + url,
+    mainEntityOfPage: onSite(url),
   };
 }

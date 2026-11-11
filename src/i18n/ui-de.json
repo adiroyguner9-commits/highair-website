@@ -65,7 +65,7 @@
  "Interested in {0}? Pick a time and we'll call to answer every question and help you plan.": "Interesse an {0}? Wählen Sie eine Uhrzeit, wir rufen an, beantworten jede Frage und helfen bei der Planung.",
  "International Expedition Schedule | HighAir Expeditions": "Internationaler Expeditionskalender | HighAir Expeditions",
  "Invalid phone number": "Ungültige Telefonnummer",
- "Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567": "Ungültige Telefonnummer. Bitte geben Sie Ihre Nummer mit Ländervorwahl ein.",
+ "Invalid phone number. Please enter your number with the country code.": "Ungültige Telefonnummer. Bitte geben Sie Ihre Nummer mit Ländervorwahl ein.",
  "Is this trip for me?": "Ist diese Reise etwas für mich?",
  "Israel": "Israel",
  "Itinerary in preparation · full program coming soon": "Reiseverlauf in Vorbereitung · vollständiges Programm folgt bald",
@@ -300,5 +300,8 @@
  "Please enter your full name, in letters.": "Bitte geben Sie Ihren vollständigen Namen in Buchstaben ein.",
  "Too many requests in a row. Please try again in a minute.": "Zu viele Anfragen hintereinander. Bitte versuchen Sie es in einer Minute erneut.",
  "We couldn't load the available times.": "Die freien Uhrzeiten konnten nicht geladen werden.",
- "Try again": "Erneut versuchen"
+ "Try again": "Erneut versuchen",
+ "Last spot left!": "Letzter freier Platz!",
+ "404 - Page Not Found | HighAir Expeditions": "404 - Seite nicht gefunden | HighAir Expeditions",
+ "The page you were looking for does not exist.": "Die gesuchte Seite existiert nicht."
 }

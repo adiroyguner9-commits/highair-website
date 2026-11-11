@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
+import { tx } from '../../website/lang.js';
 import { LOGO_SRC } from '../../website/imageVariants.js';
 
 export default function NotFound404() {
@@ -14,8 +15,9 @@ export default function NotFound404() {
   const dir  = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isEn = dir === 'ltr';
   usePageMeta({
-    title:       isEn ? '404 - Page Not Found | HighAir Expeditions' : '404 - הדף לא נמצא | HighAir Expeditions',
-    description: isEn ? 'The page you were looking for does not exist.' : 'הדף שחיפשת לא קיים.',
+    /* tx(): German and Spanish got this title in English (audit W21) */
+    title:       isEn ? tx('404 - Page Not Found | HighAir Expeditions') : '404 - הדף לא נמצא | HighAir Expeditions',
+    description: isEn ? tx('The page you were looking for does not exist.') : 'הדף שחיפשת לא קיים.',
     noIndex:     true,
   });
   return (

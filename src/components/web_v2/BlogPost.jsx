@@ -13,7 +13,7 @@ import { useNearView } from '../../website/useInView.js';
 import { srcSetOf, smallOf } from '../../website/imageVariants.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { POSTS, isNewsPost } from 'virtual:blog-index';   // titles and covers only (scripts/lib/vite-blog-split.mjs)
-import { blogLang, postField, postInLang } from '../../data/blogLang.js';
+import { blogLang, postField, postInLang, postShare } from '../../data/blogLang.js';
 import { tx } from '../../website/lang.js';
 import { readPostContent, preloadPostContent, openPost } from '../../data/blogContent.js';
 import { authorOf } from '../../data/authors.js';
@@ -232,12 +232,13 @@ export default function BlogPost() {
      (owner, 5 Nov 2026: no dead ends). */
   if (!post) return <Navigate to="/blog" replace />;
 
-  const pageUrl     = `https://www.highair-expeditions.com/blog/${post.slug}`;
+  /* The title and the address the share buttons send: this site's own */
+  const { title: shareTitle, url: pageUrl } = postShare(post, lang);
   const readingTime = calcReadingTime(postContent);
 
   const shareWA = () => {
     Analytics.shareWhatsApp(post.title);
-    const text = encodeURIComponent(`${post.title}\n${pageUrl}?utm_source=whatsapp&utm_medium=social&utm_campaign=blog`);
+    const text = encodeURIComponent(`${shareTitle}\n${pageUrl}?utm_source=whatsapp&utm_medium=social&utm_campaign=blog`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 

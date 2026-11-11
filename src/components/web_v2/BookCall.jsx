@@ -98,7 +98,7 @@ export default function BookCall() {
     const phoneOk = checkPhone(form.dial, form.phone);
     if (!nameOk)  setNameError(isEn ? tx("Please enter your name") : 'נא להזין שם');
     if (!phoneOk) setPhoneError(isEn ? tx(
-      "Invalid phone number. Israeli mobile: 10 digits, e.g. 050-1234567. Landline: 9 digits, e.g. 03-1234567"
+      "Invalid phone number. Please enter your number with the country code."
     ) : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
     if (!nameOk || !phoneOk) return;
     setStep('booking');

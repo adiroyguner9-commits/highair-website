@@ -3,6 +3,8 @@
    titleEs… (scripts/lib/vite-blog-split.mjs), falling back to English, then
    Hebrew. `langs` lists where the post is published: German and Spanish only
    carry the posts translated for them, and posts about Israel stay Hebrew. */
+import { BASE_URLS } from '../website/sites.js';
+
 const SUFFIX = { en: 'En', de: 'De', es: 'Es' };
 
 /** he | en | de | es for an i18n language code. */
@@ -13,6 +15,13 @@ export function postField(post, key, lang) {
   if (!post) return '';
   if (lang === 'he') return post[key] || '';
   return post[key + SUFFIX[lang]] || post[key + 'En'] || post[key] || '';
+}
+
+/** What the share buttons send: the post's title in the site's language and
+    its address on that site. They sent the Hebrew title and the www address
+    from every site (audit W21, 12 Nov 2026). */
+export function postShare(post, lang) {
+  return { title: postField(post, 'title', lang), url: `${BASE_URLS[lang] || BASE_URLS.he}/blog/${post?.slug || ''}` };
 }
 
 /** Is this post published on the `lang` site? */

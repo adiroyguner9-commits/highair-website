@@ -5,11 +5,12 @@
  */
 
 import { scrollerProps } from '../../website/a11y.js';
-import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
+import { tx, loc, currentLang, PARTIAL_LANGS, localMonths, BASE_URLS } from '../../website/lang.js';
 import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
 import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
 import { calendarDay } from '../../website/calendarDay.js';
+import { tripEvents, groupIsFull } from '../../website/tripSchema.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -402,15 +403,24 @@ export default function ExpeditionDetail() {
            || (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15, loc(exp, "experience")))))
     : [];
 
+  /* The trip's name and country as search engines get them: in the language of
+     the site. The English, German and Spanish pages used to hand over the
+     Hebrew ones (audit W21, 12 Nov 2026). The foreign name and description are
+     the ones the static page of that site carries. */
+  const schemaName    = !exp ? '' : isRtl ? `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}` : (loc(exp, 'name') || exp.name);
+  const schemaCountry = !exp ? '' : isRtl ? (exp.countryHe || exp.country) : (loc(exp, 'country') || exp.country);
+
   const expJsonLd = exp ? [
     tourSchema({
-      name:          `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
+      name:          schemaName,
       /* Every value guarded: an unfilled draft would otherwise publish
          "[למילוי]" into the search result itself. */
-      description:   `${exp.nameHe} ב${exp.countryHe || ''}${[filled(exp.elev), filled(exp.days)].filter(Boolean).length ? ' - ' + [filled(exp.elev) && metresText(exp.elev, 'he'), filled(exp.days)].filter(Boolean).join(', ') : ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`,
+      description:   isRtl
+        ? `${exp.nameHe} ב${exp.countryHe || ''}${[filled(exp.elev), filled(exp.days)].filter(Boolean).length ? ' - ' + [filled(exp.elev) && metresText(exp.elev, 'he'), filled(exp.days)].filter(Boolean).join(', ') : ''}. משלחת מלאה הכוללת מדריכים, לינה וציוד, מבית HighAir Expeditions.${filled(exp.priceStr) ? ` החל מ-${exp.priceStr}.` : ''}`
+        : (filled(loc(exp, 'seoDescription')) || filled(loc(exp, 'desc')) || ''),
       image:         exp.img,
       url:           `/expedition/${exp.slug}`,
-      country:       exp.countryHe || exp.country,
+      country:       schemaCountry,
       durationDays:  typeof exp.days === 'number' ? exp.days : (parseInt(exp.days) || undefined),
       priceFrom:     exp.price || undefined,
       priceCurrency: expPriceCurrency,
@@ -419,9 +429,9 @@ export default function ExpeditionDetail() {
          see two ratings for one trip - "multiple aggregate ratings". */
     }),
     breadcrumbList([
-      { name: 'בית',       url: '/' },
-      { name: 'משלחות',   url: '/#expeditions' },
-      { name: exp.nameHe, url: `/expedition/${exp.slug}` },
+      { name: isRtl ? 'בית'       : tx('Home'),        url: '/' },
+      { name: isRtl ? 'משלחות'   : tx('Expeditions'), url: '/#expeditions' },
+      { name: isRtl ? exp.nameHe : (loc(exp, 'name') || exp.name), url: `/expedition/${exp.slug}` },
     ]),
     faqPage(expFaqItems.slice(0, 8)),
   ] : null;
@@ -654,25 +664,21 @@ export default function ExpeditionDetail() {
     if (prev) prev.remove();
     if (!exp || exp.teaser || !liveGroups.length) return;
 
-    const currency = exp?.priceStr?.startsWith('€') ? 'EUR' : 'USD';
-    const absUrl   = `https://www.highair-expeditions.com/expedition/${exp.slug}`;
-    const todayIso = new Date().toISOString().slice(0, 10);
-    const eventDesc = exp.seoDescription || `יציאה מתוזמנת ל${exp.nameHe} עם HighAir Expeditions.`;
-    const events = liveGroups.slice(0, 20).map(g => ({
-      '@type':             'Event',
-      name:                `${exp.nameHe}${exp.countryHe ? ' · ' + exp.countryHe : ''}`,
-      description:         eventDesc,
-      startDate:           g.departure,
-      endDate:             g.returnDate || g.departure,
-      eventStatus:         'https://schema.org/EventScheduled',
-      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-      image:               exp.img ? `https://www.highair-expeditions.com${exp.img}` : undefined,
-      url:                 absUrl,
-      location:            { '@type': 'Place', name: exp.countryHe || exp.country || 'HighAir Expeditions', address: { '@type': 'PostalAddress', addressCountry: exp.country || exp.countryHe || 'IL' } },
-      organizer:           { '@type': 'TravelAgency', name: 'HighAir Expeditions', url: 'https://www.highair-expeditions.com' },
-      performer:           { '@type': 'Organization', name: 'HighAir Expeditions' },
-      ...(exp.price > 0 ? { offers: { '@type': 'Offer', price: exp.price, priceCurrency: currency, availability: 'https://schema.org/InStock', url: absUrl, validFrom: todayIso } } : {}),
-    }));
+    /* In the site's own language and on its own address, and a full group is
+       sold out, not in stock (audit W21; the list itself: tripSchema.js). */
+    const siteUrl = BASE_URLS[currentLang()] || BASE_URLS.he;
+    const events = tripEvents({
+      exp,
+      groups:      liveGroups,
+      name:        schemaName,
+      description: isRtl
+        ? (exp.seoDescription || `יציאה מתוזמנת ל${exp.nameHe} עם HighAir Expeditions.`)
+        : (filled(loc(exp, 'seoDescription')) || filled(loc(exp, 'desc')) || ''),
+      place:       schemaCountry,
+      pageUrl:     `${siteUrl}/expedition/${exp.slug}`,
+      siteUrl,
+      today:       new Date().toISOString().slice(0, 10),
+    });
 
     const script = document.createElement('script');
     script.id   = 'events-jsonld';
@@ -681,7 +687,7 @@ export default function ExpeditionDetail() {
     document.head.appendChild(script);
 
     return () => { const el = document.getElementById('events-jsonld'); if (el) el.remove(); };
-  }, [exp?.slug, liveGroups]);
+  }, [exp?.slug, liveGroups, i18n.language]);
 
   /* helpers. Every date shown is read with calendarDay(): the day written in
      the string, whatever the visitor's time zone (W19). */
@@ -2015,12 +2021,9 @@ export default function ExpeditionDetail() {
                   // deploy); mockData's per-expedition number is the fallback.
                   const groupCap        = g.capacity || exp?.groupCapacity || 15;
                   const spotsLeft       = groupCap - g.count;
-                  const depYM           = (() => { const d = new Date(g.departure); return `${d.getUTCFullYear()}-${d.getUTCMonth()}`; })();
-                  const isManualSoldOut = (exp?.soldOutGroups || []).some(m => {
-                    const sd = new Date(m);
-                    return `${sd.getUTCFullYear()}-${sd.getUTCMonth()}` === depYM;
-                  });
-                  const isFull = spotsLeft <= 0 || isManualSoldOut;
+                  /* No seat left, or closed by hand for its month: the same
+                     rule the Event schema reads (tripSchema.js). */
+                  const isFull = groupIsFull(g, exp);
                   const isLow  = !isFull && spotsLeft <= 6;
                   /* Women's expedition — flagged by a "Women" marker in the Airtable
                      Group Name; gets a distinct pink border. */
@@ -2030,7 +2033,7 @@ export default function ExpeditionDetail() {
                     : isFull
                     ? { bg: '#FEE2E2', color: '#991B1B', text: isRtl ? 'קבוצה מלאה' : tx("Group Full") }
                     : isLow
-                    ? { bg: '#FEF3C7', color: '#92400E', text: isRtl ? (spotsLeft === 1 ? 'נשאר מקום אחרון!' : `נשארו ${spotsLeft} מקומות`) : (spotsLeft === 1 ? 'Last spot left!' : `${spotsLeft} spots left`) }
+                    ? { bg: '#FEF3C7', color: '#92400E', text: isRtl ? (spotsLeft === 1 ? 'נשאר מקום אחרון!' : `נשארו ${spotsLeft} מקומות`) : (spotsLeft === 1 ? tx("Last spot left!") : tx("{0} spots left", [spotsLeft])) }
                     : { bg: '#D1FAE5', color: '#065F46', text: isRtl ? 'הרשמה פתוחה' : tx("Open") };
                   return (
                     <div key={g.id} style={{
