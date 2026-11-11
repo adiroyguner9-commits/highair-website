@@ -6,6 +6,7 @@
  */
 
 import { tx, loc } from '../../website/lang.js';
+import { calendarDay } from '../../website/calendarDay.js';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -22,14 +23,15 @@ import SiteFooter from './SiteFooter.jsx';
 import FlagImg from './FlagImg.jsx';
 
 /* ── Helpers ── */
+/* calendarDay(): the day written in the string, in every time zone (W19) */
 function fmtDate(str, months) {
   if (!str) return '';
-  const d = new Date(str);
+  const d = calendarDay(str);
   return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
 function monthKey(str) {
-  const d = new Date(str);
+  const d = calendarDay(str);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 }
 

@@ -11,6 +11,7 @@ import FaqAccordion from './FaqAccordion.jsx';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
 import { nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
+import { calendarDay }                 from '../../website/calendarDay.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
@@ -413,7 +414,7 @@ export default function IsraelDetail() {
 
       setLiveGroups(enriched);
       if (enriched.length > 0) {
-        const d = new Date(enriched[0].departure);
+        const d = calendarDay(enriched[0].departure);
         setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
       }
 
@@ -462,15 +463,16 @@ export default function IsraelDetail() {
     });
   }, [trip?.slug]);
 
-  /* ── Date helpers ── */
+  /* ── Date helpers ── calendarDay(): the day written in the string, in every
+     time zone (W19) */
   function formatDateRange(dep, ret) {
-    const d = new Date(dep);
+    const d = calendarDay(dep);
     const dd = String(d.getDate()).padStart(2, '0');
     const mm = String(d.getMonth() + 1).padStart(2, '0');
     const yy = String(d.getFullYear()).slice(-2);
     // Single-day trip: no return date, or return is the same day
     if (!ret || ret === dep) return `${dd}/${mm}/${yy}`;
-    const r   = new Date(ret);
+    const r   = calendarDay(ret);
     const rr  = String(r.getDate()).padStart(2, '0');
     if (d.getMonth() === r.getMonth() && d.getFullYear() === r.getFullYear()) {
       return `${dd}-${rr}/${mm}/${yy}`;
@@ -478,8 +480,8 @@ export default function IsraelDetail() {
     const mm2 = String(r.getMonth() + 1).padStart(2, '0');
     return `${dd}/${mm} - ${rr}/${mm2}/${yy}`;
   }
-  function monthKey(dep)   { const d = new Date(dep); return `${d.getFullYear()}-${d.getMonth()}`; }
-  function monthLabel(dep) { return new Date(dep).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long', year: 'numeric' }); }
+  function monthKey(dep)   { const d = calendarDay(dep); return `${d.getFullYear()}-${d.getMonth()}`; }
+  function monthLabel(dep) { return calendarDay(dep).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', { month: 'long', year: 'numeric' }); }
 
   /* Airtable owns departures, because it is also where the live headcount lives.
      But a one-off community day is set in code the moment the owner picks a

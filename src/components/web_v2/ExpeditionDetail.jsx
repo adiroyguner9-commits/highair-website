@@ -9,6 +9,7 @@ import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/
 import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
 import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
+import { calendarDay } from '../../website/calendarDay.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -613,7 +614,7 @@ export default function ExpeditionDetail() {
 
         setLiveGroups(enriched);
         if (enriched.length > 0) {
-          const d = new Date(enriched[0].departure);
+          const d = calendarDay(enriched[0].departure);
           setActiveYear(d.getFullYear());
           setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
         }
@@ -682,10 +683,11 @@ export default function ExpeditionDetail() {
     return () => { const el = document.getElementById('events-jsonld'); if (el) el.remove(); };
   }, [exp?.slug, liveGroups]);
 
-  /* helpers */
+  /* helpers. Every date shown is read with calendarDay(): the day written in
+     the string, whatever the visitor's time zone (W19). */
   function formatDateRange(dep, ret) {
-    const d = new Date(dep);
-    const r = new Date(ret || dep);
+    const d = calendarDay(dep);
+    const r = calendarDay(ret || dep);
     const dd  = String(d.getDate()).padStart(2, '0');
     const rr  = String(r.getDate()).padStart(2, '0');
     const mm  = String(d.getMonth() + 1).padStart(2, '0');
@@ -708,18 +710,18 @@ export default function ExpeditionDetail() {
   }
 
   function monthKey(dep) {
-    const d = new Date(dep);
+    const d = calendarDay(dep);
     return `${d.getFullYear()}-${d.getMonth()}`;
   }
 
   function monthLabel(dep) {
-    const d = new Date(dep);
+    const d = calendarDay(dep);
     return d.toLocaleDateString(isRtl ? 'he-IL' : ({ de: 'de-DE', es: 'es-ES' }[currentLang()] || 'en-US'), { month: 'long', year: 'numeric' });
   }
 
   /* unique months from live groups */
-  const years = [...new Set(liveGroups.map(g => new Date(g.departure).getFullYear()))].sort();
-  const groupsForYear = activeYear ? liveGroups.filter(g => new Date(g.departure).getFullYear() === activeYear) : liveGroups;
+  const years = [...new Set(liveGroups.map(g => calendarDay(g.departure).getFullYear()))].sort();
+  const groupsForYear = activeYear ? liveGroups.filter(g => calendarDay(g.departure).getFullYear() === activeYear) : liveGroups;
   const months = [...new Map(groupsForYear.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const allMonths = [...new Map(liveGroups.filter(g => new Date(g.departure) >= today).map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
@@ -1923,9 +1925,9 @@ export default function ExpeditionDetail() {
                         key={yr}
                         onClick={() => {
                           setActiveYear(yr);
-                          const firstOfYear = liveGroups.find(g => new Date(g.departure).getFullYear() === yr);
+                          const firstOfYear = liveGroups.find(g => calendarDay(g.departure).getFullYear() === yr);
                           if (firstOfYear) {
-                            const d = new Date(firstOfYear.departure);
+                            const d = calendarDay(firstOfYear.departure);
                             setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
                           }
                         }}
