@@ -8,11 +8,13 @@ import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { nameTyped, emailLooksRight } from '../../website/formRules.js';
+import { tx } from '../../website/lang.js';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 
 /* ── Submit lead ── */
-async function submitLead({ name, dial, phone, message }) {
+async function submitLead({ name, dial, phone, email, message }) {
   const res = await fetch('/api/submit-lead', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -21,6 +23,7 @@ async function submitLead({ name, dial, phone, message }) {
       fields: {
         'Name':      name,
         'Phone':     formatFullPhone(dial, phone),
+        ...(email && email.trim() ? { 'Email': email.trim() } : {}),
         'Message':   message,
         'Source':    'Contact',
         'Submitted': new Date().toISOString(),
@@ -61,7 +64,13 @@ export default function CTASection() {
   const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
   const isRtl = dir === 'rtl';
   const INPUT_STYLE = { ...INPUT_STYLE_BASE, direction: dir };
-  const [form,       setForm]       = useState({ name: '', dial: defaultDial(), phone: '', message: '', privacy: false });
+  const [form,       setForm]       = useState({ name: '', dial: defaultDial(), phone: '', email: '', message: '', privacy: false });
+  /* Abroad the answer to a lead goes out by e-mail only (owner, 5 Nov 2026), and
+     this form asked for a name, a phone and a message: a lead nobody could
+     answer automatically (11 Nov 2026). So the foreign sites ask for the address
+     too; the Hebrew site, where the answer is on WhatsApp, is unchanged. */
+  const asksEmail = !isRtl;
+  const [emailError, setEmailError] = useState(false);
   const [focused,    setFocused]    = useState(null);
   const [submitted,  setSubmitted]  = useState(false);
   const [loading,    setLoading]    = useState(false);
@@ -78,7 +87,7 @@ export default function CTASection() {
       Analytics.leadFormStart('cta_section');
     }
     if (field === 'name') {
-      const letters = value.replace(/[^א-תa-zA-Z\s]/g, '');
+      const letters = nameTyped(value);
       setForm(prev => ({ ...prev, name: letters }));
       return;
     }
@@ -89,10 +98,12 @@ export default function CTASection() {
     e.preventDefault();
     if (!form.name.trim())                              { Analytics.leadSubmitError('missing_name');    return; }
     if (!validatePhone(form.dial, form.phone))          { setPhoneError(true); Analytics.leadSubmitError('invalid_phone'); return; }
+    if (asksEmail && !emailLooksRight(form.email))      { setEmailError(true); Analytics.leadSubmitError('invalid_email'); return; }
     if (!form.message.trim())                           { Analytics.leadSubmitError('missing_message'); return; }
     if (!form.privacy)                                  { Analytics.leadSubmitError('no_consent');      return; }
 
     setPhoneError(false);
+    setEmailError(false);
     setSubmitErr(false);
     setLoading(true);
 
@@ -182,6 +193,30 @@ export default function CTASection() {
               error={phoneError}
               errorMsg={t('cta.phoneError')}
             />
+
+            {/* Email - the foreign sites only (see asksEmail) */}
+            {asksEmail && (
+              <div>
+                <label htmlFor="cta-email" style={LABEL_STYLE}>{tx("Email *")}</label>
+                <input
+                  id="cta-email" name="email" autoComplete="email" inputMode="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={form.email}
+                  required
+                  aria-invalid={emailError || undefined}
+                  onChange={e => { handleChange('email', e.target.value); if (emailError) setEmailError(false); }}
+                  onMouseEnter={e => { e.target.style.borderColor = 'rgba(167,139,250,0.6)'; }}
+                  onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; }}
+                  style={{ ...INPUT_STYLE, direction: 'ltr', ...(emailError ? { borderColor: 'rgba(248,113,113,0.9)' } : {}) }}
+                />
+                {emailError && (
+                  <p role="alert" style={{ fontFamily: 'Ploni, sans-serif', fontSize: '12px', color: 'rgba(248,113,113,0.9)', margin: '6px 0 0', textAlign: 'start' }}>
+                    {tx("Please enter a valid email address.")}
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Message - required */}
             <div>
@@ -308,7 +343,7 @@ export default function CTASection() {
               {t('cta.received')}
             </p>
             <button
-              onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', message: '' }); }}
+              onClick={() => { setSubmitted(false); setForm({ name: '', dial: defaultDial(), phone: '', email: '', message: '', privacy: false }); }}   /* the whole form: without `dial` the next lead's phone was sent as "undefined 050..." */
               style={{
                 marginTop:    '24px',
                 padding:      '10px 24px',

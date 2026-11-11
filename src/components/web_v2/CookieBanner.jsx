@@ -10,6 +10,17 @@ import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
 
 const STORAGE_KEY = 'highair_cookie_consent';
 
+/* The browser's storage can be switched off (a strict private mode, some in-app
+   browsers), and then even reading it throws. This component is on every page,
+   so that one throw replaced the whole site with the error screen (11 Nov 2026).
+   With no storage the banner simply shows, and the choice holds for the visit. */
+function readChoice() {
+  try { return localStorage.getItem(STORAGE_KEY); } catch { return null; }
+}
+function saveChoice(value) {
+  try { localStorage.setItem(STORAGE_KEY, value); } catch { /* nothing to keep it in */ }
+}
+
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const { i18n } = useTranslation();
@@ -19,7 +30,7 @@ export default function CookieBanner() {
   const bannerRef = useRef(null);
 
   useEffect(() => {
-    if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
+    if (!readChoice()) setVisible(true);
   }, []);
 
   /* While the banner is visible, if it reaches the bottom-left corner where the
@@ -72,7 +83,7 @@ export default function CookieBanner() {
   }, [visible]);
 
   function accept() {
-    localStorage.setItem(STORAGE_KEY, 'accepted');
+    saveChoice('accepted');
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
     }
@@ -89,7 +100,7 @@ export default function CookieBanner() {
   }
 
   function decline() {
-    localStorage.setItem(STORAGE_KEY, 'declined');
+    saveChoice('declined');
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     }

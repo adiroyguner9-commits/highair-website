@@ -14,7 +14,8 @@ process.env.AIRTABLE_TOKEN = 'tok';
 const { default: bookSlot, safeTopic } = await import('../api/book-slot.js');
 const { dayGrid, isDefaultAvailability, loadAvailability } = await import('../api/slots.js');
 const { saveLead, leadMailSubject } = await import('../api/submit-lead.js');
-const { groupSizeTyped } = await import('../src/website/formRules.js');
+const { groupSizeTyped, nameTyped, emailLooksRight } = await import('../src/website/formRules.js');
+const { firstNoteIsGroupSize, GROUP_NOUN } = await import('../src/website/tripNotes.js');
 
 let n = 0;
 async function book(body, headers = {}) {
@@ -137,5 +138,90 @@ describe('W4: a lead is not dropped at the first refusal', () => {
     expect(src).toContain("if (!saved.ok && !emailed) return res.status(500)");
     expect(src).toContain('if (linked.ok) {');
     expect(src).not.toMatch(/console\.error\('\[submit-lead\] Airtable error:', msg\);\s*return res\.status\(500\)/);
+  });
+});
+
+/* ── Round 2 ── */
+const read = f => fs.readFileSync(path.resolve(__dirname, '..', f), 'utf8');
+
+describe('P1 + W9: consent is queued before the tag manager, and a blocked storage breaks nothing', () => {
+  const html = read('index.html');
+  it('the consent default comes before GTM\'s first entry in the queue', () => {
+    const consent = html.indexOf("gtag('consent', 'default'");
+    const gtm = html.indexOf("event:'gtm.js'");
+    expect(consent).toBeGreaterThan(0);
+    expect(gtm).toBeGreaterThan(consent);
+  });
+  it('a choice already made is applied before GTM too, inside a guard', () => {
+    const block = html.slice(html.indexOf("gtag('consent', 'default'"), html.indexOf("event:'gtm.js'"));
+    expect(block).toMatch(/try \{\s*if \(localStorage\.getItem\('highair_cookie_consent'\) === 'accepted'\)/);
+    expect(block).toContain('} catch (e)');
+  });
+  it('the banner never touches storage outside a guard', () => {
+    const banner = read('src/components/web_v2/CookieBanner.jsx');
+    const bare = banner.split('\n').filter(l => /localStorage\./.test(l) && !/try \{/.test(l));
+    expect(bare).toEqual([]);
+  });
+});
+
+describe('W3: the deposit checkout needs a departure to pay for', () => {
+  it('a payment link alone is not enough', () => {
+    const src = read('src/components/web_v2/ExpeditionDetail.jsx');
+    expect(src).toContain('const isPayFlow = !!exp?.paymentUrl && futureGroups.length > 0;');
+    expect(src).toContain('if (isPayFlow && !isWaitlist) {');
+    expect(src).not.toContain('if (exp.paymentUrl && !isWaitlist)');
+  });
+});
+
+describe('W5: a name keeps the letters of every alphabet', () => {
+  it('German, Spanish, French and Hebrew names survive; digits and symbols do not', () => {
+    expect(nameTyped("Jörg Müller-O'Brien")).toBe("Jörg Müller-O'Brien");
+    expect(nameTyped('José Muñoz')).toBe('José Muñoz');
+    expect(nameTyped('בן-דוד')).toBe('בן-דוד');
+    expect(nameTyped("ז'אן לוי")).toBe("ז'אן לוי");
+    expect(nameTyped('Dana 0501234567 <b>')).toBe('Dana  b');
+  });
+  it('the four forms use the one rule', () => {
+    for (const f of ['ExpeditionDetail', 'CTASection', 'BookCall', 'IsraelDetail']) {
+      const src = read(`src/components/web_v2/${f}.jsx`);
+      expect(src, f).toContain('nameTyped(');
+      expect(src, f).not.toContain("replace(/[^א-תa-zA-Z\\s]/g, '')");
+    }
+  });
+});
+
+describe('W6: the foreign sites\' home form asks for an address to answer at', () => {
+  it('judges an address', () => {
+    expect(emailLooksRight('dana@example.com')).toBe(true);
+    expect(emailLooksRight(' dana@example.co.il ')).toBe(true);
+    for (const bad of ['', 'dana', 'dana@', 'dana@x', 'da na@x.com']) expect(emailLooksRight(bad), bad).toBe(false);
+  });
+  it('asks abroad only, requires it there, sends it, and "send another" resets the whole form', () => {
+    const src = read('src/components/web_v2/CTASection.jsx');
+    expect(src).toContain('const asksEmail = !isRtl;');
+    expect(src).toContain('if (asksEmail && !emailLooksRight(form.email))');
+    expect(src).toContain("...(email && email.trim() ? { 'Email': email.trim() } : {}),");
+    expect(src).toContain("setForm({ name: '', dial: defaultDial(), phone: '', email: '', message: '', privacy: false })");
+  });
+});
+
+describe('W7: the first "important to know" note is kept where it is real content', () => {
+  it('Hebrew records and the built-in defaults open with the group-size line', () => {
+    expect(firstNoteIsGroupSize({ importantToNoteEn: ['Yellow Fever vaccination is mandatory'] }, true)).toBe(true);
+    expect(firstNoteIsGroupSize({}, false)).toBe(true);
+    expect(firstNoteIsGroupSize({ importantToNoteEn: [] }, false)).toBe(true);
+  });
+  it('an English first note that is a warning is not the group-size line', () => {
+    expect(firstNoteIsGroupSize({ importantToNoteEn: ['Yellow Fever vaccination is mandatory for entry to Ethiopia'] }, false)).toBe(false);
+    expect(firstNoteIsGroupSize({ importantToNoteEn: ['An international group: the whole trip runs in English'] }, false)).toBe(false);
+    expect(firstNoteIsGroupSize({ importantToNoteEn: ['Olympus runs in groups of up to 10'] }, false)).toBe(true);
+    expect(firstNoteIsGroupSize({ importantToNoteEn: ['The trek runs in a small group of up to 15 participants only!'] }, false)).toBe(true);
+  });
+  it('the page puts the line in front instead of over the note, and says "trek", not "trekking"', () => {
+    const src = read('src/components/web_v2/ExpeditionDetail.jsx');
+    expect(src).toContain(': [groupLine, ...importantToNote];');
+    expect(src).toContain('firstNoteIsGroupSize(exp, isRtl) ? [groupLine, ...importantToNote.slice(1)]');
+    expect(GROUP_NOUN).toEqual({ Trekking: 'trek', Climbing: 'climb' });
+    expect(src).not.toContain("exp.type?.toLowerCase() || 'expedition'");
   });
 });

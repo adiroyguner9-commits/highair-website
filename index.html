@@ -58,6 +58,25 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="HighAir" />
 
+    <!-- Consent FIRST, before the tag manager's own first entry in the queue.
+         GTM runs the queue in order, and its start entry is what fires the
+         tags on a page. With the consent default queued after it, the Google
+         Ads cookie (_gcl_au) was written before the visitor chose anything,
+         on the German and Spanish sites as well, and "decline" did not take
+         it back (measured 11 Nov 2026). Everything is denied until the visitor
+         accepts; a choice already made is applied at once. The storage read is
+         guarded: with storage switched off it throws, and consent stays denied. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      try {
+        if (localStorage.getItem('highair_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+        }
+      } catch (e) { /* no storage: nothing was accepted */ }
+    </script>
+
     <!-- Google Tag Manager, loaded after the first screen (28 Oct 2026).
          GTM and the tags it loads (GA, Google Ads, the Meta pixel: ~630KB and
          ~1.5s of a phone's processor, measured) used to download beside the
@@ -86,14 +105,8 @@
          (no conversion anywhere points at it) loaded its own 149KB. GTM's own
          Google tag already configures AW-16520015098 and its lead/purchase
          conversions, so the page only queues the GA config; GTM loads it.
-         Consent default stays where it always was (after the GTM snippet). -->
+         Consent is set in the block above the GTM snippet. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
-      if (localStorage.getItem('highair_cookie_consent') === 'accepted') {
-        gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
-      }
       gtag('js', new Date());
       gtag('config', 'G-5XBRSD9V1M', { send_page_view: false });
     </script>

@@ -10,6 +10,7 @@ import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/
 import FaqAccordion from './FaqAccordion.jsx';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
+import { nameTyped } from '../../website/formRules.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
@@ -1224,7 +1225,7 @@ export default function IsraelDetail() {
                   <label style={labelStyle}>{isRtl ? 'שם מלא *' : 'Full Name *'}</label>
                   <input type="text" required value={form.name}
                     placeholder={isRtl ? 'ישראל ישראלי' : 'John Smith'}
-                    onChange={e => setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') }))}
+                    onChange={e => setForm(f => ({ ...f, name: nameTyped(e.target.value) }))}
                     style={inputStyle}
                     onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                     onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }} />

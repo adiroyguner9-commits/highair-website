@@ -12,6 +12,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { nameTyped } from '../../website/formRules.js';
 import { COLOR, RADIUS, EASING } from '../../website/theme.js';
 import { NAV_EXPS } from '../../data/navData.js';
 import Header from './Header.jsx';
@@ -176,7 +177,7 @@ export default function BookCall() {
                 </div>
 
                 <Field id="name" label={T.name} value={form.name}
-                  onChange={e => { setForm(f => ({ ...f, name: e.target.value.replace(/[^א-תa-zA-Z\s]/g, '') })); if (nameError) setNameError(''); }}
+                  onChange={e => { setForm(f => ({ ...f, name: nameTyped(e.target.value) })); if (nameError) setNameError(''); }}
                   placeholder={T.namePH} required error={!!nameError} errorMsg={nameError} />
 
                 <PhoneField

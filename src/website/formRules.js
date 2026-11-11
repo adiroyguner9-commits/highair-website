@@ -10,3 +10,17 @@ export function groupSizeTyped(value) {
   if (Number(raw) <= 10) return String(Number(raw));
   return raw.endsWith('0') ? '10' : raw.slice(-1);
 }
+
+/* What a name field keeps while the visitor types: letters of ANY alphabet,
+   spaces, a hyphen and an apostrophe. It used to keep Hebrew and A to Z only,
+   so "Jörg Müller-O'Brien" was saved as "Jrg MllerOBrien" and "בן-דוד" lost its
+   hyphen, on sites written for German and Spanish speakers (11 Nov 2026). Digits
+   and symbols still go: a name field is not a place for a phone number. */
+export function nameTyped(value) {
+  return String(value ?? '').replace(/[^\p{L}\p{M}\s'’׳״־-]/gu, '');
+}
+
+/* An address someone could be answered at: something@something.tld. */
+export function emailLooksRight(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value ?? '').trim());
+}

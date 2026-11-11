@@ -6,7 +6,8 @@
 
 import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
-import { groupSizeTyped } from '../../website/formRules.js';
+import { groupSizeTyped, nameTyped } from '../../website/formRules.js';
+import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
@@ -731,6 +732,13 @@ export default function ExpeditionDetail() {
      picker below emits an option only for the ones that actually exist. */
   const womenSuffix = isRtl ? ' (נשים)' : tx(" (Women)");
   const futureGroups = liveGroups.filter(g => new Date(g.departure) >= today);
+  /* Deposit A checkout replaces the consultation call on a trip that has a
+     payment link (exp.paymentUrl in mockData), but only while there is a
+     departure to pay for. Sinai offered "register and pay the deposit" right
+     under "the dates will be published soon" (11 Nov 2026). With no future
+     departure the page is an ordinary enquiry form, and the checkout comes back
+     by itself the day a date is added. */
+  const isPayFlow = !!exp?.paymentUrl && futureGroups.length > 0;
   const isWomensGroup = g => (g.groupName || '').toLowerCase().includes('women');
   const womenMonths   = [...new Set(futureGroups.filter(isWomensGroup).map(g => monthLabel(g.departure)))];
   const regularMonths = [...new Set(futureGroups.filter(g => !isWomensGroup(g)).map(g => monthLabel(g.departure)))];
@@ -831,7 +839,7 @@ export default function ExpeditionDetail() {
          of the consultation calendar. The lead is already saved above, so an
          abandoned checkout still leaves us the record. Status stays 'loading'
          so the button keeps its sending state until the browser navigates. */
-      if (exp.paymentUrl && !isWaitlist) {
+      if (isPayFlow && !isWaitlist) {
         await leadTracked; // let the Ads conversion fire before leaving the page
         window.location.href = exp.paymentUrl;
         return;
@@ -897,10 +905,6 @@ export default function ExpeditionDetail() {
   /* ── Derived data ── */
   const reviews = exp.reviews?.length ? exp.reviews : (isRtl ? DEFAULT_REVIEWS : DEFAULT_REVIEWS_EN);
 
-  /* Deposit A checkout replaces the consultation call on expeditions
-     that have a payment link (see exp.paymentUrl in mockData). */
-  const isPayFlow = !!exp?.paymentUrl;
-
   const notIncludedRaw = isRtl
     ? (exp.notIncluded?.length ? exp.notIncluded : DEFAULT_NOT_INCLUDED)
     : (loc(exp, "notIncluded")?.length ? loc(exp, "notIncluded") : DEFAULT_NOT_INCLUDED_EN);
@@ -912,6 +916,32 @@ export default function ExpeditionDetail() {
   const importantToNote = isRtl
     ? notesWithExperience(exp.importantToNote?.length ? exp.importantToNote : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI : DEFAULT_IMPORTANT), exp.experienceHe)
     : notesWithExperience(loc(exp, "importantToNote")?.length ? loc(exp, "importantToNote") : (isSafariExp ? DEFAULT_IMPORTANT_SAFARI_EN : DEFAULT_IMPORTANT_EN).map(x => tx(x)), loc(exp, "experience"));
+  /* The group-size line that opens the list. In the Hebrew records the first
+     note IS that line, so it takes its place. In the English records (which the
+     German and Spanish sites translate) the first note is real content on most
+     trips: "Yellow Fever vaccination is mandatory" for Ethiopia, "the whole trip
+     runs in English" for Kilimanjaro, "prior experience above 5500m" for Lenin.
+     Replacing it there deleted the trip's most important warning (11 Nov 2026),
+     so there the line goes IN FRONT and the note stays.
+     A safari is sold by JEEP, not by group size (owner, Jul 30 2026), and a
+     Nepal climb above 6000m by its 1:1 guiding ratio (Aug 30 2026). */
+  const groupLine = oneToOne
+    ? (isRtl
+        ? 'הטיפוס מתבצע ביחס הדרכה של 1:1, מדריך שרפה אישי לכל מטפס!'
+        : tx("The climb runs at a 1:1 guiding ratio, a personal Sherpa guide for each climber!"))
+    : !capacity ? null
+    : isSafariExp
+      ? (isRtl
+          ? `הספארי מתבצע בג׳יפ עד ${capacity} מקומות בלבד!`
+          : tx("The safari runs in a jeep with up to {0} seats only!", [capacity]))
+      : (isRtl
+          ? `ה${exp.typeHe || 'טיפוס'} מתבצע בקבוצה עד ${capacity} משתתפים בלבד!`
+          : PARTIAL_LANGS.includes(currentLang())
+          ? tx("The expedition runs in groups of up to {0} participants only!", [capacity])
+          : tx("The {0} runs in groups of up to {1} participants only!", [GROUP_NOUN[exp.type] || 'expedition', capacity]));
+  const notesShown = !groupLine ? importantToNote
+    : firstNoteIsGroupSize(exp, isRtl) ? [groupLine, ...importantToNote.slice(1)]
+    : [groupLine, ...importantToNote];
   const includedItems = isRtl ? (exp.included || []) : (loc(exp, "included") || exp.included || []);
   const seasons = isRtl ? (exp.seasons || []) : ((loc(exp, "seasons") || exp.seasons || []).map(s => translateSeason(s, false)));
   const displayDays = isRtl ? exp.days : (loc(exp, "days") || translateDays(exp.days, false));
@@ -1813,37 +1843,12 @@ export default function ExpeditionDetail() {
                 background: '#FFFBEB', border: '1px solid #FEF3C7',
                 borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
-                {importantToNote.map((note, i) => {
-                  /* A safari is sold by JEEP, not by group size: the vehicle holds
-                     6 (owner, Jul 30 2026), so the climb wording "a group of up
-                     to N participants" is simply the wrong unit here. */
-                  const text = i === 0 && oneToOne
-                    ? (isRtl
-                        ? 'הטיפוס מתבצע ביחס הדרכה של 1:1, מדריך שרפה אישי לכל מטפס!'
-                        : tx(
-                    "The climb runs at a 1:1 guiding ratio, a personal Sherpa guide for each climber!"
-                  ))
-                    : i === 0 && capacity
-                    ? (isSafariExp
-                        ? (isRtl
-                            ? `הספארי מתבצע בג׳יפ עד ${capacity} מקומות בלבד!`
-                            : tx("The safari runs in a jeep with up to {0} seats only!", [capacity]))
-                        : (isRtl
-                            ? `ה${exp.typeHe || 'טיפוס'} מתבצע בקבוצה עד ${capacity} משתתפים בלבד!`
-                            : PARTIAL_LANGS.includes(currentLang())
-                            ? tx("The expedition runs in groups of up to {0} participants only!", [capacity])
-                            : tx(
-                    "The {0} runs in groups of up to {1} participants only!",
-                    [exp.type?.toLowerCase() || 'expedition', capacity]
-                  )))
-                    : note;
-                  return (
-                    <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < importantToNote.length - 1 ? '12px' : 0 }}>
+                {notesShown.map((text, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < notesShown.length - 1 ? '12px' : 0 }}>
                       <span style={{ color: '#F59E0B', fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
                       <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#92400E', lineHeight: 1.6 }}>{text}</span>
                     </div>
-                  );
-                })}
+                ))}
               </div>
             </div>
 
@@ -2504,8 +2509,8 @@ export default function ExpeditionDetail() {
                       placeholder={isRtl ? 'ישראל ישראלי' : tx("John Smith")}
                       onFocus={() => trackFieldFocus('name')}
                       onChange={e => {
-                        // רק אותיות (עברית/לטינית) ורווחים
-                        const v = e.target.value.replace(/[^א-תa-zA-Z\s]/g, '');
+                        // letters of any alphabet, spaces, a hyphen, an apostrophe (formRules.js)
+                        const v = nameTyped(e.target.value);
                         setForm(f => ({ ...f, name: v }));
                       }}
                       style={inputStyle}
