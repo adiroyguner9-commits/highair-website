@@ -21,7 +21,9 @@ import path from 'path';
 import { stampOwned } from './stamp-copyright.mjs';
 
 const WIDTH = 800;
-const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog'];
+/* public/images/safari joined on 11 Nov 2026: the Safari page painted ten 1100-1200px stock
+   photos (140-490KB each) into cards about 300px wide, all of them with the page. */
+const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog', 'public/images/safari'];
 const MANIFEST = 'src/website/imageVariants.json';
 
 /* Blog: the images posts use as their card / hero picture, and the photos INSIDE the posts
@@ -51,7 +53,7 @@ for (const dir of DIRS) {
     if (width <= WIDTH * 1.2) continue;   // already small: no copy needed
     /* Our own photos get a fresh copyright stamp below (the stamper cannot read
        metadata sharp copies over); a press photo keeps its own credits. */
-    const owned = !dir.endsWith('/blog') || /^tomer-bassan-/.test(f);
+    const owned = !(dir.endsWith('/blog') || dir.endsWith('/safari')) || /^tomer-bassan-/.test(f);   // safari is stock (its SOURCES.md): never stamped as ours
     const img = sharp(buf).resize({ width: WIDTH, withoutEnlargement: true });
     const out = await (owned ? img : img.keepMetadata()).webp({ quality: 82, effort: 5 }).toBuffer();
     if (out.length >= buf.length * 0.8) continue;   // only when clearly lighter

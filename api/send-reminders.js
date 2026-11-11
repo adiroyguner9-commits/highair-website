@@ -16,6 +16,7 @@ import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { greenFetch } from './_lib/green.js';
 import { fetchActiveLead } from './_lib/active-lead.js';   // resolve the lead's Hebrew name by phone
+import { messagingPaused, whatsappVerdict, CHANNEL_FIELDS } from './_lib/lead-channel.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for the
    Green API chatId — handles 0…, +972…, "+972 0…", and the missing-leading-0
@@ -63,13 +64,7 @@ export default async function handler(req, res) {
 
   /* The global pause covers this too: a staff-booked call made during a
      pause got no confirmation but still got this reminder (22 Oct 2026). */
-  try {
-    const pr = await fetch(`https://api.airtable.com/v0/${BASE}/AppContent?filterByFormula=${encodeURIComponent('{Key}="lead_messaging_paused"')}&fields[]=Value&maxRecords=1`, { headers: { Authorization: `Bearer ${TOKEN}` } });
-    if (pr.ok) {
-      const v = String((await pr.json()).records?.[0]?.fields?.Value || '').trim().toLowerCase();
-      if (v === '1' || v === 'true' || v === 'yes' || v === 'on') return res.status(200).json({ ok: true, paused: true });
-    }
-  } catch (e) { console.warn('[reminders] pause check non-fatal:', e.message); }
+  if (await messagingPaused({ base: BASE, token: TOKEN })) return res.status(200).json({ ok: true, paused: true });
 
   /* Israel wall clock from the shared helper. The hand-rolled rule switched
      on the last SUNDAY of March; Israel switches on the Friday before, so on
@@ -128,11 +123,19 @@ export default async function handler(req, res) {
     // English name frozen on the appointment at booking time — so a name fixed any
     // time before the call shows correctly here. Falls back to the appointment name.
     let greetName = Name;
+    let lead = null;
     try {
-      const lead = await fetchActiveLead({ base: BASE, token: TOKEN, phone: Phone, fields: ['Name'] });
+      lead = await fetchActiveLead({ base: BASE, token: TOKEN, phone: Phone, fields: ['Name', ...CHANNEL_FIELDS] });
       const ln = String(lead?.fields?.Name || '').trim();
       if (ln) greetName = ln;
     } catch { /* keep the appointment name */ }
+    /* A lead from the foreign sites gets no WhatsApp, this Hebrew reminder
+       included (./_lib/lead-channel.js; it was sent to them until 11 Nov 2026).
+       The flag is left alone: nothing was sent, and the call is theirs to keep. */
+    if (!whatsappVerdict({ lead: lead?.fields || null }).send) {
+      results.push({ name: Name, time: Time, status: 'skipped', reason: 'lead from abroad: email only' });
+      continue;
+    }
 
     const message   = `היי ${firstName(greetName)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
 
@@ -171,5 +174,5 @@ export default async function handler(req, res) {
   }
 
   console.log(`[reminders] Done. Processed ${results.length} reminder(s).`);
-  return res.json({ ok: true, sent: results.length, results });
+  return res.json({ ok: true, sent: results.filter(r => r.status === 'sent').length, results });
 }

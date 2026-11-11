@@ -79,11 +79,11 @@ export default function ImpactSection() {
             {SLIDES.map((src, i) => (
               <img
                 key={i}
+                loading="lazy"
                 src={i <= loadedUpTo.current ? src : undefined}
                 srcSet={i <= loadedUpTo.current ? srcSetOf(src) : undefined}
                 sizes="(max-width: 767.98px) 260px, 46vw"
                 alt={i18n.language !== 'he' ? tx("HighAir Expeditions - Travel with purpose, a hospital visit") : 'HighAir Expeditions - מטיילים עם משמעות, ביקור בבית חולים'}
-                loading="lazy"
                 decoding="async"
                 style={{
                   position:   'absolute',

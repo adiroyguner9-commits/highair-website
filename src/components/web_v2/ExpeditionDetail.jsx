@@ -6,7 +6,7 @@
 
 import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths } from '../../website/lang.js';
-import { groupSizeTyped, nameTyped } from '../../website/formRules.js';
+import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
 import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
@@ -827,9 +827,14 @@ export default function ExpeditionDetail() {
         }),
       });
       if (!res.ok) {
-        let msg = `שגיאה ${res.status}`;
-        try { const d = await res.json(); msg = d?.error || msg; } catch {}
-        throw new Error(msg);
+        /* Which field the server means decides the wording; its own English is
+           never shown (formRules.js leadErrorKind). */
+        let said = '';
+        try { said = (await res.json())?.error || ''; } catch {}
+        const kind = leadErrorKind(res.status, said);
+        setErrorMsg(isRtl ? LEAD_ERROR_HE[kind] : tx(LEAD_ERROR_EN[kind]));
+        setStatus('error');
+        return;
       }
       /* ── Conversion tracking ── */
       Analytics.leadSubmit({ source: (isWaitlist ? 'waitlist' : 'expedition_page'), expedition: exp.nameHe });
@@ -846,7 +851,7 @@ export default function ExpeditionDetail() {
       }
       setStatus('success');
     } catch (err) {
-      setErrorMsg(isRtl ? (err.message || 'שגיאה. נסו שוב.') : tx("Something went wrong. Please try again."));
+      setErrorMsg(isRtl ? LEAD_ERROR_HE.general : tx(LEAD_ERROR_EN.general));   // no answer at all: never the browser's own English
       setStatus('error');
     }
   }
@@ -2346,9 +2351,9 @@ export default function ExpeditionDetail() {
                   }}>
                     {/* Photo */}
                     <img
+                      loading="lazy"
                       src={u.img}
                       alt={isRtl ? u.name : (loc(u, "name") || u.name)}
-                      loading="lazy"
                       decoding="async"
                       style={{
                         position: 'absolute', inset: 0,
@@ -2484,7 +2489,9 @@ export default function ExpeditionDetail() {
                 ) : (
                 <BookingWidget
                   name={form.name}
-                  phone={form.phone}
+                  /* With its country, as the form above saved it: the national
+                     part alone was read as an Israeli number (11 Nov 2026). */
+                  phone={formatFullPhone(form.dial, form.phone)}
                   email={form.email}
                   expedition={exp?.nameHe}
                   expeditionSlug={exp?.slug}

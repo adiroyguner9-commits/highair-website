@@ -24,3 +24,36 @@ export function nameTyped(value) {
 export function emailLooksRight(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value ?? '').trim());
 }
+
+/* What to tell the visitor when the server will not take a lead. The Israel
+   trek form called every refusal "the phone number is not valid", whatever was
+   wrong; the trip form showed the server's own English ("Invalid submission",
+   "Too many requests") to a Hebrew reader (11 Nov 2026). The server's wording
+   is read here only to tell WHICH field it means, and is never shown.
+   → 'phone' | 'email' | 'name' | 'busy' | 'general' */
+export function leadErrorKind(status, serverError = '') {
+  const said = String(serverError || '').toLowerCase();
+  if (Number(status) === 429) return 'busy';
+  if (Number(status) === 400) {
+    if (/phone|mobile|landline|digits|number/.test(said)) return 'phone';
+    if (/email/.test(said)) return 'email';
+    if (/name/.test(said)) return 'name';
+  }
+  return 'general';
+}
+export const LEAD_ERROR_HE = {
+  phone:   'מספר הטלפון לא תקין. יש להזין מספר אמיתי',
+  email:   'כתובת המייל אינה תקינה. כדאי לבדוק אותה ולנסות שוב',
+  name:    'השם שהוזן אינו תקין. יש להזין שם מלא באותיות',
+  busy:    'התקבלו כמה פניות ברצף. אפשר לנסות שוב בעוד דקה',
+  general: 'לא הצלחנו לשלוח את הפרטים. אפשר לנסות שוב בעוד רגע',
+};
+/* English keys for tx(): German and Spanish come from src/i18n/ui-*.json. */
+export const LEAD_ERROR_EN = {
+  phone:   'Please enter a valid phone number.',
+  email:   'Please check the email address and try again.',
+  name:    'Please enter your full name, in letters.',
+  busy:    'Too many requests in a row. Please try again in a minute.',
+  general: 'Something went wrong. Please try again.',
+};
+

@@ -22,7 +22,7 @@
 
 import { checkRateLimit, setSecurityHeaders } from './_security.js';
 import { israelNow, isYomTov, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
-import { fetchCallAgents, busyByTime, someoneFreeAt, agentKey } from './_lib/callAgents.js';
+import { fetchCallAgents, busyByTime, someoneFreeAt, agentKey, callsOverlap } from './_lib/callAgents.js';
 import { bookingAgent } from './_lib/active-lead.js';
 
 const DEFAULT_AVAILABILITY = {
@@ -197,7 +197,7 @@ export default async function handler(req, res) {
     if (ownAgent) {
       let agents = [];
       try { agents = await fetchCallAgents(BASE, TOKEN); } catch { /* named calls still count */ }
-      const busy = busyByTime(records, agents);
+      const busy = busyByTime(records, agents, { slots: futureSlots });   // a call counts at every time it overlaps
       const mine = agentKey(ownAgent);
       return res.json({
         slots: futureSlots.filter(time => { const s = busy.get(time); return !s || (!s.unknown && !s.owners.has(mine)); }),
@@ -206,9 +206,12 @@ export default async function handler(req, res) {
 
     /* No expedition on the request (an old client, or a generic booking page):
        keep the original rule rather than guessing whose call it is. */
+    /* "Taken" is any call that overlaps the time, not only one at its exact
+       minute: a call the team put at 09:55 closes 09:30 and 10:00 (see
+       callsOverlap in ./_lib/callAgents.js). */
+    const takenAt = s => records.some(r => callsOverlap(s, r.fields.Time));
     if (!expedition) {
-      const booked = new Set(records.map(r => r.fields.Time));
-      return res.json({ slots: futureSlots.filter(s => !booked.has(s)) });
+      return res.json({ slots: futureSlots.filter(s => !takenAt(s)) });
     }
 
     let agents = [];
@@ -218,11 +221,10 @@ export default async function handler(req, res) {
       /* Cannot tell the agents apart → fall back to blocking any taken slot.
          Erring towards a free-looking calendar would double-book a person. */
       console.warn('[slots] agent lookup failed, blocking globally:', e.message);
-      const booked = new Set(records.map(r => r.fields.Time));
-      return res.json({ slots: futureSlots.filter(s => !booked.has(s)) });
+      return res.json({ slots: futureSlots.filter(s => !takenAt(s)) });
     }
 
-    const busy = busyByTime(records, agents);
+    const busy = busyByTime(records, agents, { slots: futureSlots });
     return res.json({
       slots: futureSlots.filter(time => someoneFreeAt({ time, expedition, agents, busy })),
     });

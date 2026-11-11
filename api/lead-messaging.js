@@ -146,6 +146,54 @@ export function upcomingCallFor(fields, want, todayYMD) {
   return /^\d{4}-\d{2}-\d{2}$/.test(date) && date >= todayYMD;
 }
 
+/* ── The four-day follow-up, as rules that can be tested ────────────────────
+   Two things went wrong with the clock (11 Nov 2026):
+   - It was stamped once, the first time a card was seen in "Call Done", and
+     never again. A card that went back to a new call and reached "Call Done" a
+     second time still carried the first call's date, so "how was the call?"
+     left the same minute the second call ended.
+   - It only skipped the closed and paid stages. A card whose first call was
+     four days ago and that now sat in "Call Scheduled" (a second call booked),
+     "No Answer" or "New Lead" was sent the follow-up and pulled into
+     "Follow-Up Sent", out of the stage its agent had put it in.
+   Now the clock restarts whenever the card enters "Call Done" again, and the
+   follow-up waits while the card is in a stage that comes BEFORE a call. */
+export const FOLLOW_UP_SKIP_STAGES = [
+  'Deposit A Paid', 'Cancelled', 'Not Relevant', 'לקוח קיים', 'לקוח רשום', 'Awaiting Deposit A',   // closed, lost, a customer, already asked to pay
+  'New Lead', 'No Answer', 'Call Scheduled',                                                       // a call is still ahead: nothing to follow up yet
+];
+const FOLLOW_UP_AFTER_MS = 4 * 86400000;
+
+/** Should the clock be (re)started now? A card in "Call Done" with no stamp, or
+ *  one whose stamp is older than its last stage change (it came back here)
+ *  while its follow-up has not gone yet. Once the follow-up went the clock has
+ *  nothing left to time, so an old card's date is left as it is. */
+export function callDoneNeedsStamp(f) {
+  if (!f || f.Stage !== 'Call Done') return false;
+  const stamped = Date.parse(f['Call Done At'] || '');
+  if (!stamped) return true;
+  if (f['Follow-Up Sent'] === true) return false;
+  const moved = Date.parse(f['Stage Changed At'] || '');
+  return !!moved && moved > stamped;
+}
+
+/** The moment the clock starts from: the card's own move into "Call Done" when
+ *  it is restarting (the call ended then, not when this job noticed), else now. */
+export function callDoneStamp(f, nowMs) {
+  const stamped = Date.parse(f?.['Call Done At'] || '');
+  const moved = Date.parse(f?.['Stage Changed At'] || '');
+  return new Date(stamped && moved && moved > stamped && moved <= nowMs ? moved : nowMs).toISOString();
+}
+
+/** Is the follow-up due for this card at `nowMs`? */
+export function followUpDue(f, nowMs) {
+  if (!f || f['Follow-Up Sent'] === true) return false;
+  if (FOLLOW_UP_SKIP_STAGES.includes(f.Stage || '')) return false;
+  if (callDoneNeedsStamp(f)) return false;                 // the clock is about to restart
+  const stamped = Date.parse(f['Call Done At'] || '');
+  return !!stamped && nowMs - stamped >= FOLLOW_UP_AFTER_MS;
+}
+
 export default async function handler(req, res) {
   setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).end();
@@ -385,9 +433,18 @@ export default async function handler(req, res) {
     //     This runs through the weekend on purpose: it starts a clock, it does not
     //     message anyone, and skipping it would push every Friday call's follow-up
     //     two days late for good.
-    const toStamp = await queryLeads(`AND({Stage}='Call Done',{Call Done At}='')`);
+    //     ...and again each time a card comes BACK to Call Done after a later
+    //     call (callDoneNeedsStamp): the four days run from the last call.
+    //     Two queries on purpose: if the second formula were ever refused, the
+    //     first stamps must still happen, or no follow-up would start at all.
+    const firstTime = await queryLeads(`AND({Stage}='Call Done',{Call Done At}='')`);
+    //     The restart is for the WhatsApp follow-up alone, so it leaves the
+    //     foreign sites' leads out like every query that leads to a WhatsApp.
+    const cameBack  = await queryLeads(`AND({Stage}='Call Done',{Call Done At}!='',{Follow-Up Sent}!=TRUE(),${NOT_FOREIGN_FORMULA}{Stage Changed At}!='',IS_BEFORE({Call Done At},{Stage Changed At}))`);
+    const toStamp = [...firstTime, ...cameBack.filter(r => !firstTime.some(x => x.id === r.id))];
     for (const rec of toStamp) {
-      await patchLead(rec.id, { 'Call Done At': new Date(nowMs).toISOString() });
+      if (!callDoneNeedsStamp(rec.fields)) continue;
+      await patchLead(rec.id, { 'Call Done At': callDoneStamp(rec.fields, nowMs) });
       result.callDoneStamped++;
     }
     // (b) send the follow-up 4 days after the call. Moving the card on its own does
@@ -397,6 +454,8 @@ export default async function handler(req, res) {
     // or already asked to pay (Awaiting Deposit A — owner's call, Jul 2026).
     // 'Cancelled' joins them (Aug 10 2026): someone who closed and then cancelled
     // is the last person who should be asked "how did the call go, still keen?".
+    // A card back in a stage BEFORE a call (New Lead, No Answer, Call Scheduled)
+    // waits too: see FOLLOW_UP_SKIP_STAGES above (11 Nov 2026).
     // Keep in step with FOLLOW_UP_SKIP_STAGES in the webapp's src/data/leads.js —
     // that tracker promises what this query actually sends.
     /* The weekend hold (owner, Aug 14 2026: "זה סופש ואנחנו לא עובדים").
@@ -409,7 +468,7 @@ export default async function handler(req, res) {
     const weekend = israelClosedHold();   // Shabbat and festivals
     if (weekend) result.followUpHeldForWeekend = true;
     const dueBy = new Date(nowMs - 4 * 86400000).toISOString();
-    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),{Stage}!='Deposit A Paid',{Stage}!='Cancelled',{Stage}!='Not Relevant',{Stage}!='לקוח קיים',{Stage}!='לקוח רשום',{Stage}!='Awaiting Deposit A',${NOT_FOREIGN_FORMULA.slice(0, -1)})`);
+    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),${FOLLOW_UP_SKIP_STAGES.map(st => `{Stage}!='${st}'`).join(',')},${NOT_FOREIGN_FORMULA.slice(0, -1)})`);
     /* A failed send used to count against the cap of three, and the query came
        back in the same order every tick, so three leads whose sends always fail
        (a number not on WhatsApp) would hold every other follow-up back for good.
@@ -421,8 +480,7 @@ export default async function handler(req, res) {
     for (const rec of due) {
       const f = rec.fields || {};
       if (isForeignLead(f)) continue;                  // email only (lead-channel.js)
-      const ageDays = (nowMs - new Date(f['Call Done At']).getTime()) / 86400000;
-      if (!(ageDays >= 4)) continue;
+      if (!followUpDue(f, nowMs)) continue;            // four days after the LAST call, and not while a call is ahead
       if (!f.Phone) { result.followUpNoPhone++; continue; }   // nothing to send to — never tick "Sent"
       /* Drip, do not dump. The flag is unclaimed, so whoever is left here is
          simply first in line on the next tick five minutes from now. */

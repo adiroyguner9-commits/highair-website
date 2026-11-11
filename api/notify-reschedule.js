@@ -13,6 +13,8 @@ import { firstName } from './_lib/name.js';   // WhatsApp greeting — first nam
 const HE_MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
 import { greenFetch } from './_lib/green.js';
 import { hookAllowed } from './_lib/hook-auth.js';
+import { fetchActiveLead } from './_lib/active-lead.js';
+import { messagingPaused, whatsappVerdict, CHANNEL_FIELDS } from './_lib/lead-channel.js';
 const HE_DAYS   = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 function formatDateHe(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
@@ -61,6 +63,18 @@ export default async function handler(req, res) {
     }
   } else {
     return res.status(200).json({ skipped: 'no airtable config' }); // fail closed
+  }
+
+  /* The channel rule every automatic WhatsApp asks (./_lib/lead-channel.js): a
+     lead from the foreign sites is written to by email only, and the pause
+     switch silences this notice like the rest. It asked neither (11 Nov 2026). */
+  {
+    const [lead, paused] = await Promise.all([
+      fetchActiveLead({ base: BASE, token: TOKEN, phone, fields: CHANNEL_FIELDS }),
+      messagingPaused({ base: BASE, token: TOKEN }),
+    ]);
+    const verdict = whatsappVerdict({ lead: lead?.fields || null, paused });
+    if (!verdict.send) return res.status(200).json({ skipped: verdict.why === 'foreign' ? 'lead from abroad: email only' : 'messaging is paused' });
   }
 
   const msg = `היי ${firstName(name)} 👋🏼\n\n`

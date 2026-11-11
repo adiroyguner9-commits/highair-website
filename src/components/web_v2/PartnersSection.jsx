@@ -67,9 +67,9 @@ function PartnersTicker() {
             justifyContent: 'center',
           }}>
             <img
+              loading="lazy"
               src={p.src}
               alt={p.name}
-              loading="lazy"
               decoding="async"
               style={{
                 width:      '100px',

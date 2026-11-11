@@ -59,11 +59,11 @@ function PostImage({ block }) {
       )}
       {/* Actual image, full and unclipped */}
       <img
+        loading="lazy"
         src={block.src}
         srcSet={srcSet}
         sizes={srcSet ? '(max-width: 768px) 100vw, 960px' : undefined}
         alt={block.alt || block.caption || ''}
-        loading="lazy"
         decoding="async"
         style={{
           position:  'relative',

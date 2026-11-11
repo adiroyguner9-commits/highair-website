@@ -56,9 +56,9 @@ function VideoCard({ video, onClick, cardWidth }) {
     >
       <div style={{ position: 'relative', aspectRatio: '9/16', overflow: 'hidden', background: '#0A0818' }}>
         <img
+          loading="lazy"
           src={thumb}
           alt={video.name}
-          loading="lazy"
           style={{
             width: '100%', height: '100%',
             objectFit: 'cover',

@@ -10,7 +10,7 @@ import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/
 import FaqAccordion from './FaqAccordion.jsx';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
-import { nameTyped } from '../../website/formRules.js';
+import { nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
 import PhoneField, { formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
@@ -283,6 +283,7 @@ export default function IsraelDetail() {
   const [form, setForm]         = useState({ name: '', email: '', month: '', dial: '+972', phone: '', pricePackage: '', participants: '1', declaration: false });
   const [phoneError, setPhoneError] = useState('');
   const [packageError, setPackageError] = useState('');
+  const [submitError, setSubmitError] = useState('');   // a refusal that is not about the phone
   const [submitting, setSubmitting] = useState(false);
 
   function validatePhone(val) {
@@ -301,6 +302,7 @@ export default function IsraelDetail() {
       return;
     }
     setPackageError('');
+    setSubmitError('');
 
     const pkg    = tripPackages?.find(p => p.id === form.pricePackage);
     const payUrl = pkg?.paymentUrl || trip.paymentUrl;
@@ -330,10 +332,13 @@ export default function IsraelDetail() {
         }),
       });
       if (res.status >= 400 && res.status < 500) {
+        /* Only a refusal about the phone is shown on the phone box. Every
+           refusal used to be: a bad email or "too many requests" told the
+           customer their phone number was not valid (11 Nov 2026). */
         const data = await res.json().catch(() => ({}));
-        setPhoneError(isRtl
-          ? 'מספר הטלפון לא תקין. יש להזין מספר אמיתי'
-          : (data.error || 'Please enter a real phone number'));
+        const kind = leadErrorKind(res.status, data.error);
+        if (kind === 'phone') setPhoneError(isRtl ? LEAD_ERROR_HE.phone : (data.error || LEAD_ERROR_EN.phone));
+        else setSubmitError(isRtl ? LEAD_ERROR_HE[kind] : LEAD_ERROR_EN[kind]);
         setSubmitting(false);
         return;
       }
@@ -975,9 +980,9 @@ export default function IsraelDetail() {
                         onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
                       >
                         <img
+                          loading="lazy"
                           src={src}
                           alt={`${trip.name} ${i + 1}`}
-                          loading="lazy"
                           decoding="async"
                           style={{
                             width: '100%', height: '100%',
@@ -1405,6 +1410,12 @@ export default function IsraelDetail() {
                       : 'I declare that my physical condition allows participation in a trip involving 5–8 hours of walking per day, and that I have read and understood that participation is at my own personal responsibility, with no liability on the part of the organizers for any damage of any kind.'}
                   </span>
                 </label>
+
+                {submitError && (
+                  <p role="alert" style={{ margin: '0 0 10px', fontSize: '13px', color: '#DC2626', fontFamily: "'Ploni', sans-serif", direction: dir }}>
+                    {submitError}
+                  </p>
+                )}
 
                 {/* כפתור תשלום */}
                 <button type="submit" disabled={!form.declaration || submitting} style={{

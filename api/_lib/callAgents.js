@@ -129,19 +129,41 @@ export function coversFor(agents, expedition) {
   return active.length ? active : hit(true);
 }
 
-/** time → { owners:Set<string>, unknown:boolean } for the bookings at that time. */
-export function busyByTime(appointments, agents) {
+/* A call is half an hour, wherever it starts. The Lead Center may put one at
+   any minute ("any hour"), and a call at 09:55 used to block nothing: every
+   check here asked "is something booked at exactly 10:00?", so the 09:30 and
+   the 10:00 slots stayed open over it and a customer could be booked onto an
+   agent who was mid-call (11 Nov 2026). On the half-hour grid an on-grid call
+   still overlaps its own slot and no other, so nothing changes for those. */
+export const CALL_MIN = 30;
+export const timeToMin = t => {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(String(t ?? '').trim());
+  return m ? Number(m[1]) * 60 + Number(m[2]) : NaN;
+};
+/** Do two calls starting at these times share any minute? */
+export function callsOverlap(a, b, len = CALL_MIN) {
+  const x = timeToMin(a), y = timeToMin(b);
+  return Number.isFinite(x) && Number.isFinite(y) && Math.abs(x - y) < len;
+}
+
+/** time → { owners:Set<string>, unknown:boolean } for the bookings at that time.
+ *  With `slots` (the times being offered or asked for), a booking counts at
+ *  every one of them it overlaps, not only at its own minute. */
+export function busyByTime(appointments, agents, { slots = null } = {}) {
   const map = new Map();
   for (const rec of appointments) {
     const f = rec.fields || {};
     const time = f.Time;
     if (!time) continue;
-    if (!map.has(time)) map.set(time, { owners: new Set(), unknown: false });
-    const slot = map.get(time);
     const named = String(f.Agent || '').trim();
     const who = named ? [named] : coversFor(agents, f.Expedition);
-    if (!who.length) { slot.unknown = true; continue; }
-    for (const n of who) slot.owners.add(norm(n));
+    const at = slots ? [...new Set([time, ...slots.filter(s => callsOverlap(s, time))])] : [time];
+    for (const key of at) {
+      if (!map.has(key)) map.set(key, { owners: new Set(), unknown: false });
+      const slot = map.get(key);
+      if (!who.length) { slot.unknown = true; continue; }
+      for (const n of who) slot.owners.add(norm(n));
+    }
   }
   return map;
 }

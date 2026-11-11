@@ -81,9 +81,9 @@ export default function FounderSection() {
             position:     'relative',
           }}>
             <img
+              loading="lazy"
               src={MANASLU_IMG}
               alt={isEn ? tx("Chen Shaked at the summit of Manaslu, 8163m") : 'חן שקד בפסגת הר מנסלו, 8,163 מ׳'}
-              loading="lazy"
               decoding="async"
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
             />

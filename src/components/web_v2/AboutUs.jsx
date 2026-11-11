@@ -564,9 +564,9 @@ export default function AboutUs() {
                 flexShrink:     0,
               }}>
                 <img
+                  loading="lazy"
                   src="/images/about-story.avif"
                   alt={isEn ? tx("Chen Shaked at the summit of Manaslu 8163m") : 'חן שקד בפסגת הר מנסלו 8163 מ׳ - ההר השמיני בגובהו בעולם'}
-                  loading="lazy"
                   decoding="async"
                   style={{
                     position:       'absolute',

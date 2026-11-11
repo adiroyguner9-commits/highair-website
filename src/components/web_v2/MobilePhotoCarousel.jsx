@@ -111,9 +111,9 @@ export default function MobilePhotoCarousel({ images, altPrefix = '', onImageCli
 
               {/* ── Main image ── */}
               {i <= reach && <img
+                loading="lazy"
                 src={thumbOf(src)}
                 alt={`${altPrefix} ${i + 1}`}
-                loading="lazy"
                 decoding="async"
                 onLoad={e => {
                   const { naturalWidth: w, naturalHeight: h } = e.target;

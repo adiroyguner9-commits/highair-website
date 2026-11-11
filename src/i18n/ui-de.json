@@ -294,5 +294,11 @@
  "Photos": "Fotos",
  "Video testimonials": "Video-Erfahrungsberichte",
  "Safari options": "Safari-Optionen",
- "Our team": "Unser Team"
+ "Our team": "Unser Team",
+ "Please enter a valid phone number.": "Bitte geben Sie eine gültige Telefonnummer ein.",
+ "Please check the email address and try again.": "Bitte prüfen Sie die E-Mail-Adresse und versuchen Sie es erneut.",
+ "Please enter your full name, in letters.": "Bitte geben Sie Ihren vollständigen Namen in Buchstaben ein.",
+ "Too many requests in a row. Please try again in a minute.": "Zu viele Anfragen hintereinander. Bitte versuchen Sie es in einer Minute erneut.",
+ "We couldn't load the available times.": "Die freien Uhrzeiten konnten nicht geladen werden.",
+ "Try again": "Erneut versuchen"
 }

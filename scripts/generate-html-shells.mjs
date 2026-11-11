@@ -536,14 +536,16 @@ for (const post of POSTS) {
    middleware.js routes /blog/<slug> here when BLOG_LANGS lists the language. */
 let intlBlogCount = 0;
 {
-  const { readIntl } = await import(path.join(ROOT, 'scripts/lib/vite-blog-split.mjs'));
+  const { readIntl, postTexts } = await import(path.join(ROOT, 'scripts/lib/vite-blog-split.mjs'));
   const { BLOG_LANGS } = await import(path.join(ROOT, 'src/website/blogLangs.js'));
   const INTL = readIntl(ROOT);
   const CRUMB = { en: 'Magazine', de: 'Magazin', es: 'Revista' };
   for (const post of POSTS) {
     const langs = BLOG_LANGS[post.slug] || ['he'];
     for (const lng of ['en', 'de', 'es']) {
-      const tr = INTL[lng]?.[post.slug];
+      /* Every language the post is listed in gets its page (postTexts): the
+         English of a post with no international file is its own. */
+      const tr = postTexts(post, lng, INTL);
       if (!tr || !langs.includes(lng)) continue;
       const base = LANG_BASE[lng];
       const url = `${base}/blog/${post.slug}`;
@@ -932,8 +934,12 @@ for (const page of staticPages) {
      with no h1 and duplicate titles. Vercel serves dist/404.html when no file
      and no rewrite matches. It is the same app shell, so React still draws the
      right screen (the 404 page, or a hidden page opened by its link). */
+  /* One file answers every host, so its title is in no language: the Hebrew
+     one showed in the tab and to search engines on en., de. and es. too
+     (11 Nov 2026). What the visitor then sees is the owner's rule of 5 Nov
+     2026: the app takes an unknown address to the home page, same language. */
   fs.writeFileSync(path.join(DIST, '404.html'), injectMeta(template.replace(HOME_HERO_PRELOAD, ''), {
-    title: '404 - הדף לא נמצא | HighAir Expeditions', description: 'הדף שחיפשת לא קיים.', canonicalPath: '/', noIndex: true,
+    title: '404 | HighAir Expeditions', description: 'Page not found · הדף לא נמצא', canonicalPath: '/', noIndex: true,
   }), 'utf8');
   if (!homeHtml.includes('id="home-jsonld"')) {
     const tag = `\n  <script id="home-jsonld" type="application/ld+json">${JSON.stringify(homeGraph)}</script>`;
@@ -1012,6 +1018,17 @@ for (const lng of ['en', ...SITES.PARTIAL_LANGS]) {
   });
   fs.mkdirSync(path.join(DIST, lng), { recursive: true });
   fs.writeFileSync(path.join(DIST, lng, 'spa.html'), shell, 'utf8');
+  /* The same shell for an address that does not exist on this site, answered
+     by middleware.js with a real 404: its own language and direction, a title
+     that says so, and out of search. The magazine address of a post that was
+     never published here used to get spa.html with 200 and "index, follow", a
+     page of nothing that Google could keep (11 Nov 2026). */
+  fs.writeFileSync(path.join(DIST, lng, '404.html'), injectMeta(template.replace(HOME_HERO_PRELOAD, ''), {
+    en: lng,
+    title: { en: 'Page not found | HighAir Expeditions', de: 'Seite nicht gefunden | HighAir Expeditions', es: 'Página no encontrada | HighAir Expeditions' }[lng],
+    description: { en: 'This page does not exist.', de: 'Diese Seite existiert nicht.', es: 'Esta página no existe.' }[lng],
+    canonicalPath: '/', noIndex: true,
+  }), 'utf8');
 }
 
 // ── English homepage (dist/en/index.html, served on the en. host by middleware.js) ──

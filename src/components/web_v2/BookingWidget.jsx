@@ -107,6 +107,11 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
   const [selDate,    setSelDate]    = useState(null);
   const [slots,      setSlots]      = useState([]);
   const [slotsLoad,  setSlotsLoad]  = useState(false);
+  /* The request for the day's times failed. Shown as a failure with a way to
+     ask again: it used to read "no available times", as if the day were full
+     (11 Nov 2026). */
+  const [slotsFailed, setSlotsFailed] = useState(false);
+  const [slotsTry,    setSlotsTry]    = useState(0);
   const [selSlot,    setSelSlot]    = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [booked,     setBooked]     = useState(null);
@@ -134,14 +139,15 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
   useEffect(() => {
     if (!selDate) return;
     setSlotsLoad(true);
+    setSlotsFailed(false);
     setSlots([]);
     setSelSlot(null);
     setError('');
     fetchSlots(selDate)
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => { setSlots(d.slots || []); setSlotsLoad(false); })
-      .catch(() => { setSlots([]); setSlotsLoad(false); });
-  }, [selDate]);
+      .catch(() => { setSlots([]); setSlotsFailed(true); setSlotsLoad(false); });
+  }, [selDate, slotsTry]);
 
   /* Which days of the month on view are shut. Re-asked on every month change;
      a failed request simply leaves them all enabled, which is the behavior
@@ -402,6 +408,24 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             }}>
               {isRtl ? 'טוען שעות...' : tx("Loading times...")}
             </p>
+          ) : slotsFailed ? (
+            <p role="alert" style={{
+              textAlign: 'center', fontFamily: 'Ploni, sans-serif',
+              color: 'rgba(255,255,255,0.7)', fontSize: '14px', margin: '12px 0',
+            }}>
+              {isRtl ? 'לא הצלחנו לטעון את השעות הפנויות.' : tx("We couldn't load the available times.")}{' '}
+              <button
+                type="button"
+                onClick={() => setSlotsTry(n => n + 1)}
+                style={{
+                  background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+                  fontFamily: 'Ploni, sans-serif', fontSize: '14px',
+                  color: 'white', textDecoration: 'underline',
+                }}
+              >
+                {isRtl ? 'לנסות שוב' : tx("Try again")}
+              </button>
+            </p>
           ) : slots.length === 0 ? (
             <p style={{
               textAlign: 'center', fontFamily: 'Ploni, sans-serif',
@@ -489,7 +513,10 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
             }
           </button>
         )}
-        <button
+        {/* Only where the page gave it something to do: on /book it had no
+            action at all and the button did nothing (11 Nov 2026). */}
+        {onSkip && <button
+          type="button"
           onClick={onSkip}
           style={{
             padding:      '12px',
@@ -503,7 +530,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
           }}
         >
           {isRtl ? 'אולי מאוחר יותר' : tx("Maybe later")}
-        </button>
+        </button>}
       </div>
     </div>
   );

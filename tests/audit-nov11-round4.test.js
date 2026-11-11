@@ -116,7 +116,8 @@ describe('W33: the photos inside a post', () => {
   });
   it('the photo offers the lighter copy and stays lazy', () => {
     expect(post).toMatch(/srcSet=\{srcSet\}/);
-    expect(post).toMatch(/loading="lazy"\s+decoding="async"/);
+    expect(post).toMatch(/<img\s+loading="lazy"\s+src=\{block\.src\}/);   // lazy BEFORE the address (round 5: the order decides)
+    expect(post).toContain('decoding="async"');
   });
   it('the related posts at the foot of the page take the lighter cover, once the reader is near', () => {
     expect(post).toContain('<RelatedCover post={p} />');

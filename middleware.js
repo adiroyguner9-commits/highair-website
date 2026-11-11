@@ -54,8 +54,31 @@ export function englishShellPath(hostname, pathname) {
 }
 const APP_SHELL = /^\/(blog\/[a-z0-9-]+|terms|privacy|cancellation|accessibility|shop|safari|book(\/.*)?)$/;
 
-export default function middleware(request) {
+/* A magazine address that is not a post on this site: the path of that site's
+   404 page, else null. On en. / de. / es. every /blog/<anything> used to fall
+   through to the app shell above and answer 200 with "index, follow": a made-up
+   address, or a Hebrew-only post, was a page Google could index with nothing on
+   it (11 Nov 2026). It now answers 404, in the site's own language. The Hebrew
+   site needs nothing here: a post with no page already gets Vercel's 404. */
+export function blogNotFound(hostname, pathname) {
+  const sub = String(hostname || '').split('.')[0];
+  if (!['en', 'de', 'es'].includes(sub)) return null;
+  const post = /^\/blog\/([^/]+)\/?$/.exec(pathname || '');
+  if (!post) return null;
+  return (BLOG_LANGS[post[1]] || []).includes(sub) ? null : `/${sub}/404.html`;
+}
+
+export default async function middleware(request) {
   const url = new URL(request.url);
+  const missing = blogNotFound(url.hostname, url.pathname);
+  if (missing) {
+    /* The body is the site's own not-found shell (the app still starts in it
+       and takes the visitor to the magazine, as the owner set on 5 Nov 2026);
+       the status is what a search engine reads. */
+    let body = '';
+    try { const r = await fetch(new URL(missing, url)); if (r.ok) body = await r.text(); } catch { /* an empty 404 is still a 404 */ }
+    return new Response(body, { status: 404, headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex', 'cache-control': 'no-store' } });
+  }
   const target = englishShellPath(url.hostname, url.pathname);
   if (!target) return;
   return new Response(null, {

@@ -23,6 +23,8 @@
  * callers legitimately want "whoever this number is" rather than a live deal.
  */
 
+import { destKey } from './dest.js';   // the one table of trip names, shared with submit-lead and the messages
+
 /* Stages where a deal is still being worked. Anything else — won, lost,
    archived — is history as far as routing a call or a message goes. */
 export const OPEN_STAGES = [
@@ -113,29 +115,33 @@ export async function bookingAgent({ base, token, lead = '', phone = '' }) {
 
    Returns '' for a blank or unrecognised value, and callers must treat '' as
    "not the same trip" — an enquiry we cannot classify is one to keep, not one
-   to fold into whatever card came back. */
+   to fold into whatever card came back.
+
+   ONE key for the site and the Lead Center (11 Nov 2026). This used to carry
+   its own Hebrew table, and its keys were not the ones the stored English name
+   gives: the form saves "Everest Base Camp" (./dest.js) while the Hebrew page
+   name gave "ebc"; "Kilimanjaro Kosher" gave "kilimanjarokosher" and its Hebrew
+   name "kilimanjaroreligious"; six trips (Scardus, Ama Dablam, Himlung, Mount
+   Kenya, Rwenzori, Safari) had no Hebrew row and gave ''. So a second enquiry
+   for the same trip opened a second card, and "טיפוס למנסלו" matched the
+   Manaslu CIRCUIT row and was folded into the circuit's card. The key is now
+   the canonical name from ./dest.js, the same table that names the trip when
+   the lead is saved and the same names the Lead Center stores. */
 export function tripKey(expedition) {
   const raw = String(expedition || '').trim();
   if (!raw) return '';
-  const HE = [
-    [/סימיאן|דנקיל|אתיופיה/, 'ethiopia'],
-    [/קילימנג/,              'kilimanjaro'],
-    [/סיני/,                 'sinai'],
-    [/בלקן/,                 'peaksofbalkan'],
-    [/אלברוס/,               'elbrus'],
-    [/קזבק/,                 'kazbek'],
-    [/אולימפוס/,             'olympus'],
-    [/אקונקגואה/,            'aconcagua'],
-    [/אנאפורנה|אנפורנה/,     'annapurna'],
-    [/מנסלו|מנאסלו/,         'manaslu'],
-    [/אוורסט|גוקיו/,         'ebc'],
-    [/מרא פיק|מרה פיק/,      'merapeak'],
-    [/איילנד/,               'islandpeak'],
-    [/לנין/,                 'leninpeak'],
-    [/לובוצ/,                'lobuchepeak'],
-  ];
-  /* A religious departure keeps its own identity, whichever language named it. */
-  const kosher = /religious|kosher|דתי|שומרי מסורת|חרדי/i.test(raw) ? 'religious' : '';
-  for (const [re, key] of HE) if (re.test(raw)) return key + kosher;
-  return raw.toLowerCase().replace(/[^a-z0-9]/g, '') ;
+  const plain = v => v.toLowerCase().replace(/[^a-z0-9]/g, '');
+  let key = destKey(raw);
+  /* A religious departure keeps its own identity, whichever language named it
+     and however it is spelled: "Kilimanjaro Kosher" (the site), "Kilimanjaro
+     (Religious)" (the Lead Center), "קילימנג׳רו לשומרי מסורת" (the page). */
+  const religious = key === 'Kilimanjaro Kosher' || /religious|kosher|דתי|שומרי מסורת|חרדי/i.test(raw);
+  if (key === 'Kilimanjaro Kosher') key = 'Kilimanjaro';
+  /* The climb and the circuit share a mountain and nothing else. A loose
+     spelling of the climb ("טיפוס מנסלו", "Manaslu expedition") lands on the
+     circuit's keyword in ./dest.js, so it is told apart here. */
+  if (key === 'Manaslu' && /טיפוס|climb|expedition|8[.,]?163/i.test(raw) && !/סובב|circuit|טרק|trek/i.test(raw)) key = 'Manaslu Climb';
+  if (key) return plain(key) + (religious ? 'religious' : '');
+  /* A name ./dest.js does not know: an English one is its own key, a Hebrew one is ''. */
+  return plain(raw);
 }

@@ -20,6 +20,8 @@ import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { useNearView } from '../../website/useInView.js';
+import { smallOf } from '../../website/imageVariants.js';
 import { usePageMeta, itemList, breadcrumbList } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -184,8 +186,7 @@ function DayTrips({ isRtl, isMobile }) {
         {SAFARI_DAY_TRIPS.map(d => (
           <article key={d.slug} style={{ background: '#FFFFFF', border: `1px solid ${SC.sandLine}`,
             borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ aspectRatio: '4 / 3', background: `linear-gradient(135deg, ${SC.green}, ${SC.gold})`,
-              backgroundImage: `url(${d.img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+            <CardPhoto img={d.img} gradient={`linear-gradient(135deg, ${SC.green}, ${SC.gold})`} />
             <div style={{ padding: '14px 16px 18px', textAlign: 'start' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
                 <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700,
@@ -325,6 +326,21 @@ function SectionHead({ title, sub, isMobile }) {
    the title reserves two lines whether or not it needs them, and the body is
    clamped to four lines. A longer description therefore cannot make one card
    taller than its neighbors. */
+/* The photo at the top of a card. It is a CSS background, which the browser
+   downloads with the page wherever the card sits, and it was the full 1100-1200px
+   file for a card about 300px wide: the page weighed about 3MB on a phone before
+   anyone scrolled (audit, 11 Nov 2026). Now the lighter copy (imageVariants.js),
+   and only once the card is near the screen or about to slide in; until then
+   the card's own gradient holds the space, at the same size. */
+function CardPhoto({ img, gradient }) {
+  const [ref, near] = useNearView();
+  return (
+    <div ref={ref} style={{ aspectRatio: '4 / 3', flexShrink: 0, background: gradient,
+      ...(near && img ? { backgroundImage: `url(${smallOf(img)})` } : null),
+      backgroundSize: 'cover', backgroundPosition: 'center' }} />
+  );
+}
+
 function PhotoCard({ img, title, desc, chip, gradient, href, cta, rtl }) {
   const [hover, setHover] = useState(false);
   const clamp = (lines) => ({
@@ -346,8 +362,7 @@ function PhotoCard({ img, title, desc, chip, gradient, href, cta, rtl }) {
       transition: 'transform .22s ease, box-shadow .22s ease',
       transform: hover ? 'translateY(-4px)' : 'none',
       boxShadow: hover ? '0 14px 32px rgba(120,86,42,0.16)' : 'none' }}>
-      <div style={{ aspectRatio: '4 / 3', flexShrink: 0, background: gradient,
-        backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <CardPhoto img={img} gradient={gradient} />
       <div style={{ padding: '14px 16px 18px', textAlign: 'start', flex: 1,
         display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>

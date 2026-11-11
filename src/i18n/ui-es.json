@@ -294,5 +294,11 @@
  "Photos": "Fotos",
  "Video testimonials": "Testimonios en vídeo",
  "Safari options": "Opciones de safari",
- "Our team": "Nuestro equipo"
+ "Our team": "Nuestro equipo",
+ "Please enter a valid phone number.": "Introduce un número de teléfono válido.",
+ "Please check the email address and try again.": "Revisa la dirección de correo e inténtalo de nuevo.",
+ "Please enter your full name, in letters.": "Introduce tu nombre completo, con letras.",
+ "Too many requests in a row. Please try again in a minute.": "Demasiadas solicitudes seguidas. Inténtalo de nuevo en un minuto.",
+ "We couldn't load the available times.": "No hemos podido cargar las horas disponibles.",
+ "Try again": "Intentar de nuevo"
 }

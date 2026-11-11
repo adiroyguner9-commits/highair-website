@@ -75,9 +75,9 @@ export default function PhotoGallery({ images, orientations = {}, thumbOf = src 
                 onMouseLeave={e => e.currentTarget.querySelector('div')?.style && (e.currentTarget.querySelector('div').style.opacity = '0')}
               >
                 <img
+                  loading="lazy"
                   src={thumbOf(src)}
                   alt={altOf(i)}
-                  loading="lazy"
                   decoding="async"
                   style={{
                     width: '100%', height: '100%',

@@ -196,8 +196,9 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
-import { fetchActiveLead, bookingAgent } from './_lib/active-lead.js';
-import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey } from './_lib/callAgents.js';
+import { fetchActiveLead, bookingAgent, tripKey, last9 } from './_lib/active-lead.js';
+import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey, callsOverlap, timeToMin } from './_lib/callAgents.js';
+import { whatsappVerdict, CHANNEL_FIELDS } from './_lib/lead-channel.js';
 import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { destHe, destInfo } from './_lib/dest.js';
@@ -216,6 +217,70 @@ export function safeTopic(v) {
   if (!t || t.length > 60) return '';
   if (/https?|www\.|[@/\\:<>]|\.\S|\d{5,}/i.test(t)) return '';
   return t;
+}
+
+/* The number a booking stores. A visitor abroad types the national number
+   beside a country picker, the way it is written at home: "0151 23456789" next
+   to +49. Two things went wrong with it (11 Nov 2026): the trip page's widget
+   sent the national part alone, so it was read as an Israeli number and saved
+   or refused as one; and where the country did arrive, the 0 in front of the
+   national part was kept after the code (+49 0151…), a number that cannot be
+   dialled or opened in WhatsApp. The page now sends the country, and here the
+   two are joined the way the number is dialled from abroad: without that 0.
+   Italy is the one country whose numbers keep it. Israeli numbers go through
+   the shared normaliser unchanged (it already repairs "+972 050…"). */
+const KEEPS_TRUNK_ZERO = new Set(['39']);
+export function bookingPhone(phone, dial = '') {
+  const raw = String(phone ?? '').trim();
+  let code = String(dial ?? '').replace(/\D/g, '');
+  let national = raw;
+  const joined = /^\+(\d{1,4})[\s-]+(\S.*)$/.exec(raw);     // "+49 0151 23456789", as the phone field sends it
+  if (joined) { code = joined[1]; national = joined[2]; }
+  else if (raw.startsWith('+') || raw.replace(/\D/g, '').startsWith('00')) return normalizePhone(raw);   // one piece, code included: as typed
+  if (!code || code === '972') return normalizePhone(raw);
+  const digits = national.replace(/\D/g, '');
+  return normalizePhone(`+${code}${KEEPS_TRUNK_ZERO.has(code) ? digits : digits.replace(/^0+/, '')}`);
+}
+
+/* The calls a new booking replaces: the same phone's OTHER confirmed calls for
+   the same trip that are still ahead. Booking again used to leave the first
+   call standing: two reminders, two slots held, and an agent ringing at a time
+   the customer had moved away from (11 Nov 2026). A call for another trip is
+   another conversation and stays. `nowMin` is Israel's wall clock in minutes. */
+export function callsToReplace(appointments, { phone, expedition, newId = '', todayYMD, nowMin = 0 }) {
+  const who = last9(phone);
+  if (who.length !== 9) return [];
+  const trip = tripKey(expedition);
+  return (appointments || []).filter(r => {
+    const f = r?.fields || {};
+    if (!r?.id || r.id === newId) return false;
+    if (String(f.Status || '').toLowerCase() !== 'confirmed') return false;
+    if (last9(f.Phone) !== who) return false;
+    const day = String(f.Date || '').slice(0, 10);
+    const ahead = day > todayYMD || (day === todayYMD && timeToMin(f.Time) > nowMin);
+    return ahead && tripKey(f.Expedition) === trip;
+  });
+}
+
+/* The cancelled call, for the calendars that hold its invite (info@ and its
+   agent). Same UID as the invite, a higher SEQUENCE: the event is removed. */
+function generateCancelICS({ date, time, name, uid, attendeeEmail, attendeeName }) {
+  const { dtStart, dtEnd } = icsDateTimes(date, time);
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  return [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HighAir Expeditions//IL', 'CALSCALE:GREGORIAN', 'METHOD:CANCEL',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `SEQUENCE:${Math.floor(Date.now() / 1000)}`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART:${dtStart}`,
+    `DTEND:${dtEnd}`,
+    `SUMMARY:שיחה עם ${icsEscape(name)}`,
+    'ORGANIZER;CN=HighAir Expeditions:mailto:info@highair-expeditions.com',
+    `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;CN=${icsEscape(attendeeName || 'HighAir Admin', 60)}:mailto:${icsEscape(attendeeEmail || 'info@highair-expeditions.com', 120)}`,
+    'STATUS:CANCELLED',
+    'END:VEVENT', 'END:VCALENDAR',
+  ].join('\r\n');
 }
 
 export default async function handler(req, res) {
@@ -248,7 +313,7 @@ export default async function handler(req, res) {
      token lookup below) are ours; a visitor's are echoed in the WhatsApp we send
      to the number they also typed, so see safeTopic where the message is built. */
   let topicTrusted = isStaffBooking;
-  let phone = canonPhone(raw.phone);   // store every number in the canonical 0XXXXXXXXX format
+  let phone = bookingPhone(raw.phone, raw.dial);   // one stored form, +<country><number> (see bookingPhone)
 
   const TOKEN = process.env.AIRTABLE_TOKEN;
   const BASE  = process.env.AIRTABLE_BASE;
@@ -380,7 +445,11 @@ export default async function handler(req, res) {
   let callAgents = [];
   let busyNow = new Map();
   try {
-    const formula = encodeURIComponent(`AND({Date}="${date}",{Time}="${time}",{Status}="confirmed")`);
+    /* The day's calls, then the ones that OVERLAP this time: a call the team
+       put at 09:55 is in the way of 09:30 and of 10:00. This asked for calls at
+       exactly `time`, so those went unseen (11 Nov 2026). On the grid a call
+       overlaps only its own slot, as before. */
+    const formula = encodeURIComponent(`AND({Date}="${date}",{Status}="confirmed")`);
     const chk = await fetch(
       `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${formula}`
         + `&fields[]=Time&fields[]=Agent&fields[]=${encodeURIComponent('Expedition')}`,
@@ -388,7 +457,7 @@ export default async function handler(req, res) {
     );
     if (!chk.ok) throw new Error(`Airtable check failed: ${chk.status}`);
     const chkData = await chk.json();
-    const taken = chkData.records || [];
+    const taken = (chkData.records || []).filter(r => callsOverlap(time, r.fields?.Time));
     if (taken.length > 0) {
       /* Something is booked at this time. Whether it matters depends on who
          it belongs to — and if we cannot find that out, we refuse rather than
@@ -400,7 +469,7 @@ export default async function handler(req, res) {
         if (!isStaffBooking) return res.status(409).json({ error: 'slot_taken' });
         throw e;                                   // staff: book on, with no map
       }
-      busyNow = busyByTime(taken, callAgents);
+      busyNow = busyByTime(taken, callAgents, { slots: [time] });   // every overlapping call counts at this time
       /* A customer who already has an agent books with that agent or not at
          all (owner, 22 Sep 2026; /api/slots offers only their agent's free
          times, and this re-checks it at the moment of booking). A stale list
@@ -470,6 +539,7 @@ export default async function handler(req, res) {
   //     digits) — but only if it hasn't progressed past the call step yet. Also
   //     grab its Assigned Agent so the alert goes only to that agent.
   let assignedAgent = '';
+  let leadFields = null;   // the active card, for the channel rule further down
   try {
     {
       /* The ACTIVE card. Matching on phone alone took whichever row came back
@@ -477,8 +547,9 @@ export default async function handler(req, res) {
          on the wrong lead — or on none (Aug 13 2026). */
       const rec = await fetchActiveLead({
         base: BASE, token: TOKEN, phone,
-        fields: ['Assigned Agent', 'Activity Log', 'Expedition'],
+        fields: ['Assigned Agent', 'Activity Log', 'Expedition', ...CHANNEL_FIELDS],
       });
+      leadFields = rec?.fields || null;
       {
         const stage = rec?.fields?.Stage || '';
         assignedAgent = (rec?.fields?.['Assigned Agent'] || '').trim();
@@ -607,6 +678,31 @@ export default async function handler(req, res) {
     } catch (e) { console.warn('[book-slot] agent stamp non-fatal:', e.message); }
   }
 
+  /* 2d. One open call per person per trip: this booking replaces the earlier
+     one (callsToReplace). Only the row's status changes here. The customer is
+     told about the NEW call below, exactly as before, and nothing more; the
+     calendars that hold the old invite get its cancellation further down. */
+  let replaced = [];
+  try {
+    const il = israelNow();
+    const f = encodeURIComponent(`AND({Status}="confirmed",RIGHT(REGEX_REPLACE({Phone}&"","[^0-9]",""),9)="${last9(phone)}")`);
+    const r = await fetch(
+      `https://api.airtable.com/v0/${BASE}/Appointments?filterByFormula=${f}&pageSize=50`
+        + ['Date', 'Time', 'Phone', 'Status', 'Expedition', 'Agent', 'Name'].map(x => `&fields[]=${encodeURIComponent(x)}`).join(''),
+      { headers: { Authorization: `Bearer ${TOKEN}` } });
+    if (r.ok && apptId) {
+      const old = callsToReplace((await r.json()).records || [], { phone, expedition, newId: apptId, todayYMD: il.ymd, nowMin: il.minutes });
+      for (const prev of old) {
+        const done = await fetch(`https://api.airtable.com/v0/${BASE}/Appointments/${prev.id}`, {
+          method:  'PATCH',
+          headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ fields: { Status: 'cancelled' } }),
+        });
+        if (done.ok) { replaced.push(prev); console.log(`[book-slot] ${prev.fields?.Date} ${prev.fields?.Time} replaced by ${date} ${time}`); }
+      }
+    }
+  } catch (e) { console.warn('[book-slot] replacing the earlier call non-fatal:', e.message); }
+
   /* The Make.com appointment webhook was removed with GoHighLevel (owner,
      Jul 30 2026): it existed only to push a GHL stage update. The lead's own
      stage is already advanced directly above this. */
@@ -632,7 +728,12 @@ export default async function handler(req, res) {
   // 4. WhatsApp confirmation to client via Green API
   const GA_INSTANCE = process.env.GREENAPI_INSTANCE;
   const GA_TOKEN    = process.env.GREENAPI_TOKEN;
-  if (!silent && GA_INSTANCE && GA_TOKEN && phone) {
+  /* A lead from the English, German or Spanish site is written to by email
+     only (./_lib/lead-channel.js). This Hebrew WhatsApp went to them too until
+     11 Nov 2026; their confirmation is the email below. */
+  const waOk = whatsappVerdict({ lead: leadFields }).send;
+  if (!waOk) console.log('[book-slot] no WhatsApp confirmation: lead from abroad, email only');
+  if (!silent && waOk && GA_INSTANCE && GA_TOKEN && phone) {
     try {
       const clientNum = toIntlIL(phone);
       const waMessage = `היי ${firstName(name)} 👋🏼\n\nהשיחה שלך לגבי ${expeditionHe} שוריינה בהצלחה! 🏔️\n\n🗓️ מתי? ${formatDateHe(date)}\n⏰ שעה: ${time}\n\nאנחנו נתקשר אליך בזמן שנקבע. מצפים לשוחח איתך! 😁`;
@@ -752,6 +853,30 @@ export default async function handler(req, res) {
         ].join(''),
       }),
     });
+
+    /* ── The call(s) this booking replaced leave the calendars they were in ── */
+    for (const prev of replaced) {
+      try {
+        const pf = prev.fields || {};
+        if (!isValidDate(pf.Date) || !isValidTime(pf.Time)) continue;
+        const prevAgent = String(pf.Agent || '').trim();
+        const to = [['info@highair-expeditions.com', 'HighAir Admin']];
+        const agentMail = prevAgent ? await lookupAgentEmail(prevAgent, BASE, TOKEN) : '';
+        if (agentMail && agentMail.toLowerCase() !== 'info@highair-expeditions.com') to.push([agentMail, prevAgent]);
+        for (const [addr, who] of to) {
+          const ics = generateCancelICS({ date: pf.Date, time: pf.Time, name, uid: `appt-${prev.id}@highair-expeditions.com`, attendeeEmail: addr, attendeeName: who });
+          await sendEmail(RESEND_KEY, {
+            to:      addr,
+            subject: `השיחה הקודמת עם ${name} בוטלה`,
+            attachments: [{ filename: 'highair-meeting.ics', content: Buffer.from(ics, 'utf-8').toString('base64'), content_type: 'text/calendar; charset=utf-8; method=CANCEL' }],
+            html: emailShell({
+              title: 'השיחה הקודמת בוטלה',
+              body: p(`${escapeHtml(name)} קבע/ה שיחה חדשה ל${dateHe} בשעה ${time}, ולכן השיחה שנקבעה ל${formatDateHe(pf.Date)} בשעה ${escapeHtml(pf.Time)} בוטלה. היומן מתעדכן מהקובץ המצורף.`, 0),
+            }),
+          });
+        }
+      } catch (e) { console.warn('[book-slot] cancel invite non-fatal:', e.message); }
+    }
 
     /* ── The lead's own agent gets the same invite, in their calendar ──
        Opt-in: only agents with an Email on their Agents row. The ICS names THEM

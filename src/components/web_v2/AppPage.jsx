@@ -41,11 +41,11 @@ function PhoneFrame({ src, alt, width, eager = false, shadow = '0 24px 60px rgba
     }}>
       <div style={{ position: 'relative', borderRadius: `${radius - bezel}px`, overflow: 'hidden', aspectRatio: SCREEN_RATIO, background: '#F8F7FF' }}>
         <img
+          loading={eager ? 'eager' : 'lazy'}
           src={src}
           alt={alt}
           width={600}
           height={1304}
-          loading={eager ? 'eager' : 'lazy'}
           fetchpriority={eager ? 'high' : undefined}
           decoding="async"
           style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}

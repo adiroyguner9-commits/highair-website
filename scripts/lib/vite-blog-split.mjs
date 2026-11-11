@@ -54,6 +54,22 @@ export function readIntl(root = process.cwd()) {
 export const HEBREW_ONLY_POSTS = new Set(['sinai-high-mountain-trek-guide', 'tomer-bassan-mera-peak', 'elbrus-climbing-guide']);
 
 /** Which languages a post is published in. */
+/* One post's texts in one foreign language, or null when it has none there.
+   The international file wins. English falls back to the post's own English in
+   blogData.js: three posts (the two Kilimanjaro cost and route guides and the
+   Nepal visa guide) have no international file, the English site lists them and
+   the sitemap named them, but the page generator read the international files
+   only, so they had no page and answered 404 to Google (11 Nov 2026). Whoever
+   builds a page, a sitemap or an hreflang asks here. */
+export function postTexts(post, lng, intl) {
+  const own = intl?.[lng]?.[post?.slug];
+  if (own) return own;
+  if (lng === 'en' && post?.titleEn && Array.isArray(post.contentEn) && post.contentEn.length) {
+    return { title: post.titleEn, excerpt: post.excerptEn || '', category: post.categoryEn || '', seoTitle: post.seoTitleEn || '', content: post.contentEn };
+  }
+  return null;
+}
+
 export function postLangs(slug, intl) {
   if (HEBREW_ONLY_POSTS.has(slug)) return ['he'];
   return ['he', 'en', ...['de', 'es'].filter(l => intl[l]?.[slug])];
