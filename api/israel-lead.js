@@ -41,7 +41,6 @@ const F = {
   package:       'fldQktU5Y8F420QRe',
   pricePaid:     'fldaASxJJ6xBuiyja',
   paymentStatus: 'fldiz7jcYO3GwH7Nh',
-  notes:         'flderzKj1hhTrja9E',
   participants:  'fldCrgHvTemf1ze4m',
 };
 
@@ -108,11 +107,13 @@ export default async function handler(req, res) {
   if (totalPrice)   fields[F.pricePaid]    = totalPrice;
   fields[F.participants] = participantsCount;
 
-  /* tripDate should be YYYY-MM-DD for Airtable date field */
+  /* tripDate should be YYYY-MM-DD for Airtable date field. A date in any other
+     shape is left out: it used to go to a "notes" column that the table does
+     not have, and one unknown column makes Airtable refuse the whole row, so
+     the registration was lost (audit W30; columns read from the live table on
+     12 Nov 2026). The trek's name already says which trek it is. */
   if (tripDate && /^\d{4}-\d{2}-\d{2}$/.test(tripDate)) {
     fields[F.tripDate] = tripDate;
-  } else if (tripDate) {
-    fields[F.notes] = `תאריך: ${String(tripDate).slice(0, 50)}`;
   }
 
   console.log('[israel-lead] Lead:', cleanTripName, '|', pkg?.label || 'no package');
