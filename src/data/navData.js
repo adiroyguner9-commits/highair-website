@@ -616,8 +616,8 @@ export const CARD_EXPS = [
     "typeHe": "טרק",
     "diff": "Hard",
     "diffHe": "קשה",
-    "price": 3800,
-    "priceStr": "$3800",
+    "price": 3900,
+    "priceStr": "$3900",
     "continent": "asia",
     "airtableEvents": [
       "EBC + Gokyo"

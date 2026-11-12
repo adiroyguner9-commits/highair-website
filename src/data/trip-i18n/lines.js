@@ -118,6 +118,8 @@ export const LINES = {
  'Showers and toilets at the camps, including laundry and electricity': ['Duschen und Toiletten in den Lagern, inklusive Wäscheservice und Strom', 'Duchas y baños en los campos, con lavandería y electricidad'],
  'Showers and toilets during the stays in the field': ['Duschen und Toiletten während der Aufenthalte im Gelände', 'Duchas y baños durante las estancias en el terreno'],
  'Showers and toilets in the teahouses, as available on the route': ['Duschen und Toiletten in den Teehäusern, soweit auf der Route verfügbar', 'Duchas y baños en los teahouses, según disponibilidad en la ruta'],
+ 'Showers and toilets in the teahouses, subject to availability on the route': ['Duschen und Toiletten in den Teehäusern, vorbehaltlich der Verfügbarkeit auf der Route', 'Duchas y baños en los teahouses, sujeto a disponibilidad en la ruta'],
+ 'First aid kit with the guides': ['Erste-Hilfe-Set bei den Guides', 'Botiquín de primeros auxilios con los guías'],
  'Single room at the hotel - $50 for the entire trek': ['Einzelzimmer im Hotel: 50 $ für den gesamten Trek', 'Habitación individual en el hotel: 50 $ por todo el trek'],
  'Single room at the hotel - €30/night': ['Einzelzimmer im Hotel: 30 € pro Nacht', 'Habitación individual en el hotel: 30 € por noche'],
  'Single room at the hotel in Shkodra - €40/night': ['Einzelzimmer im Hotel in Shkodra: 40 € pro Nacht', 'Habitación individual en el hotel de Shkodra: 40 € por noche'],
