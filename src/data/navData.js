@@ -588,8 +588,8 @@ export const CARD_EXPS = [
     "typeHe": "טרק",
     "diff": "Moderate",
     "diffHe": "בינוני",
-    "price": 2250,
-    "priceStr": "$2250",
+    "price": 2600,
+    "priceStr": "$2600",
     "continent": "asia",
     "airtableEvents": [
       "Manaslu_Circut"
