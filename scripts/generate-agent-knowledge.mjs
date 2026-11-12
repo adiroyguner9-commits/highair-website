@@ -12,6 +12,7 @@ import { writeFileSync } from 'node:fs';
 import { EXPS } from '../src/data/mockData.js';
 import { FAQ_BY_SLUG } from '../src/data/faqData.js';
 import { CORE_TRIPS, BASE_URLS } from '../src/website/sites.js';
+import { tripPrice } from './lib/trip-price.mjs';
 
 const pick = (e, k) => ({ en: e[k + 'En'] || '', de: e[k + 'De'] || e[k + 'En'] || '', es: e[k + 'Es'] || e[k + 'En'] || '' });
 
@@ -24,7 +25,9 @@ const trips = CORE_TRIPS.map(slug => {
     country: pick(e, 'country'),
     days: pick(e, 'days'),
     summit: e.elev || '',
-    priceFromUsd: e.price || null,
+    /* priceFrom { amount, currency } is the price; priceFromUsd stays for
+       older readers and is null for a trip sold in euros (lib/trip-price.mjs). */
+    ...tripPrice(e),
     successRate: e.successRate || null,
     groupCapacity: e.groupCapacity || null,
     bestSeasons: e.seasonsEn || [],
