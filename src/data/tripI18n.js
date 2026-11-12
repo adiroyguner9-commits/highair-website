@@ -20,9 +20,20 @@ import { lineIn } from './trip-i18n/lines.js';
 const DUR = { de: 'Stunden', es: 'horas' };
 /* Itinerary days keep distance / time / elevation numbers from the English
    record; only the words around them change. */
+/* English that used to stay inside these short fields on the German and
+   Spanish pages (12 Nov 2026): "6 hrs" on the Everest Base Camp days, "Approx."
+   on Olympus, the crater-rim line in Ethiopia and "Flight" as the travel time
+   on Elbrus. */
+const APPROX = { de: 'Ca.', es: 'Aprox.' };
+const RIM = { de: n => `Bis zu ${n} Stunde${n === '1' ? '' : 'n'} zum Kraterrand`, es: n => `Hasta ${n} hora${n === '1' ? '' : 's'} hasta el borde del cráter` };
+const FLIGHT = { de: 'Flug', es: 'Vuelo' };
 function dayUnits(lang, d) {
   const out = { ...d };
-  if (d.duration) out.duration = d.duration.replace('hours', DUR[lang]);
+  if (d.duration) {
+    const rim = /^Up to (\d+) hours? to crater rim$/.exec(d.duration);
+    out.duration = rim ? RIM[lang](rim[1]) : d.duration.replace(/\b(?:hours|hrs)\b/, DUR[lang]).replace(/^Approx\./, APPROX[lang]);
+  }
+  if (d.travelTime === 'Flight') out.travelTime = FLIGHT[lang];
   if (d.elevationGain) out.elevationGain = d.elevationGain.replace('m gain', lang === 'de' ? ' m Aufstieg' : ' m de ascenso');
   if (d.elevationLoss) out.elevationLoss = d.elevationLoss.replace('m loss', lang === 'de' ? ' m Abstieg' : ' m de descenso');
   return out;
