@@ -644,8 +644,8 @@ export const CARD_EXPS = [
     "typeHe": "טרק",
     "diff": "Moderate",
     "diffHe": "בינוני",
-    "price": 2500,
-    "priceStr": "$2500",
+    "price": 2600,
+    "priceStr": "$2600",
     "continent": "asia",
     "airtableEvents": [
       "Annapurna_Circut",
@@ -759,8 +759,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Challenging",
     "diffHe": "אתגרי",
-    "price": 3550,
-    "priceStr": "$3550",
+    "price": 3900,
+    "priceStr": "$3900",
     "continent": "asia",
     "airtableEvents": [
       "Lobuche_Peak"
@@ -787,8 +787,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Challenging",
     "diffHe": "אתגרי",
-    "price": 3550,
-    "priceStr": "$3550",
+    "price": 4050,
+    "priceStr": "$4050",
     "continent": "asia",
     "airtableEvents": [
       "Island_Peak"
@@ -815,8 +815,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Challenging",
     "diffHe": "אתגרי",
-    "price": 3800,
-    "priceStr": "$3800",
+    "price": 3900,
+    "priceStr": "$3900",
     "continent": "asia",
     "airtableEvents": [
       "Mera_Peak"
