@@ -353,6 +353,7 @@ Join us for a cross border journey along the Scardus Ridge, and take a meaningfu
       'Gift kit - cap and dry-fit shirt!',
       'A personal area for every customer in the HighAir app',
       'Transfers from and to Tirana airport',
+      'Internal transfers to the start of the route and back',
       'Mountain hut, hotels and guesthouses throughout the route',
       '3 meals per day throughout the trek',
       'Professional local English-speaking guides',
@@ -2936,6 +2937,7 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     includedEn: [
       'Gift kit - cap and dry-fit shirt!',
       'A personal area for every customer in the HighAir app',
+      'Transfer from the Eilat central bus station to the Taba border crossing',
       'Transfers from the Taba border crossing and back',
       'Internal transfers to the start of the route and back',
       'Accommodation in Bedouin orchards (bustans) in the Sinai mountains',
@@ -2973,11 +2975,12 @@ Join us on this incredible Sinai adventure and make a meaningful contribution to
     notIncludedEn: [
       'Travel & medical insurance, including evacuation cover (required)',
       'Personal gear - clothing and footwear',
+      'Border fee on the Israeli side - ₪120 per person*',
       'Border fee on the Egyptian side - $120 per person*',
       'An extra hotel night (if needed)',
       'Personal expenses, such as drinks, alcohol, laundry, gifts, internet and more',
       'Anything not listed in the included section',
-      '* The border fee is set by the border authorities and may change',
+      '* The border fees are set by the border authorities and may change',
     ],
     importantToNote: [
       'הטרק מתבצע בקבוצה קטנה עד 15 משתתפים בלבד!',
