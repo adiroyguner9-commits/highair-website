@@ -119,7 +119,8 @@ describe('W30: the form goes on to payment only after a saved registration', () 
 });
 
 describe('W30, first half: the fields the handler writes (for checking against the live IsraelCustomers table)', () => {
-  /* Nothing was removed or added. */
+  /* The table's nine real columns. The "notes" id the handler once had is gone: IsraelCustomers has no
+     such column (see tests/audit-w30-israel-fields.test.js). */
   const F = {
     fullName:      'fldT1DxgwMYHIM5Mx',
     phone:         'fldKUy6EYV8bp8cGj',
@@ -129,12 +130,11 @@ describe('W30, first half: the fields the handler writes (for checking against t
     package:       'fldQktU5Y8F420QRe',
     pricePaid:     'fldaASxJJ6xBuiyja',
     paymentStatus: 'fldiz7jcYO3GwH7Nh',
-    notes:         'flderzKj1hhTrja9E',
     participants:  'fldCrgHvTemf1ze4m',
   };
   const written = async body => { await post(body); return calls.find(c => c.method === 'POST' && /IsraelCustomers/.test(c.u)).body.fields; };
 
-  it('the map in the file is these ten ids', () => {
+  it('the map in the file is these nine ids', () => {
     const file = read('api/israel-lead.js');
     const block = file.slice(file.indexOf('const F = {'), file.indexOf('};', file.indexOf('const F = {')));
     const ids = Object.fromEntries([...block.matchAll(/(\w+):\s*'(fld[A-Za-z0-9]{14})'/g)].map(m => [m[1], m[2]]));
@@ -147,11 +147,11 @@ describe('W30, first half: the fields the handler writes (for checking against t
       [F.email]: 'dana@example.com', [F.package]: 'טרק יומי בארץ - ₪249', [F.pricePaid]: 498, [F.participants]: 2, [F.tripDate]: '2026-11-21',
     });
   });
-  it('a free sign-up, and a date that is not a date goes to the notes', async () => {
+  it('a free sign-up, and a date that is not a date is left out', async () => {
     const f = await written({ name: 'דנה כהן', phone: '+972501234567', tripName: 'נחל כזיב', tripDate: 'נובמבר 2026', free: true });
-    expect(f).toEqual({ [F.fullName]: 'דנה כהן', [F.phone]: '+972501234567', [F.trip]: 'נחל כזיב', [F.participants]: 1, [F.notes]: 'תאריך: נובמבר 2026' });
+    expect(f).toEqual({ [F.fullName]: 'דנה כהן', [F.phone]: '+972501234567', [F.trip]: 'נחל כזיב', [F.participants]: 1 });
   });
-  it('every key it ever sends is one of the ten', async () => {
+  it('every key it ever sends is one of the nine', async () => {
     const all = new Set(Object.values(F));
     for (const body of [SIGNUP, { ...SIGNUP, free: true }, { ...SIGNUP, tripDate: 'בקרוב', packageId: 'with-stay' }, { ...SIGNUP, email: '', packageId: '' }]) {
       for (const k of Object.keys(await written(body))) expect(all.has(k), k).toBe(true);
