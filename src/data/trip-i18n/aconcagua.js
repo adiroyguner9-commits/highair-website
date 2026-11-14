@@ -37,7 +37,7 @@ export default {
    {"title": "Gipfel des Aconcagua (6962 m) - Lager 3 (5970 m)", "desc": ""},
    {"title": "Reservetag für schlechtes Wetter", "desc": ""},
    {"title": "Reservetag für schlechtes Wetter", "desc": ""},
-   {"title": "Lager 3 (5970 m) - Basislager (4300 m)", "desc": ""},
+   {"title": "Lager 3 (5970 m) - Basislager (4300 m)", "desc": "Im Basislager empfängt uns das Team herzlich, mit einem festlichen Abendessen zum Abschluss der Besteigung."},
    {"title": "Basislager - Puente del Inca - Mendoza (760 m)", "desc": ""},
    {"title": "Transfer zum Flughafen und Heimflug", "desc": ""}
   ],
@@ -86,7 +86,7 @@ export default {
    {"title": "Cumbre del Aconcagua (6962 m) - Campo 3 (5970 m)", "desc": ""},
    {"title": "Día de reserva por mal tiempo", "desc": ""},
    {"title": "Día de reserva por mal tiempo", "desc": ""},
-   {"title": "Campo 3 (5970 m) - Campo base (4300 m)", "desc": ""},
+   {"title": "Campo 3 (5970 m) - Campo base (4300 m)", "desc": "En el campo base nos espera una cálida bienvenida del equipo y una cena festiva para celebrar el final del ascenso."},
    {"title": "Campo base - Puente del Inca - Mendoza (760 m)", "desc": ""},
    {"title": "Traslado al aeropuerto y vuelo de regreso", "desc": ""}
   ],

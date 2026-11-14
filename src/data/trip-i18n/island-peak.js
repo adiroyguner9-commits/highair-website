@@ -21,7 +21,7 @@ export default {
   ],
   "listsFromLines": true,
   "itinerary": [
-   {"title": "Willkommen in Kathmandu!", "desc": ""},
+   {"title": "Willkommen in Kathmandu!", "desc": "Nach dem Check-in ruhen wir uns vom Flug aus, und am Abend treffen wir uns zu einem festlichen Willkommensessen und lernen die Gruppe kennen."},
    {"title": "Organisationstag und Ausrüstungscheck in Kathmandu", "desc": ""},
    {"title": "Flug nach Lukla - Phakding (2610 m)", "desc": ""},
    {"title": "Phakding - Namche Bazaar (3440 m)", "desc": ""},
@@ -38,7 +38,7 @@ export default {
    {"title": "Chhukung - Pangboche (3930 m)", "desc": ""},
    {"title": "Pangboche - Namche Bazaar (3440 m)", "desc": ""},
    {"title": "Namche Bazaar - Lukla (2860 m)", "desc": ""},
-   {"title": "Flug von Lukla nach Kathmandu", "desc": ""},
+   {"title": "Flug von Lukla nach Kathmandu", "desc": "Nach der Ankunft im Hotel bleibt Zeit zum Ausruhen, und am Abend treffen wir uns zu einem festlichen Abschiedsessen in einem Restaurant in Kathmandu."},
    {"title": "Reservetag für schlechtes Wetter / freier Tag in Kathmandu", "desc": ""},
    {"title": "Heimflug!", "desc": ""}
   ]
@@ -64,7 +64,7 @@ export default {
   ],
   "listsFromLines": true,
   "itinerary": [
-   {"title": "¡Bienvenido a Katmandú!", "desc": ""},
+   {"title": "¡Bienvenido a Katmandú!", "desc": "Tras el check-in descansamos del vuelo, y por la noche nos reunimos para una cena festiva de bienvenida y conocemos al grupo."},
    {"title": "Día de organización y revisión de equipo en Katmandú", "desc": ""},
    {"title": "Vuelo a Lukla - Phakding (2610 m)", "desc": ""},
    {"title": "Phakding - Namche Bazaar (3440 m)", "desc": ""},
@@ -81,7 +81,7 @@ export default {
    {"title": "Chhukung - Pangboche (3930 m)", "desc": ""},
    {"title": "Pangboche - Namche Bazaar (3440 m)", "desc": ""},
    {"title": "Namche Bazaar - Lukla (2860 m)", "desc": ""},
-   {"title": "Vuelo de Lukla a Katmandú", "desc": ""},
+   {"title": "Vuelo de Lukla a Katmandú", "desc": "Tras llegar al hotel hay tiempo para descansar, y por la noche nos reunimos para una cena de despedida en un restaurante de Katmandú."},
    {"title": "Día de reserva por mal tiempo / día libre en Katmandú", "desc": ""},
    {"title": "¡Vuelo de regreso a casa!", "desc": ""}
   ]
