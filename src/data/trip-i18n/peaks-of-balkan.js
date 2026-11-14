@@ -7,11 +7,11 @@ export default {
   "seoDescription": "Trekking auf den Peaks of the Balkans (2656 m), 10 Tage. 8 Wandertage durch Albanien, Kosovo und Montenegro mit Übernachtung bei einheimischen Familien. Gruppen bis 14 Personen.",
   "desc": "Peaks of the Balkans ist eine der spektakulärsten und abgelegensten Trekkingrouten Europas. Der Weg überquert die Grenzen von Albanien, Kosovo und Montenegro und führt durch unberührte Alpentäler, eindrucksvolle Bergpässe und traditionelle Dörfer abseits der Touristenpfade.\n\nIn 8 Tagen wandern Sie durch das Herz des Westbalkans, entdecken reiche Kulturen und übernachten in Gästehäusern, die von einheimischen Familien geführt werden. Eine echte Reise abseits der bekannten Wege, für alle, die Natur, Einfachheit und Ursprünglichkeit suchen.\n\nDer Trek ist nicht nur eine körperliche Reise, sondern auch ein geistiges und kulturelles Erlebnis. Schneebedeckte Gipfel, frische Luft, Stille und Erhabenheit hinterlassen einen tiefen Eindruck, der Sie noch Jahre begleiten wird.\n\nKommen Sie mit auf ein Abenteuer, das man nur einmal im Leben erlebt, und leisten Sie einen wertvollen Beitrag zum Kampf gegen Krebs!",
   "highlights": ["Gjeravica 2656 m", "Bootsfahrt auf dem Komani-See", "Grenzen von Albanien, Kosovo und Montenegro", "Gästehäuser einheimischer Familien"],
-  "seasons": ["Juni–Oktober"],
+  "seasons": ["Juni bis Oktober"],
   "importantToNote": [
    "Der Trek führt durch 3 Länder: Sie brauchen einen gültigen Reisepass und dürfen keine Einreisebeschränkungen für Albanien, Kosovo oder Montenegro haben.",
    "Übernachtet wird in Gästehäusern von Familien: Die Zimmer sind einfach, das Essen hausgemacht und ehrlich. Nicht empfehlenswert, wer Hotelkomfort erwartet.",
-   "Die täglichen Strecken liegen zwischen 13 und 22 km: Gute Wanderfitness ist nötig, mit einem Tagesrucksack für 7–9 Stunden.",
+   "Die täglichen Strecken liegen zwischen 13 und 22 km: Gute Wanderfitness ist nötig, mit einem Tagesrucksack für 7 bis 9 Stunden.",
    "Auf manchen Abschnitten der Route gibt es möglicherweise kein Mobilfunknetz.",
    "Ein ärztliches Attest und eine Gesundheitserklärung sind vor der Abreise erforderlich!",
    "Keine Klettererfahrung nötig: Es ist eine Trekkingroute ohne technisches Klettern, aber die Summe der Tage verlangt eine solide Fitness.",
@@ -32,7 +32,7 @@ export default {
    {"title": "Heimflug!", "desc": "Der Tag beginnt mit dem Frühstück im Hotel, dann packen wir und checken aus. Transfer zum Flughafen Tirana für den Heimflug, voller Fotos und Geschichten von einer wunderbaren Reise :)"}
   ],
   "faq": [
-   {"q": "Wie schwer ist der Peaks-of-the-Balkans-Trek?", "a": "Der Trek ist mittelschwer. Die Wandertage reichen von 13 bis 22 km mit bis zu 1100 m Aufstieg; nötig sind gute Fitness und die Fähigkeit, 7–9 Stunden einen Tagesrucksack zu tragen. Technisches Klettern gibt es nicht: Trekking vom Feinsten durch Albanien, Kosovo und Montenegro."},
+   {"q": "Wie schwer ist der Peaks-of-the-Balkans-Trek?", "a": "Der Trek ist mittelschwer. Die Wandertage reichen von 13 bis 22 km mit bis zu 1100 m Aufstieg; nötig sind gute Fitness und die Fähigkeit, 7 bis 9 Stunden einen Tagesrucksack zu tragen. Technisches Klettern gibt es nicht: Trekking vom Feinsten durch Albanien, Kosovo und Montenegro."},
    {"q": "Wie groß ist die Gruppe?", "a": "Unsere Gruppen sind auf höchstens 14 Teilnehmer begrenzt, für persönliche Betreuung, Flexibilität unterwegs und ein hochwertiges Erlebnis."},
    {"q": "Gibt es ein Einzelzimmer?", "a": "Ein Einzelzimmer gibt es nur für die Hotelnächte in Shkodra vor und nach dem Trek. Während des Treks übernachten wir in Gästehäusern von Familien in Mehrbettzimmern ohne Einzelzimmer, und genau das gehört zum Reiz der Route."},
    {"q": "Brauche ich Klettererfahrung?", "a": "Technische Erfahrung ist nicht nötig, es ist ein Trek ohne Klettern. Die Summe der Wandertage verlangt aber eine solide Fitness und etwas Erfahrung mit langen Wanderungen im Gebirge."},
@@ -46,11 +46,11 @@ export default {
   "seoDescription": "Trek Peaks of the Balkans (2656 m), 10 días. 8 días de caminata por Albania, Kosovo y Montenegro, durmiendo en casas de familias locales. Grupos de hasta 14.",
   "desc": "Peaks of the Balkans es una de las rutas de trekking más espectaculares y remotas de Europa. El sendero cruza las fronteras de Albania, Kosovo y Montenegro, por valles alpinos vírgenes, pasos de montaña impresionantes y pueblos tradicionales lejos de las rutas turísticas.\n\nDurante 8 días caminarás por el corazón de los Balcanes occidentales, descubrirás culturas ricas y dormirás en casas de huéspedes gestionadas por familias locales. Un viaje de verdad fuera del camino conocido, para quien busca naturaleza, sencillez y autenticidad.\n\nEl trek no es solo un viaje físico: es una experiencia espiritual y cultural. Las cumbres nevadas, el aire limpio, el silencio y la grandeza dejan una huella profunda que te acompañará durante años.\n\nÚnete a una aventura única en la vida y contribuye de verdad a la lucha contra el cáncer.",
   "highlights": ["Gjeravica 2656 m", "Paseo en barco por el lago Komani", "Fronteras de Albania, Kosovo y Montenegro", "Casas de familias locales"],
-  "seasons": ["junio–octubre"],
+  "seasons": ["junio a octubre"],
   "importantToNote": [
    "El trek cruza 3 países: necesitas un pasaporte válido y no tener restricciones de entrada a Albania, Kosovo ni Montenegro.",
    "El alojamiento es en casas de familias: habitaciones sencillas y comida casera de verdad. No se recomienda a quien espere la comodidad de un hotel.",
-   "Las etapas diarias van de 13 a 22 km: hace falta buena forma para caminar, con una mochila pequeña durante 7–9 horas.",
+   "Las etapas diarias van de 13 a 22 km: hace falta buena forma para caminar, con una mochila pequeña durante 7 a 9 horas.",
    "En algunos tramos de la ruta puede no haber cobertura móvil.",
    "¡Se requiere un certificado médico y una declaración de salud antes de salir!",
    "No hace falta experiencia en escalada: es una ruta de trekking sin escalada técnica, pero la suma de días exige una forma física razonable.",
@@ -71,7 +71,7 @@ export default {
    {"title": "¡Vuelo de regreso a casa!", "desc": "Empezamos el día con el desayuno en el hotel, hacemos la maleta y el check-out. Traslado al aeropuerto de Tirana para el vuelo de regreso, con fotos e historias de un viaje maravilloso :)"}
   ],
   "faq": [
-   {"q": "¿Qué dificultad tiene el trek Peaks of the Balkans?", "a": "Es un trek de dificultad media. Las etapas van de 13 a 22 km con subidas de hasta 1100 m, y hace falta buena forma y poder llevar una mochila pequeña durante 7–9 horas. No hay escalada técnica: es trekking en estado puro por Albania, Kosovo y Montenegro."},
+   {"q": "¿Qué dificultad tiene el trek Peaks of the Balkans?", "a": "Es un trek de dificultad media. Las etapas van de 13 a 22 km con subidas de hasta 1100 m, y hace falta buena forma y poder llevar una mochila pequeña durante 7 a 9 horas. No hay escalada técnica: es trekking en estado puro por Albania, Kosovo y Montenegro."},
    {"q": "¿De cuántas personas es el grupo?", "a": "Nuestros grupos tienen un máximo de 14 participantes, para mantener una atención personal, flexibilidad en el camino y una experiencia de calidad."},
    {"q": "¿Hay habitación individual?", "a": "Solo para las noches de hotel en Shkodra, antes y después del trek. Durante el trek dormimos en casas de familias, en habitaciones compartidas y sin opción individual, y eso forma parte del encanto de la ruta."},
    {"q": "¿Necesito experiencia en escalada?", "a": "No hace falta experiencia técnica: es un trek sin escalada. Aun así, la suma de días de caminata exige una forma física razonable y algo de experiencia en caminatas largas por montaña."},

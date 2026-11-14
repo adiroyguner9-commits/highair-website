@@ -11,6 +11,7 @@ import { NAV_EXPS, CARD_EXPS } from '../src/data/navData.js';
 import { savedTripName } from '../src/website/formRules.js';
 import { DEST, destKey, destEn } from '../api/_lib/dest.js';
 import { departureCount } from '../src/website/tripSchema.js';
+import { rangeInWords } from '../src/data/tripI18n.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const strip = h => h.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
@@ -343,5 +344,52 @@ describe('the month tabs on a trip page count departures, not rows (owner, 14 No
     const page = read('src/components/web_v2/ExpeditionDetail.jsx');
     expect(page).toContain('const count = departureCount(groupsForYear.filter(g => monthKey(g.departure) === key));');
     expect(page).not.toContain('const count = groupsForYear.filter(g => monthKey(g.departure) === key).length;');
+  });
+});
+
+describe('no dash in the German and Spanish copy (owner, 14 Nov 2026; 165 en dashes in German and 146 in Spanish before)', () => {
+  const DASH = /[\u2013\u2014]/;
+  const dashed = list => list.filter(s => DASH.test(s));
+  const SUFFIX = { de: 'De', es: 'Es' };
+  for (const l of ['de', 'es']) {
+    it(`${l}: the trips, as mockData.js builds them and as the site loads them`, () => {
+      const fields = exps => exps.flatMap(e => Object.entries(e).filter(([key]) => key.endsWith(SUFFIX[l])).flatMap(([, v]) => strings(v)));
+      expect(fields(EXPS).length).toBeGreaterThan(2000);
+      expect(dashed(fields(EXPS))).toEqual([]);
+      expect(dashed(fields(JSON.parse(read(`src/data/trips/${l}.json`))))).toEqual([]);
+    });
+    it(`${l}: the interface texts, the safari pages and the magazine`, async () => {
+      expect(dashed(strings(JSON.parse(read(`src/i18n/ui-${l}.json`))))).toEqual([]);
+      for (const f of [`res-${l}.js`, `safari-${l}.js`]) expect(dashed(strings(Object.values(await import(`../src/i18n/${f}`)))), f).toEqual([]);
+      const dir = `src/data/blog-intl/${l}`;
+      const posts = fs.readdirSync(path.join(process.cwd(), dir));
+      expect(posts.length).toBeGreaterThan(20);
+      for (const f of posts) expect(dashed(strings(JSON.parse(read(`${dir}/${f}`)))), f).toEqual([]);
+    });
+  }
+  it('a range is written with the word: bis in German, a in Spanish', () => {
+    expect(rangeInWords('de', '3\u20134 hours')).toBe('3 bis 4 hours');
+    expect(rangeInWords('es', '~5\u20137 hours')).toBe('~5 a 7 hours');
+    expect(rangeInWords('de', '10 \u2013 12 km')).toBe('10 bis 12 km');
+    expect(rangeInWords('es', '15 km')).toBe('15 km');
+    const day = (slug, n, l) => trip(slug)[`itinerary${SUFFIX[l]}`][n - 1];
+    expect(day('ethiopia', 4, 'de').distance).toBe('10 bis 12 km');
+    expect(day('ethiopia', 4, 'de').duration).toBe('~5 bis 7 Stunden');
+    expect(day('ethiopia', 4, 'es').duration).toBe('~5 a 7 horas');
+    expect(day('everest-base-camp', 3, 'es').duration).toBe('3 a 4 horas');
+    expect(trip('kilimanjaro').seasonsDe).toEqual(['Januar bis Februar', 'Juni bis Oktober']);
+    expect(trip('kilimanjaro').seasonsEs).toEqual(['enero a febrero', 'junio a octubre']);
+  });
+  it('the English record the numbers come from is as it was', () => {
+    expect(trip('ethiopia').itineraryEn[3].distance).toBe('10\u201312 km');
+    expect(trip('ethiopia').itineraryEn[3].duration).toBe('~5\u20137 hours');
+  });
+  it('and never a hyphen between spaces in its place', () => {
+    const de = JSON.parse(read('src/i18n/ui-de.json'));
+    expect(de['Booking error - please try again']).toBe('Fehler bei der Buchung, bitte erneut versuchen');
+    expect(de['Confirm Call - {0} at {1}']).toBe('Gespräch bestätigen: {0} um {1}');
+    expect(de['{0} is Full - no available spots']).toBe('{0} ist ausgebucht, keine Plätze frei');
+    expect(read('src/data/blog-intl/de/island-peak-climbing-guide.json')).toContain('mit dem Hubschrauber von Kathmandu nach Lukla und zurück fliegen');
+    expect(read('src/data/blog-intl/es/island-peak-climbing-guide.json')).toContain('puedes volar de Katmandú a Lukla y de vuelta en helicóptero');
   });
 });

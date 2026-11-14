@@ -27,15 +27,22 @@ const DUR = { de: 'Stunden', es: 'horas' };
 const APPROX = { de: 'Ca.', es: 'Aprox.' };
 const RIM = { de: n => `Bis zu ${n} Stunde${n === '1' ? '' : 'n'} zum Kraterrand`, es: n => `Hasta ${n} hora${n === '1' ? '' : 's'} hasta el borde del cráter` };
 const FLIGHT = { de: 'Flug', es: 'Vuelo' };
+/* A range the English record writes with a dash ("10\u201312 km", "~5\u20137 hours") is
+   written with the word on the German and Spanish pages: "10 bis 12 km", "~5 a 7
+   horas" (owner, 14 Nov 2026: no dashes in the German and Spanish copy). */
+const TO = { de: ' bis ', es: ' a ' };
+const NUMBER_FIELDS = ['distance', 'duration', 'travelTime', 'elevationGain', 'elevationLoss'];
+export const rangeInWords = (lang, v) => typeof v === 'string' ? v.replace(/(\d)\s*[\u2013\u2014]\s*(?=\d)/g, `$1${TO[lang]}`) : v;
 function dayUnits(lang, d) {
   const out = { ...d };
+  for (const k of NUMBER_FIELDS) if (out[k]) out[k] = rangeInWords(lang, out[k]);
   if (d.duration) {
     const rim = /^Up to (\d+) hours? to crater rim$/.exec(d.duration);
-    out.duration = rim ? RIM[lang](rim[1]) : d.duration.replace(/\b(?:hours|hrs)\b/, DUR[lang]).replace(/^Approx\./, APPROX[lang]);
+    out.duration = rim ? RIM[lang](rim[1]) : out.duration.replace(/\b(?:hours|hrs)\b/, DUR[lang]).replace(/^Approx\./, APPROX[lang]);
   }
   if (d.travelTime === 'Flight') out.travelTime = FLIGHT[lang];
-  if (d.elevationGain) out.elevationGain = d.elevationGain.replace('m gain', lang === 'de' ? ' m Aufstieg' : ' m de ascenso');
-  if (d.elevationLoss) out.elevationLoss = d.elevationLoss.replace('m loss', lang === 'de' ? ' m Abstieg' : ' m de descenso');
+  if (d.elevationGain) out.elevationGain = out.elevationGain.replace('m gain', lang === 'de' ? ' m Aufstieg' : ' m de ascenso');
+  if (d.elevationLoss) out.elevationLoss = out.elevationLoss.replace('m loss', lang === 'de' ? ' m Abstieg' : ' m de descenso');
   return out;
 }
 
@@ -161,7 +168,7 @@ const KILI = {
     seoDescription: 'Kilimandscharo Besteigung (5.895 m) über die Machame-Route: 9 Tage, davon 7 am Berg, kleine geführte Gruppen, 94 % Gipfelerfolg. Ab 2.900 US-Dollar, Safari zubuchbar.',
     desc: 'Um Mitternacht verlassen Sie das Barafu Camp auf 4.673 m. Rund acht Stunden später stehen Sie auf dem Uhuru Peak, 5.895 m, dem höchsten Punkt Afrikas.\n\nFür den Kilimandscharo brauchen Sie keine Klettererfahrung, keine Seile und keine Steigeisen. Entscheidend sind Ausdauer und eine gute Akklimatisierung. Wer sechs bis acht Stunden am Tag gehen kann und sich etwa drei Monate gezielt vorbereitet, hat gute Chancen. 94 % unserer Teilnehmenden erreichen den Gipfel.\n\nDiese Quote hat einen Grund: Wir gehen die Machame-Route in sieben Tagen, mit einem Akklimatisierungstag nach dem Prinzip „hoch steigen, tief schlafen“. Unsere lokalen Guides prüfen jeden Morgen die Verfassung aller Teilnehmenden, die Gruppe führt Notfallsauerstoff und Satellitenkommunikation mit. Ob es weitergeht, entscheidet immer der Guide, nach Ihrer Verfassung.\n\nMaximal 15 Teilnehmende aus aller Welt, Reisesprache Englisch. Ein Teil jeder Expedition unterstützt Krebspatienten, denn für uns sind die Berge auch eine Möglichkeit, etwas zurückzugeben.',
     highlights: ['Uhuru Peak 5895 m', 'Höchster Berg Afrikas', 'Die malerische Machame-Route', 'Fünf Klimazonen'],
-    seasons: ['Januar–Februar', 'Juni–Oktober'],
+    seasons: ['Januar bis Februar', 'Juni bis Oktober'],
     importantToNote: [
       'Eine internationale Gruppe: Die ganze Reise findet auf Englisch statt, geführt von unseren einheimischen Bergführern, mit Bergsteigern aus aller Welt.',
       'Das Visum für Tansania kostet 50 $ pro Person. Wir empfehlen, es vorab online zu beantragen (eVisa) und nicht auf die Ausstellung am Flughafen zu setzen. Gültig für 90 Tage.',
@@ -169,7 +176,7 @@ const KILI = {
       'Der Gipfeltag beginnt um Mitternacht (00:00) und dauert etwa 13 bis 15 Stunden. Volle Winterausrüstung ist nötig: am Gipfel bis −15 °C und starker Wind.',
       'Übernachtung in Zelten auf der gesamten Route; Ausrüstung (Zelte, Matten) wird gestellt. Ein Schlafsack bis −15 °C ist erforderlich.',
       'Ein ärztliches Attest ist erforderlich, inklusive Eignung für eine Höhe von 5895 m.',
-      'Keine Klettererfahrung nötig: Wer 8–10 Stunden am Tag gehen kann, kann den Gipfel erreichen.',
+      'Keine Klettererfahrung nötig: Wer 8 bis 10 Stunden am Tag gehen kann, kann den Gipfel erreichen.',
       'Sicherheit vor Gipfel: Der Bergführer entscheidet je nach Verfassung jedes Teilnehmers, ob es weitergeht.',
       'Bei einem vorzeitigen Abstieg, aus welchem Grund auch immer, trägt der Reisende alle zusätzlichen Kosten, etwa weitere Hotelnächte, Mahlzeiten und nötige Flugänderungen.',
     ],
@@ -192,7 +199,7 @@ const KILI = {
     seoDescription: 'Sube el Kilimanjaro (5.895 m) por la ruta Machame: 9 días, 7 en la montaña, grupos pequeños con guía, 94 % de cumbre. Desde 2.900 dólares, con safari opcional.',
     desc: 'Es medianoche en el campamento Barafu, a 4.673 m. Se encienden los frontales, el grupo se mira y empieza a subir. Unas ocho horas después, con el amanecer sobre las nubes, están en el Uhuru Peak, 5.895 m, el techo de África.\n\nNo necesitas experiencia en escalada, ni cuerdas, ni crampones. Necesitas ganas, constancia y unos tres meses de preparación. El 94 % de quienes suben con HighAir llega a la cumbre.\n\nHacemos la ruta Machame en siete días, con un día de aclimatación para «subir alto y dormir bajo». Te acompañan guías locales con años en la montaña, que revisan cada mañana cómo está cada persona, y un equipo de cocina y porteadores que se convierte en parte del grupo. Y al bajar, la celebración con baile en la puerta Mweka.\n\nGrupos de máximo 15 personas de todo el mundo, en inglés. Parte de cada expedición apoya a pacientes con cáncer, porque para nosotros la montaña también es una forma de devolver algo.',
     highlights: ['Uhuru Peak 5895 m', 'La montaña más alta de África', 'La ruta panorámica Machame', 'Cinco zonas climáticas'],
-    seasons: ['enero–febrero', 'junio–octubre'],
+    seasons: ['enero a febrero', 'junio a octubre'],
     importantToNote: [
       'Un grupo internacional: todo el viaje es en inglés, con nuestros guías locales y montañeros de todo el mundo.',
       'El visado de Tanzania cuesta 50 $ por persona. Recomendamos solicitarlo en línea con antelación (eVisa) y no depender del aeropuerto. Válido 90 días.',
@@ -200,7 +207,7 @@ const KILI = {
       'El día de cumbre empieza a medianoche (00:00) y dura unas 13 a 15 horas. Se necesita equipo de invierno completo: hasta −15 °C y viento fuerte en la cumbre.',
       'Alojamiento en tiendas durante toda la ruta; el equipo (tiendas, colchonetas) está incluido. Se necesita un saco de dormir de hasta −15 °C.',
       'Se requiere un certificado médico, incluida la aptitud para una altitud de 5895 m.',
-      'No hace falta experiencia previa: quien pueda caminar 8–10 horas al día puede llegar a la cumbre.',
+      'No hace falta experiencia previa: quien pueda caminar de 8 a 10 horas al día puede llegar a la cumbre.',
       'La seguridad antes que la cumbre: el guía decide si se continúa según el estado de cada participante.',
       'En caso de descenso anticipado, por cualquier motivo, todos los costes adicionales corren a cargo del viajero, como noches extra de hotel, comidas y cambios de vuelo.',
     ],
@@ -226,7 +233,7 @@ const KOSHER = {
     seoDescription: 'Besteigen Sie den Kilimandscharo (5895 m) auf einer vollständig glatt-koscheren Expedition. 10 Tage, Schabbat in Arusha, koscheres Essen auf der ganzen Reise. 94 % Erfolgsquote. Optionale koschere Safari.',
     desc: 'Eine vollständig koschere Kilimandscharo-Expedition, und das schon seit Jahren.\n\nRoute, Bergführer und Erfolgsquote sind identisch mit unserer regulären Kilimandscharo-Expedition. Der Unterschied: Jede Mahlzeit wird frisch und koscher zubereitet, der Ablauf richtet sich nach Schabbat und jüdischen Feiertagen, und Sie reisen in einer jüdischen Gruppe, die Ihre Werte teilt.\n\nKilimandscharo ohne Kompromisse: das Abenteuer Ihres Lebens, auf Ihre Art.\n\nGlatt koschere Mahlzeiten · Ablauf nach dem Schabbat · Professionelle englischsprachige Bergführer · Spende für Krebspatienten inklusive',
     highlights: ['Uhuru Peak 5895 m', 'Vollständig glatt koschere Mahlzeiten', 'Ablauf nach dem Schabbat', 'Reisen in einer jüdischen Gruppe'],
-    seasons: ['Januar–Februar', 'Juni–Oktober'],
+    seasons: ['Januar bis Februar', 'Juni bis Oktober'],
     importantToNote: [
       'Eine internationale jüdische Gruppe: Die ganze Reise findet auf Englisch statt, geführt von unseren einheimischen Bergführern, mit Bergsteigern aus aller Welt.',
       'Das Visum für Tansania kostet 50 $ pro Person. Wir empfehlen, es vorab online zu beantragen (eVisa). Gültig für 90 Tage.',
@@ -234,7 +241,7 @@ const KOSHER = {
       'Der Gipfeltag beginnt um Mitternacht (00:00). Volle Winterausrüstung ist nötig: bis −15 °C und Wind am Gipfel.',
       'Machame-Route, 6 Tage am Berg (Sonntag bis Freitag, vor dem Schabbat). Unsere Erfolgsquote liegt dank eingeplanter Akklimatisierungstage bei 94 %.',
       'Ein ärztliches Attest ist erforderlich, inklusive Eignung für eine Höhe von 5895 m.',
-      'Keine Klettererfahrung nötig: Wer 8–10 Stunden am Tag gehen kann, kann den Gipfel erreichen.',
+      'Keine Klettererfahrung nötig: Wer 8 bis 10 Stunden am Tag gehen kann, kann den Gipfel erreichen.',
       'Sicherheit vor Gipfel: Der Bergführer entscheidet je nach Verfassung jedes Teilnehmers, ob es weitergeht.',
       'Bei einem vorzeitigen Abstieg, aus welchem Grund auch immer, trägt der Reisende alle zusätzlichen Kosten, etwa weitere Hotelnächte, Mahlzeiten und nötige Flugänderungen.',
     ],
@@ -258,7 +265,7 @@ const KOSHER = {
     seoDescription: 'Sube al Kilimanjaro (5895 m) en una expedición totalmente glatt kosher. 10 días, Shabat en Arusha y comida kosher en todo el viaje. 94 % de éxito. Safari kosher opcional.',
     desc: 'Una expedición al Kilimanjaro totalmente kosher, y llevamos años haciéndola.\n\nLa ruta, los guías y la tasa de éxito son los mismos que en nuestra expedición habitual al Kilimanjaro. La diferencia: cada comida se prepara fresca y kosher, el programa respeta el Shabat y las festividades judías, y viajas con un grupo judío que comparte tus valores.\n\nEl Kilimanjaro sin renunciar a nada: la aventura de tu vida, a tu manera.\n\nComidas glatt kosher · Programa adaptado al Shabat · Guías profesionales de habla inglesa · Donación a pacientes con cáncer incluida',
     highlights: ['Uhuru Peak 5895 m', 'Comidas totalmente glatt kosher', 'Programa adaptado al Shabat', 'Viajar en un grupo judío'],
-    seasons: ['enero–febrero', 'junio–octubre'],
+    seasons: ['enero a febrero', 'junio a octubre'],
     importantToNote: [
       'Un grupo judío internacional: todo el viaje es en inglés, con nuestros guías locales y montañeros de todo el mundo.',
       'El visado de Tanzania cuesta 50 $ por persona. Recomendamos solicitarlo en línea con antelación (eVisa). Válido 90 días.',
@@ -266,7 +273,7 @@ const KOSHER = {
       'El día de cumbre empieza a medianoche (00:00). Se necesita equipo de invierno completo: hasta −15 °C y viento en la cumbre.',
       'Ruta Machame, 6 días en la montaña (de domingo a viernes, antes del Shabat). Nuestra tasa de éxito es del 94 % gracias a los días de aclimatación.',
       'Se requiere un certificado médico, incluida la aptitud para una altitud de 5895 m.',
-      'No hace falta experiencia previa: quien pueda caminar 8–10 horas al día puede llegar a la cumbre.',
+      'No hace falta experiencia previa: quien pueda caminar de 8 a 10 horas al día puede llegar a la cumbre.',
       'La seguridad antes que la cumbre: el guía decide si se continúa según el estado de cada participante.',
       'En caso de descenso anticipado, por cualquier motivo, todos los costes adicionales corren a cargo del viajero, como noches extra de hotel, comidas y cambios de vuelo.',
     ],
@@ -385,7 +392,7 @@ export const FAQ_I18N = {
       { q: 'Wie bereite ich mich auf den Kilimandscharo vor?', a: 'Am wichtigsten ist Ausdauertraining: lange Wanderungen, leichtes Laufen oder Radfahren in den rund drei Monaten vor der Abreise. Vor der Abreise trifft sich die Gruppe außerdem online zu einer Ausrüstungsbesprechung und einem Vorbereitungsgespräch, so kommen Sie gut vorbereitet an und kennen sich schon.' },
       { q: 'Wie alt muss man für den Kilimandscharo sein?', a: 'Das Mindestalter ist 10 Jahre, in Begleitung eines Elternteils oder einer erwachsenen Person. Eine Altersgrenze nach oben gibt es nicht: Auch Bergsteiger über 60 haben mit uns den Gipfel erreicht. Entscheidend sind Fitness und Gesundheit, nicht das Alter im Ausweis.' },
       { q: 'Lohnt sich eine Safari nach der Besteigung?', a: 'Auf jeden Fall. Drei Safaritage in Tarangire und im Ngorongoro-Krater, zwei der spektakulärsten Parks Afrikas, lassen sich zu einem fairen Aufpreis hinzubuchen. Nach einer anstrengenden Woche am Berg ist die Safari die perfekte Belohnung.' },
-      { q: 'Wann ist die beste Reisezeit für den Kilimandscharo?', a: 'Es gibt zwei bevorzugte Zeiten: Januar–Februar und Juni–Oktober. Dann regnet es wenig und das Wetter ist stabiler. November und April, die Monate mit viel Regen, sollte man meiden, und genau deshalb planen wir unsere Gruppen in den guten Zeitfenstern.' },
+      { q: 'Wann ist die beste Reisezeit für den Kilimandscharo?', a: 'Es gibt zwei bevorzugte Zeiten: Januar bis Februar und Juni bis Oktober. Dann regnet es wenig und das Wetter ist stabiler. November und April, die Monate mit viel Regen, sollte man meiden, und genau deshalb planen wir unsere Gruppen in den guten Zeitfenstern.' },
     ],
     es: [
       { q: '¿Es difícil subir al Kilimanjaro?', a: 'El Kilimanjaro (5895 m) es la montaña alta más accesible del mundo: no hace falta experiencia técnica de escalada, ni cuerdas, ni crampones. Cualquier persona en buena forma que pueda caminar unas ocho horas al día puede llegar a la cumbre. El verdadero reto es la altitud y el frío de la noche de cumbre, y por eso nuestro programa está pensado para una buena aclimatación.' },
@@ -393,7 +400,7 @@ export const FAQ_I18N = {
       { q: '¿Cómo me preparo para el Kilimanjaro?', a: 'Lo más importante es el entrenamiento aeróbico: caminatas largas, carrera suave o bicicleta durante unos tres meses antes de salir. Antes del viaje, el grupo se reúne en línea para una sesión de equipo y una llamada de preparación, así llegas listo y ya conoces a tus compañeros.' },
       { q: '¿Cuál es la edad mínima para el Kilimanjaro?', a: 'La edad mínima es de 10 años, en compañía de uno de los padres o de un adulto. No hay edad máxima: montañeros de más de 60 años han hecho cumbre con nosotros. Lo que cuenta es la forma física y la salud, no la edad del pasaporte.' },
       { q: '¿Vale la pena añadir un safari al Kilimanjaro?', a: 'Sin duda. Se pueden añadir tres días de safari en Tarangire y el cráter del Ngorongoro, dos de las reservas más espectaculares de África, por un coste razonable. Después de una semana dura en la montaña, el safari es la recompensa perfecta.' },
-      { q: '¿Cuál es la mejor época para subir al Kilimanjaro?', a: 'Hay dos temporadas preferidas: enero–febrero y junio–octubre. En esos meses llueve poco y el tiempo es más estable. Conviene evitar noviembre y abril, los meses de más lluvia, y por eso organizamos nuestros grupos justo en las mejores ventanas.' },
+      { q: '¿Cuál es la mejor época para subir al Kilimanjaro?', a: 'Hay dos temporadas preferidas: de enero a febrero y de junio a octubre. En esos meses llueve poco y el tiempo es más estable. Conviene evitar noviembre y abril, los meses de más lluvia, y por eso organizamos nuestros grupos justo en las mejores ventanas.' },
     ],
   },
 };

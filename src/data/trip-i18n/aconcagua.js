@@ -7,7 +7,7 @@ export default {
   "seoDescription": "Besteigen Sie den Aconcagua (6962 m), den höchsten Berg der westlichen Hemisphäre und einen der Seven Summits. 20 Tage in Argentinien, 3 Hochlager, Maultiere bis zum Basislager. 75 % Erfolgsquote.",
   "desc": "Der Aconcagua (6962 m) ist der höchste Berg der westlichen und der südlichen Hemisphäre, das Dach Amerikas und nach Höhe und Prestige der zweite der Seven Summits.\n\nDiese 20-tägige Expedition folgt der Normalroute durch das Horcones-Tal mit Hochlagern am Nido de Cóndores und im Lager 3. Die Route ist nicht technisch, doch die extreme Höhe und das raue Andenwetter machen sie zu einem ernsthaften Bergziel, das sehr gute Fitness und Erfahrung in großer Höhe verlangt.\n\nDie Belohnung: auf dem höchsten Punkt Amerikas zu stehen, während sich die Anden endlos in alle Richtungen erstrecken.",
   "highlights": ["Aconcagua 6962 m", "Dach Amerikas", "Seven Summits", "Wildnis der Anden"],
-  "seasons": ["Dezember–Februar"],
+  "seasons": ["Dezember bis Februar"],
   "importantToNote": [
    "Der Aconcagua (6962 m) ist der höchste Berg außerhalb Asiens: Mindestens drei Wochen am Berg mit Akklimatisierungsrotationen sind nötig.",
    "Die Genehmigung für den Provinzpark Aconcagua ist nicht enthalten: rund 1000 bis 1300 $ pro Person je nach Saison, wir helfen bei der Beschaffung.",
@@ -56,7 +56,7 @@ export default {
   "seoDescription": "Sube al Aconcagua (6962 m), la montaña más alta del hemisferio occidental y una de las Siete Cumbres. 20 días en Argentina, 3 campos de altura, mulas hasta el campo base. 75 % de éxito.",
   "desc": "El Aconcagua (6962 m) es la montaña más alta de los hemisferios occidental y sur, el techo de América y la segunda de las Siete Cumbres en altura y prestigio.\n\nEsta expedición de 20 días sigue la Ruta Normal por el valle de Horcones, con campos de altura en Nido de Cóndores y el Campo 3. Aunque no es técnica, la altitud extrema y el duro clima andino la convierten en un objetivo serio de montaña que exige una forma física excelente y experiencia previa en altitud.\n\nLa recompensa: estar en el punto más alto de América, con los Andes extendiéndose sin fin en todas direcciones.",
   "highlights": ["Aconcagua 6962 m", "Techo de América", "Siete Cumbres", "Naturaleza andina"],
-  "seasons": ["diciembre–febrero"],
+  "seasons": ["diciembre a febrero"],
   "importantToNote": [
    "El Aconcagua (6962 m) es la montaña más alta fuera de Asia: hacen falta al menos tres semanas en la montaña con rotaciones de aclimatación.",
    "El permiso del Parque Provincial Aconcagua no está incluido: entre 1000 y 1300 $ por persona según la temporada, y te ayudamos a tramitarlo.",
