@@ -233,3 +233,13 @@ describe('Ethiopia: the town before the Danakil is spelled Semera in Latin lette
     expect(read('src/data/blogData.js')).not.toContain('Samara');
   });
 });
+
+describe('Peaks of the Balkans, day 5: Gjeravica is the highest point in Kosovo (owner, 14 Nov 2026)', () => {
+  const FACT = { he: 'פסגת ג׳רביצה המתנשאת לגובה של 2656 מ׳, הנקודה הגבוהה בקוסובו.', en: 'Gjeravica, rising to 2656m, the highest point in Kosovo.', de: 'Gjeravica (2656 m), den höchsten Punkt des Kosovo.', es: 'Gjeravica (2656 m), el punto más alto de Kosovo.' };
+  it('says so in all four languages', () => {
+    for (const [l, suffix] of Object.entries(LANGS)) expect(trip('peaks-of-balkan')[`itinerary${suffix}`][4].desc, l).toContain(FACT[l]);
+  });
+  it('and nowhere "one of the highest"', () => {
+    expect(JSON.stringify(trip('peaks-of-balkan'))).not.toMatch(/אחת הפסגות הגבוהות בקוסובו|one of the highest (?:peaks|mountains|points) in Kosovo|einen der höchsten (?:Berge|Gipfel) des Kosovo|una de las (?:montañas|cumbres) más altas de Kosovo/);
+  });
+});
