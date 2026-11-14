@@ -4,9 +4,18 @@ import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { chosenDeparture, departureText, departureLogLine, hebrewLeadEmail, foreignLeadEmail } from '../api/submit-lead.js';
+import { EXPS } from '../src/data/mockData.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const strip = h => h.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
+
+/* Content corrections the owner approved on 14 Nov 2026. A trip is read here in all four
+   languages at once: Hebrew and English from mockData.js, German and Spanish as mockData.js
+   builds them from src/data/trip-i18n. */
+const trip = slug => EXPS.find(e => e.slug === slug);
+const LANGS = { he: '', en: 'En', de: 'De', es: 'Es' };
+const strings = v => typeof v === 'string' ? [v] : Array.isArray(v) ? v.flatMap(strings) : v && typeof v === 'object' ? Object.values(v).flatMap(strings) : [];
+const sentences = v => strings(v).flatMap(s => s.split(/(?<=[.!?])\s+|\n+/));
 
 describe('"details" beside a departure date: the exact date and the route reach the lead', () => {
   it('only a plain date and a plain event name are taken', () => {
@@ -87,5 +96,31 @@ describe('minimum age on Kilimanjaro: 10, with a parent or an adult (owner, 12 N
     }
     /* nowhere does a bare "the minimum is 10." remain in these sources */
     expect(blog).not.toMatch(/גיל המינימום בשמורה הוא 10[.,] (?!בליווי)/);
+  });
+});
+
+describe('Elbrus: the snowcat goes up to 5,100 m, in every language (owner, 14 Nov 2026)', () => {
+  const SNOWCAT = /snow ?cats?\b|Pistenraupe\b|máquina pisanieves\b|מזחלת שלג/i;
+  it('every sentence that says how high the snowcat goes says 5,100 m', () => {
+    const withHeight = sentences(trip('elbrus')).filter(s => SNOWCAT.test(s) && /\d[.,]?\d{3}\s?(?:m\b|מ׳)/.test(s));
+    /* the summit day in four languages, the extras line in four, the note in three */
+    expect(withHeight.length).toBeGreaterThanOrEqual(11);
+    for (const s of withHeight) expect(s, s).toMatch(/(?:snow ?cat|Pistenraupe|pisanieves|מזחלת שלג)[^.]*?5[.,]?100\s?(?:m\b|מ׳)/i);
+  });
+  it('the summit day itself, in each language', () => {
+    for (const [l, suffix] of Object.entries(LANGS)) {
+      const day7 = trip('elbrus')[`itinerary${suffix}`][6].desc;
+      expect(day7, l).toMatch(/5[.,]?100/);
+      expect(day7, l).not.toMatch(/4[.,]?800/);
+    }
+  });
+  it('Pastukhov Rocks, the acclimatisation climb, stays at 4,800 m', () => {
+    for (const suffix of Object.values(LANGS)) expect(trip('elbrus')[`itinerary${suffix}`][4].desc).toMatch(/4[.,]?800/);
+  });
+  it('the magazine says the same', () => {
+    const blog = read('src/data/blogData.js');
+    expect(blog).toContain('מזחלת שלג עד גובה 5,100 מ׳');
+    expect(blog).toContain('ride a snowcat up to 5,100 m');
+    expect(blog).not.toMatch(/(?:snow ?cat|מזחלת שלג)[^.]{0,40}4[.,]?800/i);
   });
 });
