@@ -1420,7 +1420,7 @@ export default function IsraelDetail() {
                   <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
                     {isRtl
                       ? 'אני מצהיר/ה כי מצבי הבריאותי מאפשר השתתפות בטיול הכולל הליכות של 8-5 שעות ביום וכי קראתי והבנתי שההשתתפות היא באחריותי האישית בלבד, ללא אחריות מצד המארגנים לנזק מכל סוג'
-                      : 'I declare that my physical condition allows participation in a trip involving 5–8 hours of walking per day, and that I have read and understood that participation is at my own personal responsibility, with no liability on the part of the organizers for any damage of any kind.'}
+                      : 'I declare that my physical condition allows participation in a trip involving 5 to 8 hours of walking per day, and that I have read and understood that participation is at my own personal responsibility, with no liability on the part of the organizers for any damage of any kind.'}
                   </span>
                 </label>
 

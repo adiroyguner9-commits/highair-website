@@ -12,6 +12,7 @@ import { DEST, destKey, destInfo, destHe } from '../api/_lib/dest.js';
 import { tripKey } from '../api/_lib/active-lead.js';
 import { coversFor } from '../api/_lib/callAgents.js';
 import { departureCount } from '../src/website/tripSchema.js';
+import { rangeInWords } from '../src/data/tripI18n.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const trip = slug => EXPS.find(e => e.slug === slug);
@@ -183,5 +184,118 @@ describe('the annual plan counts a departure once (owner, 14 Nov 2026)', () => {
     /* a card keeps the Group Name it was built from, which is what the count reads */
     expect(page).toContain("const groupName  = rec.fields['Group Name'] || rec.id;");
     expect(page).toContain('mergedMap.set(key, { ...g });');
+  });
+});
+
+describe('no en dash and no em dash in the Hebrew and English copy (owner, 14 Nov 2026: "להחליף, כמו בגרמנית ובספרדית")', () => {
+  const DASH = /[\u2013\u2014]/;
+  /* every Hebrew and English string of a trip record, with the place it sits in */
+  const texts = (v, at) => typeof v === 'string' ? [[at, v]]
+    : Array.isArray(v) ? v.flatMap((x, i) => texts(x, `${at}[${i}]`))
+    : v && typeof v === 'object' ? Object.entries(v).flatMap(([k, x]) => texts(x, `${at}.${k}`)) : [];
+  const hebrewAndEnglish = exps => exps.flatMap(e => Object.entries(e).filter(([k]) => !/(De|Es)$/.test(k)).flatMap(([k, v]) => texts(v, `${e.slug}.${k}`)));
+  /* the one mark that is not copy: a safari has no summit, and its height field holds a lone dash that no page prints */
+  const noHeight = ([at, v]) => /^safari-\d-days\.elev$/.test(at) && v === '\u2014';
+  const dashed = list => list.filter(([, v]) => DASH.test(v)).filter(x => !noHeight(x)).map(([at, v]) => `${at}: ${v.slice(0, 80)}`);
+
+  it('the trip data, as mockData.js holds it and as the site loads it (147 en dashes and 5 em dashes before)', () => {
+    expect(hebrewAndEnglish(EXPS).length).toBeGreaterThan(4000);
+    expect(dashed(hebrewAndEnglish(EXPS))).toEqual([]);
+    expect(dashed(hebrewAndEnglish(JSON.parse(read('src/data/trips/base.json'))))).toEqual([]);
+    /* the check bites: one dash back in a day's hours is caught */
+    const withDash = [{ slug: 'x', itinerary: [{ duration: '4\u20135 שעות' }], descEn: 'A pass \u2014 and a view' }];
+    expect(dashed(hebrewAndEnglish(withDash))).toHaveLength(2);
+  });
+  it('a range of numbers is written with the word: עד in Hebrew, to in English', () => {
+    expect(day('kilimanjaro', 2, 'he').duration).toBe('5 עד 7 שעות');
+    expect(day('kilimanjaro', 2, 'en').duration).toBe('5 to 7 hours');
+    expect(day('peaks-of-balkan', 3, 'he').distance).toBe('13 עד 14 ק"מ');
+    expect(day('peaks-of-balkan', 3, 'en').distance).toBe('13 to 14 km');
+    expect(day('everest-base-camp', 3, 'en').duration).toBe('3 to 4 hrs');
+    expect(day('everest-base-camp', 3, 'en').desc).toContain('a 3 to 4 hour walk');
+    expect(day('ethiopia', 8, 'en').travelTime).toBe('~5 to 7 hours driving (310 km)');
+    expect(trip('elbrus').seoDescription).toContain('יום פסגה של 10 עד 14 שעות');
+  });
+  it('elsewhere the sentence is rebuilt with a comma, a colon or its own words', () => {
+    expect(day('peaks-of-balkan', 5, 'he').desc).toContain('נגיע למעבר הרים גבוה על הגבול בין אלבניה לקוסובו.');
+    expect(day('peaks-of-balkan', 5, 'en').desc).toContain('we reach a high mountain pass on the border between Albania and Kosovo.');
+    expect(trip('manaslu-circuit').descEn).toContain('crossing Larkya La Pass at 5106 meters, a rewarding high-altitude crossing');
+    expect(trip('everest-base-camp').descEn).toContain('sits at 5364m above sea level, the very starting point');
+    expect(trip('everest-base-camp').descEn).toContain('culminates at Kala Patthar (5545m), one of the world\'s most spectacular viewpoints');
+    expect(trip('lenin-peak').descEn).toContain('you\'ll experience real alpine climbing: establishing high camps');
+    expect(trip('lenin-peak').descEn).toContain('The reward is a summit with no equal: an immense sense of achievement');
+  });
+  it('German and Spanish are built from the same English numbers and read as before: bis, a', () => {
+    expect(rangeInWords('de', '7 to 8 hours')).toBe('7 bis 8 hours');
+    expect(rangeInWords('es', '~5 to 7 hours')).toBe('~5 a 7 hours');
+    expect(rangeInWords('de', '13 to 14 km')).toBe('13 bis 14 km');
+    /* a dash is still read as a range, and words that are not a range are left alone */
+    expect(rangeInWords('de', '7\u20138 hours')).toBe('7 bis 8 hours');
+    expect(rangeInWords('es', 'Up to 1 hour to crater rim')).toBe('Up to 1 hour to crater rim');
+    expect(rangeInWords('de', '+650m gain')).toBe('+650m gain');
+    expect(day('peaks-of-balkan', 3, 'de').duration).toBe('7 bis 8 Stunden');
+    expect(day('peaks-of-balkan', 3, 'es').duration).toBe('7 a 8 horas');
+    expect(day('peaks-of-balkan', 3, 'de').distance).toBe('13 bis 14 km');
+    expect(day('kilimanjaro', 2, 'de').duration).toBe('5 bis 7 Stunden');
+    expect(day('kilimanjaro', 2, 'es').duration).toBe('5 a 7 horas');
+    for (const [l, S] of [['de', 'De'], ['es', 'Es']]) {
+      const all = EXPS.flatMap(e => Object.entries(e).filter(([k]) => k.endsWith(S)).flatMap(([, v]) => strings(v)));
+      expect(all.filter(v => DASH.test(v)), l).toEqual([]);
+      expect(all.filter(v => /\d to \d/.test(v)), l).toEqual([]);
+    }
+  });
+  it('the magazine: Hebrew and English posts, and the posts written for the English site', () => {
+    expect(strings(POSTS).filter(v => DASH.test(v))).toEqual([]);
+    const dir = 'src/data/blog-intl/en';
+    const posts = fs.readdirSync(path.join(process.cwd(), dir));
+    expect(posts.length).toBeGreaterThan(20);
+    for (const f of posts) expect(strings(JSON.parse(read(`${dir}/${f}`))).filter(v => DASH.test(v)), f).toEqual([]);
+    for (const peak of ['island-peak', 'lobuche-peak', 'mera-peak']) {
+      expect(read(`${dir}/${peak}-climbing-guide.json`)).toContain('you can fly from Kathmandu to Lukla and back by helicopter');
+    }
+  });
+  it('the interface texts: the English sentences keep their German and Spanish translations under the new wording', () => {
+    const contact = read('src/components/web_v2/ContactPage.jsx');
+    const sentences = [
+      'Whether you\'re planning your first summit or your tenth, we\'re here for every question, big or small.',
+      'The fastest way to reach us is WhatsApp: we usually respond within minutes during business hours. You can also email us and we\'ll get back to you within 24 hours.',
+    ];
+    for (const l of ['de', 'es']) {
+      const ui = JSON.parse(read(`src/i18n/ui-${l}.json`));
+      for (const s of sentences) {
+        expect(contact).toContain(`"${s}"`);
+        expect(ui[s], `${l}: ${s.slice(0, 40)}`).toBeTruthy();
+      }
+      /* an English sentence is the key of its translation: no key carries a dash */
+      expect(Object.keys(ui).filter(k => DASH.test(k)), l).toEqual([]);
+    }
+    expect(contact).toContain('צרו קשר עם צוות HighAir Expeditions: וואטסאפ, מייל או טלפון. מענה תוך 24 שעות.');
+    expect(contact).toContain('שגיאה בשליחה, נסו שוב.');
+    expect(read('src/i18n.js')).toContain('גלו את המשלחות שלנו: כל מסע עם HighAir גם תורם לחולי סרטן בישראל');
+    expect(read('src/i18n.js')).toContain('Explore our expeditions: every journey with HighAir also supports cancer patients');
+  });
+  it('no text in the site\'s code carries one: what is left is the lone mark for a missing value, a component nothing uses and the hidden Israel treks', () => {
+    const files = [];
+    const walk = d => { for (const f of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, f.name); if (f.isDirectory()) walk(p); else if (/\.(js|jsx)$/.test(f.name)) files.push(p); } };
+    walk(path.join(process.cwd(), 'src'));
+    expect(files.length).toBeGreaterThan(80);
+    /* comments out: block comments, then line comments (a "//" that is not the one in "https://") */
+    const code = s => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:\\])\/\/.*$/gm, '$1');
+    /* the mark shown where a value is missing (a price, a level, a date) is a glyph, not a sentence */
+    const lone = /'[\u2013\u2014]'/g;
+    const unused = 'FAQSection.jsx';
+    /* the data of the Israel treks, a section hidden from the site since 23 Oct 2026, was not part of
+       this decision: its hours and seasons still carry dashes, and no page shows them */
+    const hidden = 'israelData.js';
+    const left = [];
+    for (const f of files) {
+      if ([unused, hidden].includes(path.basename(f))) continue;
+      code(fs.readFileSync(f, 'utf8')).split('\n').forEach(line => { if (DASH.test(line.replace(lone, "''"))) left.push(`${path.relative(process.cwd(), f)}: ${line.trim().slice(0, 100)}`); });
+    }
+    expect(left).toEqual([]);
+    /* the component left out is one no page draws; the day one does, its four dashes have to go first */
+    const importers = files.filter(f => path.basename(f) !== unused && /FAQSection/.test(fs.readFileSync(f, 'utf8')));
+    expect(importers).toEqual([]);
+    expect(read('src/data/israelFlag.js')).toContain('export const ISRAEL_TREKS_LIVE = false;');
   });
 });

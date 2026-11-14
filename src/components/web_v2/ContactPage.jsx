@@ -114,7 +114,7 @@ export default function ContactPage() {
  ? tx(
   "Reach the HighAir Expeditions team by WhatsApp, email or phone. We respond within 24 hours."
  )
- : 'צרו קשר עם צוות HighAir Expeditions — וואטסאפ, מייל או טלפון. מענה תוך 24 שעות.',
+ : 'צרו קשר עם צוות HighAir Expeditions: וואטסאפ, מייל או טלפון. מענה תוך 24 שעות.',
  canonicalPath: '/contact',
  });
 
@@ -164,7 +164,7 @@ export default function ContactPage() {
  setSent(true);
  } catch (err) {
  console.error('[contact] submit error:', err);
- setServerError(isEn ? tx("Something went wrong. Please try again.") : 'שגיאה בשליחה — נסו שוב.');
+ setServerError(isEn ? tx("Something went wrong. Please try again.") : 'שגיאה בשליחה, נסו שוב.');
  } finally {
  setSubmitting(false);
  }
@@ -174,13 +174,13 @@ export default function ContactPage() {
  heroTitle: isEn ? tx("Let's Talk") : 'דברו איתנו',
  heroSub: isEn
  ? tx(
-  "Whether you're planning your first summit or your tenth — we're here for every question, big or small."
+  "Whether you're planning your first summit or your tenth, we're here for every question, big or small."
  )
  : 'בין אם אתם מתכננים את הפסגה הראשונה שלכם ובין אם העשירית, אנחנו כאן לכל שאלה, גדולה כקטנה.',
  infoTitle: isEn ? tx("Reach us directly") : 'דרכים ליצור קשר',
  infoBody: isEn
  ? tx(
-  "The fastest way to reach us is WhatsApp — we usually respond within minutes during business hours. You can also email us and we'll get back to you within 24 hours."
+  "The fastest way to reach us is WhatsApp: we usually respond within minutes during business hours. You can also email us and we'll get back to you within 24 hours."
  )
  : 'הדרך המהירה ביותר להגיע אלינו היא וואטסאפ. בדרך כלל אנחנו עונים תוך דקות בשעות העסקים. אפשר גם לשלוח מייל ואנחנו נחזור אליכם תוך 24 שעות.',
  formTitle: isEn ? tx("Send us a message") : 'שלחו לנו הודעה',

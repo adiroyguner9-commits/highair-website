@@ -157,7 +157,7 @@ export default function CommunitySection() {
           ctaColor="#075E40"
           isEn={isEn}
           headline={isEn
-            ? 'Trek updates, articles & news from the world of hiking — on WhatsApp'
+            ? 'Trek updates, articles & news from the world of hiking, on WhatsApp'
             : 'עדכונים על טרקים בארץ ובעולם, מאמרים וחדשות - ישר לווצאפ שלך'}
           cta={isEn ? 'Join the WhatsApp community' : 'הצטרפו לקהילת הווצאפ'}
           href={WA_HREF}

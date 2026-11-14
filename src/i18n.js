@@ -187,7 +187,7 @@ const he = {
     moreArticles: 'מאמרים נוספים',
     readMore: 'קרא עוד ←',
     ctaTitle: 'הפסגה הבאה שלכם מחכה לכם',
-    ctaDesc: 'גלו את המשלחות שלנו — כל מסע עם HighAir גם תורם לחולי סרטן בישראל',
+    ctaDesc: 'גלו את המשלחות שלנו: כל מסע עם HighAir גם תורם לחולי סרטן בישראל',
     ctaBtn: 'לכל המשלחות',
   },
   annualPlan: {
@@ -382,7 +382,7 @@ const en = {
     moreArticles: 'More articles',
     readMore: 'Read more →',
     ctaTitle: 'Your next summit is waiting',
-    ctaDesc: 'Explore our expeditions — every journey with HighAir also supports cancer patients',
+    ctaDesc: 'Explore our expeditions: every journey with HighAir also supports cancer patients',
     ctaBtn: 'All Expeditions',
   },
   annualPlan: {

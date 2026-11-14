@@ -492,7 +492,7 @@ export default function AboutUs() {
       ? tx(
       "Meet the team behind HighAir Expeditions - founded from personal loss, built on mountains. Every expedition includes a donation to cancer patients."
     )
-      : 'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק — ותורמים מדי חודש לילדים חולי סרטן.',
+      : 'HighAir Expeditions הוקמה מתוך אובדן, עם החלטה אחת: לקום ולהגיע לכל פסגה. הכירו את האנשים שמאחורי כל טרק, ותורמים מדי חודש לילדים חולי סרטן.',
     canonicalPath: '/about',
   });
 

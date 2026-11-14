@@ -397,9 +397,9 @@ describe('no dash in the German and Spanish copy (owner, 14 Nov 2026; 165 en das
     expect(trip('kilimanjaro').seasonsDe).toEqual(['Januar bis Februar', 'Juni bis Oktober']);
     expect(trip('kilimanjaro').seasonsEs).toEqual(['enero a febrero', 'junio a octubre']);
   });
-  it('the English record the numbers come from is as it was', () => {
-    expect(trip('ethiopia').itineraryEn[3].distance).toBe('10\u201312 km');
-    expect(trip('ethiopia').itineraryEn[3].duration).toBe('~5\u20137 hours');
+  it('the English record the numbers come from writes the range with the word too (later the same day: tests/round3-nov14.test.js)', () => {
+    expect(trip('ethiopia').itineraryEn[3].distance).toBe('10 to 12 km');
+    expect(trip('ethiopia').itineraryEn[3].duration).toBe('~5 to 7 hours');
   });
   it('and never a hyphen between spaces in its place', () => {
     const de = JSON.parse(read('src/i18n/ui-de.json'));

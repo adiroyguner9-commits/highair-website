@@ -27,12 +27,15 @@ const DUR = { de: 'Stunden', es: 'horas' };
 const APPROX = { de: 'Ca.', es: 'Aprox.' };
 const RIM = { de: n => `Bis zu ${n} Stunde${n === '1' ? '' : 'n'} zum Kraterrand`, es: n => `Hasta ${n} hora${n === '1' ? '' : 's'} hasta el borde del cráter` };
 const FLIGHT = { de: 'Flug', es: 'Vuelo' };
-/* A range the English record writes with a dash ("10\u201312 km", "~5\u20137 hours") is
-   written with the word on the German and Spanish pages: "10 bis 12 km", "~5 a 7
-   horas" (owner, 14 Nov 2026: no dashes in the German and Spanish copy). */
+/* A range in the English record ("10 to 12 km", "~5 to 7 hours") is written with
+   the word of each language on the German and Spanish pages: "10 bis 12 km", "~5 a
+   7 horas" (owner, 14 Nov 2026: no dashes in the German and Spanish copy). The
+   English record itself wrote the range with a dash until later that day, when
+   the owner had the dashes taken out of the Hebrew and English copy too; a dash
+   is still read as a range, so a new one cannot reach these pages. */
 const TO = { de: ' bis ', es: ' a ' };
 const NUMBER_FIELDS = ['distance', 'duration', 'travelTime', 'elevationGain', 'elevationLoss'];
-export const rangeInWords = (lang, v) => typeof v === 'string' ? v.replace(/(\d)\s*[\u2013\u2014]\s*(?=\d)/g, `$1${TO[lang]}`) : v;
+export const rangeInWords = (lang, v) => typeof v === 'string' ? v.replace(/(\d)(?:\s*[\u2013\u2014]\s*|\s+to\s+)(?=\d)/g, `$1${TO[lang]}`) : v;
 function dayUnits(lang, d) {
   const out = { ...d };
   for (const k of NUMBER_FIELDS) if (out[k]) out[k] = rangeInWords(lang, out[k]);

@@ -76,8 +76,8 @@ const DEFAULT_REVIEWS = [
 
 const DEFAULT_REVIEWS_EN = [
   { name: 'Yoni Levi', date: 'January 2025', rating: 5, text: 'A once-in-a-lifetime experience. The HighAir team was professional at the highest level, always there for support. I didn\'t believe I could reach the summit, but they believed in me.', initial: 'Y' },
-  { name: 'Michal Sharon', date: 'March 2025', rating: 5, text: 'Everything was perfect from the organization to the moment we stood on the summit. Our guide was incredible — patient, professional, and great company.', initial: 'M' },
-  { name: 'Roi Abraham', date: 'February 2025', rating: 5, text: 'I arrived with no experience and came back with a summit and lifelong friends. HighAir is more than a travel company — they\'re family.', initial: 'R' },
+  { name: 'Michal Sharon', date: 'March 2025', rating: 5, text: 'Everything was perfect from the organization to the moment we stood on the summit. Our guide was incredible: patient, professional, and great company.', initial: 'M' },
+  { name: 'Roi Abraham', date: 'February 2025', rating: 5, text: 'I arrived with no experience and came back with a summit and lifelong friends. HighAir is more than a travel company: they\'re family.', initial: 'R' },
 ];
 
 const DEFAULT_NOT_INCLUDED = ['טיסות בינלאומיות', 'ביטוח נסיעות', 'הוצאות אישיות', 'ציוד אישי'];
