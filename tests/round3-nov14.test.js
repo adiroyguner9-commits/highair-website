@@ -11,6 +11,7 @@ import { savedTripName } from '../src/website/formRules.js';
 import { DEST, destKey, destInfo, destHe } from '../api/_lib/dest.js';
 import { tripKey } from '../api/_lib/active-lead.js';
 import { coversFor } from '../api/_lib/callAgents.js';
+import { departureCount } from '../src/website/tripSchema.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const trip = slug => EXPS.find(e => e.slug === slug);
@@ -152,5 +153,35 @@ describe('the booking page sends the name the server knows, for every trip on ev
       expect(e.teaser || e.comingSoon, e.slug).toBeTruthy();
       expect(destKey(savedTripName(e)), e.slug).toBe('');
     }
+  });
+});
+
+describe('the annual plan counts a departure once (owner, 14 Nov 2026)', () => {
+  /* a card as the annual plan holds it: the group's name, its date, its event */
+  const card = (groupName, departure, eventName) => ({ id: `${groupName}|${eventName}`, groupName, departure, eventName });
+  const january = [
+    card('Eth_17_01_27', '2027-01-17', 'Ethiopia'),
+    card('Eth_17_01_27', '2027-01-17', 'Ethiopia_with_Tribes'),
+    card('Kili_21_01_27', '2027-01-21', 'Kilimanjaro'),
+  ];
+  it('Ethiopia\'s trek and its trek with the tribes are two cards and one departure', () => {
+    expect(january).toHaveLength(3);
+    expect(departureCount(january)).toBe(2);
+    expect(departureCount(january.slice(0, 2))).toBe(1);
+  });
+  it('two trips that leave on the same day are two departures, and a month of single cards counts as before', () => {
+    expect(departureCount([card('Kili_03_02_27', '2027-02-03', 'Kilimanjaro'), card('Elbrus_03_02_27', '2027-02-03', 'Elbrus')])).toBe(2);
+    expect(departureCount([card('Kili_03_02_27', '2027-02-03', 'Kilimanjaro'), card('Kili_14_02_27', '2027-02-14', 'Kilimanjaro'), card('EBC_20_02_27', '2027-02-20', 'Everest_Base_Camp')])).toBe(3);
+  });
+  it('the page uses the trip page\'s rule for both numbers of a month, and still draws every card', () => {
+    const page = read('src/components/web_v2/AnnualPlan.jsx');
+    expect(page).toContain("import { departureCount } from '../../website/tripSchema.js';");
+    expect(page.split('{departureCount(byMonth[key])}')).toHaveLength(3);
+    expect(page).toContain("{departureCount(byMonth[key])} {isRtl ? 'יציאות' : tx(\"departures\")}");
+    expect(page).not.toContain('byMonth[key].length');
+    expect(page).toContain('{byMonth[key].map(group => {');
+    /* a card keeps the Group Name it was built from, which is what the count reads */
+    expect(page).toContain("const groupName  = rec.fields['Group Name'] || rec.id;");
+    expect(page).toContain('mergedMap.set(key, { ...g });');
   });
 });

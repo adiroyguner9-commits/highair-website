@@ -17,6 +17,7 @@ import { EXPS } from '../../data/trips.js';
 import { ISRAEL_TRIPS } from '../../data/israelData.js';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { fetchDepartures } from '../../utils/departures.js';
+import { departureCount } from '../../website/tripSchema.js';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -554,6 +555,9 @@ export default function AnnualPlan() {
   }, [activeMonth]);
 
   /* ── Group by month ── */
+  /* The number beside a month counts departures, not cards: Ethiopia's trek and
+     its trek with the tribes are two cards for one departure date (owner, 14 Nov
+     2026). departureCount is the trip page's own rule (tripSchema.js). */
   const byMonth = {};
   filteredGroups.forEach(g => {
     const key = monthKey(g.departure);
@@ -720,7 +724,7 @@ export default function AnnualPlan() {
                       fontSize:       '11px',
                       fontWeight:     700,
                     }}>
-                      {byMonth[key].length}
+                      {departureCount(byMonth[key])}
                     </span>
                   </button>
                 );
@@ -924,7 +928,7 @@ export default function AnnualPlan() {
                   padding:    '3px 10px',
                   borderRadius: RADIUS.full,
                 }}>
-                  {byMonth[key].length} {isRtl ? 'יציאות' : tx("departures")}
+                  {departureCount(byMonth[key])} {isRtl ? 'יציאות' : tx("departures")}
                 </span>
               </div>
 
