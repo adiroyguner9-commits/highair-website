@@ -46,3 +46,40 @@ describe('Elbrus in Hebrew: no toast and no farewell dinner (owner, 14 Nov 2026:
     expect(guide.join(' ')).not.toMatch(/כוסית|ארוחת פרידה/);
   });
 });
+
+describe('welcome, farewell and festive meals in the day texts are written as the programme writes them (owner, 14 Nov 2026: "לכתוב בכל מקום כמו בתכנית")', () => {
+  /* The programme (the app's src/data/programs.js) on day 1 of every Nepal trip: "ובערב נפגשים
+     לארוחת ערב חגיגית של קבלת פנים, ומכירים את חברי הקבוצה". It names no restaurant on that day. */
+  const WELCOME = {
+    he: 'בערב נפגשים לארוחת ערב חגיגית של קבלת פנים, ומכירים את חברי הקבוצה.',
+    en: 'In the evening we meet for a festive welcome dinner and get to know the group.',
+    de: 'Am Abend treffen wir uns zu einem festlichen Willkommensessen und lernen die Gruppe kennen.',
+    es: 'Por la noche nos reunimos para una cena festiva de bienvenida y conocemos al grupo.',
+  };
+  for (const slug of ['everest-base-camp', 'manaslu-circuit']) {
+    it(`${slug}, day 1: the welcome dinner closes the day, in all four languages`, () => {
+      for (const l of Object.keys(LANGS)) {
+        const d = day(slug, 1, l).desc;
+        expect(d.endsWith(' ' + WELCOME[l]), `${slug} ${l}`).toBe(true);
+        expect(d, `${slug} ${l}`).not.toMatch(/restaurant|Restaurant|restaurante|מסעד/);
+      }
+      /* the rest of the day is as it was */
+      expect(day(slug, 1, 'he').desc).toContain('לאחר ההגעה למלון וקבלת החדרים, תוכלו לנוח ולהתכונן לקראת יום המחר. בערב');
+      expect(day(slug, 1, 'en').desc).toContain('rest and prepare for the adventure ahead. In the evening');
+    });
+  }
+  it('the site loads the same text: the generated trip files carry the sentence', () => {
+    const files = { he: 'base', en: 'base', de: 'de', es: 'es' };
+    for (const l of Object.keys(LANGS)) for (const slug of ['everest-base-camp', 'manaslu-circuit']) {
+      const t = JSON.parse(read(`src/data/trips/${files[l]}.json`)).find(e => e.slug === slug);
+      expect(t[`itinerary${LANGS[l]}`][0].desc, `${slug} ${l}`).toContain(WELCOME[l]);
+    }
+  });
+  it('days that already agreed are as they were: the Shabbat dinner at Chabad House Arusha, no meal on the first evening in Shkodra', () => {
+    const shabbat = { he: 'ארוחת שבת בבית חב״ד ארושה', en: 'Shabbat dinner at Chabad House Arusha', de: 'Schabbat-Abendessen im Chabad-Haus Arusha', es: 'cena de Shabat en la Casa Jabad de Arusha' };
+    for (const l of Object.keys(LANGS)) {
+      expect(day('kilimanjaro-kosher', 1, l).desc, l).toContain(shabbat[l]);
+      expect(day('peaks-of-balkan', 1, l).desc, l).not.toMatch(/ארוחת|dinner|essen|cena/i);
+    }
+  });
+});
