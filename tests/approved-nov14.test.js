@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chosenDeparture, departureText, departureLogLine, hebrewLeadEmail, foreignLeadEmail } from '../api/submit-lead.js';
 import { EXPS } from '../src/data/mockData.js';
+import { profileFromItinerary } from '../src/website/altitudeProfile.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const strip = h => h.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
@@ -122,5 +123,49 @@ describe('Elbrus: the snowcat goes up to 5,100 m, in every language (owner, 14 N
     expect(blog).toContain('מזחלת שלג עד גובה 5,100 מ׳');
     expect(blog).toContain('ride a snowcat up to 5,100 m');
     expect(blog).not.toMatch(/(?:snow ?cat|מזחלת שלג)[^.]{0,40}4[.,]?800/i);
+  });
+});
+
+/* The magazine post about a trip: Hebrew and English in blogData.js, and the versions written
+   for the foreign sites in src/data/blog-intl. */
+const magazine = slug => ({
+  heEn: read('src/data/blogData.js'),
+  en: read(`src/data/blog-intl/en/${slug}.json`),
+  de: read(`src/data/blog-intl/de/${slug}.json`),
+  es: read(`src/data/blog-intl/es/${slug}.json`),
+});
+
+describe('Ethiopia, day 11: the climb to the rock church Abuna Yemata Guh (owner, 14 Nov 2026)', () => {
+  const CHURCH = { he: 'אבונה ימאתא גואה', en: 'Abuna Yemata Guh', de: 'Abuna Yemata Guh', es: 'Abuna Yemata Guh' };
+  const GHERALTA = { he: 'גרלטה', en: 'Gheralta', de: 'Gheralta', es: 'Gheralta' };
+  it('the trip page names it in the title and the description, as the programme does', () => {
+    for (const [l, suffix] of Object.entries(LANGS)) {
+      const day = trip('ethiopia')[`itinerary${suffix}`][10];
+      expect(day.day ?? 11, l).toBe(11);
+      expect(day.title, l).toContain(CHURCH[l]);
+      expect(day.title, l).toMatch(/^(?:מקלה|Mekele) - .+ - (?:האוזן|Hawzen)$/);
+      expect(day.desc, l).toContain(CHURCH[l]);
+      expect(day.desc, l).toContain(GHERALTA[l]);
+      expect(day.desc, l).toMatch(/2580\s?(?:m\b|מ׳)/);
+      expect(day.desc, l).not.toMatch(/[—–]/);
+    }
+  });
+  it('the other church is named nowhere: the trip, the magazine, any language', () => {
+    const OTHER = /Abraha|Atsbeha|אבראהא|אצבהא/;
+    expect(JSON.stringify(trip('ethiopia'))).not.toMatch(OTHER);
+    for (const [where, text] of Object.entries(magazine('ethiopia-simien-trek-guide'))) expect(text, where).not.toMatch(OTHER);
+  });
+  it('the magazine names it in the day list and in the text, in every language', () => {
+    const m = magazine('ethiopia-simien-trek-guide');
+    expect(m.heEn.match(/אבונה ימאתא גואה/g)).toHaveLength(2);
+    expect(m.heEn.match(/Abuna Yemata Guh/g)).toHaveLength(2);
+    for (const l of ['en', 'de', 'es']) expect(m[l].match(/Abuna Yemata Guh/g), l).toHaveLength(2);
+    expect(m.heEn).toContain('יום 11: נסיעה צפונה אל גרלטה, טיפוס אל אבונה ימאתא גואה');
+    expect(m.en).toContain('Day 11: a drive north to Gheralta, a climb to Abuna Yemata Guh');
+    expect(m.de).toContain('Tag 11: Fahrt nach Norden in die Region Gheralta, Aufstieg zur Abuna Yemata Guh');
+    expect(m.es).toContain('Día 11: traslado hacia el norte, a Gheralta, subida a Abuna Yemata Guh');
+  });
+  it('the height of the church is in the text, not in the title: the altitude chart shows where the group sleeps', () => {
+    for (const suffix of ['En', 'De', 'Es']) expect(profileFromItinerary(trip('ethiopia')[`itinerary${suffix}`]).some(d => d.day === 11), suffix).toBe(false);
   });
 });
