@@ -20,6 +20,14 @@ export function nameTyped(value) {
   return String(value ?? '').replace(/[^\p{L}\p{M}\s'’׳״־-]/gu, '');
 }
 
+/* The name a booked call is saved under, from the name the booking page shows.
+   They differ for one trip: "Kilimanjaro (Religious)" is the English label (owner,
+   14 Nov 2026), and the server keys that trip as "Kilimanjaro Kosher"
+   (api/_lib/dest.js). Sent as the label it would be read as the regular climb,
+   and the messages about the call would name and link the wrong trip. */
+const SAVED_AS = { 'Kilimanjaro (Religious)': 'Kilimanjaro Kosher' };
+export const savedTripName = shown => SAVED_AS[shown] || shown;
+
 /* An address someone could be answered at: something@something.tld. */
 export function emailLooksRight(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value ?? '').trim());

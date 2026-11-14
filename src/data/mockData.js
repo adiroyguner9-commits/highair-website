@@ -1729,7 +1729,7 @@ Small groups of up to 15 climbers from around the world, guided in English. Part
     img: '/images/cards/kilimanjaroKosher.webp',
     ogImage: '/images/og/kilimanjaro-kosher.jpg',
     seoTitle:       'HighAir Expeditions | קילימנג׳רו לשומרי מסורת',
-    seoTitleEn:     'Climbing Kilimanjaro Kosher | HighAir Expeditions',
+    seoTitleEn:     'Kilimanjaro (Religious): Kosher Climb | HighAir Expeditions',
     seoDescription: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5895 מ׳ - לשומרי מסורת. 10 ימים כולל שבת בארושה עם חב״ד, אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.',
     seoDescriptionEn: "Climb Kilimanjaro (5895m) on a fully glatt kosher expedition. 10 days, Shabbat in Arusha, kosher food throughout. 94% success rate. Optional kosher safari.",
     airtableEvents: ['Kilimanjaro_Kosher', 'Kilimanjaro_Kosher_with_Safari'],
@@ -1744,7 +1744,11 @@ Small groups of up to 15 climbers from around the world, guided in English. Part
 
 הצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אוהורו 5895מ׳', 'תפילות וסעודות שבת עם חב״ד ארושה', 'ימי הטיפוס בין שתי שבתות', 'אוכל כשר מבושל טרי על ההר'],
-    nameEn: 'Kilimanjaro Kosher',
+    /* One English name for this trip, the app's (owner, 14 Nov 2026). `name` above stays
+       "Kilimanjaro Kosher": nothing shows it, it is the name api/_lib/dest.js stores the trip
+       under, and it lets the site search find the trip by the word kosher. The kitchen and
+       the food are still described as kosher, which they are. German and Spanish keep their names. */
+    nameEn: 'Kilimanjaro (Religious)',
     descEn: `A fully kosher Kilimanjaro expedition - and we've been running it for years.
 
 Everything about this trek is identical to our standard Kilimanjaro expedition in terms of route, guides, and success rate. The difference: every meal is freshly prepared kosher, the group schedule is adapted to respect Shabbat and Jewish holidays, and you're surrounded by a Jewish group that shares your values.

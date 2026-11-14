@@ -53,7 +53,7 @@ describe('what the foreign forms really send', () => {
     const m = foreignLeadEmail({ Name: 'Eva', Email: 'e@x.at', Expedition: 'Kilimanjaro Kosher', 'Preferred Month': 'Februar 2027 (נשים)', Source: 'Expedition Page - קילימנג׳רו לשומרי מסורת · קבוצת נשים (עדי טנא)' }, 'German');
     const text = strip(m.html);
     expect(text).not.toMatch(HEB);
-    expect(text).toContain('Kilimanjaro (kosher) · women\'s group (Adi Tene)');
+    expect(text).toContain('Kilimanjaro (Religious) · women\'s group (Adi Tene)');
     expect(text).toContain('Februar 2027 (women)');
   });
   it('safari page message', () => {

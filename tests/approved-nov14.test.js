@@ -7,6 +7,9 @@ import { chosenDeparture, departureText, departureLogLine, hebrewLeadEmail, fore
 import { EXPS } from '../src/data/mockData.js';
 import { profileFromItinerary } from '../src/website/altitudeProfile.js';
 import { POSTS } from '../src/data/blogData.js';
+import { NAV_EXPS, CARD_EXPS } from '../src/data/navData.js';
+import { savedTripName } from '../src/website/formRules.js';
+import { DEST, destKey, destEn } from '../api/_lib/dest.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const strip = h => h.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
@@ -241,5 +244,47 @@ describe('Peaks of the Balkans, day 5: Gjeravica is the highest point in Kosovo 
   });
   it('and nowhere "one of the highest"', () => {
     expect(JSON.stringify(trip('peaks-of-balkan'))).not.toMatch(/אחת הפסגות הגבוהות בקוסובו|one of the highest (?:peaks|mountains|points) in Kosovo|einen der höchsten (?:Berge|Gipfel) des Kosovo|una de las (?:montañas|cumbres) más altas de Kosovo/);
+  });
+});
+
+describe('one English name for the Kilimanjaro trip for observant Jews: "Kilimanjaro (Religious)", the app\'s label (owner, 14 Nov 2026)', () => {
+  const k = trip('kilimanjaro-kosher');
+  it('the name the English site shows: trip page, card, menu, footer, search, breadcrumb, structured data', () => {
+    expect(k.nameEn).toBe('Kilimanjaro (Religious)');
+    for (const list of [NAV_EXPS, CARD_EXPS]) expect(list.find(e => e.slug === 'kilimanjaro-kosher').nameEn).toBe('Kilimanjaro (Religious)');
+    /* each of these reads the name through loc(exp, 'name'), which is nameEn on the English site */
+    expect(read('src/components/web_v2/ExpeditionExplorer.jsx')).toContain('aria-label={isEn ? (loc(exp, "name") || exp.name) : exp.nameHe}');
+    expect(read('src/components/web_v2/ExpeditionDetail.jsx')).toContain("(loc(exp, 'name') || exp.name)");
+    expect(read('scripts/generate-html-shells.mjs')).toContain('name:          exp.nameEn  || exp.name || exp.nameHe,');
+  });
+  it('the page title carries the new name and still says kosher; the description is as it was', () => {
+    expect(k.seoTitleEn).toBe('Kilimanjaro (Religious): Kosher Climb | HighAir Expeditions');
+    expect(k.seoDescriptionEn).toBe('Climb Kilimanjaro (5895m) on a fully glatt kosher expedition. 10 days, Shabbat in Arusha, kosher food throughout. 94% success rate. Optional kosher safari.');
+  });
+  it('no English text of the trip calls it "Kilimanjaro Kosher" any more, and the food is still described as kosher', () => {
+    const english = Object.entries(k).filter(([key]) => /En$/.test(key));
+    expect(english.length).toBeGreaterThan(8);
+    expect(JSON.stringify(Object.fromEntries(english))).not.toMatch(/Kilimanjaro Kosher/i);
+    expect(k.descEn).toContain('A fully kosher Kilimanjaro expedition');
+    expect(k.highlightsEn).toContain('Fully glatt kosher meals');
+  });
+  it('what does not move: the address, the stored name, Hebrew, German and Spanish', () => {
+    expect(k.slug).toBe('kilimanjaro-kosher');
+    expect(k.name).toBe('Kilimanjaro Kosher');
+    expect(k.nameHe).toBe('קילימנג׳רו לשומרי מסורת');
+    expect(k.nameDe).toBe('Kilimandscharo Koscher');
+    expect(k.nameEs).toBe('Kilimanjaro Kosher');
+    expect(DEST['Kilimanjaro Kosher'].slug).toBe('kilimanjaro-kosher');
+  });
+  it('a call booked from the English booking page is still saved as the religious trip', () => {
+    expect(savedTripName('Kilimanjaro (Religious)')).toBe('Kilimanjaro Kosher');
+    expect(destKey(savedTripName(k.nameEn))).toBe('Kilimanjaro Kosher');
+    expect(read('src/components/web_v2/BookCall.jsx')).toContain('savedTripName(loc(exp, "name") || exp.name)');
+    /* and every other trip is sent exactly as it was */
+    for (const e of NAV_EXPS.filter(e => e.slug !== 'kilimanjaro-kosher')) expect(savedTripName(e.nameEn), e.slug).toBe(e.nameEn);
+  });
+  it('the office email about a lead from abroad uses the same name', () => {
+    expect(destEn('Kilimanjaro Kosher')).toBe('Kilimanjaro (Religious)');
+    expect(destEn('קילימנג׳רו לשומרי מסורת')).toBe('Kilimanjaro (Religious)');
   });
 });

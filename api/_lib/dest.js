@@ -8,7 +8,7 @@
  */
 export const DEST = {
   'Kilimanjaro':       { he: 'טיפוס לקילימנג׳רו',            en: 'Kilimanjaro', slug: 'kilimanjaro' },
-  'Kilimanjaro Kosher':{ he: 'קילימנג׳רו לשומרי מסורת',      en: 'Kilimanjaro (kosher)', slug: 'kilimanjaro-kosher' },
+  'Kilimanjaro Kosher':{ he: 'קילימנג׳רו לשומרי מסורת',      en: 'Kilimanjaro (Religious)', slug: 'kilimanjaro-kosher' },
   'Elbrus':            { he: 'טיפוס לאלברוס',                en: 'Elbrus', slug: 'elbrus' },
   'Aconcagua':         { he: 'טיפוס לאקונקגואה',             en: 'Aconcagua', slug: 'aconcagua' },
   'Kazbek':            { he: 'טיפוס לקזבק',                  en: 'Kazbek', slug: 'kazbek' },

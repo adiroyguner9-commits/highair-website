@@ -105,7 +105,7 @@ function ExpCard({ exp }) {
       ref={cardRef}
       role={isTeaser ? undefined : 'button'}
       tabIndex={isTeaser ? undefined : 0}
-      aria-label={isEn ? exp.name : exp.nameHe}
+      aria-label={isEn ? (loc(exp, "name") || exp.name) : exp.nameHe}
       onClick={isTeaser ? undefined : handleNav}
       onKeyDown={isTeaser ? undefined : e => (e.key === 'Enter' || e.key === ' ') && handleNav()}
       onMouseEnter={() => !isTeaser && setHovered(true)}
