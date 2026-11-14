@@ -20,13 +20,16 @@ export function nameTyped(value) {
   return String(value ?? '').replace(/[^\p{L}\p{M}\s'’׳״־-]/gu, '');
 }
 
-/* The name a booked call is saved under, from the name the booking page shows.
-   They differ for one trip: "Kilimanjaro (Religious)" is the English label (owner,
-   14 Nov 2026), and the server keys that trip as "Kilimanjaro Kosher"
-   (api/_lib/dest.js). Sent as the label it would be read as the regular climb,
-   and the messages about the call would name and link the wrong trip. */
-const SAVED_AS = { 'Kilimanjaro (Religious)': 'Kilimanjaro Kosher' };
-export const savedTripName = shown => SAVED_AS[shown] || shown;
+/* The name a booked call is saved under: the trip's Hebrew name, on every site.
+   It is the name the trip pages send with a call (ExpeditionDetail.jsx) and the
+   one name the server's table reads for every trip it lists (api/_lib/dest.js).
+   The booking page used to send the name it SHOWS on the English, German and
+   Spanish sites (14 Nov 2026). The server did not know "Simien & Danakil Desert",
+   "Himlung Himal", "Scardus Ridge Trek", "Kilimandscharo", "Kilimandscharo
+   Koscher", "Kasbek" or "Olymp", so such a call was saved under a name nothing
+   else uses and no agent was matched to it; "Manaslu", the climb, was read as the
+   circuit. What the visitor reads on the page is not this name and is unchanged. */
+export const savedTripName = trip => trip?.nameHe || trip?.name || '';
 
 /* An address someone could be answered at: something@something.tld. */
 export function emailLooksRight(value) {

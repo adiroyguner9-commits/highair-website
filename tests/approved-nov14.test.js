@@ -295,11 +295,12 @@ describe('one English name for the Kilimanjaro trip for observant Jews: "Kiliman
     expect(DEST['Kilimanjaro Kosher'].slug).toBe('kilimanjaro-kosher');
   });
   it('a call booked from the English booking page is still saved as the religious trip', () => {
-    expect(savedTripName('Kilimanjaro (Religious)')).toBe('Kilimanjaro Kosher');
-    expect(destKey(savedTripName(k.nameEn))).toBe('Kilimanjaro Kosher');
-    expect(read('src/components/web_v2/BookCall.jsx')).toContain('savedTripName(loc(exp, "name") || exp.name)');
-    /* and every other trip is sent exactly as it was */
-    for (const e of NAV_EXPS.filter(e => e.slug !== 'kilimanjaro-kosher')) expect(savedTripName(e.nameEn), e.slug).toBe(e.nameEn);
+    /* since the same day's later decision the booking page sends the trip's Hebrew name on every
+       site (tests/round3-nov14.test.js); the label "Kilimanjaro (Religious)" is only what is shown */
+    const sent = savedTripName(NAV_EXPS.find(e => e.slug === 'kilimanjaro-kosher'));
+    expect(sent).toBe('קילימנג׳רו לשומרי מסורת');
+    expect(destKey(sent)).toBe('Kilimanjaro Kosher');
+    expect(read('src/components/web_v2/BookCall.jsx')).toContain('const bookingExpedition = exp ? savedTripName(exp)');
   });
   it('the office email about a lead from abroad uses the same name', () => {
     expect(destEn('Kilimanjaro Kosher')).toBe('Kilimanjaro (Religious)');

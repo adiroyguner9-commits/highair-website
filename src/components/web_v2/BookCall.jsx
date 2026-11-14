@@ -71,7 +71,7 @@ export default function BookCall() {
   const rawTok = code || sp.get('l') || '';   // path code (clean) or legacy ?l= token
   const leadToken = /^(rec[A-Za-z0-9]{14}|[a-z0-9]{4,12})$/.test(rawTok) ? rawTok : '';
   const destHe = exp ? (isEn ? loc(exp, "name") || exp.name : exp.nameHe) : '';
-  const bookingExpedition = exp ? (isEn ? savedTripName(loc(exp, "name") || exp.name) : exp.nameHe)
+  const bookingExpedition = exp ? savedTripName(exp)
                                 : (isRtl ? 'שיחת ייעוץ' : tx("Consultation call"));
 
   const [form, setForm]           = useState({ name: '', dial: defaultDial(), phone: '', email: '' });
