@@ -214,3 +214,22 @@ describe('Ethiopia, day 8: the night is at Erta Ale camp, in every language (own
     for (const f of ['src/data/mockData.js', 'src/data/blogData.js', 'src/data/trips/base.json', 'src/data/trips/de.json', 'src/data/trips/es.json']) expect(read(f), f).not.toContain('אסקומה');
   });
 });
+
+describe('Ethiopia: the town before the Danakil is spelled Semera in Latin letters (owner, 14 Nov 2026)', () => {
+  it('days 7 and 8 of the trip, in English, German and Spanish', () => {
+    for (const suffix of ['En', 'De', 'Es']) {
+      const [day7, day8] = [trip('ethiopia')[`itinerary${suffix}`][6], trip('ethiopia')[`itinerary${suffix}`][7]];
+      expect(day7.title, suffix).toMatch(/ - Semera$/);
+      expect(day7.desc, suffix).toContain('Semera');
+      expect(day7.accommodation, suffix).toMatch(/^Hotel (?:in|en) Semera$/);
+      expect(day8.title, suffix).toMatch(/^Semera - /);
+    }
+  });
+  it('the old spelling is nowhere on the site, and Hebrew is as it was', () => {
+    expect(JSON.stringify(trip('ethiopia'))).not.toContain('Samara');
+    for (const [where, text] of Object.entries(magazine('ethiopia-simien-trek-guide'))) expect(text, where).not.toContain('Samara');
+    for (const l of ['enTwin', 'en', 'de', 'es']) expect(magazine('ethiopia-simien-trek-guide')[l].match(/Semera/g), l).toHaveLength(2);
+    expect(trip('ethiopia').itinerary[6].title).toBe('גונדר - אדיס אבבה - סמארה');
+    expect(read('src/data/blogData.js')).not.toContain('Samara');
+  });
+});
