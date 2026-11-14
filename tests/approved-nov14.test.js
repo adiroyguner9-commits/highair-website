@@ -175,15 +175,24 @@ describe('Ethiopia, day 11: the climb to the rock church Abuna Yemata Guh (owner
   });
 });
 
-describe('Ethiopia, days 1, 7 and 12: no meal is promised in the day text (owner, 14 Nov 2026)', () => {
+describe('Ethiopia: day 12 has its stop in Addis Ababa and no meal; day 1 keeps its opening dinner (owner, 14 Nov 2026)', () => {
   const MEAL = { he: /ארוח|סעוד/, en: /dinner|lunch|meal|breakfast/i, de: /essen\b|Mahlzeit|Frühstück/i, es: /\bcena\b|comida|almuerz|desayun/i };
   const STOP = { he: ['שוק מרקאטו', 'טקס קפה אתיופי מסורתי (בונה)'], en: ['Merkato', 'coffee ceremony (buna)'], de: ['Merkato', 'Kaffeezeremonie (Buna)'], es: ['Merkato', 'café etíope (buna)'] };
-  it('day 1 (arrival) and day 7 (to the desert) name no dinner, festive or not, and keep the briefing', () => {
-    const BRIEFING = { he: 'תדרוך', en: 'briefing', de: 'Einweisung', es: 'sesión informativa' };
-    for (const [l, suffix] of Object.entries(LANGS)) for (const n of [1, 7]) {
-      const day = trip('ethiopia')[`itinerary${suffix}`][n - 1].desc;
-      expect(day, `${l} day ${n}`).not.toMatch(MEAL[l]);
-      expect(day, `${l} day ${n}`).toContain(BRIEFING[l]);
+  const BRIEFING = { he: 'תדרוך', en: 'briefing', de: 'Einweisung', es: 'sesión informativa' };
+  it('day 1: the opening dinner is there, as it always was (the owner decided day 12 only)', () => {
+    const EVENING = {
+      he: 'בערב ניפגש לארוחת ערב חגיגית לפתיחת הטיול, היכרות עם הצוות והקבוצה, ותדרוך קצר לקראת ההרפתקה שממתינה לנו.',
+      en: 'In the evening we gather for a celebratory opening dinner, meet the team and the group, and receive a briefing for the adventure ahead.',
+      de: 'Am Abend ein festliches Eröffnungsessen, bei dem wir Team und Gruppe kennenlernen und eine Einweisung für das Abenteuer erhalten.',
+      es: 'Por la noche, cena de bienvenida para conocer al equipo y al grupo y recibir la sesión informativa de la aventura.',
+    };
+    for (const [l, suffix] of Object.entries(LANGS)) expect(trip('ethiopia')[`itinerary${suffix}`][0].desc.endsWith(EVENING[l]), l).toBe(true);
+  });
+  it('day 7 (to the desert) names no dinner, festive or not, and keeps the briefing', () => {
+    for (const [l, suffix] of Object.entries(LANGS)) {
+      const day = trip('ethiopia')[`itinerary${suffix}`][6].desc;
+      expect(day, l).not.toMatch(MEAL[l]);
+      expect(day, l).toContain(BRIEFING[l]);
     }
   });
   it('day 12 keeps the stop in Addis Ababa, the Merkato market and the coffee ceremony, without a lunch', () => {
@@ -195,18 +204,18 @@ describe('Ethiopia, days 1, 7 and 12: no meal is promised in the day text (owner
       }
     }
   });
-  it('the magazine: the day list opens without an opening dinner and ends with the market and the coffee, no lunch', () => {
+  it('the magazine: day 1 with its opening dinner, day 12 with the market and the coffee and no lunch', () => {
     const m = magazine('ethiopia-simien-trek-guide');
-    expect(m.he).toContain('"יום 1: טיסה מתל אביב לאדיס אבבה ותדרוך עם הצוות."');
-    expect(m.enTwin).toContain('"Day 1: flight from Tel Aviv to Addis Ababa and a briefing with the team."');
-    expect(m.en).toContain('"Day 1: arrival in Addis Ababa and a briefing with the team."');
-    expect(m.de).toContain('"Tag 1: Ankunft in Addis Abeba und ein Briefing mit dem Team."');
-    expect(m.es).toContain('"Día 1: llegada a Adís Abeba y reunión con el equipo."');
+    expect(m.he).toContain('"יום 1: טיסה מתל אביב לאדיס אבבה, ארוחת ערב חגיגית לפתיחת המסע ותדרוך עם הצוות."');
+    expect(m.enTwin).toContain('"Day 1: flight from Tel Aviv to Addis Ababa, a celebratory opening dinner and a briefing with the team."');
+    expect(m.en).toContain('"Day 1: arrival in Addis Ababa, a celebratory opening dinner and a briefing with the team."');
+    expect(m.de).toContain('"Tag 1: Ankunft in Addis Abeba, ein festliches Eröffnungsabendessen und ein Briefing mit dem Team."');
+    expect(m.es).toContain('"Día 1: llegada a Adís Abeba, cena de bienvenida y reunión con el equipo."');
     for (const [where, text] of Object.entries(m)) {
-      const days = text.match(/"(?:יום|Day|Tag|Día) (?:1|7|12):[^"]*"/g);
-      expect(days, where).toHaveLength(3);
+      const days = text.match(/"(?:יום|Day|Tag|Día) (?:7|12):[^"]*"/g);
+      expect(days, where).toHaveLength(2);
       for (const d of days) expect(d, where).not.toMatch(/ארוח|dinner|lunch|essen\b|\bcena\b|comida|almuerz/i);
-      expect(days[2], where).toMatch(/מרקאטו|Merkato/);
+      expect(days[1], where).toMatch(/מרקאטו|Merkato/);
     }
   });
 });
