@@ -204,3 +204,13 @@ describe('Ethiopia, days 1, 7 and 12: no meal is promised in the day text (owner
     }
   });
 });
+
+describe('Ethiopia, day 8: the night is at Erta Ale camp, in every language (owner, 14 Nov 2026)', () => {
+  it('the sleeping place of day 8 names Erta Ale', () => {
+    const CAMP = { he: 'אוהלים במחנה ארטה אלה', en: 'Tents at Erta Ale camp', de: 'Zelte im Camp am Erta Ale', es: 'Tiendas en el campamento del Erta Ale' };
+    for (const [l, suffix] of Object.entries(LANGS)) expect(trip('ethiopia')[`itinerary${suffix}`][7].accommodation, l).toBe(CAMP[l]);
+  });
+  it('the old Hebrew name of the camp is gone from the site', () => {
+    for (const f of ['src/data/mockData.js', 'src/data/blogData.js', 'src/data/trips/base.json', 'src/data/trips/de.json', 'src/data/trips/es.json']) expect(read(f), f).not.toContain('אסקומה');
+  });
+});
