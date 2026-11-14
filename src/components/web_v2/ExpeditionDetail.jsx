@@ -10,7 +10,7 @@ import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN 
 import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
 import { calendarDay } from '../../website/calendarDay.js';
-import { tripEvents, groupIsFull } from '../../website/tripSchema.js';
+import { tripEvents, groupIsFull, departureCount } from '../../website/tripSchema.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -1981,7 +1981,8 @@ export default function ExpeditionDetail() {
                 }}>
                   {months.map(([key, label]) => {
                     const shortLabel = new Date(key.split('-')[0], key.split('-')[1]).toLocaleDateString(isRtl ? 'he-IL' : ({ de: 'de-DE', es: 'es-ES' }[currentLang()] || 'en-US'), { month: 'long' });
-                    const count = groupsForYear.filter(g => monthKey(g.departure) === key).length;
+                    /* departures, not rows: a date sold with and without its safari is one */
+                    const count = departureCount(groupsForYear.filter(g => monthKey(g.departure) === key));
                     const isActive = activeMonth === key;
                     return (
                       <button

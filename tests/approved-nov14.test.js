@@ -10,6 +10,7 @@ import { POSTS } from '../src/data/blogData.js';
 import { NAV_EXPS, CARD_EXPS } from '../src/data/navData.js';
 import { savedTripName } from '../src/website/formRules.js';
 import { DEST, destKey, destEn } from '../api/_lib/dest.js';
+import { departureCount } from '../src/website/tripSchema.js';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const strip = h => h.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
@@ -308,5 +309,39 @@ describe('Manaslu Circuit: the village Shyala comes after Lho, on day 8 (owner, 
       expect(day(8), where).toMatch(SHYALA);
       expect(text.match(/Shyala|שיאלה/g), where).toHaveLength(1);
     }
+  });
+});
+
+describe('the month tabs on a trip page count departures, not rows (owner, 14 Nov 2026)', () => {
+  /* the rows the page builds from Airtable Groups: both lengths of a departure share its Group Name */
+  const row = (groupName, departure, eventName, id = `${groupName}|${eventName}`) => ({ id, groupName, departure, eventName });
+  const january = [
+    row('Kili_03_01_27', '2027-01-03', 'Kilimanjaro'), row('Kili_03_01_27', '2027-01-03', 'Kilimanjaro_with_Safari'),
+    row('Kili_14_01_27', '2027-01-14', 'Kilimanjaro'), row('Kili_14_01_27', '2027-01-14', 'Kilimanjaro_with_Safari'),
+    row('Kili_21_01_27', '2027-01-21', 'Kilimanjaro'), row('Kili_21_01_27', '2027-01-21', 'Kilimanjaro_with_Safari'),
+  ];
+  it('three January departures, each with and without the safari, are 3 and not 6', () => {
+    expect(january).toHaveLength(6);
+    expect(departureCount(january)).toBe(3);
+  });
+  it('the trek and the trek with the tribes on one date are one departure', () => {
+    expect(departureCount([row('Eth_17_01_27', '2027-01-17', 'Ethiopia'), row('Eth_17_01_27', '2027-01-17', 'Ethiopia_with_Tribes')])).toBe(1);
+  });
+  it('two groups on one date stay two: a women\'s group, a second guided group', () => {
+    expect(departureCount([row('Kili_25_12_26', '2026-12-25', 'Kilimanjaro'), row('Kili_25_12_Women', '2026-12-25', 'Kilimanjaro')])).toBe(2);
+    expect(departureCount([row('Kili_23_09_A', '2027-09-23', 'Kilimanjaro'), row('Kili_23_09_B', '2027-09-23', 'Kilimanjaro')])).toBe(2);
+  });
+  it('a trip with one length counts as before, a date written with its time is the same day, and nothing is 0', () => {
+    expect(departureCount([row('Elbrus_15_06_27', '2027-06-15', 'Elbrus'), row('Elbrus_13_07_27', '2027-07-13', 'Elbrus')])).toBe(2);
+    expect(departureCount([row('Kili_03_01_27', '2027-01-03', 'Kilimanjaro'), row('Kili_03_01_27', '2027-01-03T00:00:00.000Z', 'Kilimanjaro_with_Safari')])).toBe(1);
+    /* a row with no Group Name is named by its record id on the page, so it is never folded into another */
+    expect(departureCount([{ id: 'recA', groupName: 'recA', departure: '2027-01-03' }, { id: 'recB', groupName: 'recB', departure: '2027-01-03' }])).toBe(2);
+    expect(departureCount([])).toBe(0);
+    expect(departureCount(undefined)).toBe(0);
+  });
+  it('the trip page uses it for the number beside each month', () => {
+    const page = read('src/components/web_v2/ExpeditionDetail.jsx');
+    expect(page).toContain('const count = departureCount(groupsForYear.filter(g => monthKey(g.departure) === key));');
+    expect(page).not.toContain('const count = groupsForYear.filter(g => monthKey(g.departure) === key).length;');
   });
 });

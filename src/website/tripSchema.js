@@ -21,6 +21,17 @@ export function groupIsFull(g, exp) {
   return (exp?.soldOutGroups || []).some(m => ym(m) === ym(g?.departure));
 }
 
+/* How many departures a list of group rows holds. A trip sold in two lengths
+   (Kilimanjaro with and without the safari, Ethiopia with and without the
+   tribes) keeps two rows for one departure: the same Group Name and the same
+   date, a different Event. The month tabs on the trip page counted rows, so
+   three departures in January read "6" (owner, 14 Nov 2026). Two groups that
+   leave on one date under two names (a women's group, a second guided group)
+   are two departures, as the page lists them. */
+export function departureCount(groups) {
+  return new Set((groups || []).map(g => `${String(g?.departure || '').slice(0, 10)}|${g?.groupName || g?.id || ''}`)).size;
+}
+
 /* One Event per upcoming departure, twenty at most.
    name, description, place: the page's own words, in the site's language
    pageUrl, siteUrl: the trip's address and the home address on this site
