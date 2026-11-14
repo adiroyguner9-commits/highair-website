@@ -12,6 +12,7 @@ import { savedTripName } from '../src/website/formRules.js';
 import { DEST, destKey, destEn } from '../api/_lib/dest.js';
 import { departureCount } from '../src/website/tripSchema.js';
 import { rangeInWords } from '../src/data/tripI18n.js';
+import { ERROR_SCREEN, errorScreenLang } from '../src/components/ErrorBoundary.jsx';
 
 const read = f => fs.readFileSync(path.join(process.cwd(), f), 'utf8');
 const strip = h => h.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
@@ -391,5 +392,49 @@ describe('no dash in the German and Spanish copy (owner, 14 Nov 2026; 165 en das
     expect(de['{0} is Full - no available spots']).toBe('{0} ist ausgebucht, keine Plätze frei');
     expect(read('src/data/blog-intl/de/island-peak-climbing-guide.json')).toContain('mit dem Hubschrauber von Kathmandu nach Lukla und zurück fliegen');
     expect(read('src/data/blog-intl/es/island-peak-climbing-guide.json')).toContain('puedes volar de Katmandú a Lukla y de vuelta en helicóptero');
+  });
+});
+
+describe('the error screen speaks the site\'s language, German and Spanish included (owner, 14 Nov 2026)', () => {
+  it('the address decides: en. English, de. German, es. Spanish, www and the bare domain Hebrew', () => {
+    expect(errorScreenLang('de.highair-expeditions.com', 'he')).toBe('de');
+    expect(errorScreenLang('es.highair-expeditions.com', 'en')).toBe('es');
+    expect(errorScreenLang('en.highair-expeditions.com', 'he')).toBe('en');
+    expect(errorScreenLang('www.highair-expeditions.com', 'de')).toBe('he');
+    expect(errorScreenLang('highair-expeditions.com', '')).toBe('he');
+  });
+  it('a preview or a local address shows the language the page is in, Hebrew when none', () => {
+    expect(errorScreenLang('localhost', 'de')).toBe('de');
+    expect(errorScreenLang('highair-website-git-x.vercel.app', 'es-ES')).toBe('es');
+    expect(errorScreenLang('localhost', 'en')).toBe('en');
+    expect(errorScreenLang('localhost', '')).toBe('he');
+    expect(errorScreenLang('localhost', 'fr')).toBe('he');
+    expect(errorScreenLang(undefined, undefined)).toBe('he');
+  });
+  it('all four languages have the four texts, each in its own language', () => {
+    expect(Object.keys(ERROR_SCREEN)).toEqual(['he', 'en', 'de', 'es']);
+    for (const [l, text] of Object.entries(ERROR_SCREEN)) {
+      expect(Object.keys(text), l).toEqual(['title', 'line1', 'line2', 'home']);
+      for (const v of Object.values(text)) { expect(v.length, l).toBeGreaterThan(8); expect(v, l).not.toMatch(/[\u2013\u2014]/); }
+    }
+    expect(ERROR_SCREEN.de).toEqual({ title: 'Hoppla, etwas ist schiefgelaufen', line1: 'Es ist ein unerwarteter Fehler aufgetreten', line2: 'Sie können zur Startseite zurückkehren und von dort aus weitermachen', home: 'Zur Startseite' });
+    expect(ERROR_SCREEN.es).toEqual({ title: 'Vaya, algo ha fallado', line1: 'Se ha producido un error inesperado', line2: 'Puedes volver a la página de inicio y continuar desde allí', home: 'Volver al inicio' });
+    /* Hebrew and English are word for word what the screen said before */
+    expect(ERROR_SCREEN.he).toEqual({ title: 'אופס - משהו השתבש', line1: 'נתקלנו בשגיאה בלתי צפויה', line2: 'אפשר לנסות לחזור לדף הבית ולהמשיך משם', home: 'חזרה לדף הבית' });
+    expect(ERROR_SCREEN.en).toEqual({ title: 'Oops - something went wrong', line1: 'We encountered an unexpected error', line2: 'You can try returning to the homepage and continuing from there', home: 'Back to Home' });
+    for (const text of [ERROR_SCREEN.de, ERROR_SCREEN.es]) expect(JSON.stringify(text)).not.toMatch(/Oops|something went wrong|Back to Home|unexpected error/);
+  });
+  it('German says Sie and Spanish says tú, as the rest of each site', () => {
+    expect(ERROR_SCREEN.de.line2).toMatch(/^Sie können /);
+    expect(ERROR_SCREEN.es.line2).toMatch(/^Puedes /);
+    expect(JSON.parse(read('src/i18n/ui-de.json'))['Something went wrong. Please try again.']).toMatch(/versuchen Sie/);
+    expect(JSON.parse(read('src/i18n/ui-es.json'))['Something went wrong. Please try again.']).toMatch(/Inténtalo/);
+  });
+  it('the screen draws these texts and nothing typed beside them, and needs no translation file to do it', () => {
+    const src = read('src/components/ErrorBoundary.jsx');
+    expect(src).toContain('const lang = errorScreenLang(window.location.hostname, document.documentElement.lang);');
+    for (const part of ['{text.title}', '{text.line1}', '{text.line2}', '{text.home}']) expect(src).toContain(part);
+    expect(src).not.toMatch(/isRtl \?/);
+    expect(src).not.toMatch(/from '[^']*(?:lang\.js|i18n[^']*)'/);
   });
 });

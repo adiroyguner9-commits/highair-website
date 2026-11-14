@@ -1,5 +1,25 @@
 import { Component } from 'react';
 import * as Sentry from '@sentry/react';
+import { langForHost } from '../website/sites.js';
+
+/* The error screen, in the site's own language. German and Spanish visitors
+   saw it in English (owner, 14 Nov 2026). The texts are written here in full
+   and not read from the translation files: this screen is what shows when
+   something else did not load. German says Sie and Spanish says tú, as the
+   rest of each site does. */
+export const ERROR_SCREEN = {
+  he: { title: 'אופס - משהו השתבש', line1: 'נתקלנו בשגיאה בלתי צפויה', line2: 'אפשר לנסות לחזור לדף הבית ולהמשיך משם', home: 'חזרה לדף הבית' },
+  en: { title: 'Oops - something went wrong', line1: 'We encountered an unexpected error', line2: 'You can try returning to the homepage and continuing from there', home: 'Back to Home' },
+  de: { title: 'Hoppla, etwas ist schiefgelaufen', line1: 'Es ist ein unerwarteter Fehler aufgetreten', line2: 'Sie können zur Startseite zurückkehren und von dort aus weitermachen', home: 'Zur Startseite' },
+  es: { title: 'Vaya, algo ha fallado', line1: 'Se ha producido un error inesperado', line2: 'Puedes volver a la página de inicio y continuar desde allí', home: 'Volver al inicio' },
+};
+/* Which of them: the site's address decides (en. / de. / es., and www is
+   Hebrew), the rule the whole site follows (sites.js). A preview or a local
+   address has no language of its own, so there the page's own language counts. */
+export function errorScreenLang(host, pageLang) {
+  const lang = langForHost(host, String(pageLang || '').slice(0, 2).toLowerCase());
+  return ERROR_SCREEN[lang] ? lang : 'he';
+}
 
 /* Chunk-error recovery, at most once per 30 seconds per tab. A chunk that is
    still broken after that shows the error screen instead of reloading forever.
@@ -89,7 +109,8 @@ export default class ErrorBoundary extends Component {
       return this.props.children;
     }
 
-    const isRtl = document.documentElement.dir !== 'ltr';
+    const lang = errorScreenLang(window.location.hostname, document.documentElement.lang);
+    const text = ERROR_SCREEN[lang];
 
     return (
       <div
@@ -102,7 +123,7 @@ export default class ErrorBoundary extends Component {
           fontFamily:     "'Ploni', sans-serif",
           padding:        '24px',
           boxSizing:      'border-box',
-          direction:      document.documentElement.dir,
+          direction:      lang === 'he' ? 'rtl' : 'ltr',
         }}
       >
         <div
@@ -137,7 +158,7 @@ export default class ErrorBoundary extends Component {
               lineHeight:  '1.3',
             }}
           >
-            {isRtl ? 'אופס - משהו השתבש' : 'Oops - something went wrong'}
+            {text.title}
           </h1>
 
           {/* Subtitle */}
@@ -149,9 +170,9 @@ export default class ErrorBoundary extends Component {
               lineHeight: '1.6',
             }}
           >
-            {isRtl ? 'נתקלנו בשגיאה בלתי צפויה' : 'We encountered an unexpected error'}
+            {text.line1}
             <br />
-            {isRtl ? 'אפשר לנסות לחזור לדף הבית ולהמשיך משם' : 'You can try returning to the homepage and continuing from there'}
+            {text.line2}
           </p>
 
           {/* CTA button */}
@@ -172,7 +193,7 @@ export default class ErrorBoundary extends Component {
             onMouseEnter={e => (e.currentTarget.style.background = '#5B21B6')}
             onMouseLeave={e => (e.currentTarget.style.background = '#6D28D9')}
           >
-            {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
+            {text.home}
           </a>
         </div>
       </div>
