@@ -23,7 +23,8 @@
  * callers legitimately want "whoever this number is" rather than a live deal.
  */
 
-import { destKey } from './dest.js';   // the one table of trip names, shared with submit-lead and the messages
+import { destKey } from './dest.js';
+import { fetchCallAgents, coversFor, agentKey } from './callAgents.js';   // the one table of trip names, shared with submit-lead and the messages
 
 /* Stages where a deal is still being worked. Anything else — won, lost,
    archived — is history as far as routing a call or a message goes. */
@@ -72,6 +73,59 @@ export async function fetchActiveLead({ base, token, phone, fields = [] }) {
   } catch { return null; }
 }
 
+/* ── A returning customer ──────────────────────────────────────────────────
+   The same person on one number: the same name, or one name that is the other
+   with a word added (the same first name, every word of the shorter one inside
+   the longer). A household on one number stays apart: a different first name is
+   a different person. Byte for byte the rule of the webapp's
+   api/_lib/returning.js samePerson (its drift test compares the two). */
+const nameKey = n => String(n || '').toLowerCase().replace(/["'`\u05f3\u05f4]/g, '').replace(/\s+/g, ' ').trim();
+export function samePerson(a, b) {
+  const x = nameKey(a), y = nameKey(b);
+  if (!x || !y) return false;
+  if (x === y) return true;
+  const wx = x.split(' '), wy = y.split(' ');
+  if (wx[0] !== wy[0]) return false;
+  const [short, long] = wx.length <= wy.length ? [wx, wy] : [wy, wx];
+  return short.length >= 2 && short.every(w => long.includes(w));
+}
+
+/**
+ * The agent a returning customer goes back to (owner, 14 Nov 2026: "אם הליד חזר
+ * הוא צריך לחזור לאותו סוכן"). `cards` are the records on this phone number;
+ * `active` is the card being worked now, which has no agent yet. Among the
+ * OTHER cards of the same person, the most recently touched one's agent, when
+ * that agent covers the active card's destination (`covers(agentName)`).
+ * '' when there is nobody to go back to. The webapp's lead-notify gives the
+ * same answer a minute later (api/_lib/returning.js agentForReturning); this
+ * is for a customer who books a call before that minute, when the Kilimanjaro
+ * queue used to take the turn instead (one such card on 14 Nov 2026).
+ */
+export function returningAgentOf(cards, active, covers) {
+  if (!active || String(active.fields?.['Assigned Agent'] || '').trim()) return '';
+  const when = r => String(r.fields?.['Stage Changed At'] || r.fields?.['Created Time'] || r.createdTime || '');
+  const prior = (cards || [])
+    .filter(r => r && r.id !== active.id && samePerson(r.fields?.Name, active.fields?.Name))
+    .sort((a, b) => when(b).localeCompare(when(a)))[0];
+  const agent = String(prior?.fields?.['Assigned Agent'] || '').trim();
+  return agent && covers(agent) ? agent : '';
+}
+
+/** Every card on a phone number (up to ten), with what the returning rule reads. */
+export async function cardsOnPhone({ base, token, phone }) {
+  const key = last9(phone);
+  if (!base || !token || key.length !== 9) return [];
+  const want = ['Name', 'Assigned Agent', 'Stage', 'Stage Changed At', 'Created Time', 'Expedition'];
+  const proj = want.map(f => `fields[]=${encodeURIComponent(f)}`).join('&');
+  const f = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone}&"","[^0-9]",""),9)="${key}"`);
+  try {
+    const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent('Website Leads')}?filterByFormula=${f}&${proj}&maxRecords=10`,
+      { headers: { Authorization: `Bearer ${token}` } });
+    if (!r.ok) return [];
+    return (await r.json()).records || [];
+  } catch { return []; }
+}
+
 /* ── The agent a booking customer already belongs to ───────────────────────
    Owner, 22 Sep 2026 (option 2 of two): a customer whose lead already has an
    agent is offered only that agent's free times, and the lead never moves to
@@ -103,8 +157,17 @@ export async function bookingAgent({ base, token, lead = '', phone = '' }) {
       ph = lf?.Phone || '';
     } catch { return ''; }
   }
-  const rec = await fetchActiveLead({ base, token, phone: ph, fields: ['Assigned Agent'] });
-  return String(rec?.fields?.['Assigned Agent'] || '').trim();
+  const cards = await cardsOnPhone({ base, token, phone: ph });
+  const rec = pickActive(cards);
+  const own = String(rec?.fields?.['Assigned Agent'] || '').trim();
+  if (own || !rec) return own;
+  /* No agent on the card yet: a returning customer is offered the free times of
+     the agent they had before (owner, 14 Nov 2026), and book-slot gives them
+     that agent; the same rule the webapp applies a minute later. */
+  try {
+    const agents = await fetchCallAgents(base, token);
+    return returningAgentOf(cards, rec, name => coversFor(agents, rec.fields?.Expedition).some(n => agentKey(n) === agentKey(name)));
+  } catch { return ''; }
 }
 
 /* Is this the same trip? Compares the Expedition as written on a lead card,

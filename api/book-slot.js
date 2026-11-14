@@ -187,7 +187,7 @@ import {
   checkRateLimit,
   setSecurityHeaders,
 } from './_security.js';
-import { fetchActiveLead, bookingAgent, tripKey, last9 } from './_lib/active-lead.js';
+import { fetchActiveLead, bookingAgent, tripKey, last9, cardsOnPhone, returningAgentOf } from './_lib/active-lead.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey, callsOverlap, timeToMin } from './_lib/callAgents.js';
 import { whatsappVerdict, CHANNEL_FIELDS } from './_lib/lead-channel.js';
 import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
@@ -538,7 +538,7 @@ export default async function handler(req, res) {
          on the wrong lead — or on none (Aug 13 2026). */
       const rec = await fetchActiveLead({
         base: BASE, token: TOKEN, phone,
-        fields: ['Assigned Agent', 'Activity Log', 'Expedition', ...CHANNEL_FIELDS],
+        fields: ['Name', 'Assigned Agent', 'Activity Log', 'Expedition', ...CHANNEL_FIELDS],
       });
       leadFields = rec?.fields || null;
       {
@@ -580,6 +580,30 @@ export default async function handler(req, res) {
              later already has an agent and keeps them; ONE AGENT, ONE CALL below
              still moves the call when that agent is busy. */
           const isKili = /קילימנ|kilimanjaro/i.test(String(rec.fields?.Expedition || ''));
+          /* A returning customer goes back to the agent they had (owner, 14 Nov
+             2026: "אם הליד חזר הוא צריך לחזור לאותו סוכן"), with no turn of the
+             queue: the same person on this number (./_lib/active-lead.js
+             samePerson), an earlier card with an agent who sells this trip. The
+             webapp's lead-notify gives the same answer a minute later; a customer
+             who booked first used to get the queue's turn instead (one card on 14
+             Nov 2026, back to nobody she knew). /api/slots offered this agent's
+             free times only (bookingAgent), so they are free now. */
+          let back = '';
+          if (isKili && !assignedAgent) {
+            /* The agents are read above only when the time is already taken by someone. */
+            const team = callAgents.length ? callAgents : await fetchCallAgents(BASE, TOKEN).catch(() => []);
+            if (team.length) {
+              back = returningAgentOf(await cardsOnPhone({ base: BASE, token: TOKEN, phone }), rec,
+                name => coversFor(team, rec.fields?.Expedition).some(n => agentKey(n) === agentKey(name)));
+            }
+          }
+          if (back) {
+            patch['Assigned Agent'] = back;
+            patch['Assigned At']    = new Date().toISOString();
+            patch['Activity Log']   = `[${stamp}] Returning customer: back to ${back}, who handled them before.\n${patch['Activity Log']}`;
+            assignedAgent = back;
+            console.log(`[book-slot] returning customer: back to ${back}`);
+          }
           if (isKili && !assignedAgent) {
             const now = new Date();
             const turn = await nextKiliAgent(BASE, TOKEN, now);
