@@ -774,6 +774,10 @@ export default function ExpeditionDetail() {
   /* Tags a lead as coming from the women's-group card so the team can tell it
      apart from a regular October lead. Cleared if the month is changed by hand. */
   const [womenGroup,  setWomenGroup]  = useState(false);
+  /* The departure whose "details" button was pressed. The month picker can only say the month, so the date and
+     the route of that row travel to the lead beside it (owner, approved 12 Nov 2026). Cleared when the visitor
+     then picks a month by hand: the row no longer speaks for them. */
+  const [pickedDeparture, setPickedDeparture] = useState(null);
   const [ageError,   setAgeError]   = useState('');
 
 
@@ -792,9 +796,17 @@ export default function ExpeditionDetail() {
   }
 
   /* ── Age validation ── */
+  /* 16 on every trip, 10 on Kilimanjaro, where a child comes with a parent or an adult
+     (owner, 12 Nov 2026: "מינימום זה 10 בליווי הורה או מבוגר"). The FAQ says the same. */
+  const minAge = exp?.slug?.includes('kilimanjaro') ? 10 : 16;
   function validateAge(val) {
     const n = Number(val);
-    if (val && n < 16) { setAgeError(isRtl ? 'גיל מינימלי להשתתפות הוא 16' : tx("Minimum age to participate is 16")); return false; }
+    if (val && n < minAge) {
+      setAgeError(minAge === 10
+        ? (isRtl ? 'גיל מינימלי להשתתפות הוא 10, בליווי הורה או מבוגר' : tx("Minimum age to participate is 10, with a parent or an adult"))
+        : (isRtl ? 'גיל מינימלי להשתתפות הוא 16' : tx("Minimum age to participate is 16")));
+      return false;
+    }
     setAgeError('');
     return true;
   }
@@ -831,6 +843,7 @@ export default function ExpeditionDetail() {
           },
           calendarId: exp.ghlCalendarId || '',
           expeditionTag: exp.tagHe || exp.name || '',
+          ...(pickedDeparture ? { departure: pickedDeparture } : {}),
           ...getAttribution(),
         }),
       });
@@ -2129,6 +2142,7 @@ export default function ExpeditionDetail() {
                               setIsWaitlist(false);
                               setWomenGroup(isWomen);
                               setForm(f => ({ ...f, month: monthLabel(g.departure) + (isWomen ? womenSuffix : '') }));
+                              setPickedDeparture({ date: String(g.departure || '').slice(0, 10), returnDate: String(g.returnDate || '').slice(0, 10), event: g.eventName || '' });
                               scrollToForm();
                             }}
                             style={{
@@ -2554,7 +2568,7 @@ export default function ExpeditionDetail() {
                         required value={form.month}
                         aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
-                        onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setForm(f => ({ ...f, month: e.target.value })); }}
+                        onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setPickedDeparture(null); setForm(f => ({ ...f, month: e.target.value })); }}
                         style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
                         onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
@@ -2587,7 +2601,7 @@ export default function ExpeditionDetail() {
                       <label htmlFor="lead-age" style={labelStyle}>{isRtl ? 'גיל *' : tx("Age *")}</label>
                       <input
                         id="lead-age" name="age" inputMode="numeric"
-                        type="number" required={!isSafari} min="16" max="99"
+                        type="number" required={!isSafari} min={minAge} max="99"
                         placeholder="25"
                         value={form.age}
                         onFocus={() => trackFieldFocus('age')}

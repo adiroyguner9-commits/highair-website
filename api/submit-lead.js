@@ -31,6 +31,26 @@ const AIRTABLE_FIELDS = new Set([
   'Attribution', 'Language',
 ]);
 
+/* The exact departure a visitor pressed "details" on (owner, approved 12 Nov 2026; built 14 Nov). The form's
+   month picker can only say the month, so the date and the route of that row arrive beside the fields, in
+   `departure`, and are written by the server: never as a field the body can set. Anything that is not a plain
+   date and a plain event name is dropped. */
+export function chosenDeparture(raw) {
+  const ymd = v => { const s = String(v || '').slice(0, 10); return /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`)) ? s : ''; };
+  const date = ymd(raw?.date);
+  if (!date) return null;
+  const event = /^[A-Za-z0-9_ +]{2,60}$/.test(String(raw?.event || '')) ? String(raw.event).replace(/_/g, ' ').trim() : '';
+  return { date, returnDate: ymd(raw?.returnDate), event };
+}
+const dmy = ymd => `${ymd.slice(8, 10)}.${ymd.slice(5, 7)}.${ymd.slice(0, 4)}`;
+/** "03.01.2027 to 13.01.2027 · Kilimanjaro with Safari" */
+export const departureText = d => `${dmy(d.date)}${d.returnDate ? ` to ${dmy(d.returnDate)}` : ''}${d.event ? ` · ${d.event}` : ''}`;
+/** The line the lead's Activity Log opens with, in English and in the log's own shape ("[14 Nov, 10:30] ..."). */
+export function departureLogLine(d, now = new Date()) {
+  const stamp = now.toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+  return `[${stamp}] Asked about the departure of ${departureText(d)}`;
+}
+
 /* The language of the site the form was sent from (5 Nov 2026): the team
    answers in it. Read from the request's Origin / Referer, never trusted from
    the body: en. / de. / es. → English / German / Spanish, anything else on our
@@ -126,6 +146,8 @@ export default async function handler(req, res) {
 
   /* ── Sanitise all fields (length limits) ── */
   const sanitised = sanitiseFields(rawFields);
+  /* The departure whose "details" button was pressed, if any (see chosenDeparture). */
+  const departure = chosenDeparture(req.body?.departure);
 
   /* ── Honeypot: bots fill hidden fields humans don't see ── */
   if (rawFields['_hp']) {
@@ -246,7 +268,7 @@ export default async function handler(req, res) {
       const stillOpen = rec && OPEN_STAGES.includes(rec.fields?.Stage || 'New Lead');
       if (rec && sameTrip && stillOpen) {
         {
-          const note = `\n---\n[פנייה נוספת ${israelTime.slice(0, 10)}] ${sanitised['Expedition'] || sanitised['Source'] || ''}${sanitised['Experience'] ? ': ' + sanitised['Experience'] : ''}`;
+          const note = `\n---\n[פנייה נוספת ${israelTime.slice(0, 10)}] ${sanitised['Expedition'] || sanitised['Source'] || ''}${sanitised['Experience'] ? ': ' + sanitised['Experience'] : ''}${departure ? ` | יציאה שנבחרה: ${departureText(departure)}` : ''}`;
           const linked = await fetch(`${LEADS_URL}/${rec.id}`, {
             method: 'PATCH', headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ fields: { Experience: ((rec.fields?.Experience || '') + note).slice(0, 100000) } }),
@@ -289,7 +311,9 @@ export default async function handler(req, res) {
 
        NOT part of airtableFields on purpose: that object is built from client
        input, and Stage must never be settable from the request body. */
-    saved = await saveLead(LEADS_URL, TOKEN, { ...airtableFields, Stage: 'New Lead' });
+    /* The departure the visitor chose opens the card's Activity Log, where the agent reads the card's story.
+       Server-written, like Stage: the log is not a field the body can set. */
+    saved = await saveLead(LEADS_URL, TOKEN, { ...airtableFields, Stage: 'New Lead', ...(departure ? { 'Activity Log': departureLogLine(departure) } : {}) });
   } catch (err) {
     saved = { ok: false, why: err.message };
   }
@@ -313,7 +337,8 @@ export default async function handler(req, res) {
     /* A lead from abroad: the whole email in English, the destination in the
        subject, and which site (so the reply goes out in that language). Leads
        from the Hebrew site keep the Hebrew email (owner, 6 Nov 2026). */
-    const mail = FOREIGN_LANGS.includes(language) ? foreignLeadEmail(f, language, utm) : hebrewLeadEmail(f, utm);
+    const chosen = departure ? departureText(departure) : '';
+    const mail = FOREIGN_LANGS.includes(language) ? foreignLeadEmail(f, language, utm, chosen) : hebrewLeadEmail(f, utm, chosen);
 
     try {
       const emailRes = await fetch('https://api.resend.com/emails', {
@@ -397,13 +422,13 @@ export function leadMailSubject(subject, saved) {
   return subject;
 }
 
-export function hebrewLeadEmail(f, utm = {}) {
+export function hebrewLeadEmail(f, utm = {}, chosen = '') {
   const html = emailShell({
       title: 'ליד חדש מהאתר', subtitle: f['Expedition'] ? withFlag(escapeHtml(f['Expedition']), f['Expedition']) : '',
       body: [
         details(shown([
           ['שם מלא', f['Name']], ['טלפון', f['Phone']], ['מייל', f['Email']],
-          ['חודש מועדף', f['Preferred Month']], ['גיל', f['Age']], ['גודל קבוצה', f['Group Size']],
+          ['חודש מועדף', f['Preferred Month']], ['יציאה שנבחרה', chosen], ['גיל', f['Age']], ['גודל קבוצה', f['Group Size']],
           ['ניסיון', f['Experience']], ['מקור', f['Source']],
         ])),
         (utm.source || utm.campaign) ? heading('UTM, מקור המודעה') + details([
@@ -442,7 +467,7 @@ export function heFixedToEn(v) {
 /* The staff email for a lead from the English, German or Spanish site: all in
    English, the destination named in the subject and the header, or "No
    destination given" when the form had none. */
-export function foreignLeadEmail(f, language, utm = {}) {
+export function foreignLeadEmail(f, language, utm = {}, chosen = '') {
   const dest = destEn(f['Expedition']) || 'No destination given';
   const name = f['Name'] || 'New lead';
   const html = emailShell({
@@ -455,7 +480,7 @@ export function foreignLeadEmail(f, language, utm = {}) {
         ['Reply in', language],
         ['Destination', dest],
         ['Full name', f['Name']], ['Phone', f['Phone']], ['Email', f['Email']],
-        ['Preferred month', heFixedToEn(f['Preferred Month'])], ['Age', f['Age']], ['Group size', f['Group Size']],
+        ['Preferred month', heFixedToEn(f['Preferred Month'])], ['Chosen departure', chosen], ['Age', f['Age']], ['Group size', f['Group Size']],
         ['Experience', heFixedToEn(f['Experience'])], ['Source', heFixedToEn(f['Source'])],
       ])),
       (utm.source || utm.campaign) ? heading('UTM (ad source)') + details([
