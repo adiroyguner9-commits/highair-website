@@ -175,10 +175,9 @@ describe('Ethiopia, day 11: the climb to the rock church Abuna Yemata Guh (owner
   });
 });
 
-describe('Ethiopia: day 12 has its stop in Addis Ababa and no meal; day 1 keeps its opening dinner (owner, 14 Nov 2026)', () => {
+describe('Ethiopia: day 12 has its stop in Addis Ababa and no meal; day 1 keeps its opening dinner, day 7 a plain dinner (owner, 14 Nov 2026)', () => {
   const MEAL = { he: /ארוח|סעוד/, en: /dinner|lunch|meal|breakfast/i, de: /essen\b|Mahlzeit|Frühstück/i, es: /\bcena\b|comida|almuerz|desayun/i };
   const STOP = { he: ['שוק מרקאטו', 'טקס קפה אתיופי מסורתי (בונה)'], en: ['Merkato', 'coffee ceremony (buna)'], de: ['Merkato', 'Kaffeezeremonie (Buna)'], es: ['Merkato', 'café etíope (buna)'] };
-  const BRIEFING = { he: 'תדרוך', en: 'briefing', de: 'Einweisung', es: 'sesión informativa' };
   it('day 1: the opening dinner is there, as it always was (the owner decided day 12 only)', () => {
     const EVENING = {
       he: 'בערב ניפגש לארוחת ערב חגיגית לפתיחת הטיול, היכרות עם הצוות והקבוצה, ותדרוך קצר לקראת ההרפתקה שממתינה לנו.',
@@ -188,11 +187,18 @@ describe('Ethiopia: day 12 has its stop in Addis Ababa and no meal; day 1 keeps 
     };
     for (const [l, suffix] of Object.entries(LANGS)) expect(trip('ethiopia')[`itinerary${suffix}`][0].desc.endsWith(EVENING[l]), l).toBe(true);
   });
-  it('day 7 (to the desert) names no dinner, festive or not, and keeps the briefing', () => {
+  it('day 7 (to the desert): a plain dinner and the briefing, the same in all four languages, and not a festive one', () => {
+    /* the programme's day 7 ends with a plain dinner at the hotel; only the Hebrew page said "festive" */
+    const EVENING = {
+      he: 'בערב ניפגש לארוחת ערב ולתדרוך קצר לקראת ימי מדבר הדנקיל שממתינים לנו.',
+      en: 'In the evening we gather for dinner and receive a briefing for the Danakil Desert days ahead.',
+      de: 'Am Abend Abendessen und Einweisung für die Tage in der Danakil-Wüste.',
+      es: 'Por la noche, cena y sesión informativa sobre los días en el desierto de Danakil.',
+    };
     for (const [l, suffix] of Object.entries(LANGS)) {
       const day = trip('ethiopia')[`itinerary${suffix}`][6].desc;
-      expect(day, l).not.toMatch(MEAL[l]);
-      expect(day, l).toContain(BRIEFING[l]);
+      expect(day.endsWith(EVENING[l]), l).toBe(true);
+      expect(day, l).not.toMatch(/חגיגי|celebratory|festive|festlich|de celebración|de bienvenida/i);
     }
   });
   it('day 12 keeps the stop in Addis Ababa, the Merkato market and the coffee ceremony, without a lunch', () => {
@@ -204,7 +210,7 @@ describe('Ethiopia: day 12 has its stop in Addis Ababa and no meal; day 1 keeps 
       }
     }
   });
-  it('the magazine: day 1 with its opening dinner, day 12 with the market and the coffee and no lunch', () => {
+  it('the magazine: day 1 with its opening dinner, day 7 without a meal as before, day 12 with the market and the coffee and no lunch', () => {
     const m = magazine('ethiopia-simien-trek-guide');
     expect(m.he).toContain('"יום 1: טיסה מתל אביב לאדיס אבבה, ארוחת ערב חגיגית לפתיחת המסע ותדרוך עם הצוות."');
     expect(m.enTwin).toContain('"Day 1: flight from Tel Aviv to Addis Ababa, a celebratory opening dinner and a briefing with the team."');
