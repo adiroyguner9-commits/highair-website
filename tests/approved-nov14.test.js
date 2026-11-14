@@ -453,3 +453,21 @@ describe('the error screen speaks the site\'s language, German and Spanish inclu
     expect(src).not.toMatch(/from '[^']*(?:lang\.js|i18n[^']*)'/);
   });
 });
+
+describe('Elbrus place names in English: one spelling each, the app\'s and the magazine\'s (14 Nov 2026)', () => {
+  it('Pastukhov Rocks and Garabashi station, everywhere in the English trip, and no other spelling in src/', () => {
+    const english = Object.entries(trip('elbrus')).filter(([key]) => /En$/.test(key)).flatMap(([, v]) => strings(v)).join('\n');
+    expect(english.match(/Pastukhov/g)).toHaveLength(2);
+    expect(english.match(/Garabashi/g)).toHaveLength(4);
+    expect(english).not.toMatch(/Pastuhov|Gara[- ]Bashi/);
+    expect(trip('elbrus').itineraryEn[3].title).toBe('Transfer to Cheeper Azau, acclimatization to Garabashi (3850m)');
+    expect(trip('elbrus').itineraryEn[4].title).toBe('Acclimatization climb to Pastukhov Rocks + alpine training (4800m)');
+    /* the source files of the site: Hebrew + English, the magazine, the German and Spanish copy */
+    const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(f => f.isDirectory() ? walk(path.join(dir, f.name)) : [path.join(dir, f.name)]);
+    const sources = walk(path.join(process.cwd(), 'src')).filter(f => /\.(?:jsx?|json)$/.test(f));
+    expect(sources.length).toBeGreaterThan(150);
+    expect(sources.filter(f => fs.readFileSync(f, 'utf8').includes('Pastuhov')).map(f => path.relative(process.cwd(), f))).toEqual([]);
+    /* English writes Garabashi; German (Gara-Baschi) and Spanish (Gara-Bashi) each keep their one spelling */
+    for (const f of ['src/data/mockData.js', 'src/data/blogData.js', 'src/data/trips/base.json']) expect(read(f), f).not.toMatch(/Gara[- ]Bashi/);
+  });
+});
