@@ -11,6 +11,11 @@ echo "[pre-push] rule tests…"
 npx --no-install vitest run --reporter=dot || { echo "[pre-push] a rule test failed — push stopped, nothing was deployed"; exit 1; }
 if [ -d ../HighAir-webapp ]; then
   echo "[pre-push] cross-repo copies…"
-  (cd ../HighAir-webapp && npx --no-install vitest run tests/drift.test.js tests/programme-sync.test.js --reporter=dot) \
+  # The copy being pushed is the one checked, also when it is pushed from a worktree.
+  # The day texts (webapp tests/day-texts-sync.test.js) are checked once the webapp has that test.
+  SITE="$(pwd)"
+  CROSS="tests/drift.test.js tests/programme-sync.test.js"
+  [ -f ../HighAir-webapp/tests/day-texts-sync.test.js ] && CROSS="$CROSS tests/day-texts-sync.test.js"
+  (cd ../HighAir-webapp && PROGRAMME_SYNC_SITE="$SITE/src/data/mockData.js" DAY_TEXTS_SITE="$SITE/src/data" npx --no-install vitest run $CROSS --reporter=dot) \
     || { echo "[pre-push] the two repos disagree — push stopped, nothing was deployed"; exit 1; }
 fi
