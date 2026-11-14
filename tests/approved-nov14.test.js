@@ -288,3 +288,25 @@ describe('one English name for the Kilimanjaro trip for observant Jews: "Kiliman
     expect(destEn('קילימנג׳רו לשומרי מסורת')).toBe('Kilimanjaro (Religious)');
   });
 });
+
+describe('Manaslu Circuit: the village Shyala comes after Lho, on day 8 (owner, 14 Nov 2026)', () => {
+  const SHYALA = /Shyala|שיאלה/;
+  it('the trip page: day 7 (Namrung to Lho) does not name it, day 8 (Lho to Samagaon) stops there', () => {
+    for (const [l, suffix] of Object.entries(LANGS)) {
+      const days = trip('manaslu-circuit')[`itinerary${suffix}`];
+      expect(days[6].title, l).toMatch(/^(?:נאמרונג - לו|Namrung - Lho) /);
+      expect(days[7].title, l).toMatch(/^(?:לו - סאמגון|Lho - Samagaon) /);
+      expect(days[6].desc, l).not.toMatch(SHYALA);
+      expect(days[7].desc, l).toMatch(SHYALA);
+      expect(days.filter(d => SHYALA.test(JSON.stringify(d))), l).toHaveLength(1);
+    }
+  });
+  it('the magazine\'s day list: the same order, in every language', () => {
+    for (const [where, text] of Object.entries(magazine('manaslu-circuit-trek-guide'))) {
+      const day = n => text.match(new RegExp(`"(?:יום|Day|Tag|Día) ${n}:[^"]*"`))[0];
+      expect(day(7), where).not.toMatch(SHYALA);
+      expect(day(8), where).toMatch(SHYALA);
+      expect(text.match(/Shyala|שיאלה/g), where).toHaveLength(1);
+    }
+  });
+});
