@@ -114,18 +114,18 @@ One row per query we want to rank for; `GSC` = average position and clicks in th
 
 | Query | Page that should rank | GSC (date) | Next step |
 |-------|-----------------------|------------|-----------|
-| ויזה לטנזניה | /blog/tanzania-visa-guide | 6.7, 0 clicks, 19 impr (15/11) | fix waits for approval: branch seo-fix-tz-visa |
-| ויזה לזנזיבר | /blog/tanzania-visa-guide | 7.8, 0 clicks, 12 impr (15/11) | Zanzibar section in the same fix |
-| ויזה לטנזניה לישראלים | /blog/tanzania-visa-guide | 11.0, 0 clicks, 7 impr (15/11) | same fix as above |
+| ויזה לטנזניה | /blog/tanzania-visa-guide | 6.7, 0 clicks, 19 impr (15/11) | fix live since 08/11 (merged with seo-guides-8nov); watch |
+| ויזה לזנזיבר | /blog/tanzania-visa-guide | 7.8, 0 clicks, 12 impr (15/11) | Zanzibar section live since 08/11; watch |
+| ויזה לטנזניה לישראלים | /blog/tanzania-visa-guide | 11.0, 0 clicks, 7 impr (15/11) | live since 08/11; watch |
 | קלימנגרו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 17.0 (20.8 a week before), 0 clicks, 65 impr (15/11) | most impressions of any generic query; misspelling, add the variant naturally to the guide and the season guide (#7) |
 | טיפוס לקילימנג'רו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 7.5, 1 click, 15 impr (15/11) | guide shows two URLs in GSC (15.8 and 61.0): check which URL variant ranks, then strengthen the opening |
-| טיפוס קילימנג'רו | /expedition/kilimanjaro | 5.6 (4.3 a week before), 0 clicks, 17 impr (15/11) | snippet (title, description) of the trip page |
-| טיפוס על הקילימנג'רו | /expedition/kilimanjaro | 5.8, 0 clicks, 8 impr (15/11) | same snippet fix |
+| טיפוס קילימנג'רו | /expedition/kilimanjaro | 5.6 (4.3 a week before), 0 clicks, 17 impr (15/11) | fix waits for approval: branch seo-fix-kili-trip (title, description) |
+| טיפוס על הקילימנג'רו | /expedition/kilimanjaro | 5.8, 0 clicks, 8 impr (15/11) | same branch seo-fix-kili-trip |
 | קילימנג'רו גובה | /blog/kilimanjaro-climbing-guide | 10.7, 0 clicks, 7 impr (15/11) | answer the height in the guide's first sentence |
-| הר לנין | /blog/lenin-peak-climbing-guide, /expedition/lenin-peak | 7.4 (4.5 a week before), 0 clicks, 46 impr (15/11) | next quick win after the visa fix: guide opening, title and excerpt |
-| אוורסט בייס קמפ | /expedition/everest-base-camp, /blog/everest-base-camp-trek-guide | 7.1, 0 clicks, 34 impr (15/11) | guide opening, title and excerpt |
-| טרק האוורסט בייס קמפ | /blog/everest-base-camp-trek-guide | 7.1, 1 click, 11 impr (08/11) | same fix as above |
-| בייס קמפ אוורסט | /blog/everest-base-camp-trek-guide | 6.0, 0 clicks, 11 impr (08/11) | same fix as above |
+| הר לנין | /blog/lenin-peak-climbing-guide, /expedition/lenin-peak | 7.4 (4.5 a week before), 0 clicks, 46 impr (15/11) | fix waits for approval: branch seo-fix-lenin |
+| אוורסט בייס קמפ | /expedition/everest-base-camp, /blog/everest-base-camp-trek-guide | 7.1, 0 clicks, 34 impr (15/11) | fix waits for approval: branch seo-fix-ebc |
+| טרק האוורסט בייס קמפ | /blog/everest-base-camp-trek-guide | 7.1, 1 click, 11 impr (08/11) | branch seo-fix-ebc |
+| בייס קמפ אוורסט | /blog/everest-base-camp-trek-guide | 6.0, 0 clicks, 11 impr (08/11) | branch seo-fix-ebc |
 | מנסלו | /expedition/manaslu, /blog/manaslu-expedition-guide | 10.8, 0 clicks, 25 impr (15/11) | strengthen the guide's opening |
 | אנאפורנה טרק | /blog/annapurna-circuit-trek-guide | 19.1 (15.0 a week before), 0 clicks, 9 impr (15/11) | falling; guide opening should use "טרק אנאפורנה" |
 | סובב אנאפורנה | /blog/annapurna-circuit-trek-guide | 6.5, 0 clicks, 13 impr (08/11) | watch |
