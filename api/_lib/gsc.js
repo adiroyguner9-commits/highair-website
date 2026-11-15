@@ -91,18 +91,59 @@ export function pctChange(now, before) {
 /* Position: lower is better, so a move from 9.4 to 7.1 is an improvement. */
 export const fmtPos = p => (p == null ? '-' : p.toFixed(1));
 
-/* A page URL shown as its path, readable in Hebrew. */
-export function pagePath(url) {
+/* A page URL shown as its path, readable in Hebrew. The domain property also
+   holds the foreign sites (en., de., es., indexable since 5 Nov 2026), whose
+   paths are the same as the Hebrew ones, so their rows carry the host label:
+   "en:/blog/kilimanjaro-climbing-guide". The Hebrew site (www) shows the path only. */
+export function siteOf(url) {
   try {
-    const path = decodeURIComponent(new URL(url).pathname);
-    return path || '/';
+    const sub = new URL(url).hostname.split('.')[0];
+    return ['en', 'de', 'es'].includes(sub) ? sub : 'he';
+  } catch {
+    return 'he';
+  }
+}
+export function pathOf(url) {
+  try {
+    return decodeURIComponent(new URL(url).pathname) || '/';
   } catch {
     return url;
   }
 }
+export function pagePath(url) {
+  const site = siteOf(url);
+  const path = pathOf(url);
+  return site === 'he' ? path : `${site}:${path}`;
+}
+
+/* Average position of the Hebrew site alone, weighted by impressions, from the
+   page rows. The property-wide average mixes in the foreign sites. */
+export function sitePosition(pageRows, site = 'he') {
+  let impr = 0, sum = 0;
+  for (const r of pageRows || []) {
+    const key = r.key ?? r.keys?.[0];
+    if (siteOf(key) !== site || r.position == null || !r.impressions) continue;
+    impr += r.impressions;
+    sum += r.position * r.impressions;
+  }
+  return impr ? sum / impr : null;
+}
+
+/* For each query, the page that got most of its impressions, from rows with the
+   dimensions ['query', 'page']. */
+export function topPageByQuery(rows) {
+  const best = new Map();
+  for (const r of rows || []) {
+    const [q, page] = r.keys || [];
+    if (!q || !page) continue;
+    const cur = best.get(q);
+    if (!cur || (r.impressions || 0) > cur.impressions) best.set(q, { page, impressions: r.impressions || 0 });
+  }
+  return new Map([...best].map(([q, v]) => [q, v.page]));
+}
 
 /* Brand searches: they show people who already know us, not new demand. */
-const BRAND = /high\s*air|highair|היי\s*אייר|הייר/i;
+const BRAND = /high\s*air|highair|air\s*high|היי\s*אייר|הייר/i;
 export const isBrand = q => BRAND.test(q || '');
 
 /* Near the top but not there yet: non-brand queries at average position 4 to 20,

@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import { describe, it, expect } from 'vitest';
 import {
   opportunities, nonBrandClicks, isBrand,
-  reportRanges, buildAssertion, parseAccount, totals, withPrevious, pctChange, fmtPos, pagePath, SCOPE, TOKEN_URL,
+  reportRanges, buildAssertion, parseAccount, totals, withPrevious, pctChange, fmtPos, pagePath, pathOf, siteOf, sitePosition, topPageByQuery, SCOPE, TOKEN_URL,
 } from '../api/_lib/gsc.js';
 
 describe('reportRanges', () => {
@@ -65,6 +65,29 @@ describe('joins and formatting', () => {
     expect(pagePath('https://www.highair-expeditions.com/blog/kilimanjaro-climb-cost-guide')).toBe('/blog/kilimanjaro-climb-cost-guide');
     expect(pagePath('https://www.highair-expeditions.com/')).toBe('/');
   });
+  it('labels the foreign sites, whose paths repeat the Hebrew ones (15 Nov 2026)', () => {
+    expect(pagePath('https://en.highair-expeditions.com/blog/kilimanjaro-climbing-guide')).toBe('en:/blog/kilimanjaro-climbing-guide');
+    expect(pagePath('https://de.highair-expeditions.com/')).toBe('de:/');
+    expect(siteOf('https://highair-expeditions.com/x')).toBe('he');
+    expect(pathOf('https://es.highair-expeditions.com/blog/a')).toBe('/blog/a');
+  });
+  it('averages the Hebrew site position by impressions, without the foreign sites', () => {
+    const rows = [
+      { key: 'https://www.highair-expeditions.com/', impressions: 100, position: 5 },
+      { key: 'https://www.highair-expeditions.com/blog/a', impressions: 300, position: 9 },
+      { key: 'https://en.highair-expeditions.com/blog/a', impressions: 400, position: 60 },
+    ];
+    expect(sitePosition(rows)).toBe(8);
+    expect(sitePosition(rows, 'en')).toBe(60);
+    expect(sitePosition([])).toBe(null);
+  });
+  it('names the page that got most of a query\'s impressions', () => {
+    const top = topPageByQuery([
+      { keys: ['הר לנין', 'https://www.highair-expeditions.com/expedition/lenin-peak'], impressions: 10 },
+      { keys: ['הר לנין', 'https://www.highair-expeditions.com/blog/lenin-peak-climbing-guide'], impressions: 36 },
+    ]);
+    expect(top.get('הר לנין')).toBe('https://www.highair-expeditions.com/blog/lenin-peak-climbing-guide');
+  });
 });
 
 describe('opportunities', () => {
@@ -80,6 +103,7 @@ describe('opportunities', () => {
   });
   it('counts clicks that did not come from the brand name', () => {
     expect(isBrand('HighAir Expeditions')).toBe(true);
+    expect(isBrand('air high')).toBe(true);
     expect(nonBrandClicks(rows)).toBe(1);
   });
 });
