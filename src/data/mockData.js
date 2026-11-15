@@ -977,7 +977,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 12, title: 'סאמדו - דארמסלה (4460 מ׳)', desc: 'נתחיל את הטרק מסאמדו, כפר שקט בו נזכה לצפות בתרבות המושפעת מהמורשת הטיבטית. השביל מטפס בהדרגה דרך נופים מגוונים, נחצה נחל קרחוני בגובה רב, ואז נעבור אל נוף דרמטי המאופיין במדרונות סלעיים וצחיחים. נגיע אל דארמסלה עד אמצע היום, ונקדיש את אחר הצהריים למנוחה מלאה לצורך התאקלמות אופטימלית לקראת יום השיא של המחר.', distance: '8-10 ק״מ', duration: 'כ-4-5 שעות', elevationGain: '600 מ׳', accommodation: 'בקתה בדארמסלה' },
       { day: 13, title: 'דארמסלה - מעבר לרקה (5106 מ׳) - בימטאנג (3590 מ׳)', desc: 'זהו יום השיא של הטרק! נתחיל מוקדם מאוד כדי להבטיח תנאי טרק בטוחים לחציית מעבר ההרים לרקה, אחד המעברים הגבוהים והמפורסמים בנפאל. הטיפוס אל הפס מתגמל באופן בלתי רגיל עם נופים פנורמיים על פסגת מנסלו ופסגות האזור. בפס נחגוג את ההישג בגובה 5106 מ׳ לצד דגלי תפילה מתנופפים. הירידה אל בימטאנג דורשת ניווט זהיר בשטח תלול ולעיתים קרחוני, ובהגעה לעמק השליו המוקף פסגות  -  נוח ונתאושש.', distance: '18-20 ק״מ', duration: 'כ-8-10 שעות', elevationGain: '646 מ׳', elevationLoss: '1516 מ׳', accommodation: 'בקתה בבימטאנג' },
       { day: 14, title: 'בימטאנג - דראפני (1860 מ׳)', desc: 'נתחיל את הירידה מבימטאנג, נחצה גשר תלוי מעל נהר פונקאר ונעבור דרך יערות עבותים ומרהיבים המלאים בעצי רודודנדרון. נעצור לארוחת צהריים בכפר קארצ׳ה על גדות נהר דוד קולה. נמשיך לכפר הציורי גואה, העמק מתרחב ומגלה שדות חקלאיים פוריים וטראסות. הגעה לדראפני מסמנת את סיומו הרשמי של טרק סובב מנסלו.', distance: '18-20 ק״מ', duration: 'כ-6-8 שעות', elevationLoss: '1730 מ׳', accommodation: 'בקתה בדראפני' },
-      { day: 15, title: 'נסיעה בג׳יפ מדראפני לקטמנדו', desc: 'לאחר ארוחת בוקר מוקדמת, נסיעה בג׳יפ של כ-5 עד 6 שעות אל בסיסהר, דרך יערות ירוקים, שדות מדורגים וכפרים מקסימים - נקודת מבט אחרונה על החיים הכפריים בהימלאיה. מבסיסהר, נמשיך כ-6-7 שעות נוספות חזרה אל קטמנדו. בערב, ארוחת פרידה חגיגית במסעדה בקטמנדו.', accommodation: 'Hotel Barahi Kathmandu', travelTime: 'כ-11-13 שעות נסיעה' },
+      { day: 15, title: 'נסיעה בג׳יפ מדראפני לקטמנדו', desc: 'לאחר ארוחת בוקר מוקדמת, נסיעה בג׳יפ של כ-3 שעות אל בסיסהר, דרך יערות ירוקים, שדות מדורגים וכפרים מקסימים - נקודת מבט אחרונה על החיים הכפריים בהימלאיה. מבסיסהר, נמשיך כ-6-7 שעות נוספות חזרה אל קטמנדו. בערב, ארוחת פרידה חגיגית במסעדה בקטמנדו.', accommodation: 'Hotel Barahi Kathmandu', travelTime: 'כ-9-10 שעות נסיעה' },
       { day: 16, title: 'טיסה חזרה לישראל!', desc: 'מתחילים את היום עם ארוחת בוקר במלון, לאחר מכן אורזים את המזוודות ועושים צ׳ק אאוט מהמלון. עולים להסעה לשדה התעופה בקטמנדו לטיסת החזרה הביתה לישראל. במהלך הטיסה תוכלו לשתף זכרונות וחוויות מהמסע הנהדר, מלאים בתמונות וסיפורים לספר.', travelTime: 'כ-12 שעות טיסה' },
     ],
     itineraryEn: [
@@ -995,7 +995,7 @@ Join us for a once-in-a-lifetime adventure in the Himalayas and take part in the
       { day: 12, title: 'Samdo - Dharamsala (4460m)', desc: 'We set off from Samdo, a quiet village reflecting its Tibetan cultural heritage. The trail climbs gradually through varied terrain, crossing a glacial stream at high altitude before entering a dramatic landscape of rocky, arid slopes typical of the high Himalayas. We aim to reach Dharamsala by midday, leaving the afternoon for full rest and optimal acclimatization ahead of tomorrow\'s crossing of the Larkya La pass.', distance: '8 to 10 km', duration: '~4 to 5 hours', elevationGain: '600m', accommodation: 'Teahouse in Dharamsala' },
       { day: 13, title: 'Dharamsala - Larkya La Pass (5106m) - Bimtang (3590m)', desc: 'The highlight of the trek! We start very early to ensure safe conditions for crossing Larkya La Pass, one of the highest and most renowned mountain passes in Nepal. The climb rewards us with extraordinary panoramic views of Manaslu and the surrounding peaks. At the pass (5106 m) we celebrate the achievement beside fluttering Buddhist prayer flags. The descent to Bimtang requires careful navigation on steep and sometimes icy terrain; upon reaching the peaceful valley surrounded by towering peaks we rest and recover.', distance: '18 to 20 km', duration: '~8 to 10 hours', elevationGain: '646m', elevationLoss: '1516m', accommodation: 'Teahouse in Bimtang' },
       { day: 14, title: 'Bimtang - Dharapani (1860m)', desc: 'We begin the descent from Bimtang, cross a suspension bridge over the Ponkar River and pass through dense forests of rhododendron (spectacular in bloom during spring). We stop for lunch at the village of Karche on the banks of the Dudh Khola River. Continuing to the picturesque village of Goa, the valley broadens to reveal fertile farmland and terraces. Reaching Dharapani marks the official end of the Manaslu Circuit Trek.', distance: '18 to 20 km', duration: '~6 to 8 hours', elevationLoss: '1730m', accommodation: 'Teahouse in Dharapani' },
-      { day: 15, title: 'Jeep drive from Dharapani to Kathmandu', desc: 'After an early breakfast we take a jeep for roughly 5 to 6 hours to Besisahar, passing through green forests, terraced fields and charming villages  -  a final glimpse of Himalayan rural life. From Besisahar we continue another 6 to 7 hours to Kathmandu. In the evening we gather for a festive farewell dinner at a restaurant in Kathmandu.', accommodation: 'Hotel Barahi Kathmandu', travelTime: '~11 to 13 hours drive' },
+      { day: 15, title: 'Jeep drive from Dharapani to Kathmandu', desc: 'After an early breakfast we take a jeep for roughly 3 hours to Besisahar, passing through green forests, terraced fields and charming villages  -  a final glimpse of Himalayan rural life. From Besisahar we continue another 6 to 7 hours to Kathmandu. In the evening we gather for a festive farewell dinner at a restaurant in Kathmandu.', accommodation: 'Hotel Barahi Kathmandu', travelTime: '~9 to 10 hours drive' },
       { day: 16, title: 'Flight back home!', desc: 'After a final breakfast at the hotel we pack up, check out and transfer to Kathmandu airport for our flight home. On board we swap stories and memories from an extraordinary journey  -  full of photos and tales to share for years to come.', travelTime: '~12 hours flying' },
     ],
   },
@@ -1732,7 +1732,7 @@ Small groups of up to 15 climbers from around the world, guided in English. Part
     img: '/images/cards/kilimanjaroKosher.webp',
     ogImage: '/images/og/kilimanjaro-kosher.jpg',
     seoTitle:       'HighAir Expeditions | קילימנג׳רו לשומרי מסורת',
-    seoTitleEn:     'Kilimanjaro (Religious): Kosher Climb | HighAir Expeditions',
+    seoTitleEn:     'Kilimanjaro Kosher: Glatt Kosher Climb | HighAir Expeditions',
     seoDescription: 'טיפוס לקילימנג׳רו - הפסגה הגבוהה באפריקה, 5895 מ׳ - לשומרי מסורת. 10 ימים כולל שבת בארושה עם חב״ד, אוכל כשר מהדרין לאורך כל הטיפוס. שיעור הצלחה 94%.',
     seoDescriptionEn: "Climb Kilimanjaro (5895m) on a fully glatt kosher expedition. 10 days, Shabbat in Arusha, kosher food throughout. 94% success rate. Optional kosher safari.",
     airtableEvents: ['Kilimanjaro_Kosher', 'Kilimanjaro_Kosher_with_Safari'],
@@ -1747,11 +1747,11 @@ Small groups of up to 15 climbers from around the world, guided in English. Part
 
 הצטרפו אלינו למסע המדהים לגג אפריקה וקחו חלק משמעותי במאבק למלחמה בסרטן!`,
     highlights: ['פסגת אוהורו 5895מ׳', 'תפילות וסעודות שבת עם חב״ד ארושה', 'ימי הטיפוס בין שתי שבתות', 'אוכל כשר מבושל טרי על ההר'],
-    /* One English name for this trip, the app's (owner, 14 Nov 2026). `name` above stays
-       "Kilimanjaro Kosher": nothing shows it, it is the name api/_lib/dest.js stores the trip
-       under, and it lets the site search find the trip by the word kosher. The kitchen and
-       the food are still described as kosher, which they are. German and Spanish keep their names. */
-    nameEn: 'Kilimanjaro (Religious)',
+    /* The English name customers see: "Kilimanjaro Kosher" (owner, 15 Nov 2026, replacing the
+       14 Nov "Kilimanjaro (Religious)"), as German "Koscher" and Spanish "Kosher". The Hebrew name
+       stays. The Lead Center's own value "Kilimanjaro (Religious)" and api/_lib/dest.js are staff
+       keys and do not change. */
+    nameEn: 'Kilimanjaro Kosher',
     descEn: `A fully kosher Kilimanjaro expedition - and we've been running it for years.
 
 Everything about this trek is identical to our standard Kilimanjaro expedition in terms of route, guides, and success rate. The difference: every meal is freshly prepared kosher, the group schedule is adapted to respect Shabbat and Jewish holidays, and you're surrounded by a Jewish group that shares your values.
@@ -3342,7 +3342,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
       { day: 1,  title: 'ברוכים הבאים לקטמנדו!', desc: 'אחרי קבלת החדרים נחים מהטיסה, ובערב נפגשים לארוחת ערב חגיגית של קבלת פנים, ומכירים את חברי הקבוצה.' },
       { day: 2,  title: 'יום התארגנות ומעבר על ציוד בקטמנדו', desc: '' },
       { day: 3,  title: 'קטמנדו - בסיסהר (760 מ׳)', desc: '', travelTime: 'כ-6-7 שעות נסיעה בג׳יפ' },
-      { day: 4,  title: 'בסיסהר - דראפני (1860 מ׳)', desc: '', travelTime: 'כ-5-6 שעות נסיעה בג׳יפ' },
+      { day: 4,  title: 'בסיסהר - דראפני (1860 מ׳)', desc: '', travelTime: 'כ-3 שעות נסיעה בג׳יפ' },
       { day: 5,  title: 'דראפני - גואה (2530 מ׳)', desc: '' },
       { day: 6,  title: 'גואה - בימטאנג (3590 מ׳)', desc: '' },
       { day: 7,  title: 'יום התאקלמות בבימטאנג (3590 מ׳)', desc: '' },
@@ -3362,7 +3362,7 @@ Join us on the journey to your first mountain above 8000 meters, and take a mean
       { day: 1,  title: 'Welcome to Kathmandu!', desc: 'After check-in we rest from the flight, and in the evening we meet for a festive welcome dinner and get to know the group.' },
       { day: 2,  title: 'Organization day & gear check in Kathmandu', desc: '' },
       { day: 3,  title: 'Kathmandu - Besisahar (760m)', desc: '', travelTime: '~6 to 7 hours drive by jeep' },
-      { day: 4,  title: 'Besisahar - Dharapani (1860m)', desc: '', travelTime: '~5 to 6 hours drive by jeep' },
+      { day: 4,  title: 'Besisahar - Dharapani (1860m)', desc: '', travelTime: '~3 hours drive by jeep' },
       { day: 5,  title: 'Dharapani - Gowa (2530m)', desc: '' },
       { day: 6,  title: 'Gowa - Bimtang (3590m)', desc: '' },
       { day: 7,  title: 'Acclimatization day in Bimtang (3590m)', desc: '' },
