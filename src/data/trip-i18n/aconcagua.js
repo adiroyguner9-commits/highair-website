@@ -9,9 +9,9 @@ export default {
   "highlights": ["Aconcagua 6962 m", "Dach Amerikas", "Seven Summits", "Wildnis der Anden"],
   "seasons": ["Dezember bis Februar"],
   "importantToNote": [
-   "Der Aconcagua (6962 m) ist der höchste Berg außerhalb Asiens: Mindestens drei Wochen am Berg mit Akklimatisierungsrotationen sind nötig.",
+   "Der Aconcagua (6962 m) ist der höchste Berg außerhalb Asiens: Die Expedition dauert 20 Tage, davon 17 am Berg, mit Akklimatisierungsrotationen.",
    "Die Genehmigung für den Provinzpark Aconcagua ist nicht enthalten: rund 1000 bis 1300 $ pro Person je nach Saison, wir helfen bei der Beschaffung.",
-   "Übernachtet wird am Berg selbst in Zelten auf 5500 m, 6000 m und 6800 m. Vollständige warme Campingausrüstung und ein Schlafsack bis −25 °C sind Pflicht.",
+   "Übernachtet wird am Berg selbst in Zelten, in den Lagern auf 5050 m, 5550 m und 5970 m. Vollständige warme Campingausrüstung und ein Schlafsack bis −25 °C sind Pflicht.",
    "Die Visumregeln hängen von Ihrem Reisepass ab. Viele Nationalitäten reisen ohne Visum nach Argentinien ein; prüfen Sie das vor der Reise.",
    "Ein erweitertes ärztliches Attest ist erforderlich: EKG, Blutwerte und ärztliche Freigabe für eine Besteigung bis 7000 m.",
    "Erfahrung in großer Höhe (mindestens 5000 m) ist Voraussetzung: Der Aconcagua ist nichts für Einsteiger.",
@@ -42,7 +42,7 @@ export default {
    {"title": "Transfer zum Flughafen und Heimflug", "desc": ""}
   ],
   "faq": [
-   {"q": "Wie schwer ist der Aconcagua im Vergleich zum Kilimandscharo?", "a": "Deutlich schwerer. Er ist der höchste Berg außerhalb Asiens (6962 m), die Expedition dauert 20 Tage, die Höhe ist größer, die Kälte schärfer, und bis zum Lager 2 trägt man schwere Ausrüstung. Erfahrung in mindestens 5000 m Höhe, etwa am Kilimandscharo oder auf dem Everest-Base-Camp-Trek, ist Voraussetzung."},
+   {"q": "Wie schwer ist der Aconcagua im Vergleich zum Kilimandscharo?", "a": "Deutlich schwerer. Er ist der höchste Berg außerhalb Asiens (6962 m), die Expedition dauert 20 Tage, die Höhe ist größer, die Kälte schärfer, und in den Hochlagern trägt ein persönlicher Träger die schwere Ausrüstung (bis 20 kg pro Person). Erfahrung in mindestens 5000 m Höhe, etwa am Kilimandscharo oder auf dem Everest-Base-Camp-Trek, ist Voraussetzung."},
    {"q": "Was kostet die Genehmigung für den Aconcagua?", "a": "Die Genehmigung für den Provinzpark Aconcagua kostet je nach Saison und Route rund 1000 bis 1300 $ pro Person. Sie ist nicht im Preis enthalten und wird direkt an die Parkverwaltung gezahlt; wir begleiten Sie beim Kauf und allen nötigen Formalitäten."},
    {"q": "Brauche ich technische Klettererfahrung für den Aconcagua?", "a": "Nein. Die Normalroute, die wir gehen, ist eine Gehroute und keine technische Kletterei: keine Seile, keine Steigeisen (außer bei Schnee). Die große Höhe und extreme Kälte verlangen aber Höhenerfahrung und hochwertige warme Ausrüstung."},
    {"q": "Wann ist die Saison am Aconcagua?", "a": "Die Saison reicht von Dezember bis Februar, dem Sommer der Südhalbkugel, wenn der Gipfel unter den sichersten Bedingungen bestiegen werden kann. Außerhalb dieser Zeit ist der Berg offiziell geschlossen. Wir führen eine Expedition pro Jahr durch, im Januar, mitten in der Saison."},
@@ -58,9 +58,9 @@ export default {
   "highlights": ["Aconcagua 6962 m", "Techo de América", "Siete Cumbres", "Naturaleza andina"],
   "seasons": ["diciembre a febrero"],
   "importantToNote": [
-   "El Aconcagua (6962 m) es la montaña más alta fuera de Asia: hacen falta al menos tres semanas en la montaña con rotaciones de aclimatación.",
+   "El Aconcagua (6962 m) es la montaña más alta fuera de Asia: la expedición dura 20 días, 17 de ellos en la montaña, con rotaciones de aclimatación.",
    "El permiso del Parque Provincial Aconcagua no está incluido: entre 1000 y 1300 $ por persona según la temporada, y te ayudamos a tramitarlo.",
-   "Se acampa en la propia montaña, durmiendo en tiendas a 5500 m, 6000 m y 6800 m. Es obligatorio llevar equipo de acampada de abrigo completo y un saco de dormir de hasta −25 °C.",
+   "Se acampa en la propia montaña, durmiendo en tiendas en los campos de 5050 m, 5550 m y 5970 m. Es obligatorio llevar equipo de acampada de abrigo completo y un saco de dormir de hasta −25 °C.",
    "Las normas de visado dependen de tu pasaporte. Muchas nacionalidades entran en Argentina sin visado; compruébalo antes de viajar.",
    "Se requiere un certificado médico ampliado: electrocardiograma, análisis de sangre y autorización médica para subir hasta 7000 m.",
    "Se requiere experiencia previa en altitud (mínimo 5000 m): el Aconcagua no es para principiantes.",
@@ -91,7 +91,7 @@ export default {
    {"title": "Traslado al aeropuerto y vuelo de regreso", "desc": ""}
   ],
   "faq": [
-   {"q": "¿Qué dificultad tiene el Aconcagua comparado con el Kilimanjaro?", "a": "Bastante más. Es la montaña más alta fuera de Asia (6962 m) y la expedición dura 20 días: más altitud, frío más intenso y equipo pesado que se carga hasta el Campo 2. Se requiere experiencia previa a 5000 m como mínimo, por ejemplo en el Kilimanjaro o en el trek al campo base del Everest."},
+   {"q": "¿Qué dificultad tiene el Aconcagua comparado con el Kilimanjaro?", "a": "Bastante más. Es la montaña más alta fuera de Asia (6962 m) y la expedición dura 20 días: más altitud y frío más intenso, y en los campos de altura un porteador personal lleva el equipo pesado (hasta 20 kg por persona). Se requiere experiencia previa a 5000 m como mínimo, por ejemplo en el Kilimanjaro o en el trek al campo base del Everest."},
    {"q": "¿Cuánto cuesta el permiso del Aconcagua?", "a": "El permiso del Parque Provincial Aconcagua cuesta entre 1000 y 1300 $ por persona, según la temporada y la ruta. No está incluido en el precio y se paga directamente al parque; te acompañamos en la compra y en todos los trámites."},
    {"q": "¿Necesito experiencia de escalada técnica para el Aconcagua?", "a": "No. La Ruta Normal, la que hacemos, es una ruta a pie y no una escalada técnica: sin cuerdas ni crampones (salvo si nieva). Aun así, la gran altitud y el frío extremo exigen experiencia previa en altitud y buen equipo de abrigo."},
    {"q": "¿Cuál es la temporada del Aconcagua?", "a": "La temporada va de diciembre a febrero, el verano del hemisferio sur, cuando la cumbre se puede subir en las condiciones más seguras. Fuera de ese periodo la montaña está oficialmente cerrada. Hacemos una expedición al año, en enero, en plena temporada."},

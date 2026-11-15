@@ -45,13 +45,13 @@
   {
    "type": "list",
    "items": [
-    "Tag 1: Landung in Tirana und etwa zwei Stunden Fahrt nach Shkodra, ein Abendspaziergang über die Hauptstraße der Stadt und ein Eröffnungsabendessen zum Kennenlernen von Team und Gruppe.",
+    "Tag 1: Landung in Tirana, etwa zwei Stunden Fahrt nach Shkodra und ein Abendspaziergang über die Hauptstraße der Stadt.",
     "Tag 2: Fahrt zum Komani-See und Fährfahrt zwischen Schluchten und Felswänden, ein traditionelles Mittagessen in einem örtlichen Städtchen und vom Dorf Dragobia eine Wanderung am Fluss Valbona entlang ins Dorf Valbona (927 m). 7 km, 3 bis 4 Stunden.",
     "Tag 3: Aufstieg in steilen Serpentinen zum Prosllopi-Pass (etwa 2.030 m), Grenzübertritt nach Montenegro, Mittagessen auf der Buri-Wiese und allmählicher Abstieg durch den Wald nach Çerem (1.150 m). 13 bis 14 km, 7 bis 8 Stunden.",
     "Tag 4: allmählicher Aufstieg zur Grenze Montenegros, durch die Hirtensiedlung Balqin und das Gashi-Tal nach Dobërdol (1.800 m), einem abgelegenen Hirtendorf, das nur im Sommer bewohnt ist. 16 bis 17 km, 7 bis 8 Stunden.",
     "Tag 5: ein Pass an der Grenze zwischen Albanien und Kosovo, Aufstieg zum Gjeravica (2.656 m) und Abstieg nach Gacafar (1.840 m), nahe dem Dreiländerpunkt. 16 bis 17 km, 7 bis 8 Stunden.",
     "Tag 6: der Dreiländergipfel (2.366 m), Abstieg über den Grat zwischen Kosovo und Montenegro, der Hrid-See und das Dorf Babino Polje in Montenegro (1.550 m). 16 bis 17 km, 7 bis 8 Stunden.",
-    "Tag 7: kurze Fahrt ins Grbaja-Tal, Aufstieg durch den Wald zum Volušnica und von dort über einen schmalen Grat zum Taljanka (2.056 m). Abstieg ins Tal und Fahrt ins Dorf Vusanje (953 m). 20 bis 22 km, 9 bis 10 Stunden.",
+    "Tag 7: Wanderung von Babino Polje über Almwiesen hinauf zum Gipfel des Taljanka (2.056 m), mit Blick über die Gipfel des Prokletije, und langer Abstieg ins Dorf Vusanje (953 m). 20 bis 22 km, 9 bis 10 Stunden.",
     "Tag 8: ein langer Tag im Prokletije-Schutzgebiet, Grenzübertritt von Montenegro nach Albanien und Abstieg ins Dorf Theth (750 m) für die letzte Nacht in den Bergen. 17 bis 18 km, 7 bis 8 Stunden.",
     "Tag 9: kurze Wanderung zum Grunas-Wasserfall, Fahrt zum Blauen Auge, einem quellgespeisten Naturbecken, und zurück nach Shkodra. 6 bis 7 km, 3 bis 4 Stunden.",
     "Tag 10: Transfer zum Flughafen Tirana und Heimflug."
@@ -59,7 +59,7 @@
   },
   {
    "type": "text",
-   "value": "Volle Gehtage dauern meist 7 bis 8 Stunden. Der längste ist Tag 7: 20 bis 22 km und 9 bis 10 Stunden, mit zwei Gipfeln und etwa 1.100 Höhenmetern Abstieg. Der größte Anstieg liegt an Tag 3, etwa 1.100 Höhenmeter von Valbona zum Prosllopi-Pass. Tag 2 und 9 sind kürzer und verbinden Gehen mit Fahren."
+   "value": "Volle Gehtage dauern meist 7 bis 8 Stunden. Der längste ist Tag 7: 20 bis 22 km und 9 bis 10 Stunden, mit einem Gipfel, dem Taljanka, und etwa 1.100 Höhenmetern Abstieg. Der größte Anstieg liegt an Tag 3, etwa 1.100 Höhenmeter von Valbona zum Prosllopi-Pass. Tag 2 und 9 sind kürzer und verbinden Gehen mit Fahren."
   },
   {
    "type": "image",
@@ -145,11 +145,11 @@
   },
   {
    "type": "text",
-   "value": "Vor der Abreise erhalten Sie eine persönliche Ausrüstungscheckliste und eine Online-Ausrüstungsberatung, und die Gruppe trifft den Führer in einem Online-Vorbereitungsgespräch. Die beste Vorbereitung sind lange Wanderungen mit Auf- und Abstiegen in den Monaten vor dem Trekking, damit der zweite und dritte Tag hintereinander nicht Ihre ersten sind."
+   "value": "Vor der Abreise erhalten Sie eine persönliche Ausrüstungscheckliste und eine Online-Ausrüstungsberatung, und Sie lernen Ihre Gruppe in einem Online-Vorbereitungsgespräch kennen. Die beste Vorbereitung sind lange Wanderungen mit Auf- und Abstiegen in den Monaten vor dem Trekking, damit der zweite und dritte Tag hintereinander nicht Ihre ersten sind."
   },
   {
    "type": "text",
-   "value": "Gut zu wissen: Geführt wird das Trekking von professionellen einheimischen Führern, die Englisch sprechen und lange Erfahrung mit Gruppen in den Bergen haben. Grundkenntnisse in Englisch, genug, um Anweisungen unterwegs zu folgen, sind hilfreich. Jeder Trekker muss den Anweisungen des Teams folgen, und die Route kann sich wegen des Wetters oder nach Einschätzung der Führer ändern. Die Gruppe hat Satellitenkommunikation und einen Notfall-Evakuierungsplan, und in den Bergen geht wie immer Sicherheit vor dem Ziel."
+   "value": "Gut zu wissen: Geführt wird das Trekking von professionellen einheimischen Führern, die Englisch sprechen und lange Erfahrung mit Gruppen in den Bergen haben. Grundkenntnisse in Englisch, genug, um Anweisungen unterwegs zu folgen, sind hilfreich. Jeder Trekker muss den Anweisungen des Teams folgen, und die Route kann sich wegen des Wetters oder nach Einschätzung der Führer ändern. Die Gruppe hat einen Notfall-Evakuierungsplan, und die Familien zu Hause erhalten während des Trekkings Updates per WhatsApp. In den Bergen geht wie immer Sicherheit vor dem Ziel."
   },
   {
    "type": "image",
@@ -175,7 +175,7 @@
   },
   {
    "type": "text",
-   "value": "Das Trekking Peaks of the Balkans kostet 1.750 Euro pro Person. Enthalten sind Flughafentransfers zum Hotel in Shkodra und zurück, interne Transfers zum Start der Route und zurück, 2 Nächte in einem 3-Sterne-Hotel in Shkodra mit Frühstück, Übernachtung in Gästehäusern und Hütten in Mehrbettzimmern während des ganzen Trekkings, drei volle Mahlzeiten am Tag während des ganzen Trekkings, professionelle einheimische englischsprachige Guides, Gepäcktransport zwischen den Unterkünften während des ganzen Trekkings, eine Bootsfahrt auf dem Komani-See, alle Genehmigungen für das Trekking, Live-Updates per WhatsApp für Angehörige während des Trekkings, ein persönlicher Bereich in der HighAir-App, eine ausführliche Ausrüstungsliste und ein Trainingsplan für das Trekking, eine Online-Ausrüstungsberatung, ein Online-Vorbereitungsgespräch mit Ihrer Gruppe und dem Guide vor der Abreise, Unterstützung bei Fragen zu Flug und Reiseversicherung vor der Abreise, ein Geschenkset mit Kappe und Funktionsshirt sowie eine bedeutende Spende für den Kampf gegen Krebs."
+   "value": "Das Trekking Peaks of the Balkans kostet 1.750 Euro pro Person. Enthalten sind Flughafentransfers zum Hotel in Shkodra und zurück, interne Transfers zum Start der Route und zurück, 2 Nächte in einem 3-Sterne-Hotel in Shkodra mit Frühstück, Übernachtung in Gästehäusern und Hütten in Mehrbettzimmern während des ganzen Trekkings, drei volle Mahlzeiten am Tag während des ganzen Trekkings, professionelle einheimische englischsprachige Guides, Gepäcktransport zwischen den Unterkünften während des ganzen Trekkings, eine Bootsfahrt auf dem Komani-See, alle Genehmigungen für das Trekking, Live-Updates per WhatsApp für Angehörige während des Trekkings, ein persönlicher Bereich in der HighAir-App, eine ausführliche Ausrüstungsliste und ein Trainingsplan für das Trekking, eine Online-Ausrüstungsberatung, ein Online-Vorbereitungsgespräch mit Ihrer Gruppe vor der Abreise, Unterstützung bei Fragen zu Flug und Reiseversicherung vor der Abreise, ein Geschenkset mit Kappe und Funktionsshirt sowie eine bedeutende Spende für den Kampf gegen Krebs."
   },
   {
    "type": "text",

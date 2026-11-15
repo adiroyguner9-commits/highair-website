@@ -45,13 +45,13 @@
   {
    "type": "list",
    "items": [
-    "Día 1: aterrizaje en Tirana y unas dos horas de viaje a Shkodra, paseo vespertino por la calle principal de la ciudad y cena de bienvenida para conocer al equipo y al grupo.",
+    "Día 1: aterrizaje en Tirana, unas dos horas de viaje a Shkodra y paseo vespertino por la calle principal de la ciudad.",
     "Día 2: viaje al lago Komani y travesía en ferry entre gargantas y acantilados, almuerzo tradicional en un pueblo local y, desde el pueblo de Dragobia, caminata junto al río Valbona hasta el pueblo de Valbona (927 m). 7 km, de 3 a 4 horas.",
     "Día 3: subida en zigzag empinado al paso Prosllopi (unos 2.030 m), cruce de la frontera a Montenegro, almuerzo en la pradera de Buri y bajada gradual por el bosque a Çerem (1.150 m). De 13 a 14 km, de 7 a 8 horas.",
     "Día 4: subida gradual hasta la frontera de Montenegro, por la aldea de pastores de Balqin y el valle de Gashi, hasta Dobërdol (1.800 m), un pueblo de pastores remoto habitado solo en verano. De 16 a 17 km, de 7 a 8 horas.",
     "Día 5: un paso de montaña en la frontera entre Albania y Kosovo, subida al Gjeravica (2.656 m) y bajada a Gacafar (1.840 m), cerca del punto de las Tres Fronteras. De 16 a 17 km, de 7 a 8 horas.",
     "Día 6: la cumbre de las Tres Fronteras (2.366 m), bajada por la cresta entre Kosovo y Montenegro, el lago Hrid y el pueblo de Babino Polje en Montenegro (1.550 m). De 16 a 17 km, de 7 a 8 horas.",
-    "Día 7: breve traslado al valle de Grbaja, subida por el bosque al Volušnica y de allí por una cresta estrecha al Taljanka (2.056 m). Bajada al valle y traslado al pueblo de Vusanje (953 m). De 20 a 22 km, de 9 a 10 horas.",
+    "Día 7: caminata desde Babino Polje por prados alpinos hasta la cumbre del Taljanka (2.056 m), con vistas a los picos de Prokletije, y larga bajada al pueblo de Vusanje (953 m). De 20 a 22 km, de 9 a 10 horas.",
     "Día 8: una jornada larga en la reserva de Prokletije, cruce de la frontera de Montenegro a Albania y bajada al pueblo de Theth (750 m) para la última noche en la montaña. De 17 a 18 km, de 7 a 8 horas.",
     "Día 9: paseo corto a la cascada de Grunas, traslado al Ojo Azul, una poza natural alimentada por un manantial, y vuelta a Shkodra. De 6 a 7 km, de 3 a 4 horas.",
     "Día 10: traslado al aeropuerto de Tirana y vuelo de regreso."
@@ -59,7 +59,7 @@
   },
   {
    "type": "text",
-   "value": "Las jornadas completas duran casi siempre de 7 a 8 horas. La más larga es la del día 7: de 20 a 22 km y de 9 a 10 horas, con dos cumbres y unos 1.100 m de bajada. La mayor subida es la del día 3, unos 1.100 m de Valbona al paso Prosllopi. Los días 2 y 9 son más cortos y combinan caminata y vehículo."
+   "value": "Las jornadas completas duran casi siempre de 7 a 8 horas. La más larga es la del día 7: de 20 a 22 km y de 9 a 10 horas, con una cumbre, el Taljanka, y unos 1.100 m de bajada. La mayor subida es la del día 3, unos 1.100 m de Valbona al paso Prosllopi. Los días 2 y 9 son más cortos y combinan caminata y vehículo."
   },
   {
    "type": "image",
@@ -145,11 +145,11 @@
   },
   {
    "type": "text",
-   "value": "Antes de salir recibes una lista personal de equipo y una asesoría de equipo en línea, y el grupo conoce al guía en una llamada de preparación en línea. La mejor preparación son caminatas largas con subidas y bajadas en los meses previos, para que el segundo y el tercer día seguidos no sean los primeros."
+   "value": "Antes de salir recibes una lista personal de equipo y una asesoría de equipo en línea, y conoces a tu grupo en una llamada de preparación en línea. La mejor preparación son caminatas largas con subidas y bajadas en los meses previos, para que el segundo y el tercer día seguidos no sean los primeros."
   },
   {
    "type": "text",
-   "value": "Bueno saber: el trekking lo dirigen guías locales profesionales que hablan inglés y llevan muchos años guiando grupos en la montaña. Conviene tener un inglés básico, suficiente para seguir instrucciones en el sendero. Cada senderista debe seguir las indicaciones del equipo, y la ruta puede cambiar por el tiempo o a criterio de los guías. El grupo cuenta con comunicación satelital y un plan de evacuación de emergencia, y en la montaña, como siempre, la seguridad va antes que la meta."
+   "value": "Bueno saber: el trekking lo dirigen guías locales profesionales que hablan inglés y llevan muchos años guiando grupos en la montaña. Conviene tener un inglés básico, suficiente para seguir instrucciones en el sendero. Cada senderista debe seguir las indicaciones del equipo, y la ruta puede cambiar por el tiempo o a criterio de los guías. El grupo cuenta con un plan de evacuación de emergencia, y las familias reciben actualizaciones por WhatsApp durante el trekking. En la montaña, como siempre, la seguridad va antes que la meta."
   },
   {
    "type": "image",
@@ -175,7 +175,7 @@
   },
   {
    "type": "text",
-   "value": "El trekking Peaks of the Balkans cuesta 1.750 euros por persona. Incluye traslados del aeropuerto al hotel en Shkodra y de vuelta, traslados internos al inicio de la ruta y de vuelta, 2 noches en un hotel de 3 estrellas en Shkodra con desayuno, alojamiento en casas de huéspedes y refugios en habitaciones compartidas durante todo el trekking, tres comidas completas al día durante todo el trekking, guías locales profesionales de habla inglesa, traslado del equipaje entre los alojamientos durante todo el trekking, un paseo en barco por el lago Komani, todos los permisos de entrada para el trekking, actualizaciones en directo por WhatsApp para las familias durante el trekking, un área personal en la app de HighAir, una lista de equipo detallada y un plan de entrenamiento para el trekking, asesoramiento de equipo en línea, una llamada de preparación en línea con tu grupo y el guía antes de salir, ayuda con dudas sobre vuelos y seguro de viaje antes de salir, un kit de regalo con gorra y camiseta técnica, y una donación significativa a la lucha contra el cáncer."
+   "value": "El trekking Peaks of the Balkans cuesta 1.750 euros por persona. Incluye traslados del aeropuerto al hotel en Shkodra y de vuelta, traslados internos al inicio de la ruta y de vuelta, 2 noches en un hotel de 3 estrellas en Shkodra con desayuno, alojamiento en casas de huéspedes y refugios en habitaciones compartidas durante todo el trekking, tres comidas completas al día durante todo el trekking, guías locales profesionales de habla inglesa, traslado del equipaje entre los alojamientos durante todo el trekking, un paseo en barco por el lago Komani, todos los permisos de entrada para el trekking, actualizaciones en directo por WhatsApp para las familias durante el trekking, un área personal en la app de HighAir, una lista de equipo detallada y un plan de entrenamiento para el trekking, asesoramiento de equipo en línea, una llamada de preparación en línea con tu grupo antes de salir, ayuda con dudas sobre vuelos y seguro de viaje antes de salir, un kit de regalo con gorra y camiseta técnica, y una donación significativa a la lucha contra el cáncer."
   },
   {
    "type": "text",

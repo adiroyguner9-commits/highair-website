@@ -282,8 +282,8 @@ function writeShell(routePath, meta, outRoot = DIST) {
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
 /* The FAQ the trip page shows: its own list, else the default (ExpeditionDetail.jsx). */
 const { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } = await import(path.join(ROOT, 'src/data/faqData.js'));
-const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe));
-const faqForEn = exp => (FAQ_BY_SLUG[exp.slug]?.en?.length ? FAQ_BY_SLUG[exp.slug].en : makeDefaultFaqEn(exp.groupCapacity || 15, exp.experienceEn));
+const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe, exp));
+const faqForEn = exp => (FAQ_BY_SLUG[exp.slug]?.en?.length ? FAQ_BY_SLUG[exp.slug].en : makeDefaultFaqEn(exp.groupCapacity || 15, exp.experienceEn, exp));
 /* A trip has an English page when it is live and its English copy exists */
 const EN_HIDDEN = new Set(['sinai', 'elbrus']);   /* = HIDDEN_ON_EN in src/data/expeditionGroups.js */
 const hasEnglish = exp => exp.live !== false && !EN_HIDDEN.has(exp.slug) && Boolean(exp.seoTitleEn && exp.descEn);
@@ -329,7 +329,8 @@ for (const exp of EXPS) {
           offers: {
             '@type':        'Offer',
             price:          exp.price,
-            priceCurrency:  'USD',
+            /* the trip's own currency, as the page's JSON-LD reads it (€ = EUR, else USD) */
+            priceCurrency:  String(exp.priceStr || '').startsWith('€') ? 'EUR' : 'USD',
             availability:   'https://schema.org/InStock',
             url:            expUrl,
           },
@@ -432,7 +433,7 @@ for (const exp of EXPS) {
         heroImage:     expHeroImage(exp),
         heroKind:      'trip',
         preHero:       preHeroHtml('trip', expHeroImage(exp)),
-        text:          wrapText(expeditionTextEn(exp, FAQ_I18N[exp.slug]?.[lng] || defaultFaqI18n(lng, exp.groupCapacity || 15), lng)),
+        text:          wrapText(expeditionTextEn(exp, FAQ_I18N[exp.slug]?.[lng] || (exp['faq' + (lng === 'de' ? 'De' : 'Es')] || defaultFaqI18n(lng, exp.groupCapacity || 15, exp)), lng)),
         jsonLd: {
           '@context': 'https://schema.org',
           '@graph': [{

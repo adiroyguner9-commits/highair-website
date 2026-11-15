@@ -33,14 +33,14 @@ export const FAQ_BY_SLUG = {
   /* ── Aconcagua ── */
   'aconcagua': {
     he: [
-      { q: 'כמה אקונקגואה קשה לעומת קילימנג׳רו?', a: 'אקונקגואה קשה משמעותית. זו הפסגה הגבוהה מחוץ לאסיה (6,962 מ׳) והמסע נמשך 20 יום - הגובה גדול יותר, הקור חריף יותר, וצריך לשאת ציוד כבד עד מחנה 2. נדרש ניסיון קודם בגובה של 5,000 מ׳ לפחות, כמו קילימנג׳רו או טרק אוורסט בייס קמפ.' },
+      { q: 'כמה אקונקגואה קשה לעומת קילימנג׳רו?', a: 'אקונקגואה קשה משמעותית. זו הפסגה הגבוהה מחוץ לאסיה (6,962 מ׳) והמסע נמשך 20 יום: הגובה גדול יותר והקור חריף יותר. את הציוד הכבד במחנות הגבוהים נושא פורטר אישי (עד 20 ק״ג לאדם). נדרש ניסיון קודם בגובה של 5,000 מ׳ לפחות, כמו קילימנג׳רו או טרק אוורסט בייס קמפ.' },
       { q: 'מה עלות ההיתר לאקונקגואה?', a: 'היתר הכניסה לפארק הפרובינציאלי אקונקגואה עולה כ-1,000 עד 1,300 דולר לאדם, לפי העונה והמסלול. הוא אינו כלול במחיר ומשולם ישירות לרשות הפארק, ואנחנו מלווים אתכם ברכישה ובכל הניירת הנדרשת.' },
       { q: 'האם נדרש ניסיון טיפוס טכני לאקונקגואה?', a: 'לא. מסלול הנורמל, שבו אנחנו עולים, הוא מסלול הליכה ולא טיפוס טכני - בלי חבלים וללא קרמפונים (אלא אם יורד שלג). עם זאת, הגובה הרב והקור הקיצוני דורשים ניסיון קודם בגובה וציוד חם ואיכותי.' },
       { q: 'מתי עונת הטיפוס על אקונקגואה?', a: 'העונה היא דצמבר עד פברואר, קיץ חצי הכדור הדרומי, ואז ניתן לטפס בתנאים הבטוחים ביותר. מחוץ לחלון הזה ההר נסגר רשמית. אנחנו יוצאים פעם בשנה, בינואר, בלב העונה.' },
       { q: 'מה שיעור ההצלחה באקונקגואה?', a: 'שיעור ההצלחה הכללי על אקונקגואה עומד על כ-40% בלבד; אצלנו הוא 75%, הרבה מעל הממוצע. הסוד הוא לו״ז התאקלמות מוקפד, מדריך שמכיר את ההר לעומק, ובחירה נכונה של מי יוצא ליום הפסגה.' },
     ],
     en: [
-      { q: 'How hard is Aconcagua compared to Kilimanjaro?', a: 'Aconcagua is significantly harder. It is the highest peak outside Asia (6,962 m) and the expedition runs 20 days - the altitude is higher, the cold sharper, and you carry heavy gear up to Camp 2. Prior experience at an altitude of at least 5,000 m, such as Kilimanjaro or the Everest Base Camp trek, is required.' },
+      { q: 'How hard is Aconcagua compared to Kilimanjaro?', a: 'Aconcagua is significantly harder. It is the highest peak outside Asia (6,962 m) and the expedition runs 20 days: the altitude is higher and the cold sharper. At the high camps a personal porter carries the heavy gear (up to 20 kg per person). Prior experience at an altitude of at least 5,000 m, such as Kilimanjaro or the Everest Base Camp trek, is required.' },
       { q: 'How much is the Aconcagua permit?', a: 'The Aconcagua Provincial Park permit costs about $1,000 to $1,300 per person, depending on the season and route. It is not included in the price and is paid directly to the park authority; we guide you through the purchase and all the required paperwork.' },
       { q: 'Do I need technical climbing experience for Aconcagua?', a: 'No. The Normal Route, which we climb, is a walking route rather than a technical climb - no ropes and no crampons (unless it snows). That said, the high altitude and extreme cold demand prior altitude experience and quality warm gear.' },
       { q: 'When is the Aconcagua climbing season?', a: 'The season is December to February, the southern-hemisphere summer, when the peak can be climbed in the safest conditions. Outside that window the mountain is officially closed. We run one expedition a year, in January, at the heart of the season.' },
@@ -55,14 +55,14 @@ export const FAQ_BY_SLUG = {
       { q: 'האם נדרש ניסיון לטיפוס על אלברוס?', a: 'נדרש ניסיון בסיסי בהליכה בשלג ובקרמפונים, אבל לא טיפוס טכני. ביום הראשון בבייס קמפ אנחנו עושים תרגול קרמפונים ואימון על שיפועי השלג, ומי שכבר היה בגובה - למשל קילימנג׳רו - מגיע עם יתרון גופני ומנטלי.' },
       { q: 'כמה קר בפסגת אלברוס?', a: 'בלילה שלפני הפסגה הטמפרטורה יורדת בדרך כלל ל-15° עד 25° מתחת לאפס, ועם רוח הקור זה יכול להרגיש כמו 35°- . לכן חובה כפפות חמות, שכבות תרמיות, מסכת פנים (באלקלבה) ומשקפי סקי טובים. רשימת ציוד מלאה נשלחת לכל נרשם.' },
       { q: 'מה מצב הכניסה לרוסיה לישראלים?', a: 'ישראלים נכנסים לרוסיה ללא ויזה, עם דרכון בתוקף, לשהייה של עד 90 יום בכל תקופה של 180 יום. כללי הכניסה עשויים להשתנות, ולכן כדאי לבדוק אותם לפני ההזמנה ושוב לפני הטיסה.' },
-      { q: 'איזה ציוד טכני מקבלים מכם?', a: 'אנחנו מספקים לכל המשתתפים קרמפונים, מקל קרח ורתמה בהשאלה, ללא עלות נוספת - אין צורך לרכוש ציוד טיפוס יקר. כל מה שצריך להביא הוא ציוד חם בסיסי, נעלי הרים עם סוליה נוקשה וציוד שינה מתאים לגובה.' },
+      { q: 'איזה ציוד טכני מקבלים מכם?', a: 'ציוד הטיפוס (קרמפונים, מקל קרח ורתמה) אינו כלול במחיר, ואפשר לשכור אותו במקום, כך שאין צורך לרכוש ציוד טיפוס יקר. כל מה שצריך להביא הוא ציוד חם בסיסי, נעלי הרים עם סוליה נוקשה וציוד שינה מתאים לגובה. רשימת ציוד מפורטת נשלחת לאחר ההרשמה.' },
     ],
     en: [
       { q: 'Is Elbrus harder than Kilimanjaro?', a: 'Elbrus is more technical. At a similar height (5,642 m) it requires walking on crampons with an ice axe, the cold is harsher, and sudden storms are a risk. Our summit success rate is 85%, versus 94% on Kilimanjaro. Our recommendation: if this is your first high peak, start with Kilimanjaro.' },
       { q: 'Do I need experience to climb Elbrus?', a: 'You need basic experience walking on snow and in crampons, but not technical climbing. On the first day at base camp we run crampon practice and training on the snow slopes, and anyone who has already been to altitude - Kilimanjaro, for example - arrives with a physical and mental advantage.' },
       { q: 'How cold is the Elbrus summit?', a: 'On summit night the temperature usually drops to between -15° and -25°C, and with wind chill it can feel like -35°C. That makes warm gloves, thermal layers, a face mask (balaclava) and good ski goggles essential. A full gear list is sent to every registrant.' },
       { q: 'Do I need a visa for Russia?', a: 'Most visitors from Europe and North America need a visa for Russia. Many nationalities can apply online for the unified e-visa, others apply through a consulate. Rules differ by passport and can change, and some governments advise against travel to Russia, so check the current rules and your government\'s travel advice before booking and again before your flight.' },
-      { q: 'What technical gear do you provide?', a: 'We provide every participant with crampons, an ice axe and a harness on loan, at no extra cost - there is no need to buy expensive climbing gear. All you need to bring is basic warm clothing, mountain boots with a stiff sole, and a sleeping setup suited to altitude.' },
+      { q: 'What technical gear do you provide?', a: 'Climbing gear (crampons, an ice axe and a harness) is not included in the price and can be rented on site, so there is no need to buy expensive climbing gear. All you need to bring is basic warm clothing, mountain boots with a stiff sole, and a sleeping setup suited to altitude. A detailed gear list is sent after registration.' },
     ],
   },
 
@@ -73,7 +73,7 @@ export const FAQ_BY_SLUG = {
       { q: 'האם מחלת גובה היא סיכון אמיתי בטרק?', a: 'מחלת גובה היא האתגר המרכזי בטרק לאוורסט בייס קמפ - כשליש מהמטיילים חשים תסמינים קלים כמו כאב ראש ועייפות. לכן אנחנו מקדישים 19 יום למסע, עם ימי התאקלמות בנאמצ׳ה בזאר ובדינגבוצ׳ה. שתייה מרובה, עלייה הדרגתית ותשומת לב לתסמינים הם המפתח.' },
       { q: 'מה רמת הכושר הנדרשת לטרק EBC?', a: 'צריך כושר גופני טוב, אבל לא של ספורטאי מקצועי. המפתח הוא היכולת ללכת 5-7 שעות ביום עם תרמיל גב, יום אחרי יום, לאורך שבועיים. ההכנה הטובה ביותר היא הליכות ארוכות עם תיק בחודשים שלפני - הקושי מצטבר, לא טכני.' },
       { q: 'האם רואים את פסגת אוורסט מהבייס קמפ?', a: 'דווקא לא - מהבייס קמפ עצמו הקרחון חוסם את הנוף לפסגה. הנקודה הטובה ביותר לצפות באוורסט היא קאלה פטאר (5,545 מ׳), ומשם הנוף לאוורסט, ללהוטסה ולנופצה הוא מהמרהיבים בעולם.' },
-      { q: 'מתי העונה הטובה לטרק בנפאל?', a: 'שתי עונות מצוינות: אפריל-מאי לפני המונסון, ואוקטובר-נובמבר אחריו. בשתיהן השמיים בהירים, הנופים עוצרי נשימה ומזג האוויר נוח יחסית - ואנחנו מכוונים בדיוק אליהן. את חודשי המונסון (יוני-ספטמבר) עדיף להימנע.' },
+      { q: 'מתי העונה הטובה לטרק בנפאל?', a: 'שתי עונות מצוינות: אפריל-מאי לפני המונסון, וספטמבר-אוקטובר אחריו. בשתיהן השמיים בהירים, הנופים עוצרי נשימה ומזג האוויר נוח יחסית - ואנחנו מכוונים בדיוק אליהן. את חודשי המונסון (יוני-אוגוסט) עדיף להימנע.' },
       { q: 'האם הטרק לאוורסט בייס קמפ מתאים למתחילים?', a: 'כן, אם מגיעים מוכנים. זה טרק ולא טיפוס טכני: אין חבלים או גרזן קרח, וקרמפונים נדרשים רק כשיש שלג על השביל. מה שנדרש הוא סיבולת לב-ריאה, הכנה נפשית לגובה וציוד מתאים. מטיילים רבים בלי ניסיון קודם עשו אותו בהצלחה איתנו.' },
     ],
     en: [
@@ -81,7 +81,7 @@ export const FAQ_BY_SLUG = {
       { q: 'Is altitude sickness a real risk on the trek?', a: 'Altitude sickness is the main challenge on the Everest Base Camp trek - about a third of trekkers feel mild symptoms such as headache and fatigue. That is why we dedicate 19 days to the journey, with acclimatization days in Namche Bazaar and Dingboche. Drinking plenty, ascending gradually and watching for symptoms are the keys.' },
       { q: 'What fitness level does the EBC trek require?', a: 'You need good fitness, but not that of a professional athlete. The key is being able to walk 5-7 hours a day with a daypack, day after day, over two weeks. The best preparation is long hikes with a pack in the months before - the difficulty is cumulative, not technical.' },
       { q: 'Can you see the summit of Everest from Base Camp?', a: 'Actually no - from Base Camp itself the glacier blocks the view of the summit. The best place to see Everest is Kala Patthar (5,545 m), from where the view of Everest, Lhotse and Nuptse is among the most spectacular in the world.' },
-      { q: 'When is the best season to trek in Nepal?', a: 'Two excellent seasons: April-May before the monsoon, and October-November after it. In both the skies are clear, the scenery breathtaking and the weather relatively comfortable - and we aim for exactly those. It is best to avoid the monsoon months (June-September).' },
+      { q: 'When is the best season to trek in Nepal?', a: 'Two excellent seasons: April-May before the monsoon, and September-October after it. In both the skies are clear, the scenery breathtaking and the weather relatively comfortable - and we aim for exactly those. It is best to avoid the monsoon months (June-August).' },
       { q: 'Is the Everest Base Camp trek suitable for beginners?', a: 'Yes, if you come prepared. It is a trek, not a technical climb: no ropes or ice axe, and crampons are needed only when there is snow on the trail. What it takes is cardiovascular endurance, mental readiness for altitude and the right gear. Many trekkers with no prior experience have completed it successfully with us.' },
     ],
   },
@@ -128,7 +128,7 @@ export const FAQ_BY_SLUG = {
       { q: 'מה חשוב לבדוק לפני נסיעה לאתיופיה?', a: 'כמו לפני כל נסיעה לחו״ל, כדאי לבדוק לפני ההרשמה ושוב לפני היציאה את המלצות המסע העדכניות לישראלים, ולוודא שביטוח הנסיעות מכסה את כל האזורים שבמסלול. הצוות המקומי שלנו מכיר את הארץ לעומק ומלווה את הקבוצה לכל אורך המסע.' },
       { q: 'כמה מסוכן להתקרב לאגם הלבה של ארטה אלה?', a: 'הגישה לאגם הלבה של ארטה אלה נעשית עם מדריכים מקומיים מנוסים ובליווי מאבטח, ועומדים על שפת הלוע ממרחק בטוח. זו אחת החוויות הנדירות בעולם - לצפות בלבה רותחת בלילה - ורמת הבטיחות הגבוהה היא שהופכת אותה לנגישה.' },
       { q: 'מה הגובה המקסימלי בטיול לאתיופיה?', a: 'הגובה המקסימלי הוא פסגת ראס בוואהיט בהרי הסימיאן (4,430 מ׳). לעומתה, הר הגעש ארטה אלה מתנשא לגובה של 613 מ׳ בלבד, בלב מדבר דנקיל, שחלקים ממנו נמצאים מתחת לפני הים. הקטע הגבוה בסימיאן עלול לגרום לתסמיני גובה קלים, ולכן בנינו את הלו״ז עם התאקלמות הדרגתית.' },
-      { q: 'אילו חיסונים נדרשים לנסיעה לאתיופיה?', a: 'נדרשים חיסונים. חובה: חיסון לקדחת צהובה (נבדק בכניסה לארץ) וטיפוס הבטן; מומלצים עוד כמה שנפרט במסמך הרפואי שנשלח לאחר ההרשמה. כדאי לפנות למרפאת מטיילים לפחות שישה שבועות לפני הטיסה.' },
+      { q: 'אילו חיסונים נדרשים לנסיעה לאתיופיה?', a: 'חיסון נגד קדחת צהובה מומלץ למטיילים ברוב אזורי אתיופיה, ותעודת חיסון נדרשת בכניסה למדינה רק ממי שמגיע ממדינה שיש בה סיכון לקדחת צהובה. חיסון לטיפוס הבטן אינו תנאי כניסה. חיסונים נוספים שמומלצים לפי המסלול נפרט במסמך הרפואי שנשלח לאחר ההרשמה. כדאי לפנות למרפאת מטיילים לפחות שישה שבועות לפני הטיסה.' },
       { q: 'מה עונת הטיולים המומלצת לאתיופיה?', a: 'העונה הטובה היא נובמבר עד פברואר, החורף היבש. אז הרי הסימיאן ירוקים ויפים, ומזג האוויר בדנקיל נסבל יחסית (35-40 מעלות במקום 50 בקיץ) - ואנחנו מוציאים את המסעות בדיוק בחלון הזה.' },
       { q: 'במה שונה הטיול לאתיופיה מטרקים אחרים שלכם?', a: 'אתיופיה היא לא טיול טיפוס רגיל אלא שילוב של טרק, הרפתקה גיאוגרפית ומפגש אנתרופולוגי. בלילה אחד עומדים על שפת אגם לבה פעיל, ויומיים אחר כך מטפסים בהרים בין קופי ג׳לדה - אין מסע אחר כזה בעולם.' },
     ],
@@ -136,7 +136,7 @@ export const FAQ_BY_SLUG = {
       { q: 'What should I check before travelling to Ethiopia?', a: 'As before any trip abroad, check your government\'s current travel advice before registering and again before departure, and make sure your travel insurance covers every area on the route. Our local team knows the country deeply and accompanies the group throughout the journey.' },
       { q: 'How dangerous is it to approach the Erta Ale lava lake?', a: 'Access to the Erta Ale lava lake is done with experienced local guides and a security escort, and you stand at the crater rim from a safe distance. It is one of the rarest experiences on earth - watching boiling lava at night - and the high level of safety is what makes it accessible.' },
       { q: 'What is the maximum altitude on the Ethiopia trip?', a: 'The maximum altitude is the summit of Ras Bwahit in the Simien Mountains (4,430 m). By contrast, the Erta Ale volcano rises only 613 m, in the heart of the Danakil Depression, parts of which lie below sea level. The high section in the Simiens can cause mild altitude symptoms, so we built the itinerary with gradual acclimatization.' },
-      { q: 'What vaccinations are required for Ethiopia?', a: 'Vaccinations are required. Mandatory: yellow fever (checked on entry) and typhoid; several others are recommended and detailed in the medical document sent after registration. It is worth visiting a travel clinic at least six weeks before the flight.' },
+      { q: 'What vaccinations are required for Ethiopia?', a: 'The yellow fever vaccine is recommended for travellers to most of Ethiopia, and a vaccination certificate is required on entry only for travellers arriving from a country with a risk of yellow fever. Typhoid is not an entry requirement. Other vaccinations recommended for the route are detailed in the medical document sent after registration. It is worth visiting a travel clinic at least six weeks before the flight.' },
       { q: 'What is the recommended season for Ethiopia?', a: 'The best season is November to February, the dry winter. The Simien Mountains are green and beautiful, and the weather in Danakil is relatively bearable (35-40°C instead of 50 in summer) - and we run our journeys precisely in this window.' },
       { q: 'How is the Ethiopia trip different from your other treks?', a: 'Ethiopia is not a regular climbing trip but a blend of trekking, geographic adventure and anthropological encounter. One night you stand at the rim of an active lava lake, and two days later you climb mountains among gelada monkeys - there is no other journey like it in the world.' },
     ],
@@ -145,17 +145,17 @@ export const FAQ_BY_SLUG = {
   /* ── Sinai ── */
   'sinai': {
     he: [
-      { q: 'איך מגיעים לטרק בסיני?', a: 'המסע מתחיל ומסתיים במעבר הגבול טאבה. חוצים את הגבול כקבוצה, ומשם ההסעות לסנטה קתרינה ובחזרה כלולות במחיר. שימו לב שאגרות המעבר בצד הישראלי (120₪) ובצד המצרי (120$) אינן כלולות.' },
+      { q: 'איך מגיעים לטרק בסיני?', a: 'המסע מתחיל בתחנה המרכזית באילת, ומשם נוסעים בהסעה למעבר הגבול טאבה. חוצים את הגבול כקבוצה, ומשם ההסעות לסנטה קתרינה ובחזרה כלולות במחיר. המסע מסתיים במעבר טאבה. שימו לב שאגרות המעבר בצד הישראלי (120₪) ובצד המצרי (120$) אינן כלולות.' },
       { q: 'מה רמת הקושי של הטרק בסיני?', a: 'הטרק מתאים למטיילים בכושר גופני טוב: ימי הליכה מלאים בשטח הררי, בין 10 ל-15 ק״מ ביום, כולל עלייה לג׳בל קתרינה (2,642 מ׳) - ההר הגבוה במצרים. אין טיפוס טכני, אבל נדרשת מוטיבציה ויכולת הליכה של כמה שעות ביום.' },
-      { q: 'איפה ישנים במהלך הטרק בסיני?', a: 'ארבעה לילות בלב הרי סיני - בבוסתנים בדואיים ובלינת שטח תחת שמיים זרועי כוכבים, עם ארוחות חמות בפנסיון מלא. את הלילה האחרון מעבירים במלון מפנק בדהב, בחדר פרטי, על שפת ים סוף.' },
+      { q: 'איפה ישנים במהלך הטרק בסיני?', a: 'ארבעה לילות בלב הרי סיני - בבוסתנים בדואיים ובלינת שטח תחת שמיים זרועי כוכבים, עם ארוחות חמות בפנסיון מלא. את הלילה האחרון מעבירים במלון מפנק בדהב, בחדר יחיד, על שפת ים סוף.' },
       { q: 'מה הגובה המקסימלי בטרק?', a: 'הנקודה הגבוהה היא פסגת ג׳בל קתרינה (2,642 מ׳), ההר הגבוה בסיני ובמצרים כולה. בנוסף עולים לפסגת הר סיני (2,285 מ׳), שלפי המסורת עליו ניתנו לוחות הברית.' },
       { q: 'צריך ניסיון בצלילה בשביל הבלו הול?', a: 'לא. ביום האחרון מתקיים שנורקלינג בבלו הול - בלי צורך בניסיון קודם או בתעודת צלילה. השנורקלינג מתאים לכל מי שיודע לשחות, והשונית מציעה אלמוגים ודגים צבעוניים כבר מהמטרים הראשונים.' },
       { q: 'מה חשוב להביא לטרק בסיני?', a: 'ציוד אישי אינו כלול, וחשוב להצטייד בנעלי הליכה טובות, שק שינה, פנס ראש ובגדים חמים לערבים המדבריים הקרים. רשימת ציוד מפורטת נשלחת לכל נרשם לאחר ההרשמה.' },
     ],
     en: [
-      { q: 'How do you get to the Sinai trek?', a: 'The journey starts and ends at the Taba border crossing. You cross the border as a group, and from there the transfers to Saint Catherine and back are included. Note that the crossing fees on the Israeli side (120 NIS) and the Egyptian side ($120) are not included.' },
+      { q: 'How do you get to the Sinai trek?', a: 'The journey starts at the Eilat central bus station, with a transfer to the Taba border crossing. You cross the border as a group, and from there the transfers to Saint Catherine and back are included. The journey ends at the Taba crossing. Note that the crossing fees on the Israeli side (120 NIS) and the Egyptian side ($120) are not included.' },
       { q: 'What is the difficulty level of the Sinai trek?', a: 'The trek suits travellers in good physical condition: full walking days in mountainous terrain, 10 to 15 km a day, including the ascent of Jabal Katherina (2,642 m) - the highest mountain in Egypt. There is no technical climbing, but it takes motivation and the ability to walk several hours a day.' },
-      { q: 'Where do you sleep during the Sinai trek?', a: 'Four nights in the heart of the Sinai mountains - in Bedouin orchards and open-air camps under star-filled skies, with hot meals on a full-board basis. The last night is spent at a comfortable hotel in Dahab, in a private room, on the shore of the Red Sea.' },
+      { q: 'Where do you sleep during the Sinai trek?', a: 'Four nights in the heart of the Sinai mountains - in Bedouin orchards and open-air camps under star-filled skies, with hot meals on a full-board basis. The last night is spent at a comfortable hotel in Dahab, in a single room, on the shore of the Red Sea.' },
       { q: 'What is the maximum altitude on the trek?', a: 'The highest point is the summit of Jabal Katherina (2,642 m), the highest mountain in Sinai and in all of Egypt. We also ascend Mount Sinai (2,285 m), where, by tradition, the Tablets of the Covenant were given.' },
       { q: 'Do I need diving experience for the Blue Hole?', a: 'No. On the last day there is snorkeling at the Blue Hole - no prior experience or diving certificate needed. The snorkeling suits anyone who can swim, and the reef offers corals and colorful fish from the very first meters.' },
       { q: 'What should I bring to the Sinai trek?', a: 'Personal gear is not included, and it is important to bring good hiking shoes, a sleeping bag, a headlamp and warm clothes for the cold desert evenings. A detailed gear list is sent to every registrant after registration.' },
@@ -198,21 +198,48 @@ function safariEn() {
 const NO_PRIOR_EXPERIENCE = /אם אין לכם ניסיון קודם|If you have no prior experience|No prior climbing experience required/;
 export const notesWithExperience = (notes = [], line) => (line ? notes.map(n => (NO_PRIOR_EXPERIENCE.test(n) ? line : n)) : notes);
 
-export function makeDefaultFaq(cap = 15, experience) {
+/* The single-room answer comes from the trip's own lists (owner, 15 Nov 2026), so it
+   cannot drift from them: a hotel single room in the included list ("בחדר יחיד" /
+   "single room"), a paid single room in the not-included list (a line that starts
+   "חדר יחיד" / "Single room", its price after the " - "), both, or neither. A solo
+   tent is not a room and is left out. Without a trip the old general answer stays. */
+const priceParts = line => { const i = line.lastIndexOf(' - '); return i === -1 ? [line, ''] : [line.slice(0, i), line.slice(i + 3)]; };
+export function singleRoomAnswer(exp, lang = 'he') {
+  const he = lang === 'he';
+  if (!exp) return he
+    ? 'כן, ניתן לבקש חדר יחיד בתוספת תשלום. חשוב לציין זאת כבר בטופס ההרשמה כדי שנוכל להבטיח את החדר.'
+    : 'Yes, a single room can be requested for an additional fee. Please note it on the registration form so we can secure the room for you.';
+  const included = (he ? exp.included : exp.includedEn) || [];
+  const notIncluded = (he ? exp.notIncluded : exp.notIncludedEn) || [];
+  const hotelIncluded = included.some(l => (he ? /בחדר יחיד/ : /\bsingle room\b/i).test(l));
+  const paid = notIncluded.filter(l => (he ? /^חדר יחיד/ : /^Single room\b/i).test(l)).map(priceParts);
+  if (hotelIncluded && paid.length) return he
+    ? `כן. הלילות במלון הם בחדר יחיד, והוא כלול במחיר. ${paid.map(([what, price]) => `${what} אפשרי בתוספת תשלום${price ? `, ${price}` : ''}.`).join(' ')}`
+    : `Yes. The hotel nights are in a single room, included in the price. ${paid.map(([what, price]) => `A ${what.charAt(0).toLowerCase()}${what.slice(1)} is available for an additional fee${price ? `, ${price}` : ''}.`).join(' ')}`;
+  if (hotelIncluded) return he
+    ? 'כן. הלילות במלון הם בחדר יחיד, והוא כלול במחיר. בשאר הלילות של המסע אין אפשרות לחדר יחיד.'
+    : 'Yes. The hotel nights are in a single room, included in the price. For the rest of the journey there is no single-room option.';
+  if (paid.length) return he
+    ? `כן, ניתן לבקש חדר יחיד בתוספת תשלום: ${paid.map(([what, price]) => (price ? `${what}, ${price}` : what)).join('; ')}. חשוב לציין זאת כבר בטופס ההרשמה כדי שנוכל להבטיח את החדר.`
+    : `Yes, a single room can be requested for an additional fee: ${paid.map(([what, price]) => `${what.charAt(0).toLowerCase()}${what.slice(1)}${price ? `, ${price}` : ''}`).join('; ')}. Please note it on the registration form so we can secure the room for you.`;
+  return he ? 'לא, במסע הזה אין אפשרות לחדר יחיד.' : 'No, this journey has no single-room option.';
+}
+
+export function makeDefaultFaq(cap = 15, experience, exp) {
   return [
     { q: 'האם נדרש ניסיון קודם?', a: experience || 'לרוב המסלולים שלנו לא נדרש ניסיון טיפוס קודם. מה שצריך הוא כושר גופני טוב, ראש פתוח ורצון להגיע לפסגה - וההכנה שאנחנו עושים יחד לפני היציאה עושה את השאר.' },
     { q: 'מה גודל הקבוצה?', a: `הקבוצות שלנו מוגבלות ל-${cap} משתתפים לכל היותר, כדי לשמור על ליווי אישי, יחס חם ואיכות חוויה גבוהה לאורך כל המסע.` },
-    { q: 'האם יש אפשרות לחדר יחיד?', a: 'כן, ניתן לבקש חדר יחיד בתוספת תשלום. חשוב לציין זאת כבר בטופס ההרשמה כדי שנוכל להבטיח את החדר.' },
+    { q: 'האם יש אפשרות לחדר יחיד?', a: singleRoomAnswer(exp, 'he') },
     { q: 'מה קורה אם אני צריך לרדת באמצע?', a: 'בטיחות המשתתפים לפני הכול. אם צריך לרדת מוקדם מכל סיבה, המדריך מלווה אתכם בחזרה בבטחה. חשוב לדעת שהוצאות נוספות שנובעות מירידה מוקדמת חלות על המטייל.' },
     { q: 'מה כולל המחיר?', a: 'המחיר כולל את כל מה שמפורט בסעיף "מה כלול" בעמוד. טיסות בינלאומיות וביטוח נסיעות אינם כלולים, ורשימת ציוד מלאה נשלחת לכל נרשם לאחר ההרשמה.' },
   ];
 }
 
-export function makeDefaultFaqEn(cap = 15, experience) {
+export function makeDefaultFaqEn(cap = 15, experience, exp) {
   return [
     { q: 'Is prior experience required?', a: experience || 'For most of our routes no prior climbing experience is needed. What it takes is good fitness, an open mind and the will to reach the summit - and the preparation we do together before departure does the rest.' },
     { q: 'What is the group size?', a: `Our groups are limited to a maximum of ${cap} participants, to keep personal guidance, a warm touch and a high-quality experience throughout the journey.` },
-    { q: 'Is a single room available?', a: 'Yes, a single room can be requested for an additional fee. Please note it on the registration form so we can secure the room for you.' },
+    { q: 'Is a single room available?', a: singleRoomAnswer(exp, 'en') },
     { q: 'What happens if I need to descend early?', a: 'Participant safety comes first. If you need to descend early for any reason, the guide accompanies you back safely. Note that any extra costs arising from an early descent are the traveller\'s responsibility.' },
     { q: 'What is included in the price?', a: 'The price includes everything listed in the "What\'s Included" section on the page. International flights and travel insurance are not included, and a full gear list is sent to every registrant after registration.' },
   ];

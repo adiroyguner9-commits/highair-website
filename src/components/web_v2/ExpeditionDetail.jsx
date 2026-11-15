@@ -398,9 +398,9 @@ export default function ExpeditionDetail() {
   const faqEntry = exp ? FAQ_BY_SLUG[exp.slug] : null;
   const expFaqItems = exp
     ? (isRtl
-        ? (faqEntry?.he?.length ? faqEntry.he : makeDefaultFaq(exp?.groupCapacity || 15, exp?.experienceHe))
+        ? (faqEntry?.he?.length ? faqEntry.he : makeDefaultFaq(exp?.groupCapacity || 15, exp?.experienceHe, exp))
         : (loc(exp, 'faq')   /* faqDe / faqEs, baked into the site's trip file (tripI18n.js) */
-           || (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15, loc(exp, "experience")))))
+           || (faqEntry?.en?.length ? faqEntry.en : makeDefaultFaqEn(exp?.groupCapacity || 15, loc(exp, "experience"), exp))))
     : [];
 
   /* The trip's name and country as search engines get them: in the language of
@@ -950,11 +950,17 @@ export default function ExpeditionDetail() {
      Replacing it there deleted the trip's most important warning (11 Nov 2026),
      so there the line goes IN FRONT and the note stays.
      A safari is sold by JEEP, not by group size (owner, Jul 30 2026), and a
-     Nepal climb above 6000m by its 1:1 guiding ratio (Aug 30 2026). */
+     Nepal climb above 6000m by its personal guide (Aug 30 2026), in the words of
+     the trip's own included list, with no "1:1" (owner, 15 Nov 2026): "a personal
+     climbing guide for each climber on summit day" on Island, Lobuche and Mera,
+     "a personal Sherpa guide all the way to the summit" on the expeditions. The
+     German and Spanish lists follow the English one line for line. */
+  const personalGuideAt = (exp.includedEn || []).findIndex(l => /^A personal (climbing|Sherpa) guide\b/.test(l));
+  const personalGuideLine = isRtl
+    ? (exp.included || []).find(l => /^מדריך (טיפוס|שרפה) אישי/.test(l))
+    : personalGuideAt === -1 ? undefined : (loc(exp, "included") || exp.includedEn || [])[personalGuideAt];
   const groupLine = oneToOne
-    ? (isRtl
-        ? 'הטיפוס מתבצע ביחס הדרכה של 1:1, מדריך שרפה אישי לכל מטפס!'
-        : tx("The climb runs at a 1:1 guiding ratio, a personal Sherpa guide for each climber!"))
+    ? (personalGuideLine || null)
     : !capacity ? null
     : isSafariExp
       ? (isRtl

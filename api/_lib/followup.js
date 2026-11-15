@@ -5,9 +5,40 @@
  * "send now" button (api/send-followup.js) so the customer receives the EXACT
  * same message either way — a copy in two places would drift on the first edit.
  */
-import { destInfo } from './dest.js';
+import { destInfo, destKey } from './dest.js';
 import { firstName } from './name.js';
 import { greenFetch } from './green.js';
+
+/* ── Only a trip that has a departure ahead (owner, 15 Nov 2026) ─────────────
+   The message says the groups are filling and the departure is guaranteed, so
+   it goes only to a lead whose trip has a future, public row in Groups. The
+   lead's trip is matched to the Groups EVENTS the way the webapp does it
+   (src/data/leads.js eventBelongsToDest, api/_lib/followup-run.js tripMatcher):
+   starts-with after folding, EBC by its alias, the kosher departures for the
+   kosher trip only. A hidden row is a private group: not this lead's. */
+const fold = s => String(s || '').replace(/[_-]+/g, ' ').toLowerCase().replace(/\s+/g, ' ').trim();
+const KOSHER = /kosher|religious|שומרי\s*מסורת/i;
+const EVENT_ALIAS = { 'everest base camp': ['ebc'] };
+
+/** The events that leave after `todayYMD`, from raw Groups rows. */
+export function futureDepartureEvents(groupRows, todayYMD) {
+  return [...new Set((groupRows || [])
+    .map(r => r?.fields || {})
+    .filter(f => !f.Hidden && String(f.Departure || '').slice(0, 10) > todayYMD && f.Event)
+    .map(f => String(f.Event)))];
+}
+
+/** Does this lead's trip have one of those departures? */
+export function tripHasDeparture(expedition, events) {
+  const raw = String(expedition || '').trim();
+  const d = fold((destKey(raw) || raw).replace(/\s*kosher$/i, ''));
+  if (!d) return false;
+  const kosher = KOSHER.test(raw);
+  return (events || []).some(ev => {
+    const e = fold(ev);
+    return (e.startsWith(d) || (EVENT_ALIAS[d] || []).some(a => e.startsWith(a))) && KOSHER.test(ev) === kosher;
+  });
+}
 
 export function msgFollowUp(name, expedition) {
   const { he, slug } = destInfo(expedition);

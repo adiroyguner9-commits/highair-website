@@ -16,6 +16,7 @@ import { firstName } from './name.js';   // WhatsApp greeting — first name onl
    idMessage. This file used to assume success, which is how a closing could be
    recorded as announced while the customer was told nothing (see below). */
 import { sendWhatsAppVerified } from './followup.js';
+import { DEST, destKey } from './dest.js';   // the lead's Expedition → its trip, as every message reads it
 
 const FB_PIXEL_ID   = '293738523242679';
 const PERSONAL_AREA = 'https://app.highair-expeditions.com/register';
@@ -28,42 +29,33 @@ export function msgDepositA(name) {
     + `בהמשך, סוכני הנסיעות והביטוח שלנו ייצרו איתך קשר בהקדם כדי להסדיר את רכישת הטיסה והביטוח למסע ✈️`;
 }
 
-/* ── Facebook Purchase tracking (Conversions API, valued by destination) ── */
-const EXPEDITION_PRICES = {   // canonical /book slug → [value, currency]
-  'kilimanjaro': [2700, 'USD'], 'ethiopia': [3000, 'USD'], 'elbrus': [3500, 'USD'],
-  'kazbek': [2300, 'EUR'], 'everest-base-camp': [3800, 'USD'], 'annapurna': [2500, 'USD'],
-  'manaslu': [2250, 'USD'], 'island-peak': [3550, 'USD'], 'mera-peak': [3800, 'USD'],
-  'lobuche-peak': [3550, 'USD'], 'aconcagua': [10000, 'USD'], 'lenin-peak': [6200, 'USD'],
-  'olympus': [1700, 'EUR'], 'peaks-of-balkan': [1750, 'EUR'],
-};
-const DEST_SLUG = {   // English Expedition name → /book slug (for the exact/keyword match)
-  'Kilimanjaro': 'kilimanjaro', 'Elbrus': 'elbrus', 'Aconcagua': 'aconcagua', 'Kazbek': 'kazbek',
-  'Olympus': 'olympus', 'Peaks of Balkan': 'peaks-of-balkan', 'Annapurna': 'annapurna',
-  'Manaslu': 'manaslu', 'Everest Base Camp': 'everest-base-camp', 'Lobuche Peak': 'lobuche-peak',
-  'Island Peak': 'island-peak', 'Mera Peak': 'mera-peak', 'Lenin Peak': 'lenin-peak', 'Ethiopia': 'ethiopia',
-};
-const sha256 = s => crypto.createHash('sha256').update(String(s).toLowerCase().trim()).digest('hex');
-
-/* Resolve a lead's Expedition (canonical, variant, Hebrew or odd casing) to a
-   priced /book slug — exact match first, then keyword, then Hebrew fallback. */
-function fbSlug(expedition) {
-  const e = String(expedition || '').trim();
-  if (!e) return null;
-  if (DEST_SLUG[e]) return DEST_SLUG[e];
-  const lc = e.toLowerCase();
-  for (const [name, slug] of Object.entries(DEST_SLUG)) if (lc.includes(name.toLowerCase())) return slug;
-  const HEB = [['קילימנג', 'kilimanjaro'], ['קזבק', 'kazbek'], ['אלברוס', 'elbrus'], ['אקונקגוא', 'aconcagua'], ['אולימפוס', 'olympus'], ['בלקן', 'peaks-of-balkan'], ['אנאפורנה', 'annapurna'], ['מנסלו', 'manaslu'], ['אוורסט', 'everest-base-camp'], ['לובוצ', 'lobuche-peak'], ['איילנד', 'island-peak'], ['מרה פיק', 'mera-peak'], ['לנין', 'lenin-peak'], ['סימיאן', 'ethiopia'], ['אתיופיה', 'ethiopia']];
-  for (const [k, s] of HEB) if (e.includes(k)) return s;
-  return null;
+/* ── Facebook Purchase tracking (Conversions API, valued by destination) ──
+   The value is the trip's price on the website today (src/data/mockData.js
+   `price`, in the currency its `priceStr` shows), so Meta is told what the trip
+   costs now rather than a table typed in July that had drifted from the site
+   (owner, 15 Nov 2026). The lead's Expedition finds its trip the way every
+   message does (./dest.js), so the kosher Kilimanjaro is valued as itself and
+   the Manaslu climb is not valued as the circuit. A trip with no price on the
+   site (a safari page still "[למילוי]", Israel) reports no Purchase, as before.
+   The trip list is loaded only when a closing fires, never on a plain cron tick. */
+let tripsOnce = null;
+const siteTrips = () => (tripsOnce ||= import('../../src/data/mockData.js').then(m => m.EXPS || []));
+export async function purchaseValue(expedition) {
+  const slug = DEST[destKey(expedition)]?.slug;
+  if (!slug) return null;
+  const trip = (await siteTrips()).find(t => t.slug === slug);
+  const value = Number(trip?.price) || 0;
+  if (!(value > 0)) return null;
+  return { slug, value, currency: /€/.test(String(trip.priceStr || '')) ? 'EUR' : 'USD' };
 }
+const sha256 = s => crypto.createHash('sha256').update(String(s).toLowerCase().trim()).digest('hex');
 
 async function fireFbPurchase(f, eventId) {
   const FB_TOKEN = process.env.FB_CAPI_TOKEN;
   if (!FB_TOKEN) return { skipped: 'no FB token' };
-  const slug = fbSlug(f.Expedition);
-  const priced = slug && EXPEDITION_PRICES[slug];
+  const priced = await purchaseValue(f.Expedition);
   if (!priced) return { skipped: 'no price for ' + (f.Expedition || '?') };
-  const [value, currency] = priced;
+  const { slug, value, currency } = priced;
   const parts = String(f.Name || '').trim().split(/\s+/);
   const ud = {};
   if (f.Email)   ud.em = [sha256(f.Email)];

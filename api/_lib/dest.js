@@ -58,16 +58,24 @@ const KW = [
    normalises through this so the Airtable {Expedition} column holds ONE form
    (the web_v2 pages used to store the Hebrew page title, every other source
    wrote English keys, and the column ended up mixed). */
+/* The kosher Kilimanjaro by any of its names. The site's new Hebrew name,
+   "טיפוס לקילימנג׳רו לשומרי מסורת", holds the regular trip's whole name, and the
+   Lead Center's "Kilimanjaro (Religious)" its English keyword, so both landed on
+   regular Kilimanjaro: the form would have stored a kosher lead as a regular one
+   (15 Nov 2026). The words are tripKey's (./active-lead.js). */
+const RELIGIOUS = /religious|kosher|דתי|שומרי מסורת|חרדי/i;
+const religiousOf = (key, exp) => (key === 'Kilimanjaro' && RELIGIOUS.test(exp) ? 'Kilimanjaro Kosher' : key);
+
 export function destKey(expedition) {
   const exp = String(expedition || '').trim();
   if (!exp) return '';
   if (DEST[exp]) return exp;
   // Reverse-match against the Hebrew names (form leads store the Hebrew name).
   for (const [key, v] of Object.entries(DEST)) {
-    if (v.he === exp || exp.includes(v.he) || v.he.includes(exp)) return key;
+    if (v.he === exp || exp.includes(v.he) || v.he.includes(exp)) return religiousOf(key, exp);
   }
   const low = exp.toLowerCase();
-  for (const [k, key] of KW) if (low.includes(k) || exp.includes(k)) return key;
+  for (const [k, key] of KW) if (low.includes(k) || exp.includes(k)) return religiousOf(key, exp);
   return '';
 }
 

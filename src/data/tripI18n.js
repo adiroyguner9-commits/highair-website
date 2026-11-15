@@ -54,12 +54,12 @@ const SAFARI = {
   de: [
     { title: 'Safari im Tarangire-Nationalpark', desc: 'Tarangire ist bekannt für seine großen Elefantenherden und Baobab-Bäume. Eine Safari, die sich von anderen Parks des Landes abhebt: große Herden afrikanischer Elefanten, beeindruckende Vogelzüge und eine vielfältige Tierwelt mit Löwen, Leoparden, Geparden, Giraffen, Büffeln, Zebras, Affen und mehr.', accommodation: 'Kudu Lodge, Karatu, oder ähnlich' },
     { title: 'Safari im Ngorongoro-Krater', desc: 'Der Ngorongoro-Krater entstand durch den Einsturz eines Vulkans. Auf dem Kraterboden liegen weite Graslandschaften, Wälder und Quellen, die rund 25.000 Tieren Lebensraum bieten, darunter die meisten typischen Arten Ostafrikas: Löwen, Leoparden, Elefanten, Büffel und Nashörner.', accommodation: 'Kudu Lodge, Karatu, oder ähnlich' },
-    { title: 'Besuch bei den Hadzabe und Datoga am Eyasi-See', desc: 'Die Hadza gehören zu den letzten Gemeinschaften der Welt, die als Jäger und Sammler leben, im Norden Tansanias rund um den Eyasi-See. Sie sprechen eine einzigartige Sprache mit Klicklauten und bewahren ihre alten Traditionen trotz moderner Einflüsse. Ihre Ernährung beruht vor allem auf Jagd, wilden Beeren, Honig und Pflanzen, ein seltenes und faszinierendes Beispiel einer uralten Lebensweise. Danach geht es weiter zu den Datoga, Hirten und geschickten Schmieden, die Schmuck und Pfeilspitzen aus Metall fertigen. Am Nachmittag Fahrt zum Kilimanjaro-Flughafen für den Heimflug.' },
+    { title: 'Besuch bei den Hadzabe und Datoga am Eyasi-See', desc: 'Die Hadza gehören zu den letzten Gemeinschaften der Welt, die als Jäger und Sammler leben, im Norden Tansanias rund um den Eyasi-See. Sie sprechen eine einzigartige Sprache mit Klicklauten und bewahren ihre alten Traditionen trotz moderner Einflüsse. Ihre Ernährung beruht vor allem auf Jagd, wilden Beeren, Honig und Pflanzen, ein seltenes und faszinierendes Beispiel einer uralten Lebensweise. Danach geht es weiter zu den Datoga, Hirten und geschickten Schmieden, die Schmuck und Pfeilspitzen aus Metall fertigen. Gegen Mittag Fahrt zum Kilimanjaro-Flughafen für den Heimflug.' },
   ],
   es: [
     { title: 'Safari en el Parque Nacional de Tarangire', desc: 'Tarangire es famoso por sus grandes manadas de elefantes y sus baobabs. Un safari distinto al de otras reservas del país: grandes manadas de elefantes africanos, espectaculares migraciones de aves y una fauna muy variada con leones, leopardos, guepardos, jirafas, búfalos, cebras, monos y mucho más.', accommodation: 'Kudu Lodge, Karatu, o similar' },
     { title: 'Safari en el cráter del Ngorongoro', desc: 'El cráter del Ngorongoro se formó por el colapso de un volcán. En el fondo de la caldera hay grandes praderas, bosques y manantiales que acogen a unos 25.000 animales, entre ellos la mayoría de las especies emblemáticas de África Oriental: leones, leopardos, elefantes, búfalos y rinocerontes.', accommodation: 'Kudu Lodge, Karatu, o similar' },
-    { title: 'Visita a las tribus hadzabe y datoga en el lago Eyasi', desc: 'Los hadza son una de las últimas comunidades del mundo que viven como cazadores-recolectores, en el norte de Tanzania, alrededor del lago Eyasi. Hablan una lengua única con sonidos de chasquido y mantienen sus tradiciones ancestrales pese a la influencia moderna. Su alimentación se basa sobre todo en la caza, las bayas silvestres, la miel y las plantas, un ejemplo raro y fascinante de un modo de vida milenario. Después visitamos a los datoga, pastores y hábiles herreros que fabrican joyas y puntas de flecha de metal. Por la tarde, traslado al aeropuerto del Kilimanjaro para el vuelo de regreso a casa.' },
+    { title: 'Visita a las tribus hadzabe y datoga en el lago Eyasi', desc: 'Los hadza son una de las últimas comunidades del mundo que viven como cazadores-recolectores, en el norte de Tanzania, alrededor del lago Eyasi. Hablan una lengua única con sonidos de chasquido y mantienen sus tradiciones ancestrales pese a la influencia moderna. Su alimentación se basa sobre todo en la caza, las bayas silvestres, la miel y las plantas, un ejemplo raro y fascinante de un modo de vida milenario. Después visitamos a los datoga, pastores y hábiles herreros que fabrican joyas y puntas de flecha de metal. Hacia el mediodía, traslado al aeropuerto del Kilimanjaro para el vuelo de regreso a casa.' },
   ],
 };
 
@@ -79,7 +79,7 @@ const L = {
     firstAid: 'Erste-Hilfe-Set inklusive Notfall-Sauerstoffflaschen',
     gearList: 'Ausführliche Ausrüstungsliste und Trainingsplan für die Besteigung',
     gear: 'Online-Ausrüstungsberatung',
-    prep: 'Online-Vorbereitungsgespräch mit Ihrer Gruppe und dem Bergführer vor der Abreise',
+    prep: 'Online-Vorbereitungsgespräch mit Ihrer Gruppe vor der Abreise',
     support: 'Unterstützung bei Fragen zu Flug und Reiseversicherung vor der Abreise',
     donation: 'Eine bedeutende Spende für den Kampf gegen Krebs!',
     jeep: '4x4-Safarifahrzeug mit offenem Dach (bis 6 Plätze)',
@@ -117,7 +117,7 @@ const L = {
     firstAid: 'Botiquín de primeros auxilios con botellas de oxígeno de emergencia',
     gearList: 'Lista de equipo detallada y plan de entrenamiento para el ascenso',
     gear: 'Asesoramiento de equipo en línea',
-    prep: 'Llamada de preparación en línea con tu grupo y el guía antes de salir',
+    prep: 'Llamada de preparación en línea con tu grupo antes de salir',
     support: 'Ayuda con dudas sobre vuelos y seguro de viaje antes de salir',
     donation: '¡Una donación significativa a la lucha contra el cáncer!',
     jeep: 'Vehículo de safari 4x4 con techo abierto (hasta 6 plazas)',
@@ -177,7 +177,7 @@ const KILI = {
       'Das Visum für Tansania kostet 50 $ pro Person. Wir empfehlen, es vorab online zu beantragen (eVisa) und nicht auf die Ausstellung am Flughafen zu setzen. Gültig für 90 Tage.',
       'Die Machame-Route (7 Tage) hat die höchste Erfolgsquote am Kilimandscharo, mit eingeplanten Akklimatisierungstagen. Unsere Erfolgsquote liegt bei 94 %.',
       'Der Gipfeltag beginnt um Mitternacht (00:00) und dauert etwa 13 bis 15 Stunden. Volle Winterausrüstung ist nötig: am Gipfel bis −15 °C und starker Wind.',
-      'Übernachtung in Zelten auf der gesamten Route; Ausrüstung (Zelte, Matten) wird gestellt. Ein Schlafsack bis −15 °C ist erforderlich.',
+      'Übernachtung in Zelten auf der gesamten Route; Ausrüstung (Zelte, Matten) wird gestellt. Ein Schlafsack mit einer Komforttemperatur von −5 °C ist erforderlich.',
       'Ein ärztliches Attest ist erforderlich, inklusive Eignung für eine Höhe von 5895 m.',
       'Keine Klettererfahrung nötig: Wer 8 bis 10 Stunden am Tag gehen kann, kann den Gipfel erreichen.',
       'Sicherheit vor Gipfel: Der Bergführer entscheidet je nach Verfassung jedes Teilnehmers, ob es weitergeht.',
@@ -208,7 +208,7 @@ const KILI = {
       'El visado de Tanzania cuesta 50 $ por persona. Recomendamos solicitarlo en línea con antelación (eVisa) y no depender del aeropuerto. Válido 90 días.',
       'La ruta Machame (7 días) tiene la mayor tasa de éxito del Kilimanjaro, con días de aclimatación incluidos. Nuestra tasa de éxito es del 94 %.',
       'El día de cumbre empieza a medianoche (00:00) y dura unas 13 a 15 horas. Se necesita equipo de invierno completo: hasta −15 °C y viento fuerte en la cumbre.',
-      'Alojamiento en tiendas durante toda la ruta; el equipo (tiendas, colchonetas) está incluido. Se necesita un saco de dormir de hasta −15 °C.',
+      'Alojamiento en tiendas durante toda la ruta; el equipo (tiendas, colchonetas) está incluido. Se necesita un saco de dormir con una temperatura de confort de −5 °C.',
       'Se requiere un certificado médico, incluida la aptitud para una altitud de 5895 m.',
       'No hace falta experiencia previa: quien pueda caminar de 8 a 10 horas al día puede llegar a la cumbre.',
       'La seguridad antes que la cumbre: el guía decide si se continúa según el estado de cada participante.',
@@ -240,7 +240,7 @@ const KOSHER = {
     importantToNote: [
       'Eine internationale jüdische Gruppe: Die ganze Reise findet auf Englisch statt, geführt von unseren einheimischen Bergführern, mit Bergsteigern aus aller Welt.',
       'Das Visum für Tansania kostet 50 $ pro Person. Wir empfehlen, es vorab online zu beantragen (eVisa). Gültig für 90 Tage.',
-      'Das gesamte Essen ist streng koscher unter voller Aufsicht: separate Küche, separates Geschirr und Schechita nach der Halacha. Auch für Schabbat-observante Teilnehmer geeignet.',
+      'Glatt koscheres Essen (Mehadrin) während der ganzen Besteigung: 3 volle Mahlzeiten pro Tag in Abstimmung mit dem Chabad-Haus Arusha. Der Schabbat wird während der ganzen Reise eingehalten.',
       'Der Gipfeltag beginnt um Mitternacht (00:00). Volle Winterausrüstung ist nötig: bis −15 °C und Wind am Gipfel.',
       'Machame-Route, 6 Tage am Berg (Sonntag bis Freitag, vor dem Schabbat). Unsere Erfolgsquote liegt dank eingeplanter Akklimatisierungstage bei 94 %.',
       'Ein ärztliches Attest ist erforderlich, inklusive Eignung für eine Höhe von 5895 m.',
@@ -272,7 +272,7 @@ const KOSHER = {
     importantToNote: [
       'Un grupo judío internacional: todo el viaje es en inglés, con nuestros guías locales y montañeros de todo el mundo.',
       'El visado de Tanzania cuesta 50 $ por persona. Recomendamos solicitarlo en línea con antelación (eVisa). Válido 90 días.',
-      'Toda la comida es estrictamente kosher con supervisión completa: cocina separada, utensilios separados y shejitá según la halajá. Apto también para quienes guardan el Shabat.',
+      'Comida glatt kosher (mehadrin) durante todo el ascenso: 3 comidas completas al día, en coordinación con la Casa Jabad de Arusha. Se guarda el Shabat durante todo el viaje.',
       'El día de cumbre empieza a medianoche (00:00). Se necesita equipo de invierno completo: hasta −15 °C y viento en la cumbre.',
       'Ruta Machame, 6 días en la montaña (de domingo a viernes, antes del Shabat). Nuestra tasa de éxito es del 94 % gracias a los días de aclimatación.',
       'Se requiere un certificado médico, incluida la aptitud para una altitud de 5895 m.',
@@ -339,7 +339,7 @@ import SES from '../i18n/safari-es.js';
 export function applyTripI18n(exp) {
   applyCopy(exp);
   for (const lang of ['de', 'es']) {
-    exp['faq' + (lang === 'de' ? 'De' : 'Es')] = FAQ_I18N[exp.slug]?.[lang] || defaultFaqI18n(lang, exp.groupCapacity || 15);
+    exp['faq' + (lang === 'de' ? 'De' : 'Es')] = FAQ_I18N[exp.slug]?.[lang] || defaultFaqI18n(lang, exp.groupCapacity || 15, exp);
   }
   return exp;
 }
@@ -408,18 +408,48 @@ export const FAQ_I18N = {
   },
 };
 
-export function defaultFaqI18n(lang, cap = 15) {
+/* The default answers on the German and Spanish pages follow the trip (owner,
+   15 Nov 2026), as the Hebrew and English ones do: "Do I need experience?" is
+   the trip's own experience line when it has one, and the single-room answer
+   is read from the trip's own lists, so it cannot drift from them: the
+   single-room hotel nights of the included list, the single rooms for a fee of
+   the not-included list (with their prices), or, with neither, no single room.
+   Without a trip the generic answers stay. */
+const SINGLE_ROOM = { de: /Einzelzimmer/, es: /habitaci[oó]n individual/i };
+const lowerFirst = s => s.charAt(0).toLowerCase() + s.slice(1);
+function singleRoomAnswer(lang, exp) {
+  const S = lang === 'de' ? 'De' : 'Es';
+  const inc = (exp['included' + S] || []).filter(l => SINGLE_ROOM[lang].test(l));
+  const paid = (exp['notIncluded' + S] || []).filter(l => SINGLE_ROOM[lang].test(l));
+  const list = lines => (lang === 'de' ? lines : lines.map(lowerFirst)).join('; ');
+  const book = lang === 'de'
+    ? ' Bitte geben Sie es bei der Anmeldung an, damit wir das Zimmer reservieren können.'
+    : ' Indícalo en el formulario de inscripción para que podamos reservarla.';
+  if (lang === 'de') {
+    if (inc.length && paid.length) return `Ja. Die Hotelnächte sind im Einzelzimmer und im Preis enthalten (${list(inc)}). Gegen Aufpreis ist außerdem ein Einzelzimmer möglich (${list(paid)}).${book}`;
+    if (inc.length) return `Ja. Die Hotelnächte sind im Einzelzimmer und im Preis enthalten (${list(inc)}). Eine weitere Einzelzimmer-Option gibt es auf dieser Reise nicht.`;
+    if (paid.length) return `Ja, ein Einzelzimmer ist gegen Aufpreis möglich (${list(paid)}).${book}`;
+    return 'Nein, auf dieser Reise gibt es keine Möglichkeit für ein Einzelzimmer.';
+  }
+  if (inc.length && paid.length) return `Sí. Las noches de hotel son en habitación individual y están incluidas en el precio (${list(inc)}). Con un suplemento también se puede pedir habitación individual (${list(paid)}).${book}`;
+  if (inc.length) return `Sí. Las noches de hotel son en habitación individual y están incluidas en el precio (${list(inc)}). En este viaje no hay otra opción de habitación individual.`;
+  if (paid.length) return `Sí, se puede pedir habitación individual con un suplemento (${list(paid)}).${book}`;
+  return 'No, en este viaje no hay opción de habitación individual.';
+}
+
+export function defaultFaqI18n(lang, cap = 15, exp) {
+  const experience = exp && exp['experience' + (lang === 'de' ? 'De' : 'Es')];
   if (lang === 'de') return [
-    { q: 'Brauche ich Vorerfahrung?', a: 'Für die meisten unserer Routen ist keine Klettererfahrung nötig. Was zählt, sind gute Fitness, Offenheit und der Wille, den Gipfel zu erreichen; die gemeinsame Vorbereitung vor der Abreise erledigt den Rest.' },
+    { q: 'Brauche ich Vorerfahrung?', a: experience || 'Für die meisten unserer Routen ist keine Klettererfahrung nötig. Was zählt, sind gute Fitness, Offenheit und der Wille, den Gipfel zu erreichen; die gemeinsame Vorbereitung vor der Abreise erledigt den Rest.' },
     { q: 'Wie groß ist die Gruppe?', a: `Unsere Gruppen sind auf höchstens ${cap} Teilnehmer begrenzt, damit persönliche Betreuung und ein hochwertiges Erlebnis auf der ganzen Reise gewährleistet sind.` },
-    { q: 'Gibt es ein Einzelzimmer?', a: 'Ja, ein Einzelzimmer kann gegen Aufpreis gebucht werden. Bitte geben Sie es bei der Anmeldung an, damit wir das Zimmer reservieren können.' },
+    { q: 'Gibt es ein Einzelzimmer?', a: exp ? singleRoomAnswer('de', exp) : 'Ja, ein Einzelzimmer kann gegen Aufpreis gebucht werden. Bitte geben Sie es bei der Anmeldung an, damit wir das Zimmer reservieren können.' },
     { q: 'Was passiert, wenn ich früher absteigen muss?', a: 'Die Sicherheit der Teilnehmer geht vor. Wenn Sie aus irgendeinem Grund früher absteigen müssen, begleitet Sie der Bergführer sicher zurück. Zusätzliche Kosten durch einen vorzeitigen Abstieg trägt der Reisende.' },
     { q: 'Was ist im Preis enthalten?', a: 'Der Preis umfasst alles, was auf der Seite unter „Inklusive“ aufgeführt ist. Internationale Flüge und Reiseversicherung sind nicht enthalten; eine vollständige Ausrüstungsliste erhält jeder nach der Anmeldung.' },
   ];
   if (lang === 'es') return [
-    { q: '¿Necesito experiencia previa?', a: 'Para la mayoría de nuestras rutas no hace falta experiencia en escalada. Lo que se necesita es buena forma física, actitud abierta y ganas de llegar a la cumbre; la preparación que hacemos juntos antes del viaje hace el resto.' },
+    { q: '¿Necesito experiencia previa?', a: experience || 'Para la mayoría de nuestras rutas no hace falta experiencia en escalada. Lo que se necesita es buena forma física, actitud abierta y ganas de llegar a la cumbre; la preparación que hacemos juntos antes del viaje hace el resto.' },
     { q: '¿De cuántas personas es el grupo?', a: `Nuestros grupos tienen un máximo de ${cap} participantes, para mantener una atención personal y una experiencia de calidad durante todo el viaje.` },
-    { q: '¿Hay habitación individual?', a: 'Sí, se puede pedir habitación individual con un suplemento. Indícalo en el formulario de inscripción para que podamos reservarla.' },
+    { q: '¿Hay habitación individual?', a: exp ? singleRoomAnswer('es', exp) : 'Sí, se puede pedir habitación individual con un suplemento. Indícalo en el formulario de inscripción para que podamos reservarla.' },
     { q: '¿Qué pasa si tengo que bajar antes?', a: 'La seguridad de los participantes es lo primero. Si tienes que bajar antes por cualquier motivo, el guía te acompaña de vuelta con seguridad. Los costes extra de un descenso anticipado corren a cargo del viajero.' },
     { q: '¿Qué incluye el precio?', a: 'El precio incluye todo lo que aparece en el apartado «Incluido» de la página. Los vuelos internacionales y el seguro de viaje no están incluidos; cada inscrito recibe una lista completa de equipo tras la inscripción.' },
   ];

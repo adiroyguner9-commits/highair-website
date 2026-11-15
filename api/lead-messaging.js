@@ -30,7 +30,8 @@ import { destInfo } from './_lib/dest.js';   // single source of truth for desti
 import { tripKey } from './_lib/active-lead.js';   // same-trip test — a call booked for a DIFFERENT destination must not suppress this enquiry's link
 import { isForeignLead, NOT_FOREIGN_FORMULA } from './_lib/lead-channel.js';   // foreign-site leads: email only, no WhatsApp
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
-import { msgFollowUp } from './_lib/followup.js';   // shared with the manual "send now" button
+import { msgFollowUp, futureDepartureEvents, tripHasDeparture } from './_lib/followup.js';   // shared with the manual "send now" button
+import { fetchAllPages } from './departures.js';   // every Groups page, or an error: never a short list
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
 import { israelClosedHold, israelNow } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, and festivals the same way: nobody is here to answer
 import { greenFetch } from './_lib/green.js';
@@ -476,12 +477,28 @@ export default async function handler(req, res) {
        recently touched card goes first: the release after a failure touches the
        card, which moves it to the back of the line. */
     due.sort((a, b) => String(a.fields?.['Last Modified'] || '').localeCompare(String(b.fields?.['Last Modified'] || '')));
+    /* "The groups are filling and the departure is guaranteed" only where there
+       IS a departure ahead (owner, 15 Nov 2026): a lead whose trip has no future,
+       public Groups row is not sent it, and when Groups cannot be read nothing is
+       sent this run. Nothing is written for a skipped lead: it is simply not sent. */
+    let futureEvents, groupsRead = false;   // read once, and only when a follow-up is actually due
+    const departuresAhead = async () => {
+      if (groupsRead) return futureEvents;
+      groupsRead = true;
+      try { futureEvents = futureDepartureEvents(await fetchAllPages(BASE, TOKEN, 'Groups', ['Event', 'Departure', 'Hidden']), israelNow().ymd); }
+      catch (e) { futureEvents = null; result.errors.push('followUp groups: ' + e.message); }
+      return futureEvents;
+    };
+    let fuNoDeparture = 0, fuNoGroups = 0;
     let fuThisRun = 0, fuTried = 0;
     for (const rec of due) {
       const f = rec.fields || {};
       if (isForeignLead(f)) continue;                  // email only (lead-channel.js)
       if (!followUpDue(f, nowMs)) continue;            // four days after the LAST call, and not while a call is ahead
       if (!f.Phone) { result.followUpNoPhone++; continue; }   // nothing to send to — never tick "Sent"
+      const ahead = await departuresAhead();
+      if (!ahead) { fuNoGroups++; continue; }         // Groups unread: no follow-up this run
+      if (!tripHasDeparture(f.Expedition, ahead)) { fuNoDeparture++; continue; }
       /* Drip, do not dump. The flag is unclaimed, so whoever is left here is
          simply first in line on the next tick five minutes from now. */
       if (fuThisRun >= MAX_SENDS_PER_RUN || fuTried >= MAX_SENDS_PER_RUN * 3) { result.followUpQueued = (result.followUpQueued || 0) + 1; continue; }
@@ -503,6 +520,11 @@ export default async function handler(req, res) {
       await patchLead(rec.id, { 'Follow-Up Sent': false });   // release it — next run retries
       result.followUpFailed++;
       result.errors.push(`followUp send failed ${f.Name || rec.id}: ${sent.error}`);
+    }
+    if (fuNoDeparture || fuNoGroups) {
+      result.followUpNoDeparture = fuNoDeparture;
+      if (fuNoGroups) result.followUpNoGroups = fuNoGroups;
+      console.log(`[lead-messaging] follow-up not sent: ${fuNoDeparture} with no future departure${fuNoGroups ? `, ${fuNoGroups} because Groups could not be read` : ''}`);
     }
   } catch (e) { result.errors.push('followUp: ' + e.message); }
 

@@ -3,8 +3,8 @@ export default {
  de: {
   name: 'Olymp',
   days: '6 Tage',
-  seoTitle: 'Trekking auf den Olymp | HighAir Expeditions',
-  seoDescription: 'Trekking auf den Gipfel des Olymp (2918 m) in Griechenland, 6 Tage. Durch die Wälder von Prionia auf den Mytikas und Canyoning im Fluss Orlias. Gruppen bis 10 Personen.',
+  seoTitle: 'Olymp besteigen | HighAir Expeditions',
+  seoDescription: 'Besteigung des Olymp (2918 m) in Griechenland, 6 Tage. Durch die Wälder von Prionia auf den Mytikas und Canyoning im Fluss Orlias. Gruppen bis 10 Personen.',
   desc: 'Der Olymp ist der höchste Berg Griechenlands und der sagenhafte Sitz der olympischen Götter. Mit atemberaubenden Panoramen, üppigen Wäldern und unberührten Almwiesen ist diese Expedition ein unvergessliches Erlebnis.\n\nDie Reise beginnt im Dorf Litochoro, führt über Prionia zu den Berghütten und weiter zu den legendären Gipfeln Skala und Mytikas auf 2918 Metern. Eine anspruchsvolle Route, die mit guter Vorbereitung Wanderern jeder Fitnessstufe offensteht.\n\nDie Besteigung des Olymp ist nicht nur eine körperliche Herausforderung, sondern auch ein geistiges und kulturelles Erlebnis. Die klare Luft, die Stille und die Verbindung zur Geschichte und Mythologie des alten Griechenlands hinterlassen einen bleibenden Eindruck.\n\nKommen Sie mit auf dieses unglaubliche Abenteuer zum Gipfel der Götter und leisten Sie einen wertvollen Beitrag zum Kampf gegen Krebs!',
   highlights: ['Gipfel des Mytikas 2918 m', 'Wälder von Prionia', 'Mythologie des alten Griechenlands', 'Panorama über die Ägäis'],
   seasons: ['Juni bis Oktober'],
@@ -31,8 +31,8 @@ export default {
  es: {
   name: 'Olimpo',
   days: '6 días',
-  seoTitle: 'Trek al monte Olimpo | HighAir Expeditions',
-  seoDescription: 'Trek a la cumbre del monte Olimpo (2918 m) en Grecia, 6 días. Por los bosques de Prionia hasta el Mytikas y barranquismo en el río Orlias. Grupos de hasta 10.',
+  seoTitle: 'Subir al monte Olimpo | HighAir Expeditions',
+  seoDescription: 'Ascenso a la cumbre del monte Olimpo (2918 m) en Grecia, 6 días. Por los bosques de Prionia hasta el Mytikas y barranquismo en el río Orlias. Grupos de hasta 10.',
   desc: 'El monte Olimpo es la montaña más alta de Grecia y la legendaria morada de los dioses olímpicos. Con panorámicas impresionantes, bosques frondosos y prados alpinos vírgenes, esta expedición es una experiencia inolvidable.\n\nEl viaje empieza en el pueblo de Litochoro, pasa por Prionia hacia los refugios de montaña y sigue hasta las legendarias cumbres de Skala y Mytikas, a 2918 metros. Una ruta exigente abierta a caminantes de cualquier nivel con una buena preparación.\n\nSubir al Olimpo no es solo un reto físico: es una experiencia espiritual y cultural. El aire limpio, el silencio y la conexión con la historia y la mitología de la antigua Grecia dejan una huella duradera.\n\nÚnete a esta aventura increíble a la Cumbre de los Dioses y contribuye de verdad a la lucha contra el cáncer.',
   highlights: ['Cumbre del Mytikas 2918 m', 'Bosques de Prionia', 'Mitología griega antigua', 'Panorámica del mar Egeo'],
   seasons: ['junio a octubre'],

@@ -21,6 +21,8 @@ const PLAN = [
   ['lobuche-peak', 1, 'welcome'], ['lobuche-peak', 17, 'farewell'],
   ['ama-dablam', 1, 'welcome'], ['ama-dablam', 22, 'summit'], ['ama-dablam', 28, 'farewell'],
   ['himlung-himal', 1, 'welcome'], ['himlung-himal', 23, 'summit'], ['manaslu', 1, 'welcome'], ['manaslu', 25, 'summit'],
+  /* owner, 15 Nov 2026: the farewell dinner in Kathmandu on day 28, as on every other Nepal programme */
+  ['himlung-himal', 28, 'farewell'], ['manaslu', 28, 'farewell'],
 ];
 
 describe('the climbs with title-only days: the meal the programme names', () => {

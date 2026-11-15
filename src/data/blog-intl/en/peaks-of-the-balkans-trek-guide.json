@@ -45,13 +45,13 @@
   {
    "type": "list",
    "items": [
-    "Day 1: landing in Tirana and a drive of about two hours to Shkodra, an evening walk along the main street of the city and an opening dinner to meet the team and the group.",
+    "Day 1: landing in Tirana, a drive of about two hours to Shkodra and an evening walk along the main street of the city.",
     "Day 2: drive to Lake Komani and a ferry ride between gorges and cliffs, a traditional lunch in a local town, and from the village of Dragobia a walk along the Valbona river to the village of Valbona (927 m). 7 km, 3 to 4 hours.",
     "Day 3: a climb in steep switchbacks to the Prosllopi Pass (about 2,030 m), crossing the border into Montenegro, lunch in the Buri meadow and a gradual descent through forest to Çerem (1,150 m). 13 to 14 km, 7 to 8 hours.",
     "Day 4: a gradual climb to the Montenegro border, through the shepherd hamlet of Balqin and the Gashi valley, to Dobërdol (1,800 m), a remote shepherd village inhabited only in summer. 16 to 17 km, 7 to 8 hours.",
     "Day 5: a mountain pass on the Albania and Kosovo border, the climb to Gjeravica peak (2,656 m) and the descent to Gacafar (1,840 m), close to the Triple Border point. 16 to 17 km, 7 to 8 hours.",
     "Day 6: the Triple Border Peak (2,366 m), a descent along the ridge between Kosovo and Montenegro, Lake Hrid, and the village of Babino Polje in Montenegro (1,550 m). 16 to 17 km, 7 to 8 hours.",
-    "Day 7: a short drive to the Grbaja valley, a climb through forest to Volušnica peak, and from there along a narrow ridge to Taljanka peak (2,056 m). Back down to the valley and a drive to the village of Vusanje (953 m). 20 to 22 km, 9 to 10 hours.",
+    "Day 7: a walk from Babino Polje through alpine meadows to the summit of Taljanka (2,056 m), with views over the Prokletije peaks, and a long descent to the village of Vusanje (953 m). 20 to 22 km, 9 to 10 hours.",
     "Day 8: a long day in the Prokletije reserve, crossing the border from Montenegro into Albania and descending to the village of Theth (750 m) for the last night in the mountains. 17 to 18 km, 7 to 8 hours.",
     "Day 9: a short walk to the Grunas waterfall, a drive to the Blue Eye, a natural pool fed by a spring, and back to Shkodra. 6 to 7 km, 3 to 4 hours.",
     "Day 10: transfer to Tirana airport and the flight home."
@@ -59,7 +59,7 @@
   },
   {
    "type": "text",
-   "value": "Full walking days last 7 to 8 hours in most cases. The longest is day 7: 20 to 22 km and 9 to 10 hours, with two summits and a descent of about 1,100 m. The biggest climb is on day 3, about 1,100 m from Valbona to the Prosllopi Pass. Days 2 and 9 are shorter and combine walking with driving."
+   "value": "Full walking days last 7 to 8 hours in most cases. The longest is day 7: 20 to 22 km and 9 to 10 hours, with one summit, Taljanka, and a descent of about 1,100 m. The biggest climb is on day 3, about 1,100 m from Valbona to the Prosllopi Pass. Days 2 and 9 are shorter and combine walking with driving."
   },
   {
    "type": "image",
@@ -145,11 +145,11 @@
   },
   {
    "type": "text",
-   "value": "Before departure you receive a personal gear checklist and an online gear consultation, and the group meets the guide on an online preparation call. The best preparation is long hikes with climbs and descents in the months before the trek, so that the second and third day in a row are not your first."
+   "value": "Before departure you receive a personal gear checklist and an online gear consultation, and you meet your group on an online preparation call. The best preparation is long hikes with climbs and descents in the months before the trek, so that the second and third day in a row are not your first."
   },
   {
    "type": "text",
-   "value": "Good to know: the trek is led by professional local guides who speak English and have long experience leading groups in the mountains. Basic English, enough to follow instructions on the trail, is worth having. Every trekker must follow the instructions of the crew, and the route may change because of the weather or at the discretion of the guides. The group has satellite communication and an emergency evacuation plan, and in the mountains, as always, safety comes before reaching the goal."
+   "value": "Good to know: the trek is led by professional local guides who speak English and have long experience leading groups in the mountains. Basic English, enough to follow instructions on the trail, is worth having. Every trekker must follow the instructions of the crew, and the route may change because of the weather or at the discretion of the guides. The group has an emergency evacuation plan, and families at home receive WhatsApp updates during the trek. In the mountains, as always, safety comes before reaching the goal."
   },
   {
    "type": "image",
@@ -175,7 +175,7 @@
   },
   {
    "type": "text",
-   "value": "The Peaks of the Balkans trek costs 1,750 euros per person. It includes airport transfers to the hotel in Shkodra and back, internal transfers to the start of the route and back, 2 nights in a 3-star hotel in Shkodra with breakfast, accommodation in guesthouses and huts in shared rooms throughout the trek, three full meals a day throughout the trek, professional local English-speaking guides, luggage transfers between overnight stops throughout the trek, a boat ride on Lake Komani, all entry permits for the trek, live WhatsApp updates for families during the trek, a personal area in the HighAir app, a detailed gear list and a training plan for the trek, an online gear consultation, an online preparation call with your group and guide before departure, support with flight and travel insurance questions before departure, a gift kit with a cap and a dry-fit shirt, and a meaningful donation to the fight against cancer."
+   "value": "The Peaks of the Balkans trek costs 1,750 euros per person. It includes airport transfers to the hotel in Shkodra and back, internal transfers to the start of the route and back, 2 nights in a 3-star hotel in Shkodra with breakfast, accommodation in guesthouses and huts in shared rooms throughout the trek, three full meals a day throughout the trek, professional local English-speaking guides, luggage transfers between overnight stops throughout the trek, a boat ride on Lake Komani, all entry permits for the trek, live WhatsApp updates for families during the trek, a personal area in the HighAir app, a detailed gear list and a training plan for the trek, an online gear consultation, an online preparation call with your group before departure, support with flight and travel insurance questions before departure, a gift kit with a cap and a dry-fit shirt, and a meaningful donation to the fight against cancer."
   },
   {
    "type": "text",
