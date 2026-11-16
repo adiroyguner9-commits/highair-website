@@ -29,6 +29,45 @@ import MountainBackdrop from './MountainBackdrop.jsx';
    460-590KB). The fill now waits until the photo is near the screen and takes the lighter copy
    (it is blurred, so nothing looks different), and the photo offers that copy to a screen that
    needs no more. `sizes` is never narrower than the column, so the photo keeps the size it had. */
+/* A YouTube video inside the article, so the reader stays on the site (owner, 16 Nov 2026: "הסרטון
+   שיוטמע בתוך הכתבה ולא יוציא מהאתר"). Only the thumbnail loads with the page; the player
+   (youtube-nocookie, allowed by the CSP) loads on the first press, so the page stays fast. */
+function YouTubeEmbed({ block, lang }) {
+  const [on, setOn]       = useState(false);
+  const [thumb, setThumb] = useState(`https://i.ytimg.com/vi/${block.id}/maxresdefault.jpg`);
+  const title = block.title || '';
+  return (
+    <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: RADIUS.xl, overflow: 'hidden', background: '#000' }}>
+      {on ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${block.id}?autoplay=1&rel=0&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setOn(true)}
+          aria-label={(lang === 'en' ? 'Play the video: ' : 'הפעלת הסרטון: ') + title}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', padding: 0, border: 0, background: 'none', cursor: 'pointer' }}
+        >
+          <img loading="lazy" decoding="async" src={thumb} alt=""
+            onError={() => setThumb(`https://i.ytimg.com/vi/${block.id}/hqdefault.jpg`)}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <span aria-hidden="true" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35))' }}>
+            <svg width="68" height="48" viewBox="0 0 68 48" style={{ filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.35))' }}>
+              <rect width="68" height="48" rx="14" fill="#6D28D9" />
+              <path d="M27 15 L47 24 L27 33 Z" fill="#fff" />
+            </svg>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 function PostImage({ block }) {
   const [ref, near] = useNearView();
   const srcSet = srcSetOf(block.src);
@@ -652,6 +691,23 @@ export default function BlogPost() {
                     background:   block.grad || 'linear-gradient(135deg, #1a1a3e, #2d4a7a)',
                   }} />
                 )}
+                {block.caption && (
+                  <figcaption style={{
+                    fontFamily: "'Ploni', sans-serif",
+                    fontSize:   '13px',
+                    color:      '#6B6B8A',
+                    textAlign:  'center',
+                    marginTop:  '10px',
+                  }}>
+                    {block.caption}
+                  </figcaption>
+                )}
+              </figure>
+            );
+
+            if (block.type === 'youtube') return (
+              <figure key={i} style={{ margin: '36px 0' }}>
+                <YouTubeEmbed block={block} lang={lang} />
                 {block.caption && (
                   <figcaption style={{
                     fontFamily: "'Ploni', sans-serif",
