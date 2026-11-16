@@ -34,13 +34,13 @@ export const POSTS = [
         { type: 'text', value: 'המטפסים שהגיעו באותו ערב למחנה 2 היו בדרך לפסגה שלהם. הם התאמנו לשם חודשים, השקיעו כסף רב, עברו שבועות של התאקלמות בעמק קומבו, ועכשיו הפסגה כבר הייתה קרובה. במקום להמשיך, הם נשארו לצד אדם שלא הכירו. זה סיפור על השאלה שכל מטפס צריך לשאול את עצמו עוד לפני שהוא יוצא מהבית: מה אני עושה אם על ההר, ברגע הכי חשוב שלי, מישהו אחר צריך אותי.' },
 
         { type: 'section', value: 'מה קרה במחנה 2' },
-        { type: 'text', value: 'המטפס ההולנדי, קלאס פוסט, טיפס במסגרת משלחת מאורגנת. לפי הדיווח של The Tourism Times, הוא העפיל לפסגה ב-27 באוקטובר יחד עם שני מטפסים נוספים ועם המדריכים שלהם, ובירידה איבד את ההכרה במחנה 2. השניים האחרים הגיעו בשלום למחנה 1. הוא לא יכול היה לרדת.' },
-        { type: 'text', value: 'באותו ערב הגיעו למחנה המטפסת ההונגרית קסניה שאנטה ובן זוגה פול קלארק. התוכנית שלהם הייתה לעלות לפסגה בדחיפה אחת, בלי לעצור לימי מנוחה בדרך. הם מצאו את קלאס מחוסר הכרה, ומהר מאוד הבינו שמדובר במצב של חיים או מוות. ״בסוף קיבלנו את ההחלטה: באותו יום לא יהיה ניסיון פסגה״, סיפרה שאנטה.' },
+        { type: 'text', value: 'המטפס ההולנדי, קאסטיג׳ן, טיפס במסגרת משלחת מאורגנת. לפי הדיווח של The Tourism Times, הוא העפיל לפסגה ב-27 באוקטובר יחד עם שני מטפסים נוספים ועם המדריכים שלהם, ובירידה איבד את ההכרה במחנה 2. השניים האחרים הגיעו בשלום למחנה 1. הוא לא יכול היה לרדת.' },
+        { type: 'text', value: 'באותו ערב הגיעו למחנה המטפסת ההונגרית קסניה שאנטה ובן זוגה פול קלארק. התוכנית שלהם הייתה לעלות לפסגה בדחיפה אחת, בלי לעצור לימי מנוחה בדרך. הם מצאו את קאסטיג׳ן מחוסר הכרה, ומהר מאוד הבינו שמדובר במצב של חיים או מוות. ״בסוף קיבלנו את ההחלטה: באותו יום לא יהיה ניסיון פסגה״, סיפרה שאנטה.' },
         { type: 'text', value: '״בלילה של ה-27 באוקטובר, מבחינתנו, חיים של אדם נעשו חשובים יותר מהפסגה״, אמרה. ״כולנו ויתרנו על המטרות שלנו.״' },
         { type: 'extlink', href: 'https://www.youtube.com/watch?v=IxafxpzU5Ng', text: 'לצפייה בסרטון שמתעד את הלילה במחנה 2', textEn: 'Watch the video of the night at Camp 2' },
 
         { type: 'section', value: 'לילה שלם ליד אוהל אחד' },
-        { type: 'text', value: 'במשך כשלוש וחצי שעות הם ניסו לארגן עזרה. כמעט לא הייתה קליטה. הם פתחו את הטלפון של קלאס, מצאו בו את פרטי הקשר של אמו, ויצרו קשר עם צוות מחנה הבסיס, עם חברות משלחות אחרות ועם חברת הביטוח שלו. במקביל, לצד המדריכים של המשלחת שלו, הם לא עזבו אותו לרגע.' },
+        { type: 'text', value: 'במשך כשלוש וחצי שעות הם ניסו לארגן עזרה. כמעט לא הייתה קליטה. הם פתחו את הטלפון של קאסטיג׳ן, מצאו בו את פרטי הקשר של אמו, ויצרו קשר עם צוות מחנה הבסיס, עם חברות משלחות אחרות ועם חברת הביטוח שלו. במקביל, לצד המדריכים של המשלחת שלו, הם לא עזבו אותו לרגע.' },
         { type: 'text', value: 'כל כמה דקות הם בדקו לו דופק ונשימה. כשהשתעל, הפכו אותו על הצד. הם חיפשו בכל האוהל בלון חמצן. היו להם כדורי דקסמתזון, תרופה שמשמשת לטיפול במחלת גבהים, אבל הם לא יכלו לתת לו אותם, כי נשקפה סכנה שייחנק. ״הוא לא התאושש כל הלילה״, סיפרה שאנטה.' },
         { type: 'text', value: 'לשניים לא היה שק שינה, והיה להם מעט מאוד אוכל. שאנטה כינתה את זה ״לילה אכזרי״. סביבם, מטפסים אחרים המשיכו בדרכם. הם נשארו.' },
 
@@ -51,16 +51,16 @@ export const POSTS = [
         { type: 'image', src: '/images/gallery/ama-dablam/7.webp', alt: 'מטפס עם קסדה לבנה ומעיל כתום עולה על לוח סלע תלול ואוחז בחבלים מקובעים, ומאחוריו פסגות מושלגות', caption: 'החבלים המקובעים ברכס של אמא דאבלם, בדרך בין המחנות' },
 
         { type: 'section', value: 'צחי מיארה, מטפס ישראלי באמצע הסיפור' },
-        { type: 'text', value: 'אחד המטפסים שלקחו חלק במאמץ להציל את קלאס פוסט באותו לילה היה מטפס ישראלי, צחי מיארה. גם הוא הגיע למחנה 2 עם פסגה משלו, עם חודשים של אימונים, הכנות והוצאות מאחוריו. וגם הוא היה מוכן לשים את כל זה בצד בשביל אדם שלא הכיר.' },
+        { type: 'text', value: 'אחד המטפסים שלקחו חלק במאמץ להציל את קאסטיג׳ן באותו לילה היה מטפס ישראלי, צחי מיארה. גם הוא הגיע למחנה 2 עם פסגה משלו, עם חודשים של אימונים, הכנות והוצאות מאחוריו. וגם הוא היה מוכן לשים את כל זה בצד בשביל אדם שלא הכיר.' },
         { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'צחי מיארה במעיל פוך צהוב וכחול עומד על רכס בעמק קומבו, ומאחוריו פסגת אמא דאבלם המושלגת', caption: 'צחי מיארה בעמק קומבו, ברקע אמא דאבלם, צילום: צחי מיארה' },
         { type: 'text', value: 'קל לדבר על ערכים בבית. קשה הרבה יותר לבחור בהם בגובה 6,000 מ׳, בלילה, עייף, כשהמטרה שעבדת בשבילה כל כך הרבה זמן נמצאת ממש מעליך. מה שצחי והמטפסים שהיו איתו עשו באותו לילה הוא בדיוק הבחירה הזו.' },
-        { type: 'text', value: 'ויש בזה משהו שכדאי לומר במפורש: באותו רגע אף אחד לא ידע איך הלילה ייגמר. מי שנשאר לא ידע אם המסוק יצליח להגיע, אם קלאס ישרוד, או אם יישאר להם בכלל כוח וזמן לפסגה. הם בחרו בלי לדעת את הסוף, וזה מה שהופך את הבחירה הזו לגדולה כל כך.' },
+        { type: 'text', value: 'ויש בזה משהו שכדאי לומר במפורש: באותו רגע אף אחד לא ידע איך הלילה ייגמר. מי שנשאר לא ידע אם המסוק יצליח להגיע, אם קאסטיג׳ן ישרוד, או אם יישאר להם בכלל כוח וזמן לפסגה. הם בחרו בלי לדעת את הסוף, וזה מה שהופך את הבחירה הזו לגדולה כל כך.' },
         { type: 'subheading', value: 'צחי, תודה' },
         { type: 'text', value: 'אנחנו רוצים לעצור כאן לרגע ולהגיד את זה בפשטות: צחי מיארה הוא דוגמה ומופת לאיך שצריך להתנהג בהרים. בהר, כמו בחיים, קל להיות מטפס טוב כשהכול הולך לפי התוכנית. מה שמגדיר מטפס באמת הוא מה שהוא עושה ברגע שמישהו אחר צריך אותו, וצחי ידע בדיוק מה לעשות.' },
         { type: 'text', value: 'בשבילנו, ובשביל כל מי שיוצא איתנו להרים, זה השיעור החשוב ביותר מהלילה הזה. הפסגה תמיד תחכה. חיים של אדם לא מחכים. צחי, תודה שהזכרת לכולנו את זה, ותודה שייצגת את המטפסים הישראלים בהימלאיה בצורה הכי טובה שיש.' },
 
         { type: 'section', value: 'הבוקר שאחרי' },
-        { type: 'text', value: 'בסביבות 6:30 בבוקר, ב-28 באוקטובר, הגיע מסוק חילוץ. הטייס, קפטן לורנץ אלסאסר, פינה את קלאס פוסט ממחנה 2 ללוקלה, כשהוא מקבל חמצן, ומשם הוא הועבר לבית חולים בקטמנדו. לפי הדיווחים, מצבו יציב.' },
+        { type: 'text', value: 'בסביבות 6:30 בבוקר, ב-28 באוקטובר, הגיע מסוק חילוץ. הטייס, קפטן לורנץ אלסאסר, פינה את קאסטיג׳ן ממחנה 2 ללוקלה, כשהוא מקבל חמצן, ומשם הוא הועבר לבית חולים בקטמנדו. לפי הדיווחים, מצבו יציב.' },
         { type: 'text', value: 'ולסיפור הזה יש עוד המשך. בסביבות 8:30 בבוקר, אחרי שהמסוק המריא, ואחרי לילה כמעט בלי שינה, שאנטה וקלארק יצאו לדרך, לבד, בלי מדריך ובלי שרפה. הם ניצלו את חלון מזג האוויר האחרון לפני שלג שהיה בדרך, וב-17:18 עמדו על הפסגה. שאנטה הפכה לאישה ההונגרייה הראשונה שהעפילה לאמא דאבלם.' },
         { type: 'text', value: 'הפעם ההר נתן להם הזדמנות שנייה. בהרים זה לא תמיד קורה, והם לא ידעו שזה יקרה כשבחרו להישאר.' },
 
@@ -100,7 +100,7 @@ export const POSTS = [
 
         { type: 'section', value: 'שאלות נפוצות' },
         { type: 'heading', value: 'מה קרה במחנה 2 באמא דאבלם באוקטובר 2026?' },
-        { type: 'text', value: 'ב-27 באוקטובר 2026 איבד מטפס הולנדי בן 25, קלאס פוסט, את ההכרה במחנה 2 בירידה מהפסגה. מטפסים שהיו במחנה ויתרו על ניסיון הפסגה שלהם ונשארו איתו בלילה, ושרפה מצוות המדריכים ירד למחנה 1 באמצע הלילה כדי להביא חמצן. בבוקר ה-28 באוקטובר פונה המטפס במסוק, ומצבו יציב.' },
+        { type: 'text', value: 'ב-27 באוקטובר 2026 איבד מטפס הולנדי בן 25, קאסטיג׳ן, את ההכרה במחנה 2 בירידה מהפסגה. מטפסים שהיו במחנה ויתרו על ניסיון הפסגה שלהם ונשארו איתו בלילה, ושרפה מצוות המדריכים ירד למחנה 1 באמצע הלילה כדי להביא חמצן. בבוקר ה-28 באוקטובר פונה המטפס במסוק, ומצבו יציב.' },
         { type: 'heading', value: 'מי הוא המטפס הישראלי שהשתתף בחילוץ באמא דאבלם?' },
         { type: 'text', value: 'המטפס הישראלי צחי מיארה היה אחד מהמטפסים שלקחו חלק במאמץ להציל את המטפס ההולנדי במחנה 2. כמו האחרים, גם הוא היה מוכן לוותר על הפסגה שלו כדי לעזור לאדם שלא הכיר.' },
         { type: 'heading', value: 'למה חמצן חשוב כל כך בחילוץ בגובה רב?' },
@@ -120,13 +120,13 @@ export const POSTS = [
         { type: 'text', value: 'The climbers who reached Camp 2 that evening were on their way to their own summit. They had trained for months, spent a great deal of money and gone through weeks of acclimatization in the Khumbu Valley, and now the summit was close. Instead of going on, they stayed beside a man they did not know. This is a story about the question every climber should ask before leaving home: what will I do if, at my most important moment on the mountain, someone else needs me.' },
 
         { type: 'section', value: 'What happened at Camp 2' },
-        { type: 'text', value: 'The Dutch climber, Klaas Post, was climbing with an organised expedition. According to The Tourism Times, he summited on 27 October with two other climbers and their guides, and lost consciousness at Camp 2 on the descent. The other two reached Camp 1 safely. He could not get down.' },
-        { type: 'text', value: 'That evening the Hungarian climber Xenia Santha and her partner Paul Clarke reached the camp. Their plan was a single push to the summit, without stopping for rest days on the way. They found Klaas unconscious and quickly understood that it was a matter of life and death. "In the end, we made the decision: there would be no summit attempt that day," Santha said.' },
+        { type: 'text', value: 'The Dutch climber, Kasteijn, was climbing with an organised expedition. According to The Tourism Times, he summited on 27 October with two other climbers and their guides, and lost consciousness at Camp 2 on the descent. The other two reached Camp 1 safely. He could not get down.' },
+        { type: 'text', value: 'That evening the Hungarian climber Xenia Santha and her partner Paul Clarke reached the camp. Their plan was a single push to the summit, without stopping for rest days on the way. They found Kasteijn unconscious and quickly understood that it was a matter of life and death. "In the end, we made the decision: there would be no summit attempt that day," Santha said.' },
         { type: 'text', value: '"On the night of 27 October, for us, a person\'s life became more important than the summit," she said. "We all gave up on our own goals."' },
         { type: 'extlink', href: 'https://www.youtube.com/watch?v=IxafxpzU5Ng', text: 'לצפייה בסרטון שמתעד את הלילה במחנה 2', textEn: 'Watch the video of the night at Camp 2' },
 
         { type: 'section', value: 'A whole night beside one tent' },
-        { type: 'text', value: 'For about three and a half hours they tried to organise help. There was barely any signal. They unlocked Klaas\'s phone, found his mother\'s contact details, and reached the Base Camp team, other expedition companies and his insurance company. All the while, alongside the guides of his own expedition, they did not leave him for a moment.' },
+        { type: 'text', value: 'For about three and a half hours they tried to organise help. There was barely any signal. They unlocked Kasteijn\'s phone, found his mother\'s contact details, and reached the Base Camp team, other expedition companies and his insurance company. All the while, alongside the guides of his own expedition, they did not leave him for a moment.' },
         { type: 'text', value: 'Every few minutes they checked his pulse and breathing. When he coughed, they turned him onto his side. They searched the whole tent for an oxygen bottle. They had dexamethasone tablets, a drug used to treat altitude sickness, but they could not give them to him, because there was a risk he would choke. "He didn\'t recover all night," Santha said.' },
         { type: 'text', value: 'The two of them had no sleeping bag and very little food. Santha called it "a brutal night". Around them, other climbers went on their way. They stayed.' },
 
@@ -137,16 +137,16 @@ export const POSTS = [
         { type: 'image', src: '/images/gallery/ama-dablam/7.webp', alt: 'A climber in a white helmet and orange jacket climbs a steep rock slab holding fixed ropes, with snowy peaks behind', caption: 'The fixed ropes on the Ama Dablam ridge, on the way between the camps' },
 
         { type: 'section', value: 'Tzachi Miara, an Israeli climber in the middle of the story' },
-        { type: 'text', value: 'One of the climbers who took part in the effort to save Klaas Post that night was an Israeli climber, Tzachi Miara. He too had come to Camp 2 with a summit of his own, with months of training, preparation and expense behind him. And he too was ready to set all of that aside for a man he did not know.' },
+        { type: 'text', value: 'One of the climbers who took part in the effort to save Kasteijn that night was an Israeli climber, Tzachi Miara. He too had come to Camp 2 with a summit of his own, with months of training, preparation and expense behind him. And he too was ready to set all of that aside for a man he did not know.' },
         { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'Tzachi Miara in a yellow and blue down jacket on a ridge in the Khumbu Valley, with the snowy summit of Ama Dablam behind him', caption: 'Tzachi Miara in the Khumbu Valley, with Ama Dablam behind, photo: Tzachi Miara' },
         { type: 'text', value: 'It is easy to talk about values at home. It is much harder to choose them at 6,000 m, at night, exhausted, when the goal you have worked towards for so long is right above you. What Tzachi and the climbers with him did that night is exactly that choice.' },
-        { type: 'text', value: 'And one thing is worth saying plainly: at that moment nobody knew how the night would end. Those who stayed did not know whether the helicopter would make it, whether Klaas would survive, or whether they would have any strength or time left for the summit. They chose without knowing the ending, and that is what makes the choice so great.' },
+        { type: 'text', value: 'And one thing is worth saying plainly: at that moment nobody knew how the night would end. Those who stayed did not know whether the helicopter would make it, whether Kasteijn would survive, or whether they would have any strength or time left for the summit. They chose without knowing the ending, and that is what makes the choice so great.' },
         { type: 'subheading', value: 'Thank you, Tzachi' },
         { type: 'text', value: 'We want to pause here and say it simply: Tzachi Miara is a model of how one should behave in the mountains. On a mountain, as in life, it is easy to be a good climber when everything goes to plan. What truly defines a climber is what he does at the moment someone else needs him, and Tzachi knew exactly what to do.' },
         { type: 'text', value: 'For us, and for everyone who goes to the mountains with us, this is the most important lesson of that night. The summit will always wait. A person\'s life does not. Tzachi, thank you for reminding all of us of that, and thank you for representing Israeli climbers in the Himalaya in the best possible way.' },
 
         { type: 'section', value: 'The morning after' },
-        { type: 'text', value: 'At around 6:30 in the morning on 28 October, a rescue helicopter arrived. The pilot, Captain Laurenz Elsasser, evacuated Klaas Post from Camp 2 to Lukla on oxygen, and from there he was taken to hospital in Kathmandu. According to the reports, his condition is stable.' },
+        { type: 'text', value: 'At around 6:30 in the morning on 28 October, a rescue helicopter arrived. The pilot, Captain Laurenz Elsasser, evacuated Kasteijn from Camp 2 to Lukla on oxygen, and from there he was taken to hospital in Kathmandu. According to the reports, his condition is stable.' },
         { type: 'text', value: 'And the story has one more chapter. At around 8:30, after the helicopter had left and after a night with almost no sleep, Santha and Clarke set off on their own, with no guide and no Sherpa. They used the last weather window before incoming snow, and at 17:18 they stood on the summit. Santha became the first Hungarian woman to summit Ama Dablam.' },
         { type: 'text', value: 'This time the mountain gave them a second chance. In the mountains that does not always happen, and they did not know it would when they chose to stay.' },
 
@@ -186,7 +186,7 @@ export const POSTS = [
 
         { type: 'section', value: 'Frequently asked questions' },
         { type: 'heading', value: 'What happened at Camp 2 on Ama Dablam in October 2026?' },
-        { type: 'text', value: 'On 27 October 2026 a 25-year-old Dutch climber, Klaas Post, lost consciousness at Camp 2 while descending from the summit. Climbers at the camp gave up their own summit attempt and stayed with him through the night, and a Sherpa from the guiding team went down to Camp 1 in the middle of the night to bring oxygen. On the morning of 28 October he was evacuated by helicopter, and his condition is stable.' },
+        { type: 'text', value: 'On 27 October 2026 a 25-year-old Dutch climber, Kasteijn, lost consciousness at Camp 2 while descending from the summit. Climbers at the camp gave up their own summit attempt and stayed with him through the night, and a Sherpa from the guiding team went down to Camp 1 in the middle of the night to bring oxygen. On the morning of 28 October he was evacuated by helicopter, and his condition is stable.' },
         { type: 'heading', value: 'Who is the Israeli climber who took part in the Ama Dablam rescue?' },
         { type: 'text', value: 'Israeli climber Tzachi Miara was one of the climbers who took part in the effort to save the Dutch climber at Camp 2. Like the others, he was ready to give up his own summit to help a man he did not know.' },
         { type: 'heading', value: 'Why is oxygen so important in a high-altitude rescue?' },
