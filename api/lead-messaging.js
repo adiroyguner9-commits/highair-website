@@ -33,7 +33,7 @@ import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — f
 import { msgFollowUp, futureDepartureEvents, tripHasDeparture } from './_lib/followup.js';   // shared with the manual "send now" button
 import { fetchAllPages } from './departures.js';   // every Groups page, or an error: never a short list
 import { sendNoAnswerNotice } from './_lib/no-answer.js';   // shared with the instant trigger
-import { israelClosedHold, israelNow } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, and festivals the same way: nobody is here to answer
+import { israelClosedHold, israelNow, inSendWindow } from './_lib/iltime.js';   // Fri 15:00 → Sun 09:00, and festivals the same way: nobody is here to answer
 import { greenFetch } from './_lib/green.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for Green API. */
@@ -101,7 +101,7 @@ function msgNudge(name, expedition, code) {
 /* ── Nudge 2 (owner, Jul 26 2026): still hasn't booked 24h after submitting ──
    A soft "when suits you?" that invites a reply instead of a link. Greeting
    adapts to the Israel clock so "צהריים טובים" can never land at 3am — and the
-   send itself is held to 09:00-21:00 (the 24-48h window lets it wait). */
+   send itself is held to 09:00-20:00 (inSendWindow; the 24-96h window lets it wait). */
 function greetHe() {
   const h = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
   return h < 12 ? 'בוקר טוב' : h < 18 ? 'צהריים טובים' : 'ערב טוב';
@@ -346,12 +346,11 @@ export default async function handler(req, res) {
      reply. Same anti-spam shape as #3: a 24-48h window (the backlog can never
      match), once-only via {Nudge 2 Sent} claimed BEFORE sending, WhatsApp/GHL
      sources excluded, and the independent appointment check that heals the
-     stage instead of nagging someone who already booked. Held to 09:00-21:00
-     Israel, and off for the weekend (Fri 15:00 → Sun 09:00) — the window is
+     stage instead of nagging someone who already booked. Held to 09:00-20:00
+     Israel (inSendWindow: 21:00 until 16 Nov 2026), and off for the weekend (Fri 15:00 → Sun 09:00) — the window is
      wide enough to just wait, once it was widened to 96h to survive the hold. */
   try {
-    const hourIL = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jerusalem', hour: 'numeric', hour12: false }).format(new Date()));
-    if (hourIL >= 9 && hourIL < 21 && !israelClosedHold()) {
+    if (inSendWindow() && !israelClosedHold()) {
       /* The upper bound is 96h, not 48h, and the weekend hold is exactly why.
          The hold lasts up to 42 hours, so a lead whose 24h mark fell on Friday
          evening would be 60-odd hours old by Sunday morning and would have
@@ -468,8 +467,12 @@ export default async function handler(req, res) {
        call's follow-up two days late permanently. */
     const weekend = israelClosedHold();   // Shabbat and festivals
     if (weekend) result.followUpHeldForWeekend = true;
+    /* And the night (owner, 16 Nov 2026): from 20:00 it waits for 09:00, like the weekend,
+       on the same no-upper-bound query, so nothing is skipped. */
+    const night = !weekend && !inSendWindow();
+    if (night) result.followUpHeldForNight = true;
     const dueBy = new Date(nowMs - 4 * 86400000).toISOString();
-    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),${FOLLOW_UP_SKIP_STAGES.map(st => `{Stage}!='${st}'`).join(',')},${NOT_FOREIGN_FORMULA.slice(0, -1)})`);
+    const due = weekend || night ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),${FOLLOW_UP_SKIP_STAGES.map(st => `{Stage}!='${st}'`).join(',')},${NOT_FOREIGN_FORMULA.slice(0, -1)})`);
     /* A failed send used to count against the cap of three, and the query came
        back in the same order every tick, so three leads whose sends always fail
        (a number not on WhatsApp) would hold every other follow-up back for good.

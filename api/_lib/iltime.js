@@ -196,3 +196,19 @@ export function israelClosedHold(now = israelNow()) {
   if (now.minutes < 9 * 60 && isYomTov(shift(-1))) return true;                                // the morning after
   return false;
 }
+
+/* ── The hours a WhatsApp WE start may go out: 09:00 to 20:00 Israel ──────────
+ * Owner, 16 Nov 2026: "להגביל את ההודעות האוטומטיות שיצאו עד שעה 20:00 בערב ואם זה צריך
+ * להיות אחרי אז שיידחה למחרת בבוקר", then (his answers the same evening): only what the
+ * system starts on its own, WhatsApp only, the morning at 09:00.
+ * So this holds the second nudge and the follow-up after a call. A reply to something the
+ * customer or an agent has just done still goes out at once: the first message after a
+ * form, a booking's confirmation, the reminder before a booked call, the bot's answers,
+ * "we tried to reach you" and the welcome after a deposit. Emails are not held.
+ * A caller waits for a later tick, so whatever it sends must still be due after a night
+ * of 13 hours (and after the weekend hold, israelClosedHold, which this does not replace). */
+export const SEND_FROM  = 9 * 60;
+export const SEND_UNTIL = 20 * 60;
+export function inSendWindow(now = israelNow()) {
+  return now.minutes >= SEND_FROM && now.minutes < SEND_UNTIL;
+}

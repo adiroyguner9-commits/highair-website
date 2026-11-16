@@ -7,9 +7,9 @@
  *
  * Cross-origin from app.highair-expeditions.com (CORS via setSecurityHeaders).
  * IDEMPOTENT + guarded: sendNoAnswerNotice only fires for a lead actually in
- * "No Answer" that hasn't been notified, claims the flag first, and defers to
- * the cron outside 09:00-21:00 Israel — so this and the cron can never
- * double-send or message at night.
+ * "No Answer" that hasn't been notified and claims the flag first, so this and
+ * the cron can never double-send. It goes out at any hour: a reply to the call
+ * (_lib/no-answer.js).
  */
 import { setSecurityHeaders } from './_security.js';
 import { sendNoAnswerNotice } from './_lib/no-answer.js';

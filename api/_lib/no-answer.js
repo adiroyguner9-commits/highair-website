@@ -47,12 +47,12 @@ export function msgNoAnswer(name, expedition, agentHe, agentPhone) {
 /* Send the notice for one Website Leads record (raw Airtable rec).
    Guards INSIDE so every caller is equally safe:
    - Stage must be 'No Answer', flag unset, phone + assigned agent present.
-   - Quiet hours 09:00-21:00 Israel, and the Fri 15:00 → Sun 09:00 weekend:
-     returns { deferred: true } WITHOUT claiming the flag — the 5-min cron (48h
-     window) sends it next working morning instead.
+   - No quiet hours and no weekend hold: it is a reply to the agent's call (see
+     below; owner, Aug 15 2026, and again 16 Nov 2026 when the messages we start
+     were held to 09:00-20:00).
    - Claims {No Answer Notified} + Activity Log entry BEFORE sending; releases
      the flag if Green did not actually accept the message.
-   Returns { sent, skipped?, deferred?, error? }. */
+   Returns { sent, skipped?, error? }. */
 export async function sendNoAnswerNotice(rec) {
   const BASE = process.env.AIRTABLE_BASE, TOKEN = process.env.AIRTABLE_TOKEN;
   const H = { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' };
