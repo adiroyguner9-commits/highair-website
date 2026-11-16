@@ -35,8 +35,14 @@ export const POSTS = [
 
         { type: 'section', value: 'מה קרה במחנה 2' },
         { type: 'text', value: 'המטפס ההולנדי, קלאס פוסט, טיפס במסגרת משלחת מאורגנת. לפי הדיווח של The Tourism Times, הוא העפיל לפסגה ב-27 באוקטובר יחד עם שני מטפסים נוספים ועם המדריכים שלהם, ובירידה איבד את ההכרה במחנה 2. השניים האחרים הגיעו בשלום למחנה 1. הוא לא יכול היה לרדת.' },
-        { type: 'text', value: 'מי שמצאו אותו היו המטפסת ההונגרית קסניה שאנטה ובן זוגה פול קלארק. הם ויתרו על ניסיון הפסגה שלהם ונשארו איתו, לצד המדריכים של המשלחת שלו, שטיפלו בו במחנה לאורך הלילה. הם חיפשו באוהל בלוני חמצן, יצרו קשר עם מחנה הבסיס, עם חברות משלחות נוספות ועם חברת הביטוח, ונשארו לידו. ״בלילה של ה-27 באוקטובר, מבחינתנו, חיים של אדם נעשו חשובים יותר מהפסגה״, אמרה שאנטה. ״כולנו ויתרנו על המטרות שלנו.״' },
+        { type: 'text', value: 'באותו ערב הגיעו למחנה המטפסת ההונגרית קסניה שאנטה ובן זוגה פול קלארק. התוכנית שלהם הייתה לעלות לפסגה בדחיפה אחת, בלי לעצור לימי מנוחה בדרך. הם מצאו את קלאס מחוסר הכרה, ומהר מאוד הבינו שמדובר במצב של חיים או מוות. ״בסוף קיבלנו את ההחלטה: באותו יום לא יהיה ניסיון פסגה״, סיפרה שאנטה.' },
+        { type: 'text', value: '״בלילה של ה-27 באוקטובר, מבחינתנו, חיים של אדם נעשו חשובים יותר מהפסגה״, אמרה. ״כולנו ויתרנו על המטרות שלנו.״' },
         { type: 'extlink', href: 'https://www.youtube.com/watch?v=IxafxpzU5Ng', text: 'לצפייה בסרטון שמתעד את הלילה במחנה 2', textEn: 'Watch the video of the night at Camp 2' },
+
+        { type: 'section', value: 'לילה שלם ליד אוהל אחד' },
+        { type: 'text', value: 'במשך כשלוש וחצי שעות הם ניסו לארגן עזרה. כמעט לא הייתה קליטה. הם פתחו את הטלפון של קלאס, מצאו בו את פרטי הקשר של אמו, ויצרו קשר עם צוות מחנה הבסיס, עם חברות משלחות אחרות ועם חברת הביטוח שלו. במקביל, לצד המדריכים של המשלחת שלו, הם לא עזבו אותו לרגע.' },
+        { type: 'text', value: 'כל כמה דקות הם בדקו לו דופק ונשימה. כשהשתעל, הפכו אותו על הצד. הם חיפשו בכל האוהל בלון חמצן. היו להם כדורי דקסמתזון, תרופה שמשמשת לטיפול במחלת גבהים, אבל הם לא יכלו לתת לו אותם, כי נשקפה סכנה שייחנק. ״הוא לא התאושש כל הלילה״, סיפרה שאנטה.' },
+        { type: 'text', value: 'לשניים לא היה שק שינה, והיה להם מעט מאוד אוכל. שאנטה כינתה את זה ״לילה אכזרי״. סביבם, מטפסים אחרים המשיכו בדרכם. הם נשארו.' },
 
         { type: 'section', value: 'הלילה שבו מישהו ירד להביא חמצן' },
         { type: 'text', value: 'בגובה 6,000 מ׳ יש באוויר כמחצית מהחמצן שיש בגובה פני הים. אדם שאיבד את ההכרה בגובה כזה צריך חמצן, ומהר. במחנה 2 לא היה מספיק, ומסוק יכול היה להגיע רק עם אור ראשון.' },
@@ -48,15 +54,26 @@ export const POSTS = [
         { type: 'text', value: 'אחד המטפסים שלקחו חלק במאמץ להציל את קלאס פוסט באותו לילה היה מטפס ישראלי, צחי מיארה. גם הוא הגיע למחנה 2 עם פסגה משלו, עם חודשים של אימונים, הכנות והוצאות מאחוריו. וגם הוא היה מוכן לשים את כל זה בצד בשביל אדם שלא הכיר.' },
         { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'צחי מיארה במעיל פוך צהוב וכחול עומד על רכס בעמק קומבו, ומאחוריו פסגת אמא דאבלם המושלגת', caption: 'צחי מיארה בעמק קומבו, ברקע אמא דאבלם, צילום: צחי מיארה' },
         { type: 'text', value: 'קל לדבר על ערכים בבית. קשה הרבה יותר לבחור בהם בגובה 6,000 מ׳, בלילה, עייף, כשהמטרה שעבדת בשבילה כל כך הרבה זמן נמצאת ממש מעליך. מה שצחי והמטפסים שהיו איתו עשו באותו לילה הוא בדיוק הבחירה הזו.' },
+        { type: 'text', value: 'ויש בזה משהו שכדאי לומר במפורש: באותו רגע אף אחד לא ידע איך הלילה ייגמר. מי שנשאר לא ידע אם המסוק יצליח להגיע, אם קלאס ישרוד, או אם יישאר להם בכלל כוח וזמן לפסגה. הם בחרו בלי לדעת את הסוף, וזה מה שהופך את הבחירה הזו לגדולה כל כך.' },
 
         { type: 'section', value: 'הבוקר שאחרי' },
         { type: 'text', value: 'בסביבות 6:30 בבוקר, ב-28 באוקטובר, הגיע מסוק חילוץ. הטייס, קפטן לורנץ אלסאסר, פינה את קלאס פוסט ממחנה 2 ללוקלה, כשהוא מקבל חמצן, ומשם הוא הועבר לבית חולים בקטמנדו. לפי הדיווחים, מצבו יציב.' },
-        { type: 'text', value: 'ולסיפור הזה יש עוד המשך. בסביבות 8:30 בבוקר, אחרי שהמסוק המריא, שאנטה וקלארק יצאו לדרך. ב-17:18 הם עמדו על הפסגה, ושאנטה הפכה לאישה ההונגרייה הראשונה שהעפילה לאמא דאבלם. הפעם ההר נתן להם הזדמנות שנייה. בהרים זה לא תמיד קורה, והם לא ידעו את זה כשבחרו להישאר.' },
+        { type: 'text', value: 'ולסיפור הזה יש עוד המשך. בסביבות 8:30 בבוקר, אחרי שהמסוק המריא, ואחרי לילה כמעט בלי שינה, שאנטה וקלארק יצאו לדרך, לבד, בלי מדריך ובלי שרפה. הם ניצלו את חלון מזג האוויר האחרון לפני שלג שהיה בדרך, וב-17:18 עמדו על הפסגה. שאנטה הפכה לאישה ההונגרייה הראשונה שהעפילה לאמא דאבלם.' },
+        { type: 'text', value: 'הפעם ההר נתן להם הזדמנות שנייה. בהרים זה לא תמיד קורה, והם לא ידעו שזה יקרה כשבחרו להישאר.' },
+
+        { type: 'section', value: 'זה כבר קרה פעם, ובשני הכיוונים' },
+        { type: 'text', value: 'השאלה ״חיי אדם או פסגה״ לא נולדה באמא דאבלם. אחד הרגעים שבהם היא עלתה בכל הכוח היה באביב 2006 באוורסט. ב-15 במאי מת המטפס הבריטי דייוויד שארפ בדרך מהפסגה, אחרי שעשרות מטפסים חלפו על פניו. המקרה עורר סערה בינלאומית, וגם אדמונד הילרי עצמו מתח ביקורת על מי שהמשיכו לפסגה.' },
+        { type: 'text', value: '11 ימים אחר כך, ב-26 במאי 2006, קרה ההפך. המדריך האמריקאי דן מזור הוביל שני לקוחות ושרפה לפסגה, וכשעתיים מתחתיה מצאו את המטפס האוסטרלי לינקולן הול, שבלילה הקודם נחשב למת וננטש. הצוות של מזור עצר, נתן לו חמצן, אוכל ושתייה, וקרא לעזרה. אחרי כארבע שעות לצדו כבר לא היה להם כוח להמשיך, והם ירדו בלי פסגה. הול שרד. ״ללינקולן יש רק חיים אחד״, אמר מזור. ״איך אפשר לחיות עם עצמך אחרת?״' },
+        { type: 'text', value: 'עשרים שנה מפרידות בין האוורסט של 2006 לאמא דאבלם של 2026, אבל השאלה נשארה אותה שאלה, וגם התשובה הטובה.' },
 
         { type: 'section', value: 'אז מה יותר חשוב?' },
-        { type: 'text', value: 'על הנייר התשובה ברורה. בפועל, ההחלטה נופלת על אנשים שמגיעים לרגע הזה עם עייפות, עם מחסור בחמצן ועם הרבה מאוד על הכף: חודשים של אימונים, ימי חופש, כסף, ולעתים חלום של שנים. בהרים הגבוהים זה כבר קרה, יותר מפעם אחת, שמטפסים חלפו על פני אדם במצוקה בדרך לפסגה. לכן מה שקרה במחנה 2 באמא דאבלם ראוי שיסופר.' },
+        { type: 'text', value: 'על הנייר התשובה ברורה. בפועל, ההחלטה נופלת על אנשים שמגיעים לרגע הזה עם עייפות, עם מחסור בחמצן ועם הרבה מאוד על הכף: חודשים של אימונים, ימי חופש, כסף, ולעתים חלום של שנים. בגובה, גם החשיבה עצמה נעשית איטית וצרה יותר, וקל להשתכנע שמישהו אחר כבר יטפל בזה. לכן מה שקרה במחנה 2 באמא דאבלם ראוי שיסופר.' },
         { type: 'image', src: '/images/blog/tzachi-miara-down-suit.webp', alt: 'צחי מיארה בחליפת פוך אדומה וצהובה ובמגפי טיפוס, עומד על מדרון סלעי מתחת לפסגות מושלגות', caption: 'צחי מיארה בחליפת גובה, צילום: צחי מיארה' },
         { type: 'text', value: 'מה שאנחנו לומדים מהלילה הזה הוא שההחלטה לעזור לא מתקבלת במחנה 2. היא מתקבלת הרבה קודם, כשמחליטים מה המשמעות של פסגה בשבילכם. מטפס שהגיע להר עם הבנה שהפסגה היא רק חלק מהמסע, ושלפעמים חוזרים בלעדיה, יבחר נכון גם כשקשה.' },
+
+        { type: 'section', value: 'למה דווקא באמא דאבלם' },
+        { type: 'text', value: 'אמא דאבלם היא אחת הפסגות הפופולריות בנפאל בעונת הסתיו, ובשנים האחרונות מדווחים בה על לא מעט חילוצים מהמחנות הגבוהים. בסתיו 2024, למשל, דיווח Explorersweb על מספר חריג של חילוצים מעל 6,000 מ׳, ועל 158 היתרי טיפוס שהונפקו להר עד אמצע אוקטובר באותה עונה.' },
+        { type: 'text', value: 'הסיבה שכל מקרה כזה מסובך כל כך היא ההר עצמו. מעל מחנה 1 אין מקום שמסוק יכול לנחות בו, ולכן חילוץ ממחנה 2 ומעלה נעשה בדרך כלל בחבל ארוך שתלוי מתחת למסוק, ורק באור יום. לפי חברת ביטוח שצוטטה באותה כתבה, חילוץ כזה יכול לעלות כ-18,000 דולר ויותר. רוב המטפסים עולים לאמא דאבלם בלי חמצן בבלונים, ולכן התאקלמות נכונה היא קו ההגנה הראשון.' },
 
         { type: 'section', value: 'עם מי יוצאים, זה חלק מההכנה' },
         { type: 'text', value: 'הלילה במחנה 2 הראה עוד דבר: כשמשהו משתבש בגובה 6,000 מ׳, מה שקובע הוא מי נמצא לצדכם. מדריכים שנשארים עם מטפס כל הלילה, מישהו שמוכן לרדת בחושך להביא חמצן, קשר עם מחנה הבסיס, ותיאום מהיר של מסוק וביטוח עם אור ראשון. את כל אלה לא בונים על ההר. בוחרים אותם הרבה לפני, כשסוגרים עם חברה.' },
@@ -86,7 +103,9 @@ export const POSTS = [
         { type: 'heading', value: 'למה חמצן חשוב כל כך בחילוץ בגובה רב?' },
         { type: 'text', value: 'בגובה של כ-6,000 מ׳ יש באוויר כמחצית מכמות החמצן שיש בגובה פני הים. אצל מטפס שמצבו מידרדר בגובה, חמצן יכול לעזור לייצב אותו עד שאפשר לפנות אותו. פינוי במסוק אפשרי בדרך כלל רק באור יום, ולכן בלילה החמצן צריך להגיע ברגל.' },
         { type: 'heading', value: 'איך מחלצים מטפס ממחנה 2 באמא דאבלם?' },
-        { type: 'text', value: 'כשמטפס אינו יכול לרדת בכוחות עצמו, הפינוי ממחנה 2 נעשה בדרך כלל במסוק, באור יום ובתנאי מזג אוויר שמאפשרים טיסה. בחילוץ הזה המסוק פינה את המטפס ללוקלה, ומשם הוא הועבר לבית חולים בקטמנדו.' },
+        { type: 'text', value: 'מעל מחנה 1 אין מקום נחיתה למסוק, ולכן פינוי ממחנה 2 ומעלה נעשה בדרך כלל בחבל ארוך שתלוי מתחת למסוק, באור יום ובתנאי מזג אוויר שמאפשרים טיסה. בחילוץ הזה המסוק פינה את המטפס ללוקלה, ומשם הוא הועבר לבית חולים בקטמנדו.' },
+        { type: 'heading', value: 'כמה עולה חילוץ במסוק מאמא דאבלם?' },
+        { type: 'text', value: 'לפי חברת ביטוח שצוטטה ב-Explorersweb ב-2024, חילוץ בחבל ארוך ממחנה 2 ומעלה יכול לעלות כ-18,000 דולר ויותר. זו הסיבה שחשוב לוודא שהביטוח מכסה חילוץ ופינוי במסוק בגובה הזה.' },
         { type: 'heading', value: 'איזה ביטוח צריך למשלחת לאמא דאבלם?' },
         { type: 'text', value: 'צריך ביטוח נסיעות ורפואי שמכסה במפורש טיפוס בגובה של עד 6,812 מ׳, כולל חילוץ ופינוי במסוק. כדאי לבדוק את זה בפוליסה עצמה לפני הקנייה, ולא להניח שזה כלול.' },
         { type: 'heading', value: 'האם במשלחת של HighAir לאמא דאבלם יש מדריך צמוד?' },
@@ -99,8 +118,14 @@ export const POSTS = [
 
         { type: 'section', value: 'What happened at Camp 2' },
         { type: 'text', value: 'The Dutch climber, Klaas Post, was climbing with an organised expedition. According to The Tourism Times, he summited on 27 October with two other climbers and their guides, and lost consciousness at Camp 2 on the descent. The other two reached Camp 1 safely. He could not get down.' },
-        { type: 'text', value: 'He was found by the Hungarian climber Xenia Santha and her partner Paul Clarke. They gave up their own summit attempt and stayed with him, alongside the guides of his own expedition, who cared for him at the camp through the night. They searched the tent for oxygen, contacted Base Camp, other expedition companies and the insurance company, and stayed by his side. "On the night of 27 October, for us, a person\'s life became more important than the summit," Santha said. "We all gave up on our own goals."' },
+        { type: 'text', value: 'That evening the Hungarian climber Xenia Santha and her partner Paul Clarke reached the camp. Their plan was a single push to the summit, without stopping for rest days on the way. They found Klaas unconscious and quickly understood that it was a matter of life and death. "In the end, we made the decision: there would be no summit attempt that day," Santha said.' },
+        { type: 'text', value: '"On the night of 27 October, for us, a person\'s life became more important than the summit," she said. "We all gave up on our own goals."' },
         { type: 'extlink', href: 'https://www.youtube.com/watch?v=IxafxpzU5Ng', text: 'לצפייה בסרטון שמתעד את הלילה במחנה 2', textEn: 'Watch the video of the night at Camp 2' },
+
+        { type: 'section', value: 'A whole night beside one tent' },
+        { type: 'text', value: 'For about three and a half hours they tried to organise help. There was barely any signal. They unlocked Klaas\'s phone, found his mother\'s contact details, and reached the Base Camp team, other expedition companies and his insurance company. All the while, alongside the guides of his own expedition, they did not leave him for a moment.' },
+        { type: 'text', value: 'Every few minutes they checked his pulse and breathing. When he coughed, they turned him onto his side. They searched the whole tent for an oxygen bottle. They had dexamethasone tablets, a drug used to treat altitude sickness, but they could not give them to him, because there was a risk he would choke. "He didn\'t recover all night," Santha said.' },
+        { type: 'text', value: 'The two of them had no sleeping bag and very little food. Santha called it "a brutal night". Around them, other climbers went on their way. They stayed.' },
 
         { type: 'section', value: 'The night someone went down for oxygen' },
         { type: 'text', value: 'At 6,000 m the air holds about half the oxygen it holds at sea level. A person who has lost consciousness at that altitude needs oxygen, and quickly. There was not enough at Camp 2, and a helicopter could only come at first light.' },
@@ -112,15 +137,26 @@ export const POSTS = [
         { type: 'text', value: 'One of the climbers who took part in the effort to save Klaas Post that night was an Israeli climber, Tzachi Miara. He too had come to Camp 2 with a summit of his own, with months of training, preparation and expense behind him. And he too was ready to set all of that aside for a man he did not know.' },
         { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'Tzachi Miara in a yellow and blue down jacket on a ridge in the Khumbu Valley, with the snowy summit of Ama Dablam behind him', caption: 'Tzachi Miara in the Khumbu Valley, with Ama Dablam behind, photo: Tzachi Miara' },
         { type: 'text', value: 'It is easy to talk about values at home. It is much harder to choose them at 6,000 m, at night, exhausted, when the goal you have worked towards for so long is right above you. What Tzachi and the climbers with him did that night is exactly that choice.' },
+        { type: 'text', value: 'And one thing is worth saying plainly: at that moment nobody knew how the night would end. Those who stayed did not know whether the helicopter would make it, whether Klaas would survive, or whether they would have any strength or time left for the summit. They chose without knowing the ending, and that is what makes the choice so great.' },
 
         { type: 'section', value: 'The morning after' },
         { type: 'text', value: 'At around 6:30 in the morning on 28 October, a rescue helicopter arrived. The pilot, Captain Laurenz Elsasser, evacuated Klaas Post from Camp 2 to Lukla on oxygen, and from there he was taken to hospital in Kathmandu. According to the reports, his condition is stable.' },
-        { type: 'text', value: 'And the story has one more chapter. At around 8:30, after the helicopter had left, Santha and Clarke set off. At 17:18 they stood on the summit, and Santha became the first Hungarian woman to summit Ama Dablam. This time the mountain gave them a second chance. In the mountains that does not always happen, and they did not know it would when they chose to stay.' },
+        { type: 'text', value: 'And the story has one more chapter. At around 8:30, after the helicopter had left and after a night with almost no sleep, Santha and Clarke set off on their own, with no guide and no Sherpa. They used the last weather window before incoming snow, and at 17:18 they stood on the summit. Santha became the first Hungarian woman to summit Ama Dablam.' },
+        { type: 'text', value: 'This time the mountain gave them a second chance. In the mountains that does not always happen, and they did not know it would when they chose to stay.' },
+
+        { type: 'section', value: 'It has happened before, both ways' },
+        { type: 'text', value: 'The question "a life or a summit" was not born on Ama Dablam. One of the moments it hit hardest was on Everest in spring 2006. On 15 May the British climber David Sharp died on his way down from the summit, after dozens of climbers passed him. The case caused an international storm, and Sir Edmund Hillary himself criticised those who carried on to the summit.' },
+        { type: 'text', value: 'Eleven days later, on 26 May 2006, the opposite happened. American guide Dan Mazur was leading two clients and a Sherpa to the summit, and about two hours below it they found the Australian climber Lincoln Hall, who had been given up for dead and left behind the night before. Mazur\'s team stopped, gave him oxygen, food and drink, and called for help. After about four hours at his side they no longer had the strength to go on, and they went down without the summit. Hall survived. "Lincoln only has one life," Mazur said. "How could you live with yourself?"' },
+        { type: 'text', value: 'Twenty years separate Everest in 2006 from Ama Dablam in 2026, but the question is still the same question, and so is the good answer.' },
 
         { type: 'section', value: 'So which matters more?' },
-        { type: 'text', value: 'On paper the answer is obvious. In practice, the decision falls to people who reach that moment tired, short of oxygen and with a great deal at stake: months of training, holiday days, money and sometimes a dream of many years. In the high mountains it has happened more than once that climbers passed a person in distress on the way to the summit. That is why what happened at Camp 2 on Ama Dablam deserves to be told.' },
+        { type: 'text', value: 'On paper the answer is obvious. In practice, the decision falls to people who reach that moment tired, short of oxygen and with a great deal at stake: months of training, holiday days, money and sometimes a dream of many years. At altitude, thinking itself becomes slower and narrower, and it is easy to convince yourself that someone else will deal with it. That is why what happened at Camp 2 on Ama Dablam deserves to be told.' },
         { type: 'image', src: '/images/blog/tzachi-miara-down-suit.webp', alt: 'Tzachi Miara in a red and yellow down suit and climbing boots, standing on a rocky slope below snowy peaks', caption: 'Tzachi Miara in his high-altitude suit, photo: Tzachi Miara' },
         { type: 'text', value: 'What we take from that night is that the decision to help is not made at Camp 2. It is made much earlier, when you decide what a summit means to you. A climber who comes to the mountain knowing that the summit is only part of the journey, and that sometimes you come home without it, will choose well even when it is hard.' },
+
+        { type: 'section', value: 'Why Ama Dablam in particular' },
+        { type: 'text', value: 'Ama Dablam is one of the most popular summits in Nepal in the autumn season, and in recent years quite a few rescues from its high camps have been reported. In autumn 2024, for example, Explorersweb reported an unusually high number of rescues above 6,000 m, and 158 climbing permits issued for the mountain by mid October that season.' },
+        { type: 'text', value: 'What makes every such case so complicated is the mountain itself. Above Camp 1 there is nowhere for a helicopter to land, so a rescue from Camp 2 and above is usually done on a long line hanging below the helicopter, and only in daylight. According to an insurer quoted in the same report, such a rescue can cost about 18,000 dollars or more. Most climbers go up Ama Dablam without bottled oxygen, so proper acclimatization is the first line of defence.' },
 
         { type: 'section', value: 'Who you go with is part of the preparation' },
         { type: 'text', value: 'The night at Camp 2 showed one more thing: when something goes wrong at 6,000 m, what matters is who is beside you. Guides who stay with a climber all night, someone willing to go down in the dark for oxygen, contact with Base Camp, and fast coordination of a helicopter and insurance at first light. None of this is built on the mountain. You choose it long before, when you book with a company.' },
@@ -150,7 +186,9 @@ export const POSTS = [
         { type: 'heading', value: 'Why is oxygen so important in a high-altitude rescue?' },
         { type: 'text', value: 'At about 6,000 m the air holds roughly half the oxygen it holds at sea level. For a climber whose condition is deteriorating at altitude, oxygen can help stabilise them until they can be evacuated. Helicopter evacuation is usually possible only in daylight, so at night the oxygen has to arrive on foot.' },
         { type: 'heading', value: 'How is a climber rescued from Camp 2 on Ama Dablam?' },
-        { type: 'text', value: 'When a climber cannot descend on their own, evacuation from Camp 2 is usually by helicopter, in daylight and in weather that allows flying. In this rescue the helicopter flew the climber to Lukla, and from there he was taken to hospital in Kathmandu.' },
+        { type: 'text', value: 'Above Camp 1 there is nowhere for a helicopter to land, so evacuation from Camp 2 and above is usually done on a long line below the helicopter, in daylight and in weather that allows flying. In this rescue the helicopter flew the climber to Lukla, and from there he was taken to hospital in Kathmandu.' },
+        { type: 'heading', value: 'How much does a helicopter rescue on Ama Dablam cost?' },
+        { type: 'text', value: 'According to an insurer quoted by Explorersweb in 2024, a long-line rescue from Camp 2 and above can cost about 18,000 dollars or more. That is why it matters to make sure your insurance covers helicopter rescue and evacuation at this altitude.' },
         { type: 'heading', value: 'What insurance do I need for an Ama Dablam expedition?' },
         { type: 'text', value: 'You need travel and medical insurance that explicitly covers climbing up to 6,812 m, including helicopter rescue and evacuation. Check this in the policy itself before you buy, rather than assuming it is included.' },
         { type: 'heading', value: 'Does the HighAir Ama Dablam expedition include a personal guide?' },
