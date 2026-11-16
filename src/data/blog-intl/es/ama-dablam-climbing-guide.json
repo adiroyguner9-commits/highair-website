@@ -37,7 +37,7 @@
    "items": [
     "Día 1: llegada a Katmandú y traslado al hotel.",
     "Día 2: día de preparación y revisión del equipo en Katmandú.",
-    "Día 3: vuelo a Lukla y caminata a Phakding (2.610 m).",
+    "Día 3: vuelo en helicóptero a Lukla y caminata a Phakding (2.610 m).",
     "Día 4: subida a Namche Bazaar (3.440 m).",
     "Día 5: día de aclimatación en Namche Bazaar.",
     "Día 6: Deboche (3.760 m).",
@@ -51,7 +51,7 @@
     "Días 23 a 25: días de reserva por el tiempo, en el campo base.",
     "Día 26: bajada a Namche Bazaar (3.440 m).",
     "Día 27: el último día de caminata, hasta Lukla (2.860 m).",
-    "Día 28: vuelo de Lukla a Katmandú o Ramechhap.",
+    "Día 28: vuelo en helicóptero de Lukla a Katmandú.",
     "Día 29: día de reserva por mal tiempo o día libre en Katmandú.",
     "Día 30: traslado al aeropuerto y vuelo de regreso."
    ]
@@ -77,7 +77,7 @@
   },
   {
    "type": "text",
-   "value": "La expedición empieza en Lukla, 2.860 m, el pueblo donde está el aeropuerto de la región del Everest. Los vuelos de Katmandú a Lukla y de vuelta son en avión y están incluidos en el precio. Dependen del tiempo, y en las temporadas altas muchos salen del aeropuerto de Manthali, en el distrito de Ramechhap, a unas horas en coche de Katmandú. En nuestro itinerario, el vuelo de regreso desde Lukla aterriza en Katmandú o en Ramechhap, y el día 29 es de reserva por si se retrasa."
+   "value": "La expedición empieza en Lukla, 2.860 m, el pueblo donde está el aeropuerto de la región del Everest. En nuestro paquete los vuelos de Katmandú a Lukla y de vuelta son en helicóptero y están incluidos en el precio. En las temporadas altas, la mayoría de los vuelos a Lukla salen del aeropuerto de Manthali, en el distrito de Ramechhap, a unas horas en coche de Katmandú, pero el helicóptero despega desde la propia Katmandú, así que no hace falta ir hasta Manthali. El helicóptero también depende del tiempo, y el día 29 es un día de reserva en Katmandú por si se retrasa el vuelo desde Lukla."
   },
   {
    "type": "text",
@@ -273,7 +273,7 @@
   },
   {
    "type": "text",
-   "value": "La expedición al Ama Dablam cuesta 7.000 dólares estadounidenses por persona. Incluye traslados del aeropuerto al hotel en Katmandú y de vuelta, traslados internos al inicio de la ruta y de vuelta, vuelos internos a Lukla y de vuelta, 4 noches en un hotel de 5 estrellas en Katmandú en habitación individual con desayuno, alojamiento en teahouses en habitaciones compartidas durante el trekking, tiendas dobles durante el ascenso, cenas en restaurante antes y después del ascenso, tres comidas completas al día durante el ascenso, 2 litros de agua caliente al día, guías locales profesionales de habla inglesa, un guía sherpa personal hasta la cumbre, práctica técnica en el campo base con guías profesionales, cuerdas fijas a lo largo de la ruta hasta la cumbre, porteadores para el equipaje personal hasta 15 kg por persona, duchas y baños en los teahouses según disponibilidad en la ruta, todos los permisos de entrada para el trekking y el ascenso, un botiquín de primeros auxilios con botellas de oxígeno de emergencia, un pulsioxímetro para el grupo, un dispositivo satelital Magnus para el grupo, un área personal en la app de HighAir, una lista de equipo detallada y un plan de entrenamiento para el ascenso, asesoramiento de equipo en línea, una llamada de preparación en línea con tu grupo antes de salir, ayuda con dudas sobre vuelos y seguro de viaje antes de salir, un kit de regalo con gorra, camiseta técnica y bolsa de 100 litros, y una donación significativa a la lucha contra el cáncer."
+   "value": "La expedición al Ama Dablam cuesta 8.000 dólares estadounidenses por persona. Incluye traslados del aeropuerto al hotel en Katmandú y de vuelta, traslados internos al inicio de la ruta y de vuelta, vuelos internos en helicóptero a Lukla y de vuelta, 4 noches en un hotel de 5 estrellas en Katmandú en habitación individual con desayuno, alojamiento en teahouses en habitaciones compartidas durante el trekking, tiendas dobles durante el ascenso, cenas en restaurante antes y después del ascenso, tres comidas completas al día durante el ascenso, 2 litros de agua caliente al día, guías locales profesionales de habla inglesa, un guía sherpa personal hasta la cumbre, práctica técnica en el campo base con guías profesionales, cuerdas fijas a lo largo de la ruta hasta la cumbre, porteadores para el equipaje personal hasta 15 kg por persona, duchas y baños en los teahouses según disponibilidad en la ruta, todos los permisos de entrada para el trekking y el ascenso, un botiquín de primeros auxilios con botellas de oxígeno de emergencia, un pulsioxímetro para el grupo, un dispositivo satelital Magnus para el grupo, un área personal en la app de HighAir, una lista de equipo detallada y un plan de entrenamiento para el ascenso, asesoramiento de equipo en línea, una llamada de preparación en línea con tu grupo antes de salir, ayuda con dudas sobre vuelos y seguro de viaje antes de salir, un kit de regalo con gorra, camiseta técnica y bolsa de 100 litros, y una donación significativa a la lucha contra el cáncer."
   },
   {
    "type": "text",
@@ -335,7 +335,7 @@
   },
   {
    "type": "text",
-   "value": "La expedición de HighAir cuesta 7.000 dólares estadounidenses por persona, e incluye los vuelos a Lukla, el alojamiento, las comidas, un guía sherpa personal, las cuerdas fijas, los porteadores, el permiso de ascensión y los permisos de entrada. No incluye los vuelos internacionales, el seguro, el equipo personal y de escalada, el visado de Nepal de 90 días (125 dólares), las propinas (350 dólares) ni un bono de cumbre para los guías (800 dólares)."
+   "value": "La expedición de HighAir cuesta 8.000 dólares estadounidenses por persona, e incluye los vuelos en helicóptero a Lukla, el alojamiento, las comidas, un guía sherpa personal, las cuerdas fijas, los porteadores, el permiso de ascensión y los permisos de entrada. No incluye los vuelos internacionales, el seguro, el equipo personal y de escalada, el visado de Nepal de 90 días (125 dólares), las propinas (350 dólares) ni un bono de cumbre para los guías (800 dólares)."
   },
   {
    "type": "heading",

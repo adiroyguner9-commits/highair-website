@@ -37,7 +37,7 @@
    "items": [
     "Day 1: arrival in Kathmandu and transfer to the hotel.",
     "Day 2: preparation day and gear check in Kathmandu.",
-    "Day 3: flight to Lukla and a walk to Phakding (2,610 m).",
+    "Day 3: helicopter flight to Lukla and a walk to Phakding (2,610 m).",
     "Day 4: up to Namche Bazaar (3,440 m).",
     "Day 5: acclimatization day in Namche Bazaar.",
     "Day 6: Deboche (3,760 m).",
@@ -51,7 +51,7 @@
     "Days 23 to 25: spare days for weather, at Base Camp.",
     "Day 26: down to Namche Bazaar (3,440 m).",
     "Day 27: the last walking day, to Lukla (2,860 m).",
-    "Day 28: flight from Lukla to Kathmandu or Ramechhap.",
+    "Day 28: helicopter flight from Lukla to Kathmandu.",
     "Day 29: spare day in case of bad weather, or a free day in Kathmandu.",
     "Day 30: transfer to the airport and flight home."
    ]
@@ -77,7 +77,7 @@
   },
   {
    "type": "text",
-   "value": "The expedition starts in Lukla, 2,860 m, the village that is home to the airport of the Everest region. The flights from Kathmandu to Lukla and back are by plane, and they are included in the price. They depend on the weather, and in the busy seasons many of them leave from the airport at Manthali in Ramechhap district, a few hours' drive from Kathmandu. In our itinerary the return flight from Lukla lands in Kathmandu or Ramechhap, and day 29 is a spare day in case it is delayed."
+   "value": "The expedition starts in Lukla, 2,860 m, the village that is home to the airport of the Everest region. In our package the flights from Kathmandu to Lukla and back are by helicopter, and they are included in the price. In the busy seasons most flights to Lukla leave from the airport at Manthali in Ramechhap district, a few hours' drive from Kathmandu, but the helicopter takes off from Kathmandu itself, so there is no drive to Manthali. A helicopter also depends on the weather, and day 29 is a spare day in Kathmandu in case the flight from Lukla is delayed."
   },
   {
    "type": "text",
@@ -273,7 +273,7 @@
   },
   {
    "type": "text",
-   "value": "The Ama Dablam expedition costs 7,000 US dollars per person. It includes airport transfers to the hotel in Kathmandu and back, internal transfers to the start of the route and back, domestic flights to Lukla and back, 4 nights in a 5-star hotel in Kathmandu in a single room with breakfast, teahouse accommodation in shared rooms throughout the trek, double tents during the climb, dinners at a restaurant before and after the climb, three full meals a day throughout the climb, 2 liters of hot water a day, professional local English-speaking guides, a personal Sherpa guide all the way to the summit, technical training at base camp with professional guides, fixed ropes along the route to the summit, porters for personal gear up to 15 kg per person, showers and toilets in the teahouses where available on the route, all entry permits for the trek and the climb, a first aid kit with emergency oxygen cylinders, a pulse oximeter for the group, a Magnus satellite device for the group, a personal area in the HighAir app, a detailed gear list and a training plan for the climb, an online gear consultation, an online preparation call with your group before departure, support with flight and travel insurance questions before departure, a gift kit with a cap, a dry-fit shirt and a 100-liter duffel bag, and a meaningful donation to the fight against cancer."
+   "value": "The Ama Dablam expedition costs 8,000 US dollars per person. It includes airport transfers to the hotel in Kathmandu and back, internal transfers to the start of the route and back, domestic helicopter flights to Lukla and back, 4 nights in a 5-star hotel in Kathmandu in a single room with breakfast, teahouse accommodation in shared rooms throughout the trek, double tents during the climb, dinners at a restaurant before and after the climb, three full meals a day throughout the climb, 2 liters of hot water a day, professional local English-speaking guides, a personal Sherpa guide all the way to the summit, technical training at base camp with professional guides, fixed ropes along the route to the summit, porters for personal gear up to 15 kg per person, showers and toilets in the teahouses where available on the route, all entry permits for the trek and the climb, a first aid kit with emergency oxygen cylinders, a pulse oximeter for the group, a Magnus satellite device for the group, a personal area in the HighAir app, a detailed gear list and a training plan for the climb, an online gear consultation, an online preparation call with your group before departure, support with flight and travel insurance questions before departure, a gift kit with a cap, a dry-fit shirt and a 100-liter duffel bag, and a meaningful donation to the fight against cancer."
   },
   {
    "type": "text",
@@ -335,7 +335,7 @@
   },
   {
    "type": "text",
-   "value": "The HighAir expedition costs 7,000 US dollars per person, and the price includes the flights to Lukla, accommodation, meals, a personal Sherpa guide, the fixed ropes, porters, the climbing permit and the entry permits. Not included are international flights, insurance, personal gear and climbing equipment, a 90-day Nepal visa (125 dollars), tips (350 dollars) and a summit bonus for the guides (800 dollars)."
+   "value": "The HighAir expedition costs 8,000 US dollars per person, and the price includes the helicopter flights to Lukla, accommodation, meals, a personal Sherpa guide, the fixed ropes, porters, the climbing permit and the entry permits. Not included are international flights, insurance, personal gear and climbing equipment, a 90-day Nepal visa (125 dollars), tips (350 dollars) and a summit bonus for the guides (800 dollars)."
   },
   {
    "type": "heading",

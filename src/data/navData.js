@@ -948,8 +948,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Extreme",
     "diffHe": "אקסטרים",
-    "price": 7000,
-    "priceStr": "$7000",
+    "price": 8000,
+    "priceStr": "$8000",
     "continent": "asia",
     "groupCapacity": 10
   },
@@ -973,8 +973,8 @@ export const CARD_EXPS = [
     "typeHe": "טיפוס",
     "diff": "Extreme",
     "diffHe": "אקסטרים",
-    "price": 8500,
-    "priceStr": "$8500",
+    "price": 8000,
+    "priceStr": "$8000",
     "continent": "asia",
     "groupCapacity": 10
   },
