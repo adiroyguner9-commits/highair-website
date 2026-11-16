@@ -46,6 +46,7 @@ export const POSTS = [
 
         { type: 'section', value: 'צחי מיארה, מטפס ישראלי באמצע הסיפור' },
         { type: 'text', value: 'אחד המטפסים שלקחו חלק במאמץ להציל את קלאס פוסט באותו לילה היה מטפס ישראלי, צחי מיארה. גם הוא הגיע למחנה 2 עם פסגה משלו, עם חודשים של אימונים, הכנות והוצאות מאחוריו. וגם הוא היה מוכן לשים את כל זה בצד בשביל אדם שלא הכיר.' },
+        { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'צחי מיארה במעיל פוך צהוב וכחול עומד על רכס בעמק קומבו, ומאחוריו פסגת אמא דאבלם המושלגת', caption: 'צחי מיארה בעמק קומבו, ברקע אמא דאבלם, צילום: צחי מיארה' },
         { type: 'text', value: 'קל לדבר על ערכים בבית. קשה הרבה יותר לבחור בהם בגובה 6,000 מ׳, בלילה, עייף, כשהמטרה שעבדת בשבילה כל כך הרבה זמן נמצאת ממש מעליך. מה שצחי והמטפסים שהיו איתו עשו באותו לילה הוא בדיוק הבחירה הזו.' },
 
         { type: 'section', value: 'הבוקר שאחרי' },
@@ -54,6 +55,7 @@ export const POSTS = [
 
         { type: 'section', value: 'אז מה יותר חשוב?' },
         { type: 'text', value: 'על הנייר התשובה ברורה. בפועל, ההחלטה נופלת על אנשים שמגיעים לרגע הזה עם עייפות, עם מחסור בחמצן ועם הרבה מאוד על הכף: חודשים של אימונים, ימי חופש, כסף, ולעתים חלום של שנים. בהרים הגבוהים זה כבר קרה, יותר מפעם אחת, שמטפסים חלפו על פני אדם במצוקה בדרך לפסגה. לכן מה שקרה במחנה 2 באמא דאבלם ראוי שיסופר.' },
+        { type: 'image', src: '/images/blog/tzachi-miara-down-suit.webp', alt: 'צחי מיארה בחליפת פוך אדומה וצהובה ובמגפי טיפוס, עומד על מדרון סלעי מתחת לפסגות מושלגות', caption: 'צחי מיארה בחליפת גובה, צילום: צחי מיארה' },
         { type: 'text', value: 'מה שאנחנו לומדים מהלילה הזה הוא שההחלטה לעזור לא מתקבלת במחנה 2. היא מתקבלת הרבה קודם, כשמחליטים מה המשמעות של פסגה בשבילכם. מטפס שהגיע להר עם הבנה שהפסגה היא רק חלק מהמסע, ושלפעמים חוזרים בלעדיה, יבחר נכון גם כשקשה.' },
 
         { type: 'section', value: 'עם מי יוצאים, זה חלק מההכנה' },
@@ -108,6 +110,7 @@ export const POSTS = [
 
         { type: 'section', value: 'Tzachi Miara, an Israeli climber in the middle of the story' },
         { type: 'text', value: 'One of the climbers who took part in the effort to save Klaas Post that night was an Israeli climber, Tzachi Miara. He too had come to Camp 2 with a summit of his own, with months of training, preparation and expense behind him. And he too was ready to set all of that aside for a man he did not know.' },
+        { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'Tzachi Miara in a yellow and blue down jacket on a ridge in the Khumbu Valley, with the snowy summit of Ama Dablam behind him', caption: 'Tzachi Miara in the Khumbu Valley, with Ama Dablam behind, photo: Tzachi Miara' },
         { type: 'text', value: 'It is easy to talk about values at home. It is much harder to choose them at 6,000 m, at night, exhausted, when the goal you have worked towards for so long is right above you. What Tzachi and the climbers with him did that night is exactly that choice.' },
 
         { type: 'section', value: 'The morning after' },
@@ -116,6 +119,7 @@ export const POSTS = [
 
         { type: 'section', value: 'So which matters more?' },
         { type: 'text', value: 'On paper the answer is obvious. In practice, the decision falls to people who reach that moment tired, short of oxygen and with a great deal at stake: months of training, holiday days, money and sometimes a dream of many years. In the high mountains it has happened more than once that climbers passed a person in distress on the way to the summit. That is why what happened at Camp 2 on Ama Dablam deserves to be told.' },
+        { type: 'image', src: '/images/blog/tzachi-miara-down-suit.webp', alt: 'Tzachi Miara in a red and yellow down suit and climbing boots, standing on a rocky slope below snowy peaks', caption: 'Tzachi Miara in his high-altitude suit, photo: Tzachi Miara' },
         { type: 'text', value: 'What we take from that night is that the decision to help is not made at Camp 2. It is made much earlier, when you decide what a summit means to you. A climber who comes to the mountain knowing that the summit is only part of the journey, and that sometimes you come home without it, will choose well even when it is hard.' },
 
         { type: 'section', value: 'Who you go with is part of the preparation' },
