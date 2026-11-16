@@ -50,3 +50,18 @@ describe('wired', () => {
     expect(pp).toMatch(/we also use PostHog, which stores its data in Europe/);
   });
 });
+
+describe('the site\'s events reach PostHog (owner, 16 Nov 2026)', () => {
+  const an = readFileSync(new URL('../src/utils/analytics.js', import.meta.url), 'utf8');
+  it('every custom event, and one "lead" event for every lead form', () => {
+    expect(an).toMatch(/capturePostHog\(eventName, params\);/);
+    expect(an).toMatch(/capturePostHog\('lead', \{ source, expedition_slug: slug \|\| source, expedition: name, value: Number\(value\) \|\| 0/);
+  });
+  it('only once PostHog runs, which is after consent', () => {
+    expect(readFileSync(new URL('../src/utils/posthog.js', import.meta.url), 'utf8')).toMatch(/if \(ph && started\) ph\.capture\(event, props\)/);
+  });
+  it('no event the site sends carries a person: no name, phone or email field', () => {
+    const calls = [...an.matchAll(/trackEvent\('[a-z_]+',\s*\{([^}]*)\}/g)].map(m => m[1]).join(' ');
+    expect(calls).not.toMatch(/\b(phone|email|full_?name|first_?name|last_?name)\b/i);
+  });
+});

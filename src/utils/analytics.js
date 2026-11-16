@@ -6,6 +6,7 @@
  * fire trackEvent() at every interesting moment, and the wrapper handles
  * the "consent not granted" case automatically.
  */
+import { capturePostHog } from './posthog.js';
 
 export function trackEvent(eventName, params = {}) {
   if (typeof window === 'undefined') return;
@@ -16,6 +17,7 @@ export function trackEvent(eventName, params = {}) {
   if (typeof window.gtag === 'function') {
     window.gtag('event', eventName, params);
   }
+  capturePostHog(eventName, params);   // after consent only (utils/posthog.js)
 }
 
 /* ── Lead conversion — ONE event for every lead form on the site ──
@@ -53,6 +55,8 @@ export function trackLead({ source, slug = '', name = '', value = 0 } = {}) {
      the Google Ads conversion to leave the browser first. */
   if (typeof window === 'undefined') return Promise.resolve();
   window.dataLayer = window.dataLayer || [];
+  /* PostHog's funnel ends here: one event for every lead form, the trip and never the person */
+  capturePostHog('lead', { source, expedition_slug: slug || source, expedition: name, value: Number(value) || 0, ...(siteLanguage() ? { site_language: siteLanguage() } : {}) });
   return new Promise((resolve) => {
     let done = false;
     const finish = () => { if (!done) { done = true; resolve(); } };

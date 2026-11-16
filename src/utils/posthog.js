@@ -56,3 +56,10 @@ export function startPostHog() {
 export function stopPostHog() {
   try { ph?.opt_out_capturing(); ph?.stopSessionRecording?.(); } catch { /* nothing to stop */ }
 }
+
+/* The site's own events (utils/analytics.js) reach PostHog too, so a funnel can end at the lead
+   itself (owner, 16 Nov 2026: "תעשה את כל מה שצריך"). Only once PostHog runs, i.e. after consent;
+   before that nothing is queued. None of these events carries a visitor's name, phone or email. */
+export function capturePostHog(event, props = {}) {
+  try { if (ph && started) ph.capture(event, props); } catch { /* never break the page */ }
+}
