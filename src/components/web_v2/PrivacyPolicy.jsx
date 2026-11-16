@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
   const isRtl = i18n.language === 'he';
 
   return (
-    <LegalPageLayout title={isRtl ? 'מדיניות פרטיות' : tx("Privacy Policy")} updated="2026-11-02">
+    <LegalPageLayout title={isRtl ? 'מדיניות פרטיות' : tx("Privacy Policy")} updated="2026-11-16">
       {isRtl ? (
         <>
           <div style={SECTION}>
@@ -86,6 +86,7 @@ export default function PrivacyPolicy() {
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
             </ul>
             <p style={P}>מידע סטטיסטי מהאתר עשוי להישלח ל-Google Analytics ולמערכות פרסום לצורך שיפור חוויית המשתמש וקמפיינים.</p>
+            <p style={P}>אם אישרתם שימוש בעוגיות, אנחנו משתמשים גם ב-PostHog, שמאחסן את המידע באירופה, כדי להבין איך גולשים משתמשים באתר, כולל הקלטה של מהלך הגלישה. כל שדה בטופס מוסתר בהקלטות, ושם, טלפון או מייל שתמלאו לא נשמרים בהן. אם לא אישרתם עוגיות, או ביטלתם את האישור, המידע הזה לא נאסף.</p>
             <p style={P}>מלבד אלה, לא נעביר מידע אישי לצדדים שלישיים ללא הסכמתכם, אלא אם חלה עלינו חובה חוקית.</p>
           </div>
 
@@ -222,6 +223,7 @@ export default function PrivacyPolicy() {
               ].map((item, i) => <li key={i} style={LI}>{item}</li>)}
             </ul>
             <p style={P}>Statistical information from the Site may be sent to Google Analytics and advertising systems for the purpose of improving user experience and campaigns.</p>
+            <p style={P}>If you accepted cookies, we also use PostHog, which stores its data in Europe, to understand how visitors use the Site, including a recording of the browsing session. Every form field is hidden in these recordings, so a name, phone number or email you type is never kept in them. If you did not accept cookies, or withdrew your consent, this information is not collected.</p>
             <p style={P}>Other than these, we will not transfer personal information to third parties without your consent, unless we are legally obligated to do so.</p>
           </div>
 

@@ -4,6 +4,7 @@
  * Saves preference to localStorage and enables GA on accept
  */
 import { tx } from '../../website/lang.js';
+import { startPostHog, stopPostHog } from '../../utils/posthog.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COLOR, RADIUS, EASING, FS } from '../../website/theme.js';
@@ -96,6 +97,7 @@ export default function CookieBanner() {
     if (window.google_tag_manager?.['GTM-MVJ7Z7FB']) {
       (window.dataLayer = window.dataLayer || []).push({ event: 'cookie_consent_granted' });
     }
+    startPostHog();   // only now, and only on the live site (utils/posthog.js)
     setVisible(false);
   }
 
@@ -104,6 +106,7 @@ export default function CookieBanner() {
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     }
+    stopPostHog();
     setVisible(false);
   }
 

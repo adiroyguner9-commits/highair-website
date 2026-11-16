@@ -9,6 +9,7 @@ import * as Sentry from '@sentry/react';
 import { scrubEvent, scrubBreadcrumb, scrubTransaction } from './utils/sentryScrub.js';
 import { Analytics } from '@vercel/analytics/react';
 import { captureAttribution } from './utils/attribution.js';
+import { startPostHog } from './utils/posthog.js';
 import { installWaIntentListener } from './utils/waIntent.js';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import RouteTracker  from './components/RouteTracker.jsx';
@@ -270,3 +271,7 @@ Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(document.
     <Analytics />
   </StrictMode>
 ));
+
+/* PostHog for a visitor who already accepted cookies on an earlier visit (utils/posthog.js waits for
+   an idle moment, so the first paint never waits for it). */
+startPostHog();
