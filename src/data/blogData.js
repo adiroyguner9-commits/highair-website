@@ -34,8 +34,8 @@ export const POSTS = [
         { type: 'text', value: 'המטפסים שהגיעו באותו ערב למחנה 2 היו בדרך לפסגה שלהם. הם התאמנו לשם חודשים, השקיעו כסף רב, עברו שבועות של התאקלמות בעמק קומבו, ועכשיו הפסגה כבר הייתה קרובה. במקום להמשיך, הם נשארו לצד אדם שלא הכירו. זה סיפור על השאלה שכל מטפס צריך לשאול את עצמו עוד לפני שהוא יוצא מהבית: מה אני עושה אם על ההר, ברגע הכי חשוב שלי, מישהו אחר צריך אותי.' },
 
         { type: 'section', value: 'מה קרה במחנה 2' },
-        { type: 'text', value: 'המטפס ההולנדי, קלאס פוסט, טיפס במסגרת משלחת של החברה הנפאלית Makalu Adventure. לפי הדיווח של The Tourism Times, הוא העפיל לפסגה ב-27 באוקטובר יחד עם שני מטפסים נוספים ועם המדריכים שלהם, ובירידה איבד את ההכרה במחנה 2. השניים האחרים הגיעו בשלום למחנה 1. הוא לא יכול היה לרדת.' },
-        { type: 'text', value: 'מי שמצאו אותו היו המטפסת ההונגרית קסניה שאנטה ובן זוגה פול קלארק, שטיפסו עם החברה 8K Expeditions. הם ויתרו על ניסיון הפסגה שלהם ונשארו איתו, לצד מדריכי Makalu Adventure שטיפלו בו במחנה לאורך הלילה. הם חיפשו באוהל בלוני חמצן, יצרו קשר עם מחנה הבסיס, עם חברות משלחות נוספות ועם חברת הביטוח, ונשארו לידו. ״בלילה של ה-27 באוקטובר, מבחינתנו, חיים של אדם נעשו חשובים יותר מהפסגה״, אמרה שאנטה. ״כולנו ויתרנו על המטרות שלנו.״' },
+        { type: 'text', value: 'המטפס ההולנדי, קלאס פוסט, טיפס במסגרת משלחת מאורגנת. לפי הדיווח של The Tourism Times, הוא העפיל לפסגה ב-27 באוקטובר יחד עם שני מטפסים נוספים ועם המדריכים שלהם, ובירידה איבד את ההכרה במחנה 2. השניים האחרים הגיעו בשלום למחנה 1. הוא לא יכול היה לרדת.' },
+        { type: 'text', value: 'מי שמצאו אותו היו המטפסת ההונגרית קסניה שאנטה ובן זוגה פול קלארק. הם ויתרו על ניסיון הפסגה שלהם ונשארו איתו, לצד המדריכים של המשלחת שלו, שטיפלו בו במחנה לאורך הלילה. הם חיפשו באוהל בלוני חמצן, יצרו קשר עם מחנה הבסיס, עם חברות משלחות נוספות ועם חברת הביטוח, ונשארו לידו. ״בלילה של ה-27 באוקטובר, מבחינתנו, חיים של אדם נעשו חשובים יותר מהפסגה״, אמרה שאנטה. ״כולנו ויתרנו על המטרות שלנו.״' },
         { type: 'extlink', href: 'https://www.youtube.com/watch?v=IxafxpzU5Ng', text: 'לצפייה בסרטון שמתעד את הלילה במחנה 2', textEn: 'Watch the video of the night at Camp 2' },
 
         { type: 'section', value: 'הלילה שבו מישהו ירד להביא חמצן' },
@@ -49,18 +49,31 @@ export const POSTS = [
         { type: 'text', value: 'קל לדבר על ערכים בבית. קשה הרבה יותר לבחור בהם בגובה 6,000 מ׳, בלילה, עייף, כשהמטרה שעבדת בשבילה כל כך הרבה זמן נמצאת ממש מעליך. מה שצחי והמטפסים שהיו איתו עשו באותו לילה הוא בדיוק הבחירה הזו.' },
 
         { type: 'section', value: 'הבוקר שאחרי' },
-        { type: 'text', value: 'בסביבות 6:30 בבוקר, ב-28 באוקטובר, הגיע מסוק של Kailash Helicopter. הטייס, קפטן לורנץ אלסאסר, פינה את קלאס פוסט ממחנה 2 ללוקלה, כשהוא מקבל חמצן, ומשם הוא הועבר לבית החולים HAMS בקטמנדו. לפי מנהל Makalu Adventure, מוהן למסאל, מצבו יציב.' },
+        { type: 'text', value: 'בסביבות 6:30 בבוקר, ב-28 באוקטובר, הגיע מסוק חילוץ. הטייס, קפטן לורנץ אלסאסר, פינה את קלאס פוסט ממחנה 2 ללוקלה, כשהוא מקבל חמצן, ומשם הוא הועבר לבית חולים בקטמנדו. לפי הדיווחים, מצבו יציב.' },
         { type: 'text', value: 'ולסיפור הזה יש עוד המשך. בסביבות 8:30 בבוקר, אחרי שהמסוק המריא, שאנטה וקלארק יצאו לדרך. ב-17:18 הם עמדו על הפסגה, ושאנטה הפכה לאישה ההונגרייה הראשונה שהעפילה לאמא דאבלם. הפעם ההר נתן להם הזדמנות שנייה. בהרים זה לא תמיד קורה, והם לא ידעו את זה כשבחרו להישאר.' },
 
         { type: 'section', value: 'אז מה יותר חשוב?' },
         { type: 'text', value: 'על הנייר התשובה ברורה. בפועל, ההחלטה נופלת על אנשים שמגיעים לרגע הזה עם עייפות, עם מחסור בחמצן ועם הרבה מאוד על הכף: חודשים של אימונים, ימי חופש, כסף, ולעתים חלום של שנים. בהרים הגבוהים זה כבר קרה, יותר מפעם אחת, שמטפסים חלפו על פני אדם במצוקה בדרך לפסגה. לכן מה שקרה במחנה 2 באמא דאבלם ראוי שיסופר.' },
         { type: 'text', value: 'מה שאנחנו לומדים מהלילה הזה הוא שההחלטה לעזור לא מתקבלת במחנה 2. היא מתקבלת הרבה קודם, כשמחליטים מה המשמעות של פסגה בשבילכם. מטפס שהגיע להר עם הבנה שהפסגה היא רק חלק מהמסע, ושלפעמים חוזרים בלעדיה, יבחר נכון גם כשקשה.' },
 
+        { type: 'section', value: 'עם מי יוצאים, זה חלק מההכנה' },
+        { type: 'text', value: 'הלילה במחנה 2 הראה עוד דבר: כשמשהו משתבש בגובה 6,000 מ׳, מה שקובע הוא מי נמצא לצדכם. מדריכים שנשארים עם מטפס כל הלילה, מישהו שמוכן לרדת בחושך להביא חמצן, קשר עם מחנה הבסיס, ותיאום מהיר של מסוק וביטוח עם אור ראשון. את כל אלה לא בונים על ההר. בוחרים אותם הרבה לפני, כשסוגרים עם חברה.' },
+        { type: 'text', value: 'לפני שסוגרים משלחת לפסגה טכנית כמו אמא דאבלם, כדאי לשאול כמה שאלות פשוטות:' },
+        { type: 'list', items: [
+          'מי המדריכים, כמה ניסיון יש להם בהר הזה, וכמה מטפסים יש לכל מדריך.',
+          'מה קורה אם מטפס חולה או נפגע בגובה: מי נשאר איתו, ואיך מתקבלת ההחלטה לחזור.',
+          'איך שומרים על קשר עם מחנה הבסיס, ומי מתאם חילוץ אם צריך.',
+          'כמה ימי ספייר יש בתוכנית, כדי שמזג אוויר או תקלה לא יגמרו את המשלחת.',
+          'מה בדיוק כלול במחיר, ומה הביטוח שלכם צריך לכסות.',
+        ] },
+        { type: 'text', value: 'משלחת זולה יותר שחוסכת במדריכים, בימים או בתכנון, חוסכת בדיוק בדברים שהצילו חיים במחנה 2. בפסגה כזו, הבחירה בחברה היא חלק מההכנה, בדיוק כמו האימונים.' },
+        { type: 'cta', text: 'לכל הפרטים על משלחת אמא דאבלם שלנו', textEn: 'All the details of our Ama Dablam expedition', href: '/expedition/ama-dablam' },
+
         { type: 'section', value: 'מה זה אומר לכם, לפני ההר הבא' },
         { type: 'text', value: 'בלו״ז של משלחת אמא דאבלם של HighAir, מחנה 2 הוא בדיוק המחנה שאליו יורדים ללינה בסוף יום הפסגה. לכל מטפס במשלחת שלנו יש מדריך שרפה אישי, וההחלטות על ההר, מתי ממשיכים, מתי עוצרים ומתי עוזרים, מתקבלות יחד עם צוות המדריכים המקומי שמכיר את ההר. בתוכנית יש גם ימי ספייר, כדי שמזג אוויר, או לילה כמו הלילה הזה, לא יגמרו את המשלחת.' },
         { type: 'text', value: 'ועוד דבר אחד, פרקטי: לפני שיוצאים לפסגה כזו, ודאו שהביטוח שלכם מכסה טיפוס בגובה של עד 6,812 מ׳, כולל חילוץ ופינוי במסוק. באותו לילה, אחת הפעולות הראשונות של המחלצים הייתה ליצור קשר עם חברת הביטוח.' },
         { type: 'text', value: 'חלק מכל משלחת שלנו מוקדש לתמיכה בחולי סרטן בישראל, כי ההרים, בעינינו, הם גם דרך לתת. הלילה במחנה 2 הזכיר לנו שהם יכולים להיות בדיוק את זה.' },
-        { type: 'image', src: '/images/gallery/ama-dablam/1.webp', alt: 'אוהלים צהובים פזורים בין סלעים ושלג על רכס הררי, מעל עננים ופסגות מושלגות', caption: 'מחנה אוהלים על הרכס של אמא דאבלם, מעל העננים' },
+        { type: 'image', src: '/images/gallery/ama-dablam/11.webp', alt: 'מטפס במעיל כתום צועד על רכס שלג צר וחד, חבל כתום נמשך מאחוריו, ומולו פסגות מושלגות ועננים', caption: 'על רכס שלג צר באמא דאבלם, מחוברים לחבל' },
         { type: 'cta', text: 'למשלחת אמא דאבלם', textEn: 'Ama Dablam Expedition', href: '/expedition/ama-dablam' },
 
         { type: 'section', value: 'שאלות נפוצות' },
@@ -83,8 +96,8 @@ export const POSTS = [
         { type: 'text', value: 'The climbers who reached Camp 2 that evening were on their way to their own summit. They had trained for months, spent a great deal of money and gone through weeks of acclimatization in the Khumbu Valley, and now the summit was close. Instead of going on, they stayed beside a man they did not know. This is a story about the question every climber should ask before leaving home: what will I do if, at my most important moment on the mountain, someone else needs me.' },
 
         { type: 'section', value: 'What happened at Camp 2' },
-        { type: 'text', value: 'The Dutch climber, Klaas Post, was climbing with the Nepali company Makalu Adventure. According to The Tourism Times, he summited on 27 October with two other climbers and their guides, and lost consciousness at Camp 2 on the descent. The other two reached Camp 1 safely. He could not get down.' },
-        { type: 'text', value: 'He was found by the Hungarian climber Xenia Santha and her partner Paul Clarke, who were climbing with 8K Expeditions. They gave up their own summit attempt and stayed with him, alongside the Makalu Adventure guides who cared for him at the camp through the night. They searched the tent for oxygen, contacted Base Camp, other expedition companies and the insurance company, and stayed by his side. "On the night of 27 October, for us, a person\'s life became more important than the summit," Santha said. "We all gave up on our own goals."' },
+        { type: 'text', value: 'The Dutch climber, Klaas Post, was climbing with an organised expedition. According to The Tourism Times, he summited on 27 October with two other climbers and their guides, and lost consciousness at Camp 2 on the descent. The other two reached Camp 1 safely. He could not get down.' },
+        { type: 'text', value: 'He was found by the Hungarian climber Xenia Santha and her partner Paul Clarke. They gave up their own summit attempt and stayed with him, alongside the guides of his own expedition, who cared for him at the camp through the night. They searched the tent for oxygen, contacted Base Camp, other expedition companies and the insurance company, and stayed by his side. "On the night of 27 October, for us, a person\'s life became more important than the summit," Santha said. "We all gave up on our own goals."' },
         { type: 'extlink', href: 'https://www.youtube.com/watch?v=IxafxpzU5Ng', text: 'לצפייה בסרטון שמתעד את הלילה במחנה 2', textEn: 'Watch the video of the night at Camp 2' },
 
         { type: 'section', value: 'The night someone went down for oxygen' },
@@ -98,18 +111,31 @@ export const POSTS = [
         { type: 'text', value: 'It is easy to talk about values at home. It is much harder to choose them at 6,000 m, at night, exhausted, when the goal you have worked towards for so long is right above you. What Tzachi and the climbers with him did that night is exactly that choice.' },
 
         { type: 'section', value: 'The morning after' },
-        { type: 'text', value: 'At around 6:30 in the morning on 28 October, a Kailash Helicopter aircraft arrived. The pilot, Captain Laurenz Elsasser, evacuated Klaas Post from Camp 2 to Lukla on oxygen, and from there he was taken to HAMS Hospital in Kathmandu. According to Makalu Adventure\'s managing director, Mohan Lamsal, his condition is stable.' },
+        { type: 'text', value: 'At around 6:30 in the morning on 28 October, a rescue helicopter arrived. The pilot, Captain Laurenz Elsasser, evacuated Klaas Post from Camp 2 to Lukla on oxygen, and from there he was taken to hospital in Kathmandu. According to the reports, his condition is stable.' },
         { type: 'text', value: 'And the story has one more chapter. At around 8:30, after the helicopter had left, Santha and Clarke set off. At 17:18 they stood on the summit, and Santha became the first Hungarian woman to summit Ama Dablam. This time the mountain gave them a second chance. In the mountains that does not always happen, and they did not know it would when they chose to stay.' },
 
         { type: 'section', value: 'So which matters more?' },
         { type: 'text', value: 'On paper the answer is obvious. In practice, the decision falls to people who reach that moment tired, short of oxygen and with a great deal at stake: months of training, holiday days, money and sometimes a dream of many years. In the high mountains it has happened more than once that climbers passed a person in distress on the way to the summit. That is why what happened at Camp 2 on Ama Dablam deserves to be told.' },
         { type: 'text', value: 'What we take from that night is that the decision to help is not made at Camp 2. It is made much earlier, when you decide what a summit means to you. A climber who comes to the mountain knowing that the summit is only part of the journey, and that sometimes you come home without it, will choose well even when it is hard.' },
 
+        { type: 'section', value: 'Who you go with is part of the preparation' },
+        { type: 'text', value: 'The night at Camp 2 showed one more thing: when something goes wrong at 6,000 m, what matters is who is beside you. Guides who stay with a climber all night, someone willing to go down in the dark for oxygen, contact with Base Camp, and fast coordination of a helicopter and insurance at first light. None of this is built on the mountain. You choose it long before, when you book with a company.' },
+        { type: 'text', value: 'Before booking an expedition to a technical summit like Ama Dablam, it is worth asking a few simple questions:' },
+        { type: 'list', items: [
+          'Who are the guides, how much experience do they have on this mountain, and how many climbers does each guide look after.',
+          'What happens if a climber falls ill or is injured at altitude: who stays with them, and how is the decision to turn back made.',
+          'How do they stay in contact with Base Camp, and who coordinates a rescue if one is needed.',
+          'How many spare days are in the plan, so that weather or a problem does not end the expedition.',
+          'What exactly is included in the price, and what your insurance needs to cover.',
+        ] },
+        { type: 'text', value: 'A cheaper expedition that saves on guides, days or planning saves on exactly the things that saved a life at Camp 2. On a summit like this, choosing the company is part of the preparation, just like the training.' },
+        { type: 'cta', text: 'לכל הפרטים על משלחת אמא דאבלם שלנו', textEn: 'All the details of our Ama Dablam expedition', href: '/expedition/ama-dablam' },
+
         { type: 'section', value: 'What it means for you, before your next mountain' },
         { type: 'text', value: 'In the itinerary of the HighAir Ama Dablam expedition, Camp 2 is exactly where we descend to sleep at the end of summit day. Every climber on our expedition has a personal Sherpa guide, and the decisions on the mountain, when to continue, when to stop and when to help, are made together with the local guiding team who know the mountain. The plan also includes spare days, so that weather, or a night like this one, does not end the expedition.' },
         { type: 'text', value: 'One more practical point: before a summit like this, make sure your insurance covers climbing up to 6,812 m, including helicopter rescue and evacuation. That night, one of the first things the rescuers did was contact the insurance company.' },
         { type: 'text', value: 'Part of every expedition we run supports cancer patients in Israel, because to us the mountains are also a way of giving. The night at Camp 2 reminded us that they can be exactly that.' },
-        { type: 'image', src: '/images/gallery/ama-dablam/1.webp', alt: 'Yellow tents scattered among rocks and snow on a mountain ridge, above clouds and snowy peaks', caption: 'A tent camp on the Ama Dablam ridge, above the clouds' },
+        { type: 'image', src: '/images/gallery/ama-dablam/11.webp', alt: 'A climber in an orange jacket walks a narrow snow ridge, an orange rope trailing behind, facing snowy peaks and clouds', caption: 'On a narrow snow ridge on Ama Dablam, clipped to the rope' },
         { type: 'cta', text: 'למשלחת אמא דאבלם', textEn: 'Ama Dablam Expedition', href: '/expedition/ama-dablam' },
 
         { type: 'section', value: 'Frequently asked questions' },
