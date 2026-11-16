@@ -251,7 +251,8 @@ describe('no en dash and no em dash in the Hebrew and English copy (owner, 14 No
     expect(posts.length).toBeGreaterThan(20);
     for (const f of posts) expect(strings(JSON.parse(read(`${dir}/${f}`))).filter(v => DASH.test(v)), f).toEqual([]);
     for (const peak of ['island-peak', 'lobuche-peak', 'mera-peak']) {
-      expect(read(`${dir}/${peak}-climbing-guide.json`)).toContain('you can fly from Kathmandu to Lukla and back by helicopter');
+      /* the helicopter is included on the Lukla climbs since 16 Nov 2026 (owner) */
+      expect(read(`${dir}/${peak}-climbing-guide.json`)).toContain('The helicopter takes off from Kathmandu itself, so there is no drive to Manthali.');
     }
   });
   it('the interface texts: the English sentences keep their German and Spanish translations under the new wording', () => {

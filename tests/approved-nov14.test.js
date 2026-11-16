@@ -406,8 +406,10 @@ describe('no dash in the German and Spanish copy (owner, 14 Nov 2026; 165 en das
     expect(de['Booking error - please try again']).toBe('Fehler bei der Buchung, bitte erneut versuchen');
     expect(de['Confirm Call - {0} at {1}']).toBe('Gespräch bestätigen: {0} um {1}');
     expect(de['{0} is Full - no available spots']).toBe('{0} ist ausgebucht, keine Plätze frei');
-    expect(read('src/data/blog-intl/de/island-peak-climbing-guide.json')).toContain('mit dem Hubschrauber von Kathmandu nach Lukla und zurück fliegen');
-    expect(read('src/data/blog-intl/es/island-peak-climbing-guide.json')).toContain('puedes volar de Katmandú a Lukla y de vuelta en helicóptero');
+    /* the helicopter is included on the Lukla climbs since 16 Nov 2026 (owner), and the sentence that
+       carried the dash is now this one */
+    expect(read('src/data/blog-intl/de/island-peak-climbing-guide.json')).toContain('Der Helikopter startet direkt in Kathmandu, die Fahrt nach Manthali entfällt.');
+    expect(read('src/data/blog-intl/es/island-peak-climbing-guide.json')).toContain('El helicóptero despega desde la propia Katmandú, así que no hace falta ir hasta Manthali.');
   });
 });
 
