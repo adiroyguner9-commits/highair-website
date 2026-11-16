@@ -55,6 +55,9 @@ export const POSTS = [
         { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'צחי מיארה במעיל פוך צהוב וכחול עומד על רכס בעמק קומבו, ומאחוריו פסגת אמא דאבלם המושלגת', caption: 'צחי מיארה בעמק קומבו, ברקע אמא דאבלם, צילום: צחי מיארה' },
         { type: 'text', value: 'קל לדבר על ערכים בבית. קשה הרבה יותר לבחור בהם בגובה 6,000 מ׳, בלילה, עייף, כשהמטרה שעבדת בשבילה כל כך הרבה זמן נמצאת ממש מעליך. מה שצחי והמטפסים שהיו איתו עשו באותו לילה הוא בדיוק הבחירה הזו.' },
         { type: 'text', value: 'ויש בזה משהו שכדאי לומר במפורש: באותו רגע אף אחד לא ידע איך הלילה ייגמר. מי שנשאר לא ידע אם המסוק יצליח להגיע, אם קלאס ישרוד, או אם יישאר להם בכלל כוח וזמן לפסגה. הם בחרו בלי לדעת את הסוף, וזה מה שהופך את הבחירה הזו לגדולה כל כך.' },
+        { type: 'subheading', value: 'צחי, תודה' },
+        { type: 'text', value: 'אנחנו רוצים לעצור כאן לרגע ולהגיד את זה בפשטות: צחי מיארה הוא דוגמה ומופת לאיך שצריך להתנהג בהרים. בהר, כמו בחיים, קל להיות מטפס טוב כשהכול הולך לפי התוכנית. מה שמגדיר מטפס באמת הוא מה שהוא עושה ברגע שמישהו אחר צריך אותו, וצחי ידע בדיוק מה לעשות.' },
+        { type: 'text', value: 'בשבילנו, ובשביל כל מי שיוצא איתנו להרים, זה השיעור החשוב ביותר מהלילה הזה. הפסגה תמיד תחכה. חיים של אדם לא מחכים. צחי, תודה שהזכרת לכולנו את זה, ותודה שייצגת את המטפסים הישראלים בהימלאיה בצורה הכי טובה שיש.' },
 
         { type: 'section', value: 'הבוקר שאחרי' },
         { type: 'text', value: 'בסביבות 6:30 בבוקר, ב-28 באוקטובר, הגיע מסוק חילוץ. הטייס, קפטן לורנץ אלסאסר, פינה את קלאס פוסט ממחנה 2 ללוקלה, כשהוא מקבל חמצן, ומשם הוא הועבר לבית חולים בקטמנדו. לפי הדיווחים, מצבו יציב.' },
@@ -138,6 +141,9 @@ export const POSTS = [
         { type: 'image', src: '/images/blog/tzachi-miara-khumbu-ama-dablam.webp', alt: 'Tzachi Miara in a yellow and blue down jacket on a ridge in the Khumbu Valley, with the snowy summit of Ama Dablam behind him', caption: 'Tzachi Miara in the Khumbu Valley, with Ama Dablam behind, photo: Tzachi Miara' },
         { type: 'text', value: 'It is easy to talk about values at home. It is much harder to choose them at 6,000 m, at night, exhausted, when the goal you have worked towards for so long is right above you. What Tzachi and the climbers with him did that night is exactly that choice.' },
         { type: 'text', value: 'And one thing is worth saying plainly: at that moment nobody knew how the night would end. Those who stayed did not know whether the helicopter would make it, whether Klaas would survive, or whether they would have any strength or time left for the summit. They chose without knowing the ending, and that is what makes the choice so great.' },
+        { type: 'subheading', value: 'Thank you, Tzachi' },
+        { type: 'text', value: 'We want to pause here and say it simply: Tzachi Miara is a model of how one should behave in the mountains. On a mountain, as in life, it is easy to be a good climber when everything goes to plan. What truly defines a climber is what he does at the moment someone else needs him, and Tzachi knew exactly what to do.' },
+        { type: 'text', value: 'For us, and for everyone who goes to the mountains with us, this is the most important lesson of that night. The summit will always wait. A person\'s life does not. Tzachi, thank you for reminding all of us of that, and thank you for representing Israeli climbers in the Himalaya in the best possible way.' },
 
         { type: 'section', value: 'The morning after' },
         { type: 'text', value: 'At around 6:30 in the morning on 28 October, a rescue helicopter arrived. The pilot, Captain Laurenz Elsasser, evacuated Klaas Post from Camp 2 to Lukla on oxygen, and from there he was taken to hospital in Kathmandu. According to the reports, his condition is stable.' },
