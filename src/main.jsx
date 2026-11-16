@@ -82,11 +82,19 @@ if (import.meta.env.VITE_SENTRY_DSN) {
       // reported at line 1 of the HTML, where only <!DOCTYPE html> stands
       // (HIGHAIR-WEBSITE-W/18/19). Our own code ships as built /assets/ files.
       "Unexpected token 'else'",
+      // Microsoft's link scanner (Outlook Safe Links / Bing), which opens links
+      // from mail in a headless browser and rejects with its own bridge message
+      // (HIGHAIR-WEBSITE-1A, a Dublin data centre, 16 Nov 2026)
+      'Object Not Found Matching Id',
     ],
     // Third-party scripts we load but do not write: the accessibility widget and
     // the ad and analytics tags. Their own network failures are not our errors
-    // (HIGHAIR-WEBSITE-N/C/15).
-    denyUrls: [/userway\.org/i, /doubleclick\.net/i, /googletagmanager\.com/i, /connect\.facebook\.net/i],
+    // (HIGHAIR-WEBSITE-N/C/15). Vercel's analytics script too: Vercel sends it
+    // brotli-compressed even to a client that asked for plain text, so a proxy
+    // that cannot unpack it hands the browser bytes it cannot parse
+    // (HIGHAIR-WEBSITE-1B, SyntaxError at line 1:1, 16 Nov 2026). Our own files
+    // are sent as the client asks.
+    denyUrls: [/userway\.org/i, /doubleclick\.net/i, /googletagmanager\.com/i, /connect\.facebook\.net/i, /\/_vercel\/(speed-)?insights\//i],
     // Don't send errors in development; scrub everything else
     beforeSend(event) {
       if (import.meta.env.DEV) return null;

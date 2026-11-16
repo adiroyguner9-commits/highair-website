@@ -38,4 +38,16 @@ describe('the Sentry filters in main.jsx', () => {
     expect(src).toMatch(/denyUrls: \[.*userway\\\.org.*doubleclick\\\.net/);
     expect(src).not.toMatch(/ignoreErrors:[^\]]*'Failed to fetch'/s);
   });
+  /* 16 Nov 2026: Microsoft's link scanner (HIGHAIR-WEBSITE-1A) and Vercel's
+     analytics script reaching a browser still compressed (HIGHAIR-WEBSITE-1B). */
+  it("leave out Microsoft's link scanner and Vercel's analytics script, and nothing of ours", () => {
+    expect(src).toContain("'Object Not Found Matching Id'");
+    const line = src.split('\n').find(l => l.includes('denyUrls: ['));
+    const deny = eval(line.trim().replace(/^denyUrls:\s*/, '').replace(/,\s*$/, ''));
+    const denied = u => deny.some(re => re.test(u));
+    expect(denied('https://en.highair-expeditions.com/_vercel/insights/script.js')).toBe(true);
+    expect(denied('https://www.highair-expeditions.com/_vercel/speed-insights/script.js')).toBe(true);
+    expect(denied('https://www.highair-expeditions.com/assets/index-ZLuPSN8F.js')).toBe(false);
+    expect(denied('https://www.highair-expeditions.com/expedition/olympus')).toBe(false);
+  });
 });
