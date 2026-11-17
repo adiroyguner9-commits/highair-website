@@ -247,8 +247,8 @@ function scrollToForm() {
 }
 
 /* ─── Separator ─────────────────────────────────────────────────── */
-/* PREVIEW (17 Nov 2026, not deployed): the phone's "show all" control for the intro and the
-   long lists. The hidden part stays in the page (display: none), so Google still reads it. */
+/* The phone's "show all" control for the intro and the long lists (owner, 17 Nov 2026).
+   The hidden part stays in the page (display: none), so Google still reads it. */
 function MoreToggle({ open, onClick, moreLabel, lessLabel }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
@@ -569,7 +569,7 @@ export default function ExpeditionDetail() {
   const [activeMonth, setActiveMonth]       = useState(null);
   /* Kilimanjaro's two packages as a tab, one list at a time (owner, 17 Nov 2026). */
   const [kiliPkg, setKiliPkg]               = useState('climb');
-  /* PREVIEW: the phone's collapsed intro and lists */
+  /* The phone's collapsed intro and lists: first paragraph, 6 + 4 included rows, 5 reasons, 3 notes */
   const [introOpen, setIntroOpen]       = useState(false);
   const [includedOpen, setIncludedOpen] = useState(false);
   const [whyOpen, setWhyOpen]           = useState(false);
@@ -1029,7 +1029,7 @@ export default function ExpeditionDetail() {
   /* ── Active itinerary based on tab ── */
   const hasSafari = (exp?.safariItinerary?.length > 0) || (loc(exp, "safariItinerary")?.length > 0)
                  || (exp?.extensionItinerary?.length > 0) || (loc(exp, "extensionItinerary")?.length > 0);
-  /* PREVIEW: on a phone one package choice drives both the dates and the programme */
+  /* On a phone one package choice drives both the dates and the programme (owner, 17 Nov 2026) */
   const itTab = (isMobile && hasSafari) ? (kiliPkg === 'safari' ? 'safari' : 'trek') : itineraryTab;
   const activeItinerary = itTab === 'safari' && hasSafari
     ? [...itinerary.slice(0, -1), ...safariItinerary]
@@ -1046,13 +1046,16 @@ export default function ExpeditionDetail() {
      what to know, the FAQ, and the form. A safari page keeps its own order, which its section
      tabs (SAFARI_NAV) follow. Real DOM order, not a CSS reorder, so a screen reader and a
      search engine read the page in the order a visitor sees it. */
-  /* PREVIEW: which list rows the phone hides until "show all" (headers follow their rows) */
+  /* Which list rows the phone hides until "show all" (a header follows its rows) */
   const introClip    = isMobile && !introOpen;
   const listsClipped = isMobile && !includedOpen;
   const isPlainRow   = item => !item.endsWith(':') && !item.trimStart().startsWith('*');
-  const clipFlags = (list, max) => { let n = 0; return list.map(item => { const plain = isPlainRow(item); if (plain) n++; return listsClipped && (plain ? n > max : n >= max); }); };
-  const hideInc = clipFlags(includedItems, 6);
-  const hideNot = clipFlags(notIncluded, 4);
+  const clipFlags = (list, max, on) => { let n = 0; return list.map(item => { const plain = isPlainRow(item); if (plain) n++; return on && (plain ? n > max : n >= max); }); };
+  const hideInc = clipFlags(includedItems, 6, listsClipped);
+  const hideNot = clipFlags(notIncluded, 4, listsClipped);
+  /* the button only where the short view really hides something */
+  const includedHasMore = extrasItems.length > 0
+    || clipFlags(includedItems, 6, true).some(Boolean) || clipFlags(notIncluded, 4, true).some(Boolean);
   const includedTotal = [...includedItems, ...notIncluded, ...extrasItems].filter(isPlainRow).length;
 
   const sections = {
@@ -1311,7 +1314,7 @@ export default function ExpeditionDetail() {
               )}
             </div>
           </div>
-          {isMobile && (
+          {isMobile && includedHasMore && (
             <MoreToggle open={includedOpen} onClick={() => setIncludedOpen(o => !o)}
               moreLabel={isRtl ? `הצגת כל ${includedTotal} הפריטים` : tx("Show all {0} items", [includedTotal])}
               lessLabel={isRtl ? 'הצגה מקוצרת' : tx("Show less")} />
@@ -1355,7 +1358,7 @@ export default function ExpeditionDetail() {
                   </div>
                 )}
                 {hasSafari && isMobile && (
-                  /* PREVIEW: the same tab as the dates, and the same choice */
+                  /* the same tab as the dates, and the same choice */
                   <div role="tablist" style={{
                     display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '4px', width: '100%',
                     background: '#ECEAF8', borderRadius: RADIUS.lg, padding: '4px', boxSizing: 'border-box',
@@ -2134,7 +2137,6 @@ export default function ExpeditionDetail() {
           </h2>
 
           <PhotoGallery
-            phoneMosaic
             key={exp.slug}   /* a new trip starts a fresh gallery (lightbox, measured sizes) */
             images={validGalleryImages}
             orientations={imgOrientations}

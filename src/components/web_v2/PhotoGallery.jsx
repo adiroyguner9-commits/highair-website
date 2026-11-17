@@ -1,6 +1,7 @@
 /**
- * PhotoGallery.jsx - the site's photo gallery: masonry on desktop, the snap
- * carousel on phones, and a full-screen lightbox.
+ * PhotoGallery.jsx - the site's photo gallery: masonry on desktop, on phones a
+ * mosaic (one large photo, four small, the last "+N"; the snap carousel only when
+ * there are fewer than 3 photos), and a full-screen lightbox.
  * Used by: ExpeditionDetail (trip pages) and GallerySection (homepage), so the
  * two look and behave the same (owner, 24 Oct 2026). The markup is the trip
  * page's gallery, moved here unchanged.
@@ -20,7 +21,7 @@ import { useState, useEffect } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 
-export default function PhotoGallery({ images, orientations = {}, thumbOf = src => src, altPrefix = '', altOf = i => `${altPrefix} ${i + 1}`.trim(), hint, isRtl, isMobile, phoneMosaic = false }) {
+export default function PhotoGallery({ images, orientations = {}, thumbOf = src => src, altPrefix = '', altOf = i => `${altPrefix} ${i + 1}`.trim(), hint, isRtl, isMobile }) {
   const [lightboxIdx, setLightboxIdx] = useState(null);
   const [measured, setMeasured] = useState({});
   const orient = i => measured[i] || orientations[i];   // the loaded photo has the last word, as before
@@ -42,9 +43,10 @@ export default function PhotoGallery({ images, orientations = {}, thumbOf = src 
   return (
     <>
       {/* ── Mobile: snap carousel / Desktop: masonry ── */}
-      {isMobile && phoneMosaic && images.length >= 3 ? (
-        /* PREVIEW (17 Nov 2026, trip page only): one large photo and up to four small ones,
-           the last carrying "+N"; a tap opens the full-screen viewer at that photo. */
+      {isMobile && images.length >= 3 ? (
+        /* Phone mosaic (owner, 17 Nov 2026, "בוא ננסה"): one large photo and up to four
+           small ones, the last carrying "+N"; a tap opens the full-screen viewer at that
+           photo. Five photos at a glance instead of one. Trip pages and the homepage alike. */
         (() => {
           const small = images.slice(1, 5);
           const more = images.length - 1 - small.length;
