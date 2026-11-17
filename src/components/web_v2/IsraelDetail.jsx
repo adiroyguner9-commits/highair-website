@@ -1140,7 +1140,9 @@ export default function IsraelDetail() {
                       onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(109,40,217,0.10)'}
                       onMouseLeave={e => e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'}
                       style={{
-                        display: 'grid', gridTemplateColumns: '1fr auto 1fr',
+                        /* the phone: an even gap between date, label and button, as on the trip pages (owner, 17 Nov 2026) */
+                        display: isMobile ? 'flex' : 'grid', gridTemplateColumns: '1fr auto 1fr',
+                        justifyContent: isMobile ? 'space-between' : undefined, gap: isMobile ? '10px' : undefined,
                         alignItems: 'center',
                         border: '1px solid #ECEAF8', borderRadius: RADIUS.lg,
                         padding: isMobile ? '14px 16px' : '12px 20px',
@@ -1150,7 +1152,7 @@ export default function IsraelDetail() {
                       }}>
                       {/* Right: date */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-                        <CalendarIcon size={isMobile ? 16 : 18} color={COLOR.primary} />
+                        {!isMobile && <CalendarIcon size={18} color={COLOR.primary} />}
                         <span style={{
                           fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '15px' : '17px',
                           fontWeight: 800, color: '#0A0818', lineHeight: 1.1,
@@ -1185,6 +1187,7 @@ export default function IsraelDetail() {
                         color: isFull ? '#9CA3AF' : 'white',
                         border: 'none', borderRadius: RADIUS.full,
                         padding: isMobile ? '10px 16px' : '12px 28px',
+                        minWidth: isMobile ? '92px' : undefined,
                         fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700,
                         cursor: isFull ? 'not-allowed' : 'pointer',
                         whiteSpace: 'nowrap', justifySelf: 'end', transition: 'background 0.2s',

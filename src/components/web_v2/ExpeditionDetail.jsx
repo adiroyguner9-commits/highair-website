@@ -2106,7 +2106,7 @@ export default function ExpeditionDetail() {
                           ושבטים"). Kili groups its dates under section headers
                           instead (owner prefers that), so the chip is only for the
                           other two-length trips (Ethiopia trek/tribes). */}
-                      {hasSafari && !isKili && (
+                      {hasSafari && !isKili && !isMobile && (   /* the phone shows the length as a tab instead */
                         <span style={{
                           fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
                           padding: '2px 9px', borderRadius: '999px', whiteSpace: 'nowrap',
@@ -2188,7 +2188,10 @@ export default function ExpeditionDetail() {
                   );
                 };
 
-                if (!isKili) {
+                /* On a phone every trip sold in two lengths gets the tab (owner, 17 Nov 2026: "שיהיה ככה בכל
+                   מקום באתר בתאריכי יציאה"): Kilimanjaro and Ethiopia alike. */
+                const twoLengthTab = isMobile && hasSafari;
+                if (!isKili && !twoLengthTab) {
                   return (
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
                       {displayGroups.map(renderCard)}
@@ -2196,8 +2199,8 @@ export default function ExpeditionDetail() {
                   );
                 }
 
-                const climbGroups  = displayGroups.filter(g => !g.eventName.toLowerCase().includes('safari'));
-                const safariGroups = displayGroups.filter(g =>  g.eventName.toLowerCase().includes('safari'));
+                const climbGroups  = displayGroups.filter(g => !isExtensionGroup(g));
+                const safariGroups = displayGroups.filter(g =>  isExtensionGroup(g));
 
                 /* The two packages as a tab, like the owner's example (17 Nov 2026: "שהטיפוס לבד יהיה
                    בטאב לבחירה"): one list at a time instead of every date twice. Each tab says how many
@@ -2208,9 +2211,9 @@ export default function ExpeditionDetail() {
                   return Math.round((calendarDay(g.returnDate) - calendarDay(g.departure)) / 86400000) + 1;
                 };
                 const pkgTabs = [
-                  { id: 'climb',  list: climbGroups,  label: isRtl ? 'טיפוס בלבד' : tx("Climb Only") },
-                  { id: 'safari', list: safariGroups, label: isRtl ? 'טיפוס + ספארי' : tx("Climb + 3-Day Safari") },
-                ].map(t => ({ ...t, days: daysOf(t.list.length ? t.list : (t.id === 'climb' ? liveGroups.filter(g => !g.eventName.toLowerCase().includes('safari')) : liveGroups.filter(g => g.eventName.toLowerCase().includes('safari')))) }));
+                  { id: 'climb',  list: climbGroups,  label: isRtl ? (exp.extensionBaseLabelHe || 'טיפוס בלבד')    : (loc(exp, "extensionBaseLabel") || tx("Climb Only")) },
+                  { id: 'safari', list: safariGroups, label: isRtl ? (exp.extensionLabelHe     || 'טיפוס + ספארי') : (loc(exp, "extensionLabel")     || tx("Climb + 3-Day Safari")) },
+                ].map(t => ({ ...t, days: daysOf(t.list.length ? t.list : liveGroups.filter(g => (t.id === 'safari') === isExtensionGroup(g))) }));
                 const shown = kiliPkg === 'safari' ? safariGroups : climbGroups;
 
                 if (!isMobile) {
