@@ -4,7 +4,7 @@
  */
 
 import { contactFor } from '../../website/contact.js';
-import { tx, loc, PARTIAL_LANGS, currentLang, hasPage } from '../../website/lang.js';
+import { loc, PARTIAL_LANGS, currentLang, hasPage } from '../../website/lang.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -27,11 +27,10 @@ const CLIMBS = FOOTER_CLIMBS;
 const WA_HREF = `https://api.whatsapp.com/send?phone=${contactFor().wa}`;
 
 /* ── Single link ── */
-function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
+function FooterLink({ label, href, isExternal, teaser }) {
   const [hovered, setHovered] = useState(false);
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
 
   function handleClick(e) {
     if (isExternal) return;
@@ -62,30 +61,17 @@ function FooterLink({ label, href, isExternal, comingSoon, teaser }) {
         color:          hovered ? '#0A0818' : '#6B6B8A',
         textDecoration: 'none',
         display:        'block',
-        /* On a phone the gap moves inside the link, so a finger gets 40px. */
+        /* On a phone the gap moves inside the link: the same 31px rows as the computer
+           (owner, 17 Nov 2026: the 40px rows of 1 Nov were too far apart), and the whole
+           row is the finger's target, well above the 24px accessibility minimum. */
         marginBottom:   isMobile ? 0 : '10px',
-        padding:        isMobile ? '10px 0' : 0,
+        padding:        isMobile ? '5px 0' : 0,
         transition:     'color 0.18s ease',
         letterSpacing:  '0.01em',
       }}
     >
       {label}
-      {/* A trek still in preparation says so in the footer too. Without it the
-          menu and the footer would disagree about the same page. */}
-      {comingSoon && (
-        <span style={{
-          display:      'inline-block',
-          margin:       '0 8px',
-          padding:      '1px 7px',
-          borderRadius: '999px',
-          background:   '#FEF3C7',
-          fontSize:     '10px',
-          fontWeight:   700,
-          color:        '#92400E',
-        }}>
-          {i18n.language !== 'he' ? tx("Coming soon") : 'בקרוב'}
-        </span>
-      )}
+      {/* No "בקרוב" tag in the footer (owner, 17 Nov 2026); the menu keeps its own. */}
     </Tag>
   );
 }
@@ -223,11 +209,11 @@ export default function SiteFooter() {
           }}>
             <div>
               {TREKS.length > 0 && <ColHeading>{t('footer.worldTreks')}</ColHeading>}
-              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+              {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} teaser={e.teaser} />)}
             </div>
             <div>
               <ColHeading>{t('footer.worldClimbs')}</ColHeading>
-              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+              {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} teaser={e.teaser} />)}
             </div>
             {ISRAEL_TREKS_LIVE && (
             <div>
@@ -287,12 +273,12 @@ export default function SiteFooter() {
 
           <div>
             <ColHeading>{t('footer.worldClimbs')}</ColHeading>
-            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+            {CLIMBS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} teaser={e.teaser} />)}
           </div>
 
           <div>
             {TREKS.length > 0 && <ColHeading>{t('footer.worldTreks')}</ColHeading>}
-            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} comingSoon={e.comingSoon} teaser={e.teaser} />)}
+            {TREKS.map(e => <FooterLink key={e.id} label={isEn ? (loc(e, "name") || e.name) : e.nameHe} href={`/expedition/${e.slug}`} teaser={e.teaser} />)}
           </div>
 
           {ISRAEL_TREKS_LIVE && (
