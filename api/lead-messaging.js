@@ -28,7 +28,8 @@ import { sendDepositWelcome } from './_lib/deposit-welcome.js';
 import { sendBackupAlert } from './_lib/backup-alert.js';   // a safety-net send means the instant one failed
 import { destInfo } from './_lib/dest.js';   // single source of truth for destination → Hebrew name + slug
 import { tripKey } from './_lib/active-lead.js';   // same-trip test — a call booked for a DIFFERENT destination must not suppress this enquiry's link
-import { isForeignLead, NOT_FOREIGN_FORMULA } from './_lib/lead-channel.js';   // foreign-site leads: email only, no WhatsApp
+import { isEmailOnlyLead, isEnglishLead, NOT_EMAIL_ONLY_FORMULA } from './_lib/lead-channel.js';   // German/Spanish site: email only; English site: WhatsApp in English
+import { msgNudgeEn, msgNudge2En, msgFollowUpEn, inLeadWindow } from './_lib/lead-en.js';
 import { firstName } from './_lib/name.js';  // friendly WhatsApp greeting — first name only
 import { msgFollowUp, futureDepartureEvents, tripHasDeparture } from './_lib/followup.js';   // shared with the manual "send now" button
 import { fetchAllPages } from './departures.js';   // every Groups page, or an error: never a short list
@@ -303,14 +304,14 @@ export default async function handler(req, res) {
       + `NOT(FIND('WhatsApp',{Source}&'')),`           // WhatsApp leads are handled by the AI
       + `NOT(FIND('GHL import',{Source}&'')),`         // never the imported backlog
       + NOT_A_LEAD                                     // contact forms are not leads
-      + NOT_FOREIGN_FORMULA                            // a lead from abroad gets email only
+      + NOT_EMAIL_ONLY_FORMULA                         // the German and Spanish sites get email only
       + `{Phone}!='',`
       + `IS_AFTER({Created Time},DATETIME_PARSE('${lowerIso}'))`
       + `)`;
     const rows = await queryLeads(formula);
     for (const rec of rows) {
       const f = rec.fields || {};
-      if (isForeignLead(f)) continue;                  // email only (lead-channel.js)
+      if (isEmailOnlyLead(f)) continue;                // email only (lead-channel.js)
       const ageMin = (nowMs - new Date(f['Created Time']).getTime()) / 60000;
       if (!(ageMin >= 10)) continue;                   // wait the full 10 min before nudging
       // NEVER nudge someone who already booked a call. book-slot advances the
@@ -333,7 +334,8 @@ export default async function handler(req, res) {
       }
       const claim = await patchLead(rec.id, { 'Nudge Sent': true });   // claim FIRST — and only send if the claim actually stuck
       if (!claim.ok) { result.errors.push('nudge claim failed ' + rec.id); continue; }   // failed claim + ok send would re-nudge next tick
-      const sent = await sendWA(f.Phone, msgNudge(f.Name, f.Expedition, code), { kind: 'nudge', leadId: rec.id });
+      const text = isEnglishLead(f) ? msgNudgeEn(f.Name, f.Expedition, code) : msgNudge(f.Name, f.Expedition, code);   // the English site's link and words
+      const sent = await sendWA(f.Phone, text, { kind: 'nudge', leadId: rec.id });
       if (sent.ok) { result.nudge++; continue; }
       await patchLead(rec.id, { 'Nudge Sent': false });   // release it — next run retries
       result.nudgeFailed++;
@@ -350,7 +352,11 @@ export default async function handler(req, res) {
      Israel (inSendWindow: 21:00 until 16 Nov 2026), and off for the weekend (Fri 15:00 → Sun 09:00) — the window is
      wide enough to just wait, once it was widened to 96h to survive the hold. */
   try {
-    if (inSendWindow() && !israelClosedHold()) {
+    /* An English lead waits for 09:00-20:00 at ITS OWN hour, by the phone's country
+       code (owner, 17 Nov 2026: "לפי השעה אצל הליד"); everyone else for Israel's.
+       While Israel is outside the window only the English leads are read. */
+    const ilNight2 = !inSendWindow();
+    if (!israelClosedHold()) {
       /* The upper bound is 96h, not 48h, and the weekend hold is exactly why.
          The hold lasts up to 42 hours, so a lead whose 24h mark fell on Friday
          evening would be 60-odd hours old by Sunday morning and would have
@@ -370,7 +376,8 @@ export default async function handler(req, res) {
            it look like a form lead here (3 got "מתי יהיה לך נוח", 22 Oct 2026). */
         + `{Source}!='Manual',`
         + NOT_A_LEAD
-        + NOT_FOREIGN_FORMULA                          // a lead from abroad gets email only
+        + NOT_EMAIL_ONLY_FORMULA                       // the German and Spanish sites get email only
+        + (ilNight2 ? `{Language}='English',` : '')    // Israel's night: only a lead whose own day it may be
         + `{Phone}!='',`
         + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
         + `)`;
@@ -378,9 +385,11 @@ export default async function handler(req, res) {
       let n2ThisRun = 0;
       for (const rec of rows2) {
         const f = rec.fields || {};
-        if (isForeignLead(f)) continue;                // email only (lead-channel.js)
+        if (isEmailOnlyLead(f)) continue;              // email only (lead-channel.js)
+        const english = isEnglishLead(f);
         const ageH = (nowMs - new Date(f['Created Time']).getTime()) / 3600000;
         if (!(ageH >= 24)) continue;                     // wait the full day
+        if (english ? !inLeadWindow(f.Phone) : ilNight2) { result.nudge2HeldForNight = (result.nudge2HeldForNight || 0) + 1; continue; }
         if (await hasAppointment(f.Phone, f.Expedition)) {
           await patchLead(rec.id, { 'Nudge 2 Sent': true, 'Stage': 'Call Scheduled' });
           continue;                                      // healing a stage costs nobody a message
@@ -391,7 +400,7 @@ export default async function handler(req, res) {
         n2ThisRun++;
         const claim = await patchLead(rec.id, { 'Nudge 2 Sent': true });   // claim FIRST
         if (!claim.ok) { result.errors.push('nudge2 claim failed ' + rec.id); continue; }
-        const sent = await sendWA(f.Phone, msgNudge2(f.Name, f.Expedition), { kind: 'nudge_2', leadId: rec.id });
+        const sent = await sendWA(f.Phone, english ? msgNudge2En(f.Name, f.Expedition, f.Phone) : msgNudge2(f.Name, f.Expedition), { kind: 'nudge_2', leadId: rec.id });
         if (sent.ok) { result.nudge2++; continue; }
         await patchLead(rec.id, { 'Nudge 2 Sent': false });   // release — next run retries
         result.nudge2Failed++;
@@ -413,7 +422,7 @@ export default async function handler(req, res) {
     const rowsNA = await queryLeads(`AND(`
       + `{Stage}='No Answer',`
       + `{No Answer Notified}!=TRUE(),`
-      + NOT_FOREIGN_FORMULA                            // a lead from abroad gets email only
+      + NOT_EMAIL_ONLY_FORMULA                         // the German and Spanish sites get email only
       + `{Phone}!='',`
       + `{Assigned Agent}!='',`
       + `{Stage Changed At}!='',`
@@ -439,8 +448,8 @@ export default async function handler(req, res) {
     //     first stamps must still happen, or no follow-up would start at all.
     const firstTime = await queryLeads(`AND({Stage}='Call Done',{Call Done At}='')`);
     //     The restart is for the WhatsApp follow-up alone, so it leaves the
-    //     foreign sites' leads out like every query that leads to a WhatsApp.
-    const cameBack  = await queryLeads(`AND({Stage}='Call Done',{Call Done At}!='',{Follow-Up Sent}!=TRUE(),${NOT_FOREIGN_FORMULA}{Stage Changed At}!='',IS_BEFORE({Call Done At},{Stage Changed At}))`);
+    //     email-only sites' leads out like every query that leads to a WhatsApp.
+    const cameBack  = await queryLeads(`AND({Stage}='Call Done',{Call Done At}!='',{Follow-Up Sent}!=TRUE(),${NOT_EMAIL_ONLY_FORMULA}{Stage Changed At}!='',IS_BEFORE({Call Done At},{Stage Changed At}))`);
     const toStamp = [...firstTime, ...cameBack.filter(r => !firstTime.some(x => x.id === r.id))];
     for (const rec of toStamp) {
       if (!callDoneNeedsStamp(rec.fields)) continue;
@@ -468,11 +477,13 @@ export default async function handler(req, res) {
     const weekend = israelClosedHold();   // Shabbat and festivals
     if (weekend) result.followUpHeldForWeekend = true;
     /* And the night (owner, 16 Nov 2026): from 20:00 it waits for 09:00, like the weekend,
-       on the same no-upper-bound query, so nothing is skipped. */
+       on the same no-upper-bound query, so nothing is skipped. An English lead's night is
+       its own (owner, 17 Nov 2026, by the phone's country code): while Israel sleeps only
+       the English leads are read, and each one goes only inside its own 09:00-20:00. */
     const night = !weekend && !inSendWindow();
     if (night) result.followUpHeldForNight = true;
     const dueBy = new Date(nowMs - 4 * 86400000).toISOString();
-    const due = weekend || night ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),${FOLLOW_UP_SKIP_STAGES.map(st => `{Stage}!='${st}'`).join(',')},${NOT_FOREIGN_FORMULA.slice(0, -1)})`);
+    const due = weekend ? [] : await queryLeads(`AND({Call Done At}!='',IS_BEFORE({Call Done At},DATETIME_PARSE('${dueBy}')),{Follow-Up Sent}!=TRUE(),${FOLLOW_UP_SKIP_STAGES.map(st => `{Stage}!='${st}'`).join(',')},${NOT_EMAIL_ONLY_FORMULA.slice(0, -1)}${night ? `,{Language}='English'` : ''})`);
     /* A failed send used to count against the cap of three, and the query came
        back in the same order every tick, so three leads whose sends always fail
        (a number not on WhatsApp) would hold every other follow-up back for good.
@@ -496,7 +507,9 @@ export default async function handler(req, res) {
     let fuThisRun = 0, fuTried = 0;
     for (const rec of due) {
       const f = rec.fields || {};
-      if (isForeignLead(f)) continue;                  // email only (lead-channel.js)
+      if (isEmailOnlyLead(f)) continue;                // email only (lead-channel.js)
+      const english = isEnglishLead(f);
+      if (english ? !inLeadWindow(f.Phone) : night) continue;   // its own night (English), or Israel's
       if (!followUpDue(f, nowMs)) continue;            // four days after the LAST call, and not while a call is ahead
       if (!f.Phone) { result.followUpNoPhone++; continue; }   // nothing to send to — never tick "Sent"
       const ahead = await departuresAhead();
@@ -512,7 +525,7 @@ export default async function handler(req, res) {
       // silently refused — the customer heard nothing and we thought we'd written.
       const claim = await patchLead(rec.id, { 'Follow-Up Sent': true });
       if (!claim.ok) { result.errors.push('followUp claim failed ' + rec.id); continue; }
-      const sent = await sendWA(f.Phone, msgFollowUp(f.Name, f.Expedition), { kind: 'follow_up', leadId: rec.id });
+      const sent = await sendWA(f.Phone, english ? msgFollowUpEn(f.Name, f.Expedition) : msgFollowUp(f.Name, f.Expedition), { kind: 'follow_up', leadId: rec.id });
       if (sent.ok) {
         // The message went out → the card belongs in "Follow-Up Sent".
         if (f.Stage !== 'Follow-Up Sent') await patchLead(rec.id, { 'Stage': 'Follow-Up Sent' });

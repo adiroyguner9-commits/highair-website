@@ -28,7 +28,8 @@ export default function handler(req, res) {
   setSecurityHeaders(req, res);
   if (req.method !== 'GET') return res.status(405).end();
 
-  const { date, time, name = '', expedition = '' } = req.query;
+  const { date, time, name = '', expedition = '', lang = '' } = req.query;
+  const en = lang === 'en';   // the English site's confirmation (17 Nov 2026)
   if (!date || !time) return res.status(400).send('Missing date or time');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) return res.status(400).send('Invalid date');
   if (!/^\d{2}:\d{2}$/.test(String(time)))       return res.status(400).send('Invalid time');
@@ -38,7 +39,9 @@ export default function handler(req, res) {
   const { dtStart, dtEnd } = israelCallStamps(String(date), String(time));
 
   const safeExpedition = icsEscape(expedition);
-  const desc = safeExpedition ? `שיחה לגבי משלחת: ${safeExpedition}` : 'שיחה עם HighAir Expeditions';
+  const desc = en
+    ? (safeExpedition ? `Call about: ${safeExpedition}` : 'Call with HighAir Expeditions')
+    : (safeExpedition ? `שיחה לגבי משלחת: ${safeExpedition}` : 'שיחה עם HighAir Expeditions');
   const uid  = `${date}T${String(time).replace(':', '')}@highair-expeditions.com`;
 
   const ics = [
@@ -50,7 +53,7 @@ export default function handler(req, res) {
     'BEGIN:VEVENT',
     `DTSTART:${dtStart}`,
     `DTEND:${dtEnd}`,
-    'SUMMARY:שיחה עם HighAir Expeditions',
+    en ? 'SUMMARY:Call with HighAir Expeditions' : 'SUMMARY:שיחה עם HighAir Expeditions',
     `DESCRIPTION:${desc}`,
     `ORGANIZER;CN=HighAir Expeditions:mailto:info@highair-expeditions.com`,
     `UID:${uid}`,

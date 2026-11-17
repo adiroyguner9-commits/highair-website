@@ -770,6 +770,8 @@ export default function ExpeditionDetail() {
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [showBooking, setShowBooking] = useState(true);
+  const [callSkipped, setCallSkipped] = useState(false);   // the English site's "Maybe later"
+  useEffect(() => { setCallSkipped(false); }, [slug]);
   const [isWaitlist,  setIsWaitlist]  = useState(false);
   /* Tags a lead as coming from the women's-group card so the team can tell it
      apart from a regular October lead. Cleared if the month is changed by hand. */
@@ -2501,15 +2503,21 @@ export default function ExpeditionDetail() {
                 border: '1px solid rgba(255,255,255,0.1)',
               }}>
                 {/* Abroad there is no call booking: the sale runs by e-mail and
-                    WhatsApp (owner, 5 Nov 2026). A thank-you instead of the calendar. */}
-                {!isRtl ? (
+                    WhatsApp (owner, 5 Nov 2026). A thank-you instead of the calendar.
+                    The English site books a call like the Hebrew one since 17 Nov 2026
+                    ("אני רוצה שבאתר באנגלית יהיה אותו מודל כמו באתר בעברית"); German and
+                    Spanish keep the thank-you, and so does an English visitor who chose
+                    "Maybe later" (a WhatsApp with the booking link follows). */}
+                {!isRtl && (currentLang() !== 'en' || callSkipped) ? (
                   <div style={{ textAlign: 'center', color: 'white', padding: '8px 4px' }}>
                     <div style={{ fontSize: '40px', marginBottom: '8px' }}>✓</div>
                     <h3 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '24px', fontWeight: 700, margin: '0 0 10px' }}>
                       {tx("Thank you, {0}!", [String(form.name || '').split(' ')[0]])}
                     </h3>
                     <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '16px', lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0 }}>
-                      {tx("We've received your details. Our team will email you within a few hours with the dates, prices and everything you need to know.")}
+                      {currentLang() === 'en'
+                        ? "We've received your details. Our team will be in touch with you soon on WhatsApp."
+                        : tx("We've received your details. Our team will email you within a few hours with the dates, prices and everything you need to know.")}
                     </p>
                   </div>
                 ) : (
@@ -2522,7 +2530,7 @@ export default function ExpeditionDetail() {
                   expedition={exp?.nameHe}
                   expeditionSlug={exp?.slug}
                   expeditionValue={exp?.price}
-                  onSkip={() => setShowBooking(false)}
+                  onSkip={() => (isRtl ? setShowBooking(false) : setCallSkipped(true))}
                 />
                 )}
               </div>

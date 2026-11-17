@@ -10,7 +10,8 @@
  * Purchase carries event_id = record id so Meta dedupes any overlap.
  */
 import crypto from 'crypto';
-import { isForeignLead } from './lead-channel.js';
+import { isEmailOnlyLead, isEnglishLead } from './lead-channel.js';
+import { msgDepositAEn } from './lead-en.js';
 import { firstName } from './name.js';   // WhatsApp greeting — first name only
 /* The honest send: it reads Green's answer and only reports success on a real
    idMessage. This file used to assume success, which is how a closing could be
@@ -102,9 +103,11 @@ export async function sendDepositWelcome(rec) {
   if (/sinai|israel|סיני|ישראל/i.test(String(f.Expedition || ''))) {
     return { fbFired, waSent: false, skippedWa: 'israel/sinai destination' };
   }
-  /* A customer from the foreign sites: email only, no WhatsApp (owner, 10 Nov
-     2026; ./lead-channel.js). The flag is claimed, so it stays silent for good. */
-  if (isForeignLead(f)) {
+  /* A customer from the German or Spanish site: email only, no WhatsApp (owner, 10 Nov
+     2026; ./lead-channel.js). The flag is claimed, so it stays silent for good.
+     The English site's customer gets the same welcome in English (17 Nov 2026),
+     without the flights-and-insurance line: they fly from home. */
+  if (isEmailOnlyLead(f)) {
     return { fbFired, waSent: false, skippedWa: 'lead from abroad: email only' };
   }
 
@@ -118,7 +121,8 @@ export async function sendDepositWelcome(rec) {
      that greets a paying customer, was the only one that did not.
      The error is returned as well as logged, so the Lead Center can say what
      Green actually answered instead of claiming a send that never happened. */
-  const sent = await sendWhatsAppVerified(f.Phone, msgDepositA(f.Name), { kind: 'deposit_welcome', leadId: rec.id });
+  const text = isEnglishLead(f) ? msgDepositAEn(f.Name, PERSONAL_AREA) : msgDepositA(f.Name);
+  const sent = await sendWhatsAppVerified(f.Phone, text, { kind: 'deposit_welcome', leadId: rec.id });
   if (!sent.ok) console.error('[deposit-welcome] wa:', sent.error);
 
   return { fbFired, waSent: sent.ok, ...(sent.ok ? {} : { waError: sent.error }) };

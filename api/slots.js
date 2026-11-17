@@ -24,6 +24,7 @@ import { checkRateLimit, setSecurityHeaders } from './_security.js';
 import { israelNow, isYomTov, halfDayName, HALF_DAY_END } from './_lib/iltime.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt, agentKey, callsOverlap } from './_lib/callAgents.js';
 import { bookingAgent } from './_lib/active-lead.js';
+import { siteLanguageOf, ENGLISH_LEAD_AGENT } from './_lib/lead-channel.js';
 
 const DEFAULT_AVAILABILITY = {
   days:     [0, 1, 2, 3, 4, 5], // Sun–Fri open, Sat closed
@@ -183,7 +184,10 @@ export default async function handler(req, res) {
       (leadTok || custPhone)
         ? bookingAgent({ base: BASE, token: TOKEN, lead: leadTok, phone: custPhone }).catch(() => '')
         : '',
-    ]);
+    ]).then(([at, own]) => [at,
+      /* The English site's visitors talk to Tomer Lan (owner, 17 Nov 2026), so one with
+         no card yet (a bare /book) is offered his free times too. */
+      own || (siteLanguageOf(req.headers) === 'English' ? ENGLISH_LEAD_AGENT : '')]);
     if (!atRes.ok) {
       // Table may not exist yet — return all future slots
       return res.json({ slots: futureSlots });

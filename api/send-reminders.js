@@ -16,7 +16,8 @@ import { destHe } from './_lib/dest.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { greenFetch } from './_lib/green.js';
 import { fetchActiveLead } from './_lib/active-lead.js';   // resolve the lead's Hebrew name by phone
-import { messagingPaused, whatsappVerdict, CHANNEL_FIELDS } from './_lib/lead-channel.js';
+import { messagingPaused, whatsappVerdict, isEnglishLead, CHANNEL_FIELDS } from './_lib/lead-channel.js';
+import { msgReminderEn } from './_lib/lead-en.js';
 
 /* Normalise any stored phone to Israeli intl form ("972XXXXXXXXX") for the
    Green API chatId — handles 0…, +972…, "+972 0…", and the missing-leading-0
@@ -137,7 +138,8 @@ export default async function handler(req, res) {
       continue;
     }
 
-    const message   = `היי ${firstName(greetName)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
+    /* The English site's lead reads it in English, the hour said to be Israel's (17 Nov 2026). */
+    const message   = isEnglishLead(lead?.fields || {}) ? msgReminderEn(greetName, Expedition, Time) : `היי ${firstName(greetName)}, מה שלומך?\n\nתזכורת קטנה לשיחה שלנו היום בשעה ${Time}${Expedition ? ` לגבי ${destHe(Expedition)} 🏔️` : ''}\n\nנשמח לאישור שלך ב- 👍🏼`;
 
     try {
       const waRes  = await greenFetch(

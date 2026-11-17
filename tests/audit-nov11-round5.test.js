@@ -152,7 +152,9 @@ describe('W14: the four-day follow-up', () => {
 describe('W15: one channel rule for every automatic WhatsApp', () => {
   it('a lead from a foreign site never gets one; the pause silences the rest', () => {
     expect(whatsappVerdict({ lead: { Language: 'German' } })).toEqual({ send: false, why: 'foreign' });
-    expect(whatsappVerdict({ lead: { Source: 'WhatsApp', Experience: "Hi! I'd love to hear more about Kilimanjaro" } }).send).toBe(false);
+    expect(whatsappVerdict({ lead: { Source: 'WhatsApp', Experience: 'Hallo! Ich würde gern mehr über Kilimanjaro' } }).send).toBe(false);
+    /* The English site's leads get the WhatsApps, in English, since 17 Nov 2026. */
+    expect(whatsappVerdict({ lead: { Language: 'English' } })).toEqual({ send: true, why: '' });
     expect(whatsappVerdict({ lead: { Language: 'Hebrew' }, paused: true })).toEqual({ send: false, why: 'paused' });
     expect(whatsappVerdict({ lead: { Language: 'Hebrew' } })).toEqual({ send: true, why: '' });
     expect(whatsappVerdict({ lead: null })).toEqual({ send: true, why: '' });     // a phone with no card: nothing says "from abroad"
@@ -200,7 +202,8 @@ describe('W15: one channel rule for every automatic WhatsApp', () => {
     expect(rem.indexOf('whatsappVerdict({ lead')).toBeLessThan(rem.indexOf("'sendMessage'"));
     expect(rem).toContain('if (await messagingPaused({ base: BASE, token: TOKEN }))');
     const book = read('api/book-slot.js');
-    expect(book).toContain('const waOk = whatsappVerdict({ lead: leadFields }).send;');
+    expect(book).toContain('const waOk = whatsappVerdict({ lead: channelLead }).send;');
+    expect(book).toContain('const channelLead = leadFields || (siteLang && siteLang !== \'Hebrew\' ? { Language: siteLang } : null);');
     expect(book).toContain('if (!silent && waOk && GA_INSTANCE && GA_TOKEN && phone) {');
   });
 });
@@ -335,7 +338,7 @@ describe('W12: booking a call', () => {
   it('a lead from a foreign site books without a Hebrew WhatsApp', async () => {
     answer = (u, method) => {
       if (table(u) === 'Appointments' && method === 'POST') return { id: 'recAPPT0000000009', fields: {} };
-      if (table(u) === 'Website Leads' && method === 'GET') return { records: [{ id: 'recLEAD0000000002', fields: { Stage: 'New Lead', Language: 'English', Expedition: 'Kilimanjaro' } }] };
+      if (table(u) === 'Website Leads' && method === 'GET') return { records: [{ id: 'recLEAD0000000002', fields: { Stage: 'New Lead', Language: 'German', Expedition: 'Kilimanjaro' } }] };
       if (table(u) === 'Agents') return AGENTS;
       if (/greenapi|green-api/.test(u)) return { idMessage: 'MSG1' };
       return { records: [] };
@@ -397,7 +400,7 @@ describe('W11: the call picker', () => {
   it('"maybe later" is drawn only where it does something', () => {
     expect(widget).toMatch(/\{onSkip && <button\s+type="button"\s+onClick=\{onSkip\}/);
     expect(read('src/components/web_v2/BookCall.jsx')).not.toContain('onSkip=');
-    expect(read('src/components/web_v2/ExpeditionDetail.jsx')).toContain('onSkip={() => setShowBooking(false)}');
+    expect(read('src/components/web_v2/ExpeditionDetail.jsx')).toContain('onSkip={() => (isRtl ? setShowBooking(false) : setCallSkipped(true))}');
   });
 });
 

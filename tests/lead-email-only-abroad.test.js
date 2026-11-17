@@ -1,8 +1,9 @@
-/* A lead from the English, German or Spanish site gets email only, never an
-   automatic WhatsApp (owner, 10 Nov 2026: the first English-site lead got the
-   Hebrew nudge, "זה באג חמור מאוד"). */
+/* A lead from the German or Spanish site gets email only, never an automatic
+   WhatsApp (owner, 10 Nov 2026: the first English-site lead got the Hebrew nudge,
+   "זה באג חמור מאוד"). Since 17 Nov 2026 the English site's leads get the WhatsApps
+   in English instead (tests/english-site-flow.test.js); German and Spanish stay here. */
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { isForeignLead, NOT_FOREIGN_FORMULA } from '../api/_lib/lead-channel.js';
+import { isForeignLead, isEmailOnlyLead, isEnglishLead, NOT_EMAIL_ONLY_FORMULA } from '../api/_lib/lead-channel.js';
 
 describe('who is from abroad', () => {
   it('the form\'s Language, any case', () => {
@@ -17,8 +18,18 @@ describe('who is from abroad', () => {
     expect(isForeignLead({ Source: 'WhatsApp', Experience: 'Hi! I’d love to hear more about EBC' })).toBe(true);
     expect(isForeignLead({ Source: 'WhatsApp', Experience: 'היי, אשמח לפרטים על קילימנג׳רו' })).toBe(false);
   });
-  it('the formula keeps form leads from abroad out of every query', () => {
-    expect(NOT_FOREIGN_FORMULA).toBe("NOT(OR({Language}='English',{Language}='German',{Language}='Spanish')),");
+  it('email only: German and Spanish, not English', () => {
+    expect(isEmailOnlyLead({ Language: 'German' })).toBe(true);
+    expect(isEmailOnlyLead({ Language: 'spanish' })).toBe(true);
+    expect(isEmailOnlyLead({ Source: 'WhatsApp', Experience: 'Hallo! Ich würde gern mehr über Kilimanjaro' })).toBe(true);
+    expect(isEmailOnlyLead({ Language: 'English' })).toBe(false);
+    expect(isEmailOnlyLead({ Language: 'Hebrew' })).toBe(false);
+    expect(isEnglishLead({ Language: 'English' })).toBe(true);
+    expect(isEnglishLead({ Source: 'WhatsApp', Experience: "Hi! I'd love to hear more about Kilimanjaro" })).toBe(true);
+    expect(isEnglishLead({ Language: 'German' })).toBe(false);
+  });
+  it('the formula keeps the email-only sites out of every query', () => {
+    expect(NOT_EMAIL_ONLY_FORMULA).toBe("NOT(OR({Language}='German',{Language}='Spanish')),");
   });
 });
 
@@ -55,15 +66,15 @@ const run = () => new Promise(resolve => {
   handler({ method: 'GET', headers: { authorization: 'Bearer cron-secret' } }, res);
 });
 
-describe('the lead cron sends a lead from abroad no WhatsApp', () => {
-  it('every WhatsApp query leaves the foreign sites out', async () => {
+describe('the lead cron sends a German or Spanish lead no WhatsApp', () => {
+  it('every WhatsApp query leaves the email-only sites out', async () => {
     await run();
     const wa = formulas.filter(f => /\{Nudge Sent\}!=TRUE\(\)|\{Nudge 2 Sent\}!=TRUE\(\)|\{No Answer Notified\}!=TRUE\(\)|\{Follow-Up Sent\}!=TRUE\(\)/.test(f));
     expect(wa.length).toBeGreaterThanOrEqual(3);
-    for (const f of wa) expect(f).toContain("{Language}='English'");
+    for (const f of wa) { expect(f).toContain("{Language}='German'"); expect(f).toContain("{Language}='Spanish'"); }
   });
   it('even if one slips into a result, it is skipped and nothing goes out', async () => {
-    rows.nudge = [{ id: 'recEN', fields: { Name: 'Dana', Phone: '+972501112233', Stage: 'New Lead', Expedition: 'Kilimanjaro Kosher', Language: 'English', 'Created Time': '2026-11-10T07:40:00.000Z' } }];
+    rows.nudge = [{ id: 'recES', fields: { Name: 'Lucia', Phone: '+34612345678', Stage: 'New Lead', Expedition: 'Kilimanjaro Kosher', Language: 'Spanish', 'Created Time': '2026-11-10T07:40:00.000Z' } }];
     rows.follow = [{ id: 'recDE', fields: { Name: 'Jonas', Phone: '+4915112345678', Stage: 'Call Done', Expedition: 'Kilimanjaro', Language: 'German', 'Call Done At': '2026-11-01T09:00:00.000Z' } }];
     const { body } = await run();
     expect(sentTo).toEqual([]);

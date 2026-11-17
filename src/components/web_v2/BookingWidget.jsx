@@ -281,6 +281,7 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
           color: '#fff', margin: '0 0 16px', letterSpacing: '-0.5px',
         }}>
           {booked.time}
+          {!isRtl && <span style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'rgba(255,255,255,0.5)', letterSpacing: 0, marginTop: '2px' }}>{tx("Israel time")}</span>}
         </p>
         {email && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
@@ -438,7 +439,8 @@ export default function BookingWidget({ name, phone, email, expedition, expediti
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', margin: '0 0 10px' }}>
                 {IC.clock}
                 <span style={{ fontFamily: 'Ploni, sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
-                  {isRtl ? 'בחרו שעה' : tx("Choose a time")}
+                  {/* The times are Israel time on every site (owner, 17 Nov 2026: "שעון ישראל בלבד"), so a visitor abroad is told so */}
+                  {isRtl ? 'בחרו שעה' : `${tx("Choose a time")} (${tx("Israel time")})`}
                 </span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '8px' }}>

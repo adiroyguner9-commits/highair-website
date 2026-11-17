@@ -7,7 +7,8 @@
  * so the two paths can never drift or double-send.
  */
 import { destInfo } from './dest.js';
-import { isForeignLead } from './lead-channel.js';
+import { isEmailOnlyLead, isEnglishLead } from './lead-channel.js';
+import { msgNoAnswerEn } from './lead-en.js';
 import { firstName } from './name.js';
 import { sendWhatsAppVerified } from './followup.js';
 import { normalizePhone } from './phone.js';
@@ -36,6 +37,17 @@ const fmtPhoneIL = (p) => {
   return `+${d}`;
 };
 
+/* The same number for a customer abroad: they cannot dial 054-, so +972 54-788-8245. */
+export const fmtPhoneIntl = (p) => {
+  const d = normalizePhone(p).replace(/\D/g, '');
+  if (!d) return '';
+  if (d.startsWith('972')) {
+    const n = d.slice(3);                              // 547888245
+    return n.length === 9 ? `+972 ${n.slice(0, 2)}-${n.slice(2, 5)}-${n.slice(5)}` : `+${d}`;
+  }
+  return `+${d}`;
+};
+
 export function msgNoAnswer(name, expedition, agentHe, agentPhone) {
   const info = destInfo(expedition);
   const about = info.slug !== 'call' ? `ה${info.he}` : 'המסע שלנו';
@@ -60,8 +72,8 @@ export async function sendNoAnswerNotice(rec) {
   const f = rec.fields || {};
 
   if (f.Stage !== 'No Answer')          return { sent: false, skipped: 'not in No Answer' };
-  /* A lead from abroad is written to by email only (./lead-channel.js). */
-  if (isForeignLead(f))                 return { sent: false, skipped: 'lead from abroad: email only' };
+  /* A lead from the German or Spanish site is written to by email only (./lead-channel.js). */
+  if (isEmailOnlyLead(f))               return { sent: false, skipped: 'lead from abroad: email only' };
   if (f['No Answer Notified'] === true) return { sent: false, skipped: 'already sent' };
   if (!f.Phone)                         return { sent: false, skipped: 'no phone' };
   const agentFull = String(f['Assigned Agent'] || '').trim();
@@ -84,7 +96,7 @@ export async function sendNoAnswerNotice(rec) {
   for (const a of ((await ar.json()).records || [])) {
     const af = a.fields || {};
     if (af.Type !== 'Sales' || !af.Name || !af.Phone) continue;
-    if (`${af.Name} ${af['Last Name'] || ''}`.trim() === agentFull) { agent = { he: agentFirstHe(af), phone: af.Phone }; break; }
+    if (`${af.Name} ${af['Last Name'] || ''}`.trim() === agentFull) { agent = { he: agentFirstHe(af), en: String(af.Name).trim(), phone: af.Phone }; break; }
   }
   if (!agent) return { sent: false, skipped: `agent "${agentFull}" not found / no phone` };
 
@@ -94,7 +106,12 @@ export async function sendNoAnswerNotice(rec) {
   const claim = await fetch(LEAD, { method: 'PATCH', headers: H, body: JSON.stringify({ fields: { 'No Answer Notified': true, 'Activity Log': prevLog ? `${entry}\n${prevLog}` : entry } }) });
   if (!claim.ok) return { sent: false, error: 'claim failed' };
 
-  const out = await sendWhatsAppVerified(f.Phone, msgNoAnswer(f.Name, f.Expedition, agent.he, agent.phone), { kind: 'no_answer', leadId: rec.id });
+  /* The English site's lead reads it in English, with the agent's English first name and a number
+     dialable from abroad (owner, 17 Nov 2026). */
+  const text = isEnglishLead(f)
+    ? msgNoAnswerEn(f.Name, f.Expedition, agent.en, fmtPhoneIntl(agent.phone))
+    : msgNoAnswer(f.Name, f.Expedition, agent.he, agent.phone);
+  const out = await sendWhatsAppVerified(f.Phone, text, { kind: 'no_answer', leadId: rec.id });
   if (out.ok) return { sent: true, id: out.id };
 
   await fetch(LEAD, { method: 'PATCH', headers: H, body: JSON.stringify({ fields: { 'No Answer Notified': false } }) });   // release — the cron retries

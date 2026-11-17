@@ -28,8 +28,12 @@ describe('the window', () => {
   });
   it('the two messages use it, and nothing still says 21:00', () => {
     const src = readFileSync(new URL('../api/lead-messaging.js', import.meta.url), 'utf8');
-    expect(src).toContain('if (inSendWindow() && !israelClosedHold())');
+    /* Israel's night holds the Hebrew leads; an English lead keeps its own hours (17 Nov 2026,
+       tests/english-site-flow.test.js). */
+    expect(src).toContain('const ilNight2 = !inSendWindow();');
+    expect(src).toContain("if (english ? !inLeadWindow(f.Phone) : ilNight2)");
     expect(src).toContain('const night = !weekend && !inSendWindow();');
+    expect(src).toContain("if (english ? !inLeadWindow(f.Phone) : night) continue;");
     expect(src).not.toMatch(/hourIL\s*<\s*21|09:00-21:00/);
   });
 });
@@ -79,8 +83,10 @@ describe('the lead cron at night', () => {
     expect(r.body.followUp).toBe(0);
     expect(r.body.followUpHeldForNight).toBe(true);
     expect(sentTo).toEqual([]);
-    expect(asked('IS_BEFORE({Call Done At},DATETIME_PARSE(')).toBe(false);   // the follow-up's own query (the 'came back' one only stamps)
-    expect(asked('{Nudge 2 Sent}!=TRUE()')).toBe(false);
+    /* Only the English site's leads are read at Israel's night (their own hour decides). */
+    const nightQueries = formulas.filter(f => f.includes('IS_BEFORE({Call Done At},DATETIME_PARSE(') || f.includes('{Nudge 2 Sent}!=TRUE()'));
+    expect(nightQueries.length).toBe(2);
+    for (const f of nightQueries) expect(f).toContain("{Language}='English'");
   });
   it('08:30 the next morning still waits, 09:00 sends', async () => {
     let r = await runAt('2026-10-23T05:30:00Z');

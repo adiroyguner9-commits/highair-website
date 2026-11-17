@@ -15,6 +15,7 @@ import {
   setSecurityHeaders,
 } from './_security.js';
 import { fetchActiveLead, tripKey, OPEN_STAGES } from './_lib/active-lead.js';
+import { siteLanguageOf } from './_lib/lead-channel.js';
 import { destKey, destEn, DEST } from './_lib/dest.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
 import { googleCampaignName } from './_lib/googleCampaigns.js';
@@ -56,11 +57,7 @@ export function departureLogLine(d, now = new Date()) {
    the body: en. / de. / es. → English / German / Spanish, anything else on our
    domain → Hebrew. Unknown origin (previews, local) → left empty. */
 export function leadLanguage(headers = {}) {
-  const src = String(headers.origin || headers.referer || '');
-  let host = '';
-  try { host = new URL(src).hostname; } catch { return null; }
-  if (!(host === 'highair-expeditions.com' || host.endsWith('.highair-expeditions.com'))) return null;
-  return { en: 'English', de: 'German', es: 'Spanish' }[host.split('.')[0]] || 'Hebrew';
+  return siteLanguageOf(headers);   // one rule with the calendar (./_lib/lead-channel.js)
 }
 
 /* The company phone format, shared with the webapp: "+972501234567".

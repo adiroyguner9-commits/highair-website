@@ -14,8 +14,9 @@
  * "how are you?" would be wrong.
  */
 import { setSecurityHeaders } from './_security.js';
-import { isForeignLead } from './_lib/lead-channel.js';
+import { isEmailOnlyLead, isEnglishLead } from './_lib/lead-channel.js';
 import { msgFollowUp, sendWhatsAppVerified } from './_lib/followup.js';
+import { msgFollowUpEn } from './_lib/lead-en.js';
 import { hookAllowed } from './_lib/hook-auth.js';
 
 const SKIP_STAGES = new Set(['Deposit A Paid', 'Not Relevant', 'לקוח קיים', 'Awaiting Deposit A']);
@@ -51,10 +52,12 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: false, error: `לא נשלח — הליד בשלב "${f.Stage}"` });
     }
     if (!f.Phone) return res.status(200).json({ ok: false, error: 'אין מספר טלפון לליד' });
-    /* A lead from abroad is written to by email only (./_lib/lead-channel.js). */
-    if (isForeignLead(f)) return res.status(200).json({ ok: false, error: 'ליד מחו״ל: מייל בלבד, בלי וואטסאפ' });
+    /* A lead from the German or Spanish site is written to by email only
+       (./_lib/lead-channel.js); one from the English site gets the English text. */
+    if (isEmailOnlyLead(f)) return res.status(200).json({ ok: false, error: 'ליד מחו״ל: מייל בלבד, בלי וואטסאפ' });
 
-    const sent = await sendWhatsAppVerified(f.Phone, msgFollowUp(f.Name, f.Expedition), { kind: 'follow_up_manual', leadId });
+    const text = isEnglishLead(f) ? msgFollowUpEn(f.Name, f.Expedition) : msgFollowUp(f.Name, f.Expedition);
+    const sent = await sendWhatsAppVerified(f.Phone, text, { kind: 'follow_up_manual', leadId });
     if (!sent.ok) return res.status(200).json({ ok: false, error: sent.error });
 
     // Only now — a real idMessage came back — record it and land the card in

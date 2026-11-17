@@ -12,6 +12,7 @@ const HE_MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','�
 const HE_DAYS   = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
 
 const HE_MONTHS_SHORT = ['ינו׳', 'פבר׳', 'מרץ', 'אפר׳', 'מאי', 'יוני', 'יולי', 'אוג׳', 'ספט׳', 'אוק׳', 'נוב׳', 'דצמ׳'];
+const EN_MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function formatDateHe(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
@@ -63,10 +64,12 @@ export function icsDateTimes(date, time) {
 }
 
 /* Client ICS — METHOD:PUBLISH */
-function generateICS({ date, time, name, expedition }) {
+function generateICS({ date, time, name, expedition, en = false }) {
   const { dtStart, dtEnd, uid } = icsDateTimes(date, time);
   const safeExpedition = icsEscape(expedition);
-  const desc = safeExpedition ? `שיחה לגבי משלחת: ${safeExpedition}` : 'שיחה עם HighAir Expeditions';
+  const desc = en
+    ? (safeExpedition ? `Call about: ${safeExpedition}` : 'Call with HighAir Expeditions')
+    : (safeExpedition ? `שיחה לגבי משלחת: ${safeExpedition}` : 'שיחה עם HighAir Expeditions');
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -76,7 +79,7 @@ function generateICS({ date, time, name, expedition }) {
     'BEGIN:VEVENT',
     `DTSTART:${dtStart}`,
     `DTEND:${dtEnd}`,
-    'SUMMARY:שיחה עם HighAir Expeditions',
+    en ? 'SUMMARY:Call with HighAir Expeditions' : 'SUMMARY:שיחה עם HighAir Expeditions',
     `DESCRIPTION:${desc}`,
     `UID:${uid}`,
     'STATUS:CONFIRMED',
@@ -118,7 +121,7 @@ function generateAdminICS({ date, time, name, expedition, attendeeEmail, attende
 }
 
 /* ── Google Calendar URL ── */
-function googleCalUrl({ date, time, name, expedition }) {
+function googleCalUrl({ date, time, name, expedition, en = false }) {
   const pad = n => String(n).padStart(2, '0');
   const [h, m] = time.split(':').map(Number);
   const [yr, mo, dy] = date.split('-').map(Number);
@@ -131,10 +134,10 @@ function googleCalUrl({ date, time, name, expedition }) {
     action:  'TEMPLATE',
     /* The customer's own calendar: the call is WITH us. It was titled with
        the customer's own name, and with an em dash (22 Oct 2026). */
-    text:    'שיחה עם HighAir Expeditions',
+    text:    en ? 'Call with HighAir Expeditions' : 'שיחה עם HighAir Expeditions',
     dates:   `${dtStart}/${dtEnd}`,
     ctz:     'Asia/Jerusalem',
-    details: expedition ? `משלחת: ${expedition}` : 'HighAir Expeditions',
+    details: expedition ? (en ? `Expedition: ${expedition}` : `משלחת: ${expedition}`) : 'HighAir Expeditions',
   });
   return `https://calendar.google.com/calendar/render?${params}`;
 }
@@ -189,17 +192,18 @@ import {
 } from './_security.js';
 import { fetchActiveLead, bookingAgent, tripKey, last9, cardsOnPhone, returningAgentOf } from './_lib/active-lead.js';
 import { fetchCallAgents, busyByTime, someoneFreeAt, freeCoversAt, coversFor, agentKey, callsOverlap, timeToMin } from './_lib/callAgents.js';
-import { whatsappVerdict, CHANNEL_FIELDS } from './_lib/lead-channel.js';
+import { whatsappVerdict, isEnglishLead, siteLanguageOf, ENGLISH_LEAD_AGENT, CHANNEL_FIELDS } from './_lib/lead-channel.js';
+import { msgBookedEn, formatDateEn } from './_lib/lead-en.js';
 import { KILI_ROTA_FIELD, nextKiliAgent, kiliRotaStamp, callsAgentFor } from './_lib/kiliRota.js';
 import { normalizePhone, phoneIsValid, phoneError } from './_lib/phone.js';
-import { destHe, destInfo } from './_lib/dest.js';
+import { destHe, destInfo, destEn } from './_lib/dest.js';
 import { withFlag } from './_lib/dest-flag.js';
 import { firstName } from './_lib/name.js';   // WhatsApp greeting — first name only
 import { israelNow, yomTovName, halfDayName, HALF_DAY_END, israelCallStamps } from './_lib/iltime.js';
 import { loadAvailability, dayGrid, isDefaultAvailability } from './slots.js';   // same hours and leadMin the slot list uses
 import { hookAllowed } from './_lib/hook-auth.js';
 import { greenFetch } from './_lib/green.js';
-import { emailShell, p, link, details, when, signoff, whatsapp, greeting, SITE } from './_lib/email-shell.js';
+import { emailShell, p, strong, link, details, when, signoff, whatsapp, greeting, SITE } from './_lib/email-shell.js';
 
 /* ════════════════════════════════════════════ */
 /* A destination name and nothing else: short, no link, no long number. */
@@ -296,6 +300,10 @@ export default async function handler(req, res) {
      after checking the staff session (its api/lead-action.js). Refused rather
      than quietly booked as a customer: a customer booking messages the lead. */
   const isStaffBooking = raw.staff === true || raw.staff === 'true';
+  /* The English site (owner, 17 Nov 2026): its visitors book with Tomer Lan, and a
+     visitor with no card yet is still known by the site the request came from. */
+  const siteLang = siteLanguageOf(req.headers);
+  const englishSite = !isStaffBooking && siteLang === 'English';
   if (isStaffBooking && !hookAllowed(req)) {
     console.warn('[book-slot] a staff booking without the server key: refused');
     return res.status(403).json({ error: 'staff_auth' });
@@ -435,6 +443,7 @@ export default async function handler(req, res) {
      customers is what let one agent hold two 17:30 calls. */
   let callAgents = [];
   let busyNow = new Map();
+  let ownAgent = '';
   try {
     /* The day's calls, then the ones that OVERLAP this time: a call the team
        put at 09:55 is in the way of 09:30 and of 10:00. This asked for calls at
@@ -469,14 +478,16 @@ export default async function handler(req, res) {
          the lead moving to whoever is free. Staff keep the Lead Center's
          "any hour" and the move below. */
       if (!isStaffBooking) {
-        const ownAgent = await bookingAgent({ base: BASE, token: TOKEN, phone });
+        ownAgent = (await bookingAgent({ base: BASE, token: TOKEN, phone })) || (englishSite ? ENGLISH_LEAD_AGENT : '');
         if (ownAgent && (busyNow.get(time)?.unknown || busyNow.get(time)?.owners.has(agentKey(ownAgent)))) {
           console.log(`[book-slot] ${date} ${time} refused: the customer's agent ${ownAgent} is on another call then`);
           return res.status(409).json({ error: 'slot_taken' });
         }
       }
       const anyoneFree = someoneFreeAt({ time, expedition, agents: callAgents, busy: busyNow });
-      if (!isStaffBooking && !anyoneFree) {
+      /* An English-site customer's call is their own agent's whatever the trip, so that
+         agent being free (checked just above) is enough. */
+      if (!isStaffBooking && !anyoneFree && !(englishSite && ownAgent)) {
         return res.status(409).json({ error: 'slot_taken' });
       }
       /* A STAFF booking may take an occupied slot — that is what the Lead
@@ -588,6 +599,17 @@ export default async function handler(req, res) {
              who booked first used to get the queue's turn instead (one card on 14
              Nov 2026, back to nobody she knew). /api/slots offered this agent's
              free times only (bookingAgent), so they are free now. */
+          /* The English site's leads go to Tomer Lan only (owner, 17 Nov 2026: "ושהלידים באתר
+             באנגלית יגיעו רק לתומר לן"): before the returning agent and the Kilimanjaro queue, and
+             the swap below never moves them. /api/slots offered his free times only. A card that
+             already has an agent keeps them. */
+          const english = isEnglishLead(rec.fields) || englishSite;
+          if (english && !assignedAgent) {
+            patch['Assigned Agent'] = ENGLISH_LEAD_AGENT;
+            patch['Assigned At']    = new Date().toISOString();
+            patch['Activity Log']   = `[${stamp}] English site: assigned to ${ENGLISH_LEAD_AGENT}.\n${patch['Activity Log']}`;
+            assignedAgent = ENGLISH_LEAD_AGENT;
+          }
           let back = '';
           if (isKili && !assignedAgent) {
             /* The agents are read above only when the time is already taken by someone. */
@@ -648,7 +670,7 @@ export default async function handler(req, res) {
              branch never runs for "Deposit A Paid" anyway, which is where that
              is enforced). */
           const ownersAt = busyNow.get(time)?.owners;
-          if (assignedAgent && ownersAt?.has(agentKey(assignedAgent))) {
+          if (assignedAgent && !english && ownersAt?.has(agentKey(assignedAgent))) {
             const free = freeCoversAt({
               time, expedition: rec.fields?.Expedition || expedition,
               agents: callAgents, busy: busyNow,
@@ -675,6 +697,8 @@ export default async function handler(req, res) {
       }
     }
   } catch (e) { console.warn('[book-slot] lead stage update non-fatal:', e.message); }
+  /* A visitor of the English site with no card yet: the call is still Tomer Lan's. */
+  if (!assignedAgent && !leadFields && englishSite) assignedAgent = ENGLISH_LEAD_AGENT;
 
   /* 2c. Stamp the agent onto the appointment.
      This is what lets the next customer share the time: /api/slots reads this
@@ -746,12 +770,18 @@ export default async function handler(req, res) {
   /* A lead from the English, German or Spanish site is written to by email
      only (./_lib/lead-channel.js). This Hebrew WhatsApp went to them too until
      11 Nov 2026; their confirmation is the email below. */
-  const waOk = whatsappVerdict({ lead: leadFields }).send;
+  /* With no card, the site the booking came from decides (a bare /book on de. used to get the
+     Hebrew text). The English site's lead gets the English confirmation (17 Nov 2026). */
+  const channelLead = leadFields || (siteLang && siteLang !== 'Hebrew' ? { Language: siteLang } : null);
+  const englishLead = !!channelLead && isEnglishLead(channelLead);
+  const waOk = whatsappVerdict({ lead: channelLead }).send;
   if (!waOk) console.log('[book-slot] no WhatsApp confirmation: lead from abroad, email only');
   if (!silent && waOk && GA_INSTANCE && GA_TOKEN && phone) {
     try {
       const clientNum = toIntlIL(phone);
-      const waMessage = `היי ${firstName(name)} 👋🏼\n\nהשיחה שלך לגבי ${expeditionHe} שוריינה בהצלחה! 🏔️\n\n🗓️ מתי? ${formatDateHe(date)}\n⏰ שעה: ${time}\n\nאנחנו נתקשר אליך בזמן שנקבע. מצפים לשוחח איתך! 😁`;
+      const waMessage = englishLead
+        ? msgBookedEn(name, expedition, date, time)   // names only a destination it knows (./_lib/lead-en.js)
+        : `היי ${firstName(name)} 👋🏼\n\nהשיחה שלך לגבי ${expeditionHe} שוריינה בהצלחה! 🏔️\n\n🗓️ מתי? ${formatDateHe(date)}\n⏰ שעה: ${time}\n\nאנחנו נתקשר אליך בזמן שנקבע. מצפים לשוחח איתך! 😁`;
       const gaRes = await greenFetch(
         'sendMessage',
         {
@@ -835,7 +865,34 @@ export default async function handler(req, res) {
   if (!silent && RESEND_KEY) {
 
     // ── Client email ─────────────────────────────────────────────────────
-    if (email) {
+    /* The English site's customer reads it in English, the hour said to be Israel's,
+       and the calendar files say the same (17 Nov 2026). */
+    if (email && englishLead) {
+      const expEn  = destInfo(expedition).slug !== 'call' ? destEn(expedition) : '';
+      const dateEn = formatDateEn(date);
+      const enIcs  = Buffer.from(generateICS({ date, time, name, expedition: expEn, en: true }), 'utf-8').toString('base64');
+      const enIcsLink = `${SITE}/api/calendar-invite?${new URLSearchParams({ date, time, name: name || '', expedition: expEn, lang: 'en' })}`;
+      const enGcal = googleCalUrl({ date, time, name, expedition: expEn, en: true });
+      const first  = escapeHtml(String(name || '').trim().split(/\s+/)[0] || '');
+      await sendEmail(RESEND_KEY, {
+        to:          email,
+        subject:     `Your call is booked for ${dateEn}, ${time} (Israel time) ✅`,
+        attachments: [{ ...icsAttachment[0], content: enIcs }],
+        html: emailShell({
+          lang: 'en',
+          title: 'Your call is booked!', subtitle: expEn ? withFlag(escapeHtml(expEn), expedition) : '',
+          preheader: `${dateEn}, ${time} (Israel time)`,
+          body: [
+            p(first ? `Hi ${first},` : 'Hi,', 4),
+            p('We have booked a call for you with our team, and we will call you at this time:'),
+            when({ day: Number(date.slice(8, 10)), month: EN_MONTHS_SHORT[Number(date.slice(5, 7)) - 1], date: dateEn, time, note: 'Israel time' }),
+            p(`${link(enGcal, 'Add to Google Calendar')}<br>${link(enIcsLink, 'Add to Apple Calendar')}<br>The attached file works with any other calendar.`),
+            p(`If the time does not suit you, write to us on ${whatsapp('WhatsApp')} and we will find another one.`),
+            p(`Looking forward to talking with you!<br>${strong('The HighAir Expeditions team')}`, 0),
+          ].join(''),
+        }),
+      });
+    } else if (email) {
       await sendEmail(RESEND_KEY, {
         to:          email,
         subject:     `השיחה שלך נקבעה ל${dateHe}, בשעה ${time} ✅`,

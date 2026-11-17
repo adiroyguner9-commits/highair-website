@@ -25,6 +25,7 @@
 
 import { destKey } from './dest.js';
 import { fetchCallAgents, coversFor, agentKey } from './callAgents.js';   // the one table of trip names, shared with submit-lead and the messages
+import { isEnglishLead, ENGLISH_LEAD_AGENT, CHANNEL_FIELDS } from './lead-channel.js';
 
 /* Stages where a deal is still being worked. Anything else — won, lost,
    archived — is history as far as routing a call or a message goes. */
@@ -115,7 +116,7 @@ export function returningAgentOf(cards, active, covers) {
 export async function cardsOnPhone({ base, token, phone }) {
   const key = last9(phone);
   if (!base || !token || key.length !== 9) return [];
-  const want = ['Name', 'Assigned Agent', 'Stage', 'Stage Changed At', 'Created Time', 'Expedition'];
+  const want = ['Name', 'Assigned Agent', 'Stage', 'Stage Changed At', 'Created Time', 'Expedition', ...CHANNEL_FIELDS];
   const proj = want.map(f => `fields[]=${encodeURIComponent(f)}`).join('&');
   const f = encodeURIComponent(`RIGHT(REGEX_REPLACE({Phone}&"","[^0-9]",""),9)="${key}"`);
   try {
@@ -161,6 +162,9 @@ export async function bookingAgent({ base, token, lead = '', phone = '' }) {
   const rec = pickActive(cards);
   const own = String(rec?.fields?.['Assigned Agent'] || '').trim();
   if (own || !rec) return own;
+  /* The English site's leads are Tomer Lan's, before any returning agent (owner,
+     17 Nov 2026: "ושהלידים באתר באנגלית יגיעו רק לתומר לן"). */
+  if (isEnglishLead(rec.fields)) return ENGLISH_LEAD_AGENT;
   /* No agent on the card yet: a returning customer is offered the free times of
      the agent they had before (owner, 14 Nov 2026), and book-slot gives them
      that agent; the same rule the webapp applies a minute later. */
