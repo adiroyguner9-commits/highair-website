@@ -2083,7 +2083,8 @@ export default function ExpeditionDetail() {
                       {/* Date, and under it WHICH LENGTH this date is */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <CalendarIcon size={isMobile ? 16 : 18} color={isFull ? '#9CA3AF' : COLOR.primary} />
+                        {/* No calendar icon beside the date on a phone (owner, 17 Nov 2026); the computer keeps it */}
+                        {!isMobile && <CalendarIcon size={18} color={isFull ? '#9CA3AF' : COLOR.primary} />}
                         <span style={{
                           fontFamily: "'Ploni', sans-serif",
                           fontSize: isMobile ? '15px' : '17px',
@@ -2104,7 +2105,7 @@ export default function ExpeditionDetail() {
                         <span style={{
                           fontFamily: "'Ploni', sans-serif", fontSize: '11px', fontWeight: 700,
                           padding: '2px 9px', borderRadius: '999px', whiteSpace: 'nowrap',
-                          marginInlineStart: isMobile ? '24px' : '26px',
+                          marginInlineStart: isMobile ? 0 : '26px',   /* under the date: the phone has no icon before it */
                           background: isFull ? '#F3F4F6' : '#EDE9FE',
                           color: isFull ? '#9CA3AF' : '#5B21B6',
                         }}>
