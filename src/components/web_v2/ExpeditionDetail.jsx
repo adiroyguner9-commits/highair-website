@@ -247,6 +247,28 @@ function scrollToForm() {
 }
 
 /* ─── Separator ─────────────────────────────────────────────────── */
+/* PREVIEW (17 Nov 2026, not deployed): the phone's "show all" control for the intro and the
+   long lists. The hidden part stays in the page (display: none), so Google still reads it. */
+function MoreToggle({ open, onClick, moreLabel, lessLabel }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+      <button type="button" onClick={onClick} aria-expanded={open} style={{
+        display: 'inline-flex', alignItems: 'center', gap: '8px',
+        padding: '10px 22px', minHeight: '44px',
+        border: `1.5px solid ${COLOR.primary}`, borderRadius: RADIUS.full, background: '#fff',
+        color: COLOR.primary, fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 700, cursor: 'pointer',
+      }}>
+        {open ? lessLabel : moreLabel}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+          strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 function Separator() {
   return <div style={{ borderTop: '1px solid #ECEAF8', margin: 0 }} />;
 }
@@ -547,6 +569,11 @@ export default function ExpeditionDetail() {
   const [activeMonth, setActiveMonth]       = useState(null);
   /* Kilimanjaro's two packages as a tab, one list at a time (owner, 17 Nov 2026). */
   const [kiliPkg, setKiliPkg]               = useState('climb');
+  /* PREVIEW: the phone's collapsed intro and lists */
+  const [introOpen, setIntroOpen]       = useState(false);
+  const [includedOpen, setIncludedOpen] = useState(false);
+  const [whyOpen, setWhyOpen]           = useState(false);
+  const [notesOpen, setNotesOpen]       = useState(false);
   const [galleryUrls, setGalleryUrls]       = useState([]);
 
   useEffect(() => {
@@ -1002,7 +1029,9 @@ export default function ExpeditionDetail() {
   /* ── Active itinerary based on tab ── */
   const hasSafari = (exp?.safariItinerary?.length > 0) || (loc(exp, "safariItinerary")?.length > 0)
                  || (exp?.extensionItinerary?.length > 0) || (loc(exp, "extensionItinerary")?.length > 0);
-  const activeItinerary = itineraryTab === 'safari' && hasSafari
+  /* PREVIEW: on a phone one package choice drives both the dates and the programme */
+  const itTab = (isMobile && hasSafari) ? (kiliPkg === 'safari' ? 'safari' : 'trek') : itineraryTab;
+  const activeItinerary = itTab === 'safari' && hasSafari
     ? [...itinerary.slice(0, -1), ...safariItinerary]
     : itinerary;
 
@@ -1017,6 +1046,15 @@ export default function ExpeditionDetail() {
      what to know, the FAQ, and the form. A safari page keeps its own order, which its section
      tabs (SAFARI_NAV) follow. Real DOM order, not a CSS reorder, so a screen reader and a
      search engine read the page in the order a visitor sees it. */
+  /* PREVIEW: which list rows the phone hides until "show all" (headers follow their rows) */
+  const introClip    = isMobile && !introOpen;
+  const listsClipped = isMobile && !includedOpen;
+  const isPlainRow   = item => !item.endsWith(':') && !item.trimStart().startsWith('*');
+  const clipFlags = (list, max) => { let n = 0; return list.map(item => { const plain = isPlainRow(item); if (plain) n++; return listsClipped && (plain ? n > max : n >= max); }); };
+  const hideInc = clipFlags(includedItems, 6);
+  const hideNot = clipFlags(notIncluded, 4);
+  const includedTotal = [...includedItems, ...notIncluded, ...extrasItems].filter(isPlainRow).length;
+
   const sections = {
     intro: (<>
         {/* ── A. מבוא ──────────────────────────── */}
@@ -1060,14 +1098,18 @@ export default function ExpeditionDetail() {
                 return (
                   <>
                     {body.map((p, i) => (
-                      <p key={i} style={{ fontSize: '16px', color: '#3D3B5A', lineHeight: 1.75, margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
+                      <p key={i} style={{ display: introClip && i > 0 ? 'none' : undefined, fontSize: '16px', color: '#3D3B5A', lineHeight: 1.75, margin: '0 0 16px', fontFamily: "'Ploni', sans-serif" }}>
                         {p}
                       </p>
                     ))}
                     {cta && (
-                      <p style={{ fontSize: '16px', color: COLOR.primary, fontWeight: 700, lineHeight: 1.75, margin: '0 0 0', fontFamily: "'Ploni', sans-serif" }}>
+                      <p style={{ display: introClip ? 'none' : undefined, fontSize: '16px', color: COLOR.primary, fontWeight: 700, lineHeight: 1.75, margin: '0 0 0', fontFamily: "'Ploni', sans-serif" }}>
                         {cta}
                       </p>
+                    )}
+                    {isMobile && (body.length > 1 || cta) && (
+                      <MoreToggle open={introOpen} onClick={() => setIntroOpen(o => !o)}
+                        moreLabel={isRtl ? 'להמשך קריאה' : tx("Read more")} lessLabel={isRtl ? 'הצגה מקוצרת' : tx("Show less")} />
                     )}
                   </>
                 );
@@ -1142,7 +1184,7 @@ export default function ExpeditionDetail() {
               }}>
                 {isRtl ? 'מה כלול בתכנית?' : tx("What's Included?")}
               </div>
-              {includedItems.map((item, i) => {
+              {includedItems.map((item, i) => <div key={i} style={{ display: hideInc[i] ? 'none' : 'contents' }}>{(() => {
                 const isHeader = item.endsWith(':');
                 return isHeader ? (
                   <div key={i} style={{ marginTop: i > 0 ? '24px' : 0, marginBottom: '14px' }}>
@@ -1171,7 +1213,7 @@ export default function ExpeditionDetail() {
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
                   </div>
                 );
-              })}
+              })()}</div>)}
             </div>
 
             {/* לא כלול + תוספות - right column */}
@@ -1189,7 +1231,7 @@ export default function ExpeditionDetail() {
                 }}>
                   {isRtl ? 'מה לא כלול בתכנית?' : tx("What's Not Included?")}
                 </div>
-                {notIncluded.map((item, i) => {
+                {notIncluded.map((item, i) => <div key={i} style={{ display: hideNot[i] ? 'none' : 'contents' }}>{(() => {
                   const isHeader = item.endsWith(':');
                   const isFootnote = item.trimStart().startsWith('*');
                   if (isFootnote) {
@@ -1231,12 +1273,13 @@ export default function ExpeditionDetail() {
                       <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#3D3B5A', lineHeight: 1.6 }}>{item}</span>
                     </div>
                   );
-                })}
+                })()}</div>)}
               </div>
 
               {/* תוספות אופציונליות - purple card */}
               {extrasItems.length > 0 && (
                 <div style={{
+                  display: listsClipped ? 'none' : undefined,
                   background: '#F5F2FF',
                   borderRadius: RADIUS.xl,
                   padding: '28px',
@@ -1268,6 +1311,11 @@ export default function ExpeditionDetail() {
               )}
             </div>
           </div>
+          {isMobile && (
+            <MoreToggle open={includedOpen} onClick={() => setIncludedOpen(o => !o)}
+              moreLabel={isRtl ? `הצגת כל ${includedTotal} הפריטים` : tx("Show all {0} items", [includedTotal])}
+              lessLabel={isRtl ? 'הצגה מקוצרת' : tx("Show less")} />
+          )}
         </section>
         )}
     </>),
@@ -1306,7 +1354,36 @@ export default function ExpeditionDetail() {
                     </span>
                   </div>
                 )}
-                {hasSafari && (
+                {hasSafari && isMobile && (
+                  /* PREVIEW: the same tab as the dates, and the same choice */
+                  <div role="tablist" style={{
+                    display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '4px', width: '100%',
+                    background: '#ECEAF8', borderRadius: RADIUS.lg, padding: '4px', boxSizing: 'border-box',
+                  }}>
+                    {[
+                      { id: 'climb',  label: isRtl ? `${exp.extensionBaseLabelHe || 'טיפוס בלבד'} · ${itinerary.length} ימים`
+                                                   : `${loc(exp, "extensionBaseLabel") || tx("Climb Only")} · ${itinerary.length}` },
+                      { id: 'safari', label: isRtl ? `${exp.extensionLabelHe || 'טיפוס + ספארי'} · ${(itinerary.length - 1) + (safariItinerary?.length || 0)} ימים`
+                                                   : `${loc(exp, "extensionLabel") || tx("Climb + 3-Day Safari")} · ${(itinerary.length - 1) + (safariItinerary?.length || 0)}` },
+                    ].map(t => {
+                      const on = kiliPkg === t.id;
+                      return (
+                        <button key={t.id} type="button" role="tab" aria-selected={on}
+                          onClick={() => { setKiliPkg(t.id); setOpenItinerary([]); }} style={{
+                          border: 'none', borderRadius: RADIUS.md, padding: '11px 8px', minHeight: '44px',
+                          background: on ? '#fff' : 'transparent',
+                          boxShadow: on ? '0 1px 4px rgba(30,27,75,0.10)' : 'none',
+                          color: on ? '#0A0818' : '#5B5880',
+                          fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: on ? 700 : 500,
+                          cursor: 'pointer', transition: `background 0.2s ${EASING.smooth}`,
+                        }}>
+                          {t.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+                {hasSafari && !isMobile && (
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     {[
                       { key: 'safari', label: isRtl
@@ -1356,7 +1433,7 @@ export default function ExpeditionDetail() {
                 {activeItinerary.map((item, idx) => {
                   const isOpen = openItinerary.includes(idx);
                   const isLast = idx === activeItinerary.length - 1;
-                  const isSafariDay = hasSafari && itineraryTab === 'safari' && idx >= (exp.itinerary.length - 1);
+                  const isSafariDay = hasSafari && itTab === 'safari' && idx >= (exp.itinerary.length - 1);
                   const hasContent = !!(item.desc || item.distance || item.duration || item.elevationGain || item.elevationLoss || item.accommodation || item.travelTime || item.meals);
                   return (
                     <div key={idx} style={{ borderBottom: isLast ? 'none' : '1px solid #ECEAF8' }}>
@@ -1521,12 +1598,17 @@ export default function ExpeditionDetail() {
                 borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
                 {getWhyCards(exp, isRtl).map((card, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < getWhyCards(exp, isRtl).length - 1 ? '12px' : 0 }}>
+                  <div key={i} style={{ display: isMobile && !whyOpen && i >= 5 ? 'none' : 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < getWhyCards(exp, isRtl).length - 1 ? '12px' : 0 }}>
                     <span style={{ color: COLOR.primary, fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#4C1D95', lineHeight: 1.6 }}>{card.title}</span>
                   </div>
                 ))}
               </div>
+              {isMobile && getWhyCards(exp, isRtl).length > 5 && (
+                <MoreToggle open={whyOpen} onClick={() => setWhyOpen(o => !o)}
+                  moreLabel={isRtl ? `הצגת כל ${getWhyCards(exp, isRtl).length} היתרונות` : tx("Show all")}
+                  lessLabel={isRtl ? 'הצגה מקוצרת' : tx("Show less")} />
+              )}
             </div>
 
             {/* ── E. חשוב לדעת ── */}
@@ -1542,12 +1624,17 @@ export default function ExpeditionDetail() {
                 borderRadius: RADIUS.xl, padding: '24px 28px', direction: dir,
               }}>
                 {notesShown.map((text, i) => (
-                    <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < notesShown.length - 1 ? '12px' : 0 }}>
+                    <div key={i} style={{ display: isMobile && !notesOpen && i >= 3 ? 'none' : 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: i < notesShown.length - 1 ? '12px' : 0 }}>
                       <span style={{ color: '#F59E0B', fontWeight: 700, fontSize: '16px', marginTop: '2px', flexShrink: 0 }}>•</span>
                       <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#92400E', lineHeight: 1.6 }}>{text}</span>
                     </div>
                 ))}
               </div>
+              {isMobile && notesShown.length > 3 && (
+                <MoreToggle open={notesOpen} onClick={() => setNotesOpen(o => !o)}
+                  moreLabel={isRtl ? `הצגת כל ${notesShown.length} הנקודות` : tx("Show all")}
+                  lessLabel={isRtl ? 'הצגה מקוצרת' : tx("Show less")} />
+              )}
             </div>
 
           </div>
@@ -2047,6 +2134,7 @@ export default function ExpeditionDetail() {
           </h2>
 
           <PhotoGallery
+            phoneMosaic
             key={exp.slug}   /* a new trip starts a fresh gallery (lightbox, measured sizes) */
             images={validGalleryImages}
             orientations={imgOrientations}

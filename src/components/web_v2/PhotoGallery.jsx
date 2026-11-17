@@ -20,7 +20,7 @@ import { useState, useEffect } from 'react';
 import { RADIUS } from '../../website/theme.js';
 import MobilePhotoCarousel from './MobilePhotoCarousel.jsx';
 
-export default function PhotoGallery({ images, orientations = {}, thumbOf = src => src, altPrefix = '', altOf = i => `${altPrefix} ${i + 1}`.trim(), hint, isRtl, isMobile }) {
+export default function PhotoGallery({ images, orientations = {}, thumbOf = src => src, altPrefix = '', altOf = i => `${altPrefix} ${i + 1}`.trim(), hint, isRtl, isMobile, phoneMosaic = false }) {
   const [lightboxIdx, setLightboxIdx] = useState(null);
   const [measured, setMeasured] = useState({});
   const orient = i => measured[i] || orientations[i];   // the loaded photo has the last word, as before
@@ -42,7 +42,40 @@ export default function PhotoGallery({ images, orientations = {}, thumbOf = src 
   return (
     <>
       {/* ── Mobile: snap carousel / Desktop: masonry ── */}
-      {isMobile ? (
+      {isMobile && phoneMosaic && images.length >= 3 ? (
+        /* PREVIEW (17 Nov 2026, trip page only): one large photo and up to four small ones,
+           the last carrying "+N"; a tap opens the full-screen viewer at that photo. */
+        (() => {
+          const small = images.slice(1, 5);
+          const more = images.length - 1 - small.length;
+          const tile = (src, i, style, overlay) => (
+            <button key={src} type="button" onClick={() => setLightboxIdx(i)}
+              aria-label={altOf(i)}
+              style={{ position: 'relative', padding: 0, border: 'none', overflow: 'hidden', cursor: 'zoom-in',
+                       background: '#ECEAF8', borderRadius: RADIUS.md, display: 'block', width: '100%', ...style }}>
+              <img loading="lazy" decoding="async" src={thumbOf(src)} alt={altOf(i)}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
+              {overlay && (
+                <span dir="ltr" style={{ position: 'absolute', inset: 0, background: 'rgba(10,8,24,0.55)', color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: "'Ploni', sans-serif", fontSize: '18px', fontWeight: 700 }}>
+                  {overlay}
+                </span>
+              )}
+            </button>
+          );
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {tile(images[0], 0, { aspectRatio: '4/3', borderRadius: RADIUS.lg })}
+              <div style={{ display: 'grid', gridTemplateColumns: `repeat(${small.length}, minmax(0, 1fr))`, gap: '6px' }}>
+                {small.map((src, k) => tile(src, k + 1, { aspectRatio: '1/1' },
+                  k === small.length - 1 && more > 0 ? `+${more}` : null))}
+              </div>
+            </div>
+          );
+        })()
+      ) : isMobile ? (
         <div style={{ margin: '0 -5%' }}>
           <MobilePhotoCarousel
             images={images}
