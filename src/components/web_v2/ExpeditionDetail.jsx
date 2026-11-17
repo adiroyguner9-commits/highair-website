@@ -2065,7 +2065,12 @@ export default function ExpeditionDetail() {
                     : { bg: '#D1FAE5', color: '#065F46', text: isRtl ? 'הרשמה פתוחה' : tx("Open") };
                   return (
                     <div key={g.id} style={{
-                      display: 'grid',
+                      /* On a phone the date, the label and the button sit an even distance apart
+                         (owner, 17 Nov 2026: "שהגאפ יהיה אחיד בין האלמנטים", inside the card); the
+                         computer keeps its three equal columns. */
+                      display: isMobile ? 'flex' : 'grid',
+                      justifyContent: isMobile ? 'space-between' : undefined,
+                      gap: isMobile ? '10px' : undefined,
                       gridTemplateColumns: '1fr 1fr 1fr',
                       alignItems: 'center',
                       border: isWomen
@@ -2144,6 +2149,7 @@ export default function ExpeditionDetail() {
                               border: '1.5px solid #E5E7EB',
                               borderRadius: RADIUS.full,
                               padding: isMobile ? '10px 14px' : '12px 22px',
+                              minWidth: isMobile ? '92px' : undefined,   /* the same width as "לפרטים" on a phone, so every row lines up */
                               fontFamily: "'Ploni', sans-serif",
                               fontSize: '14px', fontWeight: 700,
                               cursor: 'default',
@@ -2167,6 +2173,7 @@ export default function ExpeditionDetail() {
                               border: 'none',
                               borderRadius: RADIUS.full,
                               padding: isMobile ? '10px 14px' : '12px 22px',
+                              minWidth: isMobile ? '92px' : undefined,
                               fontFamily: "'Ploni', sans-serif",
                               fontSize: '14px', fontWeight: 700,
                               cursor: 'pointer',
