@@ -13,7 +13,7 @@ import { calendarDay } from '../../website/calendarDay.js';
 import { tripEvents, groupIsFull, departureCount } from '../../website/tripSchema.js';
 import AltitudeProfile from './AltitudeProfile.jsx';
 import BookWithConfidence from './BookWithConfidence.jsx';
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { Fragment, useState, useRef, useEffect, useMemo } from 'react';
 import { getAttribution } from '../../utils/attribution.js';
 import { fetchDepartures } from '../../utils/departures.js';
 import { useParams, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
@@ -1011,360 +1011,14 @@ export default function ExpeditionDetail() {
     ? galleryUrls
     : (resolvedGallery ?? []);
 
-  /* ─────────────── RENDER ─────────────────────────────────────── */
-  return (
-    <div id="main-content" style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
-      <Header />
-
-      {/* ══════════════════════════════════
-          SECTION 1: HERO
-      ══════════════════════════════════ */}
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        height: isMobile ? '65dvh' : '100dvh',
-        minHeight: isMobile ? '480px' : '600px',
-        overflow: 'hidden',
-        background: '#0A0818',
-      }}>
-        {/* Video background - YouTube if videoUrl, else expedition-specific or fallback */}
-        {exp.videoUrl ? (
-          <iframe
-            src={`https://www.youtube.com/embed/${exp.videoUrl}?autoplay=1&mute=1&loop=1&playlist=${exp.videoUrl}&controls=0&rel=0&playsinline=1&modestbranding=1`}
-            style={{
-              position: 'absolute', top: '50%', left: '50%',
-              transform: 'translate(-50%,-50%)',
-              width: '177.78vh', minWidth: '100%',
-              height: '56.25vw', minHeight: '100%',
-              border: 'none', pointerEvents: 'none',
-            }}
-            allow="autoplay; encrypted-media"
-            title={exp.nameHe}
-          />
-        ) : (exp.heroVideo || exp.heroImg || exp.img) ? (
-          exp.heroVideo ? (
-            <video
-              key={exp.heroVideo}
-              ref={heroVideoRef}
-              src={heroVideoOn ? heroVideoSrc : undefined}
-              autoPlay muted loop playsInline preload="none"
-              poster={heroImage}
-              style={{
-                position: 'absolute', inset: 0,
-                width: '100%', height: '100%',
-                objectFit: 'cover', pointerEvents: 'none',
-              }}
-            />
-          ) : (
-            <div style={{
-              position: 'absolute', inset: 0,
-              backgroundImage: `url(${heroImage})`,
-              backgroundSize: 'cover', backgroundPosition: 'center',
-            }} />
-          )
-        ) : (
-          <video
-            key="hero-fallback"
-            autoPlay muted loop playsInline preload="none"
-            style={{
-              position: 'absolute', inset: 0,
-              width: '100%', height: '100%',
-              objectFit: 'cover', pointerEvents: 'none',
-            }}
-          >
-            <source src="/videos/hero-home.mp4" type="video/mp4" />
-          </video>
-        )}
-
-        {/* Dark overlay */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%)',
-          zIndex: 1,
-        }} />
-
-
-        {/* Hero content - title top, subtitle+CTA bottom */}
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 2,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          textAlign: 'center',
-          /* Clearance under the header, measured rather than guessed: the two
-             breakpoints do not carry the same chrome. Desktop also renders the
-             Google-rating bar above the header, so the same 160px put the title
-             only 36px below it while mobile, with no bar, had a comfortable 60.
-             These values give 72px on both. Tuned as a pair — changing one
-             without re-measuring the other brings the imbalance back. */
-          padding: isMobile ? '152px 6% 120px' : '196px 8% 130px',
-        }}>
-          {/* Title: name + elevation - pinned to top */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1 style={{
-              fontFamily: "'Ploni', sans-serif",
-              fontSize: FS.h1,
-              fontWeight: 800,
-              color: 'white',
-              letterSpacing: '-0.02em',
-              margin: 0,
-              lineHeight: 1.1,
-              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
-            }}>
-              {isRtl
-                ? exp.nameHe
-                : (currentLang() === 'en' && exp.elevNum
-                    ? <>{`${loc(exp, "name") || exp.name || exp.nameHe} in ${loc(exp, "country") || exp.country} `}<span style={{ whiteSpace: 'nowrap' }}>{`(${exp.elevNum}m)`}{/* metres only in the heading too (owner, 6 Nov 2026) */}</span></>
-                    : exp.elevNum
-                      ? tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum])
-                      : tx("{0} in {1}", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country]))
-              }
-            </h1>
-          </div>
-
-          {/* Tagline + CTA - pinned to bottom */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: isMobile ? '14px' : '18px' }}>
-          {/* Tagline */}
-          <p style={{
-            fontFamily: "'Ploni', sans-serif",
-            fontSize: FS.body,
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.80)',
-            margin: 0,
-            maxWidth: '620px',
-            lineHeight: 1.6,
-            textShadow: '0 1px 6px rgba(0,0,0,0.4)',
-            whiteSpace: 'pre-line',
-          }}>
-            {isRtl
-              ? (exp.tagline || `הצטרפו ל${exp.nameHe} ב${exp.countryHe}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`)
-              : tx("Join the {0} in {1}\nand take part in the fight against cancer!", [loc(exp, "name") || exp.name, loc(exp, "country") || exp.country])}
-          </p>
-
-          {/* Announced, but the supplier's material has not landed yet. Says so
-              plainly instead of letting a visitor wonder why the page is thin —
-              every unfilled section is hidden by filled(), so without this the
-              page would simply look unfinished. The form below stays live and is
-              the whole point of publishing early. */}
-          {exp.comingSoon && (
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              margin: '0 0 18px', padding: '9px 16px', borderRadius: '999px',
-              background: 'rgba(217,119,6,0.92)', color: '#fff',
-              fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 700,
-              direction: dir, textShadow: 'none',
-            }}>
-              {isRtl
-                ? 'המסלול בהכנה · התוכנית המלאה תפורסם בקרוב'
-                : tx("Itinerary in preparation · full program coming soon")}
-            </div>
-          )}
-
-          {/* CTA */}
-          <button
-            onClick={scrollToForm}
-            onMouseEnter={() => setHeroBtnHovered(true)}
-            onMouseLeave={() => setHeroBtnHovered(false)}
-            style={{
-              display:       'inline-flex',
-              alignItems:    'center',
-              gap:           '8px',
-              padding:       isMobile ? '13px 28px' : '15px 36px',
-              borderRadius:  '999px',
-              border:        'none',
-              cursor:        'pointer',
-              fontFamily:    "'Ploni', sans-serif",
-              fontSize:      FS.btn,
-              fontWeight:    700,
-              letterSpacing: '0.01em',
-              marginTop:     '8px',
-              background:    heroBtnHovered ? '#7C3AED' : COLOR.primary,
-              color:         '#FFFFFF',
-              boxShadow:     heroBtnHovered
-                               ? '0 10px 32px rgba(109,40,217,0.55)'
-                               : '0 4px 18px rgba(109,40,217,0.35)',
-              transform:     heroBtnHovered ? 'translateY(-2px)' : 'none',
-              transition:    `all 0.22s ${EASING.out}`,
-              whiteSpace:    'nowrap',
-            }}
-          >
-            {isPayFlow
-              ? (isRtl ? 'להרשמה ותשלום מקדמה ←' : tx("Register & Pay Deposit →"))
-              : (isRtl ? 'לתיאום שיחה עם מומחה ←' : tx("Get Dates & Prices →"))}
-          </button>
-          </div>
-        </div>
-
-
-        {/* IntersectionObserver sentinel - bottom of hero */}
-        <div ref={heroRef} style={{ position: 'absolute', bottom: 0, width: '100%', height: '1px', zIndex: 0 }} />
-      </div>
-
-      {/* ══════════════════════════════════
-          STATS STRIP - expedition specific
-      ══════════════════════════════════ */}
-      <div style={{
-        padding:   '0 5%',
-        boxSizing: 'border-box',
-        marginTop: '-52px',
-        position:  'relative',
-        zIndex:    10,
-        direction: dir,
-      }}>
-        <div style={{
-          maxWidth:            '1100px',
-          margin:              '0 auto',
-          background:          '#FFFFFF',
-          borderRadius:        '20px',
-          boxShadow:           '0 20px 60px rgba(0,0,0,0.15)',
-          padding:             isMobile ? '16px 20px' : '22px 52px',
-          display:             'grid',
-          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-          gap:                 '0',
-        }}>
-          {(exp.type === 'Safari'
-            /* A safari is not a climb: altitude, difficulty grade and summit
-               success rate say nothing about it (owner, Jul 30 2026). This row
-               answers what a safari buyer actually asks — how long, which
-               reserves, what wildlife, how much. */
-            ? [
-              { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : tx("Duration"),  value: isRtl ? filled(exp.days) : (filled(loc(exp, "days")) || filled(exp.days)) },
-              { IconComp: TreeIcon,  label: isRtl ? 'שמורות טבע' : tx("Reserves"),  value: filled(isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves)) },
-              { IconComp: LionIcon,  label: isRtl ? 'חיות בר' : tx("Wildlife"),     value: filled(isRtl ? exp.wildlife : loc(exp, "wildlife")) },
-              { IconComp: TagIcon,   label: isRtl ? 'עלות' : tx("Price"),           value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])) : null },
-            ].filter(x => x.value)
-            : [
-            /* A draft with no altitude yet has elevNum 0, and `${0}m` renders
-               "0m" — a wrong fact, not a blank. null hides the row instead. */
-            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? metresText(exp.elevNum, isRtl ? 'he' : 'en') : null },   /* metres only up top; feet may appear in the text (owner, 6 Nov 2026) */
-            { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe) },
-            /* Every trip shows its duration, except Kilimanjaro — its 94% summit
-               success rate is a signature selling point we keep front and center. */
-            (exp.slug === 'kilimanjaro' || exp.slug === 'kilimanjaro-kosher')
-              ? { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : tx("Success Rate"), value: exp.successRate ? `${exp.successRate}%` : '-' }
-              : { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : tx("Duration"), value: isRtl ? filled(exp.days) : (filled(loc(exp, "days")) || filled(exp.days)) },
-            { IconComp: TagIcon,      label: isRtl ? 'עלות' : tx("Price"),  value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])) : '–' },
-          ]).map((s, i) => (
-            <div key={i} style={{
-              textAlign:    'center',
-              padding:      isMobile ? '14px 8px' : '4px 24px',
-              borderRight:  (!isMobile && i > 0) ? '1px solid #ECEAF8' : 'none',
-              borderTop:    (isMobile && i >= 2) ? '1px solid #ECEAF8' : 'none',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '4px', color: COLOR.primary }}>
-                <s.IconComp size={isMobile ? 22 : 26} color={COLOR.primary} />
-              </div>
-              <div style={{
-                fontFamily:    "'Ploni', sans-serif",
-                fontSize:      isMobile ? '18px' : '22px',
-                fontWeight:    900,
-                color:         '#6D28D9',
-                lineHeight:    1,
-                letterSpacing: '-0.02em',
-                direction:     dir,
-              }}>
-                {s.value}
-              </div>
-              <div style={{
-                fontFamily: "'Ploni', sans-serif",
-                fontSize:   FS.sm,
-                fontWeight: 400,
-                color:      '#6B6B8A',
-                marginTop:  '6px',
-                lineHeight: 1.4,
-              }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════
-          SECTION 2: FLOATING STATS BAR
-      ══════════════════════════════════ */}
-      <div id="floating-bar" style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
-        background: 'white',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-        transform: barVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: `transform 0.3s ${EASING.out}`,
-        direction: dir,
-      }}>
-        <div style={{
-          maxWidth: '1100px', margin: '0 auto',
-          padding: '0 5%', height: '60px',
-          display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', gap: '24px',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
-            {/* Sticky bar mirrors the hero stats: a safari shows duration and
-                reserves where a climb shows altitude and grade. */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'משך התכנית' : tx("Duration")) : t('expedition.elevation')}</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                {isSafari
-                  ? <><ClockIcon size={14} color="#0A0818" /> {isRtl ? exp.days : (loc(exp, "days") || exp.days)}</>
-                  : (exp.elevNum ? <><MountainIcon size={14} color="#0A0818" /> {metresText(exp.elevNum, isRtl ? 'he' : 'en')}</> : null)}
-              </span>
-            </div>
-            {!isMobile && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'שמורות טבע' : tx("Reserves")) : (isRtl ? 'רמה' : tx("Level"))}</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  {isSafari
-                    ? <><TreeIcon size={14} color="#0A0818" /> {filled(isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves)) || '–'}</>
-                    : <><StarIcon size={14} color="#0A0818" /> {isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe)}</>}
-                </span>
-              </div>
-            )}
-            {!isMobile && seasons.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עונות' : tx("Seasons")}</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  {seasons.join(', ')}
-                </span>
-              </div>
-            )}
-            {filled(exp.priceStr) && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עלות' : tx("Price")}</span>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>
-                  {isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])}
-                </span>
-              </div>
-            )}
-          </div>
-          <button
-            onClick={scrollToForm}
-            style={{
-              background: COLOR.primary, color: 'white', border: 'none',
-              borderRadius: RADIUS.full, padding: '8px 20px', minHeight: '40px',
-              fontSize: '13px', fontWeight: 700, cursor: 'pointer',
-              fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap',
-            }}
-          >
-            {t('expedition.registerBtn')}
-          </button>
-        </div>
-      </div>
-
-      {/* Section tabs sit under the floating bar. They only appear past the
-          first section, by which point the bar is guaranteed to be up too. */}
-      {isSafari && <SafariSectionNav sections={SAFARI_NAV} isRtl={isRtl} isMobile={isMobile} />}
-
-      {/* ══════════════════════════════════
-          CONTENT AREA
-      ══════════════════════════════════ */}
-      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: isMobile ? '0 5%' : '0' }}>
-
-        {isSafariExp && (
-          <SafariSummaryCard exp={exp} isRtl={isRtl} isMobile={isMobile} onEnquire={scrollToForm} />
-        )}
-
-        {/* The section tabs come up when this marker leaves the top of the view. */}
-        {isSafariExp && <div id={NAV_SENTINEL_ID} style={{ height: '1px' }} />}
-
+  /* The page's sections, each once. A trek page shows them in the order the owner chose on
+     17 Nov 2026 ("נראלי טוב תפרוס"): the dates straight after the intro, then the day-by-day
+     programme, what is included, the proof (videos, summit updates, photos), why HighAir and
+     what to know, the FAQ, and the form. A safari page keeps its own order, which its section
+     tabs (SAFARI_NAV) follow. Real DOM order, not a CSS reorder, so a screen reader and a
+     search engine read the page in the order a visitor sees it. */
+  const sections = {
+    intro: (<>
         {/* ── A. מבוא ──────────────────────────── */}
         <section id={isSafariExp ? 'sf-overview' : undefined} style={{ padding: isMobile ? '48px 0' : '72px 0' }}>
           <div style={{
@@ -1441,7 +1095,8 @@ export default function ExpeditionDetail() {
             </div>
           </div>
         </section>
-
+    </>),
+    included: (<>
         <Separator />
 
         {isSafariExp && (
@@ -1615,7 +1270,8 @@ export default function ExpeditionDetail() {
           </div>
         </section>
         )}
-
+    </>),
+    programme: (<>
         {/* Altitude profile, foreign sites only (owner, 6 Nov 2026) */}
         {!isRtl && !isSafariExp && itinerary && <AltitudeProfile itinerary={itinerary} isMobile={isMobile} />}
 
@@ -1805,7 +1461,8 @@ export default function ExpeditionDetail() {
             </section>
           </>
         )}
-
+    </>),
+    why: (<>
         {isSafariExp && (
           <>
             <SafariSection id="sf-price" isMobile={isMobile}
@@ -1895,7 +1552,8 @@ export default function ExpeditionDetail() {
 
           </div>
         </section>
-
+    </>),
+    dates: (<>
         <Separator />
 
         {/* ── F. תאריכי יציאה (Airtable live) ───── */}
@@ -2341,7 +1999,8 @@ export default function ExpeditionDetail() {
             </div>
           )}
         </section>
-
+    </>),
+    videos: (<>
         {(exp?.slug?.includes('kilimanjaro') || isSafariExp) && (
           <>
             <Separator />
@@ -2358,7 +2017,8 @@ export default function ExpeditionDetail() {
             <VideoTestimonials darkBg={false} />
           </>
         )}
-
+    </>),
+    faq: (<>
         {/* ── G. שאלות נפוצות (FAQ) ── */}
         {expFaqItems.length > 0 && (
           <>
@@ -2366,7 +2026,8 @@ export default function ExpeditionDetail() {
             <FaqAccordion items={expFaqItems} isRtl={isRtl} isMobile={isMobile} />
           </>
         )}
-
+    </>),
+    photos: (<>
         {/* A trek with no photos yet rendered the heading over 223px of nothing,
             which reads as a broken page rather than as a page still filling up.
             Every other optional section on this page is already gated the same
@@ -2398,7 +2059,8 @@ export default function ExpeditionDetail() {
         </section>
         </>
         )}
-
+    </>),
+    summit: (<>
         {/* ── J. עדכוני פסגה ──────────────────────── */}
         {exp.summitUpdates?.length > 0 && (
           <>
@@ -2507,6 +2169,367 @@ export default function ExpeditionDetail() {
             </section>
           </>
         )}
+    </>),
+  };
+  const SECTION_ORDER = isSafariExp
+    ? ['intro', 'included', 'programme', 'why', 'dates', 'videos', 'faq', 'photos', 'summit']
+    : ['intro', 'dates', 'programme', 'included', 'videos', 'summit', 'photos', 'why', 'faq'];
+
+  /* ─────────────── RENDER ─────────────────────────────────────── */
+  return (
+    <div id="main-content" style={{ direction: dir, fontFamily: "'Ploni', sans-serif", background: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
+      <Header />
+
+      {/* ══════════════════════════════════
+          SECTION 1: HERO
+      ══════════════════════════════════ */}
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        height: isMobile ? '65dvh' : '100dvh',
+        minHeight: isMobile ? '480px' : '600px',
+        overflow: 'hidden',
+        background: '#0A0818',
+      }}>
+        {/* Video background - YouTube if videoUrl, else expedition-specific or fallback */}
+        {exp.videoUrl ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${exp.videoUrl}?autoplay=1&mute=1&loop=1&playlist=${exp.videoUrl}&controls=0&rel=0&playsinline=1&modestbranding=1`}
+            style={{
+              position: 'absolute', top: '50%', left: '50%',
+              transform: 'translate(-50%,-50%)',
+              width: '177.78vh', minWidth: '100%',
+              height: '56.25vw', minHeight: '100%',
+              border: 'none', pointerEvents: 'none',
+            }}
+            allow="autoplay; encrypted-media"
+            title={exp.nameHe}
+          />
+        ) : (exp.heroVideo || exp.heroImg || exp.img) ? (
+          exp.heroVideo ? (
+            <video
+              key={exp.heroVideo}
+              ref={heroVideoRef}
+              src={heroVideoOn ? heroVideoSrc : undefined}
+              autoPlay muted loop playsInline preload="none"
+              poster={heroImage}
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%',
+                objectFit: 'cover', pointerEvents: 'none',
+              }}
+            />
+          ) : (
+            <div style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: `url(${heroImage})`,
+              backgroundSize: 'cover', backgroundPosition: 'center',
+            }} />
+          )
+        ) : (
+          <video
+            key="hero-fallback"
+            autoPlay muted loop playsInline preload="none"
+            style={{
+              position: 'absolute', inset: 0,
+              width: '100%', height: '100%',
+              objectFit: 'cover', pointerEvents: 'none',
+            }}
+          >
+            <source src="/videos/hero-home.mp4" type="video/mp4" />
+          </video>
+        )}
+
+        {/* Dark overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%)',
+          zIndex: 1,
+        }} />
+
+
+        {/* Hero content - title top, subtitle+CTA bottom */}
+        <div style={{
+          position: 'absolute', inset: 0, zIndex: 2,
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          textAlign: 'center',
+          /* Clearance under the header, measured rather than guessed: the two
+             breakpoints do not carry the same chrome. Desktop also renders the
+             Google-rating bar above the header, so the same 160px put the title
+             only 36px below it while mobile, with no bar, had a comfortable 60.
+             These values give 72px on both. Tuned as a pair — changing one
+             without re-measuring the other brings the imbalance back. */
+          padding: isMobile ? '152px 6% 120px' : '196px 8% 130px',
+        }}>
+          {/* Title: name + elevation - pinned to top */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 style={{
+              fontFamily: "'Ploni', sans-serif",
+              fontSize: FS.h1,
+              fontWeight: 800,
+              color: 'white',
+              letterSpacing: '-0.02em',
+              margin: 0,
+              lineHeight: 1.1,
+              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
+            }}>
+              {isRtl
+                ? exp.nameHe
+                : (currentLang() === 'en' && exp.elevNum
+                    ? <>{`${loc(exp, "name") || exp.name || exp.nameHe} in ${loc(exp, "country") || exp.country} `}<span style={{ whiteSpace: 'nowrap' }}>{`(${exp.elevNum}m)`}{/* metres only in the heading too (owner, 6 Nov 2026) */}</span></>
+                    : exp.elevNum
+                      ? tx("{0} in {1} ({2}m)", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country, exp.elevNum])
+                      : tx("{0} in {1}", [loc(exp, "name") || exp.name || exp.nameHe, loc(exp, "country") || exp.country]))
+              }
+            </h1>
+          </div>
+
+          {/* Tagline + CTA - pinned to bottom */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: isMobile ? '14px' : '18px' }}>
+          {/* Tagline */}
+          <p style={{
+            fontFamily: "'Ploni', sans-serif",
+            fontSize: FS.body,
+            fontWeight: 400,
+            color: 'rgba(255,255,255,0.80)',
+            margin: 0,
+            maxWidth: '620px',
+            lineHeight: 1.6,
+            textShadow: '0 1px 6px rgba(0,0,0,0.4)',
+            whiteSpace: 'pre-line',
+          }}>
+            {isRtl
+              ? (exp.tagline || `הצטרפו ל${exp.nameHe} ב${exp.countryHe}\nוקחו חלק משמעותי בתרומה למלחמה בסרטן!`)
+              : tx("Join the {0} in {1}\nand take part in the fight against cancer!", [loc(exp, "name") || exp.name, loc(exp, "country") || exp.country])}
+          </p>
+
+          {/* Announced, but the supplier's material has not landed yet. Says so
+              plainly instead of letting a visitor wonder why the page is thin —
+              every unfilled section is hidden by filled(), so without this the
+              page would simply look unfinished. The form below stays live and is
+              the whole point of publishing early. */}
+          {exp.comingSoon && (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              margin: '0 0 18px', padding: '9px 16px', borderRadius: '999px',
+              background: 'rgba(217,119,6,0.92)', color: '#fff',
+              fontFamily: "'Ploni', sans-serif", fontSize: FS.sm, fontWeight: 700,
+              direction: dir, textShadow: 'none',
+            }}>
+              {isRtl
+                ? 'המסלול בהכנה · התוכנית המלאה תפורסם בקרוב'
+                : tx("Itinerary in preparation · full program coming soon")}
+            </div>
+          )}
+
+          {/* CTA */}
+          <button
+            onClick={scrollToForm}
+            onMouseEnter={() => setHeroBtnHovered(true)}
+            onMouseLeave={() => setHeroBtnHovered(false)}
+            style={{
+              display:       'inline-flex',
+              alignItems:    'center',
+              gap:           '8px',
+              padding:       isMobile ? '13px 28px' : '15px 36px',
+              borderRadius:  '999px',
+              border:        'none',
+              cursor:        'pointer',
+              fontFamily:    "'Ploni', sans-serif",
+              fontSize:      FS.btn,
+              fontWeight:    700,
+              letterSpacing: '0.01em',
+              marginTop:     '8px',
+              background:    heroBtnHovered ? '#7C3AED' : COLOR.primary,
+              color:         '#FFFFFF',
+              boxShadow:     heroBtnHovered
+                               ? '0 10px 32px rgba(109,40,217,0.55)'
+                               : '0 4px 18px rgba(109,40,217,0.35)',
+              transform:     heroBtnHovered ? 'translateY(-2px)' : 'none',
+              transition:    `all 0.22s ${EASING.out}`,
+              whiteSpace:    'nowrap',
+            }}
+          >
+            {isPayFlow
+              ? (isRtl ? 'להרשמה ותשלום מקדמה ←' : tx("Register & Pay Deposit →"))
+              : (isRtl ? 'לתיאום שיחה עם מומחה ←' : tx("Get Dates & Prices →"))}
+          </button>
+          </div>
+        </div>
+
+
+        {/* IntersectionObserver sentinel - bottom of hero */}
+        <div ref={heroRef} style={{ position: 'absolute', bottom: 0, width: '100%', height: '1px', zIndex: 0 }} />
+      </div>
+
+      {/* ══════════════════════════════════
+          STATS STRIP - expedition specific
+      ══════════════════════════════════ */}
+      <div style={{
+        padding:   '0 5%',
+        boxSizing: 'border-box',
+        marginTop: '-52px',
+        position:  'relative',
+        zIndex:    10,
+        direction: dir,
+      }}>
+        <div style={{
+          maxWidth:            '1100px',
+          margin:              '0 auto',
+          background:          '#FFFFFF',
+          borderRadius:        '20px',
+          boxShadow:           '0 20px 60px rgba(0,0,0,0.15)',
+          padding:             isMobile ? '16px 20px' : '22px 52px',
+          display:             'grid',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap:                 '0',
+        }}>
+          {(exp.type === 'Safari'
+            /* A safari is not a climb: altitude, difficulty grade and summit
+               success rate say nothing about it (owner, Jul 30 2026). This row
+               answers what a safari buyer actually asks — how long, which
+               reserves, what wildlife, how much. */
+            ? [
+              { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : tx("Duration"),  value: isRtl ? filled(exp.days) : (filled(loc(exp, "days")) || filled(exp.days)) },
+              { IconComp: TreeIcon,  label: isRtl ? 'שמורות טבע' : tx("Reserves"),  value: filled(isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves)) },
+              { IconComp: LionIcon,  label: isRtl ? 'חיות בר' : tx("Wildlife"),     value: filled(isRtl ? exp.wildlife : loc(exp, "wildlife")) },
+              { IconComp: TagIcon,   label: isRtl ? 'עלות' : tx("Price"),           value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])) : null },
+            ].filter(x => x.value)
+            : [
+            /* A draft with no altitude yet has elevNum 0, and `${0}m` renders
+               "0m" — a wrong fact, not a blank. null hides the row instead. */
+            { IconComp: MountainIcon, label: t('expedition.elevation'), value: exp.elevNum ? metresText(exp.elevNum, isRtl ? 'he' : 'en') : null },   /* metres only up top; feet may appear in the text (owner, 6 Nov 2026) */
+            { IconComp: StarIcon,     label: t('expedition.diff'),      value: isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe) },
+            /* Every trip shows its duration, except Kilimanjaro — its 94% summit
+               success rate is a signature selling point we keep front and center. */
+            (exp.slug === 'kilimanjaro' || exp.slug === 'kilimanjaro-kosher')
+              ? { IconComp: MedalIcon, label: isRtl ? 'אחוזי הצלחה' : tx("Success Rate"), value: exp.successRate ? `${exp.successRate}%` : '-' }
+              : { IconComp: ClockIcon, label: isRtl ? 'משך התכנית' : tx("Duration"), value: isRtl ? filled(exp.days) : (filled(loc(exp, "days")) || filled(exp.days)) },
+            { IconComp: TagIcon,      label: isRtl ? 'עלות' : tx("Price"),  value: filled(exp.priceStr) ? (isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])) : '–' },
+          ]).map((s, i) => (
+            <div key={i} style={{
+              textAlign:    'center',
+              padding:      isMobile ? '14px 8px' : '4px 24px',
+              borderRight:  (!isMobile && i > 0) ? '1px solid #ECEAF8' : 'none',
+              borderTop:    (isMobile && i >= 2) ? '1px solid #ECEAF8' : 'none',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '4px', color: COLOR.primary }}>
+                <s.IconComp size={isMobile ? 22 : 26} color={COLOR.primary} />
+              </div>
+              <div style={{
+                fontFamily:    "'Ploni', sans-serif",
+                fontSize:      isMobile ? '18px' : '22px',
+                fontWeight:    900,
+                color:         '#6D28D9',
+                lineHeight:    1,
+                letterSpacing: '-0.02em',
+                direction:     dir,
+              }}>
+                {s.value}
+              </div>
+              <div style={{
+                fontFamily: "'Ploni', sans-serif",
+                fontSize:   FS.sm,
+                fontWeight: 400,
+                color:      '#6B6B8A',
+                marginTop:  '6px',
+                lineHeight: 1.4,
+              }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════
+          SECTION 2: FLOATING STATS BAR
+      ══════════════════════════════════ */}
+      <div id="floating-bar" style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
+        background: 'white',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+        transform: barVisible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: `transform 0.3s ${EASING.out}`,
+        direction: dir,
+      }}>
+        <div style={{
+          maxWidth: '1100px', margin: '0 auto',
+          padding: '0 5%', height: '60px',
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'space-between', gap: '24px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '16px' : '48px', flex: 1 }}>
+            {/* Sticky bar mirrors the hero stats: a safari shows duration and
+                reserves where a climb shows altitude and grade. */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'משך התכנית' : tx("Duration")) : t('expedition.elevation')}</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                {isSafari
+                  ? <><ClockIcon size={14} color="#0A0818" /> {isRtl ? exp.days : (loc(exp, "days") || exp.days)}</>
+                  : (exp.elevNum ? <><MountainIcon size={14} color="#0A0818" /> {metresText(exp.elevNum, isRtl ? 'he' : 'en')}</> : null)}
+              </span>
+            </div>
+            {!isMobile && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isSafari ? (isRtl ? 'שמורות טבע' : tx("Reserves")) : (isRtl ? 'רמה' : tx("Level"))}</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  {isSafari
+                    ? <><TreeIcon size={14} color="#0A0818" /> {filled(isRtl ? exp.reserves : (loc(exp, 'reserves') || exp.reserves)) || '–'}</>
+                    : <><StarIcon size={14} color="#0A0818" /> {isRtl ? exp.diffHe : (exp.diff ? tx(exp.diff) : exp.diffHe)}</>}
+                </span>
+              </div>
+            )}
+            {!isMobile && seasons.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עונות' : tx("Seasons")}</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A0818', fontFamily: "'Ploni', sans-serif", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  {seasons.join(', ')}
+                </span>
+              </div>
+            )}
+            {filled(exp.priceStr) && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                <span style={{ fontSize: '11px', color: '#6B6B8A', fontFamily: "'Ploni', sans-serif" }}>{isRtl ? 'עלות' : tx("Price")}</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: COLOR.primary, fontFamily: "'Ploni', sans-serif" }}>
+                  {isRtl ? `החל מ-${exp.priceStr}` : tx("From {0}", [exp.priceStr])}
+                </span>
+              </div>
+            )}
+          </div>
+          <button
+            onClick={scrollToForm}
+            style={{
+              background: COLOR.primary, color: 'white', border: 'none',
+              borderRadius: RADIUS.full, padding: '8px 20px', minHeight: '40px',
+              fontSize: '13px', fontWeight: 700, cursor: 'pointer',
+              fontFamily: "'Ploni', sans-serif", whiteSpace: 'nowrap',
+            }}
+          >
+            {t('expedition.registerBtn')}
+          </button>
+        </div>
+      </div>
+
+      {/* Section tabs sit under the floating bar. They only appear past the
+          first section, by which point the bar is guaranteed to be up too. */}
+      {isSafari && <SafariSectionNav sections={SAFARI_NAV} isRtl={isRtl} isMobile={isMobile} />}
+
+      {/* ══════════════════════════════════
+          CONTENT AREA
+      ══════════════════════════════════ */}
+      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: isMobile ? '0 5%' : '0' }}>
+
+        {isSafariExp && (
+          <SafariSummaryCard exp={exp} isRtl={isRtl} isMobile={isMobile} onEnquire={scrollToForm} />
+        )}
+
+        {/* The section tabs come up when this marker leaves the top of the view. */}
+        {isSafariExp && <div id={NAV_SENTINEL_ID} style={{ height: '1px' }} />}
+
+        {SECTION_ORDER.map(key => <Fragment key={key}>{sections[key]}</Fragment>)}
 
 
 
