@@ -512,7 +512,9 @@ export default function IsraelDetail() {
         : []);
 
   const months       = [...new Map(dateGroups.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
-  const visibleGroups = dateGroups.filter(g => monthKey(g.departure) === activeMonth);
+  /* The code-only departure has no Airtable load to pick a starting month, so fall back to the first. */
+  const activeKey     = months.some(([k]) => k === activeMonth) ? activeMonth : (months[0]?.[0] ?? null);
+  const visibleGroups = dateGroups.filter(g => monthKey(g.departure) === activeKey);
   const capacity     = trip?.groupCapacity || 12;
 
   const inputStyle = {
@@ -1105,8 +1107,47 @@ export default function IsraelDetail() {
 
           ) : dateGroups.length > 0 ? (
             <>
-              {/* Month tabs - only when more than 2 groups */}
-              {dateGroups.length > 2 && (
+              {/* On a phone: the month row of the trip pages, on every Israel trek too, even with one
+                  date, so every destination looks the same (owner, 17 Nov 2026: "בכל היעדים צריך
+                  להיות אחיד ואותו דבר"). A month carries its year only when the dates run into a
+                  second year. */}
+              {isMobile && (
+                <div style={{
+                  display: 'flex', gap: '8px', overflowX: 'auto', flexWrap: 'nowrap',
+                  marginBottom: '24px', paddingBottom: '4px', scrollbarWidth: 'none', msOverflowStyle: 'none',
+                }}>
+                  {months.map(([key]) => {
+                    const twoYears = new Set(dateGroups.map(g => calendarDay(g.departure).getFullYear())).size > 1;
+                    const shortLabel = new Date(key.split('-')[0], key.split('-')[1]).toLocaleDateString(isRtl ? 'he-IL' : 'en-US', twoYears ? { month: 'long', year: 'numeric' } : { month: 'long' });
+                    const count = dateGroups.filter(g => monthKey(g.departure) === key).length;
+                    const isActive = activeKey === key;
+                    return (
+                      <button key={key} onClick={() => setActiveMonth(key)} style={{
+                        flexShrink: 0, display: 'flex', alignItems: 'center', gap: '6px',
+                        padding: '8px 20px', borderRadius: RADIUS.full,
+                        border: `1.5px solid ${isActive ? COLOR.primary : '#ECEAF8'}`,
+                        background: isActive ? COLOR.primary : '#fff',
+                        color: isActive ? 'white' : '#3D3B5A',
+                        fontFamily: "'Ploni', sans-serif", fontSize: '14px', fontWeight: 600,
+                        cursor: 'pointer', whiteSpace: 'nowrap', transition: `all 0.2s ${EASING.smooth}`,
+                      }}>
+                        {shortLabel}
+                        <span style={{
+                          fontSize: '11px', fontWeight: 700,
+                          background: isActive ? 'rgba(255,255,255,0.25)' : '#ECEAF8',
+                          color: isActive ? 'white' : '#6B6B8A',
+                          borderRadius: '999px', padding: '1px 6px', lineHeight: 1.6,
+                        }}>
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Month tabs on the computer - only when more than 2 groups */}
+              {!isMobile && dateGroups.length > 2 && (
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
                   {months.map(([key, label]) => (
                     <button key={key} onClick={() => setActiveMonth(key)} style={{
@@ -1124,7 +1165,7 @@ export default function IsraelDetail() {
 
               {/* Group cards */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
-                {(dateGroups.length > 2 ? visibleGroups : dateGroups).map(g => {
+                {((isMobile || dateGroups.length > 2) ? visibleGroups : dateGroups).map(g => {
                   const groupCap  = trip?.groupCapacity || 12;
                   /* count === null is the code-level departure with no group
                      record behind it. Without it, groupCap - null is groupCap,

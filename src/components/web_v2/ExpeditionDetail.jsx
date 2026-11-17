@@ -738,6 +738,7 @@ export default function ExpeditionDetail() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const allMonths = [...new Map(liveGroups.filter(g => new Date(g.departure) >= today).map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const visibleGroups = groupsForYear.filter(g => monthKey(g.departure) === activeMonth);
+  const monthRow = isMobile || groupsForYear.length > 2;
   /* Any month that has a women's-group departure gets its own "(נשים)" option
      in the form's month picker, so a lead can pick it without clicking the card.
      A month with ONLY a women's departure offers that option ALONE: December
@@ -1984,8 +1985,11 @@ export default function ExpeditionDetail() {
                 </div>
               )}
 
-              {/* Month tabs — horizontal scroll, no wrapping */}
-              {groupsForYear.length > 2 && (
+              {/* Month tabs — horizontal scroll, no wrapping. On a phone the month row shows on every
+                  destination, even with one or two dates, so all the trip pages look the same
+                  (owner, 17 Nov 2026: "בכל היעדים צריך להיות אחיד ואותו דבר"). The computer keeps
+                  its rule: the row from three departures up. */}
+              {monthRow && (
                 <div style={{
                   display: 'flex', gap: '8px',
                   overflowX: 'auto', flexWrap: 'nowrap',
@@ -2036,7 +2040,7 @@ export default function ExpeditionDetail() {
 
               {/* Group cards */}
               {(() => {
-                const displayGroups = groupsForYear.length > 2 ? visibleGroups : groupsForYear;
+                const displayGroups = monthRow ? visibleGroups : groupsForYear;
                 const isKili = exp.slug?.includes('kilimanjaro');
 
                 /* The longer of the two lengths, however the Airtable event spells
