@@ -471,7 +471,7 @@ export default function ExpeditionExplorer({ type, hideHeading = false, stackOnM
             WebkitOverflowScrolling: 'touch',
             paddingTop:              '12px',
             marginTop:               '-12px',
-            paddingBottom:           '72px',
+            paddingBottom:           '66px',   /* 60px to the divider, like every section; the rest is the card shadow */
             paddingInlineEnd:        isMobile ? '5%' : 0,
           }}
         >

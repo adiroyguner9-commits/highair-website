@@ -232,7 +232,7 @@ export default function BlogPreview() {
       ref={sectionRef}
       style={{
         background:  'transparent',
-        padding:     isMobile ? '60px 5vw' : '80px 5vw',
+        padding:     isMobile ? '33px 5vw 60px' : '57px 5vw 80px',   /* the heading lands where every homepage section's does (owner, 17 Nov 2026) */
         boxSizing:   'border-box',
         direction:   dir,
         opacity:     inView ? 1 : 0,

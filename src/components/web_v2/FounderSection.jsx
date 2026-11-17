@@ -50,7 +50,7 @@ export default function FounderSection() {
   return (
     <section style={{
       background: 'transparent',
-      padding:    isMobile ? '44px 5%' : '72px 5%',
+      padding:    isMobile ? '44px 5% 36px' : '72px 5% 60px',   /* bottom = every homepage section (owner, 17 Nov 2026) */
       boxSizing:  'border-box',
       direction:  dir,
     }}>

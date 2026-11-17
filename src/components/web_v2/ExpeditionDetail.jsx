@@ -2094,17 +2094,12 @@ export default function ExpeditionDetail() {
         {(exp?.slug?.includes('kilimanjaro') || isSafariExp) && (
           <>
             <Separator />
-            {isSafariExp && (
-              <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14.5px', fontWeight: 300,
-                color: '#6B6B8A', margin: '0 0 4px', textAlign: 'start', direction: dir, lineHeight: 1.6 }}>
-                {isRtl
-                  ? 'המשתתפים שמדברים כאן יצאו איתנו לקילימנג׳רו. הספארי בטנזניה מופעל על ידי אותו צוות ואותם שותפים בשטח.'
-                  : tx(
-                  "The travelers speaking here climbed Kilimanjaro with us. The Tanzania safari is run by the same team and the same partners on the ground."
-                )}
-              </p>
-            )}
-            <VideoTestimonials darkBg={false} />
+            {/* Safari: the note now sits under the heading, not glued to the divider (owner, 17 Nov 2026) */}
+            <VideoTestimonials darkBg={false} note={isSafariExp ? (isRtl
+              ? 'המשתתפים שמדברים כאן יצאו איתנו לקילימנג׳רו. הספארי בטנזניה מופעל על ידי אותו צוות ואותם שותפים בשטח.'
+              : tx(
+              "The travelers speaking here climbed Kilimanjaro with us. The Tanzania safari is run by the same team and the same partners on the ground."
+            )) : undefined} />
           </>
         )}
     </>),
@@ -2172,6 +2167,7 @@ export default function ExpeditionDetail() {
                 gap: '16px',
                 overflowX: 'auto',
                 paddingBottom: '8px',
+                marginBottom: '-8px',   /* shadow room, not extra space between sections */
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
                 scrollSnapType: isMobile ? 'x mandatory' : 'none',

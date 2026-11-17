@@ -166,7 +166,7 @@ function Modal({ video, onClose }) {
  * @param {string}  [seeAllHref]  – "see all" link when limit is set
  * @param {boolean} [darkBg]      – true for dark section background
  */
-export default function VideoTestimonials({ limit, seeAllHref, darkBg = false }) {
+export default function VideoTestimonials({ limit, seeAllHref, darkBg = false, note }) {
   const { i18n } = useTranslation();
   const isEn = i18n.language !== 'he';
   const { isMobile } = useBreakpoint();
@@ -210,6 +210,13 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
         }}>
           {isEn ? 'What our Kilimanjaro climbers say' : 'מה אומרים אלה שכבר עלו לקילי'}
         </h2>
+        {/* a line under the heading (the safari pages explain whose videos these are) */}
+        {note && (
+          <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '14.5px', fontWeight: 300,
+            color: darkBg ? 'rgba(255,255,255,0.7)' : '#6B6B8A', margin: '10px 0 0', lineHeight: 1.6 }}>
+            {note}
+          </p>
+        )}
         {limit && seeAllHref && (
           <a
             href={seeAllHref}
@@ -234,6 +241,7 @@ export default function VideoTestimonials({ limit, seeAllHref, darkBg = false })
         gap: '14px',
         overflowX: 'auto',
         padding: '4px 0 16px',
+        marginBottom: '-16px',   /* the shadow room is not extra space: every section ends the same (owner, 17 Nov 2026) */
         scrollSnapType: 'x mandatory',
         WebkitOverflowScrolling: 'touch',
         scrollbarWidth: 'none',

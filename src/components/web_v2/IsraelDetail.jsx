@@ -761,7 +761,10 @@ export default function IsraelDetail() {
             </h2>
             <p style={{
               fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '16px' : '17px',
-              color: '#3D3B5A', lineHeight: 1.9, margin: 0,
+              color: '#3D3B5A', lineHeight: 1.9,
+              /* the tall line height leaves 6px under the last line: taken back so the intro
+                 ends where every section does (owner, 17 Nov 2026) */
+              margin: '0 0 -6px',
               whiteSpace: 'pre-line', maxWidth: '820px',
             }}>
               {desc}
