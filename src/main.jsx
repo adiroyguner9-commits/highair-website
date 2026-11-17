@@ -129,8 +129,12 @@ const BookCall           = lazy(() => import('./components/web_v2/BookCall.jsx')
 /* Call booking is the Hebrew site's sales path. Abroad the sale runs by e-mail
    and WhatsApp (owner, 5 Nov 2026), so /book on en./de./es. opens the contact
    form instead. */
+/* The booking page: Hebrew and, since 17 Nov 2026, English (the English site books a call like
+   the Hebrew one, and its WhatsApp carries the link /book/<trip>/<code>). It still sent every
+   foreign visitor to /contact, so the first English lead to get the link landed on the contact
+   page. German and Spanish stay email only, so they still go there. */
 function BookRoute() {
-  return i18nInstance.language !== 'he' ? <Navigate to="/contact" replace /> : <BookCall />;
+  return ['he', 'en'].includes(i18nInstance.language) ? <BookCall /> : <Navigate to="/contact" replace />;
 }
 const AppPage            = lazy(() => import('./components/web_v2/AppPage.jsx'));
 /* The trek matching tool (owner, 10 Nov 2026): a hidden Hebrew page, reached only by its link.

@@ -184,3 +184,10 @@ describe('the lifecycle job, for an English lead', () => {
     expect(sent).toEqual([]);
   });
 });
+
+describe('the booking link opens the booking page on the English site', () => {
+  it('/book is the calendar in Hebrew and English; German and Spanish still go to /contact', () => {
+    const main = readFileSync('src/main.jsx', 'utf8');
+    expect(main).toContain("return ['he', 'en'].includes(i18nInstance.language) ? <BookCall /> : <Navigate to=\"/contact\" replace />;");
+  });
+});
