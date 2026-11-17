@@ -2201,7 +2201,7 @@ export default function ExpeditionDetail() {
                 };
                 const pkgTabs = [
                   { id: 'climb',  list: climbGroups,  label: isRtl ? 'טיפוס בלבד' : tx("Climb Only") },
-                  { id: 'safari', list: safariGroups, label: isRtl ? '+ 3 ימי ספארי' : tx("Climb + 3-Day Safari") },
+                  { id: 'safari', list: safariGroups, label: isRtl ? 'טיפוס + ספארי' : tx("Climb + 3-Day Safari") },
                 ].map(t => ({ ...t, days: daysOf(t.list.length ? t.list : (t.id === 'climb' ? liveGroups.filter(g => !g.eventName.toLowerCase().includes('safari')) : liveGroups.filter(g => g.eventName.toLowerCase().includes('safari')))) }));
                 const shown = kiliPkg === 'safari' ? safariGroups : climbGroups;
 
