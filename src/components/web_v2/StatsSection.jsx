@@ -1,69 +1,24 @@
 /**
- * StatsSection.jsx - Floating stats bar with count-up animation
- * מרחף בין ההירו לסקשן המשלחות — המספרים סופרים עלייה כשנכנסים לתצוגה
+ * StatsSection.jsx - Floating stats bar between the hero and the trips.
+ * The numbers are shown as they are, with no count-up from 0, so a crawler that
+ * captures the first frame reads the real figure (owner, 17 Nov 2026). The figures
+ * live in src/data/siteStats.js, shared with the crawlers' text layer.
  */
 
-import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { useInView } from '../../website/useInView.js';
 import { CARD_EXPS } from '../../data/navData.js';
 import { isOpenNow, HIDDEN_ON_EN } from '../../data/expeditionGroups.js';
-
-/* Destinations stat = number of expeditions and treks actually shown on the
-   site (climbs + treks; safaris are live:false and excluded from CARD_EXPS),
-   so the number tracks the cards automatically as trips are added or removed. */
-const DEST_COUNT = CARD_EXPS.filter(e => !String(e.slug || '').startsWith('safari')).length;
+import { DEST_COUNT, SITE_STATS } from '../../data/siteStats.js';
 /* Foreign sites count only the destinations open now, the same ones their
    cards and menus show (owner, 6 Nov 2026: no "coming soon" abroad). */
 const OPEN_DEST_COUNT = CARD_EXPS.filter(e => !String(e.slug || '').startsWith('safari') && isOpenNow(e) && !HIDDEN_ON_EN.has(e.slug)).length;
 
-/* ── Count-up hook ─────────────────────────────────────────────
-   Counts from 0 → `to` over `duration`ms using easeOutCubic.
-   Fires only once when `inView` first becomes true.           */
-function useCountUp(to, inView, duration = 1500) {
-  const [val, setVal]   = useState(0);
-  const rafRef  = useRef(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!inView || started.current) return;
-    started.current = true;
-    let startTs = null;
-
-    function step(ts) {
-      if (!startTs) startTs = ts;
-      const p     = Math.min((ts - startTs) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-      setVal(Math.round(eased * to));
-      if (p < 1) rafRef.current = requestAnimationFrame(step);
-    }
-    rafRef.current = requestAnimationFrame(step);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [inView]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return val;
-}
-
-/* ── Parse "₪210K+" → { prefix:'₪', target:210, suffix:'K+' } ── */
-function parseStat(raw) {
-  const m = String(raw).match(/^([^\d]*)(\d+)([^\d]*)$/);
-  return m
-    ? { prefix: m[1], target: parseInt(m[2], 10), suffix: m[3] }
-    : { prefix: '', target: 0, suffix: raw };
-}
-
-/* ── Single animated stat cell ── */
+/* ── Single stat cell ── */
 function StatCell({ raw, label, isMobile, idx }) {
-  const [ref, inView]           = useInView(0.15);
-  const { prefix, target, suffix } = parseStat(raw);
-  const count   = useCountUp(target, inView);
-  const display = target > 0 ? `${prefix}${count}${suffix}` : raw;
-
   return (
     <div
-      ref={ref}
       style={{
         textAlign:    'center',
         padding:      isMobile
@@ -83,7 +38,7 @@ function StatCell({ raw, label, isMobile, idx }) {
         direction:     'ltr',
         transition:    'color 0.2s ease',
       }}>
-        {display}
+        {raw}
       </div>
       <div style={{
         fontFamily: 'Ploni, sans-serif',
@@ -107,9 +62,9 @@ export default function StatsSection() {
 
   const STATS = [
     { value: String(i18n.language === 'he' ? DEST_COUNT : OPEN_DEST_COUNT), label: t('stats.destinations') },
-    { value: '1000+',  label: t('stats.climbers')     },
-    { value: isRtl ? '₪240K+' : '$70K+', label: t('stats.donated') },
-    { value: '94%',   label: t('stats.successRate')  },
+    { value: SITE_STATS.climbers,  label: t('stats.climbers')     },
+    { value: isRtl ? SITE_STATS.donatedHe : SITE_STATS.donatedEn, label: t('stats.donated') },
+    { value: SITE_STATS.successRate,   label: t('stats.successRate')  },
   ];
 
   return (

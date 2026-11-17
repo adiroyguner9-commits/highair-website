@@ -280,6 +280,7 @@ function writeShell(routePath, meta, outRoot = DIST) {
 // ── Expedition pages ─────────────────────────────────────────────────────────
 
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
+const { homeStatsHe } = await import(path.join(ROOT, 'src/data/siteStats.js'));
 /* The FAQ the trip page shows: its own list, else the default (ExpeditionDetail.jsx). */
 const { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } = await import(path.join(ROOT, 'src/data/faqData.js'));
 const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe, exp));
@@ -905,7 +906,7 @@ for (const page of staticPages) {
      own CSS then hides it, so it cannot flash even for one frame (a guard after
      the markup could: measured on /privacy, 24 Oct 2026). */
   if (!homeHtml.includes('id="ha-pre"')) {
-    const homeTextLayer = wrapText(homeText({ description: ORG_NODE.description, exps: liveExps, posts: POSTS }));
+    const homeTextLayer = wrapText(homeText({ description: ORG_NODE.description, exps: liveExps, posts: POSTS, stats: homeStatsHe() }));
     homeHtml = homeHtml
       .replace(HOME_HERO_PRELOAD, heroPreload('/videos/hero-home-poster.jpg', 'home'))
       .replace('</head>', '  <script>if(location.pathname!=="/")document.documentElement.classList.add("ha-nopre")</script>\n</head>')

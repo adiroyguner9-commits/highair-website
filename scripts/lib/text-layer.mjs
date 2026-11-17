@@ -189,11 +189,13 @@ export function appText(t, { appStore, googlePlay } = {}) {
 }
 
 /* The homepage: who we are, every trip, and the guides. */
-export function homeText({ description, exps = [], posts = [] }) {
+export function homeText({ description, exps = [], posts = [], stats = [] }) {
   const group = (title, list) => list.length ? h2(title) + `<ul>${list.map(e =>
     `<li>${link(`/expedition/${e.slug}`, e.nameHe || e.name)}${[e.countryHe, e.elev, e.days].filter(Boolean).map(x => `, ${esc(x)}`).join('')}</li>`).join('')}</ul>` : '';
   const guides = posts.length ? h2('מדריכים וכתבות') + `<ul>${posts.map(x => `<li>${link(`/blog/${x.slug}`, x.title)}</li>`).join('')}</ul>` : '';
-  return '<article><h1>HighAir Expeditions</h1>' + p(description)
+  /* the stats bar's figures, as the page shows them (src/data/siteStats.js) */
+  const figures = stats.length ? `<ul>${stats.map(([n, label]) => `<li><strong>${esc(n)}</strong> ${esc(label)}</li>`).join('')}</ul>` : '';
+  return '<article><h1>HighAir Expeditions</h1>' + p(description) + figures
     + group('טיפוסי הרים', exps.filter(e => /climb/i.test(e.type || '')))
     + group('טרקים', exps.filter(e => /trek/i.test(e.type || '')))
     + group('ספארי', exps.filter(e => /safari/i.test(e.type || '')))
