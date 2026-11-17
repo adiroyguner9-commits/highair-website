@@ -545,6 +545,8 @@ export default function ExpeditionDetail() {
   const [groupsError, setGroupsError]       = useState(null);
   const [activeYear, setActiveYear]         = useState(null);
   const [activeMonth, setActiveMonth]       = useState(null);
+  /* Kilimanjaro's two packages as a tab, one list at a time (owner, 17 Nov 2026). */
+  const [kiliPkg, setKiliPkg]               = useState('climb');
   const [galleryUrls, setGalleryUrls]       = useState([]);
 
   useEffect(() => {
@@ -727,7 +729,10 @@ export default function ExpeditionDetail() {
 
   /* unique months from live groups */
   const years = [...new Set(liveGroups.map(g => calendarDay(g.departure).getFullYear()))].sort();
-  const groupsForYear = activeYear ? liveGroups.filter(g => calendarDay(g.departure).getFullYear() === activeYear) : liveGroups;
+  /* No year picker above the months any more (owner, 17 Nov 2026: "אין צורך בשנה למעלה שיהיה רק
+     החודשים"): the months of every year sit in one row, and only when the list runs into a second
+     year does a month carry its year, so two Januaries can be told apart. */
+  const groupsForYear = liveGroups;
   const months = [...new Map(groupsForYear.map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const allMonths = [...new Map(liveGroups.filter(g => new Date(g.departure) >= today).map(g => [monthKey(g.departure), monthLabel(g.departure)])).entries()];
@@ -1937,47 +1942,6 @@ export default function ExpeditionDetail() {
             </div>
           ) : liveGroups.length > 0 ? (
             <>
-              {/* Year filter — segmented control */}
-              {(years.length > 1 || years[0] !== new Date().getFullYear()) && (
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{
-                    display: 'inline-flex',
-                    background: '#ECEAF8',
-                    borderRadius: RADIUS.full,
-                    padding: '4px',
-                    gap: '2px',
-                  }}>
-                    {years.map(yr => (
-                      <button
-                        key={yr}
-                        onClick={() => {
-                          setActiveYear(yr);
-                          const firstOfYear = liveGroups.find(g => calendarDay(g.departure).getFullYear() === yr);
-                          if (firstOfYear) {
-                            const d = calendarDay(firstOfYear.departure);
-                            setActiveMonth(`${d.getFullYear()}-${d.getMonth()}`);
-                          }
-                        }}
-                        style={{
-                          padding: '8px 28px',
-                          borderRadius: RADIUS.full,
-                          border: 'none',
-                          background: activeYear === yr ? '#1E1B3A' : 'transparent',
-                          color: activeYear === yr ? 'white' : '#5B5880',
-                          fontFamily: "'Ploni', sans-serif",
-                          fontSize: '15px', fontWeight: 700,
-                          cursor: 'pointer',
-                          transition: `background 0.2s ${EASING.smooth}, color 0.2s ${EASING.smooth}`,
-                          letterSpacing: '0.02em',
-                        }}
-                      >
-                        {yr}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Month tabs — horizontal scroll, no wrapping */}
               {groupsForYear.length > 2 && (
                 <div style={{
@@ -1988,7 +1952,7 @@ export default function ExpeditionDetail() {
                   msOverflowStyle: 'none',
                 }}>
                   {months.map(([key, label]) => {
-                    const shortLabel = new Date(key.split('-')[0], key.split('-')[1]).toLocaleDateString(isRtl ? 'he-IL' : ({ de: 'de-DE', es: 'es-ES' }[currentLang()] || 'en-US'), { month: 'long' });
+                    const shortLabel = new Date(key.split('-')[0], key.split('-')[1]).toLocaleDateString(isRtl ? 'he-IL' : ({ de: 'de-DE', es: 'es-ES' }[currentLang()] || 'en-US'), years.length > 1 ? { month: 'long', year: 'numeric' } : { month: 'long' });
                     /* departures, not rows: a date sold with and without its safari is one */
                     const count = departureCount(groupsForYear.filter(g => monthKey(g.departure) === key));
                     const isActive = activeMonth === key;
@@ -2185,46 +2149,50 @@ export default function ExpeditionDetail() {
                 const climbGroups  = displayGroups.filter(g => !g.eventName.toLowerCase().includes('safari'));
                 const safariGroups = displayGroups.filter(g =>  g.eventName.toLowerCase().includes('safari'));
 
-                const sectionHeader = (label, accent) => (
-                  <div style={{ marginBottom: '10px', direction: dir }}>
-                    <span style={{
-                      display: 'inline-block',
-                      fontFamily: "'Ploni', sans-serif",
-                      fontSize: '13px', fontWeight: 700,
-                      color: accent.text,
-                      background: accent.bg,
-                      border: `1.5px solid ${accent.border}`,
-                      borderRadius: RADIUS.lg,
-                      padding: '10px 16px',
-                    }}>
-                      {label}
-                    </span>
-                  </div>
-                );
+                /* The two packages as a tab, like the owner's example (17 Nov 2026: "שהטיפוס לבד יהיה
+                   בטאב לבחירה"): one list at a time instead of every date twice. Each tab says how many
+                   days its package lasts, read off its own departures (the kosher one is longer). */
+                const daysOf = list => {
+                  const g = list.find(x => x.returnDate);
+                  if (!g) return 0;
+                  return Math.round((calendarDay(g.returnDate) - calendarDay(g.departure)) / 86400000) + 1;
+                };
+                const pkgTabs = [
+                  { id: 'climb',  list: climbGroups,  label: isRtl ? 'טיפוס בלבד' : tx("Climb Only") },
+                  { id: 'safari', list: safariGroups, label: isRtl ? '+ 3 ימי ספארי' : tx("Climb + 3-Day Safari") },
+                ].map(t => ({ ...t, days: daysOf(t.list.length ? t.list : (t.id === 'climb' ? liveGroups.filter(g => !g.eventName.toLowerCase().includes('safari')) : liveGroups.filter(g => g.eventName.toLowerCase().includes('safari')))) }));
+                const shown = kiliPkg === 'safari' ? safariGroups : climbGroups;
 
                 return (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    {climbGroups.length > 0 && (
-                      <div>
-                        {sectionHeader(
-                          isRtl ? 'טיפוס בלבד' : tx("Climb Only"),
-                          { bg: '#EDE9FE', border: '#C4B5FD', text: '#5B21B6' }
-                        )}
-                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
-                          {climbGroups.map(renderCard)}
-                        </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div role="tablist" style={{
+                      display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '4px',
+                      background: '#ECEAF8', borderRadius: RADIUS.lg, padding: '4px', maxWidth: '560px',
+                    }}>
+                      {pkgTabs.map(t => {
+                        const on = kiliPkg === t.id;
+                        return (
+                          <button key={t.id} type="button" role="tab" aria-selected={on} onClick={() => setKiliPkg(t.id)} style={{
+                            border: 'none', borderRadius: RADIUS.md, padding: '11px 8px', minHeight: '44px',
+                            background: on ? '#fff' : 'transparent',
+                            boxShadow: on ? '0 1px 4px rgba(30,27,75,0.10)' : 'none',
+                            color: on ? '#0A0818' : '#5B5880',
+                            fontFamily: "'Ploni', sans-serif", fontSize: isMobile ? '14px' : '15px', fontWeight: on ? 700 : 500,
+                            cursor: 'pointer', transition: `background 0.2s ${EASING.smooth}`,
+                          }}>
+                            {t.label}{isRtl && t.days ? ` · ${t.days} ימים` : ''}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {shown.length > 0 ? (
+                      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
+                        {shown.map(renderCard)}
                       </div>
-                    )}
-                    {safariGroups.length > 0 && (
-                      <div>
-                        {sectionHeader(
-                          isRtl ? 'טיפוס + 3 ימי ספארי' : tx("Climb + 3-Day Safari"),
-                          { bg: '#FEF3C7', border: '#FCD34D', text: '#78350F' }
-                        )}
-                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '12px' }}>
-                          {safariGroups.map(renderCard)}
-                        </div>
-                      </div>
+                    ) : (
+                      <p style={{ margin: 0, fontFamily: "'Ploni', sans-serif", fontSize: '15px', color: '#6B6B8A' }}>
+                        {isRtl ? 'אין יציאות בחבילה הזו בחודש הזה' : tx("No departures for this package this month")}
+                      </p>
                     )}
                   </div>
                 );
