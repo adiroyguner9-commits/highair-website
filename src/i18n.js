@@ -64,7 +64,7 @@ const he = {
     heading: 'מטיילים עם משמעות!',
     p1: 'חלק מהרווחים שלנו מוקדשים להגשמת חלומות לחולי סרטן בישראל. בזכות כל אחד ואחת מכם שמצטרפים אלינו למסע, אנחנו מצליחים לתרום ולחזק אנשים שנמצאים במאבק הכי גדול של חייהם',
     p2: 'אנחנו מגיעים מדי חודש למחלקות, פוגשים משפחות, מחלקים מתנות ותומכים בילדים ובמבוגרים שנלחמים יום-יום ויוצרים רגעים קטנים של אושר בתוך המציאות המורכבת שלהם',
-    p3: 'אנחנו מאמינים שמסע עם משמעות הוא מסע שמשנה חיים, הן של המטיילים והן של החולים. בזכות הלקוחות המדהימים שלנו נתרמו עד כה למעלה מ-240 אלף שקלים ועזרנו להגשים חלומות לחולי סרטן ומשפחותיהם!',
+    p3: 'אנחנו מאמינים שמסע עם משמעות הוא מסע שמשנה חיים, הן של המטיילים והן של החולים. בזכות הלקוחות המדהימים שלנו נתרמו עד כה 243 אלף שקלים ועזרנו להגשים חלומות לחולי סרטן ומשפחותיהם!',
     cta: 'כל יציאה למסע בעלת משמעות רבה!',
   },
   reviews: {
@@ -259,7 +259,7 @@ const en = {
     heading: 'Travel with Purpose!',
     p1: 'A portion of our profits is dedicated to fulfilling the dreams of cancer patients. Thanks to each and every one of you who joins us on a journey, we are able to donate and strengthen people who are in the biggest fight of their lives.',
     p2: 'Every month we visit hospital wards, meet families, distribute gifts and support children and adults who fight day by day - creating small moments of joy within their complex reality.',
-    p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated over $70,000 to date and helped fulfill the dreams of cancer patients and their families!',
+    p3: 'We believe that a meaningful journey is one that changes lives - both of the travelers and the patients. Thanks to our amazing clients, we have donated about $71,000 to date and helped fulfill the dreams of cancer patients and their families!',
     cta: 'Every expedition makes a difference!',
   },
   reviews: {

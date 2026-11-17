@@ -51,7 +51,7 @@ const es = {
     heading: '¡Viajar con propósito!',
     p1: 'Parte de nuestros beneficios se destina a cumplir los sueños de pacientes con cáncer. Gracias a cada viajero que nos acompaña, podemos donar y apoyar a personas que libran la mayor batalla de su vida.',
     p2: 'Cada mes visitamos salas de hospital, conocemos a familias, repartimos regalos y apoyamos a niños y adultos que luchan día a día, creando pequeños momentos de alegría dentro de una realidad difícil.',
-    p3: 'Creemos que un viaje con propósito cambia vidas, las de los viajeros y las de los pacientes. Gracias a nuestros increíbles clientes, hemos donado más de 70.000 $ hasta hoy y ayudado a cumplir los sueños de pacientes con cáncer y sus familias.',
+    p3: 'Creemos que un viaje con propósito cambia vidas, las de los viajeros y las de los pacientes. Gracias a nuestros increíbles clientes, hemos donado unos 71.000 $ hasta hoy y ayudado a cumplir los sueños de pacientes con cáncer y sus familias.',
     cta: '¡Cada expedición marca la diferencia!',
   },
   reviews: {

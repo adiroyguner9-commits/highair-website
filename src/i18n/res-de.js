@@ -51,7 +51,7 @@ const de = {
     heading: 'Reisen mit Sinn!',
     p1: 'Ein Teil unseres Gewinns erfüllt Träume von Krebspatienten. Dank jeder und jedem von Ihnen, die mit uns reisen, können wir spenden und Menschen stärken, die den größten Kampf ihres Lebens führen.',
     p2: 'Jeden Monat besuchen wir Krankenstationen, treffen Familien, verteilen Geschenke und unterstützen Kinder und Erwachsene, die Tag für Tag kämpfen, und schaffen kleine Momente der Freude in ihrem schwierigen Alltag.',
-    p3: 'Wir glauben, dass eine Reise mit Sinn Leben verändert, das der Reisenden und das der Patienten. Dank unserer großartigen Kunden haben wir bisher über 70.000 $ gespendet und geholfen, Träume von Krebspatienten und ihren Familien zu erfüllen!',
+    p3: 'Wir glauben, dass eine Reise mit Sinn Leben verändert, das der Reisenden und das der Patienten. Dank unserer großartigen Kunden haben wir bisher rund 71.000 $ gespendet und geholfen, Träume von Krebspatienten und ihren Familien zu erfüllen!',
     cta: 'Jede Expedition macht einen Unterschied!',
   },
   reviews: {

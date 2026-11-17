@@ -9,9 +9,11 @@ import { CARD_EXPS } from './navData.js';
 export const DEST_COUNT = CARD_EXPS.filter(e => !String(e.slug || '').startsWith('safari')).length;
 
 export const SITE_STATS = {
-  climbers:    '1000+',
-  donatedHe:   '₪240K+',
-  donatedEn:   '$70K+',
+  /* the owner's own totals, 17 Nov 2026 ("1257 מטיילים", "243K"); the dollar figure
+     is the shekel total at the rate the site used before (240K = $70K) */
+  climbers:    '1,257',
+  donatedHe:   '₪243K',
+  donatedEn:   '$71K',
   successRate: '94%',
 };
 
