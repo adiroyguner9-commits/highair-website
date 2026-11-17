@@ -281,6 +281,20 @@ function writeShell(routePath, meta, outRoot = DIST) {
 
 const { EXPS } = await import(path.join(ROOT, 'src/data/mockData.js'));
 const { homeStatsHe } = await import(path.join(ROOT, 'src/data/siteStats.js'));
+/* The Organization's Google rating: live at build time when the key is there
+   (Vercel builds), else the last known figures (src/data/googleRating.js). */
+const { GOOGLE_RATING_FALLBACK, ratingText } = await import(path.join(ROOT, 'src/data/googleRating.js'));
+let GOOGLE_RATING = GOOGLE_RATING_FALLBACK;
+if (process.env.GOOGLE_PLACES_KEY) {
+  try {
+    const { fetchGoogleRating } = await import(path.join(ROOT, 'api/google-rating.js'));
+    GOOGLE_RATING = await Promise.race([
+      fetchGoogleRating(process.env.GOOGLE_PLACES_KEY),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000)),
+    ]);
+    console.log(`  Google rating: ${GOOGLE_RATING.rating} / ${GOOGLE_RATING.count} (live)`);
+  } catch (e) { console.warn(`  Google rating: kept ${GOOGLE_RATING.count} (${e.message})`); }
+}
 /* The FAQ the trip page shows: its own list, else the default (ExpeditionDetail.jsx). */
 const { FAQ_BY_SLUG, makeDefaultFaq, makeDefaultFaqEn, notesWithExperience } = await import(path.join(ROOT, 'src/data/faqData.js'));
 const faqFor = exp => (FAQ_BY_SLUG[exp.slug]?.he?.length ? FAQ_BY_SLUG[exp.slug].he : makeDefaultFaq(exp.groupCapacity || 15, exp.experienceHe, exp));
@@ -709,8 +723,8 @@ const ORG_NODE = {
   priceRange: '$$$',
   address:    { '@type': 'PostalAddress', addressLocality: 'Tel Aviv', addressCountry: 'IL' },
   areaServed: 'IL',
-  // Real Google Business Profile rating (5.0, 296 reviews as of Oct 2026).
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '296', bestRating: '5', worstRating: '1' },
+  // Real Google Business Profile rating, live at build time (src/data/googleRating.js).
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: ratingText(GOOGLE_RATING.rating), reviewCount: String(GOOGLE_RATING.count), bestRating: '5', worstRating: '1' },
   contactPoint: { '@type': 'ContactPoint', telephone: '+972-55-563-6975', contactType: 'customer service', availableLanguage: ['Hebrew', 'English'] },
   sameAs: [
     'https://www.facebook.com/highair.expeditions',

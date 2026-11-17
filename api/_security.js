@@ -93,6 +93,8 @@ const RATE_LIMITS = {
   /* One call a page, mostly answered by the CDN; generous so a visitor going
      through trip pages never loses the dates (7 Nov 2026). */
   departures:   { max: 120, windowMs: 60_000 },
+  /* the Google rating: one call a visit, nearly always answered by the CDN */
+  'google-rating': { max: 60, windowMs: 60_000 },
 };
 
 function clientIp(req) {

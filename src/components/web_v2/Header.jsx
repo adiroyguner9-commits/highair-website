@@ -19,6 +19,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SHADOW, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { useGoogleRating } from '../../website/useGoogleRating.js';
+import { ratingText } from '../../data/googleRating.js';
 import { NAV_EXPS as EXPS, NAV_ISRAEL as ISRAEL_TRIPS } from '../../data/navData.js';
 import { ISRAEL_TREKS_LIVE } from '../../data/israelFlag.js';
 import { MENU_CLIMBS, MENU_TREKS, SITE_EXPS } from '../../data/expeditionGroups.js';
@@ -952,6 +954,7 @@ function SearchModal({ onClose }) {
 }
 
 export default function Header() {
+  const google = useGoogleRating();   /* the top bar's rating, live from Google */
  const [searchOpen, setSearchOpen] = useState(false);
  const [menuOpen, setMenuOpen] = useState(false);
  const [megaType, setMegaType] = useState(null); // null | 'treks' | 'climbs'
@@ -1088,8 +1091,8 @@ export default function Header() {
      fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#4A4770',
     }}>
      <span style={{ color: '#FBBC04', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span>
-     <span style={{ fontWeight: 700 }}>5.0</span>
-     <span style={{ color: '#6B6B8A' }}>{isEn ? tx("296 reviews on Google") : 'מדורגים #1 ב-Google'}</span>
+     <span style={{ fontWeight: 700 }}>{ratingText(google.rating)}</span>
+     <span style={{ color: '#6B6B8A' }}>{isEn ? tx("{0} reviews on Google", [google.count.toLocaleString('en-US')]) : 'מדורגים #1 ב-Google'}</span>
     </div>
     {/* Search + Language switcher (visual left in RTL) */}
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

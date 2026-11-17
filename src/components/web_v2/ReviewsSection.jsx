@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { currentLang, loc } from '../../website/lang.js';
 import { RADIUS, COLOR, EASING, FS } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
+import { useGoogleRating } from '../../website/useGoogleRating.js';
+import { ratingText } from '../../data/googleRating.js';
 
 /* The real reviews (Airtable "Reviews", 7 May 2026), used when the live
    fetch fails. The old fallback was six generic placeholder reviews with
@@ -194,6 +196,7 @@ function ReviewCard({ id, name, nameEn, nameDe, nameEs, initials, initialsEn, da
 }
 
 export default function ReviewsSection() {
+  const google = useGoogleRating();   /* live from Google, updates by itself (owner, 17 Nov 2026) */
   const { isMobile, isTablet } = useBreakpoint();
   const { t, i18n } = useTranslation();
   const dir = i18n.language !== 'he' ? 'ltr' : 'rtl';
@@ -305,7 +308,7 @@ export default function ReviewsSection() {
               lineHeight:    1,
               letterSpacing: '-0.03em',
             }}>
-              5.0
+              {ratingText(google.rating)}
             </span>
             <Stars />
           </div>
@@ -321,7 +324,7 @@ export default function ReviewsSection() {
             fontSize:   FS.sm,
             color:      '#6B6B8A',
           }}>
-            {t('reviews.basedOn')}
+            {t('reviews.basedOn', { n: google.count.toLocaleString('en-US') })}
           </span>
         </div>
 

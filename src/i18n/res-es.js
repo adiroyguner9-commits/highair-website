@@ -57,7 +57,7 @@ const es = {
   reviews: {
     heading: 'Lo que dicen nuestros viajeros',
     subtitle: 'Lo que escribieron nuestros montañeros en Google, traducido de las reseñas originales',
-    basedOn: 'Basado en 296 reseñas',
+    basedOn: 'Basado en {{n}} reseñas',
     allReviews: 'Todas las reseñas de Google',
   },
   gallery: {
