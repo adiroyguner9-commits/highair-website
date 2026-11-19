@@ -10,7 +10,7 @@ import { usePageMeta, tourSchema, breadcrumbList, faqPage } from '../../website/
 import FaqAccordion from './FaqAccordion.jsx';
 import { COLOR, RADIUS, EASING, FS, BTN } from '../../website/theme.js';
 import { useBreakpoint }               from '../../website/useBreakpoint.js';
-import { nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
+import { nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN, emailLooksRight, missingFields, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN } from '../../website/formRules.js';
 import { calendarDay }                 from '../../website/calendarDay.js';
 import Header                          from './Header.jsx';
 import SiteFooter                      from './SiteFooter.jsx';
@@ -286,6 +286,16 @@ export default function IsraelDetail() {
   const [packageError, setPackageError] = useState('');
   const [submitError, setSubmitError] = useState('');   // a refusal that is not about the phone
   const [submitting, setSubmitting] = useState(false);
+  /* the required fields still empty at the last press of send, said under each one, and
+     an address that is not one (website/formRules.js: the browser's bubble is not seen
+     in the Facebook and Instagram in-app browsers) */
+  const [missing, setMissing] = useState([]);
+  const [emailError, setEmailError] = useState('');
+  const isMissing = id => missing.includes(id);
+  const fieldDone = id => { if (missing.includes(id)) setMissing(m => m.filter(x => x !== id)); };
+  const edge = (id, err) => (err || isMissing(id) ? '#DC2626' : '#E5E3F0');
+  const neededMsg = isRtl ? FIELD_NEEDED_HE : FIELD_NEEDED_EN;
+  const NEEDED_STYLE = { margin: '4px 0 0', fontSize: '12px', color: '#DC2626', fontFamily: "'Ploni', sans-serif", direction: dir };
 
   function validatePhone(val) {
     const ok = checkPhone(form.dial, val);
@@ -296,7 +306,21 @@ export default function IsraelDetail() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (submitting) return;
-    if (!validatePhone(form.phone)) return;
+    const hasDates = liveGroups.length > 0 || trip.dates?.length > 0;
+    const empty = missingFields([
+      ['israel-name', true, form.name],
+      ['israel-email', true, form.email],
+      ['israel-month', hasDates, form.month],
+      ['israel-phone', true, form.phone],
+    ]);
+    setMissing(empty);
+    if (empty.length) { revealField(empty[0]); return; }
+    if (!emailLooksRight(form.email)) {
+      setEmailError(isRtl ? 'כתובת המייל אינה תקינה' : 'Please enter a valid email address.');
+      revealField('israel-email');
+      return;
+    }
+    if (!validatePhone(form.phone)) { revealField('israel-phone'); return; }
     if (!form.declaration) return;
     if (tripPackages?.length && !form.pricePackage) {
       setPackageError(isRtl ? 'יש לבחור חבילה' : 'Please select a package');
@@ -1282,37 +1306,40 @@ export default function IsraelDetail() {
               : (isRtl ? 'מלאו את הפרטים ונחזור אליכם לאישור ורישום סופי' : "Fill in your details and we'll confirm your registration")}
           </p>
           <div style={{ background: 'white', borderRadius: RADIUS.xl, padding: isMobile ? '24px' : '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'start' }}>
-            <form onSubmit={handleSubmit} style={{ direction: dir }}>
+            <form noValidate onSubmit={handleSubmit} style={{ direction: dir }}>
               <div style={{ display: 'grid', gap: '16px' }}>
 
                 {/* שם מלא */}
                 <div>
-                  <label style={labelStyle}>{isRtl ? 'שם מלא *' : 'Full Name *'}</label>
-                  <input type="text" required value={form.name}
+                  <label htmlFor="israel-name" style={labelStyle}>{isRtl ? 'שם מלא *' : 'Full Name *'}</label>
+                  <input id="israel-name" type="text" required value={form.name}
                     placeholder={isRtl ? 'ישראל ישראלי' : 'John Smith'}
-                    onChange={e => setForm(f => ({ ...f, name: nameTyped(e.target.value) }))}
-                    style={inputStyle}
+                    onChange={e => { const v = nameTyped(e.target.value); setForm(f => ({ ...f, name: v })); if (v.trim()) fieldDone('israel-name'); }}
+                    style={{ ...inputStyle, borderColor: edge('israel-name') }}
                     onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                    onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }} />
+                    onMouseLeave={e => { e.target.style.borderColor = edge('israel-name'); }} />
+                  {isMissing('israel-name') && <p style={NEEDED_STYLE}>{neededMsg}</p>}
                 </div>
 
                 {/* אימייל */}
                 <div>
-                  <label style={labelStyle}>{isRtl ? 'אימייל *' : 'Email *'}</label>
-                  <input type="email" required value={form.email}
+                  <label htmlFor="israel-email" style={labelStyle}>{isRtl ? 'אימייל *' : 'Email *'}</label>
+                  <input id="israel-email" type="email" required value={form.email}
+                    inputMode="email" autoComplete="email" autoCapitalize="off"
                     placeholder={isRtl ? 'israel@example.com' : 'john@example.com'}
-                    onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                    style={{ ...inputStyle, direction: 'ltr' }}
+                    onChange={e => { const v = e.target.value; setForm(f => ({ ...f, email: v })); if (emailError && emailLooksRight(v)) setEmailError(''); if (v.trim()) fieldDone('israel-email'); }}
+                    style={{ ...inputStyle, direction: 'ltr', borderColor: edge('israel-email', emailError) }}
                     onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                    onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }} />
+                    onMouseLeave={e => { e.target.style.borderColor = edge('israel-email', emailError); }} />
+                  {(emailError || isMissing('israel-email')) && <p style={NEEDED_STYLE}>{emailError || neededMsg}</p>}
                 </div>
 
                 {/* תאריך */}
                 {(liveGroups.length > 0 || trip.dates?.length > 0) && (
                   <div>
-                    <label style={labelStyle}>{isRtl ? 'באיזה תאריך תרצו לטייל? *' : 'Preferred Date *'}</label>
-                    <select required value={form.month} onChange={e => setForm(f => ({ ...f, month: e.target.value }))} style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
-                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }} onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}>
+                    <label htmlFor="israel-month" style={labelStyle}>{isRtl ? 'באיזה תאריך תרצו לטייל? *' : 'Preferred Date *'}</label>
+                    <select id="israel-month" required value={form.month} onChange={e => { const v = e.target.value; setForm(f => ({ ...f, month: v })); if (v) fieldDone('israel-month'); }} style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A', borderColor: edge('israel-month') }}
+                      onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }} onMouseLeave={e => { e.target.style.borderColor = edge('israel-month'); }}>
                       <option value="">{isRtl ? 'בחרו תאריך' : 'Select a date'}</option>
                       {liveGroups.length > 0
                         ? liveGroups.map(g => {
@@ -1322,6 +1349,7 @@ export default function IsraelDetail() {
                         : trip.dates.map((d, i) => <option key={i} value={d}>{d}</option>)
                       }
                     </select>
+                    {isMissing('israel-month') && <p style={NEEDED_STYLE}>{isRtl ? 'נא לבחור תאריך' : 'Please choose a date'}</p>}
                   </div>
                 )}
 
@@ -1346,13 +1374,14 @@ export default function IsraelDetail() {
 
                 {/* טלפון */}
                 <PhoneField
+                  id="israel-phone"
                   label={isRtl ? 'מספר טלפון *' : 'Phone Number *'}
                   dial={form.dial}
                   onDialChange={v => setForm(f => ({ ...f, dial: v }))}
                   local={form.phone}
-                  onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
-                  error={!!phoneError}
-                  errorMsg={phoneError}
+                  onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); if (v.trim()) fieldDone('israel-phone'); }}
+                  error={!!phoneError || isMissing('israel-phone')}
+                  errorMsg={phoneError || neededMsg}
                 />
 
                 {/* בחירת חבילה */}

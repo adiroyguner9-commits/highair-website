@@ -68,3 +68,34 @@ export const LEAD_ERROR_EN = {
   general: 'Something went wrong. Please try again.',
 };
 
+
+/* ── A missing field is said on the page, never left to the browser ──
+   The browser's own "please fill in this field" bubble does not show in the
+   Facebook and Instagram in-app browsers, where most of the paid visitors read
+   the site: a visitor from a Facebook ad filled the whole Kilimanjaro form but
+   the experience box, pressed send three times, saw nothing and left (PostHog
+   session, 18 Nov 2026); no lead reached the table. An empty phone did the same
+   on every browser (the phone check returned without a word). So the lead forms
+   carry noValidate and check for themselves: every empty required field gets a
+   line under it, and the first one, in the page's order, is brought into view. */
+export const FIELD_NEEDED_HE = 'נא למלא את השדה';
+export const FIELD_NEEDED_EN = 'Please fill in this field';
+export const MONTH_NEEDED_HE = 'נא לבחור חודש';
+export const MONTH_NEEDED_EN = 'Please choose a month';
+
+/** The ids whose field is required and still empty, in the order given (the page's).
+    `checks` is [[id, required, value], ...]; a value of only spaces is empty. */
+export function missingFields(checks) {
+  return checks
+    .filter(([, required, value]) => required && !String(value ?? '').trim())
+    .map(([id]) => id);
+}
+
+/** Bring a field into view and put the cursor in it (a select is only scrolled to:
+    focusing it would open the phone's picker on its own). */
+export function revealField(id, doc = typeof document !== 'undefined' ? document : null) {
+  const el = doc?.getElementById(id);
+  if (!el) return;
+  try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch { el.scrollIntoView(); }
+  if (el.tagName !== 'SELECT') { try { el.focus({ preventScroll: true }); } catch { /* not focusable */ } }
+}

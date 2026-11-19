@@ -6,7 +6,7 @@
 
 import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths, BASE_URLS } from '../../website/lang.js';
-import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN } from '../../website/formRules.js';
+import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN, missingFields, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN, MONTH_NEEDED_HE, MONTH_NEEDED_EN } from '../../website/formRules.js';
 import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
 import { calendarDay } from '../../website/calendarDay.js';
@@ -815,6 +815,15 @@ export default function ExpeditionDetail() {
      then picks a month by hand: the row no longer speaks for them. */
   const [pickedDeparture, setPickedDeparture] = useState(null);
   const [ageError,   setAgeError]   = useState('');
+  /* the required fields still empty at the last press of send, said under each one
+     (website/formRules.js missingFields: the browser's bubble is not seen in the
+     Facebook and Instagram in-app browsers) */
+  const [missing, setMissing] = useState([]);
+  const isMissing = id => missing.includes(id);
+  const fieldDone = id => { if (missing.includes(id)) setMissing(m => m.filter(x => x !== id)); };
+  const edge = (id, err) => (err || isMissing(id) ? '#DC2626' : '#E5E3F0');
+  const neededMsg = id => (id === 'lead-month' ? (isRtl ? MONTH_NEEDED_HE : tx(MONTH_NEEDED_EN)) : (isRtl ? FIELD_NEEDED_HE : tx(FIELD_NEEDED_EN)));
+  const NEEDED_STYLE = { margin: '4px 0 0', fontSize: '12px', color: '#DC2626', fontFamily: "'Ploni', sans-serif" };
 
 
   /* ── Phone validation ── */
@@ -856,10 +865,21 @@ export default function ExpeditionDetail() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!exp) return;
+    const empty = missingFields([
+      ['lead-name', true, form.name],
+      ['lead-month', true, form.month],
+      ['lead-age', !isSafari, form.age],
+      ['lead-group', true, form.groupSize],
+      ['lead-phone', true, form.phone],
+      ['lead-email', true, form.email],
+      ['lead-experience', !isSafari, form.experience],
+    ]);
+    setMissing(empty);
+    if (empty.length) { revealField(empty[0]); return; }
     if (!form.privacy) return;
-    if (!validateEmail(form.email)) return;
-    if (!validatePhone(form.phone)) return;
-    if (!isSafari && !validateAge(form.age)) return;
+    if (!validateEmail(form.email)) { revealField('lead-email'); return; }
+    if (!validatePhone(form.phone)) { revealField('lead-phone'); return; }
+    if (!isSafari && !validateAge(form.age)) { revealField('lead-age'); return; }
     setStatus('loading');
     try {
       const res = await fetch('/api/submit-lead', {
@@ -2715,7 +2735,7 @@ export default function ExpeditionDetail() {
                 )}
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ direction: dir }}>
+              <form noValidate onSubmit={handleSubmit} style={{ direction: dir }}>
                 {/* An implicit grid column grows to its widest child, so on a 375px phone every
                     field ran 46px past the form: off the screen in LTR, into the card's margin
                     in Hebrew (6 Nov 2026). minmax(0, 1fr) holds the column to the form. */}
@@ -2733,11 +2753,13 @@ export default function ExpeditionDetail() {
                         // letters of any alphabet, spaces, a hyphen, an apostrophe (formRules.js)
                         const v = nameTyped(e.target.value);
                         setForm(f => ({ ...f, name: v }));
+                        if (v.trim()) fieldDone('lead-name');
                       }}
-                      style={inputStyle}
+                      style={{ ...inputStyle, borderColor: edge('lead-name') }}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      onMouseLeave={e => { e.target.style.borderColor = edge('lead-name'); }}
                     />
+                    {isMissing('lead-name') && <p style={NEEDED_STYLE}>{neededMsg('lead-name')}</p>}
                   </div>
 
                   {/* חודש */}
@@ -2749,10 +2771,10 @@ export default function ExpeditionDetail() {
                         required value={form.month}
                         aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
-                        onChange={e => { setWomenGroup(false); setForm(f => ({ ...f, month: e.target.value })); }}
-                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
+                        onChange={e => { setWomenGroup(false); setForm(f => ({ ...f, month: e.target.value })); if (e.target.value) fieldDone('lead-month'); }}
+                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A', borderColor: edge('lead-month') }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                        onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                        onMouseLeave={e => { e.target.style.borderColor = edge('lead-month'); }}
                       >
                         <option value="">{isRtl ? 'בחרו חודש' : tx("Select month")}</option>
                         <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : tx("Flexible / Not decided yet")}</option>
@@ -2763,10 +2785,10 @@ export default function ExpeditionDetail() {
                         required value={form.month}
                         aria-label={!isRtl ? tx("Which month would you like to travel? *").replace(' *', '') : undefined}
                         onFocus={() => trackFieldFocus('month')}
-                        onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setPickedDeparture(null); setForm(f => ({ ...f, month: e.target.value })); }}
-                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A' }}
+                        onChange={e => { setWomenGroup(e.target.value.includes(womenSuffix.trim())); setPickedDeparture(null); setForm(f => ({ ...f, month: e.target.value })); if (e.target.value) fieldDone('lead-month'); }}
+                        style={{ ...inputStyle, color: form.month ? '#3D3B5A' : '#6B6B8A', borderColor: edge('lead-month') }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                        onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                        onMouseLeave={e => { e.target.style.borderColor = edge('lead-month'); }}
                       >
                         <option value="">{isRtl ? 'בחרו חודש' : tx("Select month")}</option>
                         {allMonths.length > 0
@@ -2788,6 +2810,7 @@ export default function ExpeditionDetail() {
                         <option value="גמיש / טרם החלטתי">{isRtl ? 'גמיש / טרם החלטתי' : tx("Flexible / Not decided yet")}</option>
                       </select>
                     )}
+                    {isMissing('lead-month') && <p style={NEEDED_STYLE}>{neededMsg('lead-month')}</p>}
                   </div>
 
                   {/* גיל + כמות אנשים — a safari asks only for the number of people */}
@@ -2804,17 +2827,18 @@ export default function ExpeditionDetail() {
                           const v = e.target.value.replace(/\D/g, '').slice(0, 2);
                           setForm(f => ({ ...f, age: v }));
                           validateAge(v);
+                          if (v) fieldDone('lead-age');
                         }}
                         style={{
                           ...inputStyle,
-                          borderColor: ageError ? '#DC2626' : '#E5E3F0',
+                          borderColor: edge('lead-age', ageError),
                         }}
                         onMouseEnter={e => { e.target.style.borderColor = ageError ? '#DC2626' : COLOR.primary; }}
-                        onMouseLeave={e => { e.target.style.borderColor = ageError ? '#DC2626' : '#E5E3F0'; }}
+                        onMouseLeave={e => { e.target.style.borderColor = edge('lead-age', ageError); }}
                       />
-                      {ageError && (
-                        <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#DC2626', fontFamily: "'Ploni', sans-serif" }}>
-                          {ageError}
+                      {(ageError || isMissing('lead-age')) && (
+                        <p style={NEEDED_STYLE}>
+                          {ageError || neededMsg('lead-age')}
                         </p>
                       )}
                     </div>
@@ -2833,12 +2857,13 @@ export default function ExpeditionDetail() {
                            digit past 10 replaces the first, and leaving it empty puts
                            the 1 back. */
                         onFocus={e => { trackFieldFocus('group_size'); try { e.target.select(); } catch { /* not selectable here */ } }}
-                        onChange={e => setForm(f => ({ ...f, groupSize: groupSizeTyped(e.target.value) }))}
-                        onBlur={() => setForm(f => ({ ...f, groupSize: f.groupSize || '1' }))}
-                        style={inputStyle}
+                        onChange={e => { const v = groupSizeTyped(e.target.value); setForm(f => ({ ...f, groupSize: v })); if (v) fieldDone('lead-group'); }}
+                        onBlur={() => { setForm(f => ({ ...f, groupSize: f.groupSize || '1' })); fieldDone('lead-group'); }}
+                        style={{ ...inputStyle, borderColor: edge('lead-group') }}
                         onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                        onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                        onMouseLeave={e => { e.target.style.borderColor = edge('lead-group'); }}
                       />
+                      {isMissing('lead-group') && <p style={NEEDED_STYLE}>{neededMsg('lead-group')}</p>}
                     </div>
                   </div>
 
@@ -2850,9 +2875,9 @@ export default function ExpeditionDetail() {
                       dial={form.dial}
                       onDialChange={v => setForm(f => ({ ...f, dial: v }))}
                       local={form.phone}
-                      onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); }}
-                      error={!!phoneError}
-                      errorMsg={phoneError}
+                      onLocalChange={v => { setForm(f => ({ ...f, phone: v })); if (phoneError) validatePhone(v); if (v.trim()) fieldDone('lead-phone'); }}
+                      error={!!phoneError || isMissing('lead-phone')}
+                      errorMsg={phoneError || neededMsg('lead-phone')}
                     />
                   </div>
 
@@ -2874,20 +2899,21 @@ export default function ExpeditionDetail() {
                         const v = e.target.value.replace(/[^a-zA-Z0-9._%+\-@]/g, '');
                         setForm(f => ({ ...f, email: v }));
                         if (emailError) validateEmail(v);
+                        if (v.trim()) fieldDone('lead-email');
                       }}
                       onBlur={e => validateEmail(e.target.value)}
                       style={{
                         ...inputStyle,
                         direction: 'ltr',
                         textAlign: 'left',
-                        borderColor: emailError ? '#DC2626' : '#E5E3F0',
+                        borderColor: edge('lead-email', emailError),
                       }}
                       onMouseEnter={e => { e.target.style.borderColor = emailError ? '#DC2626' : COLOR.primary; }}
-                      onMouseLeave={e => { e.target.style.borderColor = emailError ? '#DC2626' : '#E5E3F0'; }}
+                      onMouseLeave={e => { e.target.style.borderColor = edge('lead-email', emailError); }}
                     />
-                    {emailError && (
+                    {(emailError || isMissing('lead-email')) && (
                       <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: '4px 0 0' }}>
-                        {emailError}
+                        {emailError || neededMsg('lead-email')}
                       </p>
                     )}
                   </div>
@@ -2899,12 +2925,13 @@ export default function ExpeditionDetail() {
                       id="lead-experience" name="experience"
                       rows={3} required={!isSafari} value={form.experience}
                       onFocus={() => trackFieldFocus('experience')}
-                      onChange={e => setForm(f => ({ ...f, experience: e.target.value }))}
-                      style={{ ...inputStyle, resize: 'vertical' }}
+                      onChange={e => { const v = e.target.value; setForm(f => ({ ...f, experience: v })); if (v.trim()) fieldDone('lead-experience'); }}
+                      style={{ ...inputStyle, resize: 'vertical', borderColor: edge('lead-experience') }}
                       placeholder={isRtl ? 'ספרו לנו על הניסיון שלכם בטרקים' : tx("Tell us about your trekking experience")}
                       onMouseEnter={e => { e.target.style.borderColor = COLOR.primary; }}
-                      onMouseLeave={e => { e.target.style.borderColor = '#E5E3F0'; }}
+                      onMouseLeave={e => { e.target.style.borderColor = edge('lead-experience'); }}
                     />
+                    {isMissing('lead-experience') && <p style={NEEDED_STYLE}>{neededMsg('lead-experience')}</p>}
                   </div>
 
                   {/* שגיאה */}
