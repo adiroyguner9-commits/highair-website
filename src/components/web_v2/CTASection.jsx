@@ -8,7 +8,7 @@ import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { nameTyped, emailLooksRight } from '../../website/formRules.js';
+import { nameTyped, emailLooksRight, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN } from '../../website/formRules.js';
 import { tx } from '../../website/lang.js';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';
 import { Analytics, trackLead } from '../../utils/analytics.js';
@@ -70,6 +70,13 @@ export default function CTASection() {
      answer automatically (11 Nov 2026). So the foreign sites ask for the address
      too; the Hebrew site, where the answer is on WhatsApp, is unchanged. */
   const asksEmail = !isRtl;
+  /* a required field still empty at the last press of send (name, message) */
+  const [needed, setNeeded] = useState({});
+  const neededLine = (
+    <p role="alert" style={{ fontFamily: 'Ploni, sans-serif', fontSize: '12px', color: 'rgba(248,113,113,0.9)', margin: '6px 0 0', textAlign: 'start' }}>
+      {isRtl ? FIELD_NEEDED_HE : tx(FIELD_NEEDED_EN)}
+    </p>
+  );
   const [emailError, setEmailError] = useState(false);
   const [focused,    setFocused]    = useState(null);
   const [submitted,  setSubmitted]  = useState(false);
@@ -96,10 +103,13 @@ export default function CTASection() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.name.trim())                              { Analytics.leadSubmitError('missing_name');    return; }
-    if (!validatePhone(form.dial, form.phone))          { setPhoneError(true); Analytics.leadSubmitError('invalid_phone'); return; }
-    if (asksEmail && !emailLooksRight(form.email))      { setEmailError(true); Analytics.leadSubmitError('invalid_email'); return; }
-    if (!form.message.trim())                           { Analytics.leadSubmitError('missing_message'); return; }
+    /* every check says itself and brings its field into view; the browser's own check is off
+       (noValidate: its bubble is not seen in the Facebook and Instagram in-app browsers,
+       website/formRules.js), and a missing name or message used to return without a word */
+    if (!form.name.trim())                              { setNeeded(n => ({ ...n, name: true }));    revealField('cta-name');    Analytics.leadSubmitError('missing_name');    return; }
+    if (!validatePhone(form.dial, form.phone))          { setPhoneError(true); revealField('cta-phone'); Analytics.leadSubmitError('invalid_phone'); return; }
+    if (asksEmail && !emailLooksRight(form.email))      { setEmailError(true); revealField('cta-email'); Analytics.leadSubmitError('invalid_email'); return; }
+    if (!form.message.trim())                           { setNeeded(n => ({ ...n, message: true })); revealField('cta-message'); Analytics.leadSubmitError('missing_message'); return; }
     if (!form.privacy)                                  { Analytics.leadSubmitError('no_consent');      return; }
 
     setPhoneError(false);
@@ -161,6 +171,7 @@ export default function CTASection() {
         {/* ── Form ── */}
         {!submitted ? (
           <form
+            noValidate
             onSubmit={handleSubmit}
             style={{ display: 'flex', flexDirection: 'column', gap: '14px', textAlign: 'start' }}
           >
@@ -174,11 +185,12 @@ export default function CTASection() {
                 placeholder={t('cta.namePlaceholder')}
                 value={form.name}
                 required
-                onChange={e => handleChange('name', e.target.value)}
+                onChange={e => { handleChange('name', e.target.value); if (needed.name) setNeeded(n => ({ ...n, name: false })); }}
                 onMouseEnter={e => { e.target.style.borderColor = 'rgba(167,139,250,0.6)'; }}
-                onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; }}
-                style={{ ...INPUT_STYLE }}
+                onMouseLeave={e => { e.target.style.borderColor = needed.name ? 'rgba(248,113,113,0.9)' : 'rgba(255,255,255,0.15)'; }}
+                style={{ ...INPUT_STYLE, ...(needed.name ? { borderColor: 'rgba(248,113,113,0.9)' } : {}) }}
               />
+              {needed.name && neededLine}
             </div>
 
             {/* Phone */}
@@ -227,15 +239,17 @@ export default function CTASection() {
                 value={form.message}
                 rows={3}
                 required
-                onChange={e => handleChange('message', e.target.value)}
+                onChange={e => { handleChange('message', e.target.value); if (needed.message) setNeeded(n => ({ ...n, message: false })); }}
                 onMouseEnter={e => { e.target.style.borderColor = 'rgba(167,139,250,0.6)'; }}
-                onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; }}
+                onMouseLeave={e => { e.target.style.borderColor = needed.message ? 'rgba(248,113,113,0.9)' : 'rgba(255,255,255,0.15)'; }}
                 style={{
                   ...INPUT_STYLE,
                   resize:      'none',
                   lineHeight:  1.6,
+                  ...(needed.message ? { borderColor: 'rgba(248,113,113,0.9)' } : {}),
                 }}
               />
+              {needed.message && neededLine}
             </div>
 
             {/* Submit error */}

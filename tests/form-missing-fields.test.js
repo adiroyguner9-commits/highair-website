@@ -10,6 +10,7 @@ const de = JSON.parse(readFileSync(new URL('../src/i18n/ui-de.json', import.meta
 const es = JSON.parse(readFileSync(new URL('../src/i18n/ui-es.json', import.meta.url), 'utf8'));
 const trip = readFileSync(new URL('../src/components/web_v2/ExpeditionDetail.jsx', import.meta.url), 'utf8');
 const israel = readFileSync(new URL('../src/components/web_v2/IsraelDetail.jsx', import.meta.url), 'utf8');
+const src = n => readFileSync(new URL(`../src/components/web_v2/${n}.jsx`, import.meta.url), 'utf8');
 
 describe('missingFields', () => {
   it('names the empty required fields in the page order, spaces count as empty', () => {
@@ -47,6 +48,16 @@ describe('the lead forms check for themselves', () => {
   it('the trip page and the Israel trek page take no browser validation', () => {
     expect(trip).toMatch(/<form noValidate onSubmit=\{handleSubmit\}/);
     expect(israel).toMatch(/<form noValidate onSubmit=\{handleSubmit\}/);
+  });
+  it('the contact page, the call booking and the home page form take none either, and say what is wrong', () => {
+    expect(src('ContactPage')).toMatch(/<form noValidate onSubmit=\{handleSubmit\}/);
+    expect(src('BookCall')).toMatch(/<form noValidate onSubmit=\{toBooking\}/);
+    expect(src('CTASection')).toMatch(/<form\s+noValidate\s+onSubmit=\{handleSubmit\}/);
+    for (const n of ['ContactPage', 'BookCall', 'CTASection']) expect(src(n)).toContain('revealField(');
+    /* a missing name or message on the home form used to return without a word */
+    expect(src('CTASection')).toMatch(/missing_name'\);\s+return; \}/);
+    expect(src('CTASection')).toContain("setNeeded(n => ({ ...n, name: true }))");
+    expect(src('CTASection')).toContain("setNeeded(n => ({ ...n, message: true }))");
   });
   it('every required field of the trip form is checked, and the phone too (it carries no required)', () => {
     for (const id of ['lead-name', 'lead-month', 'lead-age', 'lead-group', 'lead-phone', 'lead-email', 'lead-experience']) {

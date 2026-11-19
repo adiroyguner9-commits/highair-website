@@ -12,7 +12,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { usePageMeta } from '../../website/usePageMeta.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { nameTyped, savedTripName } from '../../website/formRules.js';
+import { nameTyped, savedTripName, emailLooksRight, revealField } from '../../website/formRules.js';
 import { COLOR, RADIUS, EASING } from '../../website/theme.js';
 import { NAV_EXPS } from '../../data/navData.js';
 import Header from './Header.jsx';
@@ -77,6 +77,7 @@ export default function BookCall() {
   const [form, setForm]           = useState({ name: '', dial: defaultDial(), phone: '', email: '' });
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [emailError, setEmailError] = useState('');   // an address typed that is not one (the field is optional)
   const [step, setStep]           = useState(leadToken ? 'booking' : 'details'); // 'details' | 'booking'
   const [btnHov, setBtnHov]       = useState(false);
 
@@ -100,7 +101,11 @@ export default function BookCall() {
     if (!phoneOk) setPhoneError(isEn ? tx(
       "Invalid phone number. Please enter your number with the country code."
     ) : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
-    if (!nameOk || !phoneOk) return;
+    /* the email is optional; one typed is checked here, the browser's own check is off (noValidate:
+       its bubble is not seen in the Facebook and Instagram in-app browsers, website/formRules.js) */
+    const emailOk = !form.email.trim() || emailLooksRight(form.email);
+    if (!emailOk) setEmailError(isEn ? tx("Please enter a valid email address.") : 'כתובת המייל אינה תקינה');
+    if (!nameOk || !phoneOk || !emailOk) { revealField(!nameOk ? 'name' : !phoneOk ? 'call-phone' : 'email'); return; }
     setStep('booking');
   }
 
@@ -164,7 +169,7 @@ export default function BookCall() {
               background: '#FFFFFF', border: '1px solid #ECEAF8', borderRadius: RADIUS.xl,
               padding: isMobile ? '28px 22px' : '40px 36px', boxShadow: '0 4px 24px rgba(15,15,40,0.06)',
             }}>
-              <form onSubmit={toBooking} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <form noValidate onSubmit={toBooking} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 <div>
                   <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
                     color: '#0A0818', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
@@ -192,8 +197,8 @@ export default function BookCall() {
                 />
 
                 <Field id="email" label={T.email} type="email" value={form.email}
-                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  placeholder={T.emailPH} />
+                  onChange={e => { setForm(f => ({ ...f, email: e.target.value })); if (emailError) setEmailError(''); }}
+                  placeholder={T.emailPH} error={!!emailError} errorMsg={emailError} />
 
                 <button
                   type="submit"

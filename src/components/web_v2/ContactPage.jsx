@@ -10,6 +10,7 @@ import { COLOR, RADIUS, FS, EASING } from '../../website/theme.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone as checkPhone } from './PhoneField.jsx';
+import { emailLooksRight, revealField } from '../../website/formRules.js';
 
 /* Phone and WhatsApp follow the site (website/contact.js): the Israeli line
    on the Hebrew site, the country's local number abroad once it exists. */
@@ -103,6 +104,7 @@ export default function ContactPage() {
  const [form, setForm] = useState({ name: '', dial: defaultDial(), phone: '', email: '', message: '' });
  const [phoneError, setPhoneError] = useState('');
  const [nameError, setNameError] = useState('');
+ const [emailError, setEmailError] = useState('');   // an address typed that is not one (the field is optional)
  const [sent, setSent] = useState(false);
  const [submitting, setSubmitting] = useState(false);
  const [serverError, setServerError] = useState('');
@@ -139,7 +141,11 @@ export default function ContactPage() {
  if (!phoneOk) setPhoneError(isEn ? tx(
   "Invalid phone number. Please enter your number with the country code."
  ) : 'מספר טלפון לא תקין. נייד: 10 ספרות, למשל 050-1234567. קו נייח: 9 ספרות, למשל 03-1234567');
- if (!nameOk || !phoneOk) return;
+ /* the email is optional; one typed is checked here, the browser's own check is off (noValidate:
+    its bubble is not seen in the Facebook and Instagram in-app browsers, website/formRules.js) */
+ const emailOk = !form.email.trim() || emailLooksRight(form.email);
+ if (!emailOk) setEmailError(isEn ? tx("Please enter a valid email address.") : 'כתובת המייל אינה תקינה');
+ if (!nameOk || !phoneOk || !emailOk) { revealField(!nameOk ? 'name' : !phoneOk ? 'contact-phone' : 'email'); return; }
 
  setSubmitting(true);
  try {
@@ -378,7 +384,7 @@ export default function ContactPage() {
    </button>
    </div>
    ) : (
-   <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+   <form noValidate onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
    <div>
    <h2 style={{ fontFamily: "'Ploni', sans-serif", fontSize: '22px', fontWeight: 700,
    color: '#0A0818', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
@@ -409,8 +415,8 @@ export default function ContactPage() {
    </div>
    </div>
 
-   <Field id="email" label={T.email} type="email" value={form.email} onChange={set('email')}
-   placeholder={T.emailPH} />
+   <Field id="email" label={T.email} type="email" value={form.email} onChange={e => { set('email')(e); if (emailError) setEmailError(''); }}
+   placeholder={T.emailPH} error={!!emailError} errorMsg={emailError} />
 
    <Field id="message" label={T.message} value={form.message} onChange={set('message')}
    placeholder={T.messagePH} multiline />
