@@ -69,7 +69,7 @@ then the Nepal comparison (#4); #34 added at the end.
 Reordered 15 Nov 2026 by the keyword planner (GSC email of 15/11): the Kilimanjaro season guide (#7) before the
 Nepal comparison (#4), since Kilimanjaro queries carry the most generic impressions; #35 added at the end.
 Reordered 22 Nov 2026 by the keyword planner (GSC email of 22/11): #7 stays first (Kilimanjaro spellings 348+104+72 impr);
-the first-peak comparison (#15) before the 6,000 m comparison (#8), since "הר אלברוס" rose to 8.6 with 30 impr.
+the first-peak comparison (#15) before the 6,000 m comparison (#8), since "הר אלברוס" rose to 8.6 with 30 impr; #36 (Everest Base Camp cost) added after #4.
 
 | # | Status | Topic (Hebrew working title) | Why | Links to |
 |---|--------|------------------------------|-----|----------|
@@ -98,6 +98,7 @@ the first-peak comparison (#15) before the 6,000 m comparison (#8), since "הר 
 | 33 | live | ויזה לנפאל: המדריך המלא | the Tanzania visa guide is our most-seen guide in GSC (147 impressions, week to 5 Nov 2026); Hebrew answers for a Nepal visa are old forum tips; 10 of our trips start in Kathmandu | everest-base-camp, annapurna, manaslu-circuit, mera-peak |
 | 7 | todo | מתי הכי טוב לטפס על הקילימנג'רו: עונות לפי חודשים | Kilimanjaro is our biggest generic cluster in GSC (week to 12 Nov 2026: קלימנגרו 65 impr at 17.0, טיפוס קילימנג'רו 17 at 5.6, טיפוס לקילימנג'רו 15 at 7.5, /expedition/kilimanjaro 308 impr); Hebrew answers for the season are old forum tips, English month-by-month guides rank | kilimanjaro, kilimanjaro-kosher |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
+| 36 | todo | כמה עולה טרק לאוורסט בייס קמפ: פירוק מלא של העלויות | the Kilimanjaro cost guide ranks at 3.7 with 24 impr (GSC 15/11); "אוורסט" 61 impr at 12.4 and "אוורסט בייס קמפ" 23 at 6.2 (GSC 22/11); our EBC guide has no cost section; a Hebrew search for the cost returns English pages only | everest-base-camp |
 | 2 | live | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
 | 15 | todo | אלברוס, קזבק או קילימנג'רו: איזו פסגה ראשונה מתאימה לך | only English comparisons rank | elbrus, kazbek, kilimanjaro |
 | 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
