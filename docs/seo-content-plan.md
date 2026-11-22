@@ -68,6 +68,8 @@ Reordered 8 Nov 2026 by the keyword planner (GSC email of 08/11): cost first (#3
 then the Nepal comparison (#4); #34 added at the end.
 Reordered 15 Nov 2026 by the keyword planner (GSC email of 15/11): the Kilimanjaro season guide (#7) before the
 Nepal comparison (#4), since Kilimanjaro queries carry the most generic impressions; #35 added at the end.
+Reordered 22 Nov 2026 by the keyword planner (GSC email of 22/11): #7 stays first (Kilimanjaro spellings 348+104+72 impr);
+the first-peak comparison (#15) before the 6,000 m comparison (#8), since "הר אלברוס" rose to 8.6 with 30 impr; #36 (Everest Base Camp cost) added after #4.
 
 | # | Status | Topic (Hebrew working title) | Why | Links to |
 |---|--------|------------------------------|-----|----------|
@@ -96,9 +98,10 @@ Nepal comparison (#4), since Kilimanjaro queries carry the most generic impressi
 | 33 | live | ויזה לנפאל: המדריך המלא | the Tanzania visa guide is our most-seen guide in GSC (147 impressions, week to 5 Nov 2026); Hebrew answers for a Nepal visa are old forum tips; 10 of our trips start in Kathmandu | everest-base-camp, annapurna, manaslu-circuit, mera-peak |
 | 7 | todo | מתי הכי טוב לטפס על הקילימנג'רו: עונות לפי חודשים | Kilimanjaro is our biggest generic cluster in GSC (week to 12 Nov 2026: קלימנגרו 65 impr at 17.0, טיפוס קילימנג'רו 17 at 5.6, טיפוס לקילימנג'רו 15 at 7.5, /expedition/kilimanjaro 308 impr); Hebrew answers for the season are old forum tips, English month-by-month guides rank | kilimanjaro, kilimanjaro-kosher |
 | 4 | todo | אוורסט בייס קמפ או אנאפורנה: איזה טרק בנפאל מתאים לך | only English comparisons rank | everest-base-camp, annapurna |
+| 36 | todo | כמה עולה טרק לאוורסט בייס קמפ: פירוק מלא של העלויות | the Kilimanjaro cost guide ranks at 3.7 with 24 impr (GSC 15/11); "אוורסט" 61 impr at 12.4 and "אוורסט בייס קמפ" 23 at 6.2 (GSC 22/11); our EBC guide has no cost section; a Hebrew search for the cost returns English pages only | everest-base-camp |
 | 2 | live | מסלולי הקילימנג'רו: מצ'אמה, לממשה, מרנגו ורונגאי, איזה מסלול מתאים לך | only English comparisons rank | kilimanjaro |
-| 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
 | 15 | todo | אלברוס, קזבק או קילימנג'רו: איזו פסגה ראשונה מתאימה לך | only English comparisons rank | elbrus, kazbek, kilimanjaro |
+| 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
 | 5 | todo | מחלת גבהים וביטוח מעל 4,000 ו-6,000 מטר: מה חייבים לדעת | no Hebrew source covers insurance at altitude | kilimanjaro, everest-base-camp, mera-peak, aconcagua |
 | 6 | todo | תוכנית אימונים של 12 שבועות לטרק בגובה, במסלולים בישראל | no week-by-week Hebrew plan | kilimanjaro, everest-base-camp |
 | 16 | todo | רשימת ציוד לטרק בגובה ולטיפוס לקילימנג'רו | competitors rank with lists | kilimanjaro, everest-base-camp |
@@ -114,26 +117,35 @@ One row per query we want to rank for; `GSC` = average position and clicks in th
 
 | Query | Page that should rank | GSC (date) | Next step |
 |-------|-----------------------|------------|-----------|
-| ויזה לטנזניה | /blog/tanzania-visa-guide | 6.7, 0 clicks, 19 impr (15/11) | fix live since 08/11 (merged with seo-guides-8nov); watch |
-| ויזה לזנזיבר | /blog/tanzania-visa-guide | 7.8, 0 clicks, 12 impr (15/11) | Zanzibar section live since 08/11; watch |
-| ויזה לטנזניה לישראלים | /blog/tanzania-visa-guide | 11.0, 0 clicks, 7 impr (15/11) | live since 08/11; watch |
-| קלימנגרו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 17.0 (20.8 a week before), 0 clicks, 65 impr (15/11) | most impressions of any generic query; misspelling, add the variant naturally to the guide and the season guide (#7) |
-| טיפוס לקילימנג'רו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 7.5, 1 click, 15 impr (15/11) | guide shows two URLs in GSC (15.8 and 61.0): check which URL variant ranks, then strengthen the opening |
-| טיפוס קילימנג'רו | /expedition/kilimanjaro | 5.6 (4.3 a week before), 0 clicks, 17 impr (15/11) | fix waits for approval: branch seo-fix-kili-trip (title, description) |
-| טיפוס על הקילימנג'רו | /expedition/kilimanjaro | 5.8, 0 clicks, 8 impr (15/11) | same branch seo-fix-kili-trip |
-| קילימנג'רו גובה | /blog/kilimanjaro-climbing-guide | 10.7, 0 clicks, 7 impr (15/11) | answer the height in the guide's first sentence |
-| הר לנין | /blog/lenin-peak-climbing-guide, /expedition/lenin-peak | 7.4 (4.5 a week before), 0 clicks, 46 impr (15/11) | fix waits for approval: branch seo-fix-lenin |
-| אוורסט בייס קמפ | /expedition/everest-base-camp, /blog/everest-base-camp-trek-guide | 7.1, 0 clicks, 34 impr (15/11) | fix waits for approval: branch seo-fix-ebc |
+| קלימנגרו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 13.3 (17.0 a week before), 0 clicks, 348 impr (22/11) | biggest generic query; use the spelling naturally in the season guide (#7) and in the trip page once seo-fix-kili-trip is approved |
+| קילימנג'רו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 12.5 (16.2), 0 clicks, 104 impr (22/11) | rising; season guide (#7) links the trip page twice |
+| קילימנגרו | /expedition/kilimanjaro | 14.2 (10.0), 1 click, 72 impr (22/11) | falling; same spelling work as above |
+| קילימנג'רו גובה | /blog/kilimanjaro-climbing-guide | 9.9 (10.7), 0 clicks, 39 impr (22/11) | next quick-win fix: the guide's first sentence gives the height |
+| טיפוס לקילימנג'רו | /expedition/kilimanjaro, /blog/kilimanjaro-climbing-guide | 9.7 (7.5), 0 clicks, 20 impr (22/11) | falling; guide still shows two URLs in GSC (9.0 at 118 impr, 45.7 at 94 impr): check the URL variant |
+| טיפוס קילימנג'רו | /expedition/kilimanjaro | 4.1 (5.6), 1 click, 21 impr (22/11) | fix waits for approval: branch seo-fix-kili-trip |
+| טיפוס על הקילימנג'רו | /expedition/kilimanjaro | 4.0 (5.8), 0 clicks, 20 impr (22/11) | same branch seo-fix-kili-trip |
+| קילימנג'רו טיפוס | /expedition/kilimanjaro | 3.9, 1 click, 10 impr (22/11) | new in the table; same branch |
+| ויזה לזנזיבר | /blog/tanzania-visa-guide | 9.2 (7.8), 0 clicks, 51 impr (22/11) | impressions x4 and falling: next quick-win fix, Zanzibar in a heading and an FAQ question |
+| ויזה זנזיבר | /blog/tanzania-visa-guide | 10.1 (8.7), 0 clicks, 20 impr (22/11) | same fix |
+| ויזה לטנזניה | /blog/tanzania-visa-guide | 7.0 (6.7), 1 click, 20 impr (22/11) | watch |
+| ויזה לטנזניה לישראלים | /blog/tanzania-visa-guide | 11.0, 0 clicks, 7 impr (15/11) | not in the 22/11 table; watch |
+| מטבע טנזניה | /blog/tanzania-currency-money-guide | 6.9, 1 click, 7 impr (22/11) | watch; Nepal money guide (#35) queued |
+| אוורסט | /expedition/everest-base-camp, /blog/everest-base-camp-trek-guide | 12.4 (11.5), 0 clicks, 61 impr (22/11) | branch seo-fix-ebc waits; comparison #4 is second in the queue |
+| אוורסט בייס קמפ | /expedition/everest-base-camp, /blog/everest-base-camp-trek-guide | 6.2 (7.1), 0 clicks, 23 impr (22/11) | fix waits for approval: branch seo-fix-ebc |
 | טרק האוורסט בייס קמפ | /blog/everest-base-camp-trek-guide | 7.1, 1 click, 11 impr (08/11) | branch seo-fix-ebc |
 | בייס קמפ אוורסט | /blog/everest-base-camp-trek-guide | 6.0, 0 clicks, 11 impr (08/11) | branch seo-fix-ebc |
-| מנסלו | /expedition/manaslu, /blog/manaslu-expedition-guide | 10.8, 0 clicks, 25 impr (15/11) | strengthen the guide's opening |
-| אנאפורנה טרק | /blog/annapurna-circuit-trek-guide | 19.1 (15.0 a week before), 0 clicks, 9 impr (15/11) | falling; guide opening should use "טרק אנאפורנה" |
+| הר אלברוס | /expedition/elbrus, /blog/elbrus-climbing-guide | 8.6 (12.5), 0 clicks, 30 impr (22/11) | rising; comparison #15 moved up |
+| טיפוס הרים | /climbs | 8.1 (8.4), 0 clicks, 40 impr (22/11) | which URL ranks is not in the email; check in GSC; first-trek guide (#17) |
+| מנסלו | /expedition/manaslu, /blog/manaslu-expedition-guide | 8.6 (10.8), 0 clicks, 19 impr (22/11) | rising; strengthen the guide's opening |
+| הר לנין | /blog/lenin-peak-climbing-guide, /expedition/lenin-peak | 7.4, 0 clicks, 46 impr (15/11) | not in the 22/11 table; fix waits: branch seo-fix-lenin |
+| אנאפורנה טרק | /blog/annapurna-circuit-trek-guide | 19.1, 0 clicks, 9 impr (15/11) | not in the 22/11 table (guide: 9.3, 1 click, 89 impr); opening should use "טרק אנאפורנה" |
 | סובב אנאפורנה | /blog/annapurna-circuit-trek-guide | 6.5, 0 clicks, 13 impr (08/11) | watch |
-| איילנד פיק | /blog/island-peak-climbing-guide | 5.3, 0 clicks, 7 impr (15/11) | watch; rising |
-| כמה עולה טיפוס לקילימנג'רו | /blog/kilimanjaro-climb-cost-guide | page: 3.7, 2 clicks, 24 impr (15/11) | live; watch |
-| חיסונים לטנזניה | /blog/tanzania-vaccinations-guide | 8.7, 0 clicks, 11 impr (08/11) | guide shows three URLs in GSC (9.2, 55.9, 83.6): check URL variants |
+| איילנד פיק | /blog/island-peak-climbing-guide | 3.7, 1 click, 7 impr (22/11) | top 4 now; watch |
+| מרה פיק | /expedition/mera-peak | 5.0, 1 click, 4 impr (22/11) | watch |
+| טרק לסיני | /blog/sinai-high-mountain-trek-guide | 4.5, 2 clicks, 2 impr (22/11) | guide: 6.0, 4 clicks, 82 impr; watch |
+| כמה עולה טיפוס לקילימנג'רו | /blog/kilimanjaro-climb-cost-guide | page: 3.7, 2 clicks, 24 impr (15/11) | not in the 22/11 tables; watch |
+| חיסונים לטנזניה | /blog/tanzania-vaccinations-guide | 8.7, 0 clicks, 11 impr (08/11) | guide's main URL at 52.0 with 99 impr (22/11): check URL variants |
 | הר קזבק | /blog/kazbek-climbing-guide | 8.8, 1 click, 4 impr (15/11) | watch |
-| מרה פיק | /expedition/mera-peak | 4.0, 1 click, 3 impr (15/11) | watch |
 
 ## Weekly visibility probe queries
 
