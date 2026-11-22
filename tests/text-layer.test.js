@@ -28,7 +28,7 @@ describe('text layer', () => {
   it('a blog post carries its whole body', () => {
     const post = POSTS[0];
     const html = blogText(post);
-    expect(html).toContain(`<h1>${esc(post.title)}</h1>`);
+    expect(html).toContain(`<h1>${esc(post.headline || post.title)}</h1>`);   // the page headline, when the post has one
     const firstText = post.content.find(b => b.type === 'text');
     expect(html).toContain(esc(firstText.value));
   });

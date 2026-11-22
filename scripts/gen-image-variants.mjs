@@ -32,7 +32,13 @@ const MANIFEST = 'src/website/imageVariants.json';
 const { POSTS } = await import(path.resolve('src/data/blogData.js'));
 const blogCardImages = new Set(POSTS.map(p => p.img).filter(Boolean));
 const inPost = new Set();
-const takeBlocks = blocks => { for (const b of blocks || []) if (b && b.type === 'image' && typeof b.src === 'string' && b.src.startsWith('/images/')) inPost.add(b.src); };
+const takeBlocks = blocks => {
+  for (const b of blocks || []) {
+    if (b && b.type === 'image' && typeof b.src === 'string' && b.src.startsWith('/images/')) inPost.add(b.src);
+    /* the route cards' photos (BlogPost 'stops'), shown 180px wide */
+    if (b && b.type === 'stops') for (const it of b.items || []) if (typeof it.src === 'string' && it.src.startsWith('/images/')) inPost.add(it.src);
+  }
+};
 for (const p of POSTS) { takeBlocks(p.content); takeBlocks(p.contentEn); }
 const INTL = 'src/data/blog-intl';
 for (const lang of fs.existsSync(INTL) ? fs.readdirSync(INTL) : []) {

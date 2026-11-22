@@ -20,6 +20,7 @@ import { authorOf } from '../../data/authors.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import MountainBackdrop from './MountainBackdrop.jsx';
+import BlogDiagram from './BlogDiagram.jsx';
 
 // ── Helpers ──────────────────────────────────────────────
 
@@ -146,8 +147,8 @@ function calcReadingTime(content) {
     .join(' ')
     .split(/\s+/).length;
   const listWords = content
-    .filter(b => b.type === 'list')
-    .flatMap(b => b.items)
+    .filter(b => b.type === 'list' || b.type === 'stops')
+    .flatMap(b => b.type === 'stops' ? b.items.map(x => `${x.title} ${x.text}`) : b.items)
     .join(' ')
     .split(/\s+/).length;
   return Math.max(1, Math.round((textWords + listWords) / 200));
@@ -241,6 +242,10 @@ export default function BlogPost() {
 
   /* Language-aware fields — must be declared before usePageMeta */
   const postTitle    = postField(post, 'title', lang);
+  /* The page's own headline, when the post has one longer than the card's one-line title
+     (owner's Tali Varshavsky article, 22 Nov 2026: the full headline on the page, the
+     32-character title on the magazine card). Hebrew and English only. */
+  const postHeadline = (lang === 'he' ? post?.headline : lang === 'en' ? post?.headlineEn : '') || postTitle;
   const postExcerpt  = postField(post, 'excerpt', lang);
   const postContent  = post ? readPostContent(post.slug, lang) : [];   // waits (Suspense) for the text
   const postCategory = postField(post, 'category', lang);
@@ -400,7 +405,7 @@ export default function BlogPost() {
               textShadow:    '0 2px 16px rgba(0,0,0,0.4)',
               textAlign:     'start',
             }}>
-              {postTitle}
+              {postHeadline}
             </h1>
           </div>
         </div>
@@ -722,6 +727,91 @@ export default function BlogPost() {
               </figure>
             );
 
+            /* A drawn figure (BlogDiagram.jsx), its labels in the page's language */
+            if (block.type === 'diagram') return (
+              <figure key={i} style={{ margin: '36px 0' }}>
+                <BlogDiagram name={block.name} lang={lang} big={isMobile} />
+                {block.caption && (
+                  <figcaption style={{
+                    fontFamily: "'Ploni', sans-serif",
+                    fontSize:   '13px',
+                    color:      '#6B6B8A',
+                    textAlign:  'center',
+                    marginTop:  '10px',
+                  }}>
+                    {block.caption}
+                  </figcaption>
+                )}
+              </figure>
+            );
+
+            /* The stops of a route, one card each: photo, name, height, a few lines
+               (owner's Tali Varshavsky article, 22 Nov 2026). `tone: 'yellow'` marks one card. */
+            if (block.type === 'stops') return (
+              <div key={i} style={{ display: 'grid', gap: '14px', margin: '28px 0 40px', direction: dir }}>
+                {block.items.map((it, j) => {
+                  const yellow = it.tone === 'yellow';
+                  return (
+                    <div key={j} style={{
+                      display:             'grid',
+                      gridTemplateColumns: isMobile ? 'minmax(0,1fr)' : '180px minmax(0,1fr)',
+                      background:          yellow ? '#FFFAEB' : '#F5F0FF',
+                      border:              `1.5px solid ${yellow ? '#F2C230' : '#DDD6FE'}`,
+                      borderRadius:        '14px',
+                      overflow:            'hidden',
+                    }}>
+                      <img
+                        loading="lazy"
+                        decoding="async"
+                        src={smallOf(it.src)}
+                        alt={it.alt || ''}
+                        style={{
+                          width:          isMobile ? '100%' : '180px',
+                          height:         isMobile ? 'auto' : '180px',
+                          aspectRatio:    isMobile ? '4 / 3' : undefined,
+                          objectFit:      'cover',
+                          objectPosition: it.pos || 'center',
+                          display:        'block',
+                        }}
+                      />
+                      <div style={{ padding: '18px 22px', minWidth: 0 }}>
+                        <h3 style={{
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize:   '20px',
+                          fontWeight: 700,
+                          color:      '#0A0818',
+                          margin:     '0 0 6px',
+                        }}>
+                          {it.title}
+                          {it.tag && (
+                            <span style={{
+                              fontSize:          '14px',
+                              fontWeight:        600,
+                              color:             yellow ? '#9A6B00' : '#6D28D9',
+                              marginInlineStart: '8px',
+                              whiteSpace:        'nowrap',
+                            }}>
+                              {it.tag}
+                            </span>
+                          )}
+                        </h3>
+                        <p style={{
+                          fontFamily: "'Ploni', sans-serif",
+                          fontSize:   '16px',
+                          fontWeight: 300,
+                          color:      '#3D3B5A',
+                          lineHeight: 1.75,
+                          margin:     0,
+                        }}>
+                          {it.text}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+
             if (block.type === 'video') return (
               <figure key={i} style={{ margin: '36px 0' }}>
                 <div style={{
@@ -752,6 +842,7 @@ export default function BlogPost() {
                     poster={block.poster}
                     controls
                     playsInline
+                    preload="none"
                     style={{
                       position:  'relative',
                       zIndex:    1,

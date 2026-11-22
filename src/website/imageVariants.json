@@ -179,6 +179,56 @@
   "h": 647,
   "s": "/images/blog/w800/shishapangma.webp"
  },
+ "/images/blog/tali-above-base-camp.webp": {
+  "w": 1494,
+  "h": 1600,
+  "s": "/images/blog/w800/tali-above-base-camp.webp"
+ },
+ "/images/blog/tali-ama-dablam-base-camp.webp": {
+  "w": 1600,
+  "h": 1200,
+  "s": "/images/blog/w800/tali-ama-dablam-base-camp.webp"
+ },
+ "/images/blog/tali-ama-dablam-camp-1.webp": {
+  "w": 1600,
+  "h": 1200,
+  "s": "/images/blog/w800/tali-ama-dablam-camp-1.webp"
+ },
+ "/images/blog/tali-ama-dablam-camp-2.webp": {
+  "w": 1600,
+  "h": 900,
+  "s": "/images/blog/w800/tali-ama-dablam-camp-2.webp"
+ },
+ "/images/blog/tali-ama-dablam-camp-3.webp": {
+  "w": 1600,
+  "h": 900,
+  "s": "/images/blog/w800/tali-ama-dablam-camp-3.webp"
+ },
+ "/images/blog/tali-ama-dablam-mountain.webp": {
+  "w": 1200,
+  "h": 1600,
+  "s": "/images/blog/w800/tali-ama-dablam-mountain.webp"
+ },
+ "/images/blog/tali-on-the-way-up.webp": {
+  "w": 1200,
+  "h": 1600,
+  "s": "/images/blog/w800/tali-on-the-way-up.webp"
+ },
+ "/images/blog/tali-ridge-fixed-rope.webp": {
+  "w": 1200,
+  "h": 1600,
+  "s": "/images/blog/w800/tali-ridge-fixed-rope.webp"
+ },
+ "/images/blog/tali-summit-prayer-flags.webp": {
+  "w": 1200,
+  "h": 1600,
+  "s": "/images/blog/w800/tali-summit-prayer-flags.webp"
+ },
+ "/images/blog/tali-varshavsky-ama-dablam-summit.webp": {
+  "w": 1280,
+  "h": 960,
+  "s": "/images/blog/w800/tali-varshavsky-ama-dablam-summit.webp"
+ },
  "/images/blog/tanzania-currency.jpg": {
   "w": 1600,
   "h": 800,
@@ -223,6 +273,16 @@
   "w": 1200,
   "h": 1500,
   "s": "/images/blog/w800/tomer-bassan-team.webp"
+ },
+ "/images/blog/tzachi-miara-down-suit.webp": {
+  "w": 1206,
+  "h": 1437,
+  "s": "/images/blog/w800/tzachi-miara-down-suit.webp"
+ },
+ "/images/blog/tzachi-miara-khumbu-ama-dablam.webp": {
+  "w": 1206,
+  "h": 1441,
+  "s": "/images/blog/w800/tzachi-miara-khumbu-ama-dablam.webp"
  },
  "/images/safari/baobab-mara.webp": {
   "w": 1100,
@@ -550,6 +610,12 @@
   "s": "/images/cards/thumbs/tzeelim-mishmar.webp",
   "sw": 760
  },
+ "/images/gallery/ama-dablam/7.webp": {
+  "w": 1124,
+  "h": 1498,
+  "s": "/images/gallery/ama-dablam/thumbs/7.webp",
+  "sw": 900
+ },
  "/images/gallery/kilimanjaro/10.webp": {
   "w": 1132,
   "h": 1508,
@@ -849,12 +915,6 @@
   "h": 1200,
   "s": "/images/gallery/ama-dablam/thumbs/1.webp",
   "sw": 1200
- },
- "/images/gallery/ama-dablam/7.webp": {
-  "w": 1124,
-  "h": 1498,
-  "s": "/images/gallery/ama-dablam/thumbs/7.webp",
-  "sw": 900
  },
  "/images/gallery/ama-dablam/11.webp": {
   "w": 1124,
