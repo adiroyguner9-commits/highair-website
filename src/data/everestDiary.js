@@ -460,9 +460,9 @@ const HE_DAYS = [
   {
     d: 11, date: 'שישי, 17 באוקטובר', loc: 'DZONGLA', sleep: 4830, max: 5140,
     title: 'זריחה מקאלה פטאר, ופונים למסלול המעגלי',
-    facts: [['peak', "קאלה פטאר 5,445 מ'"], ['route', '13.5 ק"מ'], ['up', "400 מ' עלייה מצטברת"]],
+    facts: [['peak', "קאלה פטאר 5,545 מ'"], ['route', '13.5 ק"מ'], ['up', "400 מ' עלייה מצטברת"]],
     body: [
-      'ב-4:30 לפנות בוקר אודי וסער יוצאים עם אחד המדריכים לטפס בחושך ובקור לקאלה פטאר, 5,445 מטר, כדי לראות את הזריחה על האוורסט. בשמונה הם חוזרים, והקבוצה יוצאת לדרך.',
+      'ב-4:30 לפנות בוקר אודי וסער יוצאים עם אחד המדריכים לטפס בחושך ובקור לקאלה פטאר, 5,545 מטר, כדי לראות את הזריחה על האוורסט. בשמונה הם חוזרים, והקבוצה יוצאת לדרך.',
       'מלובוצ׳ה השביל מתפצל, ומכאן כמעט אין מטיילים. עוברים ליד אגם טורקיז למרגלות צוק תלול, סימן לבאות, בדרך בוצית עם שלג בשוליים. בשלוש מגיעים לדזונגלה.',
     ],
     photos: [
@@ -578,7 +578,7 @@ const HE_DAYS = [
 ];
 
 const HE = {
-  seoTitle:    'מחנה הבסיס של האוורסט ואגמי גוקיו: יומן מסע של 18 ימים',
+  seoTitle:    'מחנה הבסיס של האוורסט ואגמי גוקיו: יומן מסע של 19 ימים',
   description: 'יומן המסע של אלי יצחק מהטרק של HighAir למחנה הבסיס של האוורסט, מעבר צ׳ו לה ואגמי גוקיו, אוקטובר 2025.',
   places:      {
     KTM: { name: 'קטמנדו' },
@@ -600,7 +600,7 @@ const HE = {
     alt:      'אור שקיעה על פסגות ההימלאיה מעל דינגבוצ׳ה',
     badges:   ['יומן מסע', 'אוקטובר 2025', '12 דקות קריאה'],
     h1:       'מחנה הבסיס של האוורסט ואגמי גוקיו',
-    sub:      '18 ימים בנפאל, מקטמנדו דרך מעבר צ׳ו לה ועד אגמי הטורקיז של גוקיו. מסע HighAir, כפי שתיעד אותו המטייל אלי יצחק.',
+    sub:      '19 ימים בנפאל, מקטמנדו דרך מעבר צ׳ו לה ועד אגמי הטורקיז של גוקיו. מסע HighAir, כפי שתיעד אותו המטייל אלי יצחק.',
     initials: 'א״י',
     basedOn:  'מבוסס על ספר המסע של ',
     author:   'אלי יצחק',
@@ -614,7 +614,7 @@ const HE = {
     /* x, name, altitude, y of the point */
     peaks: [[80, 'צ׳ו לה', '5,400', 58], [210, 'מחנה הבסיס', '5,364', 64], [340, 'גוקיו', '4,790', 98]],
     tiles: [
-      ['cal', '18', 'ימים', 'מתוכם 14 ימי הליכה'],
+      ['cal', '19', 'ימים', 'מתוכם 14 ימי הליכה'],
       ['peak', '5,364', "מ'", 'מחנה הבסיס של האוורסט'],
       ['up', '5,400', "מ'", 'מעבר צ׳ו לה, השיא הגבוה'],
       ['route', '20', 'ק"מ', 'ביום הארוך ביותר'],
@@ -1004,9 +1004,9 @@ const EN_DAYS = [
   {
     d: 11, date: 'Friday, October 17', loc: 'DZONGLA', sleep: 4830, max: 5140,
     title: 'Sunrise from Kala Patthar, and onto the circular route',
-    facts: [['peak', 'Kala Patthar 5,445 m'], ['route', '13.5 km'], ['up', '400 m of total ascent']],
+    facts: [['peak', 'Kala Patthar 5,545 m'], ['route', '13.5 km'], ['up', '400 m of total ascent']],
     body: [
-      'At 4:30 in the morning Udi and Saar set out with one of the guides to climb Kala Patthar, 5,445 meters, in the dark and the cold, to see the sunrise over Everest. At eight they are back, and the group sets off.',
+      'At 4:30 in the morning Udi and Saar set out with one of the guides to climb Kala Patthar, 5,545 meters, in the dark and the cold, to see the sunrise over Everest. At eight they are back, and the group sets off.',
       'From Lobuche the trail splits, and from here there are almost no trekkers. We pass a turquoise lake at the foot of a steep cliff, a sign of things to come, on a muddy path with snow along its edges. At three we reach Dzongla.',
     ],
     photos: [
@@ -1118,7 +1118,7 @@ const EN_DAYS = [
 ];
 
 const EN = {
-  seoTitle:    'Everest Base Camp and the Gokyo Lakes: An 18-Day Trek Diary',
+  seoTitle:    'Everest Base Camp and the Gokyo Lakes: A 19-Day Trek Diary',
   description: 'Eli Yitzhak\'s diary from HighAir\'s trek to Everest Base Camp, the Cho La pass and the Gokyo Lakes, October 2025.',
   /* short: under the chart's narrow columns (the Hebrew uses the name's first word) */
   places: {
@@ -1141,7 +1141,7 @@ const EN = {
     alt:      'Sunset light on Himalayan peaks above Dingboche',
     badges:   ['Trek diary', 'October 2025', '12 minute read'],
     h1:       'Everest Base Camp and the Gokyo Lakes',
-    sub:      '18 days in Nepal, from Kathmandu over the Cho La pass to the turquoise lakes of Gokyo. A HighAir journey, as trekker Eli Yitzhak recorded it.',
+    sub:      '19 days in Nepal, from Kathmandu over the Cho La pass to the turquoise lakes of Gokyo. A HighAir journey, as trekker Eli Yitzhak recorded it.',
     initials: 'EY',
     basedOn:  'Based on the travel book of ',
     author:   'Eli Yitzhak',
@@ -1154,7 +1154,7 @@ const EN = {
     triAria: 'The three high points: the Cho La pass, Base Camp and the Gokyo Lakes',
     peaks:   [[80, 'Cho La', '5,400', 58], [210, 'Base Camp', '5,364', 64], [340, 'Gokyo', '4,790', 98]],
     tiles: [
-      ['cal', '18', 'days', '14 of them walking days'],
+      ['cal', '19', 'days', '14 of them walking days'],
       ['peak', '5,364', 'm', 'Everest Base Camp'],
       ['up', '5,400', 'm', 'The Cho La pass, the high point'],
       ['route', '20', 'km', 'On the longest day'],

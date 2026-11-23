@@ -49,7 +49,7 @@ export const POSTS = [
       imgPosition:      everestPos(EVEREST_HERO),
       imgPositionCard:  'center',
       imgCredit:        '',
-      excerpt:          '18 ימים בנפאל, מקטמנדו דרך מחנה הבסיס של האוורסט ומעבר צ׳ו לה ועד אגמי הטורקיז של גוקיו. מסע HighAir באוקטובר 2025, כפי שתיעד אותו אלי יצחק.',
+      excerpt:          '19 ימים בנפאל, מקטמנדו דרך מחנה הבסיס של האוורסט ומעבר צ׳ו לה ועד אגמי הטורקיז של גוקיו. מסע HighAir באוקטובר 2025, כפי שתיעד אותו אלי יצחק.',
       excerptEn:        EVEREST.en.hero.sub,
       content:          everestBlocks('he'),
       contentEn:        everestBlocks('en'),
