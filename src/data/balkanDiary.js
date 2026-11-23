@@ -42,6 +42,10 @@ export const ICONS = {
   therm: 'M10 13.5V5a2 2 0 1 1 4 0v8.5a4 4 0 1 1-4 0Z',
   star: 'm12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7L12 3Z',
   pillar: 'M9 21h6M10 21V8h4v13M8 8h8l-1-3H9L8 8Z',
+  video: 'M15 10.5 21 7v10l-6-3.5M3 6.5h12v11H3z',
+  chat: 'M21 11.5a8.5 8.5 0 0 1-12.4 7.6L3 20.5l1.4-5A8.5 8.5 0 1 1 21 11.5Z',
+  home: 'M3 11 12 4l9 7M5.5 9.5V20h13V9.5M10 20v-5h4v5',
+  plane: 'M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z',
 };
 
 /* Each photo's size in pixels: every <img> gets its width and height */
@@ -95,6 +99,59 @@ export const PHOTO_SIZE = {
   '115': [948, 711],
 };
 
+/* Where each photo is centred when it is cropped (CSS object-position; 50% 50% for one not
+   listed), as the owner's page sets it */
+export const PHOTO_POS = {
+  '005': '50% 35%',
+  '007': '50% 30%',
+  '008': '50% 45%',
+  '011': '50% 30%',
+  '016': '60% 50%',
+  '018': '45% 50%',
+  '019': '50% 58%',
+  '024': '50% 45%',
+  '026': '42% 40%',
+  '028': '65% 45%',
+  '030': '50% 65%',
+  '032': '50% 30%',
+  '036': '50% 25%',
+  '037': '50% 40%',
+  '041': '50% 45%',
+  '043': '45% 35%',
+  '059': '50% 30%',
+  '061': '50% 40%',
+  '062': '50% 55%',
+  '063': '40% 55%',
+  '064': '50% 55%',
+  '068': '50% 55%',
+  '070': '50% 55%',
+  '076': '55% 50%',
+  '077': '50% 45%',
+  '081': '45% 32%',
+  '082': '55% 45%',
+  '084': '50% 40%',
+  '090': '50% 45%',
+  '091': '50% 50%',
+  '092': '50% 45%',
+  '095': '50% 60%',
+  '096': '45% 50%',
+  '097': '40% 55%',
+  '099': '50% 40%',
+  '100': '50% 55%',
+  '101': '50% 55%',
+  '103': '50% 68%',
+  '105': '50% 65%',
+  '107': '50% 35%',
+  '108': '50% 45%',
+  '109': '50% 45%',
+  '110': '50% 50%',
+  '111': '50% 50%',
+  '112': '50% 50%',
+  '114': '50% 55%',
+  '115': '50% 60%',
+};
+export const photoPos = id => PHOTO_POS[id] || '50% 50%';
+
 /* The three countries: the colour of the day badges, the ribbon and the photo captions */
 export const COUNTRY_COLOR = { AL: '#6D28D9', XK: '#0EA5E9', ME: '#D97706' };
 
@@ -118,7 +175,7 @@ const HE_DAYS = [
     ],
     body: [
       'המסע התחיל עוד לפני ההמראה. בערב שלפני הטיסה נשמעו אזעקות, חברי הקבוצה מחיפה ישבו במקלטים ובקבוצת הווטסאפ שאלו אם המרחב האווירי יישאר פתוח. בשתיים בלילה כולם כבר היו בנתב״ג, עם תדרוך מחן שקד, חולצות המסע ודגל HighAir. ב-5:30 המראנו בדיוק בזמן.',
-      'בטירנה חיכו לנו המדריך דני והעוזר שלו פרחיה, ומשם יצאנו צפונה לשקודרה, דרך עמק ירוק של כרמים, תירס ובתים כפריים. מבצר רוזפה היה סגור באותו יום כי ראש ממשלת אלבניה הקדים אותנו, אז ירדנו לטיילת של אגם שקודרה, האגם הגדול בבלקן, שלדברי אלי "מזכיר קצת את הכינרת".',
+      'בטירנה חיכה לנו הצוות המקומי, מדריך ועוזר מדריך, ומשם יצאנו צפונה לשקודרה, דרך עמק ירוק של כרמים, תירס ובתים כפריים. מבצר רוזפה היה סגור באותו יום כי ראש ממשלת אלבניה הקדים אותנו, אז ירדנו לטיילת של אגם שקודרה, האגם הגדול בבלקן, שלדברי אלי "מזכיר קצת את הכינרת".',
       'אחר הצהריים סיירנו בעיר: הקתדרלה הקתולית, המדרחוב והמסגד הגדול עם צריחיו, כמה דקות הליכה זה מזה. בערב, בארוחה חגיגית של אוכל בלקני, עשינו סבב היכרות וסגרנו את היום בקפה טורקי ובקלאווה.',
     ],
     photos: [
@@ -170,7 +227,7 @@ const HE_DAYS = [
     body: [
       'היום הארוך הראשון. יצאנו קצת אחרי שבע לעלייה תלולה ומפותלת ביער מוצל, ואחרי כ-400 מטר התגלה הנוף: עמקים רחבים ופסגות עם כיפות שלג. זו הייתה הפעם הראשונה שראינו את פסגות הבלקן מגובה.',
       'ארוחת הבוקר השנייה הייתה באמצע שדה פורח, צהוב, אדום, סגול וורוד, ושם עבר לידנו זוג צעיר עם תינוק בן כמה חודשים במנשא. ככל שעלינו הופיעו נקיקים מלאי שלג, ושלוש פעמים פשוט החלקנו עליהם במסלולים שהמדריכים הכשירו.',
-      'בשיא, מעבר פריסלופי בגובה 2,030 מטר, עומד שלט הגבול בין אלבניה למונטנגרו. עצרנו לצהריים, וריח הקפה שפרחיה הכין משך אלינו קבוצה שלמה של מטיילים אירופאים. משם ירידה ארוכה בשלג, בוץ ובולדרים, עמק חקלאי במונטנגרו, יער צונן בחזרה באלבניה, ובסוף ארוחת ערב לבבית בכפר צ׳רם.',
+      'בשיא, מעבר פריסלופי בגובה 2,030 מטר, עומד שלט הגבול בין אלבניה למונטנגרו. עצרנו לצהריים, וריח הקפה שעוזר המדריך הכין משך אלינו קבוצה שלמה של מטיילים אירופאים. משם ירידה ארוכה בשלג, בוץ ובולדרים, עמק חקלאי במונטנגרו, יער צונן בחזרה באלבניה, ובסוף ארוחת ערב לבבית בכפר צ׳רם.',
     ],
     photos: [
       ['032', 'פסגות ואלבונה באור שקיעה ורוד'],
@@ -182,7 +239,7 @@ const HE_DAYS = [
     ],
     quote: [
       '"לקפה השחור שהכין לנו בלב ההרים היה טעם מיוחד, כזה שקשה לשחזר בבית, גם עם אותם פולי קפה."',
-      'אלי, על הקפה של פרחיה',
+      'אלי, על הקפה של עוזר המדריך',
     ],
   },
   {
@@ -198,8 +255,8 @@ const HE_DAYS = [
     ],
     body: [
       'יום עם אותה עלייה כמו אתמול, רק מתונה ופרוסה על מרחק ארוך יותר. התחלנו ביער עם נחל גועש שחצינו בזהירות, עלינו בכר דשא מכוסה פרחים והגענו לבית קפה עם תצפית, שם פגשנו שוב מטיילים מהמעבורת של היום השני.',
-      'אחרי אבן גבול נוספת בין אלבניה למונטנגרו נכנסנו ליער צפוף, עקפנו עצים שקרסו תחת משקל השלג, וראינו עצים שהבסיס שלהם שרוף כליל. דני הסביר: הברק פוגע בצמרת, הזרם יורד במורד הגזע וכל האנרגיה מתפרקת בתחתית.',
-      'בדרך עצרנו לשיחה עם משפחה שמגדלת ירקות בהרים בחודשי הקיץ. לפני ההפסקה הבאה דני קרא בקול לעבר כמה בתים בודדים, ובעל המקום ענה לו מההד. היוגורט המפורסם של בעלת הבית כבר נגמר, אבל העוגה והקפה פיצו. בערב, בבקתות ליד נחל שוצף בדוברדול, מוזיקה, מטיילים מכל העולם, ובלילה גשם.',
+      'אחרי אבן גבול נוספת בין אלבניה למונטנגרו נכנסנו ליער צפוף, עקפנו עצים שקרסו תחת משקל השלג, וראינו עצים שהבסיס שלהם שרוף כליל. המדריך הסביר: הברק פוגע בצמרת, הזרם יורד במורד הגזע וכל האנרגיה מתפרקת בתחתית.',
+      'בדרך עצרנו לשיחה עם משפחה שמגדלת ירקות בהרים בחודשי הקיץ. לפני ההפסקה הבאה המדריך קרא בקול לעבר כמה בתים בודדים, ובעל המקום ענה לו מההד. היוגורט המפורסם של בעלת הבית כבר נגמר, אבל העוגה והקפה פיצו. בערב, בבקתות ליד נחל שוצף בדוברדול, מוזיקה, מטיילים מכל העולם, ובלילה גשם.',
     ],
     photos: [
       ['063', 'חציית אחו ירוק עם עץ בודד'],
@@ -246,9 +303,9 @@ const HE_DAYS = [
       ['flag', '3 מדינות בצעד אחד'],
     ],
     body: [
-      'תמונה קבוצתית עם בעלת הבית שאירחה אותנו בחום, ויצאנו לטיפוס מתון בקוסובו, עם עצירות לשתות מים קרים וצלולים ישר מהנחל, במקומות שהמדריכים אישרו. ליד שלט הכיוונים על הרכס דני עצר להסביר על דגל קוסובו: ששת הכוכבים מסמלים את שש הקהילות האתניות של המדינה.',
+      'תמונה קבוצתית עם בעלת הבית שאירחה אותנו בחום, ויצאנו לטיפוס מתון בקוסובו, עם עצירות לשתות מים קרים וצלולים ישר מהנחל, במקומות שהמדריכים אישרו. ליד שלט הכיוונים על הרכס המדריך עצר להסביר על דגל קוסובו: ששת הכוכבים מסמלים את שש הקהילות האתניות של המדינה.',
       'ואז הגענו למשולש הגבולות. אלי ציפה לאנדרטה, ומצא עמוד נמוך של חצי מטר, שריד לגבול הישן בין אלבניה ליוגוסלביה. אז עשינו מה שקבוצה ישראלית עושה: מעגל ריקודים סביב העמוד, צעד בקוסובו, צעד באלבניה, צעד במונטנגרו.',
-      'הירידה מהרכס עברה בשלג חלקלק על מדרונות תלולים, עם מסלולי החלקה שדני ופרחיה הכשירו, ומשם בשדה סלעים אל אגם חריד, אגם טורקיז בלב יער אלפיני. עוגת פירות יער בקמפינג, ובאבינו פוליה בעל הבית הגיש את ארוחת הערב כמו הצגת תיאטרון של ממש.',
+      'הירידה מהרכס עברה בשלג חלקלק על מדרונות תלולים, עם מסלולי החלקה שהמדריכים הכשירו, ומשם בשדה סלעים אל אגם חריד, אגם טורקיז בלב יער אלפיני. עוגת פירות יער בקמפינג, ובאבינו פוליה בעל הבית הגיש את ארוחת הערב כמו הצגת תיאטרון של ממש.',
     ],
     photos: [
       ['091', 'אגם חריד מוקף עצי מחט'],
@@ -317,8 +374,8 @@ const HE_DAYS = [
     ],
     body: [
       'בבוקר עצרנו ליד מגדל ההסתגרות של ת׳ת, מבנה ששימש מקלט זמני למי שהיה מעורב בסכסוך דמים, עד שזקני השבטים הכריעו בעניינו לפי הקאנון, מערכת המנהגים המסורתית של צפון אלבניה. המשכנו לאורך הנחל עד מפל גרונאס, שנראה כאילו הוא פורץ ישר מתוך ההר.',
-      'את הנסיעה הבאה עשינו ב"רכב הסרדינים", עם דני ופרחיה דחוקים יחד במושב הקדמי. היעד: העין הכחולה של ת׳ת, בריכות בגווני טורקיז ותכלת. המים קרים, סביב 4 מעלות, ורק חנה הייתה אמיצה מספיק לטבול.',
-      'בדרך חזרה לשקודרה עצרנו בתצפית אחרונה על הפסגות שבהן צעדנו שמונה ימים. בערב, בחצר מלון טרדיטה, ארוחת סיום כיד המלך, זמר הבית, סיכום של דני ונאום תודה בשם הקבוצה.',
+      'את הנסיעה הבאה עשינו ב"רכב הסרדינים", עם שני המדריכים דחוקים יחד במושב הקדמי. היעד: העין הכחולה של ת׳ת, בריכות בגווני טורקיז ותכלת. המים קרים, סביב 4 מעלות, ורק חנה הייתה אמיצה מספיק לטבול.',
+      'בדרך חזרה לשקודרה עצרנו בתצפית אחרונה על הפסגות שבהן צעדנו שמונה ימים. בערב, בחצר מלון טרדיטה, ארוחת סיום כיד המלך, זמר הבית, סיכום של המדריך ונאום תודה בשם הקבוצה.',
     ],
     photos: [
       ['112', 'בריכת טורקיז צלולה בין סלעים'],
@@ -371,13 +428,74 @@ const HE = {
   },
   back: '→ לכל המאמרים',
   intro: {
-    h2:    'יש טיולים שחוזרים מהם עם תמונות, ויש מסעות שחוזרים מהם עם חבורה',
+    h2:    'שביל אחד, שלוש מדינות וחבורה אחת',
     paras: [
       'ביוני האחרון יצאה קבוצת HighAir לטרק פסגות הבלקן, שביל שמחבר בין כפרי הרים שהיו פעם מבודדים משני צדי הגבול, ברכס פרוקלטיה שהמקומיים קוראים לו "ההרים המקוללים".',
       'אלי יצחק, אחד המטיילים, חזר הביתה עם יומן של 74 עמודים: עליות ארוכות, שלג ביוני, כרי דשא פורחים, קפה שחור בלב ההרים ובדיחות שרק מי שהיה שם יבין. ליקטנו ממנו את הרגעים הכי טובים, יום אחרי יום.',
     ],
     quote: 'לא רק הפסגות קובעות את גובה החוויה, אלא גם האנשים שאיתם מטפסים אליהן.',
     cite:  'אלי יצחק, מתוך היומן',
+  },
+  /* Chapter 0, before the first day: thanks, the region, the weeks of preparation */
+  prologue: {
+    kicker:  'פרק 0',
+    h2:      'לפני שיצאנו לדרך',
+    lead:    'היומן של אלי לא מתחיל בטיסה. הוא נפתח בתודות, ברקע על האזור ובשבועות של הכנה בארץ. גם אנחנו מתחילים משם.',
+    letter: {
+      photo:   '096',
+      alt:     'הקבוצה יושבת על קו הרכס מעל עמק גרבאיה',
+      kicker:  'פתיחה ותודות',
+      quote:   '"יש טיולים שחוזרים מהם עם תמונות יפות, ויש מסעות שחוזרים מהם עם הרבה יותר: חוויות, סיפורים, חברויות חדשות, רגעים משעשעים וזיכרונות שנשארים איתנו הרבה אחרי שחוזרים הביתה."',
+      sigNote: 'מתוך היומן, נובמבר 2026',
+    },
+    thanksTitle: 'תודה גדולה',
+    /* icon, to whom, what for */
+    thanks: [
+      ['compass', 'לצוות המקומי', 'שהוביל אותנו בשבילי ההרים במקצועיות, באחריות ובידע רב. הם הסבירו לאורך כל הדרך על הגיאוגרפיה, ההיסטוריה והתרבות של האזור, דאגו שאף אחד לא יישאר מאחור, ועזרו במעברים הקשים. והקפה השחור בהפסקות? אולי האוויר, אולי הנוף, ואולי פשוט היד הטובה.'],
+      ['shield', 'ל-HighAir, לחן ולאדיר', 'על התכנון, הארגון, התיאום והליווי, ועל הצוות המקומי שסידרו לנו. משלבי ההכנה בארץ ועד הסיום המוצלח של המסע, ההשקעה בפרטים הקטנים והגדולים הורגשה לאורך כל הדרך.'],
+    ],
+    group: {
+      title: 'ולחברי הקבוצה',
+      note:  '13 אנשים שהפכו לחבורה אחת',
+      names: ['חנה', 'נתי', 'מורן', 'ענת', 'אבי', 'שלמה', 'אילן', 'נוף', 'ולדימיר', 'מיכאל', 'מריוס', 'ערן', 'עמית'],
+      quote: '"כל אחד ואחת הביאו למסע משהו משלהם: סיפור חיים, ניסיון, חוש הומור, רגישות, סקרנות, נכונות לעזור ואהבה לטבע ולהליכה."',
+    },
+    moments: {
+      title: 'ותודה גם על הרגעים הקטנים',
+      items: [
+        'למי שחיכה לאחרים',
+        'למי שהושיט יד במעבר קשה',
+        'למי שצילם',
+        'למי שדאג לתמונה הקבוצתית',
+        'למי שפתח בשיחה מעניינת',
+        'למי שידע לשחרר בדיחה בדיוק כשהרגליים התחילו להתעייף',
+      ],
+      end: '"אלה הדברים שהופכים קבוצת מטיילים לחבורה."',
+    },
+    geo: {
+      photo:  '036',
+      alt:    'רכס פרוקלטיה מעל עמק ואלבונה',
+      kicker: 'רקע גיאוגרפי',
+      h3:     'פסגות הבלקן, Peaks of the Balkans',
+      paras: [
+        'השביל חוצה את אזור ההרים שבו נפגשות אלבניה, קוסובו ומונטנגרו. רכס פרוקלטיה, שמכונה גם האלפים האלבניים או ההרים המקוללים, הוא עולם של רכסים משוננים, עמקים עמוקים, יערות, מרעה אלפיני ונחלים רבים.',
+        'השביל מחבר בין כפרים שהיו פעם מבודדים משני צדי הגבולות, והפך את הנוף ההררי ואת מסורת האירוח המקומית לחוויה של מסע חוצה גבולות.',
+      ],
+      facts: [['flag', '3 מדינות על שביל אחד'], ['peak', 'רכסים משוננים ועמקים עמוקים'], ['bed', 'לינה בבתי משפחות בכפרי ההרים']],
+    },
+    prep: {
+      kicker: 'שלב ההכנה',
+      h3:     'מנחל יגור לנתב״ג',
+      p:      'ההכנות התחילו כמה שבועות לפני היציאה. HighAir ארגנה מפגשי הכנה כדי להכיר למטיילים את אופי המסלול, את תנאי השטח ואת הציוד שצריך לטרק הררי ארוך.',
+      /* icon, when, what, the note */
+      steps: [
+        ['peak', '1 במאי', 'טרק הכנה בנחל יגור', 'בהרי הכרמל, בהדרכת רועי כרמל. הטעימה הראשונה מקצב הליכה של קבוצה.'],
+        ['video', '6 במאי', 'מפגש הדרכה בזום', 'ציוד, תוואי המסלול והתנאים הצפויים בהרים.'],
+        ['chat', 'במקביל', 'קבוצת הווטסאפ נפתחת', 'מזוודות, ביטוח, סים מקומי וכסף, ולאט לאט גם הומור ועזרה הדדית.'],
+        ['home', 'שבועות לפני', 'ערב היכרות בכפר סבא', 'סביב שולחן האוכל בביתה של ענת. שם הקבוצה התחילה להפוך לחבורה.'],
+        ['plane', '8 ביוני, 2:00', 'נתב״ג, ממריאים', 'תדרוך אחרון מחן שקד, חולצות המסע ודגל HighAir.'],
+      ],
+    },
   },
   ribbon: {
     aria:          'איפה ישנו בכל לילה',
@@ -445,7 +563,7 @@ const HE = {
     trip:  'לפרטים על המסע הבא',
     guide: 'המדריך המלא לטרק',
   },
-  credit:   'תודה גדולה לאלי יצחק, שתיעד את המסע ביומן מרגש ונתן לנו לחלוק אותו. כל הציטוטים והתמונות באדיבותו ובאדיבות חברי הקבוצה. הדרכה בשטח: דני ופרחיה.',
+  credit:   'תודה גדולה לאלי יצחק, שתיעד את המסע ביומן מרגש ונתן לנו לחלוק אותו. כל הציטוטים והתמונות באדיבותו ובאדיבות חברי הקבוצה. הדרכה בשטח: הצוות המקומי של HighAir.',
   lightbox: { aria: 'תצוגת תמונה', close: 'סגירה', prev: 'הקודמת', next: 'הבאה' },
 };
 
@@ -465,7 +583,7 @@ const EN_DAYS = [
     ],
     body: [
       'The journey began before we even took off. On the evening before the flight the sirens sounded, the group members from Haifa sat in shelters, and in the WhatsApp group people asked whether the airspace would stay open. By two in the morning everyone was already at Ben Gurion Airport, with a briefing from Chen Shaked, the trip shirts and the HighAir flag. At 5:30 we took off right on time.',
-      'In Tirana our guide Dani and his assistant Farhija were waiting for us, and from there we headed north to Shkodra, through a green valley of vineyards, corn and village houses. Rozafa Castle was closed that day because the Prime Minister of Albania got there before us, so we went down to the promenade of Lake Shkodra, the largest lake in the Balkans, which according to Eli "is a bit like the Sea of Galilee".',
+      'In Tirana the local team, a guide and an assistant guide, were waiting for us, and from there we headed north to Shkodra, through a green valley of vineyards, corn and village houses. Rozafa Castle was closed that day because the Prime Minister of Albania got there before us, so we went down to the promenade of Lake Shkodra, the largest lake in the Balkans, which according to Eli "is a bit like the Sea of Galilee".',
       'In the afternoon we toured the city: the Catholic cathedral, the pedestrian street and the great mosque with its minarets, a few minutes\' walk from one another. In the evening, over a festive dinner of Balkan food, we went around the table introducing ourselves and closed the day with Turkish coffee and baklava.',
     ],
     photos: [
@@ -517,7 +635,7 @@ const EN_DAYS = [
     body: [
       'The first long day. We set off a little after seven on a steep, winding climb through shady forest, and after about 400 meters the view opened up: wide valleys and peaks capped with snow. It was the first time we saw the Peaks of the Balkans from up high.',
       'Second breakfast was in the middle of a field in bloom, yellow, red, purple and pink, and there a young couple passed us with a baby of a few months in a carrier. The higher we climbed, the more snow-filled gullies appeared, and three times we simply slid down them on runs the guides had prepared.',
-      'At the high point, the Prosllopi Pass at 2,030 meters, stands the border sign between Albania and Montenegro. We stopped for lunch, and the smell of the coffee Farhija made drew a whole group of European trekkers over to us. From there, a long descent through snow, mud and boulders, a farming valley in Montenegro, a cool forest back in Albania, and at the end a warm dinner in the village of Çerem.',
+      'At the high point, the Prosllopi Pass at 2,030 meters, stands the border sign between Albania and Montenegro. We stopped for lunch, and the smell of the coffee the assistant guide made drew a whole group of European trekkers over to us. From there, a long descent through snow, mud and boulders, a farming valley in Montenegro, a cool forest back in Albania, and at the end a warm dinner in the village of Çerem.',
     ],
     photos: [
       ['032', 'The Valbona peaks in pink sunset light'],
@@ -529,7 +647,7 @@ const EN_DAYS = [
     ],
     quote: [
       '"The black coffee he made us in the heart of the mountains had a special taste, the kind that is hard to recreate at home, even with the same coffee beans."',
-      'Eli, on Farhija\'s coffee',
+      'Eli, on the assistant guide\'s coffee',
     ],
   },
   {
@@ -545,8 +663,8 @@ const EN_DAYS = [
     ],
     body: [
       'A day with the same climb as yesterday, only gentler and spread over a longer distance. We started in a forest with a raging stream that we crossed carefully, climbed through a meadow covered in flowers and reached a café with a view, where we met trekkers from the second day\'s ferry again.',
-      'After another border stone between Albania and Montenegro we entered a dense forest, went around trees that had collapsed under the weight of the snow, and saw trees whose base was burnt right through. Dani explained: the lightning strikes the treetop, the current runs down the trunk and all the energy discharges at the bottom.',
-      'On the way we stopped to talk with a family that grows vegetables in the mountains in the summer months. Before the next break Dani called out loudly toward a few lone houses, and the owner answered him through the echo. The famous yogurt of the lady of the house had already run out, but the cake and the coffee made up for it. In the evening, in the huts beside a rushing stream in Dobërdol: music, trekkers from all over the world, and at night, rain.',
+      'After another border stone between Albania and Montenegro we entered a dense forest, went around trees that had collapsed under the weight of the snow, and saw trees whose base was burnt right through. The guide explained: the lightning strikes the treetop, the current runs down the trunk and all the energy discharges at the bottom.',
+      'On the way we stopped to talk with a family that grows vegetables in the mountains in the summer months. Before the next break the guide called out loudly toward a few lone houses, and the owner answered him through the echo. The famous yogurt of the lady of the house had already run out, but the cake and the coffee made up for it. In the evening, in the huts beside a rushing stream in Dobërdol: music, trekkers from all over the world, and at night, rain.',
     ],
     photos: [
       ['063', 'Crossing a green meadow with a lone tree'],
@@ -593,9 +711,9 @@ const EN_DAYS = [
       ['flag', '3 countries in one step'],
     ],
     body: [
-      'A group photo with the lady of the house, who had hosted us so warmly, and we set off on a gentle climb in Kosovo, stopping to drink cold, clear water straight from the stream, in the places the guides approved. By the signpost on the ridge Dani stopped to explain the flag of Kosovo: the six stars stand for the country\'s six ethnic communities.',
+      'A group photo with the lady of the house, who had hosted us so warmly, and we set off on a gentle climb in Kosovo, stopping to drink cold, clear water straight from the stream, in the places the guides approved. By the signpost on the ridge the guide stopped to explain the flag of Kosovo: the six stars stand for the country\'s six ethnic communities.',
       'And then we reached the Triple-Border Point. Eli expected a monument, and found a low post half a meter high, a remnant of the old border between Albania and Yugoslavia. So we did what an Israeli group does: a circle dance around the post, a step in Kosovo, a step in Albania, a step in Montenegro.',
-      'The descent from the ridge went over slippery snow on steep slopes, on sliding runs Dani and Farhija had prepared, and from there across a field of boulders to Lake Hrid, a turquoise lake in the heart of an alpine forest. Berry cake at the campsite, and in Babino Polje the host served dinner like a real piece of theater.',
+      'The descent from the ridge went over slippery snow on steep slopes, on sliding runs the guides had prepared, and from there across a field of boulders to Lake Hrid, a turquoise lake in the heart of an alpine forest. Berry cake at the campsite, and in Babino Polje the host served dinner like a real piece of theater.',
     ],
     photos: [
       ['091', 'Lake Hrid surrounded by conifers'],
@@ -664,8 +782,8 @@ const EN_DAYS = [
     ],
     body: [
       'In the morning we stopped by the lock-in tower of Theth, a building that served as a temporary refuge for anyone caught up in a blood feud, until the tribal elders decided his case according to the Kanun, the traditional code of northern Albania. We went on along the stream to the Grunas Waterfall, which looks as if it bursts straight out of the mountain.',
-      'We made the next drive in the "sardine car", with Dani and Farhija squeezed together in the front seat. The destination: the Blue Eye of Theth, pools in shades of turquoise and sky blue. The water is cold, around 4 degrees, and only Hana was brave enough to take a dip.',
-      'On the way back to Shkodra we stopped at a last viewpoint over the peaks we had walked for eight days. In the evening, in the courtyard of Hotel Tradita, a farewell dinner fit for a king, the house singer, Dani\'s summing up and a thank-you speech on behalf of the group.',
+      'We made the next drive in the "sardine car", with both guides squeezed together in the front seat. The destination: the Blue Eye of Theth, pools in shades of turquoise and sky blue. The water is cold, around 4 degrees, and only Hana was brave enough to take a dip.',
+      'On the way back to Shkodra we stopped at a last viewpoint over the peaks we had walked for eight days. In the evening, in the courtyard of Hotel Tradita, a farewell dinner fit for a king, the house singer, the guide\'s summing up and a thank-you speech on behalf of the group.',
     ],
     photos: [
       ['112', 'A clear turquoise pool among the rocks'],
@@ -716,13 +834,71 @@ const EN = {
   },
   back: '← All articles',
   intro: {
-    h2:    'Some trips you come back from with photos, and some journeys you come back from with a band of friends',
+    h2:    'One trail, three countries and one band of friends',
     paras: [
       'Last June a HighAir group set out on the Peaks of the Balkans trek, a trail that links mountain villages once cut off on either side of the border, in the Prokletije range, which the locals call "the Accursed Mountains".',
       'Eli Yitzhak, one of the trekkers, came home with a 74-page diary: long climbs, snow in June, flowering meadows, black coffee in the heart of the mountains and jokes only those who were there will get. We gathered its best moments, day by day.',
     ],
     quote: 'It is not only the summits that set the height of the experience, but also the people you climb them with.',
     cite:  'Eli Yitzhak, from the diary',
+  },
+  prologue: {
+    kicker:  'Chapter 0',
+    h2:      'Before we set out',
+    lead:    'Eli\'s diary does not begin with the flight. It opens with thanks, with background on the region and with weeks of preparation in Israel. We begin there too.',
+    letter: {
+      photo:   '096',
+      alt:     'The group sitting on the ridgeline above the Grebaje Valley',
+      kicker:  'Opening and thanks',
+      quote:   '"Some trips you come back from with beautiful photos, and some journeys you come back from with much more: experiences, stories, new friendships, funny moments and memories that stay with us long after we get home."',
+      sigNote: 'From the diary, November 2026',
+    },
+    thanksTitle: 'A big thank you',
+    thanks: [
+      ['compass', 'To the local team', 'Who led us along the mountain trails with professionalism, responsibility and deep knowledge. All the way they explained the geography, history and culture of the region, made sure nobody was left behind, and helped at the hard crossings. And the black coffee at the breaks? Maybe the air, maybe the view, and maybe simply a good hand.'],
+      ['shield', 'To HighAir, Chen and Adir', 'For the planning, the organization, the coordination and the support, and for the local team they arranged for us. From the preparation stages in Israel to the successful end of the trek, the care for the details, small and large, was felt all along the way.'],
+    ],
+    group: {
+      title: 'And to the members of the group',
+      note:  '13 people who became one band of friends',
+      names: ['Hana', 'Nati', 'Moran', 'Anat', 'Avi', 'Shlomo', 'Ilan', 'Nof', 'Vladimir', 'Michael', 'Marius', 'Eran', 'Amit'],
+      quote: '"Each one of us brought something of their own to the trek: a life story, experience, a sense of humor, sensitivity, curiosity, a readiness to help and a love of nature and walking."',
+    },
+    moments: {
+      title: 'And thanks for the small moments too',
+      items: [
+        'To whoever waited for the others',
+        'To whoever held out a hand at a hard crossing',
+        'To whoever took the photos',
+        'To whoever made sure of the group photo',
+        'To whoever started an interesting conversation',
+        'To whoever knew how to crack a joke just as the legs began to tire',
+      ],
+      end: '"These are the things that turn a group of trekkers into a band of friends."',
+    },
+    geo: {
+      photo:  '036',
+      alt:    'The Prokletije range above the Valbona Valley',
+      kicker: 'The region',
+      h3:     'Peaks of the Balkans',
+      paras: [
+        'The trail crosses the mountain region where Albania, Kosovo and Montenegro meet. The Prokletije range, also called the Albanian Alps or the Accursed Mountains, is a world of jagged ridges, deep valleys, forests, alpine pastures and many streams.',
+        'The trail links villages that were once cut off on either side of the borders, and has turned the mountain landscape and the local tradition of hospitality into a journey across borders.',
+      ],
+      facts: [['flag', '3 countries on one trail'], ['peak', 'Jagged ridges and deep valleys'], ['bed', 'Nights with families in the mountain villages']],
+    },
+    prep: {
+      kicker: 'Getting ready',
+      h3:     'From Nahal Yagur to Ben Gurion',
+      p:      'The preparations began a few weeks before departure. HighAir organized preparation meetings to introduce the trekkers to the character of the route, the conditions on the ground and the gear a long mountain trek needs.',
+      steps: [
+        ['peak', 'May 1', 'A training trek in Nahal Yagur', 'In the Carmel mountains, guided by Roi Carmel. The first taste of a group\'s walking pace.'],
+        ['video', 'May 6', 'A briefing on Zoom', 'Gear, the line of the route and the conditions to expect in the mountains.'],
+        ['chat', 'Meanwhile', 'The WhatsApp group opens', 'Suitcases, insurance, a local SIM and money, and little by little humor and helping each other too.'],
+        ['home', 'Weeks before', 'A get-together evening in Kfar Saba', 'Around the dinner table at Anat\'s home. That is where the group began to become a band of friends.'],
+        ['plane', 'June 8, 2:00', 'Ben Gurion Airport, takeoff', 'A last briefing from Chen Shaked, the trip shirts and the HighAir flag.'],
+      ],
+    },
   },
   ribbon: {
     aria:          'Where we slept each night',
@@ -789,7 +965,7 @@ const EN = {
     trip:  'Details of the next trek',
     guide: 'The complete trek guide',
   },
-  credit:   'A big thank you to Eli Yitzhak, who recorded the trek in a moving diary and let us share it. All quotes and photos are courtesy of him and the members of the group. Guiding in the field: Dani and Farhija.',
+  credit:   'A big thank you to Eli Yitzhak, who recorded the trek in a moving diary and let us share it. All quotes and photos are courtesy of him and the members of the group. Guiding in the field: HighAir\'s local team.',
   lightbox: { aria: 'Photo viewer', close: 'Close', prev: 'Previous', next: 'Next' },
 };
 
@@ -804,6 +980,30 @@ export const shortPlace = (day, T) => day.place.replace(`, ${T.countries.XK}`, '
 /** Every photo of the page in reading order (the lightbox steps through them). */
 export const allPhotos = T => T.days.flatMap(d => d.photos);
 
+/* Chapter 0 as blog blocks */
+function prologueBlocks(P, author) {
+  const text = value => ({ type: 'text', value });
+  return [
+    { type: 'section', value: `${P.kicker}: ${P.h2}` },
+    text(P.lead),
+    { type: 'subheading', value: P.letter.kicker },
+    text(`${P.letter.quote} (${author}, ${P.letter.sigNote})`),
+    { type: 'subheading', value: P.thanksTitle },
+    ...P.thanks.map(([, who, why]) => text(`${who}: ${why}`)),
+    text(`${P.group.title}, ${P.group.note}: ${P.group.names.join(', ')}.`),
+    text(P.group.quote),
+    { type: 'subheading', value: P.moments.title },
+    { type: 'list', items: P.moments.items },
+    text(P.moments.end),
+    { type: 'subheading', value: `${P.geo.kicker}: ${P.geo.h3}` },
+    ...P.geo.paras.map(text),
+    { type: 'list', items: P.geo.facts.map(([, f]) => f) },
+    { type: 'subheading', value: `${P.prep.kicker}: ${P.prep.h3}` },
+    text(P.prep.p),
+    { type: 'list', items: P.prep.steps.map(([, when, what, note]) => `${when}, ${what}: ${note}`) },
+  ];
+}
+
 /** The page as blog blocks (BlogPost's format), for the static page's text layer
     (scripts/lib/text-layer.mjs) and anything else that reads a post's text. */
 export function diaryBlocks(lang) {
@@ -814,6 +1014,7 @@ export function diaryBlocks(lang) {
     { type: 'section', value: T.intro.h2 },
     ...T.intro.paras.map(text),
     text(`${T.intro.quote} (${T.intro.cite})`),
+    ...prologueBlocks(T.prologue, T.hero.author),
     { type: 'section', value: T.glance.title },
     { type: 'list', items: T.glance.tiles.map(([, n, unit, what]) => `${n} ${unit}: ${what}`) },
     { type: 'section', value: T.ribbon.h2 },

@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
 import { POSTS } from '../src/data/blogData.js';
-import { DIARY, DIARY_SLUG, PHOTO_SIZE, ICONS, COUNTRY_COLOR, MAP_STOPS, diaryImg, diaryBlocks, HERO_PHOTO, TRIP_PATH, GUIDE_PATH } from '../src/data/balkanDiary.js';
+import { DIARY, DIARY_SLUG, PHOTO_SIZE, PHOTO_POS, ICONS, COUNTRY_COLOR, MAP_STOPS, diaryImg, diaryBlocks, HERO_PHOTO, TRIP_PATH, GUIDE_PATH } from '../src/data/balkanDiary.js';
 import { BLOG_LANGS } from '../src/website/blogLangs.js';
 import VARIANTS from '../src/website/imageVariants.json';
 import { EXPS } from '../src/data/mockData.js';
@@ -44,6 +44,8 @@ describe('the Balkan diary: route and post', () => {
   it('the static page carries every day, word for word', () => {
     const html = blogText(post);
     expect(html).toContain(`<h1>${esc(HE.hero.h1)}</h1>`);
+    expect(html).toContain(esc(HE.prologue.h2));
+    for (const s of [HE.prologue.lead, ...HE.prologue.geo.paras, HE.prologue.prep.p]) expect(html).toContain(esc(s));
     for (const d of HE.days) {
       expect(html).toContain(esc(d.title));
       for (const p of d.body) expect(html).toContain(esc(p));
@@ -66,6 +68,8 @@ describe('the Balkan diary: two languages, one page', () => {
       crossings: Object.keys(T.crossings),
       countries: Object.keys(T.countries),
       calls: T.vibe.calls.length,
+      prologue: [T.prologue.letter.photo, T.prologue.geo.photo, T.prologue.thanks.map(x => x[0]), T.prologue.group.names.length,
+        T.prologue.moments.items.length, T.prologue.geo.paras.length, T.prologue.geo.facts.map(f => f[0]), T.prologue.prep.steps.map(x => x[0])],
     });
     expect(shape(EN)).toEqual(shape(HE));
     expect(Object.keys(HE.countries)).toEqual(Object.keys(COUNTRY_COLOR));
@@ -73,9 +77,14 @@ describe('the Balkan diary: two languages, one page', () => {
   });
   it('every icon a day, tile, card or line names is drawn', () => {
     for (const T of [HE, EN]) {
-      const names = [...T.days.flatMap(d => d.facts.map(f => f[0])), ...T.glance.tiles.map(t => t[0]), ...T.cards.items.map(c => c[0]), ...T.expect.items.map(x => x[0]), 'flag', 'compass'];
+      const names = [...T.days.flatMap(d => d.facts.map(f => f[0])), ...T.glance.tiles.map(t => t[0]), ...T.cards.items.map(c => c[0]), ...T.expect.items.map(x => x[0]),
+        ...T.prologue.thanks.map(x => x[0]), ...T.prologue.geo.facts.map(f => f[0]), ...T.prologue.prep.steps.map(x => x[0]), 'flag', 'compass', 'users', 'star'];
       for (const n of names) expect(ICONS[n], n).toBeTruthy();
     }
+  });
+  it('the guides are not named (owner: the guides\' names are not relevant), in either language', () => {
+    expect(strings(DIARY).filter(s => /דני|פרחיה|\bDani\b|Farhija/.test(s))).toEqual([]);
+    expect(HE.credit).toContain('הדרכה בשטח: הצוות המקומי של HighAir.');
   });
   it('no dash in either language, and no raised maqaf', () => {
     expect(strings(DIARY).filter(s => /[–—־]/.test(s))).toEqual([]);
@@ -102,6 +111,8 @@ describe('the Balkan diary: photos and styles', () => {
          the copy would not be clearly lighter) */
       if (width > 1000) expect(VARIANTS[diaryImg(id)]?.s, `${id}: run node scripts/gen-image-variants.mjs`).toBeTruthy();
     }
+    for (const id of Object.keys(PHOTO_POS)) expect(PHOTO_SIZE[id], `focal point for ${id}, no such photo`).toBeTruthy();
+    expect(PHOTO_POS[HERO_PHOTO]).toBe(post.imgPosition);
     for (const f of ['al', 'xk', 'me']) expect(existsSync(resolve(__dirname, `../public/images/blog/balkan-diary/flag-${f}.webp`)), f).toBe(true);
   });
   it('every rule of its stylesheet stays inside the page (.bd)', () => {

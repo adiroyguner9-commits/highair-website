@@ -128,7 +128,7 @@ const PRE_HERO_BG = {
   trip: img => `linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.65)),url(${img}) center/cover no-repeat,#0A0818`,
   list: img => `linear-gradient(to bottom,rgba(10,8,24,.55),rgba(10,8,24,.78)),url(${img}) center/cover no-repeat`,
   blog: (img, pos) => `linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url(${img}) ${pos || 'center'}/cover no-repeat`,
-  diary: img => `linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%),url(${img}) center/cover no-repeat`,
+  diary: (img, pos) => `linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%),url(${img}) ${pos || 'center'}/cover no-repeat`,
 };
 /* The hero's background sits in the pre-hero's own <style>, so a phone can get
    its copy by media query (main.jsx reads whichever one is on screen). */
@@ -487,7 +487,7 @@ const personNode = a => ({
 const guestNode = (g, lng) => g && { '@type': 'Person', name: lng === 'he' ? g.nameHe : g.nameEn, ...(lng === 'he' ? { alternateName: g.nameEn } : {}) };
 /* A post with a page of its own (customPage): the shell paints that page's hero, not BlogPost's */
 const ownHero = post => !post.customPage ? {}
-  : post.ownText ? { heroKind: 'diary', preHero: preHeroHtml('diary', localImg(post.img)) }
+  : post.ownText ? { heroKind: 'diary', preHero: preHeroHtml('diary', localImg(post.img), post.imgPosition) }
   : { preHero: '', heroKind: '' };
 let blogCount = 0;
 for (const post of POSTS) {

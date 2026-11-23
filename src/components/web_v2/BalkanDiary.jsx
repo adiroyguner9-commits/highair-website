@@ -3,9 +3,10 @@
  *
  * "פסגות הבלקן: יומן מסע", the owner's article (23 Nov 2026) as he designed it: a page of its
  * own rather than BlogPost's blocks, rebuilt from the compiled preview he approved (claude.ai
- * artifact 7XKkAYbFMvrT6JKsVkDEgS), section by section: the hero, the trek at a glance, the
- * nine nights, the nine days beside a route map that fills in as you read, the flip cards, the
- * vibe, what awaits you, the call to the next trek and a photo viewer.
+ * artifact 7XKkAYbFMvrT6JKsVkDEgS, updated as Xcy4urDSX8buPxgzgjkiHB), section by section: the
+ * hero, the trek at a glance, chapter 0 (thanks, the region, the preparation), the nine nights,
+ * the nine days beside a route map that fills in as you read, the flip cards, the vibe, what
+ * awaits you, the call to the next trek and a photo viewer.
  *
  * The words are in src/data/balkanDiary.js (the owner's Hebrew; English for the en. site), the
  * styles in balkanDiary.css (the preview's own, every rule under .bd). main.jsx gives this
@@ -22,7 +23,7 @@ import { srcSetOf } from '../../website/imageVariants.js';
 import { blogLang } from '../../data/blogLang.js';
 import {
   DIARY_SLUG, ICONS, PHOTO_SIZE, COUNTRY_COLOR, MAP_STOPS, MAP_ROUTE, HERO_PHOTO, CTA_PHOTO,
-  TRIP_PATH, GUIDE_PATH, diaryImg, diaryText, shortPlace, allPhotos,
+  TRIP_PATH, GUIDE_PATH, diaryImg, diaryText, shortPlace, allPhotos, photoPos,
 } from '../../data/balkanDiary.js';
 import Header from './Header.jsx';
 import SiteFooter from './SiteFooter.jsx';
@@ -39,65 +40,55 @@ function Icon({ n, s = 22 }) {
   );
 }
 
-/* A photo of the page: its own size, and the 800px copy for a screen that needs no more
-   (scripts/gen-image-variants.mjs); below the first screen, so it loads as the reader nears it. */
+/* A photo of the page: its own size, centred where the owner set it when cropped (photoPos), and
+   the 800px copy for a screen that needs no more (scripts/gen-image-variants.mjs); below the
+   first screen, so it loads as the reader nears it. */
 function Photo({ id, alt, sizes }) {
   const src = diaryImg(id);
   const srcSet = srcSetOf(src);
   const [w, h] = PHOTO_SIZE[id];
-  return <img loading="lazy" decoding="async" src={src} srcSet={srcSet} sizes={srcSet ? sizes : undefined} width={w} height={h} alt={alt} />;
+  return <img loading="lazy" decoding="async" src={src} srcSet={srcSet} sizes={srcSet ? sizes : undefined} width={w} height={h} alt={alt} style={{ objectPosition: photoPos(id) }} />;
 }
 /* How wide the photos are drawn (balkanDiary.css): the article column is 90vw up to 1020px
-   (the map goes above it), beside the map about 580px; the small photos share it 2 to 4 abreast,
-   two on a phone. */
+   (the map goes above it), beside the map about 580px. The small photos: four in two rows of two,
+   else all in one row; on a phone two abreast, three as one wide and two below. */
 const COVER_SIZES = '(max-width: 1020px) 90vw, 580px';
-const smallSizes = n => `(max-width: 600px) 45vw, (max-width: 1020px) ${Math.round(90 / n)}vw, ${Math.round(580 / n)}px`;
+function smallSizes(n, i) {
+  const cols = n === 4 ? 2 : n;
+  const phone = n === 1 || (n === 3 && i === 0) ? '90vw' : '45vw';
+  return `(max-width: 600px) ${phone}, (max-width: 1020px) ${Math.round(90 / cols)}vw, ${Math.round(580 / cols)}px`;
+}
 
 /* ── The trek at a glance ────────────────────────────────────────────── */
 
-const STARS = [[30, 20], [120, 12], [178, 44], [268, 16], [300, 52], [392, 26], [58, 70], [372, 80], [150, 86]];
-
-/* The three flags over the ridge, meeting at the triple border */
+/* The three flags, round, over the ridge line, meeting at the triple border */
 function TripointArt({ T }) {
   const g = T.glance;
+  const ridge = 'M0 196 C40 186 62 168 96 172 S150 150 176 148 S196 138 210 136 S236 146 262 150 S318 160 346 168 S396 184 420 188';
   return (
-    <svg viewBox="0 0 420 240" role="img" aria-label={g.triAria}>
+    <svg viewBox="0 0 420 210" role="img" aria-label={g.triAria}>
       <defs>
-        <linearGradient id="bdR1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#7C3AED" stopOpacity=".75" />
-          <stop offset="1" stopColor="#4C1D95" stopOpacity=".2" />
+        <clipPath id="bdFc"><circle r="17" /></clipPath>
+        <linearGradient id="bdRf" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#A78BFA" stopOpacity=".16" />
+          <stop offset="1" stopColor="#A78BFA" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="bdR2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#4C1D95" />
-          <stop offset="1" stopColor="#1E1B4B" />
-        </linearGradient>
-        <radialGradient id="bdGlow">
-          <stop offset="0" stopColor="#C4B5FD" stopOpacity=".9" />
-          <stop offset="1" stopColor="#C4B5FD" stopOpacity="0" />
-        </radialGradient>
-        <filter id="bdSh" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000" floodOpacity=".35" />
-        </filter>
-        <clipPath id="bdFc"><rect width="58" height="38" rx="6" /></clipPath>
       </defs>
-      {STARS.map(([x, y], i) => <circle key={i} cx={x} cy={y} r={i % 3 ? 1.1 : 1.7} fill="#fff" opacity={i % 2 ? 0.5 : 0.8} />)}
-      <path d="M0 210 L48 150 L80 166 L130 104 L162 130 L210 84 L252 124 L300 96 L340 132 L380 112 L420 150 V240 H0Z" fill="url(#bdR1)" />
-      <path d="M130 104 L118 119 L128 116 L136 122 L142 114Z M210 84 L196 101 L208 97 L216 104 L224 98Z M300 96 L288 110 L299 107 L308 112Z" fill="#fff" opacity=".85" />
-      <path d="M0 240 V196 L70 168 L120 184 L170 156 L210 138 L250 158 L300 146 L360 172 L420 162 V240Z" fill="url(#bdR2)" />
+      <path d={`${ridge} V210 H0Z`} fill="url(#bdRf)" />
+      <path d={ridge} fill="none" stroke="#C4B5FD" strokeOpacity=".55" strokeWidth="1.5" strokeLinecap="round" />
       {g.triFlags.map(([code, name, x]) => (
         <g key={code}>
-          <path d={`M${x} 60 Q${(x + 210) / 2} ${x === 210 ? 100 : 70} 210 132`} fill="none" stroke="#C4B5FD" strokeWidth="1.4" strokeDasharray="2 5" opacity=".8" />
-          <g transform={`translate(${x - 29} 8)`} filter="url(#bdSh)">
-            <rect x="-2" y="-2" width="62" height="42" rx="8" fill="#fff" />
-            <image href={diaryImg(`flag-${code}`)} width="58" height="38" preserveAspectRatio="xMidYMid slice" clipPath="url(#bdFc)" />
+          <path d={`M${x} 82 C${x} 112 ${(x + 210) / 2} 118 210 128`} fill="none" stroke="#C4B5FD" strokeOpacity=".45" strokeWidth="1.2" strokeDasharray="2 5" strokeLinecap="round" />
+          <g transform={`translate(${x} 38)`}>
+            <circle r="21" fill="none" stroke="#fff" strokeOpacity=".22" />
+            <image href={diaryImg(`flag-${code}`)} x="-26" y="-17" width="52" height="34" preserveAspectRatio="xMidYMid slice" clipPath="url(#bdFc)" />
           </g>
-          <text x={x} y="66" textAnchor="middle" fill="#fff" fontSize="14" fontWeight="700" fontFamily="Ploni">{name}</text>
+          <text x={x} y="78" textAnchor="middle" fill="#E9E5FF" fontSize="13" fontWeight="600" fontFamily="Ploni">{name}</text>
         </g>
       ))}
-      <circle cx="210" cy="132" r="26" fill="url(#bdGlow)" opacity=".55" />
-      <rect x="204" y="120" width="12" height="20" rx="2.5" fill="#fff" />
-      <rect x="201" y="138" width="18" height="4" rx="2" fill="#E9E5FF" />
-      <text x="210" y="172" textAnchor="middle" fill="#E9E5FF" fontSize="13" fontFamily="Ploni">{g.triCaption}</text>
+      <circle cx="210" cy="128" r="13" fill="none" stroke="#fff" strokeOpacity=".18" />
+      <rect x="206" y="121" width="8" height="13" rx="2" fill="#fff" />
+      <text x="210" y="170" textAnchor="middle" fill="#C4B5FD" fontSize="12" fontFamily="Ploni">{g.triCaption}</text>
     </svg>
   );
 }
@@ -119,6 +110,100 @@ function Glance({ T }) {
               <span>{what}</span>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Chapter 0: before we set out ─────────────────────────────────────── */
+
+const INITIAL_COLORS = ['#6D28D9', '#8B5CF6', '#4C1D95', '#7C3AED'];
+
+function Prologue({ T }) {
+  const P = T.prologue;
+  return (
+    <section className="bd-pro" aria-labelledby="bd-pro-h">
+      <div className="bd-in">
+        <span className="bd-kicker">{P.kicker}</span>
+        <h2 id="bd-pro-h">{P.h2}</h2>
+        <p className="lead">{P.lead}</p>
+
+        <div className="bd-letter">
+          <div className="bd-lhero">
+            <Photo id={P.letter.photo} alt={P.letter.alt} sizes="(max-width: 1180px) 90vw, 1040px" />
+            <div className="in">
+              <span className="k">{P.letter.kicker}</span>
+              <p className="q">{P.letter.quote}</p>
+              <span className="sig">
+                <span className="bd-av">{T.hero.initials}</span>
+                <span><b>{T.hero.author}</b><small>{P.letter.sigNote}</small></span>
+              </span>
+            </div>
+          </div>
+          <div className="bd-lbody">
+            <h3 className="ttl">{P.thanksTitle}</h3>
+            <div className="bd-thx">
+              {P.thanks.map(([icon, who, why]) => (
+                <div className="c" key={who}>
+                  <span className="ic"><Icon n={icon} s={22} /></span>
+                  <b>{who}</b>
+                  <p>{why}</p>
+                </div>
+              ))}
+            </div>
+            <div className="bd-group">
+              <div className="gh">
+                <span className="ic"><Icon n="users" s={22} /></span>
+                <div><b>{P.group.title}</b><small>{P.group.note}</small></div>
+              </div>
+              <div className="names">
+                {P.group.names.map((name, i) => (
+                  <span key={name}><i style={{ background: INITIAL_COLORS[i % 4] }}>{name[0]}</i>{name}</span>
+                ))}
+              </div>
+              <p>{P.group.quote}</p>
+            </div>
+            <div className="bd-moments">
+              <b>{P.moments.title}</b>
+              <ul>{P.moments.items.map(m => <li key={m}><Icon n="star" s={15} />{m}</li>)}</ul>
+              <p className="end">{P.moments.end}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-geo">
+          <div className="ph">
+            <Photo id={P.geo.photo} alt={P.geo.alt} sizes="(max-width: 820px) 90vw, (max-width: 1180px) 42vw, 480px" />
+          </div>
+          <div className="tx">
+            <span className="bd-kicker">{P.geo.kicker}</span>
+            <h3>{P.geo.h3}</h3>
+            {P.geo.paras.map((p, i) => <p key={i}>{p}</p>)}
+            <ul>{P.geo.facts.map(([icon, fact]) => <li key={fact}><Icon n={icon} s={18} />{fact}</li>)}</ul>
+          </div>
+        </div>
+
+        <div className="bd-prep">
+          <div className="t">
+            <span className="bd-kicker">{P.prep.kicker}</span>
+            <h3>{P.prep.h3}</h3>
+            <p>{P.prep.p}</p>
+          </div>
+          <div className="bd-trail">
+            <svg className="path" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M10 30 C110 4 190 56 300 30 S490 4 600 30 S790 56 990 30" fill="none" stroke="#C4B5FD" strokeWidth="2"
+                strokeDasharray="3 7" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+            </svg>
+            <ol>
+              {P.prep.steps.map(([icon, when, what, note], i) => (
+                <li key={what} className={i === P.prep.steps.length - 1 ? 'last' : ''}>
+                  <span className="pin"><Icon n={icon} s={22} /><em>{i + 1}</em></span>
+                  <div className="card"><small>{when}</small><b>{what}</b><p>{note}</p></div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>
@@ -310,7 +395,7 @@ function DayCover({ day, T, onOpen }) {
   );
 }
 
-/* The day's other photos: up to four in a row (two on a phone), the fourth counting the rest */
+/* The day's other photos: up to four, the fourth counting the rest */
 function DayPhotos({ photos, T, onOpen }) {
   if (!photos.length) return null;
   const shown = photos.slice(0, 4);
@@ -319,7 +404,7 @@ function DayPhotos({ photos, T, onOpen }) {
     <div className={`bd-bento n${shown.length}`}>
       {shown.map(([id, caption], i) => (
         <button key={id} type="button" onClick={() => onOpen(id)} aria-label={T.zoom + caption}>
-          <Photo id={id} alt={caption} sizes={smallSizes(shown.length)} />
+          <Photo id={id} alt={caption} sizes={smallSizes(shown.length, i)} />
           {i === 3 && more > 0 && <span className="more">+{more}</span>}
         </button>
       ))}
@@ -479,7 +564,7 @@ export default function BalkanDiary() {
         <div className="bd-prog"><i ref={barRef} /></div>
 
         <header className="bd-hero">
-          <img src={diaryImg(HERO_PHOTO)} width={heroW} height={heroH} alt={T.hero.alt} fetchpriority="high" />
+          <img src={diaryImg(HERO_PHOTO)} width={heroW} height={heroH} alt={T.hero.alt} fetchpriority="high" style={{ objectPosition: photoPos(HERO_PHOTO) }} />
           <div className="bd-in">
             <div className="bd-badges">
               {T.hero.badges.map((b, i) => <span key={b} className={i ? 'bd-badge g' : 'bd-badge'}>{b}</span>)}
@@ -512,6 +597,8 @@ export default function BalkanDiary() {
             </blockquote>
           </section>
         </div>
+
+        <Prologue T={T} />
 
         <NightsRibbon T={T} />
 
@@ -570,7 +657,7 @@ export default function BalkanDiary() {
         </section>
 
         <section className="bd-ctab">
-          <img loading="lazy" decoding="async" src={diaryImg(CTA_PHOTO)} width={ctaW} height={ctaH} alt="" />
+          <img loading="lazy" decoding="async" src={diaryImg(CTA_PHOTO)} width={ctaW} height={ctaH} alt="" style={{ objectPosition: photoPos(CTA_PHOTO) }} />
           <div className="bd-in">
             <span className="bd-badge">{T.cta.badge}</span>
             <h2>{T.cta.h2}</h2>

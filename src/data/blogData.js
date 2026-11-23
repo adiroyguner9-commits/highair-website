@@ -7,7 +7,7 @@
  * (main.jsx routes its address to it); its entry here still lists it in the magazine and
  * the sitemap and builds its static page (scripts/generate-html-shells.mjs).
  */
-import { DIARY, diaryBlocks } from './balkanDiary.js';
+import { DIARY, diaryBlocks, photoPos, HERO_PHOTO } from './balkanDiary.js';
 
 export const POSTS = [
 
@@ -44,7 +44,7 @@ export const POSTS = [
       category:         'חדשות',
       categoryEn:       'News',
       img:              '/images/blog/balkan-diary/107.webp',
-      imgPosition:      'center',
+      imgPosition:      photoPos(HERO_PHOTO),
       imgPositionCard:  'center',
       imgCredit:        '',
       excerpt:          DIARY.he.hero.sub,
