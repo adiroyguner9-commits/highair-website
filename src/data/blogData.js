@@ -2,9 +2,56 @@
  * blogData.js - Blog posts
  * To add a new post: copy the object structure below and paste at the top of POSTS array.
  * Each post supports both Hebrew (default) and English (En suffix) fields.
+ *
+ * A post with `customPage: true` has a page of its own design instead of BlogPost.jsx
+ * (main.jsx routes its address to it); its entry here still lists it in the magazine and
+ * the sitemap and builds its static page (scripts/generate-html-shells.mjs).
  */
+import { DIARY, diaryBlocks } from './balkanDiary.js';
 
 export const POSTS = [
+
+  /* ═══════════════════════════════════════════════════════════════════
+   *  id:40  peaks-of-the-balkans-diary  (2026-11-23)
+   *  The owner's article (claude.ai artifact, 23 Nov 2026): Eli Yitzhak's diary of the
+   *  June 2026 Peaks of the Balkans group, on a page of its own design
+   *  (src/components/web_v2/BalkanDiary.jsx). Its words live in src/data/balkanDiary.js;
+   *  the title, headline, excerpt and the text blocks below are taken from there, so the
+   *  card, the static page and the page itself say the same thing. The excerpt is the
+   *  page's own subtitle (136 characters, the card's 135-145). guestAuthor: the diary is
+   *  Eli's, and the static page names him as the article's author (schema.org Person);
+   *  not a staff byline (authors.js), which stays off.
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+      id:               40,
+      slug:             'peaks-of-the-balkans-diary',
+      customPage:       true,
+      ownText:          true,     // its page carries its own Hebrew and English text
+      title:            'פסגות הבלקן: יומן מסע',
+      titleEn:          'Peaks of the Balkans: A Diary',
+      headline:         DIARY.he.hero.h1,
+      headlineEn:       DIARY.en.hero.h1,
+      seoTitle:         DIARY.he.seoTitle,
+      seoTitleEn:       DIARY.en.seoTitle,
+      seoDescription:   DIARY.he.description,
+      seoDescriptionEn: DIARY.en.description,
+      author:           'HighAir Expeditions',
+      guestAuthor:      { nameHe: DIARY.he.hero.author, nameEn: DIARY.en.hero.author },
+      dateIso:          '2026-11-23',
+      dateModified:     '2026-11-23',
+      dateHe:           '23 בנובמבר 2026',
+      dateEn:           'November 23, 2026',
+      category:         'חדשות',
+      categoryEn:       'News',
+      img:              '/images/blog/balkan-diary/107.webp',
+      imgPosition:      'center',
+      imgPositionCard:  'center',
+      imgCredit:        '',
+      excerpt:          DIARY.he.hero.sub,
+      excerptEn:        DIARY.en.hero.sub,
+      content:          diaryBlocks('he'),
+      contentEn:        diaryBlocks('en'),
+  },
 
   /* ═══════════════════════════════════════════════════════════════════
    *  id:39  trek-training-guide  (2026-11-20)

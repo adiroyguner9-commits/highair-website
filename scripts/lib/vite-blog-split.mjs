@@ -65,7 +65,9 @@ export function postTexts(post, lng, intl) {
   const own = intl?.[lng]?.[post?.slug];
   if (own) return own;
   if (lng === 'en' && post?.titleEn && Array.isArray(post.contentEn) && post.contentEn.length) {
-    return { title: post.titleEn, excerpt: post.excerptEn || '', category: post.categoryEn || '', seoTitle: post.seoTitleEn || '', content: post.contentEn };
+    /* headline and seoDescription: the page's own English, where the post has them (the
+       English static page used the Hebrew headline as its <h1>) */
+    return { title: post.titleEn, headline: post.headlineEn || '', excerpt: post.excerptEn || '', category: post.categoryEn || '', seoTitle: post.seoTitleEn || '', seoDescription: post.seoDescriptionEn || '', content: post.contentEn };
   }
   return null;
 }

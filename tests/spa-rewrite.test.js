@@ -66,6 +66,8 @@ describe('every page route is served', () => {
   for (const [, p] of shells.matchAll(/\['([a-z-]+)',\s+'[^']+'\]/g)) staticShells.add('/' + p);
   for (const [, p] of shells.matchAll(/writeShell\('([a-z-]+)'/g)) staticShells.add('/' + p);   // a page written on its own (/trek-match)
   const dynamicShells = ['/expedition/:slug', '/blog/:slug', '/israel/:slug'];   // one shell per slug
+  /* a post with a page of its own (the Balkan diary) has its own route, and the blog's shell per post */
+  const postRoutes = new Set(POSTS.map(p => `/blog/${p.slug}`));
   const hidden = ['/israel', '/israel/:slug'];   // ISRAEL_TREKS_LIVE off: React shows the 404 page too
   /* A post with a page of its own has its own route, served by the post's shell like any post */
   for (const p of POSTS) if (p.customPage) dynamicShells.push(`/blog/${p.slug}`);
@@ -73,7 +75,7 @@ describe('every page route is served', () => {
   it('has a shell, the fallback, or is a hidden route', () => {
     expect(routes.length).toBeGreaterThan(10);
     for (const r of routes) {
-      if (r === '/' || r === '/*' || hidden.includes(r) || dynamicShells.includes(r)) continue;
+      if (r === '/' || r === '/*' || hidden.includes(r) || dynamicShells.includes(r) || postRoutes.has(r)) continue;
       const sample = r.replace(/:[a-z]+/g, 'x');
       expect(staticShells.has(r) || spa(sample), r).toBe(true);
     }

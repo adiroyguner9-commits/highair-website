@@ -57,6 +57,16 @@ describe('pre-hero matches the real hero', () => {
     expect(shells).toContain('#ha-pre .blog{height:300px}');
   });
 
+  it('the Balkan diary (a page of its own): its .bd-hero, under 80px, with its own gradient', () => {
+    has('src/components/web_v2/balkanDiary.css',
+      '.bd-hero{position:relative;margin-top:80px;height:min(78vh,640px);min-height:440px;',
+      '.bd-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}',
+      '.bd-hero:after{background:linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%)}');
+    expect(shells).toContain("'#ha-pre .diary{margin-top:80px;height:min(78vh,640px);min-height:440px}'");
+    expect(shells).toContain('linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%),url(${img}) center/cover no-repeat');
+    expect(shells).toContain("post.customPage ? { heroKind: 'diary', preHero: preHeroHtml('diary', localImg(post.img)) }");
+  });
+
   it('phones break at the same width as useBreakpoint', () => {
     has('src/website/useBreakpoint.js', '(max-width: 767.98px)');
     expect(shells).toContain('@media (max-width:767.98px)');

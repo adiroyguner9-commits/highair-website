@@ -10,7 +10,12 @@
    openPost(navigate, slug, lang) opens a post, keeping the current page on
                                   screen until its text is in. */
 import { startTransition } from 'react';
-import { CONTENT } from 'virtual:blog-index';
+import { CONTENT, POSTS } from 'virtual:blog-index';
+
+/* A post whose own page brings its own text in every language (ownText, the Balkan diary): opening
+   it from a card loads nothing here. The training guide's own page is Hebrew only; on en. it is
+   BlogPost and needs its text. */
+const OWN_PAGE = new Set(POSTS.filter(p => p.customPage && p.ownText).map(p => p.slug));
 
 const cache = new Map();
 
@@ -18,7 +23,7 @@ function entry(slug, lang) {
   const key = `${slug}.${lang}`;
   if (!cache.has(key)) {
     /* de/es where the post has them, else the English (en/de/es) or Hebrew text. */
-    const load = CONTENT[slug]?.[lang] || CONTENT[slug]?.[lang === 'he' ? 'he' : 'en'];
+    const load = !OWN_PAGE.has(slug) && (CONTENT[slug]?.[lang] || CONTENT[slug]?.[lang === 'he' ? 'he' : 'en']);
     const e = { status: load ? 'pending' : 'done', value: [] };
     if (load) {
       e.promise = load().then(

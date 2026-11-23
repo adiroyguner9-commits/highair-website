@@ -105,7 +105,8 @@ const expHeroImage = exp => (exp.videoUrl ? ''
    Suspense fallback repeats it (src/main.jsx, BootFallback) so it never blinks
    out while the page's own chunk loads. Text and buttons stay React's.
    Sizes mirror: HomeV2 + HeroSection (home), ExpeditionDetail (trip),
-   WorldExpeditionsPage (list), BlogPost (blog); the header is 80px everywhere. */
+   WorldExpeditionsPage (list), BlogPost (blog), and the one post with a page of
+   its own, BalkanDiary's .bd-hero (diary, balkanDiary.css); the header is 80px everywhere. */
 const PRE_HERO_CSS = [
   '.ha-nopre #ha-pre{display:none}',
   '#ha-pre .b{position:fixed;top:0;left:0;right:0;height:80px;background:#fff;z-index:10}',
@@ -119,6 +120,7 @@ const PRE_HERO_CSS = [
   '#ha-pre .trip{height:100dvh;min-height:600px}',
   '#ha-pre .list{height:440px}',
   '#ha-pre .blog{margin-top:80px;height:440px}',
+  '#ha-pre .diary{margin-top:80px;height:min(78vh,640px);min-height:440px}',
   '@media (max-width:767.98px){#ha-pre .sp{height:80px}#ha-pre .trip{height:65dvh;min-height:480px}#ha-pre .list{height:340px}#ha-pre .blog{height:300px}}',
 ].join('');
 const PRE_HERO_BG = {
@@ -126,6 +128,7 @@ const PRE_HERO_BG = {
   trip: img => `linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.65)),url(${img}) center/cover no-repeat,#0A0818`,
   list: img => `linear-gradient(to bottom,rgba(10,8,24,.55),rgba(10,8,24,.78)),url(${img}) center/cover no-repeat`,
   blog: (img, pos) => `linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url(${img}) ${pos || 'center'}/cover no-repeat`,
+  diary: img => `linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%),url(${img}) center/cover no-repeat`,
 };
 /* The hero's background sits in the pre-hero's own <style>, so a phone can get
    its copy by media query (main.jsx reads whichever one is on screen). */
@@ -474,12 +477,18 @@ const { POSTS, isNewsPost } = await import(path.join(ROOT, 'src/data/blogData.js
 const { BLOG_LANGS: POST_LANGS } = await import(path.join(ROOT, 'src/website/blogLangs.js'));
 const { authorOf } = await import(path.join(ROOT, 'src/data/authors.js'));
 /* A guide signed by a person names them as a Person (their bio is on the About
-   page); news and unsigned posts stay the company's. */
+   page); news and unsigned posts stay the company's, except a post that is a
+   reader's own story (guestAuthor, the Balkan diary): its writer is its author. */
 const personNode = a => ({
   '@type': 'Person', '@id': `${BASE_URL}/about#${a.id}`, name: a.nameHe, alternateName: a.nameEn,
   url: `${BASE_URL}/about`, image: `${BASE_URL}${a.photo}`, jobTitle: a.roleHe,
   worksFor: { '@id': `${BASE_URL}/#organization` },
 });
+const guestNode = (g, lng) => g && { '@type': 'Person', name: lng === 'he' ? g.nameHe : g.nameEn, ...(lng === 'he' ? { alternateName: g.nameEn } : {}) };
+/* A post with a page of its own (customPage): the shell paints that page's hero, not BlogPost's */
+const ownHero = post => !post.customPage ? {}
+  : post.ownText ? { heroKind: 'diary', preHero: preHeroHtml('diary', localImg(post.img)) }
+  : { preHero: '', heroKind: '' };
 let blogCount = 0;
 for (const post of POSTS) {
   if (!post.slug) continue;
@@ -495,7 +504,7 @@ for (const post of POSTS) {
     image:        postImg,
     datePublished: post.dateIso || '',
     dateModified:  post.dateModified || post.dateIso || '',
-    author:       author ? personNode(author) : { '@type': 'Organization', name: 'HighAir Expeditions', url: BASE_URL },
+    author:       author ? personNode(author) : guestNode(post.guestAuthor, 'he') || { '@type': 'Organization', name: 'HighAir Expeditions', url: BASE_URL },
     publisher:    { '@type': 'Organization', name: 'HighAir Expeditions', logo: { '@type': 'ImageObject', url: `${BASE_URL}/Logo.png` } },
     mainEntityOfPage: postUrl,
     inLanguage:   'he',
@@ -520,7 +529,7 @@ for (const post of POSTS) {
   const postTitle = post.title || post.titleEn || '';
   writeShell(`blog/${post.slug}`, {
     title:         postTitle ? `HighAir Expeditions | ${postTitle}` : 'HighAir Expeditions | מגזין',
-    description:   post.excerpt  || post.excerptEn  || '',
+    description:   post.seoDescription || post.excerpt || post.excerptEn || '',
     canonicalPath: `/blog/${post.slug}`,
     /* hreflang back to its translations: Google trusts the pair only when both
        pages name each other (owner approved, 6 Nov 2026) */
@@ -530,17 +539,16 @@ for (const post of POSTS) {
     heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
     heroKind:      'blog',
     preHero:       preHeroHtml('blog', localImg(post.img), post.imgPosition),
-    /* A post with a page of its own on this site (customPage, e.g. TrekTrainingGuide.jsx) has no
-       BlogPost hero: no dark hero to paint before the code, and its photo whole, not a blog hero's
-       phone slice. */
-    ...(post.customPage ? { preHero: '', heroKind: '' } : {}),
+    /* A post with a page of its own (customPage) has no BlogPost hero: the Balkan diary's shell paints
+       its own hero; any other own page (TrekTrainingGuide.jsx) paints none and keeps its photo whole. */
+    ...ownHero(post),
     text:          wrapText(blogText(post)),
     ogType:        'article',
     articleMeta: {
       publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
       modifiedTime:  (post.dateModified || post.dateIso) ? `${post.dateModified || post.dateIso}T12:00:00+03:00` : undefined,
       section:       post.category || undefined,
-      author:        author?.nameHe,
+      author:        author?.nameHe || post.guestAuthor?.nameHe,
       tags:          post.tags || [],
     },
     jsonLd,
@@ -581,7 +589,7 @@ let intlBlogCount = 0;
         dateModified: post.dateModified || post.dateIso || '',
         author: author
           ? { '@type': 'Person', name: author.nameEn || author.nameHe, url: `${base}/about` }
-          : { '@type': 'Organization', name: 'HighAir Expeditions', url: base },
+          : guestNode(post.guestAuthor, lng) || { '@type': 'Organization', name: 'HighAir Expeditions', url: base },
         publisher: { '@type': 'Organization', name: 'HighAir Expeditions', logo: { '@type': 'ImageObject', url: `${BASE_URL}/Logo.png` } },
         mainEntityOfPage: url,
         inLanguage: lng,
@@ -599,7 +607,7 @@ let intlBlogCount = 0;
       writeShell(`blog/${post.slug}`, {
         en:             lng,
         title:          tr.seoTitle || (headline ? `${headline} | HighAir Expeditions` : 'HighAir Expeditions'),
-        description:    tr.excerpt || '',
+        description:    tr.seoDescription || tr.excerpt || '',
         canonicalPath:  `/blog/${post.slug}`,
         alternatesPath: `/blog/${post.slug}`,
         alternateLangs: langs,
@@ -608,13 +616,14 @@ let intlBlogCount = 0;
         heroImage:      localImg(post.img),
         heroKind:       'blog',
         preHero:        preHeroHtml('blog', localImg(post.img), post.imgPosition),
+        ...ownHero(post),
         text:           wrapText(blogText({ ...post, ...tr, content: tr.content })),
         ogType:         'article',
         articleMeta: {
           publishedTime: post.dateIso ? `${post.dateIso}T12:00:00+03:00` : undefined,
           modifiedTime:  (post.dateModified || post.dateIso) ? `${post.dateModified || post.dateIso}T12:00:00+03:00` : undefined,
           section:       tr.category || undefined,
-          author:        author?.nameEn,
+          author:        author?.nameEn || post.guestAuthor?.nameEn,
           tags:          [],
         },
         jsonLd: { '@context': 'https://schema.org', '@graph': graph },

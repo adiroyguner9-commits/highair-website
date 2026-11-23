@@ -84,7 +84,9 @@ export async function heroUses() {
     if (!e.slug || e.teaser || e.videoUrl) continue;
     add(e.heroVideo ? e.heroVideo.replace('.mp4', '-poster.jpg') : (e.heroImg || e.img), 'trip');
   }
-  for (const p of POSTS) if (p.slug) add(p.img, 'blog', p.imgPosition);
+  /* BlogPost's hero; a post with a page of its own (customPage, the Balkan diary) draws its
+     own taller hero, which keeps its original: no BlogPost-sized slice of it */
+  for (const p of POSTS) if (p.slug && !p.customPage) add(p.img, 'blog', p.imgPosition);
   return list;
 }
 

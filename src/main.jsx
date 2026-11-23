@@ -123,6 +123,9 @@ const Blog               = lazy(() => import('./components/web_v2/Blog.jsx'));
 const BlogPost           = lazy(() => import('./components/web_v2/BlogPost.jsx'));
 /* The training guide: a post with a page the owner designed (20 Nov 2026); its own route wins over /blog/:slug */
 const TrekTrainingGuide  = lazy(() => import('./components/web_v2/TrekTrainingGuide.jsx'));
+/* The owner's Balkan diary (23 Nov 2026): a post with a page of its own design, not BlogPost's
+   blocks. Its address has its own route below, which React Router ranks above /blog/:slug. */
+const BalkanDiary        = lazy(() => import('./components/web_v2/BalkanDiary.jsx'));
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
 const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
@@ -261,6 +264,7 @@ Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(document.
           <Route path="/about"             element={<AboutUs />} />
           <Route path="/blog"              element={<Blog />} />
           <Route path="/blog/trek-training-guide" element={<TrekTrainingGuide />} />
+          <Route path="/blog/peaks-of-the-balkans-diary" element={<BalkanDiary />} />
           <Route path="/blog/:slug"        element={<BlogPost />} />
           <Route path="/shop"              element={<Shop />} />
           <Route path="/contact"           element={<ContactPage />} />
