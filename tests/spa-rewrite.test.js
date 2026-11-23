@@ -14,6 +14,7 @@
    the chunk-error reload would loop (23 Oct 2026, in production). */
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { POSTS } from '../src/data/blogData.js';
 
 const VERCEL = JSON.parse(readFileSync('vercel.json', 'utf8'));
 const fallback = VERCEL.rewrites.find(r => r.destination === '/spa.html');
@@ -66,6 +67,8 @@ describe('every page route is served', () => {
   for (const [, p] of shells.matchAll(/writeShell\('([a-z-]+)'/g)) staticShells.add('/' + p);   // a page written on its own (/trek-match)
   const dynamicShells = ['/expedition/:slug', '/blog/:slug', '/israel/:slug'];   // one shell per slug
   const hidden = ['/israel', '/israel/:slug'];   // ISRAEL_TREKS_LIVE off: React shows the 404 page too
+  /* A post with a page of its own has its own route, served by the post's shell like any post */
+  for (const p of POSTS) if (p.customPage) dynamicShells.push(`/blog/${p.slug}`);
 
   it('has a shell, the fallback, or is a hidden route', () => {
     expect(routes.length).toBeGreaterThan(10);

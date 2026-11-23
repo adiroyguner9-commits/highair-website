@@ -530,6 +530,10 @@ for (const post of POSTS) {
     heroImage:     localImg(post.img),   // BlogPost.jsx paints post.img as the hero
     heroKind:      'blog',
     preHero:       preHeroHtml('blog', localImg(post.img), post.imgPosition),
+    /* A post with a page of its own on this site (customPage, e.g. TrekTrainingGuide.jsx) has no
+       BlogPost hero: no dark hero to paint before the code, and its photo whole, not a blog hero's
+       phone slice. */
+    ...(post.customPage ? { preHero: '', heroKind: '' } : {}),
     text:          wrapText(blogText(post)),
     ogType:        'article',
     articleMeta: {

@@ -198,8 +198,11 @@ function ShareBtn({ color, text, onClick, children }) {
 
 // ── Main component ────────────────────────────────────────
 
-export default function BlogPost() {
-  const { slug }   = useParams();
+/* slug: for a post that has a page of its own on the Hebrew site and its own route
+   (TrekTrainingGuide.jsx), which shows its text here on the other sites. */
+export default function BlogPost({ slug: fixedSlug }) {
+  const params     = useParams();
+  const slug       = fixedSlug || params.slug;
   const navigate   = useNavigate();
   const { isMobile } = useBreakpoint();
   const { t, i18n } = useTranslation();
