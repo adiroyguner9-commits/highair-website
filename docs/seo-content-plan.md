@@ -103,7 +103,7 @@ the first-peak comparison (#15) before the 6,000 m comparison (#8), since "הר 
 | 15 | todo | אלברוס, קזבק או קילימנג'רו: איזו פסגה ראשונה מתאימה לך | only English comparisons rank | elbrus, kazbek, kilimanjaro |
 | 8 | todo | הפסגה הראשונה מעל 6,000 מטר: מרה פיק, איילנד פיק או לובוצ'ה | only English comparisons rank | mera-peak, island-peak, lobuche-peak |
 | 5 | todo | מחלת גבהים וביטוח מעל 4,000 ו-6,000 מטר: מה חייבים לדעת | no Hebrew source covers insurance at altitude | kilimanjaro, everest-base-camp, mera-peak, aconcagua |
-| 6 | todo | תוכנית אימונים של 12 שבועות לטרק בגובה, במסלולים בישראל | no week-by-week Hebrew plan | kilimanjaro, everest-base-camp |
+| 6 | live | תוכנית אימונים של 12 שבועות לטרק בגובה, במסלולים בישראל (covered by the owner's guide /blog/trek-training-guide, 23 Nov 2026: a 16-week plan, stairs, Israel trails) | no week-by-week Hebrew plan | kilimanjaro, everest-base-camp |
 | 16 | todo | רשימת ציוד לטרק בגובה ולטיפוס לקילימנג'רו | competitors rank with lists | kilimanjaro, everest-base-camp |
 | 17 | todo | הטרק הראשון שלי בחו"ל: איך בוחרים יעד לפי כושר וניסיון | first-trek intent, listicles rank | treks, climbs |
 | 20 | todo | מה לשאול חברת טרקים לפני שנרשמים | "חברת טרקים מומלצת" is listicles | treks, climbs |

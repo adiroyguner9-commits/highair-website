@@ -1668,6 +1668,7 @@ export const POSTS = [
         { type: 'text', value: 'ההכנה החשובה ביותר היא אירובית: הליכות ארוכות, ריצה קלה או רכיבה על אופניים, במשך כשלושה חודשים לפני היציאה. לפני הטיסה הקבוצה נפגשת למפגש הכנה על ציוד בחנות ציוד טיולים, ויוצאת יחד לטרק הכנה של יום אחד בארץ, כך שמגיעים להר מוכנים וכבר מכירים זה את זה.' },
         { type: 'text', value: 'חשוב לדעת: את הטיפוס מובילים מדריכים מקומיים מקצועיים מטנזניה, דוברי אנגלית, עם ניסיון רב בהובלת קבוצות בהר. אין הדרכה בעברית ואין מדריך או מלווה ישראלי, ולכן כדאי להגיע עם אנגלית בסיסית שמאפשרת להבין את ההנחיות בשטח. חובה להישמע להוראות הצוות, והמסלול עשוי להשתנות בהתאם למזג האוויר ולשיקול דעתם של המדריכים.' },
 
+        { type: 'cta', text: 'למדריך האימונים לטרק ולטיפוס הרים', textEn: 'Training guide for treks and climbs', href: '/blog/trek-training-guide' },
         { type: 'section', value: 'מתי לטפס על קילימנג׳רו' },
         { type: 'text', value: 'קילימנג׳רו נמצא קרוב לקו המשווה, ולכן העונות בו נקבעות בעיקר בגשם ולא בטמפרטורה. יש בו שתי עונות גשמים: הגשמים הארוכים, בערך ממרץ עד מאי, והגשמים הקצרים בנובמבר. בעונות האלה השבילים בוציים, הראות נמוכה יותר והטיפוס קשה יותר.' },
         { type: 'text', value: 'העונות המועדפות הן ינואר עד פברואר ויוני עד אוקטובר, החודשים היבשים והיציבים יותר, ובהן יוצאות המשלחות שלנו. ביולי ובאוגוסט ההר עמוס יותר במטפסים. בכל עונה הפסגה קרה מאוד בלילה, ולכן ציוד חם נדרש תמיד.' },
@@ -1770,6 +1771,7 @@ export const POSTS = [
         { type: 'text', value: 'The most important preparation is aerobic: long walks, light running or cycling, for about three months before departure. Before the flight the group meets for a gear preparation session at an outdoor equipment store and goes together on a one-day preparatory trek in Israel, so you reach the mountain prepared and already knowing each other.' },
         { type: 'text', value: 'Good to know: the climb is led by professional local guides from Tanzania who speak English and have long experience leading groups on the mountain. There is no Hebrew-speaking guide and no Israeli guide or escort, so basic English, enough to follow instructions on the trail, is worth having. Following the instructions of the crew is mandatory, and the route may change according to the weather and the judgement of the guides.' },
 
+        { type: 'cta', text: 'למדריך האימונים לטרק ולטיפוס הרים', textEn: 'Training guide for treks and climbs', href: '/blog/trek-training-guide' },
         { type: 'section', value: 'When to climb Kilimanjaro' },
         { type: 'text', value: 'Kilimanjaro lies close to the equator, so its seasons are set mainly by rain rather than by temperature. It has two rainy seasons: the long rains, roughly from March to May, and the short rains in November. In these seasons the trails are muddy, visibility is lower and the climb is harder.' },
         { type: 'text', value: 'The preferred seasons are January to February and June to October, the drier and more stable months, and these are when our expeditions depart. In July and August the mountain is busier with climbers. In every season the summit is very cold at night, so warm gear is always needed.' },
@@ -4815,6 +4817,7 @@ export const POSTS = [
         { type: 'text', value: 'לפני היציאה נפגשת הקבוצה למפגש הכנה על ציוד בחנות ציוד טיולים, ויוצאת יחד לטרק הכנה של יום אחד בארץ. כך מגיעים לנפאל עם הציוד הנכון, וכבר מכירים את האנשים שתלכו איתם שבועיים.' },
         { type: 'text', value: 'חשוב לדעת: את הטרק מובילים מדריכים מקומיים מקצועיים מנפאל, דוברי אנגלית, עם ניסיון רב בהובלת קבוצות בהרים. אין הדרכה בעברית ואין מדריך או מלווה ישראלי, ולכן כדאי להגיע עם אנגלית בסיסית שמאפשרת להבין את ההנחיות בשטח.' },
 
+        { type: 'cta', text: 'למדריך האימונים לטרק ולטיפוס הרים', textEn: 'Training guide for treks and climbs', href: '/blog/trek-training-guide' },
         { type: 'section', value: 'כמה זה עולה ומה כלול' },
         { type: 'text', value: 'המחיר של טרק אוורסט בייס קמפ וגוקיו הוא 3,900 דולר לאדם. הוא כולל העברות בין שדה התעופה למלון בקטמנדו, ארוחות ערב במסעדה לפני הטרק ואחריו, 3 לילות במלון 5 כוכבים בקטמנדו בחדר יחיד על בסיס ארוחת בוקר, טיסות פנים במסוק ללוקלה וחזרה, לינה בבקתות בחדרים משותפים לאורך כל הטרק, כל אישורי הכניסה לטרק ולפארק הלאומי סגרמטה, שלוש ארוחות ביום מתוך התפריט, 2 ליטר מים חמים ביום, מקלחת ושירותים צמודים לפי הזמינות במסלול, מדריכים מקומיים מקצועיים דוברי אנגלית, פורטרים לציוד האישי עד 15 ק״ג לאדם, ערכת עזרה ראשונה אצל המדריכים, מד סטורציה לקבוצה, עדכונים לייב למשפחות בווטסאפ במהלך הטרק, אזור אישי באפליקציה של HighAir, מפגש הכנה על ציוד וטרק הכנה בארץ, וקיט מתנה עם כובע, חולצת דרייפיט ודאפל באג של 100 ליטר.' },
         { type: 'text', value: 'לא כלולים: טיסות בינלאומיות, ביטוח נסיעות ורפואי, ארוחות צהריים וערב במלון בקטמנדו, ציוד אישי, טיפים למדריכים ולפורטרים (250 דולר לאדם), ויזה לנפאל (50 דולר לאדם), חיסונים וייעוץ במרפאת מטיילים, והתוספות שהבקתות גובות עליהן בנפרד, כמו אינטרנט, כביסה, אלכוהול וארוחות נוספות. לילה רביעי במלון בקטמנדו, אם יידרש, אינו כלול. חדר יחיד בבקתות עולה 20 דולר ללילה.' },
@@ -4915,6 +4918,7 @@ export const POSTS = [
         { type: 'text', value: 'Before departure the group meets for a gear preparation session at a trekking equipment store, and goes out together on a one-day preparatory trek in Israel. That way you reach Nepal with the right gear, already knowing the people you will walk with for two weeks.' },
         { type: 'text', value: 'Good to know: the trek is led by professional local guides from Nepal who speak English and have long experience leading groups in the mountains. There is no Hebrew-speaking guide and no Israeli guide or escort, so basic English, enough to follow instructions on the trail, is worth having.' },
 
+        { type: 'cta', text: 'למדריך האימונים לטרק ולטיפוס הרים', textEn: 'Training guide for treks and climbs', href: '/blog/trek-training-guide' },
         { type: 'section', value: 'What it costs and what is included' },
         { type: 'text', value: 'The Everest Base Camp and Gokyo trek costs 3,900 US dollars per person. It includes transfers between the airport and the hotel in Kathmandu, dinners at a restaurant before and after the trek, 3 nights in a 5-star hotel in Kathmandu in a single room with breakfast, domestic helicopter flights to Lukla and back, teahouse accommodation in shared rooms throughout the trek, all entry permits for the trek and Sagarmatha National Park, three meals a day from the menu, 2 liters of hot water a day, a shower and attached toilet where available on the route, professional local English-speaking guides, porters for personal gear up to 15 kg per person, a first aid kit carried by the guides, a pulse oximeter for the group and a satellite device, a personal area in the HighAir app, a gear preparation meeting and a preparatory trek in Israel, and a gift kit with a cap, a dry-fit shirt and a 100-liter duffel bag.' },
         { type: 'text', value: 'Not included: international flights, travel and medical insurance, lunch and dinner at the hotel in Kathmandu, personal gear, tips for guides and porters (250 dollars per person), the Nepal visa (50 dollars per person), vaccinations and travel clinic advice, and the extras the teahouses charge for separately, such as internet, laundry, alcohol and additional meals. A fourth hotel night in Kathmandu, if needed, is not included. A single room in the teahouses costs 20 dollars a night.' },
@@ -6879,6 +6883,7 @@ export const POSTS = [
       { type: 'text', value: 'האוורסט מבחינת גובה, קושי לוגיסטי ועלות. דנאלי מבחינה טכנית. וינסון מאסיף מבחינת מורכבות ועלות ההגעה לאנטארקטיקה.' },
       { type: 'heading', value: 'מה ההכנה הגופנית שדרושה?' },
       { type: 'text', value: 'תלוי בהר. לקילימנג\'רו, אלברוס ואקונקגואה, כושר טוב ואימוני עמידות הם הבסיס. לדנאלי, האוורסט ופירמידת קרסטנסז נדרשים הכנה ממוקדת, ניסיון קודם בהרים ולרוב עבודה עם מאמן מוסמך.' },
+      { type: 'cta', text: 'למדריך האימונים לטרק ולטיפוס הרים', textEn: 'Training guide for treks and climbs', href: '/blog/trek-training-guide' },
     ],
 
     /* ── English content ── */
@@ -6950,6 +6955,7 @@ export const POSTS = [
       { type: 'text', value: 'Everest for altitude, logistics, and cost. Denali for technical difficulty. Vinson Massif for the complexity and expense of reaching Antarctica.' },
       { type: 'heading', value: 'What fitness level do you need?' },
       { type: 'text', value: 'It depends on the mountain. For Kilimanjaro, Elbrus, and Aconcagua, solid general fitness and endurance training are the foundation. For Denali, Everest, and Carstensz Pyramid, you need specific preparation, prior high-mountain experience, and in most cases a structured training program.' },
+      { type: 'cta', text: 'למדריך האימונים לטרק ולטיפוס הרים', textEn: 'Training guide for treks and climbs', href: '/blog/trek-training-guide' },
     ],
   },
 ];
