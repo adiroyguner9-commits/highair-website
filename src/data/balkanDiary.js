@@ -333,7 +333,7 @@ const HE_DAYS = [
 ];
 
 const HE = {
-  seoTitle:    'פסגות הבלקן: יומן מסע של 9 ימים ב-3 מדינות',
+  seoTitle:    'פסגות הבלקן: יומן מסע של 10 ימים ב-3 מדינות',
   description: 'יומן המסע של אלי יצחק מטרק פסגות הבלקן עם HighAir ביוני 2026: אגם קומאני, שלג ביוני, משולש הגבולות והעין הכחולה של ת׳ת.',
   countries:   { AL: 'אלבניה', XK: 'קוסובו', ME: 'מונטנגרו' },
   /* the days a border was crossed: the ribbon's flag and its title */
@@ -348,7 +348,7 @@ const HE = {
   hero: {
     alt:      'עמק ירוק ופסגות סלעיות ברכס פרוקלטיה',
     badges:   ['יומן מסע', 'יוני 2026', '9 דקות קריאה'],
-    h1:       'פסגות הבלקן: 9 ימים, 3 מדינות, שביל אחד',
+    h1:       'פסגות הבלקן: 10 ימים, 3 מדינות, שביל אחד',
     sub:      'אלבניה, מונטנגרו וקוסובו דרך העיניים של מי שצעד בהן. מסע HighAir לאורך השביל שחוצה את "האלפים האלבניים", כפי שתיעד אותו המטייל אלי יצחק.',
     initials: 'א״י',
     basedOn:  'מבוסס על יומן המסע של ',
@@ -363,7 +363,7 @@ const HE = {
     triFlags:   [['al', 'אלבניה', 80], ['xk', 'קוסובו', 210], ['me', 'מונטנגרו', 340]],
     triCaption: 'משולש הגבולות · יום 6',
     tiles: [
-      ['cal', '9', 'ימים', 'אלבניה, קוסובו ומונטנגרו'],
+      ['cal', '10', 'ימים', 'אלבניה, קוסובו ומונטנגרו'],
       ['peak', '2,057', "מ'", 'הפסגה הגבוהה שעלינו'],
       ['route', '19', 'ק"מ', 'ביום הארוך ביותר'],
       ['down', '1,200', "מ'", 'ירידה ביום אחד'],
@@ -399,7 +399,7 @@ const HE = {
     tripoint: 'משולש הגבולות',
     pass:     'פריסלופי 2,030',
     lakes:    { komani: 'אגם קומאני', shkodra: 'אגם שקודרה', hrid: 'אגם חריד' },
-    dayOf:    ['יום ', ' מתוך 9'],
+    dayOf:    ['יום ', ' מתוך 10'],
     note:     'מפה סכמטית להמחשה. הקו מתמלא תוך כדי קריאה.',
   },
   cards: {
@@ -680,7 +680,7 @@ const EN_DAYS = [
 ];
 
 const EN = {
-  seoTitle:    'Peaks of the Balkans: A 9-Day Diary Across 3 Countries',
+  seoTitle:    'Peaks of the Balkans: A 10-Day Diary Across 3 Countries',
   description: 'Eli Yitzhak\'s diary from the Peaks of the Balkans trek with HighAir in June 2026: Lake Komani, snow in June, the Triple-Border Point and Theth\'s Blue Eye.',
   countries:   { AL: 'Albania', XK: 'Kosovo', ME: 'Montenegro' },
   crossings: {
@@ -694,7 +694,7 @@ const EN = {
   hero: {
     alt:      'A green valley and rocky peaks in the Prokletije range',
     badges:   ['Trek diary', 'June 2026', '9 minute read'],
-    h1:       'Peaks of the Balkans: 9 Days, 3 Countries, One Trail',
+    h1:       'Peaks of the Balkans: 10 Days, 3 Countries, One Trail',
     sub:      'Albania, Montenegro and Kosovo through the eyes of someone who walked them. A HighAir journey along the trail that crosses the "Albanian Alps", as trekker Eli Yitzhak recorded it.',
     initials: 'EY',
     basedOn:  'Based on the trek diary of ',
@@ -708,7 +708,7 @@ const EN = {
     triFlags:   [['al', 'Albania', 80], ['xk', 'Kosovo', 210], ['me', 'Montenegro', 340]],
     triCaption: 'Triple-Border Point · Day 6',
     tiles: [
-      ['cal', '9', 'days', 'Albania, Kosovo and Montenegro'],
+      ['cal', '10', 'days', 'Albania, Kosovo and Montenegro'],
       ['peak', '2,057', 'm', 'The highest summit we climbed'],
       ['route', '19', 'km', 'On the longest day'],
       ['down', '1,200', 'm', 'Of descent in one day'],
@@ -744,7 +744,7 @@ const EN = {
     tripoint: 'Triple-Border Point',
     pass:     'Prosllopi 2,030',
     lakes:    { komani: 'Lake Komani', shkodra: 'Lake Shkodra', hrid: 'Lake Hrid' },
-    dayOf:    ['Day ', ' of 9'],
+    dayOf:    ['Day ', ' of 10'],
     note:     'A schematic map for illustration. The line fills in as you read.',
   },
   cards: {
