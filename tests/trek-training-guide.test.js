@@ -128,9 +128,12 @@ describe('the training guide', () => {
     expect(EX).toHaveLength(8);
   });
 
-  it('its static page has no blog hero to paint first (the page has none)', () => {
+  it('its static page has no blog hero to paint first (the page has none)', async () => {
     const shells = readFileSync('scripts/generate-html-shells.mjs', 'utf8');
-    expect(shells).toContain("...(post.customPage ? { preHero: '', heroKind: '' } : {}),");
+    expect(shells).toContain(": { preHero: '', heroKind: '' };");
+    expect(shells).toContain('...ownHero(post),');
+    const guide = (await import('../src/data/blogData.js')).POSTS.find(p => p.slug === 'trek-training-guide');
+    expect(guide.ownText).toBeFalsy();   // its English is BlogPost's: its text must load (src/data/blogContent.js)
   });
 
   it('house rules: no dashes, no emoji in the text; styles stay on the page', () => {
