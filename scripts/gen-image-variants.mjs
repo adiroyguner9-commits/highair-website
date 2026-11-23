@@ -23,9 +23,9 @@ import { stampOwned } from './stamp-copyright.mjs';
 const WIDTH = 800;
 /* public/images/safari joined on 11 Nov 2026: the Safari page painted ten 1100-1200px stock
    photos (140-490KB each) into cards about 300px wide, all of them with the page. */
-/* public/images/blog/balkan-diary joined on 23 Nov 2026: the photos of the Balkan diary
-   (BalkanDiary.jsx), up to 1200px, drawn 140-580px wide in its day cards. */
-const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog', 'public/images/blog/balkan-diary', 'public/images/safari'];
+/* public/images/blog/balkan-diary and everest-diary joined on 23 Nov 2026: the photos of the
+   owner's trek diaries (diary/DiaryPage.jsx), up to 1200px, drawn 140-580px wide in their days. */
+const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog', 'public/images/blog/balkan-diary', 'public/images/blog/everest-diary', 'public/images/safari'];
 const MANIFEST = 'src/website/imageVariants.json';
 
 /* Blog: the images posts use as their card / hero picture, and the photos INSIDE the posts

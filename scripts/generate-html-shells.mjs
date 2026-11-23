@@ -106,7 +106,8 @@ const expHeroImage = exp => (exp.videoUrl ? ''
    out while the page's own chunk loads. Text and buttons stay React's.
    Sizes mirror: HomeV2 + HeroSection (home), ExpeditionDetail (trip),
    WorldExpeditionsPage (list), BlogPost (blog), and the one post with a page of
-   its own, BalkanDiary's .bd-hero (diary, balkanDiary.css); the header is 80px everywhere. */
+   its own: the diaries' .bd-hero (diary, diary/diary.css; diary-ev, the Everest diary's own
+   gradient, diary/everest.css); the header is 80px everywhere. */
 const PRE_HERO_CSS = [
   '.ha-nopre #ha-pre{display:none}',
   '#ha-pre .b{position:fixed;top:0;left:0;right:0;height:80px;background:#fff;z-index:10}',
@@ -121,6 +122,7 @@ const PRE_HERO_CSS = [
   '#ha-pre .list{height:440px}',
   '#ha-pre .blog{margin-top:80px;height:440px}',
   '#ha-pre .diary{margin-top:80px;height:min(78vh,640px);min-height:440px}',
+  '#ha-pre .diary-ev{margin-top:80px;height:min(78vh,640px);min-height:440px}',
   '@media (max-width:767.98px){#ha-pre .sp{height:80px}#ha-pre .trip{height:65dvh;min-height:480px}#ha-pre .list{height:340px}#ha-pre .blog{height:300px}}',
 ].join('');
 const PRE_HERO_BG = {
@@ -129,6 +131,7 @@ const PRE_HERO_BG = {
   list: img => `linear-gradient(to bottom,rgba(10,8,24,.55),rgba(10,8,24,.78)),url(${img}) center/cover no-repeat`,
   blog: (img, pos) => `linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url(${img}) ${pos || 'center'}/cover no-repeat`,
   diary: (img, pos) => `linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%),url(${img}) ${pos || 'center'}/cover no-repeat`,
+  'diary-ev': (img, pos) => `linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.5) 45%,rgba(10,8,24,.05) 80%),url(${img}) ${pos || 'center'}/cover no-repeat`,
 };
 /* The hero's background sits in the pre-hero's own <style>, so a phone can get
    its copy by media query (main.jsx reads whichever one is on screen). */
@@ -487,7 +490,7 @@ const personNode = a => ({
 const guestNode = (g, lng) => g && { '@type': 'Person', name: lng === 'he' ? g.nameHe : g.nameEn, ...(lng === 'he' ? { alternateName: g.nameEn } : {}) };
 /* A post with a page of its own (customPage): the shell paints that page's hero, not BlogPost's */
 const ownHero = post => !post.customPage ? {}
-  : post.ownText ? { heroKind: 'diary', preHero: preHeroHtml('diary', localImg(post.img), post.imgPosition) }
+  : post.ownText ? { heroKind: post.heroKind || 'diary', preHero: preHeroHtml(post.heroKind || 'diary', localImg(post.img), post.imgPosition) }
   : { preHero: '', heroKind: '' };
 let blogCount = 0;
 for (const post of POSTS) {

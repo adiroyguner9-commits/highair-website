@@ -1,58 +1,27 @@
 /**
  * BalkanDiary.jsx - /blog/peaks-of-the-balkans-diary
  *
- * "פסגות הבלקן: יומן מסע", the owner's article (23 Nov 2026) as he designed it: a page of its
- * own rather than BlogPost's blocks, rebuilt from the compiled preview he approved (claude.ai
- * artifact 7XKkAYbFMvrT6JKsVkDEgS, updated as Xcy4urDSX8buPxgzgjkiHB), section by section: the
- * hero, the trek at a glance, chapter 0 (thanks, the region, the preparation), the nine nights,
- * the nine days beside a route map that fills in as you read, the flip cards, the vibe, what
- * awaits you, the call to the next trek and a photo viewer.
+ * "פסגות הבלקן: יומן מסע", the owner's article (23 Nov 2026) as he designed it, rebuilt from the
+ * compiled preview he approved (claude.ai artifact 7XKkAYbFMvrT6JKsVkDEgS, updated as
+ * Xcy4urDSX8buPxgzgjkiHB). The page is the owners' diary design (diary/DiaryPage.jsx, shared with
+ * the Everest diary); this file holds what is the Balkan page's own: the round flags in the
+ * glance card, the nine nights ribbon, the route map across the three countries, the night's
+ * country beside each date, and the day's cover and photos.
  *
- * The words are in src/data/balkanDiary.js (the owner's Hebrew; English for the en. site), the
- * styles in balkanDiary.css (the preview's own, every rule under .bd). main.jsx gives this
- * address its own route, which wins over /blog/:slug. The post is in blogData.js (customPage)
- * for the magazine list, the sitemap and the static page, whose pre-hero paints this page's
- * hero (scripts/generate-html-shells.mjs, 'diary'); the schema lives there, as for every post.
+ * The words are in src/data/balkanDiary.js (the owner's Hebrew; English for the en. site).
+ * main.jsx gives this address its own route, which wins over /blog/:slug. The post is in
+ * blogData.js (customPage) for the magazine list, the sitemap and the static page, whose
+ * pre-hero paints this page's hero (scripts/generate-html-shells.mjs, 'diary').
  */
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { usePageMeta } from '../../website/usePageMeta.js';
-import { hasPage } from '../../website/lang.js';
-import { srcSetOf } from '../../website/imageVariants.js';
-import { blogLang } from '../../data/blogLang.js';
+import { memo } from 'react';
 import {
   DIARY_SLUG, ICONS, PHOTO_SIZE, COUNTRY_COLOR, MAP_STOPS, MAP_ROUTE, HERO_PHOTO, CTA_PHOTO,
-  TRIP_PATH, GUIDE_PATH, diaryImg, diaryText, shortPlace, allPhotos, photoPos,
+  TRIP_PATH, GUIDE_PATH, diaryImg, diaryText, shortPlace, photoPos,
 } from '../../data/balkanDiary.js';
-import Header from './Header.jsx';
-import SiteFooter from './SiteFooter.jsx';
-import './balkanDiary.css';
+import DiaryPage, { DiaryIcon as Icon, Photo, COVER_SIZES } from './diary/DiaryPage.jsx';
 
-const SITE = 'https://www.highair-expeditions.com';
-
-function Icon({ n, s = 22 }) {
-  return (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
-      strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d={ICONS[n]} />
-    </svg>
-  );
-}
-
-/* A photo of the page: its own size, centred where the owner set it when cropped (photoPos), and
-   the 800px copy for a screen that needs no more (scripts/gen-image-variants.mjs); below the
-   first screen, so it loads as the reader nears it. */
-function Photo({ id, alt, sizes }) {
-  const src = diaryImg(id);
-  const srcSet = srcSetOf(src);
-  const [w, h] = PHOTO_SIZE[id];
-  return <img loading="lazy" decoding="async" src={src} srcSet={srcSet} sizes={srcSet ? sizes : undefined} width={w} height={h} alt={alt} style={{ objectPosition: photoPos(id) }} />;
-}
-/* How wide the photos are drawn (balkanDiary.css): the article column is 90vw up to 1020px
-   (the map goes above it), beside the map about 580px. The small photos: four in two rows of two,
-   else all in one row; on a phone two abreast, three as one wide and two below. */
-const COVER_SIZES = '(max-width: 1020px) 90vw, 580px';
+/* How wide a day's small photos are drawn (diary.css): four in two rows of two, else all in one
+   row; on a phone two abreast, three as one wide and two below. */
 function smallSizes(n, i) {
   const cols = n === 4 ? 2 : n;
   const phone = n === 1 || (n === 3 && i === 0) ? '90vw' : '45vw';
@@ -90,123 +59,6 @@ function TripointArt({ T }) {
       <rect x="206" y="121" width="8" height="13" rx="2" fill="#fff" />
       <text x="210" y="170" textAnchor="middle" fill="#C4B5FD" fontSize="12" fontFamily="Ploni">{g.triCaption}</text>
     </svg>
-  );
-}
-
-function Glance({ T }) {
-  const g = T.glance;
-  return (
-    <section className="bd-in" aria-label={g.title}>
-      <div className="bd-glance">
-        <div className="bd-tri">
-          <h2>{g.title}</h2>
-          <TripointArt T={T} />
-        </div>
-        <div className="bd-tiles">
-          {g.tiles.map(([icon, figure, unit, what]) => (
-            <div className="bd-tile" key={what}>
-              <span className="ic"><Icon n={icon} /></span>
-              <b>{figure}<small>{unit}</small></b>
-              <span>{what}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── Chapter 0: before we set out ─────────────────────────────────────── */
-
-const INITIAL_COLORS = ['#6D28D9', '#8B5CF6', '#4C1D95', '#7C3AED'];
-
-function Prologue({ T }) {
-  const P = T.prologue;
-  return (
-    <section className="bd-pro" aria-labelledby="bd-pro-h">
-      <div className="bd-in">
-        <span className="bd-kicker">{P.kicker}</span>
-        <h2 id="bd-pro-h">{P.h2}</h2>
-        <p className="lead">{P.lead}</p>
-
-        <div className="bd-letter">
-          <div className="bd-lhero">
-            <Photo id={P.letter.photo} alt={P.letter.alt} sizes="(max-width: 1180px) 90vw, 1040px" />
-            <div className="in">
-              <span className="k">{P.letter.kicker}</span>
-              <p className="q">{P.letter.quote}</p>
-              <span className="sig">
-                <span className="bd-av">{T.hero.initials}</span>
-                <span><b>{T.hero.author}</b><small>{P.letter.sigNote}</small></span>
-              </span>
-            </div>
-          </div>
-          <div className="bd-lbody">
-            <h3 className="ttl">{P.thanksTitle}</h3>
-            <div className="bd-thx">
-              {P.thanks.map(([icon, who, why]) => (
-                <div className="c" key={who}>
-                  <span className="ic"><Icon n={icon} s={22} /></span>
-                  <b>{who}</b>
-                  <p>{why}</p>
-                </div>
-              ))}
-            </div>
-            <div className="bd-group">
-              <div className="gh">
-                <span className="ic"><Icon n="users" s={22} /></span>
-                <div><b>{P.group.title}</b><small>{P.group.note}</small></div>
-              </div>
-              <div className="names">
-                {P.group.names.map((name, i) => (
-                  <span key={name}><i style={{ background: INITIAL_COLORS[i % 4] }}>{name[0]}</i>{name}</span>
-                ))}
-              </div>
-              <p>{P.group.quote}</p>
-            </div>
-            <div className="bd-moments">
-              <b>{P.moments.title}</b>
-              <ul>{P.moments.items.map(m => <li key={m}><Icon n="star" s={15} />{m}</li>)}</ul>
-              <p className="end">{P.moments.end}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bd-geo">
-          <div className="ph">
-            <Photo id={P.geo.photo} alt={P.geo.alt} sizes="(max-width: 820px) 90vw, (max-width: 1180px) 42vw, 480px" />
-          </div>
-          <div className="tx">
-            <span className="bd-kicker">{P.geo.kicker}</span>
-            <h3>{P.geo.h3}</h3>
-            {P.geo.paras.map((p, i) => <p key={i}>{p}</p>)}
-            <ul>{P.geo.facts.map(([icon, fact]) => <li key={fact}><Icon n={icon} s={18} />{fact}</li>)}</ul>
-          </div>
-        </div>
-
-        <div className="bd-prep">
-          <div className="t">
-            <span className="bd-kicker">{P.prep.kicker}</span>
-            <h3>{P.prep.h3}</h3>
-            <p>{P.prep.p}</p>
-          </div>
-          <div className="bd-trail">
-            <svg className="path" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M10 30 C110 4 190 56 300 30 S490 4 600 30 S790 56 990 30" fill="none" stroke="#C4B5FD" strokeWidth="2"
-                strokeDasharray="3 7" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            </svg>
-            <ol>
-              {P.prep.steps.map(([icon, when, what, note], i) => (
-                <li key={what} className={i === P.prep.steps.length - 1 ? 'last' : ''}>
-                  <span className="pin"><Icon n={icon} s={22} /><em>{i + 1}</em></span>
-                  <div className="card"><small>{when}</small><b>{what}</b><p>{note}</p></div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -380,7 +232,12 @@ const RouteMap = memo(function RouteMap({ T, day, onPick, lineRefs }) {
   );
 });
 
-/* ── The days ────────────────────────────────────────────────────────── */
+/* ── A day: the country it ends in, its cover, its other photos ─────── */
+
+/* Beside the date: the country of the night */
+function DayBadge({ day, T }) {
+  return <i style={{ background: COUNTRY_COLOR[day.country] }}>{T.sleep}{T.countries[day.country]}</i>;
+}
 
 function DayCover({ day, T, onOpen }) {
   const [id, caption] = day.photos[0];
@@ -412,277 +269,12 @@ function DayPhotos({ photos, T, onOpen }) {
   );
 }
 
-/* The nine days. Memoised: the page re-renders when the day in view changes, these do not. */
-const DayStories = memo(function DayStories({ T, onOpen, articleRef }) {
-  return (
-    <article ref={articleRef}>
-      {T.days.map(d => (
-        <section key={d.d} className="bd-day" id={`day-${d.d}`} data-d={d.d}>
-          <div className="bd-dh">
-            <span className="bd-num"><small>{T.day}</small><b>{d.d}</b></span>
-            <div>
-              <div className="date">
-                {d.date}
-                <i style={{ background: COUNTRY_COLOR[d.country] }}>{T.sleep}{T.countries[d.country]}</i>
-              </div>
-              <h3>{d.title}</h3>
-            </div>
-          </div>
-          <DayCover day={d} T={T} onOpen={onOpen} />
-          <ul className="bd-facts">
-            {d.facts.map(([icon, fact]) => <li key={fact}><Icon n={icon} s={17} />{fact}</li>)}
-          </ul>
-          {d.body.map((p, i) => <p key={i}>{p}</p>)}
-          <DayPhotos photos={d.photos.slice(1)} T={T} onOpen={onOpen} />
-          {d.know && (
-            <div className="bd-know">
-              <span className="ic"><Icon n="compass" /></span>
-              <div><b>{T.know}</b>{d.know}</div>
-            </div>
-          )}
-          {d.quote && <p className="bd-pull">{d.quote[0]}<small>{d.quote[1]}</small></p>}
-        </section>
-      ))}
-    </article>
-  );
-});
-
-/* ── Six things we learned: cards that flip ──────────────────────────── */
-
-function FlipCard({ card, hint }) {
-  const [on, setOn] = useState(false);
-  const [icon, figure, label, back] = card;
-  return (
-    <button type="button" className={`bd-flip${on ? ' on' : ''}`} aria-pressed={on} onClick={() => setOn(x => !x)}>
-      <span className="fi">
-        <span className="f">
-          <span className="top">
-            <span className="ic"><Icon n={icon} s={22} /></span>
-            <small>{hint}</small>
-          </span>
-          <b>{figure}</b>
-          <span className="lb">{label}</span>
-        </span>
-        <span className="b">
-          <span className="ic"><Icon n={icon} s={20} /></span>
-          {back}
-        </span>
-      </span>
-    </button>
-  );
-}
-
-// ── Page ──────────────────────────────────────────────────────────────
+const BALKAN = {
+  slug: DIARY_SLUG, text: diaryText, img: diaryImg, size: id => PHOTO_SIZE[id], pos: photoPos, icons: ICONS,
+  heroPhoto: HERO_PHOTO, ctaPhoto: CTA_PHOTO, tripPath: TRIP_PATH, guidePath: GUIDE_PATH, proHeadingId: 'bd-pro-h',
+  GlanceArt: TripointArt, Band: NightsRibbon, Map: RouteMap, DayBadge, Cover: DayCover, Photos: DayPhotos,
+};
 
 export default function BalkanDiary() {
-  const { i18n } = useTranslation();
-  const lang = blogLang(i18n.language);
-  /* Published in Hebrew and English (src/website/blogLangs.js); elsewhere the magazine */
-  const published = hasPage(lang, `/blog/${DIARY_SLUG}`);
-  const T = diaryText(lang);
-  const rtl = lang === 'he';
-  const photos = useMemo(() => allPhotos(T), [T]);
-
-  const [day, setDay] = useState(1);      // the day in view
-  const [open, setOpen] = useState(-1);   // the photo in the viewer, by its place in `photos`
-  const articleRef = useRef(null);
-  const barRef = useRef(null);
-  const lineRefs = useRef([]);
-  const chipsRef = useRef(null);
-
-  usePageMeta({
-    title:         `${T.seoTitle} | HighAir`,
-    description:   T.description,
-    canonicalPath: `/blog/${DIARY_SLUG}`,
-    image:         `${SITE}${diaryImg(HERO_PHOTO)}`,
-    ogType:        'article',
-    noIndex:       !published,
-    /* no jsonLd: the article's schema is in the static page, as for every post */
-  });
-
-  /* The day in view (the chips and the map follow it), and how far the reader is: the bar
-     under the header and the solid part of the route, both written straight to the page. */
-  useEffect(() => {
-    const article = articleRef.current;
-    if (!article) return undefined;
-    const io = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) setDay(+e.target.dataset.d); }),
-      { rootMargin: '-40% 0px -55% 0px' },
-    );
-    article.querySelectorAll('.bd-day').forEach(s => io.observe(s));
-    let frame = 0;
-    const paint = () => {
-      frame = 0;
-      const doc = document.documentElement;
-      if (barRef.current) barRef.current.style.transform = `scaleX(${doc.scrollTop / (doc.scrollHeight - doc.clientHeight) || 0})`;
-      const box = article.getBoundingClientRect();
-      const read = Math.max(0, Math.min(1, (window.innerHeight * 0.5 - box.top) / box.height));
-      lineRefs.current.forEach(line => { if (line) line.style.strokeDashoffset = String(1 - read); });
-    };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(paint); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    paint();
-    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); cancelAnimationFrame(frame); };
-  }, [published]);
-
-  /* The chips (phones and tablets) keep the day in view centred */
-  useEffect(() => {
-    const nav = chipsRef.current;
-    const chip = nav?.children[day - 1];
-    if (nav && chip && getComputedStyle(nav).display !== 'none') {
-      nav.scrollTo({ left: chip.offsetLeft - nav.clientWidth / 2 + chip.clientWidth / 2, behavior: 'smooth' });
-    }
-  }, [day]);
-
-  /* The viewer: Escape closes, the arrows step in the page's reading direction */
-  useEffect(() => {
-    if (open < 0) return undefined;
-    const [forward, back] = rtl ? ['ArrowLeft', 'ArrowRight'] : ['ArrowRight', 'ArrowLeft'];
-    const onKey = e => {
-      if (e.key === 'Escape') setOpen(-1);
-      if (e.key === forward) setOpen(i => (i + 1) % photos.length);
-      if (e.key === back) setOpen(i => (i - 1 + photos.length) % photos.length);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, rtl, photos.length]);
-
-  const openPhoto = useCallback(id => setOpen(photos.findIndex(p => p[0] === id)), [photos]);
-  const goToDay = useCallback(n => document.getElementById(`day-${n}`)?.scrollIntoView({ behavior: 'smooth' }), []);
-
-  if (!published) return <Navigate to="/blog" replace />;
-
-  const lb = T.lightbox;
-  const [prevMark, nextMark] = rtl ? ['›', '‹'] : ['‹', '›'];
-  const [heroW, heroH] = PHOTO_SIZE[HERO_PHOTO];
-  const [ctaW, ctaH] = PHOTO_SIZE[CTA_PHOTO];
-
-  return (
-    <>
-      <Header />
-      <div className="bd" dir={rtl ? 'rtl' : 'ltr'}>
-        <div className="bd-prog"><i ref={barRef} /></div>
-
-        <header className="bd-hero">
-          <img src={diaryImg(HERO_PHOTO)} width={heroW} height={heroH} alt={T.hero.alt} fetchpriority="high" style={{ objectPosition: photoPos(HERO_PHOTO) }} />
-          <div className="bd-in">
-            <div className="bd-badges">
-              {T.hero.badges.map((b, i) => <span key={b} className={i ? 'bd-badge g' : 'bd-badge'}>{b}</span>)}
-            </div>
-            <h1>{T.hero.h1}</h1>
-            <p className="sub">{T.hero.sub}</p>
-            <div className="bd-by">
-              <span className="bd-av">{T.hero.initials}</span>
-              <span>
-                {T.hero.basedOn}<b>{T.hero.author}</b>{T.hero.role}
-                <br />
-                {T.hero.photos}
-              </span>
-            </div>
-          </div>
-        </header>
-
-        <Glance T={T} />
-
-        <div className="bd-in">
-          <Link className="bd-back" to="/blog">{T.back}</Link>
-          <section className="bd-intro">
-            <div>
-              <h2>{T.intro.h2}</h2>
-              {T.intro.paras.map((p, i) => <p key={i}>{p}</p>)}
-            </div>
-            <blockquote className="bd-q">
-              {T.intro.quote}
-              <cite><span className="bd-av">{T.hero.initials}</span>{T.intro.cite}</cite>
-            </blockquote>
-          </section>
-        </div>
-
-        <Prologue T={T} />
-
-        <NightsRibbon T={T} />
-
-        <nav className="bd-chips" ref={chipsRef} aria-label={T.chipsAria}>
-          {T.days.map(d => (
-            <a key={d.d} href={`#day-${d.d}`} className={d.d === day ? 'on' : ''}>{T.day} {d.d} · {d.place}</a>
-          ))}
-        </nav>
-
-        <div className="bd-in">
-          <div className="bd-journey">
-            <DayStories T={T} onOpen={openPhoto} articleRef={articleRef} />
-            <RouteMap T={T} day={day} onPick={goToDay} lineRefs={lineRefs} />
-          </div>
-        </div>
-
-        <section className="bd-sec" style={{ background: '#FAF9FF' }}>
-          <div className="bd-in">
-            <h2>{T.cards.h2}</h2>
-            <p className="lead">{T.cards.lead}</p>
-            <div className="bd-cards">
-              {T.cards.items.map(card => <FlipCard key={card[2]} card={card} hint={T.cards.hint} />)}
-            </div>
-          </div>
-        </section>
-
-        <section className="bd-sec bd-vibe">
-          <div className="bd-in">
-            <h2>{T.vibe.h2}</h2>
-            <p className="lead" style={{ maxWidth: '62ch' }}>{T.vibe.lead}</p>
-            <div className="bd-calls">
-              {T.vibe.calls.map(([call, story]) => (
-                <div className="bd-call" key={call}><b>{call}</b><p>{story}</p></div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bd-sec">
-          <div className="bd-in">
-            <h2>{T.expect.h2}</h2>
-            <div className="bd-exp">
-              {T.expect.items.map(([icon, title, story]) => (
-                <div key={title}>
-                  <span className="ic"><Icon n={icon} /></span>
-                  <b>{title}</b>
-                  <p>{story}</p>
-                </div>
-              ))}
-            </div>
-            <div className="bd-test">
-              <span className="bd-av">{T.hero.initials}</span>
-              <p>{T.expect.quote}<small>{T.expect.cite}</small></p>
-            </div>
-          </div>
-        </section>
-
-        <section className="bd-ctab">
-          <img loading="lazy" decoding="async" src={diaryImg(CTA_PHOTO)} width={ctaW} height={ctaH} alt="" style={{ objectPosition: photoPos(CTA_PHOTO) }} />
-          <div className="bd-in">
-            <span className="bd-badge">{T.cta.badge}</span>
-            <h2>{T.cta.h2}</h2>
-            <p>{T.cta.p}</p>
-            <div className="bd-btns">
-              <Link className="bd-btn w" to={TRIP_PATH}>{T.cta.trip}</Link>
-              <Link className="bd-btn o" to={GUIDE_PATH}>{T.cta.guide}</Link>
-            </div>
-          </div>
-        </section>
-
-        <p className="bd-credit">{T.credit}</p>
-
-        {open >= 0 && (
-          <div className="bd-lb" role="dialog" aria-modal="true" aria-label={lb.aria}
-            onClick={e => { if (e.target === e.currentTarget) setOpen(-1); }}>
-            <button className="x" onClick={() => setOpen(-1)} aria-label={lb.close} autoFocus>✕</button>
-            <button className="pv" onClick={() => setOpen(i => (i - 1 + photos.length) % photos.length)} aria-label={lb.prev}>{prevMark}</button>
-            <button className="nx" onClick={() => setOpen(i => (i + 1) % photos.length)} aria-label={lb.next}>{nextMark}</button>
-            <img src={diaryImg(photos[open][0])} alt={photos[open][1]} />
-            <div className="cap">{photos[open][1]}</div>
-          </div>
-        )}
-      </div>
-      <SiteFooter />
-    </>
-  );
+  return <DiaryPage trip={BALKAN} />;
 }

@@ -25,8 +25,8 @@ describe('the Balkan diary: route and post', () => {
     expect(own).toBeGreaterThan(-1);
     expect(own).toBeLessThan(main.indexOf('<Route path="/blog/:slug"'));
   });
-  it('is the newest post, a news story, in Hebrew and English', () => {
-    expect(POSTS[0]).toBe(post);
+  it('is one of the newest posts, a news story, in Hebrew and English', () => {
+    expect(POSTS.indexOf(post)).toBeLessThan(3);   // among the newest (the Everest diary came after it)
     expect(post.customPage).toBe(true);
     expect(post.category).toBe('חדשות');
     expect(BLOG_LANGS[DIARY_SLUG]).toEqual(['he', 'en']);
@@ -115,8 +115,11 @@ describe('the Balkan diary: photos and styles', () => {
     expect(PHOTO_POS[HERO_PHOTO]).toBe(post.imgPosition);
     for (const f of ['al', 'xk', 'me']) expect(existsSync(resolve(__dirname, `../public/images/blog/balkan-diary/flag-${f}.webp`)), f).toBe(true);
   });
-  it('every rule of its stylesheet stays inside the page (.bd)', () => {
-    const css = read('src/components/web_v2/balkanDiary.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  it('every rule of the diaries\' stylesheets stays inside the page (.bd), and the Everest page\'s own inside it (.bd.ev)', () => {
+    const own = read('src/components/web_v2/diary/everest.css').replace(/\/\*[\s\S]*?\*\//g, '');
+    const ownSel = [...own.matchAll(/([^{}@]+)\{[^{}]*\}/g)].flatMap(m => m[1].split(',').map(s => s.trim())).filter(Boolean);
+    expect(ownSel.filter(s => !s.startsWith('.bd.ev '))).toEqual([]);
+    const css = ['src/components/web_v2/diary/diary.css', 'src/components/web_v2/diary/everest.css'].map(read).join('\n').replace(/\/\*[\s\S]*?\*\//g, '');
     const selectors = [...css.replace(/@keyframes[^{]*\{(?:[^{}]*\{[^}]*\})*[^}]*\}/g, '').matchAll(/([^{}@]+)\{[^{}]*\}/g)]
       .flatMap(m => m[1].split(',').map(s => s.trim())).filter(Boolean);
     expect(selectors.length).toBeGreaterThan(200);

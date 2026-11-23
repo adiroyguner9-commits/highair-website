@@ -58,16 +58,25 @@ describe('pre-hero matches the real hero', () => {
   });
 
   it('the Balkan diary (a page of its own): its .bd-hero, under 80px, with its own gradient', () => {
-    has('src/components/web_v2/balkanDiary.css',
+    has('src/components/web_v2/diary/diary.css',
       '.bd-hero{position:relative;margin-top:80px;height:min(78vh,640px);min-height:440px;',
       '.bd-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}',
       '.bd-hero:after{background:linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%)}');
     expect(shells).toContain("'#ha-pre .diary{margin-top:80px;height:min(78vh,640px);min-height:440px}'");
     expect(shells).toContain("linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.55) 42%,rgba(10,8,24,.08) 78%),url(${img}) ${pos || 'center'}/cover no-repeat");
-    expect(shells).toContain("post.ownText ? { heroKind: 'diary', preHero: preHeroHtml('diary', localImg(post.img), post.imgPosition) }");
+    expect(shells).toContain("post.ownText ? { heroKind: post.heroKind || 'diary', preHero: preHeroHtml(post.heroKind || 'diary', localImg(post.img), post.imgPosition) }");
     /* the hero photo's focus (the page's object-position) is the post's, so the pre-hero shows the same slice */
-    has('src/components/web_v2/BalkanDiary.jsx', 'style={{ objectPosition: photoPos(HERO_PHOTO) }}');
+    has('src/components/web_v2/diary/DiaryPage.jsx', 'style={{ objectPosition: trip.pos(trip.heroPhoto) }}');
     has('src/data/blogData.js', 'imgPosition:      photoPos(HERO_PHOTO),');
+  });
+
+  it('the Everest diary: the same .bd-hero box, its own gradient (diary-ev), at its photo\'s focus', () => {
+    has('src/components/web_v2/diary/everest.css',
+      '.bd.ev .bd-hero.ev:after{background:linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.5) 45%,rgba(10,8,24,.05) 80%)}');
+    expect(shells).toContain("'#ha-pre .diary-ev{margin-top:80px;height:min(78vh,640px);min-height:440px}'");
+    expect(shells).toContain("linear-gradient(to top,rgba(10,8,24,.92) 0%,rgba(30,27,75,.5) 45%,rgba(10,8,24,.05) 80%),url(${img}) ${pos || 'center'}/cover no-repeat");
+    has('src/data/blogData.js', "heroKind:         'diary-ev',", 'imgPosition:      everestPos(EVEREST_HERO),');
+    has('src/components/web_v2/EverestDiary.jsx', "heroClass: 'ev'");
   });
 
   it('phones break at the same width as useBreakpoint', () => {

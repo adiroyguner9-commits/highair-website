@@ -8,8 +8,52 @@
  * the sitemap and builds its static page (scripts/generate-html-shells.mjs).
  */
 import { DIARY, diaryBlocks, photoPos, HERO_PHOTO } from './balkanDiary.js';
+import { EVEREST, everestBlocks, everestImg, photoPos as everestPos, HERO_PHOTO as EVEREST_HERO } from './everestDiary.js';
 
 export const POSTS = [
+
+  /* ═══════════════════════════════════════════════════════════════════
+   *  id:41  everest-base-camp-gokyo-diary  (2026-11-23)
+   *  The owner's article (claude.ai artifact, 23 Nov 2026): Eli Yitzhak's diary of the
+   *  October 2025 group on the Everest circuit (Base Camp, Cho La, the Gokyo Lakes), on the
+   *  diaries' design (src/components/web_v2/EverestDiary.jsx). Its words live in
+   *  src/data/everestDiary.js and everything below is taken from there, except the card's
+   *  title and excerpt: the page's own (43 and 110 characters) do not fit the card's one line
+   *  and 135-145 characters, so the card says "האוורסט ואגמי גוקיו: יומן מסע" and the page's
+   *  subtitle with Base Camp and the month added, in the page's own words. heroKind: its hero
+   *  has its own gradient, and the static page paints that one.
+   * ═══════════════════════════════════════════════════════════════════ */
+  {
+      id:               41,
+      slug:             'everest-base-camp-gokyo-diary',
+      customPage:       true,
+      ownText:          true,     // its page carries its own Hebrew and English text
+      heroKind:         'diary-ev',
+      title:            'האוורסט ואגמי גוקיו: יומן מסע',
+      titleEn:          'Everest and Gokyo: A Trek Diary',
+      headline:         EVEREST.he.hero.h1,
+      headlineEn:       EVEREST.en.hero.h1,
+      seoTitle:         EVEREST.he.seoTitle,
+      seoTitleEn:       EVEREST.en.seoTitle,
+      seoDescription:   EVEREST.he.description,
+      seoDescriptionEn: EVEREST.en.description,
+      author:           'HighAir Expeditions',
+      guestAuthor:      { nameHe: EVEREST.he.hero.author, nameEn: EVEREST.en.hero.author },
+      dateIso:          '2026-11-23',
+      dateModified:     '2026-11-23',
+      dateHe:           '23 בנובמבר 2026',
+      dateEn:           'November 23, 2026',
+      category:         'חדשות',
+      categoryEn:       'News',
+      img:              everestImg(EVEREST_HERO),
+      imgPosition:      everestPos(EVEREST_HERO),
+      imgPositionCard:  'center',
+      imgCredit:        '',
+      excerpt:          '18 ימים בנפאל, מקטמנדו דרך מחנה הבסיס של האוורסט ומעבר צ׳ו לה ועד אגמי הטורקיז של גוקיו. מסע HighAir באוקטובר 2025, כפי שתיעד אותו אלי יצחק.',
+      excerptEn:        EVEREST.en.hero.sub,
+      content:          everestBlocks('he'),
+      contentEn:        everestBlocks('en'),
+  },
 
   /* ═══════════════════════════════════════════════════════════════════
    *  id:40  peaks-of-the-balkans-diary  (2026-11-23)

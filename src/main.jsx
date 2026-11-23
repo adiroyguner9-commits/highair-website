@@ -126,6 +126,8 @@ const TrekTrainingGuide  = lazy(() => import('./components/web_v2/TrekTrainingGu
 /* The owner's Balkan diary (23 Nov 2026): a post with a page of its own design, not BlogPost's
    blocks. Its address has its own route below, which React Router ranks above /blog/:slug. */
 const BalkanDiary        = lazy(() => import('./components/web_v2/BalkanDiary.jsx'));
+/* The owner's Everest diary (23 Nov 2026), the same design (components/web_v2/diary/DiaryPage.jsx) */
+const EverestDiary       = lazy(() => import('./components/web_v2/EverestDiary.jsx'));
 const AboutUs            = lazy(() => import('./components/web_v2/AboutUs.jsx'));
 const Shop               = lazy(() => import('./components/web_v2/Shop.jsx'));
 const ContactPage        = lazy(() => import('./components/web_v2/ContactPage.jsx'));
@@ -265,6 +267,7 @@ Promise.all([preHeroOnScreen(), foreignTexts()]).then(() => createRoot(document.
           <Route path="/blog"              element={<Blog />} />
           <Route path="/blog/trek-training-guide" element={<TrekTrainingGuide />} />
           <Route path="/blog/peaks-of-the-balkans-diary" element={<BalkanDiary />} />
+          <Route path="/blog/everest-base-camp-gokyo-diary" element={<EverestDiary />} />
           <Route path="/blog/:slug"        element={<BlogPost />} />
           <Route path="/shop"              element={<Shop />} />
           <Route path="/contact"           element={<ContactPage />} />

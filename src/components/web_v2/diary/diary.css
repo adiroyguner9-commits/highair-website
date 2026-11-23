@@ -1,10 +1,11 @@
-/* /blog/peaks-of-the-balkans-diary (BalkanDiary.jsx): the owner's page as he designed it
-   (claude.ai artifact 7XKkAYbFMvrT6JKsVkDEgS, 23 Nov 2026; updated as Xcy4urDSX8buPxgzgjkiHB with
-   chapter 0, the round flags and the photos' focal points). Down to "Site additions" this is the
-   preview's own stylesheet, rule for rule, its "v2 polish" and later overrides included; the one
-   rule it had outside .bd (.fl, the border-crossing flag) is scoped under it, so nothing here
-   reaches the rest of the site, and the v2 line carries the three-in-a-row fix for days 7 and 8
-   (owner, 23 Nov 2026), which the preview's own "bento v3" rules now make too. Edit here from now on. */
+/* The owner's trek diaries (diary/DiaryPage.jsx: the Balkan diary, the Everest diary). Down to
+   "Site additions" this is the stylesheet of the owner's previews, rule for rule: the Balkan one
+   (claude.ai artifacts 7XKkAYbFMvrT6JKsVkDEgS, Xcy4urDSX8buPxgzgjkiHB) and the Everest one
+   (PDCuSG6PegQjMUyzdoKrgq) carry it identically, its "v2 polish" and later overrides included.
+   The one rule it had outside .bd (.fl, the border-crossing flag) is scoped under it, so nothing
+   here reaches the rest of the site, and the v2 line carries the three-in-a-row fix for the
+   Balkan days 7 and 8 (owner, 23 Nov 2026), which the previews' own "bento v3" rules now make
+   too. A page's own rules are in its own file (everest.css). Edit here from now on. */
 .bd{--p:#6D28D9;--pd:#4C1D95;--ink:#1E1B4B;--mute:#6B7280;--line:#EDE9FE;--soft:#F5F3FF;direction:rtl;font-family:'Ploni',sans-serif;color:var(--ink);background:#fff}
 .bd *{box-sizing:border-box;min-width:0}
 .bd img{display:block;max-width:100%}
