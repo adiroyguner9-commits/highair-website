@@ -69,6 +69,33 @@ function YouTubeEmbed({ block, lang }) {
   );
 }
 
+/* A photo still to come (`pending` in the post's data): an empty, marked frame, a draft state
+   that is not for publishing (owner, 24 Nov 2026, the day trips in Tanzania). `n` numbers a
+   collage slot. */
+function EmptyPhoto({ src, n, style }) {
+  return (
+    <div data-photo-slot={src || ''} aria-hidden="true" style={{
+      boxSizing:      'border-box',
+      background:     '#F5F0FF',
+      border:         '1.5px dashed #C4B5FD',
+      display:        'flex',
+      flexDirection:  'column',
+      alignItems:     'center',
+      justifyContent: 'center',
+      gap:            '6px',
+      color:          '#7C3AED',
+      ...style,
+    }}>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2.5" />
+        <circle cx="9" cy="10" r="1.8" />
+        <path d="M21 16l-5-5L7 20" />
+      </svg>
+      {n && <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 600 }}>{n}</span>}
+    </div>
+  );
+}
+
 function PostImage({ block }) {
   const [ref, near] = useNearView();
   const srcSet = srcSetOf(block.src);
@@ -689,7 +716,9 @@ export default function BlogPost({ slug: fixedSlug }) {
 
             if (block.type === 'image') return (
               <figure key={i} style={{ margin: '36px 0' }}>
-                {block.src ? (
+                {block.pending ? (
+                  <EmptyPhoto src={block.src} style={{ width: '100%', aspectRatio: '16 / 9', borderRadius: RADIUS.xl }} />
+                ) : block.src ? (
                   <PostImage block={block} />
                 ) : (
                   <div style={{
@@ -727,26 +756,7 @@ export default function BlogPost({ slug: fixedSlug }) {
                 }}>
                   {(block.images || []).map((im, j) => {
                     const tile = { aspectRatio: '4 / 3', borderRadius: RADIUS.md, overflow: 'hidden', boxSizing: 'border-box' };
-                    if (im.pending || !im.src) return (
-                      <div key={j} data-photo-slot={im.src || ''} aria-hidden="true" style={{
-                        ...tile,
-                        background:     '#F5F0FF',
-                        border:         '1.5px dashed #C4B5FD',
-                        display:        'flex',
-                        flexDirection:  'column',
-                        alignItems:     'center',
-                        justifyContent: 'center',
-                        gap:            '6px',
-                        color:          '#7C3AED',
-                      }}>
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="3" y="4" width="18" height="16" rx="2.5" />
-                          <circle cx="9" cy="10" r="1.8" />
-                          <path d="M21 16l-5-5L7 20" />
-                        </svg>
-                        <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 600 }}>{j + 1}</span>
-                      </div>
-                    );
+                    if (im.pending || !im.src) return <EmptyPhoto key={j} src={im.src} n={j + 1} style={tile} />;
                     return (
                       <div key={j} style={{ ...tile, background: '#ECEAF8' }}>
                         <img

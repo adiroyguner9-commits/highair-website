@@ -25,8 +25,8 @@ const WIDTH = 800;
    photos (140-490KB each) into cards about 300px wide, all of them with the page. */
 /* public/images/blog/balkan-diary and everest-diary joined on 23 Nov 2026: the photos of the
    owner's trek diaries (diary/DiaryPage.jsx), up to 1200px, drawn 140-580px wide in their days. */
-/* public/images/blog/tanzania-day-trips on 24 Nov 2026: the collages of the day trips (blogData.js
-   DAY_TRIP_PHOTOS); the folder exists once the first photo is in. */
+/* public/images/blog/tanzania-day-trips on 24 Nov 2026: the photos of the day trips post (the
+   Materuni collage, blogData.js MATERUNI_PHOTOS, and one photo each for Chemka and Olpopongi). */
 const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog', 'public/images/blog/balkan-diary', 'public/images/blog/everest-diary', 'public/images/blog/tanzania-day-trips', 'public/images/safari'];
 const MANIFEST = 'src/website/imageVariants.json';
 
@@ -38,7 +38,7 @@ const blogCardImages = new Set(POSTS.map(p => p.img).filter(Boolean));
 const inPost = new Set();
 const takeBlocks = blocks => {
   for (const b of blocks || []) {
-    if (b && b.type === 'image' && typeof b.src === 'string' && b.src.startsWith('/images/')) inPost.add(b.src);
+    if (b && b.type === 'image' && !b.pending && typeof b.src === 'string' && b.src.startsWith('/images/')) inPost.add(b.src);
     /* the route cards' photos (BlogPost 'stops'), shown 180px wide */
     if (b && b.type === 'stops') for (const it of b.items || []) if (typeof it.src === 'string' && it.src.startsWith('/images/')) inPost.add(it.src);
     /* a collage's photos (BlogPost 'collage'), about 300px wide; a slot still `pending` has no file */

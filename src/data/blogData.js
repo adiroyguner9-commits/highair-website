@@ -10,43 +10,20 @@
 import { DIARY, diaryBlocks, photoPos, HERO_PHOTO } from './balkanDiary.js';
 import { EVEREST, everestBlocks, everestImg, photoPos as everestPos, HERO_PHOTO as EVEREST_HERO } from './everestDiary.js';
 
-/* Six photos for each day trip in tanzania-day-trips (owner, 24 Nov 2026: "קולאז׳ של 6 תמונות
-   בכל טיול"), shown by the 'collage' block in BlogPost.jsx, 3 by 2 on a computer and 2 by 3 on
-   a phone. Slot 1 of Materuni and of Chemka has its photo; every other slot is `pending` and
-   shows an empty, numbered frame: a draft, not for publishing until the photos are in.
-   A photo is used once in the post: the cover's Materuni photo is not in the collage.
-   To fill a slot: save the photo as webp at its `src`, delete `pending`, write what it shows in
-   `alt` (Hebrew) and `altEn`, and run node scripts/gen-image-variants.mjs for the lighter copy
-   the tile shows. `pos` (e.g. 'center 30%') moves the crop. */
-const DAY_TRIP_PHOTOS = {
-  materuni: [
-    /* Unsplash hKTMK12JHvM, free licence, tagged there "Materuni Waterfall, Tanzania" (checked
-       24 Nov 2026); the safari page's photo (public/images/safari/SOURCES.md) */
-    { src: '/images/safari/materuni.webp', alt: 'מפלי מטרוני', altEn: 'Materuni Falls' },
-    { src: '/images/blog/tanzania-day-trips/materuni-2.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/materuni-3.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/materuni-4.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/materuni-5.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/materuni-6.webp', pending: true },
-  ],
-  chemka: [
-    /* the owner's Canva "טיולי יום בטנזניה" (canva-chemka-pool.jpg) */
-    { src: '/images/blog/tanzania-day-trips/chemka-1.webp', alt: 'בריכה צלולה בגווני טורקיז מוקפת עצי דקל, ושני רוחצים צפים בה על גלגלי ים', altEn: 'A clear turquoise pool ringed by palm trees, with two bathers floating on rubber rings' },
-    { src: '/images/blog/tanzania-day-trips/chemka-2.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/chemka-3.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/chemka-4.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/chemka-5.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/chemka-6.webp', pending: true },
-  ],
-  olpopongi: [
-    { src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/olpopongi-2.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/olpopongi-3.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/olpopongi-4.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/olpopongi-5.webp', pending: true },
-    { src: '/images/blog/tanzania-day-trips/olpopongi-6.webp', pending: true },
-  ],
-};
+/* The Materuni collage in tanzania-day-trips: six of the owner's own photos from Materuni
+   (his trip of 26 Sep 2026), shown by the 'collage' block in BlogPost.jsx, 3 by 2 on a computer
+   and 2 by 3 on a phone (owner, 24 Nov 2026). Each file is the 4:3 slice the tile shows, cut from
+   the upright original in "HighAir תכניות - קבצי מקור/photos/tanzania-day-trips" (materuni-own-N),
+   with its 800px copy from node scripts/gen-image-variants.mjs. The other two trips have one photo
+   each ("בשאר הטיולים תשאיר תמונה אחת פשוט"), as an ordinary image block in their section. */
+const MATERUNI_PHOTOS = [
+  { src: '/images/blog/tanzania-day-trips/materuni-1.webp', alt: 'מפלי מטרוני מבעד לעמק הירוק', altEn: 'Materuni Falls seen across the green valley' },
+  { src: '/images/blog/tanzania-day-trips/materuni-2.webp', alt: 'המפל של מטרוני מקרוב', altEn: 'Materuni Falls up close' },
+  { src: '/images/blog/tanzania-day-trips/materuni-3.webp', alt: 'הליכה בשביל העפר בכפר מטרוני', altEn: 'Walking the dirt path through Materuni village' },
+  { src: '/images/blog/tanzania-day-trips/materuni-4.webp', alt: 'חלקת בננות בכפר', altEn: 'A banana grove in the village' },
+  { src: '/images/blog/tanzania-day-trips/materuni-5.webp', alt: 'פולי קפה בשלבים השונים, מהפרי ועד הפול הקלוי', altEn: 'Coffee at every stage, from the cherry to the roasted bean' },
+  { src: '/images/blog/tanzania-day-trips/materuni-6.webp', alt: 'קליית פולי הקפה על האש', altEn: 'Roasting the coffee beans over the fire' },
+];
 
 export const POSTS = [
 
@@ -57,8 +34,9 @@ export const POSTS = [
    *  per person, what is included and what is not, as the programme says. Nothing the
    *  supplier has not confirmed (drive times, the waterfall's height, the water's
    *  temperature, swimming safety). Every trip includes the transfer, a local guide, lunch
-   *  and the entrance fees (owner, 24 Nov 2026), and has a collage of six photos
-   *  (DAY_TRIP_PHOTOS above, mostly empty: a draft until the photos arrive). The cover is the
+   *  and the entrance fees (owner, 24 Nov 2026). Materuni has a collage of six photos
+   *  (MATERUNI_PHOTOS above), Chemka and Olpopongi one photo each; Olpopongi's is still
+   *  `pending` (an empty frame, a draft until the owner's photo arrives). The cover is the
    *  Materuni waterfall from the owner's Canva ("עדיף את מטרוני"), focused so the falls and
    *  the woman under them stay in the phone's slice. The one photo outside the trips is our
    *  own Kilimanjaro photo, captioned for what it shows.
@@ -98,19 +76,19 @@ export const POSTS = [
         { type: 'section', value: 'מפלי מטרוני וחוות הקפה' },
         { type: 'text', value: 'הכפר מטרוני שוכן על המורדות הירוקים של הקילימנג׳רו, מעל העיירה מושי, ובו חיים בני שבט הצ׳אגה. עם מדריך מקומי הולכים בשבילי הכפר, בין חלקות בננות ומטעי קפה, עד מפלי מטרוני. בבריכה הטבעית שלמרגלות המפל אפשר להתרענן במים.' },
         { type: 'text', value: 'בהמשך מבקרים במטעי הקפה של הכפר. קולים את הפולים על האש וטוחנים אותם ביד, בשירה ובריקודים עם בני המקום, ושותים יחד את הקפה הטרי. הסיור מסתיים בארוחת צהריים מסורתית של שבט הצ׳אגה, ומשם חוזרים למלון במושי.' },
-        { type: 'collage', alt: 'מפלי מטרוני וחוות הקפה', images: DAY_TRIP_PHOTOS.materuni },
+        { type: 'collage', alt: 'מפלי מטרוני וחוות הקפה', images: MATERUNI_PHOTOS },
         { type: 'text', value: 'המחיר הוא 60 דולר לאדם, וזמן הפעילות המשוער הוא 5 עד 6 שעות. כדאי להביא בגד ים, מגבת ונעלי הליכה. הטיול כולל:' },
         { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי מקצועי דובר אנגלית', 'ארוחת צהריים מסורתית', 'דמי הכניסה לכפר ולמפלים', 'סיור בחוות הקפה, קלייה וטעימה'] },
         { type: 'section', value: 'המעיינות החמים של צ׳מקה' },
         { type: 'text', value: 'המעיינות החמים של צ׳מקה, הידועים גם בשם קיקולטווה, הם נווה מדבר ירוק בלב הסוואנה היבשה, בין מושי לארושה. מים חמימים נובעים כאן מתוך האדמה וממלאים בריכה טבעית צלולה בגווני טורקיז, מוקפת בעצי דקל ובצמחייה עבותה.' },
         { type: 'text', value: 'את היום מבלים במים ולצד הבריכה: שוחים, צפים ונחים בצל העצים, ולעיתים דגים קטנים מנקרים בעדינות את כפות הרגליים. זה יום רגוע של מנוחה בטבע, שמתאים במיוחד אחרי ימי הטיפוס, ובסופו חוזרים למלון במושי.' },
-        { type: 'collage', alt: 'המעיינות החמים של צ׳מקה', images: DAY_TRIP_PHOTOS.chemka },
+        { type: 'image', src: '/images/blog/tanzania-day-trips/chemka-1.webp', alt: 'בריכה צלולה בגווני טורקיז מוקפת עצי דקל, ושני רוחצים צפים בה על גלגלי ים', caption: 'הבריכה הטבעית של המעיינות החמים בצ׳מקה' },
         { type: 'text', value: 'המחיר הוא 70 דולר לאדם, וזמן הפעילות המשוער הוא 5 עד 6 שעות. כדאי להביא בגד ים, מגבת וקרם הגנה. הטיול כולל:' },
         { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי מקצועי דובר אנגלית', 'ארוחת צהריים', 'דמי הכניסה למעיינות'] },
         { type: 'section', value: 'כפר המסאי אולפופונגי' },
         { type: 'text', value: 'אולפופונגי הוא כפר תרבות ומוזיאון של שבט המסאי, על המורדות המערביים של הקילימנג׳רו. מדריך מקומי בן השבט מוביל את הביקור ומציג את אורח החיים המסורתי של המסאי: הבומה, המתחם המוקף גדר שבו עומדים הבתים המסורתיים, וגם את המלאכות והמנהגים של השבט.' },
         { type: 'text', value: 'במוזיאון שבכפר מכירים מקרוב את ההיסטוריה והתרבות של המסאי, ובסוף היום חוזרים למלון במושי.' },
-        { type: 'collage', alt: 'כפר המסאי אולפופונגי', images: DAY_TRIP_PHOTOS.olpopongi },
+        { type: 'image', src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true, alt: 'כפר המסאי אולפופונגי' },
         { type: 'text', value: 'המחיר הוא 150 דולר לאדם. כדאי להביא כובע, קרם הגנה ונעליים נוחות. הטיול כולל:' },
         { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי בן שבט המסאי', 'ארוחת צהריים', 'דמי הכניסה לכפר ולמוזיאון'] },
         { type: 'section', value: 'מה לא כלול, ומי מדריך' },
@@ -149,19 +127,19 @@ export const POSTS = [
         { type: 'section', value: 'Materuni Falls and the coffee farm' },
         { type: 'text', value: 'Materuni village lies on the green slopes of Kilimanjaro, above the town of Moshi, and is home to the Chagga people. With a local guide you walk the village paths, through banana groves and coffee plants, to the Materuni Waterfalls. In the natural pool at the foot of the falls you can cool off in the water.' },
         { type: 'text', value: 'Next you visit the village coffee farms. You roast the beans over the fire and grind them by hand, with singing and dancing alongside the villagers, and drink the fresh coffee together. The tour ends with a traditional Chagga lunch, and from there you return to the hotel in Moshi.' },
-        { type: 'collage', alt: 'Materuni Falls and the coffee farm', images: DAY_TRIP_PHOTOS.materuni },
+        { type: 'collage', alt: 'Materuni Falls and the coffee farm', images: MATERUNI_PHOTOS },
         { type: 'text', value: 'The price is $60 per person, and the estimated activity time is 5 to 6 hours. Bring swimwear, a towel and walking shoes. The trip includes:' },
         { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a professional local English-speaking guide', 'A traditional lunch', 'Village and falls entry fees', 'A coffee farm tour, roasting and tasting'] },
         { type: 'section', value: 'The Chemka Hot Springs' },
         { type: 'text', value: 'The Chemka Hot Springs, also known as Kikuletwa, are a green oasis in the heart of the dry savanna, between Moshi and Arusha. Warm water rises here from the ground and fills a clear natural pool in shades of turquoise, surrounded by palm trees and dense vegetation.' },
         { type: 'text', value: 'The day is spent in the water and beside the pool: swimming, floating and resting in the shade of the trees, and now and then small fish gently nibble at your feet. It is a calm day of rest in nature, especially welcome after the days of the climb, and at the end of it you return to the hotel in Moshi.' },
-        { type: 'collage', alt: 'The Chemka Hot Springs', images: DAY_TRIP_PHOTOS.chemka },
+        { type: 'image', src: '/images/blog/tanzania-day-trips/chemka-1.webp', alt: 'A clear turquoise pool ringed by palm trees, with two bathers floating on rubber rings', caption: 'The natural pool of the Chemka Hot Springs' },
         { type: 'text', value: 'The price is $70 per person, and the estimated activity time is 5 to 6 hours. Bring swimwear, a towel and sunscreen. The trip includes:' },
         { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a professional local English-speaking guide', 'Lunch', 'The hot springs entry fee'] },
         { type: 'section', value: 'The Olpopongi Maasai Village' },
         { type: 'text', value: 'Olpopongi is a Maasai cultural village and museum on the western slopes of Kilimanjaro. A local guide from the tribe leads the visit and shows the traditional Maasai way of life: the boma, the fenced enclosure where the traditional homes stand, as well as the crafts and customs of the tribe.' },
         { type: 'text', value: 'In the village museum you get to know Maasai history and culture up close, and at the end of the day you return to the hotel in Moshi.' },
-        { type: 'collage', alt: 'The Olpopongi Maasai Village', images: DAY_TRIP_PHOTOS.olpopongi },
+        { type: 'image', src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true, alt: 'The Olpopongi Maasai Village' },
         { type: 'text', value: 'The price is $150 per person. Bring a hat, sunscreen and comfortable shoes. The trip includes:' },
         { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a local Maasai guide', 'Lunch', 'Village and museum entry fees'] },
         { type: 'section', value: 'What is not included, and who guides' },

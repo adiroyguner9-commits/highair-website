@@ -131,7 +131,7 @@ export function blogText(post) {
       case 'subheading': return `<h3>${esc(b.value)}</h3>`;
       case 'list':       return ul(b.items);
       case 'callout':    return `<aside>${b.title ? `<p><strong>${esc(b.title)}</strong></p>` : ''}${p(b.value)}${ul(b.items)}</aside>`;
-      case 'image':      return b.caption || b.alt ? `<figure><figcaption>${esc(b.caption || b.alt)}</figcaption></figure>` : '';
+      case 'image':      return !b.pending && (b.caption || b.alt) ? `<figure><figcaption>${esc(b.caption || b.alt)}</figcaption></figure>` : '';
       case 'video':
       case 'collage':
       case 'diagram':    return b.caption ? `<figure><figcaption>${esc(b.caption)}</figcaption></figure>` : '';
