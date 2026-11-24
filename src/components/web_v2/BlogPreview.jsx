@@ -218,9 +218,11 @@ export default function BlogPreview() {
 
   const [allPostsHover, setAllPostsHover] = useState(false);
 
-  // Only news posts, up to 3, most recent first
+  // Only news posts, up to 3, most recent first. A travel diary (a page of its own, ownText:
+  // the Balkan and Everest diaries) is filed under news but stays in the magazine only
+  // (owner, 24 Nov 2026: "שבדף הבית יהיה רק כתבות של חדשות, יומן מסע וזה שייכנסו לראות במגזין").
   const latestPosts = POSTS.filter(p =>
-    p.category === 'חדשות' && postInLang(p, blogLang(i18n.language))
+    p.category === 'חדשות' && !p.ownText && postInLang(p, blogLang(i18n.language))
   ).slice(0, 3);
 
   const sectionLabel = isEn ? tx('Our Magazine') : 'המגזין שלנו';
