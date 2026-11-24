@@ -51,11 +51,13 @@ describe('tanzania-day-trips', () => {
       const a = he.find(b => b.type === 'collage').images, b = en.find(x => x.type === 'collage').images;
       expect(a).toHaveLength(6);
       expect(b).toBe(a);
-      for (const im of a) {
-        expect(im.src).toMatch(/^\/images\/blog\/tanzania-day-trips\/[a-z]+-[1-6]\.webp$/);
+      a.forEach((im, j) => {
+        /* an empty slot waits at its own path; a filled one may be a photo the site already has */
+        if (im.pending) expect(im.src).toBe(`/images/blog/tanzania-day-trips/${im.src.split('/').pop().split('-')[0]}-${j + 1}.webp`);
         expect(seen.has(im.src), im.src).toBe(false);
+        expect(im.src, 'the cover is not shown twice').not.toBe(post.img);
         seen.add(im.src);
-      }
+      });
     });
   });
 
@@ -67,6 +69,23 @@ describe('tanzania-day-trips', () => {
         expect(im.alt && im.altEn, `${im.src}: alt and altEn`).toBeTruthy();
       }
     }
+  });
+
+  it('the cover is the Materuni waterfall (owner: "עדיף את מטרוני"), with its phone slice and its share image', async () => {
+    expect(post.img).toBe('/images/blog/tanzania-materuni-falls.webp');
+    expect(existsSync(`public${post.img}`)).toBe(true);
+    const PHONE = JSON.parse(readFileSync('src/website/phoneHeroes.json', 'utf8'));
+    expect(existsSync(`public${PHONE.blog[post.img]}`), 'run node scripts/gen-phone-heroes.mjs').toBe(true);
+    const { default: sharp } = await import('sharp');
+    const og = await sharp(`public${post.ogImg}`).metadata();
+    expect([og.width, og.height]).toEqual([1200, 630]);
+  });
+
+  it('Materuni slot 1 is the Materuni Falls photo, Chemka slot 1 the owner\'s pool photo', () => {
+    const slots = Object.fromEntries(post.content.filter(b => b.type === 'collage').map(b => [b.alt, b.images]));
+    expect(slots['מפלי מטרוני וחוות הקפה'][0]).toMatchObject({ src: '/images/safari/materuni.webp', alt: 'מפלי מטרוני', altEn: 'Materuni Falls' });
+    expect(slots['המעיינות החמים של צ׳מקה'][0].src).toBe('/images/blog/tanzania-day-trips/chemka-1.webp');
+    expect(slots['כפר המסאי אולפופונגי'].every(im => im.pending)).toBe(true);
   });
 
   it('the summit photo is gone from the Chemka section', () => {

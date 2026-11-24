@@ -12,14 +12,17 @@ import { EVEREST, everestBlocks, everestImg, photoPos as everestPos, HERO_PHOTO 
 
 /* Six photos for each day trip in tanzania-day-trips (owner, 24 Nov 2026: "קולאז׳ של 6 תמונות
    בכל טיול"), shown by the 'collage' block in BlogPost.jsx, 3 by 2 on a computer and 2 by 3 on
-   a phone. There is no photo of the three places yet, so every slot is `pending` and shows an
-   empty, numbered frame: a draft, not for publishing until the photos are in.
+   a phone. Slot 1 of Materuni and of Chemka has its photo; every other slot is `pending` and
+   shows an empty, numbered frame: a draft, not for publishing until the photos are in.
+   A photo is used once in the post: the cover's Materuni photo is not in the collage.
    To fill a slot: save the photo as webp at its `src`, delete `pending`, write what it shows in
    `alt` (Hebrew) and `altEn`, and run node scripts/gen-image-variants.mjs for the lighter copy
    the tile shows. `pos` (e.g. 'center 30%') moves the crop. */
 const DAY_TRIP_PHOTOS = {
   materuni: [
-    { src: '/images/blog/tanzania-day-trips/materuni-1.webp', pending: true },
+    /* Unsplash hKTMK12JHvM, free licence, tagged there "Materuni Waterfall, Tanzania" (checked
+       24 Nov 2026); the safari page's photo (public/images/safari/SOURCES.md) */
+    { src: '/images/safari/materuni.webp', alt: 'מפלי מטרוני', altEn: 'Materuni Falls' },
     { src: '/images/blog/tanzania-day-trips/materuni-2.webp', pending: true },
     { src: '/images/blog/tanzania-day-trips/materuni-3.webp', pending: true },
     { src: '/images/blog/tanzania-day-trips/materuni-4.webp', pending: true },
@@ -27,7 +30,8 @@ const DAY_TRIP_PHOTOS = {
     { src: '/images/blog/tanzania-day-trips/materuni-6.webp', pending: true },
   ],
   chemka: [
-    { src: '/images/blog/tanzania-day-trips/chemka-1.webp', pending: true },
+    /* the owner's Canva "טיולי יום בטנזניה" (canva-chemka-pool.jpg) */
+    { src: '/images/blog/tanzania-day-trips/chemka-1.webp', alt: 'בריכה צלולה בגווני טורקיז מוקפת עצי דקל, ושני רוחצים צפים בה על גלגלי ים', altEn: 'A clear turquoise pool ringed by palm trees, with two bathers floating on rubber rings' },
     { src: '/images/blog/tanzania-day-trips/chemka-2.webp', pending: true },
     { src: '/images/blog/tanzania-day-trips/chemka-3.webp', pending: true },
     { src: '/images/blog/tanzania-day-trips/chemka-4.webp', pending: true },
@@ -54,8 +58,10 @@ export const POSTS = [
    *  supplier has not confirmed (drive times, the waterfall's height, the water's
    *  temperature, swimming safety). Every trip includes the transfer, a local guide, lunch
    *  and the entrance fees (owner, 24 Nov 2026), and has a collage of six photos
-   *  (DAY_TRIP_PHOTOS above, still empty: a draft until the photos arrive). The one photo
-   *  outside the trips is our own Kilimanjaro photo, captioned for what it shows.
+   *  (DAY_TRIP_PHOTOS above, mostly empty: a draft until the photos arrive). The cover is the
+   *  Materuni waterfall from the owner's Canva ("עדיף את מטרוני"), focused so the falls and
+   *  the woman under them stay in the phone's slice. The one photo outside the trips is our
+   *  own Kilimanjaro photo, captioned for what it shows.
    * ═══════════════════════════════════════════════════════════════════ */
   {
       id:              42,
@@ -74,9 +80,10 @@ export const POSTS = [
       dateEn:          'November 24, 2026',
       category:        'מדריכים',
       categoryEn:      'Guides',
-      img:             '/images/gallery/kilimanjaro/3.webp',
-      imgPosition:     'center 60%',
-      imgPositionCard: 'center 60%',
+      img:             '/images/blog/tanzania-materuni-falls.webp',
+      ogImg:           '/images/blog/tanzania-materuni-falls-og.webp',
+      imgPosition:     '42% 80%',
+      imgPositionCard: '42% 80%',
       imgCredit:       '',
       excerpt:         'שלושה טיולי יום מהמלון במושי, לפני הטיפוס לקילימנג׳רו או אחריו: מפלי מטרוני וחוות הקפה, המעיינות החמים של צ׳מקה וכפר המסאי אולפופונגי, ומה כלול.',
       excerptEn:       'Three day trips from the hotel in Moshi, before or after the Kilimanjaro climb: Materuni Falls, the Chemka Hot Springs and the Olpopongi Maasai Village.',
