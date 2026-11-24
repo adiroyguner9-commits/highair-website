@@ -69,23 +69,23 @@ describe('tanzania-day-trips', () => {
     }
   });
 
-  it('Chemka and Olpopongi: one photo each, no collage; Olpopongi\'s still to come', () => {
+  it('Chemka and Olpopongi: one photo each, no collage', () => {
     const [chemkaHe, olpoHe] = [1, 2].map(k => tripBlocks(post.content, TRIPS.he[k]));
     const [chemkaEn, olpoEn] = [1, 2].map(k => tripBlocks(post.contentEn, TRIPS.en[k]));
     for (const blocks of [chemkaHe, olpoHe, chemkaEn, olpoEn]) {
       expect(blocks.filter(b => b.type === 'collage')).toEqual([]);
       expect(blocks.filter(b => b.type === 'image')).toHaveLength(1);
     }
-    for (const blocks of [chemkaHe, chemkaEn]) {
+    for (const [blocks, file] of [[chemkaHe, 'chemka-1'], [chemkaEn, 'chemka-1'], [olpoHe, 'olpopongi-1'], [olpoEn, 'olpopongi-1']]) {
       const img = blocks.find(b => b.type === 'image');
-      expect(img.src).toBe('/images/blog/tanzania-day-trips/chemka-1.webp');
+      expect(img.src).toBe(`/images/blog/tanzania-day-trips/${file}.webp`);
       expect(img.pending).toBeFalsy();
       expect(img.alt && img.caption).toBeTruthy();
       expect(existsSync(`public${img.src}`)).toBe(true);
     }
-    for (const blocks of [olpoHe, olpoEn]) {
-      expect(blocks.find(b => b.type === 'image')).toMatchObject({ src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true });
-    }
+    /* a general photo of Maasai, not of Olpopongi: the caption does not name the place */
+    expect(olpoHe.find(b => b.type === 'image').caption).toBe('בני שבט המסאי ליד הבומה, המתחם המסורתי של הכפר');
+    expect(olpoEn.find(b => b.type === 'image').caption).toBe('Maasai by the boma, the traditional village enclosure');
   });
 
   it('the stock waterfall is out of the post', () => {
@@ -114,11 +114,12 @@ describe('tanzania-day-trips', () => {
     expect(src).toMatch(/\{block\.pending \? \(\s*<EmptyPhoto/);
   });
 
-  it('the static page says nothing for the photo still to come, and keeps the inclusions', () => {
+  it('the static page carries the photo captions and the inclusions, and no photo is still to come', () => {
     const html = blogText(post);
     expect(html).not.toContain('tanzania-day-trips/');
-    expect(html).not.toContain('<figcaption>כפר המסאי אולפופונגי</figcaption>');
     expect(html).toContain('<figcaption>הבריכה הטבעית של המעיינות החמים בצ׳מקה</figcaption>');
+    expect(html).toContain('<figcaption>בני שבט המסאי ליד הבומה, המתחם המסורתי של הכפר</figcaption>');
+    expect(JSON.stringify([...post.content, ...post.contentEn])).not.toContain('pending');
     expect(html).toContain('ארוחת צהריים');
     expect(html).toContain('דמי הכניסה למעיינות');
   });

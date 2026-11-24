@@ -35,8 +35,9 @@ export const POSTS = [
    *  supplier has not confirmed (drive times, the waterfall's height, the water's
    *  temperature, swimming safety). Every trip includes the transfer, a local guide, lunch
    *  and the entrance fees (owner, 24 Nov 2026). Materuni has a collage of six photos
-   *  (MATERUNI_PHOTOS above), Chemka and Olpopongi one photo each; Olpopongi's is still
-   *  `pending` (an empty frame, a draft until the owner's photo arrives). The cover is the
+   *  (MATERUNI_PHOTOS above), Chemka and Olpopongi one photo each. Olpopongi's is a general
+   *  Pexels photo (27471151, Pexels License), not of Olpopongi itself, so its caption names no
+   *  place: Pexels says "Masai people", in Kenya. The cover is the
    *  Materuni waterfall from the owner's Canva ("עדיף את מטרוני"), focused so the falls and
    *  the woman under them stay in the phone's slice. The one photo outside the trips is our
    *  own Kilimanjaro photo, captioned for what it shows.
@@ -88,7 +89,7 @@ export const POSTS = [
         { type: 'section', value: 'כפר המסאי אולפופונגי' },
         { type: 'text', value: 'אולפופונגי הוא כפר תרבות ומוזיאון של שבט המסאי, על המורדות המערביים של הקילימנג׳רו. מדריך מקומי בן השבט מוביל את הביקור ומציג את אורח החיים המסורתי של המסאי: הבומה, המתחם המוקף גדר שבו עומדים הבתים המסורתיים, וגם את המלאכות והמנהגים של השבט.' },
         { type: 'text', value: 'במוזיאון שבכפר מכירים מקרוב את ההיסטוריה והתרבות של המסאי, ובסוף היום חוזרים למלון במושי.' },
-        { type: 'image', src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true, alt: 'כפר המסאי אולפופונגי' },
+        { type: 'image', src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', alt: 'קבוצת נשים בבדים צבעוניים ובשרשראות חרוזים עומדת ליד גדר ענפים ובקתה בגג קש', caption: 'בני שבט המסאי ליד הבומה, המתחם המסורתי של הכפר' },
         { type: 'text', value: 'המחיר הוא 150 דולר לאדם. כדאי להביא כובע, קרם הגנה ונעליים נוחות. הטיול כולל:' },
         { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי בן שבט המסאי', 'ארוחת צהריים', 'דמי הכניסה לכפר ולמוזיאון'] },
         { type: 'section', value: 'מה לא כלול, ומי מדריך' },
@@ -139,7 +140,7 @@ export const POSTS = [
         { type: 'section', value: 'The Olpopongi Maasai Village' },
         { type: 'text', value: 'Olpopongi is a Maasai cultural village and museum on the western slopes of Kilimanjaro. A local guide from the tribe leads the visit and shows the traditional Maasai way of life: the boma, the fenced enclosure where the traditional homes stand, as well as the crafts and customs of the tribe.' },
         { type: 'text', value: 'In the village museum you get to know Maasai history and culture up close, and at the end of the day you return to the hotel in Moshi.' },
-        { type: 'image', src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true, alt: 'The Olpopongi Maasai Village' },
+        { type: 'image', src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', alt: 'A group of women in colourful cloths and bead necklaces standing by a fence of branches and a thatched hut', caption: 'Maasai by the boma, the traditional village enclosure' },
         { type: 'text', value: 'The price is $150 per person. Bring a hat, sunscreen and comfortable shoes. The trip includes:' },
         { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a local Maasai guide', 'Lunch', 'Village and museum entry fees'] },
         { type: 'section', value: 'What is not included, and who guides' },
