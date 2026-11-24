@@ -75,20 +75,17 @@ export async function fetchActiveLead({ base, token, phone, fields = [] }) {
 }
 
 /* ── A returning customer ──────────────────────────────────────────────────
-   The same person on one number: the same name, or one name that is the other
-   with a word added (the same first name, every word of the shorter one inside
-   the longer). A household on one number stays apart: a different first name is
-   a different person. Byte for byte the rule of the webapp's
-   api/_lib/returning.js samePerson (its drift test compares the two). */
+   The same person on one number = the same FIRST NAME on that number (owner,
+   24 Nov 2026: "אבל הוא בודק לפי שם פרטי ונייד לא?"). The surname is not compared:
+   people leave it out, add a word or write another one. A household on one
+   number stays apart: a different first name is a different person. Byte for
+   byte the rule of the webapp's api/_lib/returning.js samePerson (its drift
+   test compares the two). */
 const nameKey = n => String(n || '').toLowerCase().replace(/["'`\u05f3\u05f4]/g, '').replace(/\s+/g, ' ').trim();
 export function samePerson(a, b) {
   const x = nameKey(a), y = nameKey(b);
   if (!x || !y) return false;
-  if (x === y) return true;
-  const wx = x.split(' '), wy = y.split(' ');
-  if (wx[0] !== wy[0]) return false;
-  const [short, long] = wx.length <= wy.length ? [wx, wy] : [wy, wx];
-  return short.length >= 2 && short.every(w => long.includes(w));
+  return x.split(' ')[0] === y.split(' ')[0];
 }
 
 /**

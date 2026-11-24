@@ -100,7 +100,11 @@ describe('the rule itself', () => {
   it('samePerson: the same name, or one with a word added; a household stays apart', () => {
     expect(samePerson('יעל אוזן', 'יעל אוזן זרגרי')).toBe(true);
     expect(samePerson('יוסי אוזן', 'יעל אוזן')).toBe(false);
-    expect(samePerson('יעל', 'יעל אוזן')).toBe(false);
+    expect(samePerson('יעל', 'יוסי אוזן')).toBe(false);
+  });
+  it('samePerson: the first name alone is the same person (24 Nov 2026, "יהודית" after "יהודית גרומן")', () => {
+    expect(samePerson('יהודית', 'יהודית גרומן')).toBe(true);
+    expect(samePerson('יהודית גרומן', 'יהודית')).toBe(true);
   });
   it('returningAgentOf: the most recently touched earlier card wins', () => {
     const active = card('recNEW', 'יעל אוזן', 'Kilimanjaro', '', 'New Lead', '2026-11-14T00:00:00.000Z');
@@ -111,6 +115,6 @@ describe('the rule itself', () => {
   });
   it('is byte for byte the webapp\'s samePerson', () => {
     const site = fs.readFileSync(new URL('../api/_lib/active-lead.js', import.meta.url), 'utf8');
-    expect(site).toMatch(/return short\.length >= 2 && short\.every\(w => long\.includes\(w\)\);/);
+    expect(site).toMatch(/return x\.split\(' '\)\[0\] === y\.split\(' '\)\[0\];/);
   });
 });
