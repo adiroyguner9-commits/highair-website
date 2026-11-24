@@ -800,6 +800,12 @@
   "s": "/images/cards/thumbs/tzeelim-mishmar.webp",
   "sw": 760
  },
+ "/images/gallery/kilimanjaro/5.webp": {
+  "w": 1200,
+  "h": 1600,
+  "s": "/images/gallery/kilimanjaro/thumbs/5.webp",
+  "sw": 900
+ },
  "/images/gallery/kilimanjaro/9.webp": {
   "w": 1600,
   "h": 1200,
@@ -913,12 +919,6 @@
   "h": 1200,
   "s": "/images/gallery/kilimanjaro/thumbs/2.webp",
   "sw": 1200
- },
- "/images/gallery/kilimanjaro/5.webp": {
-  "w": 1200,
-  "h": 1600,
-  "s": "/images/gallery/kilimanjaro/thumbs/5.webp",
-  "sw": 900
  },
  "/images/gallery/annapurna/1.webp": {
   "w": 1080,

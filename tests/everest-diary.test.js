@@ -29,8 +29,8 @@ describe('the Everest diary: route and post', () => {
     expect(own).toBeGreaterThan(-1);
     expect(own).toBeLessThan(main.indexOf('<Route path="/blog/:slug"'));
   });
-  it('is the newest post, a news story with its own page and text, in Hebrew and English', () => {
-    expect(POSTS[0]).toBe(post);
+  it('is one of the newest posts, a news story with its own page and text, in Hebrew and English', () => {
+    expect(POSTS.indexOf(post)).toBeLessThan(3);   // among the newest (the day trips guide came after it)
     expect(post).toMatchObject({ customPage: true, ownText: true, heroKind: 'diary-ev', category: 'חדשות' });
     expect(BLOG_LANGS[EVEREST_SLUG]).toEqual(['he', 'en']);
   });
