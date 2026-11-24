@@ -47,6 +47,11 @@ function toIntlIL(raw) {
   return d;
 }
 
+/* When this enquiry arrived: the card's creation, or the moment a Not Relevant
+   card was brought back by a new enquiry from the same person (webapp
+   lead-notify, {Reopened At}, owner 24 Nov 2026), whichever is later. */
+export const enquiryMs = f => Math.max(Date.parse(f?.['Created Time']) || 0, Date.parse(f?.['Reopened At']) || 0);
+
 const SITE          = 'https://highair-expeditions.com';
 
 /* How many of ONE automated message may leave in a single cron run.
@@ -298,21 +303,27 @@ export default async function handler(req, res) {
   /* ── #3 NUDGE ── form lead, no call booked, submitted 10–65 min ago ──────── */
   try {
     const lowerIso = new Date(nowMs - 65 * 60 * 1000).toISOString(); // created no earlier than 65 min ago (10–65 min window — forgiving catch-up if a cron run was missed)
+    /* A Not Relevant card brought back by a new enquiry (webapp lead-notify,
+       owner 24 Nov 2026) counts from {Reopened At} as a new card counts from its
+       creation. Its source was already judged there: the webapp leaves Nudge Sent
+       open only for a form enquiry, so the source tests below are for new cards. */
     const formula = `AND(`
       + `{Nudge Sent}!=TRUE(),`
       + `{Stage}='New Lead',`                          // still New Lead = never booked/advanced
-      + `NOT(FIND('WhatsApp',{Source}&'')),`           // WhatsApp leads are handled by the AI
-      + `NOT(FIND('GHL import',{Source}&'')),`         // never the imported backlog
-      + NOT_A_LEAD                                     // contact forms are not leads
       + NOT_EMAIL_ONLY_FORMULA                         // the German and Spanish sites get email only
       + `{Phone}!='',`
-      + `IS_AFTER({Created Time},DATETIME_PARSE('${lowerIso}'))`
+      + `OR(AND(`
+      +   `NOT(FIND('WhatsApp',{Source}&'')),`         // WhatsApp leads are handled by the AI
+      +   `NOT(FIND('GHL import',{Source}&'')),`       // never the imported backlog
+      +   NOT_A_LEAD                                   // contact forms are not leads
+      +   `IS_AFTER({Created Time},DATETIME_PARSE('${lowerIso}'))`
+      + `),IS_AFTER({Reopened At},DATETIME_PARSE('${lowerIso}')))`
       + `)`;
     const rows = await queryLeads(formula);
     for (const rec of rows) {
       const f = rec.fields || {};
       if (isEmailOnlyLead(f)) continue;                // email only (lead-channel.js)
-      const ageMin = (nowMs - new Date(f['Created Time']).getTime()) / 60000;
+      const ageMin = (nowMs - enquiryMs(f)) / 60000;
       if (!(ageMin >= 10)) continue;                   // wait the full 10 min before nudging
       // NEVER nudge someone who already booked a call. book-slot advances the
       // stage on booking, but a call booked seconds after the lead was created
@@ -369,17 +380,21 @@ export default async function handler(req, res) {
         + `{Nudge Sent}=TRUE(),`                         // got nudge 1 → a real form lead
         + `{Nudge 2 Sent}!=TRUE(),`
         + `{Stage}='New Lead',`                          // still never booked/advanced
-        + `NOT(FIND('WhatsApp',{Source}&'')),`
-        + `NOT(FIND('GHL import',{Source}&'')),`
-        /* A lead typed in by hand in the Lead Center is someone we already
-           spoke to: the form sets Nudge Sent only to stop nudge 1, which made
-           it look like a form lead here (3 got "מתי יהיה לך נוח", 22 Oct 2026). */
-        + `{Source}!='Manual',`
-        + NOT_A_LEAD
         + NOT_EMAIL_ONLY_FORMULA                       // the German and Spanish sites get email only
         + (ilNight2 ? `{Language}='English',` : '')    // Israel's night: only a lead whose own day it may be
         + `{Phone}!='',`
-        + `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
+        + `OR(AND(`
+        +   `NOT(FIND('WhatsApp',{Source}&'')),`
+        +   `NOT(FIND('GHL import',{Source}&'')),`
+        /* A lead typed in by hand in the Lead Center is someone we already
+           spoke to: the form sets Nudge Sent only to stop nudge 1, which made
+           it look like a form lead here (3 got "מתי יהיה לך נוח", 22 Oct 2026). */
+        +   `{Source}!='Manual',`
+        +   NOT_A_LEAD
+        +   `IS_AFTER({Created Time},DATETIME_PARSE('${lower96}'))`
+        /* A reopened Not Relevant card: counted from {Reopened At}; the webapp
+           closed both nudges on it unless the new enquiry was a form's. */
+        + `),IS_AFTER({Reopened At},DATETIME_PARSE('${lower96}')))`
         + `)`;
       const rows2 = await queryLeads(formula2);
       let n2ThisRun = 0;
@@ -387,7 +402,7 @@ export default async function handler(req, res) {
         const f = rec.fields || {};
         if (isEmailOnlyLead(f)) continue;              // email only (lead-channel.js)
         const english = isEnglishLead(f);
-        const ageH = (nowMs - new Date(f['Created Time']).getTime()) / 3600000;
+        const ageH = (nowMs - enquiryMs(f)) / 3600000;
         if (!(ageH >= 24)) continue;                     // wait the full day
         if (english ? !inLeadWindow(f.Phone) : ilNight2) { result.nudge2HeldForNight = (result.nudge2HeldForNight || 0) + 1; continue; }
         if (await hasAppointment(f.Phone, f.Expedition)) {
