@@ -133,6 +133,7 @@ export function blogText(post) {
       case 'callout':    return `<aside>${b.title ? `<p><strong>${esc(b.title)}</strong></p>` : ''}${p(b.value)}${ul(b.items)}</aside>`;
       case 'image':      return b.caption || b.alt ? `<figure><figcaption>${esc(b.caption || b.alt)}</figcaption></figure>` : '';
       case 'video':
+      case 'collage':
       case 'diagram':    return b.caption ? `<figure><figcaption>${esc(b.caption)}</figcaption></figure>` : '';
       case 'stops':      return (b.items || []).map(x => `<h3>${esc(x.title)}${x.tag ? `, ${esc(x.tag)}` : ''}</h3>${p(x.text)}`).join('');
       case 'cta':        return b.href ? `<p>${link(b.href, b.text || b.href)}</p>` : '';

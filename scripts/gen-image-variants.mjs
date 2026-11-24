@@ -25,7 +25,9 @@ const WIDTH = 800;
    photos (140-490KB each) into cards about 300px wide, all of them with the page. */
 /* public/images/blog/balkan-diary and everest-diary joined on 23 Nov 2026: the photos of the
    owner's trek diaries (diary/DiaryPage.jsx), up to 1200px, drawn 140-580px wide in their days. */
-const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog', 'public/images/blog/balkan-diary', 'public/images/blog/everest-diary', 'public/images/safari'];
+/* public/images/blog/tanzania-day-trips on 24 Nov 2026: the collages of the day trips (blogData.js
+   DAY_TRIP_PHOTOS); the folder exists once the first photo is in. */
+const DIRS = ['public/images/gallery/home', 'public/images/donation', 'public/images/blog', 'public/images/blog/balkan-diary', 'public/images/blog/everest-diary', 'public/images/blog/tanzania-day-trips', 'public/images/safari'];
 const MANIFEST = 'src/website/imageVariants.json';
 
 /* Blog: the images posts use as their card / hero picture, and the photos INSIDE the posts
@@ -39,6 +41,8 @@ const takeBlocks = blocks => {
     if (b && b.type === 'image' && typeof b.src === 'string' && b.src.startsWith('/images/')) inPost.add(b.src);
     /* the route cards' photos (BlogPost 'stops'), shown 180px wide */
     if (b && b.type === 'stops') for (const it of b.items || []) if (typeof it.src === 'string' && it.src.startsWith('/images/')) inPost.add(it.src);
+    /* a collage's photos (BlogPost 'collage'), about 300px wide; a slot still `pending` has no file */
+    if (b && b.type === 'collage') for (const it of b.images || []) if (!it.pending && typeof it.src === 'string' && it.src.startsWith('/images/')) inPost.add(it.src);
   }
 };
 for (const p of POSTS) { takeBlocks(p.content); takeBlocks(p.contentEn); }
@@ -52,6 +56,7 @@ for (const lang of fs.existsSync(INTL) ? fs.readdirSync(INTL) : []) {
 const manifest = {};
 let saved = 0;
 for (const dir of DIRS) {
+  if (!fs.existsSync(dir)) continue;
   for (const f of fs.readdirSync(dir)) {
     if (!/\.(webp|jpe?g)$/i.test(f)) continue;
     const src = '/' + path.posix.join(dir.replace(/^public\//, ''), f);

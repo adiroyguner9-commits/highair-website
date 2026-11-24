@@ -713,6 +713,67 @@ export default function BlogPost({ slug: fixedSlug }) {
               </figure>
             );
 
+            /* Six photos of one place, 3 by 2 on a computer and 2 by 3 on a phone (owner,
+               24 Nov 2026, the day trips in Tanzania: "קולאז׳ של 6 תמונות בכל טיול"). The photos
+               come from the post's data; a slot marked `pending` has no photo yet and shows an
+               empty, numbered frame (a draft, not for publishing). Each tile is about 300px wide,
+               so it takes the lighter copy. */
+            if (block.type === 'collage') return (
+              <figure key={i} style={{ margin: '32px 0 36px' }}>
+                <div style={{
+                  display:             'grid',
+                  gridTemplateColumns: `repeat(${isMobile ? 2 : 3}, minmax(0, 1fr))`,
+                  gap:                 isMobile ? '8px' : '10px',
+                }}>
+                  {(block.images || []).map((im, j) => {
+                    const tile = { aspectRatio: '4 / 3', borderRadius: RADIUS.md, overflow: 'hidden', boxSizing: 'border-box' };
+                    if (im.pending || !im.src) return (
+                      <div key={j} data-photo-slot={im.src || ''} aria-hidden="true" style={{
+                        ...tile,
+                        background:     '#F5F0FF',
+                        border:         '1.5px dashed #C4B5FD',
+                        display:        'flex',
+                        flexDirection:  'column',
+                        alignItems:     'center',
+                        justifyContent: 'center',
+                        gap:            '6px',
+                        color:          '#7C3AED',
+                      }}>
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="4" width="18" height="16" rx="2.5" />
+                          <circle cx="9" cy="10" r="1.8" />
+                          <path d="M21 16l-5-5L7 20" />
+                        </svg>
+                        <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', fontWeight: 600 }}>{j + 1}</span>
+                      </div>
+                    );
+                    return (
+                      <div key={j} style={{ ...tile, background: '#ECEAF8' }}>
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          src={smallOf(im.src)}
+                          alt={(isEn ? im.altEn : im.alt) || `${block.alt || ''} ${j + 1}`.trim()}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: im.pos || 'center', display: 'block' }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                {block.caption && (
+                  <figcaption style={{
+                    fontFamily: "'Ploni', sans-serif",
+                    fontSize:   '13px',
+                    color:      '#6B6B8A',
+                    textAlign:  'center',
+                    marginTop:  '10px',
+                  }}>
+                    {block.caption}
+                  </figcaption>
+                )}
+              </figure>
+            );
+
             if (block.type === 'youtube') return (
               <figure key={i} style={{ margin: '36px 0' }}>
                 <YouTubeEmbed block={block} lang={lang} />

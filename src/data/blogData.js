@@ -10,6 +10,40 @@
 import { DIARY, diaryBlocks, photoPos, HERO_PHOTO } from './balkanDiary.js';
 import { EVEREST, everestBlocks, everestImg, photoPos as everestPos, HERO_PHOTO as EVEREST_HERO } from './everestDiary.js';
 
+/* Six photos for each day trip in tanzania-day-trips (owner, 24 Nov 2026: "קולאז׳ של 6 תמונות
+   בכל טיול"), shown by the 'collage' block in BlogPost.jsx, 3 by 2 on a computer and 2 by 3 on
+   a phone. There is no photo of the three places yet, so every slot is `pending` and shows an
+   empty, numbered frame: a draft, not for publishing until the photos are in.
+   To fill a slot: save the photo as webp at its `src`, delete `pending`, write what it shows in
+   `alt` (Hebrew) and `altEn`, and run node scripts/gen-image-variants.mjs for the lighter copy
+   the tile shows. `pos` (e.g. 'center 30%') moves the crop. */
+const DAY_TRIP_PHOTOS = {
+  materuni: [
+    { src: '/images/blog/tanzania-day-trips/materuni-1.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/materuni-2.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/materuni-3.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/materuni-4.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/materuni-5.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/materuni-6.webp', pending: true },
+  ],
+  chemka: [
+    { src: '/images/blog/tanzania-day-trips/chemka-1.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/chemka-2.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/chemka-3.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/chemka-4.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/chemka-5.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/chemka-6.webp', pending: true },
+  ],
+  olpopongi: [
+    { src: '/images/blog/tanzania-day-trips/olpopongi-1.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/olpopongi-2.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/olpopongi-3.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/olpopongi-4.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/olpopongi-5.webp', pending: true },
+    { src: '/images/blog/tanzania-day-trips/olpopongi-6.webp', pending: true },
+  ],
+};
+
 export const POSTS = [
 
   /* ═══════════════════════════════════════════════════════════════════
@@ -18,8 +52,10 @@ export const POSTS = [
    *  approved programme ("תכנית טיולי יום בטנזניה", draft PDF, Hebrew and English): prices
    *  per person, what is included and what is not, as the programme says. Nothing the
    *  supplier has not confirmed (drive times, the waterfall's height, the water's
-   *  temperature, swimming safety). The photos are our own from Kilimanjaro, captioned for
-   *  what they show: there is no photo of the three places yet.
+   *  temperature, swimming safety). Every trip includes the transfer, a local guide, lunch
+   *  and the entrance fees (owner, 24 Nov 2026), and has a collage of six photos
+   *  (DAY_TRIP_PHOTOS above, still empty: a draft until the photos arrive). The one photo
+   *  outside the trips is our own Kilimanjaro photo, captioned for what it shows.
    * ═══════════════════════════════════════════════════════════════════ */
   {
       id:              42,
@@ -50,24 +86,26 @@ export const POSTS = [
         { type: 'section', value: 'איך זה עובד: יום אחד ולילה במושי' },
         { type: 'text', value: 'טיולי היום הם תוספת למשלחת הקילימנג׳רו, ואפשר לצאת אליהם לפני הטיפוס או אחריו. כל טיול נמשך יום אחד, ולכן מוסיפים לתכנית לילה נוסף במלון במושי. ביום הטיול אוספים אתכם מהמלון במושי, ובסופו מחזירים אתכם אליו.' },
         { type: 'text', value: 'המחירים הם לאדם, בדולרים. הלילה הנוסף במושי אינו כלול במחיר הטיול, וגם לא הטיפים למדריך המקומי וההוצאות האישיות, כמו שתייה ומתנות.' },
-        { type: 'callout', title: '✦ שלושה טיולים, שלושה מחירים', value: 'מפלי מטרוני וחוות הקפה: 60 דולר לאדם. המעיינות החמים של צ׳מקה: 70 דולר לאדם. כפר המסאי אולפופונגי: 150 דולר לאדם.' },
+        { type: 'callout', title: '✦ שלושה טיולים, שלושה מחירים', value: 'מפלי מטרוני וחוות הקפה: 60 דולר לאדם. המעיינות החמים של צ׳מקה: 70 דולר לאדם. כפר המסאי אולפופונגי: 150 דולר לאדם. בכל המחירים כלולים הסעה מהמלון במושי ובחזרה, הדרכה, ארוחת צהריים ודמי כניסה.' },
         { type: 'image', src: '/images/cards/kilimanjaro.webp', alt: 'פסגת הקילימנג׳רו המושלגת מעל מדרון של שיחים וסלעים, תחת שמיים כחולים', caption: 'פסגת הקילימנג׳רו המושלגת, מעל אזור השיחים של ההר' },
         { type: 'section', value: 'מפלי מטרוני וחוות הקפה' },
         { type: 'text', value: 'הכפר מטרוני שוכן על המורדות הירוקים של הקילימנג׳רו, מעל העיירה מושי, ובו חיים בני שבט הצ׳אגה. עם מדריך מקומי הולכים בשבילי הכפר, בין חלקות בננות ומטעי קפה, עד מפלי מטרוני. בבריכה הטבעית שלמרגלות המפל אפשר להתרענן במים.' },
         { type: 'text', value: 'בהמשך מבקרים במטעי הקפה של הכפר. קולים את הפולים על האש וטוחנים אותם ביד, בשירה ובריקודים עם בני המקום, ושותים יחד את הקפה הטרי. הסיור מסתיים בארוחת צהריים מסורתית של שבט הצ׳אגה, ומשם חוזרים למלון במושי.' },
+        { type: 'collage', alt: 'מפלי מטרוני וחוות הקפה', images: DAY_TRIP_PHOTOS.materuni },
         { type: 'text', value: 'המחיר הוא 60 דולר לאדם, וזמן הפעילות המשוער הוא 5 עד 6 שעות. כדאי להביא בגד ים, מגבת ונעלי הליכה. הטיול כולל:' },
-        { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'מדריך מקומי מקצועי דובר אנגלית', 'דמי הכניסה לכפר ולמפלים', 'סיור בחוות הקפה, קלייה וטעימה', 'ארוחת צהריים מסורתית'] },
+        { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי מקצועי דובר אנגלית', 'ארוחת צהריים מסורתית', 'דמי הכניסה לכפר ולמפלים', 'סיור בחוות הקפה, קלייה וטעימה'] },
         { type: 'section', value: 'המעיינות החמים של צ׳מקה' },
         { type: 'text', value: 'המעיינות החמים של צ׳מקה, הידועים גם בשם קיקולטווה, הם נווה מדבר ירוק בלב הסוואנה היבשה, בין מושי לארושה. מים חמימים נובעים כאן מתוך האדמה וממלאים בריכה טבעית צלולה בגווני טורקיז, מוקפת בעצי דקל ובצמחייה עבותה.' },
         { type: 'text', value: 'את היום מבלים במים ולצד הבריכה: שוחים, צפים ונחים בצל העצים, ולעיתים דגים קטנים מנקרים בעדינות את כפות הרגליים. זה יום רגוע של מנוחה בטבע, שמתאים במיוחד אחרי ימי הטיפוס, ובסופו חוזרים למלון במושי.' },
-        { type: 'image', src: '/images/gallery/kilimanjaro/5.webp', alt: 'קבוצת מטפסים בבגדי פוך ובמשקפי שמש מצטלמת סביב השלט של פסגת אוהורו, 5,895 מ׳, תחת שמיים כחולים', caption: 'על פסגת אוהורו, 5,895 מ׳, הנקודה הגבוהה ביותר באפריקה' },
+        { type: 'collage', alt: 'המעיינות החמים של צ׳מקה', images: DAY_TRIP_PHOTOS.chemka },
         { type: 'text', value: 'המחיר הוא 70 דולר לאדם, וזמן הפעילות המשוער הוא 5 עד 6 שעות. כדאי להביא בגד ים, מגבת וקרם הגנה. הטיול כולל:' },
-        { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'מדריך מקומי מקצועי דובר אנגלית', 'דמי הכניסה למעיינות'] },
+        { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי מקצועי דובר אנגלית', 'ארוחת צהריים', 'דמי הכניסה למעיינות'] },
         { type: 'section', value: 'כפר המסאי אולפופונגי' },
         { type: 'text', value: 'אולפופונגי הוא כפר תרבות ומוזיאון של שבט המסאי, על המורדות המערביים של הקילימנג׳רו. מדריך מקומי בן השבט מוביל את הביקור ומציג את אורח החיים המסורתי של המסאי: הבומה, המתחם המוקף גדר שבו עומדים הבתים המסורתיים, וגם את המלאכות והמנהגים של השבט.' },
         { type: 'text', value: 'במוזיאון שבכפר מכירים מקרוב את ההיסטוריה והתרבות של המסאי, ובסוף היום חוזרים למלון במושי.' },
+        { type: 'collage', alt: 'כפר המסאי אולפופונגי', images: DAY_TRIP_PHOTOS.olpopongi },
         { type: 'text', value: 'המחיר הוא 150 דולר לאדם. כדאי להביא כובע, קרם הגנה ונעליים נוחות. הטיול כולל:' },
-        { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'ביקור מודרך בכפר ובמוזיאון'] },
+        { type: 'list', items: ['הסעה מהמלון במושי ובחזרה', 'הדרכה של מדריך מקומי בן שבט המסאי', 'ארוחת צהריים', 'דמי הכניסה לכפר ולמוזיאון'] },
         { type: 'section', value: 'מה לא כלול, ומי מדריך' },
         { type: 'text', value: 'בשלושת הטיולים אינם כלולים:' },
         { type: 'list', items: ['לילה נוסף במושי, במידת הצורך', 'טיפים למדריך המקומי', 'הוצאות אישיות, כמו שתייה ומתנות', 'כל מה שלא צוין בחלק הכלול'] },
@@ -79,11 +117,11 @@ export const POSTS = [
         { type: 'cta', text: 'למדריך המלא לטיפוס לקילימנג׳רו', textEn: 'The complete Kilimanjaro climbing guide', href: '/blog/kilimanjaro-climbing-guide' },
         { type: 'section', value: 'שאלות נפוצות' },
         { type: 'heading', value: 'כמה עולים טיולי היום בטנזניה?' },
-        { type: 'text', value: 'הביקור במפלי מטרוני ובחוות הקפה עולה 60 דולר לאדם, היום במעיינות החמים של צ׳מקה עולה 70 דולר לאדם, והביקור בכפר המסאי אולפופונגי עולה 150 דולר לאדם. הלילה הנוסף במושי, הטיפים למדריך וההוצאות האישיות אינם כלולים במחיר.' },
+        { type: 'text', value: 'הביקור במפלי מטרוני ובחוות הקפה עולה 60 דולר לאדם, היום במעיינות החמים של צ׳מקה עולה 70 דולר לאדם, והביקור בכפר המסאי אולפופונגי עולה 150 דולר לאדם. בכל המחירים כלולים הסעה, הדרכה, ארוחת צהריים ודמי כניסה, ואינם כלולים הלילה הנוסף במושי, הטיפים למדריך וההוצאות האישיות.' },
         { type: 'heading', value: 'מתי יוצאים לטיול יום, לפני הטיפוס או אחריו?' },
         { type: 'text', value: 'אפשר לצאת לכל אחד מהטיולים לפני הטיפוס לקילימנג׳רו או אחריו. כל טיול נמשך יום אחד, ולכן מוסיפים לתכנית לילה נוסף במלון במושי. היום במעיינות של צ׳מקה מתאים במיוחד אחרי ימי הטיפוס.' },
         { type: 'heading', value: 'מה כלול בטיולי היום?' },
-        { type: 'text', value: 'כל הטיולים כוללים הסעה מהמלון במושי ובחזרה. בטיול למטרוני כלולים גם מדריך מקומי דובר אנגלית, דמי הכניסה לכפר ולמפלים, סיור בחוות הקפה עם קלייה וטעימה וארוחת צהריים מסורתית. בצ׳מקה כלולים מדריך מקומי דובר אנגלית ודמי הכניסה למעיינות, ובאולפופונגי ביקור מודרך בכפר ובמוזיאון.' },
+        { type: 'text', value: 'כל הטיולים כוללים הסעה מהמלון במושי ובחזרה, הדרכה של מדריך מקומי, ארוחת צהריים ודמי כניסה: לכפר ולמפלים במטרוני, למעיינות בצ׳מקה ולכפר ולמוזיאון באולפופונגי. בטיול למטרוני כלול גם סיור בחוות הקפה, עם קלייה וטעימה. במטרוני ובצ׳מקה ההדרכה היא של מדריך מקומי מקצועי דובר אנגלית, ובאולפופונגי של מדריך מקומי בן שבט המסאי.' },
         { type: 'heading', value: 'כמה זמן נמשך כל טיול?' },
         { type: 'text', value: 'זמן הפעילות המשוער במפלי מטרוני ובמעיינות החמים של צ׳מקה הוא 5 עד 6 שעות. הביקור בכפר המסאי אולפופונגי נמשך לאורך היום, ובסופו חוזרים למלון במושי.' },
         { type: 'heading', value: 'מה כדאי להביא לטיול יום?' },
@@ -99,24 +137,26 @@ export const POSTS = [
         { type: 'section', value: 'How it works: one day and a night in Moshi' },
         { type: 'text', value: 'The day trips are an addition to the Kilimanjaro expedition, and you can join them before the climb or after it. Each trip lasts one day, so an extra night at the hotel in Moshi is added to the programme. On the day of the trip you are picked up from the hotel in Moshi, and at the end of it you are brought back.' },
         { type: 'text', value: 'The prices are per person, in US dollars. The extra night in Moshi is not included in the price of the trip, and neither are tips for the local guide or personal expenses, such as drinks and gifts.' },
-        { type: 'callout', title: '✦ Three trips, three prices', value: 'Materuni Falls and the coffee farm: $60 per person. The Chemka Hot Springs: $70 per person. The Olpopongi Maasai Village: $150 per person.' },
+        { type: 'callout', title: '✦ Three trips, three prices', value: 'Materuni Falls and the coffee farm: $60 per person. The Chemka Hot Springs: $70 per person. The Olpopongi Maasai Village: $150 per person. Every price includes transfers from the hotel in Moshi and back, guiding, lunch and entrance fees.' },
         { type: 'image', src: '/images/cards/kilimanjaro.webp', alt: 'The snow-capped summit of Kilimanjaro above a slope of shrubs and rocks, under a blue sky', caption: 'The snow-capped summit of Kilimanjaro, above the heath zone of the mountain' },
         { type: 'section', value: 'Materuni Falls and the coffee farm' },
         { type: 'text', value: 'Materuni village lies on the green slopes of Kilimanjaro, above the town of Moshi, and is home to the Chagga people. With a local guide you walk the village paths, through banana groves and coffee plants, to the Materuni Waterfalls. In the natural pool at the foot of the falls you can cool off in the water.' },
         { type: 'text', value: 'Next you visit the village coffee farms. You roast the beans over the fire and grind them by hand, with singing and dancing alongside the villagers, and drink the fresh coffee together. The tour ends with a traditional Chagga lunch, and from there you return to the hotel in Moshi.' },
+        { type: 'collage', alt: 'Materuni Falls and the coffee farm', images: DAY_TRIP_PHOTOS.materuni },
         { type: 'text', value: 'The price is $60 per person, and the estimated activity time is 5 to 6 hours. Bring swimwear, a towel and walking shoes. The trip includes:' },
-        { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'A professional local English-speaking guide', 'Village and falls entry fees', 'A coffee farm tour, roasting and tasting', 'A traditional lunch'] },
+        { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a professional local English-speaking guide', 'A traditional lunch', 'Village and falls entry fees', 'A coffee farm tour, roasting and tasting'] },
         { type: 'section', value: 'The Chemka Hot Springs' },
         { type: 'text', value: 'The Chemka Hot Springs, also known as Kikuletwa, are a green oasis in the heart of the dry savanna, between Moshi and Arusha. Warm water rises here from the ground and fills a clear natural pool in shades of turquoise, surrounded by palm trees and dense vegetation.' },
         { type: 'text', value: 'The day is spent in the water and beside the pool: swimming, floating and resting in the shade of the trees, and now and then small fish gently nibble at your feet. It is a calm day of rest in nature, especially welcome after the days of the climb, and at the end of it you return to the hotel in Moshi.' },
-        { type: 'image', src: '/images/gallery/kilimanjaro/5.webp', alt: 'A group of climbers in down jackets and sunglasses gathered around the Uhuru Peak sign, 5,895 m, under a blue sky', caption: 'On Uhuru Peak, 5,895 m, the highest point in Africa' },
+        { type: 'collage', alt: 'The Chemka Hot Springs', images: DAY_TRIP_PHOTOS.chemka },
         { type: 'text', value: 'The price is $70 per person, and the estimated activity time is 5 to 6 hours. Bring swimwear, a towel and sunscreen. The trip includes:' },
-        { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'A professional local English-speaking guide', 'The hot springs entry fee'] },
+        { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a professional local English-speaking guide', 'Lunch', 'The hot springs entry fee'] },
         { type: 'section', value: 'The Olpopongi Maasai Village' },
         { type: 'text', value: 'Olpopongi is a Maasai cultural village and museum on the western slopes of Kilimanjaro. A local guide from the tribe leads the visit and shows the traditional Maasai way of life: the boma, the fenced enclosure where the traditional homes stand, as well as the crafts and customs of the tribe.' },
         { type: 'text', value: 'In the village museum you get to know Maasai history and culture up close, and at the end of the day you return to the hotel in Moshi.' },
+        { type: 'collage', alt: 'The Olpopongi Maasai Village', images: DAY_TRIP_PHOTOS.olpopongi },
         { type: 'text', value: 'The price is $150 per person. Bring a hat, sunscreen and comfortable shoes. The trip includes:' },
-        { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'A guided visit to the village and the museum'] },
+        { type: 'list', items: ['Transfers from the hotel in Moshi and back', 'Guiding by a local Maasai guide', 'Lunch', 'Village and museum entry fees'] },
         { type: 'section', value: 'What is not included, and who guides' },
         { type: 'text', value: 'Not included in any of the three trips:' },
         { type: 'list', items: ['An extra night in Moshi, if needed', 'Tips for the local guide', 'Personal expenses, such as drinks and gifts', 'Anything not listed as included'] },
@@ -128,11 +168,11 @@ export const POSTS = [
         { type: 'cta', text: 'למדריך המלא לטיפוס לקילימנג׳רו', textEn: 'The complete Kilimanjaro climbing guide', href: '/blog/kilimanjaro-climbing-guide' },
         { type: 'section', value: 'Frequently asked questions' },
         { type: 'heading', value: 'How much do the day trips in Tanzania cost?' },
-        { type: 'text', value: 'The visit to Materuni Falls and the coffee farm costs $60 per person, the day at the Chemka Hot Springs costs $70 per person, and the visit to the Olpopongi Maasai Village costs $150 per person. The extra night in Moshi, tips for the guide and personal expenses are not included in the price.' },
+        { type: 'text', value: 'The visit to Materuni Falls and the coffee farm costs $60 per person, the day at the Chemka Hot Springs costs $70 per person, and the visit to the Olpopongi Maasai Village costs $150 per person. Every price includes transfers, guiding, lunch and entrance fees, and does not include the extra night in Moshi, tips for the guide or personal expenses.' },
         { type: 'heading', value: 'When do you go on a day trip, before or after the climb?' },
         { type: 'text', value: 'You can go on any of the trips before the Kilimanjaro climb or after it. Each trip lasts one day, so an extra night at the hotel in Moshi is added to the programme. The day at the Chemka springs is especially welcome after the days of the climb.' },
         { type: 'heading', value: 'What is included in the day trips?' },
-        { type: 'text', value: 'All the trips include transfers from the hotel in Moshi and back. The Materuni trip also includes a local English-speaking guide, the village and falls entry fees, a coffee farm tour with roasting and tasting, and a traditional lunch. At Chemka a local English-speaking guide and the hot springs entry fee are included, and at Olpopongi a guided visit to the village and the museum.' },
+        { type: 'text', value: 'All the trips include transfers from the hotel in Moshi and back, guiding by a local guide, lunch and entrance fees: to the village and the falls at Materuni, to the springs at Chemka and to the village and the museum at Olpopongi. The Materuni trip also includes a coffee farm tour, with roasting and tasting. At Materuni and Chemka the guiding is by a professional local English-speaking guide, and at Olpopongi by a local Maasai guide.' },
         { type: 'heading', value: 'How long does each trip take?' },
         { type: 'text', value: 'The estimated activity time at Materuni Falls and at the Chemka Hot Springs is 5 to 6 hours. The visit to the Olpopongi Maasai Village takes the day, and at the end of it you return to the hotel in Moshi.' },
         { type: 'heading', value: 'What should I bring on a day trip?' },
