@@ -18,6 +18,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { tx, loc, currentLang } from '../../website/lang.js';
 import { Analytics, trackLead } from '../../utils/analytics.js';
 import { getAttribution } from '../../utils/attribution.js';
+import { revealField, CONSENT_NEEDED_HE, CONSENT_NEEDED_EN } from '../../website/formRules.js';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
 import { useNearView } from '../../website/useInView.js';
@@ -553,11 +554,13 @@ function EnquiryBand({ isRtl, isMobile }) {
   const [form, setForm] = useState({ name: '', days: '', month: '', people: '', dial: defaultDial(), phone: '', email: '', privacy: false });
   const [status, setStatus] = useState('idle');
   const [phoneErr, setPhoneErr] = useState('');
+  const [consentErr, setConsentErr] = useState(false);
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   async function submit(e) {
     e.preventDefault();
-    if (!form.privacy || status === 'loading') return;
+    if (status === 'loading') return;
+    if (!form.privacy) { setConsentErr(true); revealField('safari-privacy'); return; }
     if (!validatePhone(form.dial, form.phone)) {
       setPhoneErr(isRtl ? 'מספר טלפון לא תקין' : tx('Invalid phone number'));
       return;
@@ -683,22 +686,27 @@ function EnquiryBand({ isRtl, isMobile }) {
           </div>
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: '9px', cursor: 'pointer',
             fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: SC.ink, textAlign: 'start', lineHeight: 1.5 }}>
-            <input type="checkbox" checked={form.privacy} onChange={e => set('privacy', e.target.checked)}
+            <input type="checkbox" id="safari-privacy" checked={form.privacy} onChange={e => { set('privacy', e.target.checked); if (e.target.checked) setConsentErr(false); }}
               style={{ marginTop: '3px', width: '16px', height: '16px', accentColor: EARTH(), flexShrink: 0 }} />
             <span>{isRtl
               ? 'אני מסכימ/ה למדיניות הפרטיות ולקבלת דיוור שיווקי'
               : tx('I agree to the privacy policy and to receiving marketing communications')}</span>
           </label>
+          {consentErr && (
+            <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '12px', color: '#DC2626', margin: 0, textAlign: 'start' }}>
+              {isRtl ? CONSENT_NEEDED_HE : tx(CONSENT_NEEDED_EN)}
+            </p>
+          )}
           {status === 'error' && (
             <p style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#DC2626', margin: 0, textAlign: 'start' }}>
               {isRtl ? 'משהו השתבש, נסו שוב או פנו אלינו בוואטסאפ.' : tx('Something went wrong. Please try again or reach us on WhatsApp.')}
             </p>
           )}
-          <button type="submit" disabled={!form.privacy || status === 'loading'}
+          <button type="submit" disabled={status === 'loading'}
             style={{ width: '100%', padding: '14px', borderRadius: '999px', border: 'none',
-              background: (!form.privacy || status === 'loading') ? '#D8C7B0' : EARTH(),
+              background: status === 'loading' ? '#D8C7B0' : EARTH(),
               color: '#FFFFFF', fontFamily: "'Ploni', sans-serif", fontSize: '16px', fontWeight: 700,
-              cursor: (!form.privacy || status === 'loading') ? 'not-allowed' : 'pointer',
+              cursor: status === 'loading' ? 'not-allowed' : 'pointer',
               transition: 'background 160ms ease' }}>
             {status === 'loading' ? (isRtl ? 'שולח…' : tx('Sending…')) : (isRtl ? 'לתיאום שיחה' : tx('Send'))}
           </button>

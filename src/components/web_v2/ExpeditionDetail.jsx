@@ -6,7 +6,7 @@
 
 import { scrollerProps } from '../../website/a11y.js';
 import { tx, loc, currentLang, PARTIAL_LANGS, localMonths, BASE_URLS } from '../../website/lang.js';
-import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN, missingFields, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN, MONTH_NEEDED_HE, MONTH_NEEDED_EN } from '../../website/formRules.js';
+import { groupSizeTyped, nameTyped, leadErrorKind, LEAD_ERROR_HE, LEAD_ERROR_EN, missingFields, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN, MONTH_NEEDED_HE, MONTH_NEEDED_EN, CONSENT_NEEDED_HE, CONSENT_NEEDED_EN } from '../../website/formRules.js';
 import { firstNoteIsGroupSize, GROUP_NOUN } from '../../website/tripNotes.js';
 import { metresText } from '../../website/units.js';
 import { calendarDay } from '../../website/calendarDay.js';
@@ -873,10 +873,10 @@ export default function ExpeditionDetail() {
       ['lead-phone', true, form.phone],
       ['lead-email', true, form.email],
       ['lead-experience', !isSafari, form.experience],
+      ['lead-privacy', true, form.privacy ? 'yes' : ''],   // last on the page, so the fields above come first
     ]);
     setMissing(empty);
     if (empty.length) { revealField(empty[0]); return; }
-    if (!form.privacy) return;
     if (!validateEmail(form.email)) { revealField('lead-email'); return; }
     if (!validatePhone(form.phone)) { revealField('lead-phone'); return; }
     if (!isSafari && !validateAge(form.age)) { revealField('lead-age'); return; }
@@ -2951,15 +2951,16 @@ export default function ExpeditionDetail() {
                     cursor: 'pointer', direction: dir,
                     padding: '12px 14px',
                     borderRadius: RADIUS.lg,
-                    border: `1.5px solid ${form.privacy ? COLOR.primary : '#E5E3F0'}`,
+                    border: `1.5px solid ${form.privacy ? COLOR.primary : isMissing('lead-privacy') ? '#DC2626' : '#E5E3F0'}`,
                     background: form.privacy ? '#F5F0FF' : '#FAFAFA',
                     transition: 'border-color 180ms, background 180ms',
                   }}>
                     <input
                       type="checkbox"
+                      id="lead-privacy"
                       required
                       checked={form.privacy}
-                      onChange={e => setForm(f => ({ ...f, privacy: e.target.checked }))}
+                      onChange={e => { const on = e.target.checked; setForm(f => ({ ...f, privacy: on })); if (on) fieldDone('lead-privacy'); }}
                       style={{ marginTop: '3px', width: '16px', height: '16px', flexShrink: 0, accentColor: COLOR.primary, cursor: 'pointer' }}
                     />
                     <span style={{ fontFamily: "'Ploni', sans-serif", fontSize: '13px', color: '#3D3B5A', lineHeight: 1.7 }}>
@@ -2971,18 +2972,19 @@ export default function ExpeditionDetail() {
                       </a>
                     </span>
                   </label>
+                  {isMissing('lead-privacy') && <p style={{ ...NEEDED_STYLE, marginTop: '-8px' }}>{isRtl ? CONSENT_NEEDED_HE : tx(CONSENT_NEEDED_EN)}</p>}
 
                   {/* כפתור שליחה */}
                   <button
                     type="submit"
-                    disabled={status === 'loading' || !form.privacy}
+                    disabled={status === 'loading'}
                     style={{
                       width: '100%',
-                      background: (!form.privacy || status === 'loading') ? '#9CA3AF' : COLOR.primary,
+                      background: status === 'loading' ? '#9CA3AF' : COLOR.primary,
                       color: 'white', border: 'none',
                       borderRadius: RADIUS.full, padding: '15px',
                       fontSize: FS.body, fontWeight: 700,
-                      cursor: (!form.privacy || status === 'loading') ? 'not-allowed' : 'pointer',
+                      cursor: status === 'loading' ? 'not-allowed' : 'pointer',
                       fontFamily: "'Ploni', sans-serif",
                       transition: `background 200ms ${EASING.smooth}`,
                     }}

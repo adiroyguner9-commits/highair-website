@@ -8,7 +8,7 @@ import { getAttribution } from '../../utils/attribution.js';
 import { useTranslation } from 'react-i18next';
 import { RADIUS, EASING, FS, COLOR } from '../../website/theme.js';
 import { useBreakpoint } from '../../website/useBreakpoint.js';
-import { nameTyped, emailLooksRight, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN } from '../../website/formRules.js';
+import { nameTyped, emailLooksRight, revealField, FIELD_NEEDED_HE, FIELD_NEEDED_EN, CONSENT_NEEDED_HE, CONSENT_NEEDED_EN } from '../../website/formRules.js';
 import { tx } from '../../website/lang.js';
 import PhoneField, { defaultDial, formatFullPhone, validatePhone } from './PhoneField.jsx';
 import { Analytics, trackLead } from '../../utils/analytics.js';
@@ -110,7 +110,7 @@ export default function CTASection() {
     if (!validatePhone(form.dial, form.phone))          { setPhoneError(true); revealField('cta-phone'); Analytics.leadSubmitError('invalid_phone'); return; }
     if (asksEmail && !emailLooksRight(form.email))      { setEmailError(true); revealField('cta-email'); Analytics.leadSubmitError('invalid_email'); return; }
     if (!form.message.trim())                           { setNeeded(n => ({ ...n, message: true })); revealField('cta-message'); Analytics.leadSubmitError('missing_message'); return; }
-    if (!form.privacy)                                  { Analytics.leadSubmitError('no_consent');      return; }
+    if (!form.privacy)                                  { setNeeded(n => ({ ...n, privacy: true })); revealField('cta-privacy'); Analytics.leadSubmitError('no_consent'); return; }
 
     setPhoneError(false);
     setEmailError(false);
@@ -271,9 +271,10 @@ export default function CTASection() {
             }}>
               <input
                 type="checkbox"
+                id="cta-privacy"
                 required
                 checked={form.privacy}
-                onChange={e => setForm(f => ({ ...f, privacy: e.target.checked }))}
+                onChange={e => { const on = e.target.checked; setForm(f => ({ ...f, privacy: on })); if (on && needed.privacy) setNeeded(n => ({ ...n, privacy: false })); }}
                 style={{ marginTop: '3px', width: '16px', height: '16px', flexShrink: 0, accentColor: '#a78bfa', cursor: 'pointer' }}
               />
               <span style={{ fontFamily: 'Ploni, sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
@@ -285,11 +286,16 @@ export default function CTASection() {
                 </a>
               </span>
             </label>
+            {needed.privacy && (
+              <p style={{ margin: '-6px 0 0', fontSize: '12px', color: '#F87171', fontFamily: 'Ploni, sans-serif', textAlign: 'start' }}>
+                {isRtl ? CONSENT_NEEDED_HE : tx(CONSENT_NEEDED_EN)}
+              </p>
+            )}
 
             {/* Submit button */}
             <button
               type="submit"
-              disabled={loading || !form.privacy}
+              disabled={loading}
               style={{
                 display:        'inline-flex',
                 alignItems:     'center',
@@ -297,13 +303,13 @@ export default function CTASection() {
                 gap:            '8px',
                 padding:        '15px 36px',
                 borderRadius:   RADIUS.full,
-                background:     (loading || !form.privacy) ? 'rgba(109,40,217,0.4)' : COLOR.primary,
+                background:     loading ? 'rgba(109,40,217,0.4)' : COLOR.primary,
                 color:          '#FFFFFF',
                 fontFamily:     'Ploni, sans-serif',
                 fontSize:       FS.body,
                 fontWeight:     700,
                 border:         'none',
-                cursor:         (loading || !form.privacy) ? 'not-allowed' : 'pointer',
+                cursor:         loading ? 'not-allowed' : 'pointer',
                 marginTop:      '8px',
                 letterSpacing:  '0.01em',
                 boxShadow:      loading ? 'none' : '0 4px 18px rgba(109,40,217,0.4)',
@@ -311,13 +317,13 @@ export default function CTASection() {
                 width:          '100%',
               }}
               onMouseEnter={e => {
-                if (loading || !form.privacy) return;
+                if (loading) return;
                 e.currentTarget.style.background  = '#5b21b6';
                 e.currentTarget.style.boxShadow   = '0 10px 32px rgba(109,40,217,0.55)';
                 e.currentTarget.style.transform   = 'translateY(-2px)';
               }}
               onMouseLeave={e => {
-                if (loading || !form.privacy) return;
+                if (loading) return;
                 e.currentTarget.style.background  = COLOR.primary;
                 e.currentTarget.style.boxShadow   = '0 4px 18px rgba(109,40,217,0.4)';
                 e.currentTarget.style.transform   = 'translateY(0)';

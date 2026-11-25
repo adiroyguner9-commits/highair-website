@@ -82,6 +82,13 @@ export const FIELD_NEEDED_HE = 'נא למלא את השדה';
 export const FIELD_NEEDED_EN = 'Please fill in this field';
 export const MONTH_NEEDED_HE = 'נא לבחור חודש';
 export const MONTH_NEEDED_EN = 'Please choose a month';
+/* The consent box is asked for the same way (owner, 25 Nov 2026, after PostHog): the send button
+   used to stay grey and dead until the box was ticked, so a visitor who filled in everything but
+   the box pressed it and got nothing at all, no line, no submit (a Google visitor on a computer sat
+   in front of it for five minutes and left). The button is always live now; pressing it without
+   the box says so under the box and brings it into view. */
+export const CONSENT_NEEDED_HE = 'יש לסמן את האישור כדי לשלוח';
+export const CONSENT_NEEDED_EN = 'Please tick the box to send';
 
 /** The ids whose field is required and still empty, in the order given (the page's).
     `checks` is [[id, required, value], ...]; a value of only spaces is empty. */
